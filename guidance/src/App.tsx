@@ -6,7 +6,7 @@ import Home from './app/Home/Home';
 import Consultation from './app/Consultation/Consultation';
 import Calendar from './app/Calendar/Calendar';
 import Profile from './app/Profile/Profile';
-
+import './App.css';
 
 function App() {
   return (
@@ -15,12 +15,14 @@ function App() {
         <Sidebar /> 
         <div className="main-content">
           <Navbar /> 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/consultation" element={<Consultation />} />
-            <Route path="/profile" element={<Profile />} /> 
-          </Routes>
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/consultation" element={<Consultation />} />
+              <Route path="/profile" element={<Profile />} /> 
+            </Routes>
+          </div>
         </div>
       </div>
     </Router>
