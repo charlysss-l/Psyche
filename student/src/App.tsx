@@ -8,22 +8,25 @@ import Result from './app/Result/Result';
 import Consultation from './app/Consultation/Consultation';
 import Profile from './app/Profile/Profile';  
 import OMR from './app/OMR/OMR'; 
+import './App.css';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Sidebar /> {/* Sidebar */}
+        <Sidebar /> 
         <div className="main-content">
-          <Navbar /> {/* Navbar */}
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="/result" element={<Result />} />
-            <Route path="/consultation" element={<Consultation />} />
-            <Route path="/profile" element={<Profile />} /> 
-            <Route path="/omr" element={<OMR />} />
-          </Routes>
+          <Navbar /> 
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/test" element={<Test />} />
+              <Route path="/result" element={<Result />} />
+              <Route path="/consultation" element={<Consultation />} />
+              <Route path="/profile" element={<Profile />} /> 
+              <Route path="/omr" element={<OMR />} />
+            </Routes>
+          </div>
         </div>
       </div>
     </Router>
