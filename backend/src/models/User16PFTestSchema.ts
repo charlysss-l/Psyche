@@ -1,6 +1,6 @@
-const mongoose = require ('mongoose');
+import {Schema, model} from 'mongoose';
 
-const User16PFTestSchema = new mongoose.Schema({
+export const User16PFTestSchema = new Schema({
     userID:{
         //type:mongoose.Schema.Types.ObjectId,
         //ref: 'User'
@@ -44,4 +44,4 @@ const User16PFTestSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('User16PFTestSchema',User16PFTestSchema );
+export default model('User16PFTest',User16PFTestSchema );
