@@ -14,8 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 //Use routes
-app.use('/api/user16pf', user16PFTestRoutes);
-
+app.use('/api/user16pfTest', user16PFTestRoutes);
 
 
 const PORT = process.env.PORT || 5000;
