@@ -16,7 +16,7 @@ app.use(express.json());
 
 //Use routes
 app.use('/api/user16pf', user16PFTestRoutes);   // 16PF test routes
-app.use('/api/useriq', userIQTestRoutes); 
+app.use('/api/useriq', userIQTestRoutes);
 
 
 const PORT = process.env.PORT || 5000;

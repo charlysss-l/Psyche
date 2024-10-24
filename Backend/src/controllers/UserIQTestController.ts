@@ -5,7 +5,13 @@ import UserIQTest from '../models/UserIQTestSchema';
 export const createIQTestResult = async (req: Request, res: Response) => {
     try {
         const { userID, testID, responses, interpretation, testType, testDate } = req.body;
-        
+
+        // Validate required fields
+        if (!userID || !testID || !responses) {
+            res.status(400).json({ error: 'Missing required fields: userID, testID, or responses' });
+            return ;
+        }
+
         // Create new IQ test record
         const newTestResult = new UserIQTest({
             userID,
@@ -48,7 +54,8 @@ export const getIQTestResultById = async (req: Request, res: Response) => {
         const testResult = await UserIQTest.findOne({ testID });
 
         if (!testResult) {
-            return res.status(404).json({ error: 'Test result not found' });
+            res.status(404).json({ error: 'Test result not found' });
+            return ;
         }
 
         res.status(200).json(testResult);
@@ -67,7 +74,8 @@ export const updateIQTestResult = async (req: Request, res: Response) => {
         const updatedTestResult = await UserIQTest.findOneAndUpdate({ testID }, updatedData, { new: true });
 
         if (!updatedTestResult) {
-            return res.status(404).json({ error: 'Test result not found' });
+           res.status(404).json({ error: 'Test result not found' });
+           return ;
         }
 
         res.status(200).json({ message: 'Test result updated successfully', updatedTestResult });
@@ -85,7 +93,8 @@ export const deleteIQTestResult = async (req: Request, res: Response) => {
         const deletedTestResult = await UserIQTest.findOneAndDelete({ testID });
 
         if (!deletedTestResult) {
-            return res.status(404).json({ error: 'Test result not found' });
+            res.status(404).json({ error: 'Test result not found' });
+            return ;
         }
 
         res.status(200).json({ message: 'Test result deleted successfully' });
