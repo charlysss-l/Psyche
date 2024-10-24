@@ -13,5 +13,5 @@ router.post('/', createUser16PFTest);
 router.get('/', getUser16PFTests);
 router.get('/:id', getUser16PFTestById);
 router.put('/:id', updateUser16PFTest);
-router.delete('/:id', deleteUser16PFTest); // Ensure this line matches the correct function type
+router.delete('/:id', deleteUser16PFTest); 
 export default router;
