@@ -1,16 +1,37 @@
 import { Request, Response } from 'express';
 import User16PFTestSchema from '../models/User16PFTestSchema';
-
 export const createUser16PFTest = async (req: Request, res: Response) => {
+    const { userID, firstName, lastName, age, sex, courseSection, testID, responses, scoring, testType } = req.body;
+
     try {
-        const newUser16PFTest = new User16PFTestSchema(req.body);
-        await newUser16PFTest.save();
-        res.status(201).json({ message: 'Test created successfully', data: newUser16PFTest });
-    } catch (error: unknown) {
-        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-        res.status(500).json({ message: 'Error creating test', error: errorMessage });
+        const testDocument = new User16PFTestSchema({
+            userID,
+            firstName,
+            lastName,
+            age,
+            sex,
+            courseSection,
+            testID, // Ensure this is a string
+            responses: responses.map((response: any) => ({
+                questionID: response.questionID, // Should also be a string
+                selectedChoice: response.selectedChoice,
+                equivalentScore: response.equivalentScore,
+            })),
+            scoring,
+            testType,
+        });
+
+        await testDocument.save();
+        res.status(201).json({ message: 'Test created successfully!', data: testDocument });
+    } catch (error) {
+        console.error('Error creating test:', error); // Log the full error
+        res.status(500).json({
+            message: 'Error creating test',
+            error: error instanceof Error ? error.message : 'An unknown error occurred',
+        });
     }
 };
+
 
 export const getUser16PFTests = async (req: Request, res: Response) => {
     try {

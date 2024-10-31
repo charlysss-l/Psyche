@@ -1,6 +1,5 @@
 import { Schema, model, Document } from 'mongoose';
 
-// Define interfaces for the schema
 interface Choice {
     a: string;
     b: string;
