@@ -27,7 +27,7 @@ interface Test {
     nameofTest: string;
     numOfQuestions: number;
     question: Question[];
-    rawTostenMapping: any[]; // Include this if you want to fetch it later
+    rawTostenMapping: any[]; 
 }
 
 const PFTest: React.FC = () => {

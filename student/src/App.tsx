@@ -8,6 +8,7 @@ import Result from './app/Result/Result';
 import Consultation from './app/Consultation/Consultation';
 import Profile from './app/Profile/Profile';  
 import OMR from './app/OMR/OMR'; 
+import PFTest from './app/Test/PFTest/PFTest';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
               <Route path="/consultation" element={<Consultation />} />
               <Route path="/profile" element={<Profile />} /> 
               <Route path="/omr" element={<OMR />} />
+              <Route path="/pftest" element={<PFTest />} />
             </Routes>
           </div>
         </div>
