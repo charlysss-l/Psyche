@@ -1,18 +1,55 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
+// Define interfaces for the schema
+interface Choice {
+    a: string;
+    b: string;
+    c: string;
+}
 
-export const Test16PF = new Schema({
+interface ChoiceEquivalentScore {
+    a: number;
+    b: number;
+    c: number;
+}
+
+interface Question {
+    questionID: string;
+    questionNum: number;
+    questionText: string;
+    choices: Choice;
+    choiceEquivalentScore: ChoiceEquivalentScore;
+}
+
+interface RawTostenMapping {
+    factorLetter: string;
+    computationOfRawScore: string;
+    rawScore: number;
+    equivalentStenScore: number;
+}
+
+// Main interface for the Test16PF document
+interface Test16PF extends Document {
+    testID: string;
+    nameofTest: string;
+    numOfQuestions: number;
+    question: Question[];
+    rawTostenMapping: RawTostenMapping[];
+}
+
+// Create the schema
+const Test16PFSchema = new Schema<Test16PF>({
     testID: {
         type: String,
         required: true,
     },
     nameofTest: {
         type: String,
-        required: true
+        required: true,
     },
     numOfQuestions: {
         type: Number,
-        required: true
+        required: true,
     },
     question: [{
         questionID: {
@@ -58,4 +95,6 @@ export const Test16PF = new Schema({
     }],
 });
 
-export default model('16PFTest', Test16PF);
+// Create and export the model
+const Test16PFModel = model<Test16PF>('16PFTest', Test16PFSchema);
+export default Test16PFModel;
