@@ -9,6 +9,7 @@ import Consultation from './app/Consultation/Consultation';
 import Profile from './app/Profile/Profile';  
 import OMR from './app/OMR/OMR'; 
 import PFTest from './app/Test/PFTest/PFTest';
+import IQTest from './app/Test/IQTest/IQTest';
 import './App.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               <Route path="/profile" element={<Profile />} /> 
               <Route path="/omr" element={<OMR />} />
               <Route path="/pftest" element={<PFTest />} />
+              <Route path="/iqtest" element={<IQTest />} />
             </Routes>
           </div>
         </div>

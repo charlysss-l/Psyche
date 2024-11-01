@@ -3,8 +3,13 @@ import {Link} from 'react-router-dom'
 const Test = () => {
   return (
     <div>
-      <Link to="/pftest">16PFTest</Link>
-    </div>
+        <div>
+          <Link to="/pftest">16PFTest</Link>
+        </div>
+        <div>
+        <Link to="/iqtest">IQTest</Link>
+      </div>
+  </div>
   )
 }
 
