@@ -1,6 +1,33 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-export const IQTestSchema = new Schema({
+interface Question {
+    questionID: string;
+    questionSet: string;
+    questionImage: string;
+    choicesImage: string[]; // Array of strings representing choices images
+    correctAnswer: string;
+}
+
+interface Interpretation {
+    ageRange: string;  // Stored as a string, e.g., "5-7"
+    sex: 'Female' | 'Male';
+    minTestScore: number;
+    maxTestScore: number;
+    percentilePoints: number;
+    resultInterpretation: string;
+}
+
+// Main interface for the IQ Test document
+interface IQTest extends Document {
+    testID: string;
+    nameOfTest: string;
+    numOfQuestions: number;
+    questions: Question[];
+    interpretation: Interpretation[];
+}
+
+// Create the schema
+const IQTestSchema = new Schema<IQTest>({
     testID: {
         type: String,
         required: true,
@@ -9,7 +36,6 @@ export const IQTestSchema = new Schema({
         type: String,
         required: true,
     },
-    
     numOfQuestions: {
         type: Number,
         required: true,
@@ -30,21 +56,21 @@ export const IQTestSchema = new Schema({
         choicesImage: [{
             type: String,
             required: true,
-        }], // Making choicesImage an array of strings
+        }],
         correctAnswer: {
             type: String,
             required: true,
-        }
+        },
     }],
     interpretation: [{
         ageRange: {
-            type: String,  // Use String if the range will be stored as "5-7" format
+            type: String,
             required: true,
         },
-        sex:{
-            type:String,
+        sex: {
+            type: String,
             enum: ['Female', 'Male'],
-            required: true
+            required: true,
         },
         minTestScore: {
             type: Number,
@@ -61,9 +87,10 @@ export const IQTestSchema = new Schema({
         resultInterpretation: {
             type: String,
             required: true,
-        }
-    }] // Making interpretation an array, allowing for multiple interpretations
+        },
+    }],
 });
 
 // Create and export the model
-export default model('IQTest', IQTestSchema);
+const IQTestModel = model<IQTest>('IQTest', IQTestSchema);
+export default IQTestModel;
