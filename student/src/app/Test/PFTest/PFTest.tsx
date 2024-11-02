@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from './page.module.scss'; // Ensure this matches your actual file extension
 
 interface Choice {
     a: string;
@@ -12,7 +13,7 @@ interface Question {
     questionNum: number;
     questionText: string;
     choices: Choice;
-    choiceEquivalentScore: { a: number; b: number; c: number };
+    choiceEquivalentScore: { [key: string]: number }; // Corrected type for dynamic keys
 }
 
 interface Test {
@@ -27,9 +28,8 @@ const PFTest: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [responses, setResponses] = useState<Record<string, string>>({});
-    
 
-    const [userID, setUserID] = useState<string>(''); // Replace with actual user ID logic
+    const [userID, setUserID] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
     const [age, setAge] = useState<string>('');
@@ -58,13 +58,18 @@ const PFTest: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-    
-        const formattedResponses = Object.entries(responses).map(([questionID, selectedChoice]) => ({
-            questionID,
-            selectedChoice,
-            equivalentScore: getEquivalentScore(selectedChoice),
-        }));
-    
+
+        const formattedResponses = Object.entries(responses).map(([questionID, selectedChoice]) => {
+            const question = test?.question.find((q) => q.questionID === questionID);
+            const equivalentScore = question?.choiceEquivalentScore[selectedChoice] || 0; // Safely handle undefined
+
+            return {
+                questionID,
+                selectedChoice,
+                equivalentScore,
+            };
+        });
+
         const dataToSubmit = {
             userID,
             firstName,
@@ -72,32 +77,19 @@ const PFTest: React.FC = () => {
             age,
             sex,
             courseSection,
-            testID: test?.testID, 
+            testID: test?.testID,
             responses: formattedResponses,
-            scoring: [{ rawScore: 0, stenScore: 0 }], 
+            scoring: [{ rawScore: 0, stenScore: 0 }],
             testType,
         };
-    
+
         try {
             const response = await axios.post('http://localhost:5000/api/user16pf', dataToSubmit);
-            console.log("Test submitted successfully:", response.data); 
+            console.log('Test submitted successfully:', response.data);
             alert('Test submitted successfully!');
         } catch (error) {
-            console.error("Error submitting answers:", error);
-        }
-    };
-
-    //Pre-defined so far. FIX. Used the actual choiceEquivalentScore
-    const getEquivalentScore = (selectedChoice: string): number => {
-        switch (selectedChoice) {
-            case 'a':
-                return 1; 
-            case 'b':
-                return 2; 
-            case 'c':
-                return 3; 
-            default:
-                return 0;
+            console.error('Error submitting answers:', error);
+            alert('An error occurred while submitting the test.');
         }
     };
 
@@ -105,7 +97,7 @@ const PFTest: React.FC = () => {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.form}>
             <h1>{test?.nameofTest}</h1>
             <p>Number of Questions: {test?.numOfQuestions}</p>
 
@@ -160,9 +152,9 @@ const PFTest: React.FC = () => {
             </div>
 
             {/* Questions */}
-            <ul>
+            <div className={styles.questionContainer}>
                 {test?.question.map((q) => (
-                    <li key={q.questionID}>
+                    <div className={styles.questionBox} key={q.questionID}>
                         <p>{q.questionText}</p>
                         <div>
                             {Object.entries(q.choices).map(([key, value]) => (
@@ -178,9 +170,9 @@ const PFTest: React.FC = () => {
                                 </label>
                             ))}
                         </div>
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
             <button type="submit">Submit Answers</button>
         </form>
     );
