@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import style from './page.module.scss';
+import style from './page.module.scss'; // Importing custom SCSS styles
 
+// Interface defining the structure of a single question
 interface Question {
     questionID: string;
     questionSet: string;
@@ -9,8 +10,9 @@ interface Question {
     correctAnswer: string;
 }
 
+// Interface for interpretation data, used to interpret results
 interface Interpretation {
-    ageRange: string;  // e.g., "5-7"
+    ageRange: string;  // Age range for interpretation (e.g., "5-7")
     sex: 'Female' | 'Male';
     minTestScore: number;
     maxTestScore: number;
@@ -18,8 +20,9 @@ interface Interpretation {
     resultInterpretation: string;
 }
 
+// Interface for the IQTests structure, containing test details and questions
 interface IQTests {
-    _id: string; // Assuming this is the MongoDB document ID
+    _id: string; // MongoDB document ID
     testID: string;
     nameOfTest: string;
     numOfQuestions: number;
@@ -27,35 +30,43 @@ interface IQTests {
     interpretation: Interpretation[];
 }
 
+// IQTest component to display the list of IQ tests and their details
 const IQTest: React.FC = () => {
+    // State to store list of IQ tests
     const [iqTests, setIqTests] = useState<IQTests[]>([]);
+    // State for loading status
     const [loading, setLoading] = useState(true);
+    // State to store any error message if fetching fails
     const [error, setError] = useState<string | null>(null);
 
+    // Function to fetch IQ test data from the server
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/IQtest'); // Update the endpoint accordingly
+            const response = await fetch('http://localhost:5000/api/IQtest'); // Endpoint for fetching data
             if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.statusText}`);
+                throw new Error(`Network response was not ok: ${response.statusText}`); // Throw error for non-200 status
             }
-            const data: IQTests[] = await response.json();
-            setIqTests(data);
+            const data: IQTests[] = await response.json(); // Parse JSON response
+            setIqTests(data); // Set data to state
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'An unknown error occurred');
+            setError(err instanceof Error ? err.message : 'An unknown error occurred'); // Handle error
         } finally {
-            setLoading(false);
+            setLoading(false); // Set loading to false when done
         }
     };
 
+    // useEffect hook to fetch data on component mount
     useEffect(() => {
         fetchData();
     }, []);
 
+    // Display loading or error messages if necessary
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
     return (
         <div>
+            {/* Displaying the list of IQ tests */}
             <table className={style.table}>
                 <thead>
                     <tr>
@@ -74,6 +85,8 @@ const IQTest: React.FC = () => {
             </table>
 
             <h2>Questions</h2>
+
+            {/* Displaying the list of questions for each IQ test */}
             <table className={style.table}>
                 <thead>
                     <tr>
@@ -85,18 +98,24 @@ const IQTest: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
+                    {/* Flatten questions from all IQ tests for display */}
                     {iqTests.flatMap(test =>
                         test.questions.map(q => (
                             <tr key={q.questionID}>
                                 <td className={style.td}>{q.questionID}</td>
                                 <td className={style.td}>{q.questionSet}</td>
-                                <td className={style.td}><img src={q.questionImage} alt="Question" /></td>
                                 <td className={style.td}>
+                                    <img src={q.questionImage} alt="Question" />
+                                </td>
+                                <td className={style.td}>
+                                    {/* Display all choice images for the question */}
                                     {q.choicesImage.map((choiceImage, index) => (
                                         <img key={index} src={choiceImage} alt={`Choice ${index + 1}`} />
                                     ))}
                                 </td>
-                                <td className={style.td}><img src={q.correctAnswer} alt="Correct Answer" /></td>
+                                <td className={style.td}>
+                                    <img src={q.correctAnswer} alt="Correct Answer" />
+                                </td>
                             </tr>
                         ))
                     )}
