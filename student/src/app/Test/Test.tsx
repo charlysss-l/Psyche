@@ -1,16 +1,12 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-const Test = () => {
-  return (
-    <div>
-        <div>
-          <Link to="/pftest">16PFTest</Link>
-        </div>
-        <div>
-        <Link to="/iqtest">IQTest</Link>
-      </div>
-  </div>
-  )
-}
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default Test
+const Test: React.FC = () => {
+    return (
+        <div>
+            <Link to="/pftest">16PF Test</Link>
+        </div>
+    );
+};
+
+export default Test;
