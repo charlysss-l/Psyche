@@ -1,34 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './page.module.scss'; // Ensure this matches your actual file extension
+import { Test } from '../../../types/pfTestTypes'; 
 
-interface Choice {
-    a: string;
-    b: string;
-    c: string;
-}
-
-interface Question {
-    questionID: string;
-    questionNum: number;
-    questionText: string;
-    choices: Choice;
-    choiceEquivalentScore: { [key: string]: number }; // Corrected type for dynamic keys
-}
-
-interface Test {
-    testID: string;
-    nameofTest: string;
-    numOfQuestions: number;
-    question: Question[];
-}
-
+// Define the main functional component for the test
 const PFTest: React.FC = () => {
+    // State that holds test data
     const [test, setTest] = useState<Test | null>(null);
+    // State that manages loading state
     const [loading, setLoading] = useState<boolean>(true);
+    // State that manages error messages
     const [error, setError] = useState<string | null>(null);
+    // State that tracks user responses to questions
     const [responses, setResponses] = useState<Record<string, string>>({});
 
+    // User info state variables for collecting participant details
     const [userID, setUserID] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
@@ -37,6 +23,7 @@ const PFTest: React.FC = () => {
     const [courseSection, setCourseSection] = useState<string>('');
     const [testType, setTestType] = useState<'Online' | 'Physical'>('Online');
 
+    // Function to fetch test data from the server
     const fetchTest = async () => {
         try {
             const response = await axios.get<Test>('http://localhost:5000/api/16pf/672201faae0bbcd4fb4c822b');
@@ -49,19 +36,25 @@ const PFTest: React.FC = () => {
     };
 
     useEffect(() => {
+        // Fetch test data on component mount
         fetchTest();
     }, []);
 
+     // Function to handle changes in question responses
     const handleChange = (questionID: string, value: string) => {
+        // Update responses state with the selected choice
         setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));
     };
 
+     // Function to handle form submission
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Format user responses for submission
         const formattedResponses = Object.entries(responses).map(([questionID, selectedChoice]) => {
+            // Find the corresponding question
             const question = test?.question.find((q) => q.questionID === questionID);
-            const equivalentScore = question?.choiceEquivalentScore[selectedChoice] || 0; // Safely handle undefined
+            const equivalentScore = question?.choiceEquivalentScore[selectedChoice] || 0;
 
             return {
                 questionID,
@@ -70,6 +63,7 @@ const PFTest: React.FC = () => {
             };
         });
 
+        // Prepare data to submit
         const dataToSubmit = {
             userID,
             firstName,
@@ -84,6 +78,7 @@ const PFTest: React.FC = () => {
         };
 
         try {
+            // POST request to submit data
             const response = await axios.post('http://localhost:5000/api/user16pf', dataToSubmit);
             console.log('Test submitted successfully:', response.data);
             alert('Test submitted successfully!');
@@ -93,11 +88,13 @@ const PFTest: React.FC = () => {
         }
     };
 
+    //Display loading message while fetching data
     if (loading) return <p>Loading...</p>;
+    // Display error message if fetching fails
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form}>        {/* Form for test submission */}
             <h1>{test?.nameofTest}</h1>
             <p>Number of Questions: {test?.numOfQuestions}</p>
 
@@ -153,8 +150,8 @@ const PFTest: React.FC = () => {
 
             {/* Questions */}
             <div className={styles.questionContainer}>
-                {test?.question.map((q) => (
-                    <div className={styles.questionBox} key={q.questionID}>
+                {test?.question.map((q) => ( // Mapping through questions
+                    <div className={styles.questionBox} key={q.questionID}> {/* Each question box */}
                         <p>{q.questionText}</p>
                         <div>
                             {Object.entries(q.choices).map(([key, value]) => (
@@ -163,19 +160,19 @@ const PFTest: React.FC = () => {
                                         type="radio"
                                         name={q.questionID}
                                         value={key}
-                                        checked={responses[q.questionID] === key}
-                                        onChange={() => handleChange(q.questionID, key)}
+                                        checked={responses[q.questionID] === key} // Check if the choice is selected
+                                        onChange={() => handleChange(q.questionID, key)} // Handle choice change
                                     />
-                                    {value}
+                                    {value} {/* Display choice value */}
                                 </label>
                             ))}
                         </div>
                     </div>
                 ))}
             </div>
-            <button type="submit">Submit Answers</button>
+            <button type="submit">Submit Answers</button> {/* Submit button */}
         </form>
     );
 };
 
-export default PFTest;
+export default PFTest; 
