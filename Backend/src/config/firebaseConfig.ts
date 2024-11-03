@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
+import {getStorage} from "firebase/storage";
 
-// Firebase configuration with project details
 const firebaseConfig = {
   apiKey: "AIzaSyBWj1L7qdsRH4sFpE7q0CaoyL55KWMGRZI",
   authDomain: "iqtestupload.firebaseapp.com",
@@ -12,8 +11,6 @@ const firebaseConfig = {
   measurementId: "G-Y50EWBBRFQ"
 };
 
-// Initialize Firebase app
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase storage and export for use
 export const imageDb = getStorage(app);
