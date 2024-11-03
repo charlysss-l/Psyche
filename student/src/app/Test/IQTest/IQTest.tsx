@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+// Define the Question interface, representing each question's structure in the IQ test
 interface Question {
     questionID: string;
     questionSet: string;
@@ -9,6 +10,7 @@ interface Question {
     correctAnswer: string;
 }
 
+// Define the Interpretation interface, for result interpretation based on age, sex, and score range
 interface Interpretation {
     ageRange: string;  // e.g., "5-7"
     sex: 'Female' | 'Male';
@@ -18,6 +20,7 @@ interface Interpretation {
     resultInterpretation: string;
 }
 
+// Define the IQTests interface, representing the structure of an IQ test
 interface IQTests {
     testID: string;
     nameOfTest: string;
@@ -25,12 +28,18 @@ interface IQTests {
     questions: Question[];
 }
 
+// Functional component for rendering the IQ Test form
 const IQTest: React.FC = () => {
+    // State to hold the IQ test data
     const [iqTest, setIqTest] = useState<IQTests | null>(null);
+    // State to track loading status
     const [loading, setLoading] = useState<boolean>(true);
+    // State to handle and display errors
     const [error, setError] = useState<string | null>(null);
+    // State to store user responses to each question
     const [responses, setResponses] = useState<Record<string, string>>({});
 
+    // User information states
     const [userID, setUserID] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
@@ -38,28 +47,34 @@ const IQTest: React.FC = () => {
     const [sex, setSex] = useState<'Male' | 'Female'>('Male');
     const [testType, setTestType] = useState<'Online' | 'Physical'>('Online');
 
+    // Fetch IQ test data from the server
     const fetchTest = async () => {
         try {
-            const response = await axios.get<IQTests>('http://localhost:5000/api/IQtest/672494d99fa35a9eb170ca9b'); // Update with the correct ID
-            setIqTest(response.data);
+            // API request to get test data by a specific test ID
+            const response = await axios.get<IQTests>('http://localhost:5000/api/IQtest/672648eb49365e8ab5d0dc4d'); // Replace with the correct ID
+            setIqTest(response.data); // Set test data to state
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'An unknown error occurred');
+            setError(err instanceof Error ? err.message : 'An unknown error occurred'); // Handle any error
         } finally {
-            setLoading(false);
+            setLoading(false); // Set loading to false once done
         }
     };
 
+    // useEffect hook to fetch test data when the component mounts
     useEffect(() => {
         fetchTest();
     }, []);
 
+    // Function to update responses for each question when the user selects an option
     const handleChange = (questionID: string, value: string) => {
         setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));
     };
 
+    // Function to handle form submission, including posting data to the server
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default form submission
 
+        // Collect data to submit, including user details and responses
         const dataToSubmit = {
             userID,
             firstName,
@@ -72,14 +87,16 @@ const IQTest: React.FC = () => {
         };
 
         try {
+            // Post data to the server endpoint
             const response = await axios.post('http://localhost:5000/api/userIqTest', dataToSubmit);
             console.log("Test submitted successfully:", response.data);
-            alert('Test submitted successfully!');
+            alert('Test submitted successfully!'); // Alert user on success
         } catch (error) {
-            console.error("Error submitting answers:", error);
+            console.error("Error submitting answers:", error); // Log error if submission fails
         }
     };
 
+    // Show loading or error message based on current state
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
@@ -144,7 +161,7 @@ const IQTest: React.FC = () => {
                                     <input
                                         type="radio"
                                         name={q.questionID}
-                                        value={`choice${index + 1}`} // Assuming you want to keep track of choices by index
+                                        value={`choice${index + 1}`} // Using the index to track choices
                                         checked={responses[q.questionID] === `choice${index + 1}`}
                                         onChange={() => handleChange(q.questionID, `choice${index + 1}`)}
                                     />
