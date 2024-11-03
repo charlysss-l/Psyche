@@ -22,9 +22,7 @@ interface Question {
 
 interface RawTostenMapping {
     factorLetter: string;
-    computationOfRawScore: string;
-    rawScore: number;
-    equivalentStenScore: number;
+    questionIDs: string[];
 }
 
 // Main interface for the Test16PF document
@@ -79,16 +77,8 @@ const Test16PFSchema = new Schema<Test16PF>({
             type: String,
             required: true,
         },
-        computationOfRawScore: {
-            type: String,
-            required: true,
-        },
-        rawScore: {
-            type: Number,
-            required: true,
-        },
-        equivalentStenScore: {
-            type: Number,
+        questionIDs: {
+            type: [String], 
             required: true,
         },
     }],
