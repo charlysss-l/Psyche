@@ -1,8 +1,10 @@
 import { Schema, model, Document } from 'mongoose';
+
 interface Response {
     questionID: string; 
     selectedChoice: 'a' | 'b' | 'c'; 
     equivalentScore: number;
+    factorLetter: string;  
 }
 
 interface Scoring {
@@ -17,13 +19,12 @@ interface User16PFTest extends Document {
     age: string;
     sex: 'Female' | 'Male';
     courseSection: string;
-    testID: Schema.Types.ObjectId; 
     responses: Response[]; 
-    scoring: Scoring[]; 
+    scoring: Scoring;  // Change to a single scoring object
     testType: 'Online' | 'Physical';
 }
 
-
+// Update the Response schema to include factorLetter
 const ResponseSchema = new Schema<Response>({
     questionID: {
         type: String,
@@ -37,17 +38,25 @@ const ResponseSchema = new Schema<Response>({
     equivalentScore: {
         type: Number,
         required: true,
+    },
+    factorLetter: {  
+        type: String,
+        required: true,
     }
-}, { _id: false }); 
+}, { _id: false });
 
+
+// Update the Scoring schema to represent a single scoring object
 const ScoringSchema = new Schema<Scoring>({
     rawScore: {
         type: Number,
         required: true,
+        default: 0,  
     },
     stenScore: {
         type: Number,
         required: true,
+        default: 1,  
     }
 }, { _id: false }); 
 
@@ -59,12 +68,10 @@ const User16PFTestSchema = new Schema<User16PFTest>({
     age: { type: String, required: true },
     sex: { type: String, enum: ['Female', 'Male'], required: true },
     courseSection: { type: String, required: true },
-    testID: { type: String, required: true }, // Ensure this is set to String
     responses: [ResponseSchema],
-    scoring: [ScoringSchema],
+    scoring: ScoringSchema,  // Change to a single scoring object
     testType: { type: String, enum: ['Online', 'Physical'], required: true },
 });
 
-
-
+// Export the model
 export default model<User16PFTest>('User16PFTest', User16PFTestSchema);
