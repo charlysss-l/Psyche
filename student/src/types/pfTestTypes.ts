@@ -13,11 +13,11 @@ export interface Question {
     questionText: string;
     choices: Choice; // Use the Choice type here
     choiceEquivalentScore: { [key: string]: number }; 
+    factorLetter?: string; 
 }
 
 // Define structure for the entire test.
-export interface Test {
-    testID: string;
+export interface User16PFTest {
     nameofTest: string;
     numOfQuestions: number;
     question: Question[];

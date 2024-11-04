@@ -18,24 +18,19 @@ interface Question {
     questionText: string;
     choices: Choice;
     choiceEquivalentScore: ChoiceEquivalentScore;
+    factorLetter: string; 
 }
 
-interface RawTostenMapping {
-    factorLetter: string;
-    questionIDs: string[];
-}
-
-// Main interface for the Test16PF document
 interface Test16PF extends Document {
     testID: string;
     nameofTest: string;
     numOfQuestions: number;
     question: Question[];
-    rawTostenMapping: RawTostenMapping[];
 }
 
-// Create the schema
-const Test16PFSchema = new Schema<Test16PF>({
+
+// Main interface for the Test16PF document
+const Test16PFSchema = new Schema({
     testID: {
         type: String,
         required: true,
@@ -71,17 +66,11 @@ const Test16PFSchema = new Schema<Test16PF>({
             b: { type: Number, required: true },
             c: { type: Number, required: true },
         },
-    }],
-    rawTostenMapping: [{
         factorLetter: {
             type: String,
             required: true,
         },
-        questionIDs: {
-            type: [String], 
-            required: true,
-        },
-    }],
+    }]
 });
 
 // Create and export the model
