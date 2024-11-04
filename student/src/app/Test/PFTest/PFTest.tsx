@@ -48,47 +48,66 @@ const PFTest: React.FC = () => {
     };
 
     // Function to handle form submission
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        // Format user responses for submission
-        const formattedResponses = Object.entries(responses).map(([questionID, selectedChoice]) => {
-            const question = test?.question.find((q: Question) => q.questionID === questionID);
-            const equivalentScore = question?.choiceEquivalentScore?.[selectedChoice] || 0;
+    // Create a map to accumulate scores by factorLetter
+    const scoreMap: Record<string, { rawScore: number; stenScore: number }> = {};
 
-            return {
-                questionID,
-                selectedChoice,
-                equivalentScore,
-                factorLetter: question?.factorLetter || '',
-            };
-        });
+    // Format user responses and accumulate scores for each factorLetter
+    const formattedResponses = Object.entries(responses).map(([questionID, selectedChoice]) => {
+        const question = test?.question.find((q: Question) => q.questionID === questionID);
+        const equivalentScore = question?.choiceEquivalentScore?.[selectedChoice] || 0;
+        const factorLetter = question?.factorLetter || '';
 
-        // Prepare data to submit
-        const dataToSubmit = {
-            userID,
-            firstName,
-            lastName,
-            age,
-            sex,
-            courseSection,
-            responses: formattedResponses,
-            scoring: { rawScore: 0, stenScore: 0 },
-            testType,
-        };
-
-        console.log('Data to submit:', dataToSubmit); // Log data being sent to the server
-
-        try {
-            // POST request to submit data
-            const response = await axios.post('http://localhost:5000/api/user16pf', dataToSubmit);
-            console.log('Test submitted successfully:', response.data);
-            alert('Test submitted successfully!');
-        } catch (error) {
-            console.error('Error submitting answers:', error);
-            alert('An error occurred while submitting the test.');
+        // If the factorLetter is not empty, accumulate the score
+        if (factorLetter) {
+            if (!scoreMap[factorLetter]) {
+                scoreMap[factorLetter] = { rawScore: 0, stenScore: 1 }; // Initialize if not present
+            }
+            scoreMap[factorLetter].rawScore += equivalentScore;
         }
+
+        return {
+            questionID,
+            selectedChoice,
+            equivalentScore,
+            factorLetter,
+        };
+    });
+
+    // Convert the scoreMap to an array of ScoreEntry objects
+    const scoring = Object.entries(scoreMap).map(([factorLetter, { rawScore, stenScore }]) => ({
+        factorLetter,
+        rawScore,
+        stenScore,
+    }));
+
+    // Prepare data to submit
+    const dataToSubmit = {
+        userID,
+        firstName,
+        lastName,
+        age,
+        sex,
+        courseSection,
+        responses: formattedResponses,
+        scoring, // Use the newly formatted scoring array
+        testType,
     };
+
+    console.log('Data to submit:', dataToSubmit); // Log data being sent to the server
+
+    try {
+        // POST request to submit data
+        const response = await axios.post('http://localhost:5000/api/user16pf', dataToSubmit);
+        console.log('Test submitted successfully:', response.data);
+        alert('Test submitted successfully!');
+    } catch (error) {
+        console.error('Error submitting answers:', error);
+        alert('An error occurred while submitting the test.');
+    }
+};
 
     // Display loading message while fetching data
     if (loading) return <p>Loading...</p>;

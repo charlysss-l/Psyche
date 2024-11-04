@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import User16PFTestSchema from '../models/User16PFTestSchema';
+import User16PFTestSchema, { Scoring, ScoreEntry } from '../models/User16PFTestSchema';
 
 export const createUser16PFTest = async (req: Request, res: Response) => {
     const { userID, firstName, lastName, age, sex, courseSection, responses, testType } = req.body;
@@ -30,11 +30,25 @@ export const createUser16PFTest = async (req: Request, res: Response) => {
             };
         });
 
-        // Create the scoring object; calculating rawScore based on responses
-        const scoring = {
-            rawScore: mappedResponses.reduce((sum, response) => sum + response.equivalentScore, 0), // Calculate raw score
-            stenScore: 1 // Default value for stenScore
+        // Initialize scoring object
+        const scoring: Scoring = {
+            scores: [] // Start with an empty array for scores
         };
+
+        // Create scoring based on factorLetter
+        const factorLetters = [...new Set(mappedResponses.map(response => response.factorLetter))];
+
+        factorLetters.forEach(factorLetter => {
+            const totalScore = mappedResponses
+                .filter(response => response.factorLetter === factorLetter)
+                .reduce((sum, response) => sum + response.equivalentScore, 0);
+
+            scoring.scores.push({
+                factorLetter,
+                rawScore: totalScore,
+                stenScore: 1 // Default value for stenScore
+            });
+        });
 
         // Create the test document
         const testDocument = new User16PFTestSchema({

@@ -1,5 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
+// Define the structure for Responses
 interface Response {
     questionID: string; 
     selectedChoice: 'a' | 'b' | 'c'; 
@@ -7,11 +8,19 @@ interface Response {
     factorLetter: string;  
 }
 
-interface Scoring {
+// Define structure for a single score entry
+export interface ScoreEntry {
+    factorLetter: string;
     rawScore: number;
     stenScore: number;
 }
 
+// Update the Scoring schema to hold an array of score entries
+export interface Scoring {
+    scores: ScoreEntry[]; 
+}
+
+// User16PFTest interface
 interface User16PFTest extends Document {
     userID: string;
     firstName: string;
@@ -20,47 +29,31 @@ interface User16PFTest extends Document {
     sex: 'Female' | 'Male';
     courseSection: string;
     responses: Response[]; 
-    scoring: Scoring;  // Change to a single scoring object
+    scoring: Scoring; 
     testType: 'Online' | 'Physical';
 }
 
-// Update the Response schema to include factorLetter
+// Response Schema
 const ResponseSchema = new Schema<Response>({
-    questionID: {
-        type: String,
-        required: true,
-    },
-    selectedChoice: {
-        type: String,
-        enum: ['a', 'b', 'c'], 
-        required: true,
-    },
-    equivalentScore: {
-        type: Number,
-        required: true,
-    },
-    factorLetter: {  
-        type: String,
-        required: true,
-    }
+    questionID: { type: String, required: true },
+    selectedChoice: { type: String, enum: ['a', 'b', 'c'], required: true },
+    equivalentScore: { type: Number, required: true },
+    factorLetter: { type: String, required: true },
 }, { _id: false });
 
+// ScoreEntry Schema
+const ScoreEntrySchema = new Schema<ScoreEntry>({
+    factorLetter: { type: String, required: true },
+    rawScore: { type: Number, required: true, default: 0 },
+    stenScore: { type: Number, required: true, default: 1 },
+}, { _id: false });
 
-// Update the Scoring schema to represent a single scoring object
+// Scoring Schema
 const ScoringSchema = new Schema<Scoring>({
-    rawScore: {
-        type: Number,
-        required: true,
-        default: 0,  
-    },
-    stenScore: {
-        type: Number,
-        required: true,
-        default: 1,  
-    }
-}, { _id: false }); 
+    scores: [ScoreEntrySchema], 
+}, { _id: false });
 
-// Main schema
+// Main User16PFTest Schema
 const User16PFTestSchema = new Schema<User16PFTest>({
     userID: { type: String, required: true },
     firstName: { type: String, required: true },
@@ -69,9 +62,9 @@ const User16PFTestSchema = new Schema<User16PFTest>({
     sex: { type: String, enum: ['Female', 'Male'], required: true },
     courseSection: { type: String, required: true },
     responses: [ResponseSchema],
-    scoring: ScoringSchema,  // Change to a single scoring object
+    scoring: ScoringSchema, // This now refers to a Scoring object
     testType: { type: String, enum: ['Online', 'Physical'], required: true },
 });
 
-// Export the model
+// Export the model and interfaces
 export default model<User16PFTest>('User16PFTest', User16PFTestSchema);
