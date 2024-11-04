@@ -51,7 +51,7 @@ const IQTest: React.FC = () => {
     const fetchTest = async () => {
         try {
             // API request to get test data by a specific test ID
-            const response = await axios.get<IQTests>('http://localhost:5000/api/IQtest/672648eb49365e8ab5d0dc4d'); // Replace with the correct ID
+            const response = await axios.get<IQTests>('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20'); // Replace with the correct ID
             setIqTest(response.data); // Set test data to state
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred'); // Handle any error
