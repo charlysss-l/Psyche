@@ -19,6 +19,7 @@ interface Question {
     questionText: string;
     choices: Choice;
     choiceEquivalentScore: ChoiceEquivalentScore;
+    factorLetter: string; 
 }
 
 interface Test {
@@ -27,7 +28,6 @@ interface Test {
     nameofTest: string;
     numOfQuestions: number;
     question: Question[];
-    rawTostenMapping: any[]; 
 }
 
 const PFTest: React.FC = () => {
@@ -80,6 +80,7 @@ const PFTest: React.FC = () => {
             <table className={style.table}>
                 <thead>
                     <tr>
+                        <th className={style.th}>Factor Letter</th>
                         <th className={style.th}>Question Number</th>
                         <th className={style.th}>Question Text</th>
                         <th className={style.th}>Choices</th>
@@ -91,6 +92,7 @@ const PFTest: React.FC = () => {
                         test.question.map(q => (
                             <React.Fragment key={q.questionID}>
                                 <tr>
+                                    <td className={style.td}>{q.factorLetter}</td>
                                     <td className={style.td}>{q.questionNum}</td>
                                     <td className={style.td}>{q.questionText}</td>
                                     <td className={style.td}>
