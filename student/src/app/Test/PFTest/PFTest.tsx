@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './page.module.scss'; // Ensure this matches your actual file extension
 import { User16PFTest, Question } from '../../../types/pfTestTypes'; // Adjust the import to match your types
+import {useNavigate} from 'react-router-dom';
 
 // Define the main functional component for the test
 const PFTest: React.FC = () => {
@@ -13,6 +14,7 @@ const PFTest: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     // State that tracks user responses to questions
     const [responses, setResponses] = useState<Record<string, string>>({});
+    const navigate = useNavigate();
 
     // User info state variables for collecting participant details
     const [userID, setUserID] = useState<string>('');
@@ -103,6 +105,12 @@ const handleSubmit = async (e: React.FormEvent) => {
         const response = await axios.post('http://localhost:5000/api/user16pf', dataToSubmit);
         console.log('Test submitted successfully:', response.data);
         alert('Test submitted successfully!');
+
+        // Save results to localStorage
+        localStorage.setItem('pfTestResults', JSON.stringify(dataToSubmit));
+
+        // Navigate to the Result page
+        navigate('/pf-results');
     } catch (error) {
         console.error('Error submitting answers:', error);
         alert('An error occurred while submitting the test.');
