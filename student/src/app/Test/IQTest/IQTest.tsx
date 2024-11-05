@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import style from './page.module.scss';
 
 // Define the Question interface, representing each question's structure in the IQ test
 interface Question {
@@ -101,6 +102,8 @@ const IQTest: React.FC = () => {
     if (error) return <p>Error: {error}</p>;
 
     return (
+        <div className={style.container}>
+
         <form onSubmit={handleSubmit}>
             <h1>{iqTest?.nameOfTest}</h1>
             <p>Number of Questions: {iqTest?.numOfQuestions}</p>
@@ -150,12 +153,14 @@ const IQTest: React.FC = () => {
             </div>
 
             {/* Questions */}
-            <ul>
+            <ul className= {style.questions}>
                 {iqTest?.questions.map((q) => (
                     <li key={q.questionID}>
-                        <p>{q.questionSet}</p>
-                        <img src={q.questionImage} alt={`Question ${q.questionID}`} />
-                        <div>
+                        <div className={style['question-image']}>
+                            <p>{q.questionSet}</p>
+                            <img src={q.questionImage} alt={`Question ${q.questionID}`} />
+                        </div>
+                        <div className={style.choices}>
                             {q.choicesImage.map((choiceImage, index) => (
                                 <label key={index}>
                                     <input
@@ -172,8 +177,11 @@ const IQTest: React.FC = () => {
                     </li>
                 ))}
             </ul>
+
             <button type="submit">Submit Answers</button>
         </form>
+        </div>
+
     );
 };
 
