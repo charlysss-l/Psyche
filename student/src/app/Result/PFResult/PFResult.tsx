@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styles from './pageone.module.scss';
 
 interface TestResultData {
     userID: string;
@@ -34,17 +35,18 @@ const PFResult: React.FC = () => {
     }, []);
 
     return (
-        <div>
+        <div className={styles.container}>
             {results ? (
                 <div>
-                    <h2>Test Results for {results.firstName} {results.lastName}</h2>
-                    <p>User ID: {results.userID}</p>
-                    <p>Age: {results.age}</p>
-                    <p>Sex: {results.sex}</p>
-                    <p>Course Section: {results.courseSection}</p>
-                    <p>Test Type: {results.testType}</p>
-                    <h3>Scoring Summary</h3>
-                    <table>
+                    <h2 className={styles.heading}>Test Results for {results.firstName} {results.lastName}</h2>
+                    <p className={styles.info}>User ID: {results.userID}</p>
+                    <p className={styles.info}>Age: {results.age}</p>
+                    <p className={styles.info}>Sex: {results.sex}</p>
+                    <p className={styles.info}>Course Section: {results.courseSection}</p>
+                    <p className={styles.info}>Test Type: {results.testType}</p>
+
+                    <h3 className={styles.subheading}>Scoring Summary</h3>
+                    <table className={styles.table}>
                         <thead>
                             <tr>
                                 <th>Factor Letter</th>
@@ -63,10 +65,10 @@ const PFResult: React.FC = () => {
                         </tbody>
                     </table>
 
-                    <h3>Responses</h3>
-                    <ul>
+                    <h3 className={styles.subheading}>Responses</h3>
+                    <ul className={styles.responseList}>
                         {results.responses.map((response, index) => (
-                            <li key={index}>
+                            <li key={index} className={styles.responseItem}>
                                 <p>Question ID: {response.questionID}</p>
                                 <p>Selected Choice: {response.selectedChoice}</p>
                                 <p>Equivalent Score: {response.equivalentScore}</p>
@@ -76,7 +78,7 @@ const PFResult: React.FC = () => {
                     </ul>
                 </div>
             ) : (
-                <p>No results available. Please complete the test.</p>
+                <p className={styles.noResults}>No results available. Please complete the test.</p>
             )}
         </div>
     );
