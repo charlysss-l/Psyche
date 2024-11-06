@@ -1,0 +1,83 @@
+.container {
+    width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  
+    label {
+      text-align: left;
+      font-weight: bold;
+      color: #555;
+    }
+  
+    input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+  
+      &:disabled {
+        background-color: #f1f1f1;
+        color: #888;
+        cursor: not-allowed;
+      }
+  
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+      }
+    }
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  
+    .editButton,
+    .submitButton {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .editButton {
+      background-color: #6c757d;
+      color: white;
+  
+      &:hover {
+        background-color: #5a6268;
+      }
+    }
+  
+    .submitButton {
+      background-color: #007bff;
+      color: white;
+  
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+  
