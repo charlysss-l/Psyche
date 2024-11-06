@@ -8,11 +8,9 @@ const Profile = () => {
     <div className={style.container}>
       <h2>User Information</h2>
       <div className={style.infoContainer}>
-      <label>UserID</label>
-        <input
-          type="userID"
-          name="userID"
-        />
+        <div className={style.userIDDisplay}>
+          UserID: Display UserID Logic here
+        </div>
         <label>Username</label>
         <input
           type="text"

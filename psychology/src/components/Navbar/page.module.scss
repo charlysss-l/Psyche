@@ -1,12 +1,12 @@
 
 .navbar {
   position: fixed;
-  background-color: #efeded;
   top: 0;
   left: 200px;  
   width: calc(100% - 200px); 
   padding: 10px 0;
   z-index: 1000;
+  margin-top: 10px;
 }
 
 ul {
@@ -29,7 +29,7 @@ li {
 }
 
 .navlink:hover {
-  background-color: #bab8b8;
+  color: blueviolet;
   border-radius: 5px;
 }
 
