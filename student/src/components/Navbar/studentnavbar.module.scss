@@ -1,0 +1,35 @@
+.navbar {
+    position: fixed;
+    background-color: #000000;  // Black background
+    top: 0;
+    left: 200px;  
+    width: calc(100% - 200px); 
+    padding: 10px 0;
+    z-index: 1000;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  li {
+    margin: 0 20px;
+  }
+  
+  .navlink {
+    color: black;  // Black font color
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 50px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navlink:hover {
+    background-color: #bab8b8;  // Light grey background on hover
+    border-radius: 5px;
+  }
+  

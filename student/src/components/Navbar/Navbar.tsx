@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './page.module.scss'
+import style from './studentnavbar.module.scss'
 import { Link } from 'react-router-dom'
 const Navbar = () => {
   return (
