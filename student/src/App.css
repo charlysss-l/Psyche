@@ -9,7 +9,9 @@
   flex-direction: column;
   flex: 1;
   padding: 20px;
-  background-color: #f2f2f2;  /* Optional, to set a background color for the content area */
+
+  
+ //background-color: #f2f2f2;  /* Optional, to set a background color for the content area */
 }
 
 .content {

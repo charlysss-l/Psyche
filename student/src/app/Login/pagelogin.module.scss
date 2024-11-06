@@ -1,29 +1,27 @@
-// pagelogin.module.scss
 .loginContainer {
-  background-color: #2C2C2C;
-  color: white;
-  padding: 20px;
-  max-width: 400px;
-  width: 100%; // Ensure it's responsive but with a maximum width
-  margin: 0 auto;  // Centers horizontally
+  background-color: #7EA0B7;  // Light gray background
+  color: #000000;  // Black text color
+  padding: 10px;
+  max-width: 300px;
+  width: 40%;
+  margin: 0 auto;
   border-radius: 8px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
-
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;  // Centers content horizontally
-  justify-content: center;  // Centers content vertically if needed
+  align-items: center;
+  justify-content: center;
 }
 
 h2 {
-  color: white;
-  margin-bottom: 15px;
-  padding: 10px;
+  color: #000000;
+  margin-bottom: 10px;
+  padding: 5px;
 }
 
 label {
-  color: white;
+  color: #000000;
   margin-bottom: 5px;
 }
 
@@ -33,24 +31,25 @@ input {
   border-radius: 4px;
   border: 1px solid #ccc;
   padding: 6px 10px;
-  background-color: #333333;
-  color: white;
+  background-color: #F6F5F5;  // Light gray background for inputs
+  color: #000000;
 }
 
 .submitButton {
-  background-color: white;
-  color: black;
-  padding: 8px 16px;
+  background-color: #000000;
+  color: #EBE8E8;
+  padding: 6px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
   margin-top: 12px;
-  width: 100%;  // Ensures the button is the same width as the input fields
+  width: 100%;
 }
 
 .submitButton:hover {
-  background-color: #f2f2f2;
+  background-color: #EBE8E8;
+  color: #000000;
 }
 
 .errorMessage {
