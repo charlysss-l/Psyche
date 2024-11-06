@@ -1,44 +1,39 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./pagelogin.module.scss";
 
 const Login: React.FC = () => {
-  // State for email, password, and error messages
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
-  const navigate = useNavigate(); // To navigate after successful login
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation
     if (!email || !password) {
       setError("Please fill in both fields.");
       return;
     }
 
-    // Call the login function (you would typically call an API here)
     const isLoginSuccessful = await mockLogin(email, password);
 
     if (isLoginSuccessful) {
-      // Redirect to homepage or dashboard on successful login
       navigate("/dashboard");
     } else {
       setError("Invalid email or password.");
     }
   };
 
-  // Mock login function (replace with actual API call)
   const mockLogin = async (email: string, password: string): Promise<boolean> => {
-    // Replace this with your authentication logic
     return email === "user@example.com" && password === "password123";
   };
 
   return (
-    <div className="login-container">
+    <div className={styles.loginContainer}>
       <h2>Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className={styles.errorMessage}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email:</label>
@@ -60,7 +55,7 @@ const Login: React.FC = () => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" className={styles.submitButton}>Login</button>
       </form>
     </div>
   );
