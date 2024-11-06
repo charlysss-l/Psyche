@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import style from './page.module.scss';
+import style from './studentiqtest.module.scss';
 
 // Define the Question interface, representing each question's structure in the IQ test
 interface Question {
