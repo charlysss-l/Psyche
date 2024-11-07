@@ -10,18 +10,18 @@ import {
 const router = Router();
 
 // Route to create a new IQ test result
-router.post('/tests', createIQTestResult);
+router.post('/', createIQTestResult);
 
 // Route to retrieve all IQ test results for a specific user
-router.get('/tests', getIQTestResultsByUser);
+router.get('/', getIQTestResultsByUser);
 
 // Route to retrieve a specific IQ test result by test ID
-router.get('/tests/:id', getIQTestResultById);
+router.get('/:id', getIQTestResultById);
 
 // Route to update an IQ test result by test ID
-router.put('/tests/:id', updateIQTestResult);
+router.put('/:id', updateIQTestResult);
 
 // Route to delete an IQ test result by test ID
-router.delete('/tests/:id', deleteIQTestResult);
+router.delete('/:id', deleteIQTestResult);
 
 export default router;

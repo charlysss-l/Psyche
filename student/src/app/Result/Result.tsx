@@ -6,6 +6,8 @@ const Result = () => {
       <h1>List of Results</h1>
         <div>
           <Link to="/pf-results">PF Results</Link>
+          <br />
+          <Link to="/iq-results">IQ Results</Link>
         </div>
     </div>
   )
