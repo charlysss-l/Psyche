@@ -7,6 +7,8 @@ import Consultation from './app/Consultation/Consultation';
 import Calendar from './app/Calendar/Calendar';
 import Profile from './app/Profile/Profile';
 import Login from './app/Login/login';  // Adjusted to match path
+import Signup from './app/Signup/Signup';  // Fixed the import here
+
 
 import './App.css';
 
@@ -24,6 +26,8 @@ function App() {
               <Route path="/consultation" element={<Consultation />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/login" element={<Login />} /> {/* Updated path to lowercase */}
+              <Route path="/signup" element={<Signup />} />  {/* Fixed the path here */}
+
             </Routes>
           </div>
         </div>
