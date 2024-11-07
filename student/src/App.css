@@ -1,24 +1,23 @@
-
 .App {
-    display: flex;
-    min-height: 100vh;
-  }
+  display: flex;
+  min-height: 100vh;
+  padding-top: 50px; /* To avoid overlap with the navbar */
+}
+
+.main-content {
+  margin-left: 250px;  /* Match the sidebar width for proper spacing */
+  flex-direction: column;
+  flex: 1;
+  padding: 20px;
+
   
- 
-  .main-content {
-    margin-left: 200px;  
-    margin-top: 50px;  
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    padding: 20px;
-  }
-  
- 
-  .content {
-    flex: 1;  
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-  }
-  
+ //background-color: #f2f2f2;  /* Optional, to set a background color for the content area */
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  background-color: white;  /* Optional, to differentiate content area */
+}

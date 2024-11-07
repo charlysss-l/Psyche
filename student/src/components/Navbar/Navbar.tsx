@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './page.module.scss'
+import style from './studentnavbar.module.scss'
 import { Link } from 'react-router-dom'
 const Navbar = () => {
   return (
@@ -17,6 +17,11 @@ const Navbar = () => {
         <li>
             <Link to="/consultation" className={style.navlink}>Consultation</Link>
         </li>
+
+<li>
+    <Link to="/Login" className={style.navlink}>Login</Link>
+</li>
+        
     </ul>
 
    </nav>

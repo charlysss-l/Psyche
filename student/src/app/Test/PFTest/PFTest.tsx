@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './page.module.scss'; // Ensure this matches your actual file extension
+import styles from './studentpftest.module.scss'; // Ensure this matches your actual file extension
 import { User16PFTest, Question } from '../../../types/pfTestTypes'; // Adjust the import to match your types
 import {useNavigate} from 'react-router-dom';
 
