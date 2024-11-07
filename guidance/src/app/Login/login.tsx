@@ -1,7 +1,6 @@
-// Login.tsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./psychologylogin.module.scss";
+import styles from "./guidancelogin.module.scss";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");

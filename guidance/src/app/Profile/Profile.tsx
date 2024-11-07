@@ -6,7 +6,7 @@ const Profile = () => {
 
   return (
     <div className={style.container}>
-      <h2>User Information</h2>
+      <h3>User Information</h3>
       <div className={style.infoContainer}>
         <div className={style.userIDDisplay}>
           UserID: Display UserID Logic here
