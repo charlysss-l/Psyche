@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import style from './studentiqtest.module.scss';
 
-// Define the Question interface, representing each question's structure in the IQ test
 interface Question {
     questionID: string;
     questionSet: string;
@@ -10,9 +10,8 @@ interface Question {
     correctAnswer: string;
 }
 
-// Define the Interpretation interface, for result interpretation based on age, sex, and score range
 interface Interpretation {
-    ageRange: string;  // e.g., "5-7"
+    ageRange: string;
     sex: 'Female' | 'Male';
     minTestScore: number;
     maxTestScore: number;
@@ -20,7 +19,6 @@ interface Interpretation {
     resultInterpretation: string;
 }
 
-// Define the IQTests interface, representing the structure of an IQ test
 interface IQTests {
     testID: string;
     nameOfTest: string;
@@ -28,18 +26,11 @@ interface IQTests {
     questions: Question[];
 }
 
-// Functional component for rendering the IQ Test form
 const IQTest: React.FC = () => {
-    // State to hold the IQ test data
     const [iqTest, setIqTest] = useState<IQTests | null>(null);
-    // State to track loading status
     const [loading, setLoading] = useState<boolean>(true);
-    // State to handle and display errors
     const [error, setError] = useState<string | null>(null);
-    // State to store user responses to each question
     const [responses, setResponses] = useState<Record<string, string>>({});
-
-    // User information states
     const [userID, setUserID] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
@@ -47,34 +38,36 @@ const IQTest: React.FC = () => {
     const [sex, setSex] = useState<'Male' | 'Female'>('Male');
     const [testType, setTestType] = useState<'Online' | 'Physical'>('Online');
 
-    // Fetch IQ test data from the server
     const fetchTest = async () => {
         try {
-            // API request to get test data by a specific test ID
-            const response = await axios.get<IQTests>('http://localhost:5000/api/IQtest/672648eb49365e8ab5d0dc4d'); // Replace with the correct ID
-            setIqTest(response.data); // Set test data to state
+            const response = await axios.get<IQTests>('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
+            setIqTest(response.data);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'An unknown error occurred'); // Handle any error
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
         } finally {
-            setLoading(false); // Set loading to false once done
+            setLoading(false);
         }
     };
 
-    // useEffect hook to fetch test data when the component mounts
     useEffect(() => {
         fetchTest();
     }, []);
 
-    // Function to update responses for each question when the user selects an option
     const handleChange = (questionID: string, value: string) => {
         setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));
     };
 
-    // Function to handle form submission, including posting data to the server
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault();
+        const responsesWithAnswers = Object.keys(responses).map(questionID => {
+            const question = iqTest?.questions.find(q => q.questionID === questionID);
+            return {
+                questionID,
+                selectedChoice: responses[questionID],
+                isCorrect: question?.correctAnswer === responses[questionID]
+            };
+        });
 
-        // Collect data to submit, including user details and responses
         const dataToSubmit = {
             userID,
             firstName,
@@ -82,96 +75,62 @@ const IQTest: React.FC = () => {
             age,
             sex,
             testID: iqTest?.testID,
-            responses,
+            responses: responsesWithAnswers,
             testType,
         };
 
         try {
-            // Post data to the server endpoint
-            const response = await axios.post('http://localhost:5000/api/userIqTest', dataToSubmit);
-            console.log("Test submitted successfully:", response.data);
-            alert('Test submitted successfully!'); // Alert user on success
+            const response = await axios.post('http://localhost:5000/api/userIQtest', dataToSubmit);
+            alert('Test submitted successfully!');
+            localStorage.setItem('iqTestResults', JSON.stringify(dataToSubmit));
         } catch (error) {
-            console.error("Error submitting answers:", error); // Log error if submission fails
+            console.error('Error submitting answers:', error);
+            alert('An error occurred while submitting the test.');
         }
     };
 
-    // Show loading or error message based on current state
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={style.form}>
             <h1>{iqTest?.nameOfTest}</h1>
             <p>Number of Questions: {iqTest?.numOfQuestions}</p>
-
-            {/* User Info Fields */}
             <div>
-                <label>
-                    User ID:
-                    <input type="text" value={userID} onChange={(e) => setUserID(e.target.value)} required />
-                </label>
+                <input type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required />
+                <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
+                <select value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')} required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
+                    <option value="Online">Online</option>
+                    <option value="Physical">Physical</option>
+                </select>
             </div>
-            <div>
-                <label>
-                    First Name:
-                    <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Last Name:
-                    <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Age:
-                    <input type="text" value={age} onChange={(e) => setAge(e.target.value)} required />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Sex:
-                    <select value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')}>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </label>
-            </div>
-            <div>
-                <label>
-                    Test Type:
-                    <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')}>
-                        <option value="Online">Online</option>
-                        <option value="Physical">Physical</option>
-                    </select>
-                </label>
-            </div>
-
-            {/* Questions */}
-            <ul>
+            <div className={style.questionContainer}>
                 {iqTest?.questions.map((q) => (
-                    <li key={q.questionID}>
-                        <p>{q.questionSet}</p>
+                    <div className={style.questionBox} key={q.questionID}>
                         <img src={q.questionImage} alt={`Question ${q.questionID}`} />
                         <div>
-                            {q.choicesImage.map((choiceImage, index) => (
-                                <label key={index}>
+                            {q.choicesImage.map((choice, idx) => (
+                                <label key={idx}>
                                     <input
                                         type="radio"
                                         name={q.questionID}
-                                        value={`choice${index + 1}`} // Using the index to track choices
-                                        checked={responses[q.questionID] === `choice${index + 1}`}
-                                        onChange={() => handleChange(q.questionID, `choice${index + 1}`)}
+                                        value={choice}
+                                        checked={responses[q.questionID] === choice}
+                                        onChange={() => handleChange(q.questionID, choice)}
                                     />
-                                    <img src={choiceImage} alt={`Choice ${index + 1}`} />
+                                    <img src={choice} alt={`Choice ${idx}`} />
                                 </label>
                             ))}
                         </div>
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
             <button type="submit">Submit Answers</button>
         </form>
     );
