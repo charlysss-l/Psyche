@@ -1,9 +1,9 @@
 .sidebar {
   width: 192px;  /* 2 inches */
-  background-color: black;  /* Set sidebar background to black */
   color: white;
   padding: 15px;
   display: flex;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.552); 
   flex-direction: column;
   justify-content: center;  /* Centers the items vertically */
   align-items: center;      /* Centers the items horizontally */
@@ -14,7 +14,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 
-  ul {
+  .sidebar_UL {
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -23,8 +23,7 @@
     justify-content: center;  /* Centers list items vertically */
     height: 100%;  /* Ensures the list takes up full sidebar height */
 
-    li {
-      margin: 20px 0;
+    .sidebar_LI {
       width: 100%;
       
       .link {
@@ -34,12 +33,11 @@
         text-decoration: none;
         font-size: 16px;
         padding: 10px;
-        width: 100%;
+        width: 100px;
         justify-content: center;  /* Centers the content of the link */
         border-radius: 5px;  /* Adds a border-radius to match navbar box effect */
         
         &:hover {
-          background-color: #f0f0f0;  /* Light gray background on hover (same as navbar) */
           color: #007bff;  /* Change text color to blue on hover */
         }
 

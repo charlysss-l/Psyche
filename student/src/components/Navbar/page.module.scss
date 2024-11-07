@@ -1,22 +1,22 @@
-
 .navbar_ps {
   position: fixed;
   top: 0;
-  left: 200px;  
-  width: calc(100% - 200px); 
-  padding: 10px 0;
+  left: 300px;
+  width: calc(100% - 400px);
+  padding: 15px;
   z-index: 1000;
 }
 
-ul {
+.navbar_UL {
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
 }
 
-li {
-  margin: 0 20px;
+.navbar_LI {
+  margin: 10 30px;
+  border: 0;
 }
 
 .navlink {
@@ -28,7 +28,6 @@ li {
 }
 
 .navlink:hover {
-  background-color: #bab8b8;
   border-radius: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.071);
 }
-
