@@ -73,10 +73,9 @@ ul {
 // Styling for individual question list items
 li {
   margin: 15px 0;
-  border: 1px solid #ddd;
   border-radius: $border-radius;
   padding: 10px;
-  background-color: #fff;
+  background-color: #ffffff00;
   display: flex;               // Use flexbox for the question and choices
   flex-direction: row;         // Arrange question and choices in a row
   align-items: center;         // Center align items vertically
