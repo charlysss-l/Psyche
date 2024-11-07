@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import style from './page.module.scss';
+import style from './psychologypftest.module.scss';
 
 const Test = () => {
   return (

@@ -1,9 +1,9 @@
 import React from 'react'
-import style from './page.module.scss'
+import style from './psychologyuser.module.scss'
 const User = () => {
   return (
     <div>
-    <h2 className={style.userTitle}>List of Users</h2>
+    <h2 className={style.userTitle}>LIST OF USERS</h2>
     <table className={style.table}>
         <thead>
             <tr>

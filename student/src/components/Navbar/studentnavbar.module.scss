@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+$user-background-color: #f5f5f8;
+$font-color: #45474B;
+
+.studentNavbar {
+  background-color: $user-background-color;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  h1 {
+    color: $font-color;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+  }
+  p {
+    color: $font-color;
+    font-size: 14px;
+    margin: 5px 0 0;
+  }
+}
+
+.navigationSection {
+  display: flex;
+  align-items: center;
+}
+
+.navList {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  margin-left: 25px;
+}
+
+.navLink {
+  color: $font-color;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #007BFF; /* Change color on hover */
+  }
+}

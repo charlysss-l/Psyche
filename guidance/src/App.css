@@ -1,24 +1,23 @@
 
 .App {
-    display: flex;
-    min-height: 100vh;
-  }
-  
- 
-  .main-content {
-    margin-left: 200px;  
-    margin-top: 50px;  
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    padding: 20px;
-  }
-  
- 
-  .content {
-    flex: 1;  
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 50px;
-  }
-  
+  display: flex;
+  min-height: 100vh;
+}
+
+
+.main-content {
+  margin-left: 200px;  
+  margin-top: 50px;  
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px;
+}
+
+
+.content {
+  flex: 1;  
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 50px;
+}

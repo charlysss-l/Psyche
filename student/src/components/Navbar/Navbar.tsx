@@ -1,31 +1,36 @@
-import React from 'react'
-import style from './page.module.scss'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import style from './studentnavbar.module.scss';
+
 const Navbar = () => {
   return (
-   <nav className={style.navbar_ps}>
-    <ul className={style.navbar_UL}>
-        <li className={style.navbar_LI}>
-            <Link to="/" className={style.navlink}>Home</Link>
-        </li>
-        <li className={style.navbar_LI}>
-            <Link to="/test" className={style.navlink}>Test</Link>
-        </li>
-        <li className={style.navbar_LI}>
-            <Link to="/result" className={style.navlink}>Result</Link>
-        </li >
-        <li className={style.navbar_LI}>
-            <Link to="/consultation" className={style.navlink}>Consultation</Link>
-        </li>
+    <nav className={style.studentNavbar}>
+      <div className={style.logoSection}>
+        <h1>Student</h1>
+        <p>16PF & IQ Test</p>
+      </div>
+      
+      <div className={style.navigationSection}>
+        <ul className={style.navList}>
+          <li className={style.navItem}>
+            <Link to="/" className={style.navLink}>Home</Link>
+          </li>
+          <li className={style.navItem}>
+            <Link to="/test" className={style.navLink}>Test</Link>
+          </li>
+          <li className={style.navItem}>
+            <Link to="/user" className={style.navLink}>Result</Link>
+          </li>
+          <li className={style.navItem}>
+            <Link to="/user" className={style.navLink}>Consultation</Link>
+          </li>
+          <li className={style.navItem}>
+            <Link to="/login" className={style.navLink}>Login</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
-        <li className={style.navbar_LI}>
-            <Link to="/Login" className={style.navlink}>Login</Link>
-        </li>
-        
-    </ul>
-
-   </nav>
-  )
-}
-
-export default Navbar
+export default Navbar;
