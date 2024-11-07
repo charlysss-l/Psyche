@@ -1,21 +1,27 @@
 import React from 'react'
+import style from './page.module.scss'
 import { Link } from 'react-router-dom'
-import style from './page.module.scss';
 const Navbar = () => {
   return (
-    <nav className={style.navbar}>
-        <ul>
-            <li>
-                <Link to='/' className={style.navlink}>Home</Link>
-            </li>
-            <li>
-                <Link to='/calendar'  className={style.navlink}>Calendar</Link>
-            </li>
-            <li>
-                <Link to='/consultation'  className={style.navlink}>Consultation</Link>
-            </li>
-        </ul>
-    </nav>
+   <nav className={style.navbar_gd}>
+    <ul className={style.navbar_UL_gd}>
+        <li className={style.navbar_LI_gd}>
+            <Link to="/" className={style.navlink_gd}>Home</Link>
+        </li>
+        <li className={style.navbar_LI_gd}>
+            <Link to="/calendar" className={style.navlink_gd}>Calendar</Link>
+        </li>
+        <li className={style.navbar_LI_gd}>
+            <Link to="/consultation" className={style.navlink_gd}>Consultation</Link>
+        </li>
+
+        <li className={style.navbar_LI_gd}>
+            <Link to="/Login" className={style.navlink_gd}>Login</Link>
+        </li>
+        
+    </ul>
+
+   </nav>
   )
 }
 
