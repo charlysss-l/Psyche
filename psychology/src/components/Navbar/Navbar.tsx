@@ -4,16 +4,16 @@ import style from './page.module.scss';
 
 const Navbar = () => {
   return (
-    <nav className={style.navbar}>
-        <ul>
-            <li>
-                <Link to="/" className={style.navlink}>Report</Link>
+    <nav className={style.navbar_st}>
+        <ul className={style.navbar_UL_st}>
+            <li className={style.navbar_LI_st}>
+                <Link to="/" className={style.navlink_st}>Report</Link>
             </li>
-            <li>
-                <Link to="/test" className={style.navlink}>Test</Link>
+            <li className={style.navbar_LI_st}>
+                <Link to="/test" className={style.navlink_st}>Test</Link>
             </li>
-            <li>
-                <Link to="/user" className={style.navlink}>User</Link>
+            <li className={style.navbar_LI_st}>
+                <Link to="/user" className={style.navlink_st}>User</Link>
             </li>
         </ul>
     </nav>
