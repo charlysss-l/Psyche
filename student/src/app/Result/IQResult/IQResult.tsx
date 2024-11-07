@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styles from './IQResult.module.scss';
 
 interface IQTestResultData {
     userID: string;
@@ -18,12 +19,9 @@ const IQResult: React.FC = () => {
     const [result, setResult] = useState<IQTestResultData | null>(null);
 
     useEffect(() => {
-        // Retrieve results from local storage
         const storedResults = localStorage.getItem('iqTestResults');
         if (storedResults) {
             const parsedResults: IQTestResultData = JSON.parse(storedResults);
-            
-            // Calculate interpretation based on age and score
             const interpretation = getInterpretation(parsedResults.age, parsedResults.totalScore);
             setResult({ ...parsedResults, interpretation });
         }
@@ -35,31 +33,60 @@ const IQResult: React.FC = () => {
         } else if (age >= 20 && age <= 24 && score >= 4) {
             return { percentile: 100, result: 'Intelligent' };
         } else {
-            return { percentile: 50, result: 'Average' }; // Default interpretation
+            return { percentile: 50, result: 'Average' };
         }
     };
 
+    const handleShareResult = () => {
+        alert('Your result has been shared with the guidance counselor.');
+    };
+
+    const handleCancel = () => {
+        alert('Result sharing cancelled.');
+    };
+
     return (
-        <div>
+        <div className={styles.container}>
             {result ? (
                 <div>
-                    <h2>IQ Test Results for {result.firstName} {result.lastName}</h2>
-                    <p>User ID: {result.userID}</p>
-                    <p>Age: {result.age}</p>
-                    <p>Sex: {result.sex}</p>
-                    <p>Test Type: {result.testType}</p>
-                    <h3>Score</h3>
-                    <p>Total Score: {result.totalScore}</p>
+                    <h2 className={styles.header}>IQ Test Results for {result.firstName} {result.lastName}</h2>
+                    <div className={styles.section}>
+                        <span className={styles.label}>User ID:</span>
+                        <span className={styles.value}>{result.userID}</span>
+                    </div>
+                    <div className={styles.section}>
+                        <span className={styles.label}>Age:</span>
+                        <span className={styles.value}>{result.age}</span>
+                    </div>
+                    <div className={styles.section}>
+                        <span className={styles.label}>Sex:</span>
+                        <span className={styles.value}>{result.sex}</span>
+                    </div>
+                    <div className={styles.section}>
+                        <span className={styles.label}>Test Type:</span>
+                        <span className={styles.value}>{result.testType}</span>
+                    </div>
+                    <div className={styles.scoreSection}>
+                        <h3>Score</h3>
+                        <p>Total Score: <span className={styles.score}>{result.totalScore}</span></p>
+                    </div>
                     {result.interpretation && (
-                        <>
+                        <div className={styles.interpretationSection}>
                             <h3>Interpretation</h3>
                             <p>Percentile: {result.interpretation.percentile}%</p>
                             <p>Interpretation: {result.interpretation.result}</p>
-                        </>
+                            
+                            {/* Share Prompt */}
+                            <div className={styles.sharePrompt}>
+                                <p>Would you like to share your result with our guidance counselor?</p>
+                                <button onClick={handleShareResult} className={styles.buttonYes}>Yes</button>
+                                <button onClick={handleCancel} className={styles.buttonCancel}>Cancel</button>
+                            </div>
+                        </div>
                     )}
                 </div>
             ) : (
-                <p>No results available. Please complete the test.</p>
+                <p className={styles.noResults}>No results available. Please complete the test.</p>
             )}
         </div>
     );

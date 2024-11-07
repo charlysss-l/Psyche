@@ -2,30 +2,83 @@
 
 .container {
     max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    color: #333;
 }
 
 .header {
     text-align: center;
-    color: #343a40;
+    font-size: 1.8rem;
+    color: #4a4a4a;
+    margin-bottom: 1.5rem;
 }
 
-.userDetails, .scoreSummary {
-    margin-bottom: 15px;
-    line-height: 1.6;
+.section {
+    margin-bottom: 1rem;
+}
+
+.label {
+    font-weight: bold;
+    color: #666;
+}
+
+.value {
+    margin-left: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.scoreSection, .interpretationSection {
+    margin-top: 1.5rem;
 }
 
 .score {
-    font-weight: bold;
     color: #007bff;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .noResults {
     text-align: center;
     font-style: italic;
-    color: #6c757d;
+    color: #777;
+    margin-top: 2rem;
+}
+
+.sharePrompt {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.buttonYes, .buttonCancel {
+    padding: 0.6rem 1.2rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.buttonYes {
+    background-color: #8d928e;
+    color: white;
+}
+
+.buttonYes:hover {
+    background-color: #218838;
+}
+
+.buttonCancel {
+    background-color: #7e7a7a;
+    color: white;
+}
+
+.buttonCancel:hover {
+    background-color: #c82333;
 }
