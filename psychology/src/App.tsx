@@ -9,12 +9,8 @@ import Profile from './app/Profile/Profile';
 import OMR from './app/OMR/OMR';
 import PFTest from './app/Test/PFTest/PFTest';
 import IQTest from './app/Test/IQTest/IQTest';
-import Login from './app/Login/login'; 
-import Signup from './app/Signup/Signup';  // Fixed the import here
-
-
-
 import './App.css';
+import Login from './app/Login/login';
 
 
 function App() {
@@ -32,9 +28,8 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/omr" element={<OMR />} />
               <Route path="/pftest" element={<PFTest/>} />
-              <Route path="/Login" element={<Login />}  />
-              <Route path="/iqtest" element={<IQTest/>} />
-              <Route path="/signup" element={<Signup />} />  {/* Fixed the path here */}
+              <Route path="/login" element={<Login />}  />
+              <Route path="/iqtest" element={<IQTest/>} /> {/* Fixed the path here */}
 
             </Routes>
           </div>

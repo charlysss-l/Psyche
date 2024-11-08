@@ -21,6 +21,9 @@ const Navbar = () => {
           <li className={style.navbar_LI_ps}>
             <Link to="/user" className={style.navlink_ps}>User</Link>
           </li>
+          <li className={style.navbar_LI_ps}>
+            <Link to="/login" className={style.navlink_ps}>Login</Link>
+          </li>
         </ul>
       </div>
     </nav>

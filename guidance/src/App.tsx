@@ -7,6 +7,7 @@ import Consultation from './app/Consultation/Consultation';
 import Calendar from './app/Calendar/Calendar';
 import Profile from './app/Profile/Profile';
 import './App.css';
+import Login from './app/Login/login';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/consultation" element={<Consultation />} />
               <Route path="/profile" element={<Profile />} /> 
+              <Route path="/login" element={<Login />} /> 
             </Routes>
           </div>
         </div>

@@ -14,12 +14,13 @@ const SignupForm: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.signup_container}>
+      <h2 className={styles.signup_h2}>Sign Up</h2>
+      <form onSubmit={handleSubmit} className={styles.signup_form}>
         <div>
-          <label>Email:</label>
+          <label className={styles.signuplabel}>Email:</label>
           <input
+            className={styles.signupInput}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -27,8 +28,9 @@ const SignupForm: React.FC = () => {
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label className={styles.signuplabel}>Password:</label>
           <input
+            className={styles.signupInput}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -36,15 +38,16 @@ const SignupForm: React.FC = () => {
           />
         </div>
         <div>
-          <label>User ID:</label>
+          <label className={styles.signuplabel}>User ID:</label>
           <input
+            className={styles.signupInput}
             type="text"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
             required
           />
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit" className={styles.signupSubmit}>Sign Up</button>
       </form>
     </div>
   );
