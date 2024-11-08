@@ -1,24 +1,27 @@
-
-.App {
-    display: flex;
-    min-height: 100vh;
-  }
-  
+body{
+  background-color: #f4f2ee;;
+ }
  
-  .main-content {
-    margin-left: 20px;  
-    margin-top: 20px;  
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    padding: 20px;
-  }
-  
+ .App {
+   display: flex;
+   min-height: 100vh;
+   padding: 0;
+ }
  
-  .content {
-    flex: 1;  
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 50px;
-  }
-  
+ 
+ .main-content {
+   display: flex;
+   flex-direction: column;
+   margin: 0;
+   padding: 0;
+   flex: 1;
+ }
+ 
+ 
+ .content {
+   flex: 1;  
+   padding: 20px;
+   border-radius: 5px;
+   margin-top: 0px;
+ }
+ 

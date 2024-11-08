@@ -4,7 +4,6 @@ import style from './psychologysidebar.module.scss';
 
 const Sidebar: React.FC = () => {
   return (
-    <div className={style.container}>
       <div className={style.sidebar}>
         <ul className={style.sidebar_UL}>
           <li className={style.sidebar_LI}>
@@ -21,7 +20,6 @@ const Sidebar: React.FC = () => {
           </li>
         </ul>
       </div>
-    </div>
   );
 };
 
