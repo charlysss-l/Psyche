@@ -4,13 +4,14 @@
 .sidebar {
   padding: 20px;
   width: 150px; /* Adjust width for 1440x900 resolution */
-  height: 100vh; /* Sidebar height is 75% of the viewport height for better fitting */
+  height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: center; /* Centers items vertically */
   align-items: center;     /* Centers items horizontally */
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  margin: 0;
 }
 
 .sidebar_UL {
