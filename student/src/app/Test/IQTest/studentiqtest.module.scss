@@ -6,14 +6,27 @@ $input-border-color: #45474B;    // Darker border for the input fields
 $input-focus-border-color: $primary-color; // Focus color for inputs
 $header-text-color: #2E5266;     // Color for "SAMPLE IQ TEST"
 
+.formTest{
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
 // Container for the form
-.container {
+.te_container {
   background-color: $form-bg-color;
   padding: 20px;
   border-radius: $border-radius;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   color: $input-border-color;    // Text color set to $input-border-color
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 1000px;
 
 }
 
@@ -62,14 +75,21 @@ ul {
   padding: 0;
 }
 
+
 // Update the styles for the questions list
 .questions {
   display: flex;                // Use flexbox for layout
   flex-direction: column;       // Arrange items in a column
   padding: 0;                   // Remove default padding
   list-style-type: none;        // Remove bullet points
+  width: 200px;
+  height: 200px;
 }
 
+.choiceALL{
+  display: flex;
+  width: 700px;
+}
 // Styling for individual question list items
 li {
   margin: 15px 0;
@@ -85,8 +105,8 @@ li {
     margin-right: 20px;         // Space between question image and choices
 
     img {
-      max-width: 150px;         // Set a max width for the question image
-      height: auto;
+      width: 30px;         // Set a max width for the question image
+      height: 30px;
     }
   }
 

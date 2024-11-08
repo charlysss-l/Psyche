@@ -33,7 +33,7 @@ const ConsultationRequestForm: React.FC = () => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.formCon} onSubmit={handleSubmit}>
       <label>
         User ID
         <input

@@ -126,7 +126,7 @@ const IQTest: React.FC = () => {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <form onSubmit={handleSubmit} className={style.form}>
+        <form onSubmit={handleSubmit} className={style.formTest}>
             <h1>{iqTest?.nameOfTest}</h1>
             <p>Number of Questions: {iqTest?.numOfQuestions}</p>
             <div>
@@ -147,7 +147,7 @@ const IQTest: React.FC = () => {
                 {iqTest?.questions.map((q) => (
                     <div className={style.questionBox} key={q.questionID}>
                         <img src={q.questionImage} alt={`Question ${q.questionID}`} />
-                        <div>
+                        <div className={style.choiceALL}>
                             {q.choicesImage.map((choice, idx) => (
                                 <label key={idx}>
                                     <input
