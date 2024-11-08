@@ -3,7 +3,7 @@
 $user-background-color: #f5f5f8;
 $font-color: #45474B;
 
-.sidebar {
+.sidebar_gd {
   background-color: $user-background-color;
   padding: 20px;
   width: 150px; /* Adjust width for 1440x900 resolution */
@@ -14,22 +14,23 @@ $font-color: #45474B;
   align-items: center;     /* Centers items horizontally */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+
 }
 
-.sidebar_UL {
-  list-style-type: none;
+.sidebar_UL_gd {
+   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.sidebar_LI {
+.sidebar_LI_gd {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 100px 0;
 }
 
-.link {
+.link_gd {
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -40,9 +41,9 @@ $font-color: #45474B;
 
 
 
-  .icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-  }
+.icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
 }

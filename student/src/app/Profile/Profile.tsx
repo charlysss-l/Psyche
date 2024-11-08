@@ -1,14 +1,34 @@
 import React from 'react';
-import styles from './studentprofile.module.scss'; // Import the SCSS file
+import style from './page.module.scss';
 
-const Profile: React.FC = () => {
+const Profile = () => {
+
+
   return (
-    <div className={styles.container}>
-      <h1 className={styles.heading}>Profile</h1>
-      <p className={styles.content}>
-        Welcome to your profile page. Here you can view and update your profile information.
-      </p>
-      <button className={styles.button}>Update Profile</button>
+    <div className={style.container}>
+      <h2>User Information</h2>
+      <div className={style.infoContainer}>
+        <div className={style.userIDDisplay}>
+          UserID: Display UserID Logic here
+        </div>
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+        />
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+        />
+        <div className={style.buttonContainer}>
+        
+            <button  className={style.submitButton}>
+              Submit
+            </button>
+
+        </div>
+      </div>
     </div>
   );
 };

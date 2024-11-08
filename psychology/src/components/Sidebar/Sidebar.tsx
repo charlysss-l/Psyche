@@ -1,19 +1,28 @@
-import React from 'react'
-import style from './page.module.scss'
-import { Link } from 'react-router-dom'
-const Sidebar = () => {
-  return (
-    <div className={style.sidebar}>
-        <ul>
-            <li>
-                <Link to="/profile" className={style.link}>Profile</Link>
-            </li>
-            <li>
-                <Link to="/omr" className={style.link}>OMR</Link>
-            </li>
-        </ul>
-    </div>
-  )
-}
+import React from 'react';
+import { Link } from 'react-router-dom';
+import style from './psychologysidebar.module.scss';
 
-export default Sidebar
+const Sidebar: React.FC = () => {
+  return (
+    <div className={style.container}>
+      <div className={style.sidebar}>
+        <ul className={style.sidebar_UL}>
+          <li className={style.sidebar_LI}>
+            <Link to="/profile" className={style.link}>
+              <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg" alt="Profile Icon" className={style.icon} />
+              Profile
+            </Link>
+          </li>
+          <li className={style.sidebar_LI}>
+            <Link to="/omr" className={style.link}>
+              <img src="https://static-00.iconduck.com/assets.00/camera-icon-2048x1821-0b66mmq3.png" alt="OMR Icon" className={style.icon} />
+              OMR
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;

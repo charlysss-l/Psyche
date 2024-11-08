@@ -7,6 +7,7 @@ import userIQTestRoutes from './routes/UserIQTestRoutes';
 import Test16PFRoutes from './routes/Test16PFRoutes';
 import IQTestRoutes from './routes/IQTestRoutes';
 import uploadRoutes from './controllers/uploadController';
+import consultationsRoutes from './routes/consultationroutes';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use('/api/useriq', userIQTestRoutes);
 app.use('/api/16pf', Test16PFRoutes);
 app.use('/api/IQtest', IQTestRoutes);
 app.use('/api', uploadRoutes);  // Upload route
+app.use('/api/consult', consultationsRoutes);
 
 const PORT = process.env.PORT || 5000;
 

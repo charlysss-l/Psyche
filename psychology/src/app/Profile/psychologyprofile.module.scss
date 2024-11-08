@@ -14,7 +14,7 @@ $font-color: #45474B;
 }
 
 // Header styles
-h2 {
+h3 {
   color: $font-color;
   font-size: 24px;
   margin-bottom: 20px;
@@ -25,7 +25,6 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 15px;
- 
 }
 
 // UserID Display styles
@@ -48,7 +47,6 @@ input {
   border-radius: 4px;
   width: 100%;
   box-sizing: border-box;
-  
 
   &:focus {
     border-color: #a0a0a0;
