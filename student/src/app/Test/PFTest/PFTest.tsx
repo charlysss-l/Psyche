@@ -172,7 +172,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     <p>No questions available</p>
                 )}
             </div>
-            <button type="submit">Submit Answers</button>
+            <button type="submit" className={styles.submitPFbutton}>Submit Answers</button>
         </form>
     );
 };

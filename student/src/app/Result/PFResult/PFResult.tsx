@@ -41,6 +41,14 @@ const PFResult: React.FC = () => {
             </div>
         );
     }
+    const handleShareResult = () => {
+        alert('Your result has been shared with the guidance counselor.');
+    };
+
+    const handleCancel = () => {
+        alert('Result sharing cancelled.');
+    };
+
 
     return (
         <div className={styles.container}>
@@ -82,6 +90,12 @@ const PFResult: React.FC = () => {
                     </li>
                 ))}
             </ul>
+            {/* Share Prompt */}
+            <div className={styles.sharePrompt}>
+                <p>Would you like to share your result with our guidance counselor?</p>
+                <button onClick={handleShareResult} className={styles.buttonYes}>Yes</button>
+                <button onClick={handleCancel} className={styles.buttonCancel}>Cancel</button>
+            </div>
         </div>
     );
 };

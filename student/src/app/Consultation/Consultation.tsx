@@ -88,7 +88,7 @@ const ConsultationRequestForm: React.FC = () => {
         />
       </label>
 
-      <button type="submit">Submit Request</button>
+      <button type="submit" className={styles.submitCon}>Submit Request</button>
     </form>
   );
 };

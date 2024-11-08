@@ -4,9 +4,9 @@
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     color: #333;
 }
@@ -66,12 +66,12 @@
 }
 
 .buttonYes {
-    background-color: #8d928e;
+    background-color: black;
     color: white;
 }
 
 .buttonYes:hover {
-    background-color: #218838;
+    background-color: #144f21;
 }
 
 .buttonCancel {
@@ -80,5 +80,5 @@
 }
 
 .buttonCancel:hover {
-    background-color: #c82333;
+    background-color: #5e121a;
 }
