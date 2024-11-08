@@ -6,8 +6,8 @@ const Navbar = () => {
   return (
     <nav className={style.navbar_gd}>
       <div className={style.logoSection}>
-        <h1>Guidance</h1>
-        <p>16PF & IQ Test</p>
+        <h1>Discover U</h1>
+        <p>Guidance</p>
       </div>
       
       <ul className={style.navbar_UL_gd}>
