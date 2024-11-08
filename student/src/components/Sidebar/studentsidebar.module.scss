@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+$user-background-color: #f5f5f8;
+$font-color: #45474B;
+
+.sidebar {
+  background-color: $user-background-color;
+  padding: 20px;
+  width: 150px; /* Adjust width for 1440x900 resolution */
+  height: 100vh; /* Sidebar height is 75% of the viewport height for better fitting */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers items vertically */
+  align-items: center;     /* Centers items horizontally */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.sidebar_UL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar_LI {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px 0;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: $font-color;
+  font-weight: 400;
+  font-size: 16px;
+  transition: color 0.3s ease;
+
+
+
+  .icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+}
