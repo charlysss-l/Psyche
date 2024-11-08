@@ -1,13 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import style from './page.module.scss'
 const Result = () => {
   return (
-    <div>
+    <div className={style.ResultContent}>
       <h1>List of Results</h1>
-        <div>
-          <Link to="/pf-results">PF Results</Link>
-          <br />
-          <Link to="/iq-results">IQ Results</Link>
+        <div className={style.ListResult}>
+          <div className={style.TestPF_res}>
+            <Link to="/pf-results" className={style.pfLink_res}>PF Results</Link>
+          </div>
+         
+          <div className={style.iqLinkContainer_res}>
+            <Link to="/iq-results" className={style.iqLink_res}>IQ Results</Link>
+          </div>
+          
         </div>
     </div>
   )

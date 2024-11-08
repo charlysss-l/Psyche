@@ -5,16 +5,18 @@ $font-color: #45474B;
 $hover-color: #007BFF;
 
 .studentNavbar {
-  background-color: $navbar-background-color;
-  padding: 20px 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+  flex-direction: column;
 }
 
 .logoSection {
   color: $font-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logoSection h1 {
