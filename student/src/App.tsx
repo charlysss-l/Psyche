@@ -10,6 +10,9 @@ import Profile from './app/Profile/Profile';
 import OMR from './app/OMR/OMR'; 
 import PFTest from './app/Test/PFTest/PFTest';
 import IQTest from './app/Test/IQTest/IQTest';
+import PFResult from './app/Result/PFResult/PFResult';
+import Login from './app/Login/login'; 
+import Signup from './app/Signup/Signup';  // Fixed the import here
 import './App.css';
 
 function App() {
@@ -29,6 +32,9 @@ function App() {
               <Route path="/omr" element={<OMR />} />
               <Route path="/pftest" element={<PFTest />} />
               <Route path="/iqtest" element={<IQTest />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />  {/* Fixed the path here */}
+              <Route path="/pf-results" element={<PFResult />} />
             </Routes>
           </div>
         </div>
