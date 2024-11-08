@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styles from "./pagelogin.module.scss";
 
 const Login: React.FC = () => {
@@ -55,6 +55,8 @@ const Login: React.FC = () => {
             required
           />
           <button type="submit" className={styles.submitButton}>Login</button>
+
+          <h1 className={styles.Signuplink_info}>Don't have an account? <Link to="/signup" className={styles.Signuplink}>Sign Up</Link></h1>
         </form>
       </div>
     </div>

@@ -6,7 +6,6 @@
 
 
 .main-content {
-  margin-left: 20px;  
   margin-top: 20px;  
   display: flex;
   flex-direction: column;
@@ -19,5 +18,5 @@
   flex: 1;  
   padding: 20px;
   border-radius: 5px;
-  margin-top: 50px;
+  margin-top: 10px;
 }

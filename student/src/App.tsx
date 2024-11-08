@@ -13,6 +13,8 @@ import IQTest from './app/Test/IQTest/IQTest';
 import PFResult from './app/Result/PFResult/PFResult';
 import IQResult from './app/Result/IQResult/IQResult';
 import './App.css';
+import Login from './app/Login/login';
+import SignupForm from './app/Signup/Signup';
 
 function App() {
   return (
@@ -33,6 +35,9 @@ function App() {
               <Route path="/iqtest" element={<IQTest />} />
               <Route path="/pf-results" element={<PFResult />} />
               <Route path="/iq-results" element={<IQResult />} />
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/signup" element={<SignupForm/>}/>
+
             </Routes>
           </div>
         </div>
