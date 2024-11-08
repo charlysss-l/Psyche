@@ -6,7 +6,7 @@ $input-border-color: #45474B;    // Darker border for the input fields
 $input-focus-border-color: $primary-color; // Focus color for inputs
 $header-text-color: #2E5266;     // Color for "SAMPLE IQ TEST"
 
-.formTest{
+.formTest {
   background-color: #ffffff;
   padding: 2rem;
   border-radius: 8px;
@@ -17,7 +17,10 @@ $header-text-color: #2E5266;     // Color for "SAMPLE IQ TEST"
   gap: 1rem;
   justify-content: center;
   align-items: center;
-  margin-left: 700px;
+  position: absolute;
+
+  left: 50%;
+  transform: translate(-50%, 0%);
 }
 // Container for the form
 .te_container {
