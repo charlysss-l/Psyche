@@ -33,10 +33,12 @@ const ConsultationRequestForm: React.FC = () => {
   };
 
   return (
-    <form className={styles.formCon} onSubmit={handleSubmit}>
-      <label>
+    <div className={styles.consulForm}>
+        <form className={styles.formCon} onSubmit={handleSubmit}>
+      <label className={styles.conLabel} >
         User ID
         <input
+          className={styles.conInput}
           type="text"
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
@@ -44,9 +46,10 @@ const ConsultationRequestForm: React.FC = () => {
         />
       </label>
 
-      <label>
+      <label className={styles.conLabel}>
         Date
         <input
+        className={styles.conInput}
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
@@ -54,9 +57,10 @@ const ConsultationRequestForm: React.FC = () => {
         />
       </label>
 
-      <label>
+      <label className={styles.conLabel}>
         Time for Consultation
         <input
+        className={styles.conInput}
           type="time"
           value={timeForConsultation}
           onChange={(e) => setTimeForConsultation(e.target.value)}
@@ -64,7 +68,7 @@ const ConsultationRequestForm: React.FC = () => {
         />
       </label>
 
-      <label>
+      <label className={styles.conLabel}>
         Note
         <select
           value={note}
@@ -79,9 +83,10 @@ const ConsultationRequestForm: React.FC = () => {
         </select>
       </label>
 
-      <label>
+      <label className={styles.conLabel}>
         Permission to Share Test Results
         <input
+          className={styles.conLabelCheck}
           type="checkbox"
           checked={permissionForTestResults}
           onChange={(e) => setPermissionForTestResults(e.target.checked)}
@@ -90,6 +95,8 @@ const ConsultationRequestForm: React.FC = () => {
 
       <button type="submit" className={styles.submitCon}>Submit Request</button>
     </form>
+    </div>
+    
   );
 };
 

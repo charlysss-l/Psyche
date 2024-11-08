@@ -1,5 +1,7 @@
-
-/* Style the form */
+.consulForm{
+  display: flex;
+  justify-content: center;
+}
 .formCon {
   background-color: #ffffff;
   padding: 2rem;
@@ -9,13 +11,10 @@
   max-width: 400px;
   display: flex;
   flex-direction: column;
-
   gap: 1rem;
 }
 
-input[type="text"],
-input[type="date"],
-textarea {
+.conInput{
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ddd;
@@ -23,22 +22,17 @@ textarea {
   font-size: 1rem;
 }
 
-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-label {
+.conLabel {
   font-size: 0.9rem;
   color: #555;
 }
 
-input[type="checkbox"] {
+.conLabelCheck {
   margin-left: 0.5rem;
   transform: scale(1.2);
 }
 
-.submitCon[type="submit"] {
+.submitCon {
   background-color: #000000;
   color: #fff;
   padding: 0.75rem;
@@ -49,6 +43,7 @@ input[type="checkbox"] {
   transition: background-color 0.3s ease;
 }
 
-.submitCon[type="submit"]:hover {
-  background-color: #2f2680;
+.submitCon:hover {
+  background-color: #e8e6e2;
+  color: black;
 }
