@@ -1,0 +1,81 @@
+
+
+// Global container styles
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+// Header styles
+.userinfo_pr {
+  color: #131313;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+// Information container styles
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+// UserID Display styles
+.userIDDisplay {
+  font-size: 14px;
+  color: #131313;
+  margin-bottom: 10px;
+}
+
+// Label and input styles
+.pr_label {
+  font-size: 16px;
+  color: #131313;
+}
+
+.pr_input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: #a0a0a0;
+    outline: none;
+  }
+}
+
+// Button container styles
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+// Submit button styles
+.submitButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e8e6e2;
+    color: black;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

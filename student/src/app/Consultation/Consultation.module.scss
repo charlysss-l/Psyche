@@ -1,0 +1,49 @@
+.consulForm{
+  display: flex;
+  justify-content: center;
+}
+.formCon {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.conInput{
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.conLabel {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.conLabelCheck {
+  margin-left: 0.5rem;
+  transform: scale(1.2);
+}
+
+.submitCon {
+  background-color: #000000;
+  color: #fff;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.submitCon:hover {
+  background-color: #e8e6e2;
+  color: black;
+}

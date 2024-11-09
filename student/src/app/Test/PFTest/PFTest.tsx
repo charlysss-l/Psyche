@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './studentpftest.module.scss';
-import { User16PFTest, Question } from '../../../types/pfTestTypes'; 
-import { useNavigate } from 'react-router-dom';
+import styles from './studentpftest.module.scss'; // Ensure this matches your actual file extension
+import { User16PFTest, Question } from '../../../types/pfTestTypes'; // Adjust the import to match your types
+import {useNavigate} from 'react-router-dom';
 
+// Define the main functional component for the test
 const PFTest: React.FC = () => {
+    // State that holds test data
     const [test, setTest] = useState<User16PFTest | null>(null);
+    // State that manages loading state
     const [loading, setLoading] = useState<boolean>(true);
+    // State that manages error messages
     const [error, setError] = useState<string | null>(null);
+    // State that tracks user responses to questions
     const [responses, setResponses] = useState<Record<string, string>>({});
     const navigate = useNavigate();
 
-    // User info state variables
+    // User info state variables for collecting participant details
     const [userID, setUserID] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
@@ -20,14 +25,11 @@ const PFTest: React.FC = () => {
     const [courseSection, setCourseSection] = useState<string>('');
     const [testType, setTestType] = useState<'Online' | 'Physical'>('Online');
 
-    // Pagination state
-    const [currentPage, setCurrentPage] = useState(1);
-    const questionsPerPage = 5; // Display 5 questions per page
-
     // Function to fetch test data from the server
     const fetchTest = async () => {
         try {
             const response = await axios.get<User16PFTest>('http://localhost:5000/api/16pf/67282807d9bdba831a7e9063');
+            console.log(response.data); // Log the response data to inspect its structure
             setTest(response.data);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred');
@@ -37,62 +39,95 @@ const PFTest: React.FC = () => {
     };
 
     useEffect(() => {
+        // Fetch test data on component mount
         fetchTest();
     }, []);
 
+    // Function to handle changes in question responses
     const handleChange = (questionID: string, value: string) => {
+        // Update responses state with the selected choice
         setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const dataToSubmit = {
-            userID,
-            firstName,
-            lastName,
-            age,
-            sex,
-            courseSection,
-            responses,
-            testType,
+    // Function to handle form submission
+const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Create a map to accumulate scores by factorLetter
+    const scoreMap: Record<string, { rawScore: number; stenScore: number }> = {};
+
+    // Format user responses and accumulate scores for each factorLetter
+    const formattedResponses = Object.entries(responses).map(([questionID, selectedChoice]) => {
+        const question = test?.question.find((q: Question) => q.questionID === questionID);
+        const equivalentScore = question?.choiceEquivalentScore?.[selectedChoice] || 0;
+        const factorLetter = question?.factorLetter || '';
+
+        // If the factorLetter is not empty, accumulate the score
+        if (factorLetter) {
+            if (!scoreMap[factorLetter]) {
+                scoreMap[factorLetter] = { rawScore: 0, stenScore: 1 }; // Initialize if not present
+            }
+            scoreMap[factorLetter].rawScore += equivalentScore;
+        }
+
+        return {
+            questionID,
+            selectedChoice,
+            equivalentScore,
+            factorLetter,
         };
-        try {
-            const response = await axios.post('http://localhost:5000/api/user16pf', dataToSubmit);
-            alert('Test submitted successfully!');
-            localStorage.setItem('pfTestResults', JSON.stringify(dataToSubmit));
-            navigate('/pf-results');
-        } catch (error) {
-            alert('An error occurred while submitting the test.');
-        }
+    });
+
+    // Convert the scoreMap to an array of ScoreEntry objects
+    const scoring = Object.entries(scoreMap).map(([factorLetter, { rawScore, stenScore }]) => ({
+        factorLetter,
+        rawScore,
+        stenScore,
+    }));
+
+    // Prepare data to submit
+    const dataToSubmit = {
+        userID,
+        firstName,
+        lastName,
+        age,
+        sex,
+        courseSection,
+        responses: formattedResponses,
+        scoring, // Use the newly formatted scoring array
+        testType,
     };
 
-    // Pagination logic
-    const indexOfLastQuestion = currentPage * questionsPerPage;
-    const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
-    const currentQuestions = test?.question.slice(indexOfFirstQuestion, indexOfLastQuestion) || [];
+    console.log('Data to submit:', dataToSubmit); // Log data being sent to the server
 
-    // Next and Previous page buttons
-    const handleNext = () => {
-        if (currentPage < Math.ceil((test?.question.length || 0) / questionsPerPage)) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
+    try {
+        // POST request to submit data
+        const response = await axios.post('http://localhost:5000/api/user16pf', dataToSubmit);
+        console.log('Test submitted successfully:', response.data);
+        alert('Test submitted successfully!');
 
-    const handlePrevious = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
+        // Save results to localStorage
+        localStorage.setItem('pfTestResults', JSON.stringify(dataToSubmit));
 
-    // Loading and error states
+        // Navigate to the Result page
+        navigate('/pf-results');
+    } catch (error) {
+        console.error('Error submitting answers:', error);
+        alert('An error occurred while submitting the test.');
+    }
+};
+
+    // Display loading message while fetching data
     if (loading) return <p>Loading...</p>;
+    // Display error message if fetching fails
     if (error) return <p>Error: {error}</p>;
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
+            {/* Form for test submission */}
             <h1>{test?.nameofTest}</h1>
             <p>Number of Questions: {test?.numOfQuestions}</p>
-
+    
             {/* User Info Fields */}
             <div>
                 <input type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required />
@@ -109,14 +144,14 @@ const PFTest: React.FC = () => {
                     <option value="Physical">Physical</option>
                 </select>
             </div>
-
-            {/* Paginated Questions */}
+    
+            {/* Questions */}
             <div className={styles.questionContainer}>
-                {currentQuestions.length > 0 ? (
-                    currentQuestions.map((q: Question, index: number) => (
+                {test?.question && test.question.length > 0 ? (
+                    test.question.map((q: Question, index: number) => (
                         <div className={styles.questionBox} key={q.questionID}>
-                            {/* Display global question number */}
-                            <p>{(currentPage - 1) * questionsPerPage + index + 1}. {q.questionText}</p>
+                            {/* Display question number with question text */}
+                            <p>{index + 1}. {q.questionText}</p>
                             <div>
                                 {Object.entries(q.choices).map(([key, value]) => (
                                     <label key={key}>
@@ -137,14 +172,7 @@ const PFTest: React.FC = () => {
                     <p>No questions available</p>
                 )}
             </div>
-
-            {/* Pagination Controls */}
-            <div className={styles.pagination}>
-                <button type="button" onClick={handlePrevious} disabled={currentPage === 1}>Previous</button>
-                <button type="button" onClick={handleNext} disabled={currentPage === Math.ceil((test?.question.length || 0) / questionsPerPage)}>Next</button>
-            </div>
-
-            <button type="submit">Submit Answers</button>
+            <button type="submit" className={styles.submitPFbutton}>Submit Answers</button>
         </form>
     );
 };

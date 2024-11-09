@@ -6,20 +6,23 @@ const Navbar = () => {
   return (
     <nav className={style.navbar}>
       <div className={style.logo}>
-        <h1>Psychology</h1>
-        <p>16PF & IQ Test</p>
+        <h1>Discover U</h1>
+        <p>Psychology</p>
       </div>
       
-      <div className={style.navbar_st}>
-        <ul className={style.navbar_UL_st}>
-          <li className={style.navbar_LI_st}>
-            <Link to="/" className={style.navlink_st}>Report</Link>
+      <div className={style.navbar_ps}>
+        <ul className={style.navbar_UL_ps}>
+          <li className={style.navbar_LI_ps}>
+            <Link to="/" className={style.navlink_ps}>Report</Link>
           </li>
-          <li className={style.navbar_LI_st}>
-            <Link to="/test" className={style.navlink_st}>Test</Link>
+          <li className={style.navbar_LI_ps}>
+            <Link to="/test" className={style.navlink_ps}>Test</Link>
           </li>
-          <li className={style.navbar_LI_st}>
-            <Link to="/user" className={style.navlink_st}>User</Link>
+          <li className={style.navbar_LI_ps}>
+            <Link to="/user" className={style.navlink_ps}>User</Link>
+          </li>
+          <li className={style.navbar_LI_ps}>
+            <Link to="/login" className={style.navlink_ps}>Login</Link>
           </li>
         </ul>
       </div>

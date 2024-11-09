@@ -30,25 +30,25 @@ $font-color: #45474B;
   text-align: center;
 }
 
-h1 {
+.loginForm_h1 {
   font-size: 2rem;
   color: $font-color;
 }
 
-h2 {
+.loginForm_h2 {
   font-size: 1.2rem;
   margin-top: 10px;
   color: $font-color;
 }
 
-label {
+.logLabel {
   display: block;
   margin: 10px 0 5px;
   color: $font-color;
   font-size: 1rem;
 }
 
-input {
+.logInput {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -58,14 +58,14 @@ input {
   box-sizing: border-box;
 }
 
-input:focus {
+.logInput:focus {
   border-color: #f2f2f2;
   outline: none;
 }
 
-button {
-  background-color: #f2f2f2;
-  color: black;
+.submitButtonLog {
+  background-color: #000000;
+  color: white;
   padding: 12px 20px;
   border: none;
   border-radius: 4px;
@@ -73,10 +73,13 @@ button {
   width: 100%;
   cursor: pointer;
   transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);   
 }
 
-button:hover {
+.submitButtonLog:hover {
   background-color: #f2f2f2;
+  color: black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
 }
 
 .errorMessage {
@@ -84,3 +87,4 @@ button:hover {
   font-size: 0.9rem;
   margin-top: 10px;
 }
+

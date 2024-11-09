@@ -6,8 +6,8 @@ const Navbar = () => {
   return (
     <nav className={style.studentNavbar}>
       <div className={style.logoSection}>
-        <h1>Student</h1>
-        <p>16PF & IQ Test</p>
+        <h1>Discover U</h1>
+        <p>Student</p>
       </div>
       
       <div className={style.navigationSection}>
@@ -19,10 +19,10 @@ const Navbar = () => {
             <Link to="/test" className={style.navLink}>Test</Link>
           </li>
           <li className={style.navItem}>
-            <Link to="/user" className={style.navLink}>Result</Link>
+            <Link to="/result" className={style.navLink}>Result</Link>
           </li>
           <li className={style.navItem}>
-            <Link to="/user" className={style.navLink}>Consultation</Link>
+            <Link to="/consultation" className={style.navLink}>Consultation</Link>
           </li>
           <li className={style.navItem}>
             <Link to="/login" className={style.navLink}>Login</Link>
