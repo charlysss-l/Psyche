@@ -9,7 +9,6 @@ interface ConsultationRequest {
   userId: string;
   timeForConsultation: string;
   note: string;
-  permissionForTestResults: boolean;
   date: string;
   status: string;
 }
@@ -17,6 +16,12 @@ interface ConsultationRequest {
 const SchedulingCalendar: React.FC = () => {
   const [consultationRequests, setConsultationRequests] = useState<ConsultationRequest[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [newSchedule, setNewSchedule] = useState({
+    userId: "",
+    timeForConsultation: "",
+    note: "",
+  });
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     const loadConsultationRequests = async () => {
@@ -44,6 +49,48 @@ const SchedulingCalendar: React.FC = () => {
       );
     } catch (error) {
       console.error("Error accepting consultation request:", error);
+    }
+  };
+
+  const handleScheduleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setNewSchedule((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!selectedDate) {
+      setErrorMessage("Please select a date for the consultation.");
+      return;
+    }
+
+    if (!newSchedule.userId || !newSchedule.timeForConsultation || !newSchedule.note) {
+      setErrorMessage("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const newRequest = {
+        ...newSchedule,
+        date: selectedDate?.toISOString(),
+        status: "pending",
+      };
+
+      const response = await axios.post("http://localhost:5000/api/consult", newRequest);
+      setConsultationRequests((prevRequests) => [...prevRequests, response.data]);
+      setNewSchedule({
+        userId: "",
+        timeForConsultation: "",
+        note: "",
+      });
+      setErrorMessage(""); // Clear error message on successful submit
+    } catch (error) {
+      console.error("Error adding new schedule:", error);
+      setErrorMessage("There was an error adding the schedule. Please try again.");
     }
   };
 
@@ -89,6 +136,41 @@ const SchedulingCalendar: React.FC = () => {
           ) : (
             <p>No requests for this date.</p>
           )}
+
+          <h3>Add New Schedule</h3>
+          {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>User ID:</label>
+              <input
+                type="text"
+                name="userId"
+                value={newSchedule.userId}
+                onChange={handleScheduleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Time for Consultation:</label>
+              <input
+                type="time"
+                name="timeForConsultation"
+                value={newSchedule.timeForConsultation}
+                onChange={handleScheduleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Note:</label>
+              <textarea
+                name="note"
+                value={newSchedule.note}
+                onChange={handleScheduleChange}
+                required
+              />
+            </div>
+            <button type="submit">Add Schedule</button>
+          </form>
         </div>
       )}
     </div>
