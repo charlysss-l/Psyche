@@ -8,6 +8,7 @@ import Calendar from './app/Calendar/Calendar';
 import Profile from './app/Profile/Profile';
 import './App.css';
 import Login from './app/Login/login';
+import SignupForm from './app/Signup/Signup';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="/consultation" element={<Consultation />} />
               <Route path="/profile" element={<Profile />} /> 
               <Route path="/login" element={<Login />} /> 
+              <Route path="/signup" element={<SignupForm />} /> 
             </Routes>
           </div>
         </div>

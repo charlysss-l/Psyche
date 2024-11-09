@@ -49,7 +49,7 @@ const Login: React.FC = () => {
           />
           <label htmlFor="password" className={styles.logLabel}>Password:</label>
           <input
-            className={styles.logInput}
+          className={styles.logInput}
             type="password"
             id="password"
             value={password}
@@ -58,6 +58,7 @@ const Login: React.FC = () => {
           />
           <button type="submit" className={styles.submitButtonLog}>Login</button>
 
+          <h1 className={styles.Signuplink_info}>Don't have an account? <Link to="/signup" className={styles.Signuplink}>Sign Up</Link></h1>
         </form>
       </div>
     </div>
