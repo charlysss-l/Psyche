@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import style from './page.module.scss'; // Importing custom SCSS styles
+import style from './psychologyiqtest.module.scss'; // Importing custom SCSS styles
 
 // Interface defining the structure of a single question
 interface Question {

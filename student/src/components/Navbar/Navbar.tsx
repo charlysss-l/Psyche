@@ -1,26 +1,36 @@
-import React from 'react'
-import style from './page.module.scss'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import style from './studentNavbar.module.scss';
+
 const Navbar = () => {
   return (
-   <nav className={style.navbar}>
-    <ul>
-        <li>
-            <Link to="/" className={style.navlink}>Home</Link>
-        </li>
-        <li>
-            <Link to="/test" className={style.navlink}>Test</Link>
-        </li>
-        <li>
-            <Link to="/result" className={style.navlink}>Result</Link>
-        </li>
-        <li>
-            <Link to="/consultation" className={style.navlink}>Consultation</Link>
-        </li>
-    </ul>
+    <nav className={style.studentNavbar}>
+      <div className={style.logoSection}>
+        <h1>Discover U</h1>
+        <p>Student</p>
+      </div>
+      
+      <div className={style.navigationSection}>
+        <ul className={style.navList}>
+          <li className={style.navItem}>
+            <Link to="/" className={style.navLink}>Home</Link>
+          </li>
+          <li className={style.navItem}>
+            <Link to="/test" className={style.navLink}>Test</Link>
+          </li>
+          <li className={style.navItem}>
+            <Link to="/result" className={style.navLink}>Result</Link>
+          </li>
+          <li className={style.navItem}>
+            <Link to="/consultation" className={style.navLink}>Consultation</Link>
+          </li>
+          <li className={style.navItem}>
+            <Link to="/login" className={style.navLink}>Login</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
-   </nav>
-  )
-}
-
-export default Navbar
+export default Navbar;

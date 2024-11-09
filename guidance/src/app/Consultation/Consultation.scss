@@ -1,0 +1,174 @@
+/* General Layout */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Status Box Container */
+.statusBoxContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.acceptedBox,
+.pendingBox {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  width: 45%;
+  text-align: center;
+}
+
+.acceptedBox {
+  background-color: #d4edda; /* Light green for accepted */
+}
+
+.pendingBox {
+  background-color: #fff3cd; /* Light yellow for pending */
+}
+
+/* Table Container */
+.tableBox {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #e9ecef;
+  text-align: center;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #343a40;
+  color: white;
+}
+
+td {
+  font-size: 14px;
+}
+
+.statusButton {
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.acceptedStatus {
+  background-color: #28a745; /* Green background for accepted status */
+  color: white;
+}
+
+.pendingStatus {
+  background-color: #ffc107; /* Yellow background for pending */
+  color: black;
+}
+
+/* Action Buttons */
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.accept {
+  background-color: #28a745; /* Green for accept */
+  color: white;
+}
+
+.decline {
+  background-color: #dc3545; /* Red for decline */
+  color: white;
+  margin-left: 10px;
+}
+
+.viewInfo {
+  background-color: #6c757d; /* Gray for view info */
+  color: white;
+  cursor: not-allowed;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Decline Modal */
+.declineModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.declineModalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  text-align: center;
+}
+
+.declineModal textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.declineModal button {
+  margin: 5px;
+}
+
+.declineModal button:first-child {
+  background-color: #6c757d;
+  color: white;
+}
+
+.declineModal button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+.warning {
+  background-color: #ffc107;
+  padding: 10px;
+  border-radius: 5px;
+  color: black;
+  font-weight: bold;
+  margin-top: 20px;
+}

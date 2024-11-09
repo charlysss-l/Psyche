@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import style from './studentiqtest.module.scss';
+import {useNavigate} from 'react-router-dom';
+
 
 interface Question {
     questionID: string;
@@ -27,6 +29,9 @@ interface IQTests {
 }
 
 const IQTest: React.FC = () => {
+
+    const navigate = useNavigate();
+
     const [iqTest, setIqTest] = useState<IQTests | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -57,8 +62,17 @@ const IQTest: React.FC = () => {
         setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));
     };
 
+    const calculateScore = () => {
+        const totalCorrect = Object.keys(responses).reduce((total, questionID) => {
+            const question = iqTest?.questions.find(q => q.questionID === questionID);
+            return total + (question?.correctAnswer === responses[questionID] ? 1 : 0);
+        }, 0);
+        return { correctAnswer: `${totalCorrect}`, totalScore: totalCorrect };
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         const responsesWithAnswers = Object.keys(responses).map(questionID => {
             const question = iqTest?.questions.find(q => q.questionID === questionID);
             return {
@@ -68,21 +82,40 @@ const IQTest: React.FC = () => {
             };
         });
 
+        const score = calculateScore();
+        console.log("Calculated Score:", score.totalScore);  // Log the total score
+
+        const interpretation: Interpretation = {
+            ageRange: '20-30',
+            sex,
+            minTestScore: 10,
+            maxTestScore: 100,
+            percentilePoints: 85,
+            resultInterpretation: 'Above average intelligence',
+        };
+
         const dataToSubmit = {
             userID,
             firstName,
             lastName,
             age,
             sex,
-            testID: iqTest?.testID,
+            testID: iqTest?.testID || '',
             responses: responsesWithAnswers,
+            totalScore: score.totalScore,  // Ensure totalScore is passed here
+            interpretation,
             testType,
+            testDate: new Date(),
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/api/userIQtest', dataToSubmit);
+            await axios.post('http://localhost:5000/api/useriq', dataToSubmit);
             alert('Test submitted successfully!');
             localStorage.setItem('iqTestResults', JSON.stringify(dataToSubmit));
+
+            // Navigate to the Result page
+        navigate('/iq-results');
+
         } catch (error) {
             console.error('Error submitting answers:', error);
             alert('An error occurred while submitting the test.');
@@ -93,7 +126,7 @@ const IQTest: React.FC = () => {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <form onSubmit={handleSubmit} className={style.form}>
+        <form onSubmit={handleSubmit} className={style.formTest}>
             <h1>{iqTest?.nameOfTest}</h1>
             <p>Number of Questions: {iqTest?.numOfQuestions}</p>
             <div>
@@ -114,7 +147,7 @@ const IQTest: React.FC = () => {
                 {iqTest?.questions.map((q) => (
                     <div className={style.questionBox} key={q.questionID}>
                         <img src={q.questionImage} alt={`Question ${q.questionID}`} />
-                        <div>
+                        <div className={style.choiceALL}>
                             {q.choicesImage.map((choice, idx) => (
                                 <label key={idx}>
                                     <input

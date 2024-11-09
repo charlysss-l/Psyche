@@ -4,67 +4,68 @@ import { Interpretation, Response as IQResponse } from '../models/UserIQTestSche
 
 // Controller to handle creating a new IQ test result
 export const createIQTestResult = async (req: Request, res: Response) => {
-    const { userID, firstName, lastName, age, sex, testID, responses, interpretation, testType, testDate } = req.body;
+    const { userID, firstName, lastName, age, sex, testID, responses,  interpretation, testType, testDate } = req.body;
 
     try {
-        // Validate that required fields are present
+        // Validate required fields
         if (!userID || !firstName || !lastName || !age || !sex || !testID || !responses || !interpretation || !testType || !testDate) {
             res.status(400).json({ message: 'Missing required fields' });
             return;
         }
 
-        // Check that responses array is not empty and contains the required structure
-        if (!Array.isArray(responses) || responses.length === 0) {
-            res.status(400).json({ message: 'Responses must be a non-empty array' });
-            return;
-        }
-
-        // Map responses ensuring they contain the necessary fields
+        // Process responses and calculate total score
+        let totalScore = 0;
         const mappedResponses = responses.map((response: any) => {
             if (!response.questionID || !response.selectedChoice) {
                 throw new Error('questionID and selectedChoice are required in each response');
             }
+
+            const isCorrect = response.isCorrect;
+            if (isCorrect) totalScore += 1; // Increment score for each correct answer
+
             return {
                 questionID: response.questionID,
                 selectedChoice: response.selectedChoice,
-                isCorrect: response.isCorrect
+                isCorrect,
             };
         });
 
-        // Prepare the interpretation object
+        // Prepare interpretation object
         const testInterpretation: Interpretation = {
             ageRange: interpretation.ageRange,
             sex: interpretation.sex,
             minTestScore: interpretation.minTestScore,
             maxTestScore: interpretation.maxTestScore,
             percentilePoints: interpretation.percentilePoints,
-            resultInterpretation: interpretation.resultInterpretation
+            resultInterpretation: interpretation.resultInterpretation,
         };
 
-        // Create the test document
-        const testDocument = new UserIQTest({
-            userID,
-            firstName,
-            lastName,
-            age,
-            sex,
-            testID,
-            responses: mappedResponses,
-            interpretation: testInterpretation,
-            testType,
-            testDate
-        });
+// Create and save the test document
+const testDocument = new UserIQTest({
+    userID,
+    firstName,
+    lastName,
+    age,
+    sex,
+    testID,
+    responses: mappedResponses,
+    interpretation: testInterpretation,
+    totalScore,  // Pass totalScore directly
+    testType,
+    testDate,
+});
 
-        // Save the test result to the database
+
+
+
         await testDocument.save();
-
         res.status(201).json({ message: 'IQ Test result saved successfully', data: testDocument });
+
     } catch (error) {
         console.error('Error creating IQ test result:', error);
         res.status(500).json({
             message: 'Error saving IQ test result',
             error: error instanceof Error ? error.message : 'An unknown error occurred',
-            stack: error instanceof Error ? error.stack : undefined // Optional: Include stack trace for debugging
         });
     }
 };

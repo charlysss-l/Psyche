@@ -34,10 +34,6 @@ interface Question {
     correctAnswer: string;
 }
 
-interface Scoring {
-    totalScore: { type: Number, required: true },
-}
-
 // UserIQTest interface
 interface UserIQTest extends Document {
     userID: string;
@@ -47,10 +43,14 @@ interface UserIQTest extends Document {
     sex: 'Female' | 'Male';
     testID: string;
     responses: Response[];
-    scoring: Scoring;
+    totalScore: number; // Include totalScore here
     interpretation: Interpretation;
     testType: 'Online' | 'Physical';
     testDate: Date;
+}
+
+export interface totalScore {
+    totalScore: number;
 }
 
 // Response Schema
@@ -86,12 +86,15 @@ const UserIQTestSchema = new Schema<UserIQTest>({
     lastName: { type: String, required: true },
     age: { type: String, required: true },
     sex: { type: String, enum: ['Female', 'Male'], required: true },
-    testID: { type: String, required: true },
+    testID: { type: String, required: true, unique: true },
     responses: [ResponseSchema],
+    totalScore: { type: Number, required: true },  // Direct totalScore as a number
     interpretation: InterpretationSchema, 
     testType: { type: String, enum: ['Online', 'Physical'], required: true },
     testDate: { type: Date, required: true, default: Date.now },
 });
+
+
 
 // Create and export the model
 export default model<UserIQTest>('UserIQTest', UserIQTestSchema);
