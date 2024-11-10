@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const Test16PFController_1 = require("../controllers/Test16PFController");
+const router = (0, express_1.Router)();
+router.post('/', Test16PFController_1.create16PFTest);
+router.get('/', Test16PFController_1.getAll16PFTests);
+router.get('/:id', Test16PFController_1.get16PFTestByID);
+router.put('/:id', Test16PFController_1.update16PFTest);
+router.delete('/:id', Test16PFController_1.delete16PFTest);
+exports.default = router;

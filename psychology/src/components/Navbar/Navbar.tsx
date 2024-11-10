@@ -1,8 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import style from './psychologynavbar.module.scss';
 
 const Navbar = () => {
+  const navigate = useNavigate(); // Initialize the navigate function for redirection
+
+  // Handle logout
+  const handleLogout = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem("token");
+
+    // Redirect to the login page
+    navigate("/");
+  };
+
   return (
     <nav className={style.navbar}>
       <div className={style.logo}>
@@ -13,7 +24,7 @@ const Navbar = () => {
       <div className={style.navbar_ps}>
         <ul className={style.navbar_UL_ps}>
           <li className={style.navbar_LI_ps}>
-            <Link to="/" className={style.navlink_ps}>Report</Link>
+            <Link to="/report" className={style.navlink_ps}>Report</Link>
           </li>
           <li className={style.navbar_LI_ps}>
             <Link to="/test" className={style.navlink_ps}>Test</Link>
@@ -22,7 +33,8 @@ const Navbar = () => {
             <Link to="/user" className={style.navlink_ps}>User</Link>
           </li>
           <li className={style.navbar_LI_ps}>
-            <Link to="/login" className={style.navlink_ps}>Login</Link>
+            {/* Bind the handleLogout function to the Logout link */}
+            <button onClick={handleLogout} className={style.navlink_logout}>Logout</button>
           </li>
         </ul>
       </div>

@@ -11,26 +11,52 @@ import PFTest from './app/Test/PFTest/PFTest';
 import IQTest from './app/Test/IQTest/IQTest';
 import './App.css';
 import Login from './app/Login/login';
-
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSideBar';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Sidebar /> 
-        <div className="main-content">
-          <Navbar /> 
-          <div className="content">
+      <MaybeShowNavSideBar>
+        <Sidebar />
+      </MaybeShowNavSideBar>        <div className="main-content">
+        <MaybeShowNavSideBar>
+        <Navbar />
+      </MaybeShowNavSideBar>          <div className="content">
             <Routes>
-              <Route path="/" element={<Report />} />
-              <Route path="/test" element={<Test />} />
-              <Route path="/user" element={<User />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/omr" element={<OMR />} />
-              <Route path="/pftest" element={<PFTest/>} />
-              <Route path="/login" element={<Login />}  />
-              <Route path="/iqtest" element={<IQTest/>} /> {/* Fixed the path here */}
+              {/* Public route for login */}
+              <Route path="/" element={<Login />} />
 
+              {/* Protected Routes */}
+              <Route
+                path="/report"
+                element={<ProtectedRoute><Report /></ProtectedRoute>}
+              />
+              <Route
+                path="/test"
+                element={<ProtectedRoute><Test /></ProtectedRoute>}
+              />
+              <Route
+                path="/user"
+                element={<ProtectedRoute><User /></ProtectedRoute>}
+              />
+              <Route
+                path="/profile"
+                element={<ProtectedRoute><Profile /></ProtectedRoute>}
+              />
+              <Route
+                path="/omr"
+                element={<ProtectedRoute><OMR /></ProtectedRoute>}
+              />
+              <Route
+                path="/pftest"
+                element={<ProtectedRoute><PFTest /></ProtectedRoute>}
+              />
+              <Route
+                path="/iqtest"
+                element={<ProtectedRoute><IQTest /></ProtectedRoute>}
+              />
             </Routes>
           </div>
         </div>
