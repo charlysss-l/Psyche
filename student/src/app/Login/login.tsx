@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import styles from "./pagelogin.module.scss";
+import styles from "./Studentlogin.module.scss";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
