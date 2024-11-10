@@ -4,7 +4,7 @@ $primary-color: #7EA0B7;         // Primary color for buttons and focus
 $border-radius: 5px;
 $input-border-color: #45474B;    // Darker border for the input fields
 $input-focus-border-color: $primary-color; // Focus color for inputs
-$header-text-color: #2E5266;     // Color for "SAMPLE IQ TEST"
+$header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
 
 .formTest {
   background-color: #ffffff;
@@ -18,10 +18,10 @@ $header-text-color: #2E5266;     // Color for "SAMPLE IQ TEST"
   justify-content: center;
   align-items: center;
   position: absolute;
-
   left: 50%;
   transform: translate(-50%, 0%);
 }
+
 // Container for the form
 .te_container {
   background-color: $form-bg-color;
@@ -31,7 +31,6 @@ $header-text-color: #2E5266;     // Color for "SAMPLE IQ TEST"
   color: $input-border-color;    // Text color set to $input-border-color
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   width: 1000px;
-
 }
 
 // Header for the form (SAMPLE IQ TEST)
@@ -39,13 +38,17 @@ h1 {
   color: $header-text-color;     // Color for the header text (SAMPLE IQ TEST)
   font-size: 2rem;
   margin-bottom: 20px;
+  justify-self: center;
+
 }
 
 // Label styling for inputs
 label {
   display: block;
   margin: 10px 0;
-  color: $input-border-color;    // Label text color set to $input-border-color
+  color: $input-border-color;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  // Label text color set to $input-border-color
 }
 
 // Input fields and select elements
@@ -79,7 +82,6 @@ ul {
   padding: 0;
 }
 
-
 // Update the styles for the questions list
 .questions {
   display: flex;                // Use flexbox for layout
@@ -93,7 +95,6 @@ ul {
 .questionBox {
   margin-bottom: 20px;
   padding: 15px;
- 
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -107,10 +108,9 @@ ul {
   margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #ccc;
-
 }
 
-.choiceALL{
+.choiceALL {
   display: flex;
   width: 700px;
 }
@@ -122,7 +122,6 @@ ul {
   border-radius: 4px;
   border: 1px solid #ccc;
   transition: border-color 0.3s;
-  
 }
 
 // Styling for individual question list items
@@ -167,3 +166,35 @@ li {
   }
 }
 
+// Pagination styling
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: darken($primary-color, 10%); /* Darker shade on hover */
+}
+
+.pagination button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+// Active page button
+.pagination .active {
+  background-color: darken($primary-color, 20%);
+  font-weight: bold;
+}

@@ -95,11 +95,12 @@ label {
 input[type="text"],
 input[type="time"],
 textarea {
-  padding: 8px;
+  padding: 10px;
+  font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  width: 100%; /* Make inputs full width within the form */
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
 input[type="text"]:focus,

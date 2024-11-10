@@ -1,4 +1,4 @@
-$background-color: #858585;
+$background-color: #ffffff;
 $font-color: #45474B;
 
 .loginContainer {
@@ -25,9 +25,11 @@ $font-color: #45474B;
   max-width: 400px;
   width: 200%;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  border-radius: 10px;
   text-align: center;
   margin-right: 550px;
+  font-family: Arial, Helvetica, sans-serif;
+
 }
 
 .loginForm_h1 {
@@ -52,7 +54,7 @@ $font-color: #45474B;
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 1rem;
   margin-bottom: 15px;
   box-sizing: border-box;
@@ -64,11 +66,11 @@ $font-color: #45474B;
 }
 
 .submitButtonLog {
-  background-color: #000000;
-  color: white;
+  background-color: #f3f1f1;
+  color: black;
   padding: 12px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 1rem;
   width: 100%;
   cursor: pointer;
@@ -77,7 +79,7 @@ $font-color: #45474B;
 }
 
 .submitButtonLog:hover {
-  background-color: #f2f2f2;
+  background-color: #f3f1f1;
   color: black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
 }
