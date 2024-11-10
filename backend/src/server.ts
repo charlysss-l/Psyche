@@ -9,7 +9,7 @@ import IQTestRoutes from './routes/IQTestRoutes';
 import uploadRoutes from './controllers/uploadController';
 import consultationsRoutes from './routes/consultationroutes';
 import authPsychRoutes from './authRoutes/authPsychRoutes';
-
+import authGuidanceRoutes from './authRoutes/authGuidanceRoutes';
 
 dotenv.config();
 
@@ -32,7 +32,8 @@ app.use('/api', uploadRoutes);
 app.use('/api/consult', consultationsRoutes);
 
 // Authentication routes
-app.use('/api/auth', authPsychRoutes);  // Add authentication route
+app.use('/api/auth', authPsychRoutes);  
+app.use('/api/authGuidance', authGuidanceRoutes);
 
 const PORT = process.env.PORT || 5000;
 
