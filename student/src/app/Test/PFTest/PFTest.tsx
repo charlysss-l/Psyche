@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './studentpftest.module.scss'; // Ensure this matches your actual file extension
-import { User16PFTest, Question } from '../../../types/pfTestTypes'; // Adjust the import to match your types
-import {useNavigate} from 'react-router-dom';
+import styles from './studentpftest.module.scss';
+import { User16PFTest, Question } from '../../../types/pfTestTypes';
+import { useNavigate } from 'react-router-dom';
 
-// Define the main functional component for the test
 const PFTest: React.FC = () => {
-    // State that holds test data
     const [test, setTest] = useState<User16PFTest | null>(null);
-    // State that manages loading state
     const [loading, setLoading] = useState<boolean>(true);
-    // State that manages error messages
     const [error, setError] = useState<string | null>(null);
-    // State that tracks user responses to questions
     const [responses, setResponses] = useState<Record<string, string>>({});
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const questionsPerPage = 5; // Number of questions per page
     const navigate = useNavigate();
 
-    // User info state variables for collecting participant details
     const [userID, setUserID] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
@@ -25,11 +21,9 @@ const PFTest: React.FC = () => {
     const [courseSection, setCourseSection] = useState<string>('');
     const [testType, setTestType] = useState<'Online' | 'Physical'>('Online');
 
-    // Function to fetch test data from the server
     const fetchTest = async () => {
         try {
             const response = await axios.get<User16PFTest>('http://localhost:5000/api/16pf/67282807d9bdba831a7e9063');
-            console.log(response.data); // Log the response data to inspect its structure
             setTest(response.data);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred');
@@ -39,96 +33,85 @@ const PFTest: React.FC = () => {
     };
 
     useEffect(() => {
-        // Fetch test data on component mount
         fetchTest();
     }, []);
 
-    // Function to handle changes in question responses
     const handleChange = (questionID: string, value: string) => {
-        // Update responses state with the selected choice
         setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));
     };
 
-    // Function to handle form submission
-const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const scoreMap: Record<string, { rawScore: number; stenScore: number }> = {};
 
-    // Create a map to accumulate scores by factorLetter
-    const scoreMap: Record<string, { rawScore: number; stenScore: number }> = {};
+        const formattedResponses = Object.entries(responses).map(([questionID, selectedChoice]) => {
+            const question = test?.question.find((q: Question) => q.questionID === questionID);
+            const equivalentScore = question?.choiceEquivalentScore?.[selectedChoice] || 0;
+            const factorLetter = question?.factorLetter || '';
 
-    // Format user responses and accumulate scores for each factorLetter
-    const formattedResponses = Object.entries(responses).map(([questionID, selectedChoice]) => {
-        const question = test?.question.find((q: Question) => q.questionID === questionID);
-        const equivalentScore = question?.choiceEquivalentScore?.[selectedChoice] || 0;
-        const factorLetter = question?.factorLetter || '';
-
-        // If the factorLetter is not empty, accumulate the score
-        if (factorLetter) {
-            if (!scoreMap[factorLetter]) {
-                scoreMap[factorLetter] = { rawScore: 0, stenScore: 1 }; // Initialize if not present
+            if (factorLetter) {
+                if (!scoreMap[factorLetter]) {
+                    scoreMap[factorLetter] = { rawScore: 0, stenScore: 1 };
+                }
+                scoreMap[factorLetter].rawScore += equivalentScore;
             }
-            scoreMap[factorLetter].rawScore += equivalentScore;
-        }
 
-        return {
-            questionID,
-            selectedChoice,
-            equivalentScore,
+            return {
+                questionID,
+                selectedChoice,
+                equivalentScore,
+                factorLetter,
+            };
+        });
+
+        const scoring = Object.entries(scoreMap).map(([factorLetter, { rawScore, stenScore }]) => ({
             factorLetter,
+            rawScore,
+            stenScore,
+        }));
+
+        const dataToSubmit = {
+            userID,
+            firstName,
+            lastName,
+            age,
+            sex,
+            courseSection,
+            responses: formattedResponses,
+            scoring,
+            testType,
         };
-    });
 
-    // Convert the scoreMap to an array of ScoreEntry objects
-    const scoring = Object.entries(scoreMap).map(([factorLetter, { rawScore, stenScore }]) => ({
-        factorLetter,
-        rawScore,
-        stenScore,
-    }));
-
-    // Prepare data to submit
-    const dataToSubmit = {
-        userID,
-        firstName,
-        lastName,
-        age,
-        sex,
-        courseSection,
-        responses: formattedResponses,
-        scoring, // Use the newly formatted scoring array
-        testType,
+        try {
+            await axios.post('http://localhost:5000/api/user16pf', dataToSubmit);
+            alert('Test submitted successfully!');
+            localStorage.setItem('pfTestResults', JSON.stringify(dataToSubmit));
+            navigate('/pf-results');
+        } catch (error) {
+            console.error('Error submitting answers:', error);
+            alert('An error occurred while submitting the test.');
+        }
     };
 
-    console.log('Data to submit:', dataToSubmit); // Log data being sent to the server
+    const totalPages = test?.question ? Math.ceil(test.question.length / questionsPerPage) : 1;
+    const currentQuestions = test?.question.slice((currentPage - 1) * questionsPerPage, currentPage * questionsPerPage);
 
-    try {
-        // POST request to submit data
-        const response = await axios.post('http://localhost:5000/api/user16pf', dataToSubmit);
-        console.log('Test submitted successfully:', response.data);
-        alert('Test submitted successfully!');
+    const goToNextPage = () => {
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+    };
 
-        // Save results to localStorage
-        localStorage.setItem('pfTestResults', JSON.stringify(dataToSubmit));
+    const goToPreviousPage = () => {
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    };
 
-        // Navigate to the Result page
-        navigate('/pf-results');
-    } catch (error) {
-        console.error('Error submitting answers:', error);
-        alert('An error occurred while submitting the test.');
-    }
-};
-
-    // Display loading message while fetching data
     if (loading) return <p>Loading...</p>;
-    // Display error message if fetching fails
     if (error) return <p>Error: {error}</p>;
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
-            {/* Form for test submission */}
             <h1>{test?.nameofTest}</h1>
             <p>Number of Questions: {test?.numOfQuestions}</p>
-    
-            {/* User Info Fields */}
+
             <div>
                 <input type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required />
                 <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
@@ -144,14 +127,12 @@ const handleSubmit = async (e: React.FormEvent) => {
                     <option value="Physical">Physical</option>
                 </select>
             </div>
-    
-            {/* Questions */}
+
             <div className={styles.questionContainer}>
-                {test?.question && test.question.length > 0 ? (
-                    test.question.map((q: Question, index: number) => (
+                {currentQuestions && currentQuestions.length > 0 ? (
+                    currentQuestions.map((q: Question, index: number) => (
                         <div className={styles.questionBox} key={q.questionID}>
-                            {/* Display question number with question text */}
-                            <p>{index + 1}. {q.questionText}</p>
+                            <p>{(currentPage - 1) * questionsPerPage + index + 1}. {q.questionText}</p>
                             <div>
                                 {Object.entries(q.choices).map(([key, value]) => (
                                     <label key={key}>
@@ -172,7 +153,20 @@ const handleSubmit = async (e: React.FormEvent) => {
                     <p>No questions available</p>
                 )}
             </div>
-            <button type="submit" className={styles.submitPFbutton}>Submit Answers</button>
+
+            <div className={styles.pagination}>
+                <button type="button" onClick={goToPreviousPage} disabled={currentPage === 1}>
+                    Previous
+                </button>
+                <span>Page {currentPage} of {totalPages}</span>
+                <button type="button" onClick={goToNextPage} disabled={currentPage === totalPages}>
+                    Next
+                </button>
+            </div>
+
+            {currentPage === totalPages && (
+                <button type="submit" className={styles.submitPFbutton}>Submit Answers</button>
+            )}
         </form>
     );
 };

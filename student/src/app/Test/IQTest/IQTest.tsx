@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import style from './studentiqtest.module.scss';
-import {useNavigate} from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 interface Question {
     questionID: string;
@@ -29,9 +28,7 @@ interface IQTests {
 }
 
 const IQTest: React.FC = () => {
-
     const navigate = useNavigate();
-
     const [iqTest, setIqTest] = useState<IQTests | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -42,6 +39,8 @@ const IQTest: React.FC = () => {
     const [age, setAge] = useState<string>('');
     const [sex, setSex] = useState<'Male' | 'Female'>('Male');
     const [testType, setTestType] = useState<'Online' | 'Physical'>('Online');
+    const [currentPage, setCurrentPage] = useState(1);
+    const questionsPerPage = 5; // Display 5 questions per page
 
     const fetchTest = async () => {
         try {
@@ -72,7 +71,6 @@ const IQTest: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
         const responsesWithAnswers = Object.keys(responses).map(questionID => {
             const question = iqTest?.questions.find(q => q.questionID === questionID);
             return {
@@ -83,8 +81,6 @@ const IQTest: React.FC = () => {
         });
 
         const score = calculateScore();
-        console.log("Calculated Score:", score.totalScore);  // Log the total score
-
         const interpretation: Interpretation = {
             ageRange: '20-30',
             sex,
@@ -102,7 +98,7 @@ const IQTest: React.FC = () => {
             sex,
             testID: iqTest?.testID || '',
             responses: responsesWithAnswers,
-            totalScore: score.totalScore,  // Ensure totalScore is passed here
+            totalScore: score.totalScore,
             interpretation,
             testType,
             testDate: new Date(),
@@ -112,18 +108,23 @@ const IQTest: React.FC = () => {
             await axios.post('http://localhost:5000/api/useriq', dataToSubmit);
             alert('Test submitted successfully!');
             localStorage.setItem('iqTestResults', JSON.stringify(dataToSubmit));
-
-            // Navigate to the Result page
-        navigate('/iq-results');
-
+            navigate('/iq-results');
         } catch (error) {
             console.error('Error submitting answers:', error);
             alert('An error occurred while submitting the test.');
         }
     };
 
+    const handleNextPage = () => setCurrentPage(prev => prev + 1);
+    const handlePrevPage = () => setCurrentPage(prev => prev - 1);
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
+
+    const totalQuestions = iqTest?.questions.length || 0;
+    const totalPages = Math.ceil(totalQuestions / questionsPerPage);
+    const startIndex = (currentPage - 1) * questionsPerPage;
+    const currentQuestions = iqTest?.questions.slice(startIndex, startIndex + questionsPerPage);
 
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>
@@ -144,7 +145,7 @@ const IQTest: React.FC = () => {
                 </select>
             </div>
             <div className={style.questionContainer}>
-                {iqTest?.questions.map((q) => (
+                {currentQuestions?.map((q) => (
                     <div className={style.questionBox} key={q.questionID}>
                         <img src={q.questionImage} alt={`Question ${q.questionID}`} />
                         <div className={style.choiceALL}>
@@ -164,7 +165,18 @@ const IQTest: React.FC = () => {
                     </div>
                 ))}
             </div>
-            <button type="submit">Submit Answers</button>
+            <div className={style.pagination}>
+                <button type="button" onClick={handlePrevPage} disabled={currentPage === 1}>
+                    Previous
+                </button>
+                <span>Page {currentPage} of {totalPages}</span>
+                <button type="button" onClick={handleNextPage} disabled={currentPage === totalPages}>
+                    Next
+                </button>
+            </div>
+            {currentPage === totalPages && (
+                <button type="submit">Submit Answers</button>
+            )}
         </form>
     );
 };
