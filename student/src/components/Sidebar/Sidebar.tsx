@@ -8,13 +8,13 @@ const Sidebar: React.FC = () => {
       <ul className={style.sidebar_UL}>
         <li className={style.sidebar_LI}>
           <Link to="/profile" className={style.link}>
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg" alt="Profile Icon" className={style.icon} />
+            <img src="https://cdn-icons-png.flaticon.com/512/848/848043.png" alt="Profile Icon" className={style.icon} />
             Profile
           </Link>
         </li>
         <li className={style.sidebar_LI}>
           <Link to="/omr" className={style.link}>
-            <img src="https://static-00.iconduck.com/assets.00/camera-icon-2048x1821-0b66mmq3.png" alt="OMR Icon" className={style.icon} />
+            <img src="https://cdn-icons-png.flaticon.com/512/9536/9536628.png" alt="OMR Icon" className={style.icon} />
             OMR
           </Link>
         </li>

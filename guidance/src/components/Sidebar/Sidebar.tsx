@@ -8,7 +8,7 @@ const Sidebar: React.FC = () => {
       <ul className={style.sidebar_UL_gd}>
         <li className={style.sidebar_LI_gd}>
           <Link to="/profile" className={style.link_gd}>
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg" alt="Profile Icon" className={style.icon} />
+            <img src="https://cdn-icons-png.flaticon.com/512/9536/9536628.png" alt="Profile Icon" className={style.icon} />
             Profile
           </Link>
         </li>
