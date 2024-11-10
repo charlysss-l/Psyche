@@ -1,6 +1,28 @@
 /* General Layout */
+$font-family: Arial, sans-serif;
+$font-size-small: 14px;
+$font-size-medium: 18px;
+$font-size-large: 24px;
+
+$bg-color-light-green: #d4edda;
+$bg-color-light-yellow: #fff3cd;
+$bg-color-light-gray: #f4f4f4;
+$bg-color-gray: #f8f9fa;
+$bg-color-dark-gray: #343a40;
+$bg-color-light-gray-2: #e9ecef;
+$bg-color-green: #28a745;
+$bg-color-yellow: #ffc107;
+$bg-color-red: #dc3545;
+$bg-color-dark-gray-2: #6c757d;
+$bg-color-black-overlay: rgba(0, 0, 0, 0.5);
+
+$border-radius: 5px;
+$padding-small: 5px 10px;
+$padding-medium: 8px 16px;
+$padding-large: 12px;
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: $font-family;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -8,12 +30,12 @@ body {
 
 h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: $font-size-medium;
 }
 
 h2 {
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: $font-size-large;
 }
 
 /* Status Box Container */
@@ -21,102 +43,102 @@ h2 {
   display: flex;
   justify-content: space-between;
   margin: 20px 0;
-}
 
-.acceptedBox,
-.pendingBox {
-  background-color: #f4f4f4;
-  padding: 10px;
-  border-radius: 5px;
-  width: 45%;
-  text-align: center;
-}
+  .acceptedBox,
+  .pendingBox {
+    background-color: $bg-color-light-gray;
+    padding: 10px;
+    border-radius: $border-radius;
+    width: 45%;
+    text-align: center;
+  }
 
-.acceptedBox {
-  background-color: #d4edda; /* Light green for accepted */
-}
+  .acceptedBox {
+    background-color: $bg-color-light-green; /* Light green for accepted */
+  }
 
-.pendingBox {
-  background-color: #fff3cd; /* Light yellow for pending */
+  .pendingBox {
+    background-color: $bg-color-light-yellow; /* Light yellow for pending */
+  }
 }
 
 /* Table Container */
 .tableBox {
   margin: 20px 0;
   padding: 15px;
-  border-radius: 5px;
-  background-color: #f8f9fa;
+  border-radius: $border-radius;
+  background-color: $bg-color-gray;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #e9ecef;
+  background-color: $bg-color-light-gray-2;
   text-align: center;
-  border-radius: 5px;
+  border-radius: $border-radius;
   overflow: hidden;
-}
 
-th,
-td {
-  padding: 12px;
-  border: 1px solid #ddd;
-}
+  th,
+  td {
+    padding: $padding-large;
+    border: 1px solid #ddd;
+  }
 
-th {
-  background-color: #343a40;
-  color: white;
-}
+  th {
+    background-color: $bg-color-dark-gray;
+    color: white;
+  }
 
-td {
-  font-size: 14px;
+  td {
+    font-size: $font-size-small;
+  }
 }
 
 .statusButton {
-  padding: 5px 10px;
+  padding: $padding-small;
   border-radius: 3px;
-  font-size: 14px;
-}
+  font-size: $font-size-small;
 
-.acceptedStatus {
-  background-color: #28a745; /* Green background for accepted status */
-  color: white;
-}
+  &.acceptedStatus {
+    background-color: $bg-color-green; /* Green background for accepted status */
+    color: white;
+  }
 
-.pendingStatus {
-  background-color: #ffc107; /* Yellow background for pending */
-  color: black;
+  &.pendingStatus {
+    background-color: $bg-color-yellow; /* Yellow background for pending */
+    color: black;
+  }
 }
 
 /* Action Buttons */
 button {
-  padding: 8px 16px;
+  padding: $padding-medium;
   border: none;
-  border-radius: 5px;
+  border-radius: $border-radius;
   cursor: pointer;
-  font-size: 14px;
-}
+  font-size: $font-size-small;
 
-.accept {
-  background-color: #28a745; /* Green for accept */
-  color: white;
-}
+  &.accept {
+    background-color: $bg-color-green; /* Green for accept */
+    color: white;
+  }
 
-.decline {
-  background-color: #dc3545; /* Red for decline */
-  color: white;
-  margin-left: 10px;
-}
+  &.decline {
+    background-color: $bg-color-red; /* Red for decline */
+    color: white;
+    margin-left: 10px;
+  }
 
-.viewInfo {
-  background-color: #6c757d; /* Gray for view info */
-  color: white;
-  cursor: not-allowed;
-}
+  &.viewInfo {
+    background-color: $bg-color-dark-gray-2; /* Gray for view info */
+    color: white;
+    cursor: not-allowed;
+  }
 
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }
 
 /* Decline Modal */
@@ -126,48 +148,48 @@ button:disabled {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: $bg-color-black-overlay;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 10;
-}
 
-.declineModalContent {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  width: 400px;
-  text-align: center;
-}
+  .declineModalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: $border-radius;
+    width: 400px;
+    text-align: center;
 
-.declineModal textarea {
-  width: 100%;
-  height: 100px;
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: $border-radius;
+    }
 
-.declineModal button {
-  margin: 5px;
-}
+    button {
+      margin: 5px;
 
-.declineModal button:first-child {
-  background-color: #6c757d;
-  color: white;
-}
+      &:first-child {
+        background-color: $bg-color-dark-gray-2;
+        color: white;
+      }
 
-.declineModal button:last-child {
-  background-color: #dc3545;
-  color: white;
+      &:last-child {
+        background-color: $bg-color-red;
+        color: white;
+      }
+    }
+  }
 }
 
 .warning {
-  background-color: #ffc107;
+  background-color: $bg-color-yellow;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: $border-radius;
   color: black;
   font-weight: bold;
   margin-top: 20px;

@@ -1,155 +1,172 @@
+$main-bg: #f4f2ee;
+$button-bg: #d7d5d1;
+$button-hover-bg: #e8e6e2;
+$container-bg: #ffffff;
+$container-hover-bg: #f3f1f1;
+$main-text: #131313;
+$navbar-text: #626262;
+$navbar-hover-text: #131313;
+$border-radius: 10px;
+
 .calendarContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-    background-color: #f4f2ee; /* Main background color */
-    border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  background-color: $main-bg; /* Main background color */
+  border-radius: $border-radius;
+  width: 90%; /* Reduced width */
+  max-width: 700px; /* Maximum width of the container */
+}
+
+.requestList {
+  width: 100%;
+  max-width: 700px; /* Reduced max width */
+  margin-top: 20px;
+  background-color: $container-bg; /* Container background color */
+  border-radius: $border-radius;
+  padding: 15px;
+}
+
+h2,
+h3 {
+  text-align: center;
+  color: $main-text; /* Main text color */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: $main-text;
+  color: white;
+  font-weight: bold;
+}
+
+button {
+  background-color: $button-bg; /* Button color */
+  color: $main-text; /* Button text color */
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $button-hover-bg; /* Button hover color */
   }
-  
-  .requestList {
-    width: 100%;
-    max-width: 800px;
-    margin-top: 20px;
-    background-color: #ffffff; /* Container background color */
-    border-radius: 10px;
-    padding: 15px;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #f9f9f9; /* Form background color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Reduced width */
+  max-width: 500px; /* Maximum width of the form */
+  margin-left: auto; /* Center the form */
+  margin-right: auto; /* Center the form */
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+input[type="text"],
+input[type="time"],
+textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%; /* Make inputs full width within the form */
+}
+
+input[type="text"]:focus,
+input[type="time"]:focus,
+textarea:focus {
+  border-color: $main-text;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+button[type="submit"] {
+  background-color: $button-bg; /* Submit button color */
+  color: $main-text;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    background-color: $button-hover-bg; /* Submit button hover color */
   }
-  
-  h2,
-  h3 {
-    text-align: center;
-    color: #131313; /* Main text color */
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  table th,
-  table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-  }
-  
-  button {
-    background-color: #d7d5d1; /* Button color */
-    color: #131313; /* Button text color */
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #e8e6e2; /* Button hover color */
-    }
-  }
-  
-  form {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    background-color: #f9f9f9; /* Form background color */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  form div {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    font-size: 14px;
-    margin-bottom: 6px;
-    color: #555;
-  }
-  
-  input[type="text"],
-  input[type="time"],
-  textarea {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  input[type="text"]:focus,
-  input[type="time"]:focus,
-  textarea:focus {
-    border-color: #4caf50;
-    outline: none;
-  }
-  
-  textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-  
-  button[type="submit"] {
-    background-color: #d7d5d1; /* Submit button color */
-    color: #131313;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-  
-    &:hover {
-      background-color: #e8e6e2; /* Submit button hover color */
-    }
-  }
-  
-  .errorMessage {
-    color: red;
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  p {
-    text-align: center;
-    font-size: 16px;
-    color: #666;
-  }
-  
-  .react-calendar {
-    background-color: #131313; /* Black background for calendar */
-    color: white; /* White text for calendar */
-    border-radius: 10px;
-    padding: 10px;
-  }
-  
-  .react-calendar__navigation {
-    background-color: #131313;
-    color: white;
-    border-radius: 10px;
-  }
-  
-  .react-calendar__tile {
-    background-color: #333; /* Dark background for the tiles */
-    color: white; /* White text for tiles */
-  }
-  
-  .react-calendar__tile--active {
-    background-color: #4caf50; /* Green active tile */
-  }
-  
-  .react-calendar__tile--hover {
-    background-color: #555; /* Slightly lighter hover background */
-  }
-  
-  .react-calendar__month-view__days__day {
-    color: white; /* Ensure all day numbers are white */
-  }
-  
+}
+
+.errorMessage {
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+p {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
+
+.react-calendar {
+  background-color: $main-text; /* Black background for calendar */
+  color: white; /* White text for calendar */
+  border-radius: $border-radius;
+  padding: 10px;
+}
+
+.react-calendar__navigation {
+  background-color: $main-text;
+  color: white;
+  border-radius: $border-radius;
+}
+
+.react-calendar__tile {
+  background-color: #333; /* Dark background for the tiles */
+  color: white; /* White text for tiles */
+}
+
+.react-calendar__tile--active {
+  background-color: red; /* Green active tile */
+}
+
+.react-calendar__tile--hover {
+  background-color: #555; /* Slightly lighter hover background */
+}
+
+.react-calendar__month-view__days__day {
+  color: white; /* Ensure all day numbers are white */
+}

@@ -1,0 +1,79 @@
+$main-bg: #f4f2ee;
+$button-bg: #d7d5d1;
+$button-hover-bg: #e8e6e2;
+$container-bg: #ffffff;
+$container-hover-bg: #f3f1f1;
+$main-text: #131313;
+$navbar-text: #626262;
+$navbar-hover-text: #131313;
+$border-radius: 10px;
+
+.container {
+  background-color: $container-bg;
+  border-radius: $border-radius;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  width: 400px; // Set the width of the form
+  margin: 0 auto; // Center the form horizontally
+
+  &:hover {
+    background-color: $container-hover-bg;
+  }
+}
+
+.userinfo_pr {
+  color: $main-text;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.userIDDisplay {
+  font-size: 16px;
+  color: $main-text;
+}
+
+.pr_label {
+  font-size: 14px;
+  color: $navbar-text;
+  margin-bottom: 5px;
+}
+
+.pr_input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: $border-radius;
+  outline: none;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: $main-text;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.submitButton {
+  background-color: $button-bg;
+  color: $main-text;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $button-hover-bg;
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './psychologyprofile.module.scss';
+import style from './Guidanceprofile.module.scss';
 
 const Profile = () => {
 
