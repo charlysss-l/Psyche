@@ -11,7 +11,7 @@ import consultationsRoutes from './routes/consultationroutes';
 import authPsychRoutes from './authRoutes/authPsychRoutes';
 import authGuidanceRoutes from './authRoutes/authGuidanceRoutes';
 import authStudentsRoutes from './authRoutes/authStudentsRoutes';
-
+import userRoutes from './authRoutes/userRoutes';
 
 dotenv.config();
 
@@ -37,6 +37,8 @@ app.use('/api/consult', consultationsRoutes);
 app.use('/api/auth', authPsychRoutes);
 app.use('/api/authGuidance', authGuidanceRoutes);
 app.use('/api/authStudents', authStudentsRoutes);
+
+app.use('/api/allusers', userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
