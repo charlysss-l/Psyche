@@ -64,7 +64,7 @@ const PFResultsList: React.FC = () => {
   console.log('Results State:', results);
 
   return (
-    <div className={styles.tableContainer}>
+    <div>
       <h2>PF Results List</h2>
       {results.length > 0 ? (
         <table className={styles.resultsTable}>
@@ -81,7 +81,7 @@ const PFResultsList: React.FC = () => {
           </thead>
           <tbody>
             {results.map((result) => (
-              <tr key={result.userID}>
+              <tr key={result.userID} className={styles.eachResultPF}>
                 <td>{result.firstName} {result.lastName}</td>
                 <td>{result.age}</td>
                 <td>{result.sex}</td>

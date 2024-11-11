@@ -14,7 +14,7 @@ import Login from './app/Login/login';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSideBar';
 import PFResultsList from './app/Test/PFTest/PFResultsList/PFResultsList';
-import IQResultsList from './app/Test/IQTest/IQResultsList';
+import IQResultsList from './app/Test/IQTest/IQResultsList/IQResultsList';
 
 function App() {
   return (

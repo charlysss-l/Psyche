@@ -60,13 +60,13 @@ const IQResultsList: React.FC = () => {
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
   return (
-    <div className={styles.tableContainer}>
+    <div>
       <h2>IQ Results List</h2>
       {results.length > 0 ? (
-        <table className={styles.resultsTable}>
+        <table className={styles.resultsTableIQ}>
           <thead>
             <tr>
-              <th>Name</th>
+              <th >Name</th>
               <th>Age</th>
               <th>Sex</th>
               <th>Test Type</th>
@@ -76,16 +76,17 @@ const IQResultsList: React.FC = () => {
               <th>Interpretation</th>
             </tr>
           </thead>
+
           <tbody>
             {results.map((result) => (
-              <tr key={result.userID}>
+              <tr key={result.userID} className={styles.eachResultIQ}>
                 <td>{result.firstName} {result.lastName}</td>
                 <td>{result.age}</td>
                 <td>{result.sex}</td>
                 <td>{result.testType}</td>
                 <td>{new Date(result.testDate).toLocaleDateString()}</td>
                 <td>
-                  <table className={styles.responsesTable}>
+                  <table >
                     <thead>
                       <tr>
                         <th>Question ID</th>

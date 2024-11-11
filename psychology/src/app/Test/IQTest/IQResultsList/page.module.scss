@@ -1,5 +1,5 @@
 
-.resultsTable {
+.resultsTableIQ {
     border-collapse: collapse; 
     font-size: 15px;
     background-color: rgb(255, 252, 252);
@@ -8,7 +8,7 @@
   }
   
 
-  .resultsTable th {
+  .resultsTableIQ th {
     color: #333;
     padding: 10px;
     text-align: center;
@@ -18,14 +18,14 @@
   }
   
 
-  .resultsTable td {
+  .resultsTableIQ td {
     padding: 5px;
     font-size: 13px;
     border-bottom: 1px solid #9e979791; 
   }
   
 
-  .eachResultPF:hover {
+  .eachResultIQ:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
     transform: translateY(-5px); 
     cursor: pointer;
