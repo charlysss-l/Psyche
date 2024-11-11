@@ -33,12 +33,17 @@ const Login: React.FC = () => {
           navigate("/report"); // Redirect to /report route
         }, 1500); // 1.5 seconds delay
       } else {
-        setError("Invalid email or password.");
+        setError("Invalid username or password.");
       }
     } catch (error) {
-      // Type assertion to any, or you can handle based on your requirements
       const err = error as any; // type assertion
-      setError("Invalid Credentials!");
+      if (err?.message === "Invalid username") {
+        setError("Invalid username.");
+      } else if (err?.message === "Invalid password") {
+        setError("Invalid password.");
+      } else {
+        setError("Invalid Credentials!");
+      }
       console.error(err);
     }
   };
