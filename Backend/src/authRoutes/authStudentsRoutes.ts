@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { signupStudent, loginStudent } from '../authControllers/authStudentsController';
+import { signupStudent, loginStudent, updateStudentProfile, getStudentProfile } from '../authControllers/authStudentsController';
 
 const router = Router();
 
@@ -21,4 +21,21 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
     }
 });
 
+// Update Student Profile
+router.put('/update', async (req: Request, res: Response) => {
+    try {
+        await updateStudentProfile(req, res);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Get Student Profile
+router.get('/profile', async (req: Request, res: Response) => {
+    try {
+        await getStudentProfile(req, res);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 export default router;
