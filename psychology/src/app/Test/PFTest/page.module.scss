@@ -63,3 +63,23 @@ h2 {
     font-size: 16px;
   }
   
+  .testResultsLink {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #75c3e2;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0056b3;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.75);
+    }
+}

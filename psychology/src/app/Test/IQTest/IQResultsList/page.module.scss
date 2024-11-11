@@ -35,9 +35,8 @@
 
   // Define a class for resizing the selected choice images
 .selected-choice-img {
-  width: 50px;  // Adjust width as needed
+  width: 60px;  // Adjust width as needed
   height: 50px; // Adjust height as needed
-  object-fit: cover;  // Maintain aspect ratio and crop if necessary
   margin: 0 auto; // Center image in table cell
 }
 
@@ -66,5 +65,6 @@
 .pagination span {
   font-size: 16px;
 }
+
 
   
