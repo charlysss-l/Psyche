@@ -3,12 +3,12 @@
 
 .sidebar {
   padding: 20px;
-  width: 150px; /* Adjust width for 1440x900 resolution */
+  width: 150px; 
   height: 100vh; 
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centers items vertically */
-  align-items: center;     /* Centers items horizontally */
+  justify-content: center; 
+  align-items: center;     
   box-shadow: 0 0px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   margin: 0;
@@ -30,7 +30,7 @@
 }
 
 
-.link {
+.link{
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -56,4 +56,7 @@
 }
 .link:hover{
   background-color: #e7e5e1;
+}
+.link:active{
+  background-color: red;
 }
