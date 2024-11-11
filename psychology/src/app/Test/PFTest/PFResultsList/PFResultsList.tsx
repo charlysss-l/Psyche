@@ -29,6 +29,8 @@ const PFResultsList: React.FC = () => {
   const [results, setResults] = useState<User16PFTest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultsPerPage = 8;
 
   // Fetch data function
   const fetchData = async () => {
@@ -60,81 +62,106 @@ const PFResultsList: React.FC = () => {
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
-  // Log results state to verify data before rendering
-  console.log('Results State:', results);
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(results.length / resultsPerPage);
+
+  // Slice results based on the current page
+  const currentResults = results.slice(
+    (currentPage - 1) * resultsPerPage,
+    currentPage * resultsPerPage
+  );
 
   return (
     <div>
       <h2>PF Results List</h2>
       {results.length > 0 ? (
-        <table className={styles.resultsTable}>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Sex</th>
-              <th>Course Section</th>
-              <th>Test Type</th>
-              <th>Responses</th>
-              <th>Scores</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.map((result) => (
-              <tr key={result.userID} className={styles.eachResultPF}>
-                <td>{result.firstName} {result.lastName}</td>
-                <td>{result.age}</td>
-                <td>{result.sex}</td>
-                <td>{result.courseSection}</td>
-                <td>{result.testType}</td>
-                <td>
-                  {/* Displaying the responses in a table */}
-                  <table className={styles.responsesTable}>
-                    <thead>
-                      <tr>
-                        <th>Question Number</th>
-                        <th>Selected Choice</th>
-                        <th>Equivalent Score</th>
-                        <th>Factor Letter</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {result.responses.map((response, index) => (
-                        <tr key={index}>
-                          <td>{response.questionID}</td>
-                          <td>{response.selectedChoice}</td>
-                          <td>{response.equivalentScore}</td>
-                          <td>{response.factorLetter}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </td>
-                <td>
-                  {/* Displaying the scores */}
-                  <table className={styles.scoresTable}>
-                    <thead>
-                      <tr>
-                        <th>Factor Letter</th>
-                        <th>Raw Score</th>
-                        <th>Sten Score</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {result.scoring.scores.map((score, index) => (
-                        <tr key={index}>
-                          <td>{score.factorLetter}</td>
-                          <td>{score.rawScore}</td>
-                          <td>{score.stenScore}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </td>
+        <div>
+          <table className={styles.resultsTable}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Course Section</th>
+                <th>Test Type</th>
+                <th>Responses</th>
+                <th>Scores</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {currentResults.map((result) => (
+                <tr key={result.userID} className={styles.eachResultPF}>
+                  <td>{result.firstName} {result.lastName}</td>
+                  <td>{result.age}</td>
+                  <td>{result.sex}</td>
+                  <td>{result.courseSection}</td>
+                  <td>{result.testType}</td>
+                  <td>
+                    <table className={styles.responsesTable}>
+                      <thead>
+                        <tr>
+                          <th>Question Number</th>
+                          <th>Selected Choice</th>
+                          <th>Equivalent Score</th>
+                          <th>Factor Letter</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {result.responses.map((response, index) => (
+                          <tr key={index}>
+                            <td>{response.questionID}</td>
+                            <td>{response.selectedChoice}</td>
+                            <td>{response.equivalentScore}</td>
+                            <td>{response.factorLetter}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </td>
+                  <td>
+                    <table className={styles.scoresTable}>
+                      <thead>
+                        <tr>
+                          <th>Factor Letter</th>
+                          <th>Raw Score</th>
+                          <th>Sten Score</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {result.scoring.scores.map((score, index) => (
+                          <tr key={index}>
+                            <td>{score.factorLetter}</td>
+                            <td>{score.rawScore}</td>
+                            <td>{score.stenScore}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Pagination Controls */}
+          <div className={styles.pagination}>
+            <button
+              onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        </div>
       ) : (
         <p>No results found.</p>
       )}

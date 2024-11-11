@@ -31,11 +31,12 @@ interface Test {
     question: Question[];
 }
 
-
 const PFTest: React.FC = () => {
     const [pfTest, setPfTest] = useState<Test[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const resultsPerPage = 10;
 
     const fetchData = async () => {
         try {
@@ -59,6 +60,18 @@ const PFTest: React.FC = () => {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
+    // Flatten questions across all tests
+    const allQuestions = pfTest.flatMap(test => test.question);
+
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(allQuestions.length / resultsPerPage);
+
+    // Slice questions based on the current page
+    const currentQuestions = allQuestions.slice(
+        (currentPage - 1) * resultsPerPage,
+        currentPage * resultsPerPage
+    );
+
     return (
         <div>
             <table className={style.table}>
@@ -77,7 +90,8 @@ const PFTest: React.FC = () => {
                     ))}
                 </tbody>
             </table>
-                    <Link to="/pfresults_list">Test Results</Link>
+            <Link to="/pfresults_list">Test Results</Link>
+
             <h2>Questions</h2>
             <table className={style.table}>
                 <thead>
@@ -90,33 +104,46 @@ const PFTest: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {pfTest.flatMap(test =>
-                        test.question.map(q => (
-                            <React.Fragment key={q.questionID}>
-                                <tr>
-                                    <td className={style.td}>{q.factorLetter}</td>
-                                    <td className={style.td}>{q.questionNum}</td>
-                                    <td className={style.td}>{q.questionText}</td>
-                                    <td className={style.td}>
-                                        A: {q.choices.a}<br />
-                                        B: {q.choices.b}<br />
-                                        C: {q.choices.c}
-                                    </td>
-                                    <td className={style.td}>
-                                        A: {q.choiceEquivalentScore.a}<br />
-                                        B: {q.choiceEquivalentScore.b}<br />
-                                        C: {q.choiceEquivalentScore.c}
-                                    </td>
-                                </tr>
-                            </React.Fragment>
-                        ))
-                    )}
+                    {currentQuestions.map(q => (
+                        <tr key={q.questionID}>
+                            <td className={style.td}>{q.factorLetter}</td>
+                            <td className={style.td}>{q.questionNum}</td>
+                            <td className={style.td}>{q.questionText}</td>
+                            <td className={style.td}>
+                                A: {q.choices.a}<br />
+                                B: {q.choices.b}<br />
+                                C: {q.choices.c}
+                            </td>
+                            <td className={style.td}>
+                                A: {q.choiceEquivalentScore.a}<br />
+                                B: {q.choiceEquivalentScore.b}<br />
+                                C: {q.choiceEquivalentScore.c}
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
+
+            {/* Pagination Controls */}
+            <div className={style.pagination}>
+                <button
+                    onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </button>
+                <span>
+                    Page {currentPage} of {totalPages}
+                </span>
+                <button
+                    onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     );
 };
 
 export default PFTest;
-
-

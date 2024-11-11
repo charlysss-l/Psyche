@@ -2,8 +2,8 @@ import { Schema, model, Document } from 'mongoose';
 
 // Define the structure for Responses
 export interface Response {
-    questionID: string; 
-    selectedChoice: string; 
+    questionID: string;
+    selectedChoice: string;
     isCorrect: boolean;
 }
 
@@ -39,7 +39,7 @@ interface UserIQTest extends Document {
     userID: string;
     firstName: string;
     lastName: string;
-    age: string;
+    age: number;  // Changed from string to number
     sex: 'Female' | 'Male';
     testID: string;
     responses: Response[];
@@ -84,7 +84,7 @@ const UserIQTestSchema = new Schema<UserIQTest>({
     userID: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    age: { type: String, required: true },
+    age: { type: Number, required: true },  // Changed from String to Number
     sex: { type: String, enum: ['Female', 'Male'], required: true },
     testID: { type: String, required: true, unique: true },
     responses: [ResponseSchema],
@@ -93,8 +93,6 @@ const UserIQTestSchema = new Schema<UserIQTest>({
     testType: { type: String, enum: ['Online', 'Physical'], required: true },
     testDate: { type: Date, required: true, default: Date.now },
 });
-
-
 
 // Create and export the model
 export default model<UserIQTest>('UserIQTest', UserIQTestSchema);

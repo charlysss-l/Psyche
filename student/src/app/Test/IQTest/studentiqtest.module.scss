@@ -11,14 +11,14 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 800px;
+  width: 1100px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 50%;
+  left: 55%;
   transform: translate(-50%, 0%);
 }
 
@@ -112,7 +112,6 @@ ul {
 
 .choiceALL {
   display: flex;
-  width: 700px;
 }
 
 .choiceALL img {
@@ -122,6 +121,8 @@ ul {
   border-radius: 4px;
   border: 1px solid #ccc;
   transition: border-color 0.3s;
+  margin-left: 110px;
+  margin: 5px;
 }
 
 // Styling for individual question list items

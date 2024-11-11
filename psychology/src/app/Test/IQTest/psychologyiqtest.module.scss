@@ -1,0 +1,46 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 10px 15px;
+    margin: 0 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    font-size: 16px;
+  }
+
+  .choice img {
+    width: 100px;  // Adjust the width as needed
+    height: 100px; // Adjust the height to maintain aspect ratio or as needed
+    object-fit: cover; // Ensures that images are scaled properly and don't stretch
+    margin: 60px; // Optional: add some spacing between the images
+}
+  
+  .answer img {
+    width: 100px;  // Adjust the width as needed
+    height: 100px; // Adjust the height to maintain aspect ratio or as needed
+    object-fit: cover; // Ensures that images are scaled properly and don't stretch
+    margin: 15px; // Optional: add some spacing between the images
+}
+
+.question img {
+    width: 400px;  // Adjust the width as needed
+    height: 300px; // Adjust the height to maintain aspect ratio or as needed
+    object-fit: cover; // Ensures that images are scaled properly and don't stretch
+    margin: 15px; // Optional: add some spacing between the images
+}

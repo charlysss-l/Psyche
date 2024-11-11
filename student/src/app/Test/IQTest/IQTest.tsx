@@ -136,10 +136,12 @@ const IQTest: React.FC = () => {
                 <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                 <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
                 <select value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')} required>
+                    <option value="" disabled>Select Sex</option> {/* Placeholder option */}
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
                 <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
+                    <option value="" disabled>Select Exam Type</option> {/* Placeholder option */}
                     <option value="Online">Online</option>
                     <option value="Physical">Physical</option>
                 </select>

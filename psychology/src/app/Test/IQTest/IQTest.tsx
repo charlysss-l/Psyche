@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import style from './psychologyiqtest.module.scss'; // Importing custom SCSS styles
 import { Link } from 'react-router-dom';
-// Interface defining the structure of a single question
+
+// Interface definitions for the question and interpretation structures
 interface Question {
     questionID: string;
     questionSet: string;
@@ -10,9 +11,8 @@ interface Question {
     correctAnswer: string;
 }
 
-// Interface for interpretation data, used to interpret results
 interface Interpretation {
-    ageRange: string;  // Age range for interpretation (e.g., "5-7")
+    ageRange: string;
     sex: 'Female' | 'Male';
     minTestScore: number;
     maxTestScore: number;
@@ -20,9 +20,8 @@ interface Interpretation {
     resultInterpretation: string;
 }
 
-// Interface for the IQTests structure, containing test details and questions
 interface IQTests {
-    _id: string; // MongoDB document ID
+    _id: string;
     testID: string;
     nameOfTest: string;
     numOfQuestions: number;
@@ -30,28 +29,26 @@ interface IQTests {
     interpretation: Interpretation[];
 }
 
-// IQTest component to display the list of IQ tests and their details
 const IQTest: React.FC = () => {
-    // State to store list of IQ tests
     const [iqTests, setIqTests] = useState<IQTests[]>([]);
-    // State for loading status
     const [loading, setLoading] = useState(true);
-    // State to store any error message if fetching fails
     const [error, setError] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const resultsPerPage = 12;
 
-    // Function to fetch IQ test data from the server
+    // Fetch data from the server
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/IQtest'); // Endpoint for fetching data
+            const response = await fetch('http://localhost:5000/api/IQtest');
             if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.statusText}`); // Throw error for non-200 status
+                throw new Error(`Network response was not ok: ${response.statusText}`);
             }
-            const data: IQTests[] = await response.json(); // Parse JSON response
-            setIqTests(data); // Set data to state
+            const data: IQTests[] = await response.json();
+            setIqTests(data);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'An unknown error occurred'); // Handle error
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
         } finally {
-            setLoading(false); // Set loading to false when done
+            setLoading(false);
         }
     };
 
@@ -63,6 +60,18 @@ const IQTest: React.FC = () => {
     // Display loading or error messages if necessary
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
+
+    // Flatten all the questions from the IQ tests
+    const allQuestions = iqTests.flatMap(test => test.questions);
+
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(allQuestions.length / resultsPerPage);
+
+    // Slice the questions to display based on the current page
+    const currentQuestions = allQuestions.slice(
+        (currentPage - 1) * resultsPerPage,
+        currentPage * resultsPerPage
+    );
 
     return (
         <div>
@@ -83,10 +92,9 @@ const IQTest: React.FC = () => {
                     ))}
                 </tbody>
             </table>
-            <Link to="/iqresults_list">Test Results</Link>       
-            <h2>Questions</h2>
+            <Link to="/iqresults_list">Test Results</Link>
 
-            {/* Displaying the list of questions for each IQ test */}
+            <h2>Questions</h2>
             <table className={style.table}>
                 <thead>
                     <tr>
@@ -98,29 +106,44 @@ const IQTest: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* Flatten questions from all IQ tests for display */}
-                    {iqTests.flatMap(test =>
-                        test.questions.map(q => (
-                            <tr key={q.questionID}>
-                                <td className={style.td}>{q.questionID}</td>
-                                <td className={style.td}>{q.questionSet}</td>
-                                <td className={style.td}>
-                                    <img src={q.questionImage} alt="Question" />
-                                </td>
-                                <td className={style.td}>
-                                    {/* Display all choice images for the question */}
-                                    {q.choicesImage.map((choiceImage, index) => (
-                                        <img key={index} src={choiceImage} alt={`Choice ${index + 1}`} />
-                                    ))}
-                                </td>
-                                <td className={style.td}>
-                                    <img src={q.correctAnswer} alt="Correct Answer" />
-                                </td>
-                            </tr>
-                        ))
-                    )}
+                    {currentQuestions.map(q => (
+                        <tr key={q.questionID}>
+                            <td className={style.td}>{q.questionID}</td>
+                            <td className={style.td}>{q.questionSet}</td>
+                            <td className={style.question}>
+                                <img src={q.questionImage} alt="Question" />
+                            </td>
+                            <td className={style.choice}>
+                                {q.choicesImage.map((choiceImage, index) => (
+                                    <img key={index} src={choiceImage} alt={`Choice ${index + 1}`} />
+                                ))}
+                            </td>
+                            <td className={style.answer}>
+                                <img src={q.correctAnswer} alt="Correct Answer" />
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
+
+            {/* Pagination Controls */}
+            <div className={style.pagination}>
+                <button
+                    onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </button>
+                <span>
+                    Page {currentPage} of {totalPages}
+                </span>
+                <button
+                    onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     );
 };

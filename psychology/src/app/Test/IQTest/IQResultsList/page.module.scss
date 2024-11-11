@@ -32,5 +32,39 @@
     background-color: rgb(245, 244, 244);
     border: 1px solid #9e979791; 
   }
-  
+
+  // Define a class for resizing the selected choice images
+.selected-choice-img {
+  width: 50px;  // Adjust width as needed
+  height: 50px; // Adjust height as needed
+  object-fit: cover;  // Maintain aspect ratio and crop if necessary
+  margin: 0 auto; // Center image in table cell
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  background-color: #5a5a5a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+}
+
   
