@@ -13,6 +13,7 @@ import './App.css';
 import Login from './app/Login/login';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSideBar';
+import PFResultsList from './app/Test/PFTest/PFResultsList/PFResultsList';
 
 function App() {
   return (
@@ -56,6 +57,10 @@ function App() {
               <Route
                 path="/iqtest"
                 element={<ProtectedRoute><IQTest /></ProtectedRoute>}
+              />
+              <Route
+                path="/pfresults_list"
+                element={<ProtectedRoute><PFResultsList /></ProtectedRoute>}
               />
             </Routes>
           </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './page.module.scss';
+import { Link } from 'react-router-dom';
 
 interface Choice {
     a: string;
@@ -29,6 +30,7 @@ interface Test {
     numOfQuestions: number;
     question: Question[];
 }
+
 
 const PFTest: React.FC = () => {
     const [pfTest, setPfTest] = useState<Test[]>([]);
@@ -75,7 +77,7 @@ const PFTest: React.FC = () => {
                     ))}
                 </tbody>
             </table>
-
+                    <Link to="/pfresults_list">Test Results</Link>
             <h2>Questions</h2>
             <table className={style.table}>
                 <thead>
