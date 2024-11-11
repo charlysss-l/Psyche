@@ -1,79 +1,129 @@
-$main-bg: #f4f2ee;
-$button-bg: #d7d5d1;
-$button-hover-bg: #e8e6e2;
-$container-bg: #ffffff;
-$container-hover-bg: #f3f1f1;
-$main-text: #131313;
-$navbar-text: #626262;
-$navbar-hover-text: #131313;
-$border-radius: 10px;
+$background-color: #f8f9fa00;
+$primary-color: #333;
+$button-color: #007bff;
+$button-hover-color: #0056b3;
+$message-success: #28a745;
+$message-error: #dc3545;
 
 .container {
-  background-color: $container-bg;
-  border-radius: $border-radius;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  background-color: $background-color;
   padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-  width: 400px; // Set the width of the form
-  margin: 0 auto; // Center the form horizontally
-
-  &:hover {
-    background-color: $container-hover-bg;
-  }
 }
 
 .userinfo_pr {
-  color: $main-text;
-  font-size: 24px;
+  font-size: 2rem;
+  color: $primary-color;
   margin-bottom: 20px;
 }
 
 .infoContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
 }
 
 .userIDDisplay {
-  font-size: 16px;
-  color: $main-text;
+  font-size: 1rem;
+  color: $primary-color;
+  margin-bottom: 15px;
 }
 
 .pr_label {
-  font-size: 14px;
-  color: $navbar-text;
-  margin-bottom: 5px;
+  display: block;
+  margin: 10px 0 5px;
+  color: $primary-color;
+  font-size: 1rem;
+}
+
+.user_input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  box-sizing: border-box;
 }
 
 .pr_input {
+  width: 100%;
   padding: 10px;
-  font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: $border-radius;
-  outline: none;
-  transition: border-color 0.3s ease;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
 
-  &:focus {
-    border-color: $main-text;
-  }
+.pr_input:focus {
+  border-color: $button-color;
+  outline: none;
 }
 
 .buttonContainer {
   display: flex;
   justify-content: center;
+  margin-top: 10px;
 }
 
 .submitButton {
-  background-color: $button-bg;
-  color: $main-text;
-  font-size: 16px;
-  padding: 10px 20px;
+  background-color: $button-color;
+  color: white;
+  padding: 12px 20px;
   border: none;
-  border-radius: $border-radius;
+  border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
+}
 
-  &:hover {
-    background-color: $button-hover-bg;
+.submitButton:hover {
+  background-color: $button-hover-color;
+}
+
+.updateMessage {
+  font-size: 0.9rem;
+  margin-top: 15px;
+  text-align: center;
+
+  &.success {
+    color: $message-success;
+  }
+
+  &.error {
+    color: $message-error;
   }
 }
+
+
+button[type="submit"] {
+  background-color: $button-color;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 45%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-left: 105px;
+
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: $button-hover-color;
+  }
+}
+
+
