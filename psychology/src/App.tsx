@@ -14,6 +14,7 @@ import Login from './app/Login/login';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSideBar';
 import PFResultsList from './app/Test/PFTest/PFResultsList/PFResultsList';
+import IQResultsList from './app/Test/IQTest/IQResultsList';
 
 function App() {
   return (
@@ -61,6 +62,11 @@ function App() {
               <Route
                 path="/pfresults_list"
                 element={<ProtectedRoute><PFResultsList /></ProtectedRoute>}
+              />
+
+              <Route
+                path="/iqresults_list"
+                element={<ProtectedRoute><IQResultsList /></ProtectedRoute>}
               />
             </Routes>
           </div>

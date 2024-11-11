@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './psychologyiqtest.module.scss'; // Importing custom SCSS styles
-
+import { Link } from 'react-router-dom';
 // Interface defining the structure of a single question
 interface Question {
     questionID: string;
@@ -83,7 +83,7 @@ const IQTest: React.FC = () => {
                     ))}
                 </tbody>
             </table>
-
+            <Link to="/iqresults_list">Test Results</Link>       
             <h2>Questions</h2>
 
             {/* Displaying the list of questions for each IQ test */}
