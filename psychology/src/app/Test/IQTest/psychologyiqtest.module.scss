@@ -49,22 +49,19 @@
   }
 
   .choice img {
-    width: 100px;  // Adjust the width as needed
-    height: 100px; // Adjust the height to maintain aspect ratio or as needed
-    object-fit: cover; // Ensures that images are scaled properly and don't stretch
-    margin: 50px; // Optional: add some spacing between the images
+    width: 150px;  // Adjust the width as needed
+    height: 130px; // Adjust the height to maintain aspect ratio or as needed
+    margin: 20px; // Optional: add some spacing between the images
 }
   
   .answer img {
-    width: 100px;  // Adjust the width as needed
-    height: 100px; // Adjust the height to maintain aspect ratio or as needed
-    object-fit: cover; // Ensures that images are scaled properly and don't stretch
+    width: 170px;  // Adjust the width as needed
+    height: 130px; // Adjust the height to maintain aspect ratio or as needed
     margin: 15px; // Optional: add some spacing between the images
 }
 
 .question img {
     width: 400px;  // Adjust the width as needed
-    height: 300px; // Adjust the height to maintain aspect ratio or as needed
-    object-fit: cover; // Ensures that images are scaled properly and don't stretch
+    height: 350px; // Adjust the height to maintain aspect ratio or as needed
     margin: 15px; // Optional: add some spacing between the images
 }
