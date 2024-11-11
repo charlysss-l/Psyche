@@ -465,8 +465,43 @@ const PFResult: React.FC = () => {
         );
     }
 
+    // Submit results to the backend
+    const submitResultsToBackend = async () => {
+        if (!results) return;
+
+        const updatedScoring = results.scoring.map(score => {
+            const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
+            return { ...score, stenScore };
+        });
+
+        const resultData = {
+            ...results,
+            scoring: updatedScoring,
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/api/user16pf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(resultData),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert('Your result has been shared with the guidance counselor.');
+            } else {
+                alert('There was an error sharing the result.');
+            }
+        } catch (error) {
+            console.error('Error submitting result:', error);
+            alert('An error occurred while submitting the results.');
+        }
+    };
+
     const handleShareResult = () => {
-        alert('Your result has been shared with the guidance counselor.');
+        submitResultsToBackend();
     };
 
     const handleCancel = () => {
@@ -494,10 +529,6 @@ const PFResult: React.FC = () => {
                     </thead>
                     <tbody>
                         {results.scoring.map((score, index) => {
-                            // Ensure valid factorLetter and rawScore
-                            if (!score.factorLetter || score.rawScore === undefined) {
-                                return null; // Skip invalid data
-                            }
                             const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
                             return (
                                 <tr key={index}>

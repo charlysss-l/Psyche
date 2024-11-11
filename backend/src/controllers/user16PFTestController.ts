@@ -1,6 +1,427 @@
 import { Request, Response } from 'express';
 import User16PFTestSchema, { Scoring, ScoreEntry } from '../models/User16PFTestSchema';
 
+const calculateStenScore = (rawScore: number, factorLetter: string): number => {
+    // Factor-specific mappings
+    switch (factorLetter) {
+        case 'A':
+            if (rawScore >= 0 && rawScore <= 3) {
+                return 1; // Factor A custom mapping
+            }else if (rawScore >= 4 && rawScore <= 5) {
+                return 2; 
+            } else if (rawScore >= 6 && rawScore <= 8) {
+                return 3; 
+            }else if (rawScore >= 9 && rawScore <= 11) {
+                return 4; 
+            }
+            else if (rawScore >= 12 && rawScore <= 14) {
+                return 5; 
+            }
+            else if (rawScore >= 15 && rawScore <= 17) {
+                return 6; 
+            }
+            else if (rawScore >= 18 && rawScore <= 19) {
+                return 7; 
+            }
+            else if (rawScore === 20) {
+                return 8; 
+            }
+            else if (rawScore >= 21 && rawScore <= 22) {
+                return 9; 
+            }
+            break;
+        case 'B':
+            if (rawScore >= 0 && rawScore <= 3) {
+                return 1; 
+            } else if (rawScore === 4) {
+                return 2; 
+            }
+            else if (rawScore >=  5 && rawScore <= 6 ) {
+                return 3; 
+            }
+            else if (rawScore >= 7 && rawScore <= 8) {
+                return 4; 
+            }
+            else if (rawScore >= 9 && rawScore <= 10) {
+                return 5; 
+            }
+            else if (rawScore >=  11 && rawScore <= 12) {
+                return 6; 
+            }
+            else if (rawScore === 13 ) {
+                return 7; 
+            }
+            else if (rawScore === 14 ) {
+                return 8; 
+            }
+            else if (rawScore === 15 ) {
+                return 9; 
+            }
+            break;
+            case 'C':
+                if (rawScore >= 0 && rawScore <= 2 ) {
+                    return 1; 
+                } else if (rawScore >= 3 && rawScore <= 5 ) {
+                    return 2; 
+                }
+                else if (rawScore >= 6 && rawScore <= 8) {
+                    return 3; 
+                }
+                else if (rawScore >= 9 && rawScore <= 12 ) {
+                    return 4; 
+                }
+                else if (rawScore >=  13 && rawScore <= 16) {
+                    return 5; 
+                }
+                else if (rawScore >= 17  && rawScore <= 18 ) {
+                    return 6; 
+                }
+                else if (rawScore === 19 ) {
+                    return 7; 
+                }
+                else if (rawScore === 20 ) {
+                    return 8; 
+                }
+                break;
+                case 'E':
+                    if (rawScore >= 0 && rawScore <= 2) {
+                        return 1; 
+                    } else if (rawScore >= 3 && rawScore <= 5) {
+                        return 2; 
+                    }
+                    else if (rawScore >= 6 && rawScore <= 8) {
+                        return 3; 
+                    }
+                    else if (rawScore >=  9 && rawScore <= 11) {
+                        return 4; 
+                    }
+                    else if (rawScore >= 12 && rawScore <= 14) {
+                        return 5; 
+                    }
+                    else if (rawScore >=  15 && rawScore <= 17) {
+                        return 6; 
+                    }
+                    else if (rawScore === 18 ) {
+                        return 7; 
+                    }
+                    else if (rawScore === 19 ) {
+                        return 8; 
+                    }
+                    else if (rawScore === 20 ) {
+                        return 9; 
+                    }
+                break;
+                case 'G':
+                    if (rawScore >=  0&& rawScore <= 2) {
+                        return 1; 
+                    } else if (rawScore >= 3 && rawScore <= 5) {
+                        return 2; 
+                    }
+                    else if (rawScore >= 6 && rawScore <=8 ) {
+                        return 3; 
+                    }
+                    else if (rawScore >=  9&& rawScore <= 11) {
+                        return 4; 
+                    }
+                    else if (rawScore >=  12&& rawScore <= 15) {
+                        return 5; 
+                    }
+                    else if (rawScore >=  16&& rawScore <= 18 ) {
+                        return 6; 
+                    }
+                    else if (rawScore >=  19&& rawScore <= 20) {
+                        return 7; 
+                    }
+                    else if (rawScore === 21 ) {
+                        return 8; 
+                    }
+                    else if (rawScore === 22 ) {
+                        return 9; 
+                    }
+                break;
+                case 'H':
+                    if (rawScore >=   0&& rawScore <=1 ) {
+                        return 2; 
+                    } else if (rawScore >= 2 && rawScore <= 3) {
+                        return 3; 
+                    }
+                    else if (rawScore >= 4 && rawScore <= 7) {
+                        return 4; 
+                    }
+                    else if (rawScore >=  8&& rawScore <=12 ) {
+                        return 5; 
+                    }
+                    else if (rawScore >= 13 && rawScore <= 16) {
+                        return 6; 
+                    }
+                    else if (rawScore >=  17&& rawScore <= 18) {
+                        return 7; 
+                    }
+                    else if (rawScore === 19) {
+                        return 8; 
+                    }
+                    else if (rawScore=== 20 ) {
+                        return 9; 
+                    }
+                break;
+                case 'I':
+                    if (rawScore === 0 ) {
+                        return 1; 
+                    } else if (rawScore >= 1 && rawScore <=2 ) {
+                        return 2; 
+                    }
+                    else if (rawScore >=  3&& rawScore <= 5) {
+                        return 3; 
+                    }
+                    else if (rawScore >=  6&& rawScore <=8 ) {
+                        return 4; 
+                    }
+                    else if (rawScore >=  9&& rawScore <= 12) {
+                        return 5; 
+                    }
+                    else if (rawScore >= 13 && rawScore <= 16) {
+                        return 6; 
+                    }
+                    else if (rawScore >= 17 && rawScore <= 19) {
+                        return 7; 
+                    }
+                    else if (rawScore >= 20 && rawScore <= 21) {
+                        return 8; 
+                    }
+                    else if (rawScore === 22) {
+                        return 9; 
+                    }
+                break;
+                case 'L':
+                    if (rawScore >=  0&& rawScore <= 1) {
+                        return 1; 
+                    } else if (rawScore >= 2 && rawScore <= 3) {
+                        return 2; 
+                    }
+                    else if (rawScore >= 4 && rawScore <= 5) {
+                        return 3; 
+                    }
+                    else if (rawScore >= 6 && rawScore <= 7) {
+                        return 4; 
+                    }
+                    else if (rawScore >=  8&& rawScore <= 10) {
+                        return 5; 
+                    }
+                    else if (rawScore >=  11&& rawScore <= 13) {
+                        return 6; 
+                    }
+                    else if (rawScore >=  14&& rawScore <=15 ) {
+                        return 7; 
+                    }
+                    else if (rawScore >=  16&& rawScore <= 17) {
+                        return 8; 
+                    }
+                    else if (rawScore >= 18 && rawScore <= 19) {
+                        return 9; 
+                    }
+                    else if (rawScore ===20) {
+                        return 10; 
+                    }
+                break;
+                case 'M':
+                    if (rawScore ===0 ) {
+                        return 2; 
+                    } else if (rawScore ===1 ) {
+                        return 3; 
+                    }
+                    else if (rawScore >= 2 && rawScore <= 3) {
+                        return 4; 
+                    }
+                    else if (rawScore >=  4&& rawScore <= 6) {
+                        return 5; 
+                    }
+                    else if (rawScore >=  7&& rawScore <=10 ) {
+                        return 6; 
+                    }
+                    else if (rawScore >= 11 && rawScore <= 14) {
+                        return 7; 
+                    }
+                    else if (rawScore >=  15&& rawScore <= 18) {
+                        return 8; 
+                    }
+                    else if (rawScore >= 19 && rawScore <= 20) {
+                        return 9; 
+                    }
+                    else if (rawScore >= 21 && rawScore <=22 ) {
+                        return 10; 
+                    }
+                break;
+                case 'N':
+                    if (rawScore ===0 ) {
+                        return 1; 
+                    } else if (rawScore >= 1 && rawScore <=2 ) {
+                        return 2; 
+                    }
+                    else if (rawScore >=  3&& rawScore <=4 ) {
+                        return 3; 
+                    }
+                    else if (rawScore >= 5 && rawScore <= 7) {
+                        return 4; 
+                    }
+                    else if (rawScore >=  8&& rawScore <= 10) {
+                        return 5; 
+                    }
+                    else if (rawScore >=  11&& rawScore <= 14) {
+                        return 6; 
+                    }
+                    else if (rawScore >= 15 && rawScore <=17 ) {
+                        return 7; 
+                    }
+                    else if (rawScore >=  18&& rawScore <=19 ) {
+                        return 8; 
+                    }
+                    else if (rawScore ===20 ) {
+                        return 9; 
+                    }
+                break;
+                case 'O':
+                    if (rawScore >= 0 && rawScore <=1 ) {
+                        return 2; 
+                    } else if (rawScore >= 2 && rawScore <= 3) {
+                        return 3; 
+                    }
+                    else if (rawScore >= 4 && rawScore <=6 ) {
+                        return 4; 
+                    }
+                    else if (rawScore >=  7&& rawScore <= 10) {
+                        return 5; 
+                    }
+                    else if (rawScore >= 11 && rawScore <=14 ) {
+                        return 6; 
+                    }
+                    else if (rawScore >= 15 && rawScore <= 17) {
+                        return 7; 
+                    }
+                    else if (rawScore >=  18&& rawScore <= 19) {
+                        return 8; 
+                    }
+                    else if (rawScore===20 ) {
+                        return 9; 
+                    }
+                break;
+                case 'Q1':
+                    if (rawScore >=  0&& rawScore <= 4) {
+                        return 1; 
+                    } else if (rawScore >= 5 && rawScore <=7 ) {
+                        return 2; 
+                    }
+                    else if (rawScore >=  8&& rawScore <= 9) {
+                        return 3; 
+                    }
+                    else if (rawScore >= 10 && rawScore <= 13 ) {
+                        return 4; 
+                    }
+                    else if (rawScore >=  14&& rawScore <= 17) {
+                        return 5; 
+                    }
+                    else if (rawScore >= 18 && rawScore <=20 ) {
+                        return 6; 
+                    }
+                    else if (rawScore >= 21 && rawScore <= 23) {
+                        return 7; 
+                    }
+                    else if (rawScore >= 24 && rawScore <= 25) {
+                        return 8; 
+                    }
+                    else if (rawScore >= 26 && rawScore <= 27 ) {
+                        return 9; 
+                    }
+                    else if (rawScore === 28) {
+                        return 10; 
+                    }
+                break;
+                case 'Q2':
+                    if (rawScore ===0 ) {
+                        return 2; 
+                    } else if (rawScore ===1 ) {
+                        return 3; 
+                    }
+                    else if (rawScore >= 2 && rawScore <=3 ) {
+                        return 4; 
+                    }
+                    else if (rawScore >= 4 && rawScore <=6 ) {
+                        return 5; 
+                    }
+                    else if (rawScore >= 7 && rawScore <= 10) {
+                        return 6; 
+                    }
+                    else if (rawScore >=  11&& rawScore <=14 ) {
+                        return 7; 
+                    }
+                    else if (rawScore >=  15&& rawScore <= 16) {
+                        return 8; 
+                    }
+                    else if (rawScore >=  17&& rawScore <=18 ) {
+                        return 9; 
+                    }
+                    else if (rawScore >=  19&& rawScore <= 20) {
+                        return 10; 
+                    }
+                break;
+                case 'Q3':
+                    if (rawScore >= 0 && rawScore <=1 ) {
+                        return 1; 
+                    } else if (rawScore >= 2 && rawScore <= 3) {
+                        return 2; 
+                    }
+                    else if (rawScore >= 4 && rawScore <=5 ) {
+                        return 3; 
+                    }
+                    else if (rawScore >= 6 && rawScore <= 8) {
+                        return 4; 
+                    }
+                    else if (rawScore >= 9 && rawScore <= 12) {
+                        return 5; 
+                    }
+                    else if (rawScore >=  13&& rawScore <=15 ) {
+                        return 6; 
+                    }
+                    else if (rawScore >= 16 && rawScore <= 17) {
+                        return 7; 
+                    }
+                    else if (rawScore ===18 ) {
+                        return 8; 
+                    }
+                    else if (rawScore >=  19&& rawScore <= 20 ) {
+                        return 9; 
+                    }
+                break;
+                case 'Q4':
+                    if (rawScore >= 0 && rawScore <= 1) {
+                        return 2; 
+                    } else if (rawScore >= 2 && rawScore <=3 ) {
+                        return 3; 
+                    }
+                    else if (rawScore >= 4 && rawScore <= 6) {
+                        return 4; 
+                    }
+                    else if (rawScore >=  7&& rawScore <=10 ) {
+                        return 5; 
+                    }
+                    else if (rawScore >= 11 && rawScore <= 14) {
+                        return 6; 
+                    }
+                    else if (rawScore >=  15&& rawScore <=17 ) {
+                        return 7; 
+                    }
+                    else if (rawScore >= 18 && rawScore <=19 ) {
+                        return 8; 
+                    }
+                    else if (rawScore === 20 ) {
+                        return 9; 
+                    }
+
+                break;
+
+    }
+    // Default to 1 if no custom logic applies
+    return 1;
+};
 export const createUser16PFTest = async (req: Request, res: Response) => {
     const { userID, firstName, lastName, age, sex, courseSection, responses, testType } = req.body;
 
@@ -43,10 +464,13 @@ export const createUser16PFTest = async (req: Request, res: Response) => {
                 .filter(response => response.factorLetter === factorLetter)
                 .reduce((sum, response) => sum + response.equivalentScore, 0);
 
+            // Calculate stenScore based on rawScore and factorLetter
+            const stenScore = calculateStenScore(totalScore, factorLetter);
+
             scoring.scores.push({
                 factorLetter,
                 rawScore: totalScore,
-                stenScore: 1 // Default value for stenScore
+                stenScore, // Use the calculated stenScore
             });
         });
 
@@ -76,6 +500,7 @@ export const createUser16PFTest = async (req: Request, res: Response) => {
     }
 };
 
+// Controller to get all User16PFTests
 export const getUser16PFTests = async (req: Request, res: Response) => {
     try {
         const allUser16PFtests = await User16PFTestSchema.find();
@@ -86,6 +511,7 @@ export const getUser16PFTests = async (req: Request, res: Response) => {
     }
 };
 
+// Controller to get a specific User16PFTest by ID
 export const getUser16PFTestById = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
@@ -94,6 +520,12 @@ export const getUser16PFTestById = async (req: Request, res: Response) => {
             res.status(404).json({ message: 'Test not found' });
             return;
         }
+
+        // Calculate stenScore for each factor in the test result
+        PFuserTest.scoring.scores.forEach(score => {
+            score.stenScore = calculateStenScore(score.rawScore, score.factorLetter); // Recalculate stenScore if needed
+        });
+
         res.status(200).json({ data: PFuserTest });
     } catch (error: unknown) {
         res.status(500).json({
@@ -103,6 +535,7 @@ export const getUser16PFTestById = async (req: Request, res: Response) => {
     }
 };
 
+// Controller to update a User16PFTest by ID
 export const updateUser16PFTest = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
@@ -120,6 +553,7 @@ export const updateUser16PFTest = async (req: Request, res: Response) => {
     }
 };
 
+// Controller to delete a User16PFTest by ID
 export const deleteUser16PFTest = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
