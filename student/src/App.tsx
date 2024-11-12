@@ -15,14 +15,18 @@ import IQResult from "./app/Result/IQResult/IQResult";
 import "./App.css";
 import Login from "./app/Login/login";
 import SignupForm from "./app/Signup/Signup";
+import LandingPage from './app/Home/LandingPage';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          {/* Route for Login Page without Navbar/Sidebar */}
-          <Route path="/" element={<Login />} />
+          {/* Landing Page Route */}
+          <Route path="/" element={<LandingPage />} />
+
+          {/* Route for Login and Signup Pages without Navbar/Sidebar */}
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignupForm />} />
 
           {/* Other routes for pages with Sidebar and Navbar */}

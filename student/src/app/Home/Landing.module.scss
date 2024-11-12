@@ -1,0 +1,69 @@
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 200vh;
+  background-color: #f0f4f8;
+  text-align: center;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.landing-page h1 {
+  font-size: 3rem;
+  font-weight: bold;  /* Make the h1 text bold for emphasis */
+  color: #131313;  /* Dark black for h1 */
+  margin-bottom: 20px;
+}
+
+.landing-page h2 {
+  font-size: 1.8rem;
+  color: #131313;  /* Corrected color to black */
+  margin-bottom: 15px;
+}
+
+.landing-page p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 30px;
+}
+
+.get-started-btn {
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  background-color: #7f8c8d;
+  color: #131313;  /* Dark text for contrast */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.get-started-btn:hover {
+  background-color: #e8e6e2;  /* Slightly lighter gray for hover */
+}
+
+@media (max-width: 768px) {
+  .landing-page {
+    padding: 15px;
+  }
+
+  .landing-page h1 {
+    font-size: 2.5rem;
+  }
+
+  .landing-page h2 {
+    font-size: 1.5rem;
+  }
+
+  .landing-page p {
+    font-size: 1rem;
+  }
+
+  .get-started-btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
