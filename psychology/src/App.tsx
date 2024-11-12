@@ -11,6 +11,7 @@ import PFTest from './app/Test/PFTest/PFTest';
 import IQTest from './app/Test/IQTest/IQTest';
 import './App.css';
 import Login from './app/Login/login';
+import SurveyDashboard from './app/Survey/surveyDashboard';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSideBar';
 import PFResultsList from './app/Test/PFTest/PFResultsList/PFResultsList';
@@ -39,6 +40,11 @@ function App() {
                 path="/test"
                 element={<ProtectedRoute><Test /></ProtectedRoute>}
               />
+              <Route
+                path="/surveyDashboard"
+                element={<ProtectedRoute><SurveyDashboard /></ProtectedRoute>}
+              />
+              
               <Route
                 path="/user"
                 element={<ProtectedRoute><User /></ProtectedRoute>}

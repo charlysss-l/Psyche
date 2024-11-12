@@ -6,6 +6,7 @@ import Home from "./app/Home/Home";
 import Test from "./app/Test/Test";
 import Result from "./app/Result/Result";
 import Consultation from "./app/Consultation/Consultation";
+import StudentDashboard from "./app/Survey/surveyList";
 import Profile from "./app/Profile/Profile";
 import OMR from "./app/OMR/OMR";
 import PFTest from "./app/Test/PFTest/PFTest";
@@ -43,6 +44,7 @@ function App() {
                       <Route path="/test" element={<Test />} />
                       <Route path="/result" element={<Result />} />
                       <Route path="/consultation" element={<Consultation />} />
+                      <Route path="/surveyDashboard" element={<StudentDashboard />} />
                       <Route path="/profile" element={<Profile />} />
                       <Route path="/omr" element={<OMR />} />
                       <Route path="/pftest" element={<PFTest />} />

@@ -60,7 +60,8 @@ export const loginStudent = async (req: Request, res: Response): Promise<Respons
         }
 
         const token = jwt.sign({ userId: student._id }, jwtSecret, { expiresIn: '1h' });
-        return res.status(200).json({ message: 'Login successful', token });
+        return res.status(200).json({ message: 'Login successful', token, studentId: student._id });
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Server error' });
@@ -117,28 +118,30 @@ export const updateStudentProfile = async (req: Request, res: Response) => {
 };
 
 // Get Student Profile
+// Get Student Profile
 export const getStudentProfile = async (req: Request, res: Response) => {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
         return res.status(401).json({ message: 'Authorization token missing' });
     }
-
+  
     try {
         const jwtSecret = process.env.JWT_SECRET;
         if (!jwtSecret) {
             return res.status(500).json({ message: 'JWT secret is missing' });
         }
-
+  
         const decoded = jwt.verify(token, jwtSecret) as { userId: string };
         const student = await Student.findById(decoded.userId, 'email userId');
-
+  
         if (!student) {
             return res.status(404).json({ message: 'Student not found' });
         }
-
+  
         res.json({ email: student.email, userId: student.userId });
     } catch (error) {
         console.error('Error fetching profile:', error);
         res.status(500).json({ message: 'Server error while fetching profile' });
     }
-};
+  };
+  

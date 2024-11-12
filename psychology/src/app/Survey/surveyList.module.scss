@@ -1,0 +1,82 @@
+// components/SurveyList.module.scss
+.surveyListContainer {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .surveyCard {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .surveyCount {
+    font-size: 1rem;
+    color: #007bff;
+    margin-left: 10px;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .questionList {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .questionItem {
+    margin-bottom: 10px;
+  }
+  
+  .choiceList {
+    list-style: none;
+    padding-left: 20px;
+  }
+  
+  .choiceItem {
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+  

@@ -33,6 +33,11 @@ const Navbar = () => {
             </Link>
           </li>
           <li className={style.navItem}>
+            <Link to="/surveyDashboard" className={style.navLink}>
+              Survey
+            </Link>
+          </li>
+          <li className={style.navItem}>
             <Link to="/" className={style.navLink}>
               Logout
             </Link>

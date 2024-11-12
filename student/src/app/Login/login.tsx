@@ -20,20 +20,21 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     setError(null);
     setSuccessMessage(null);
-
+  
     if (!email || !password) {
       setError("Please fill up both fields");
       return;
     }
-
+  
     try {
       const response = await loginUser(email, password);
       if (response.token) {
         setSuccessMessage("Login successful!");
-        localStorage.setItem("token", response.token);
+        localStorage.setItem("token", response.token);  // Store token in localStorage
+        localStorage.setItem("studentId", response.studentId);  // Store studentId in localStorage
         setTimeout(() => {
           navigate("/home");
         }, 1500);
@@ -45,23 +46,32 @@ const Login: React.FC = () => {
       console.error(error);
     }
   };
+  
 
   const loginUser = async (email: string, password: string) => {
-    const response = await fetch(
-      "http://localhost:5000/api/authStudents/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      }
-    );
+    const response = await fetch("http://localhost:5000/api/authStudents/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
     if (!response.ok) {
       throw new Error("Login failed");
     }
-    return response.json();
+  
+    const data = await response.json();
+    
+    // Store the token and userId in localStorage
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.userId); // Store the userId
+    }
+    
+    return data; // Return data containing the user info and token
   };
+  
+
 
   return (
     <div className={styles.loginContainer}>
