@@ -30,7 +30,9 @@ const IQResult: React.FC = () => {
     const getInterpretation = (age: number, score: number) => {
         
         //20-24 Age
-        if (age >= 20 && age <= 24 && score <= 23) {
+        if (age >= 20 && age <= 24 && score == 0) {
+            return { percentile: 0, result: 'Intellectually Impaired' };
+        } else if (age >= 20 && age <= 24 && score >= 1 && score <= 23) {
             return { percentile: 5, result: 'Intellectually Impaired' };
         } else if (age >= 20 && age <= 24 && score >= 24 && score <= 28) {
             return { percentile: 10, result: 'Intellectually Impaired' };
@@ -47,7 +49,9 @@ const IQResult: React.FC = () => {
         }
 
         //25-29 Age         
-          else if (age >= 25 && age <= 29 && score <= 23) {
+          else if (age >= 25 && age <= 29 && score == 0) {
+            return { percentile: 0, result: 'Intellectually Impaired' };
+        } else if (age >= 25 && age <= 29 && score >= 1 && score <= 23) {
             return { percentile: 5, result: 'Intellectually Impaired' };
         } else if (age >= 25 && age <= 29 && score >= 24 && score <= 28) {
             return { percentile: 10, result: 'Intellectually Impaired' };
@@ -64,7 +68,9 @@ const IQResult: React.FC = () => {
         }
 
         //30-34 Age
-          else if (age >= 30 && age <= 34 && score <= 19) {
+          else if (age >= 30 && age <= 34 && score == 0) {
+            return { percentile: 0, result: 'Intellectually Impaired' };
+        } else if (age >= 30 && age <= 34 && score >= 1 && score <= 19) {
             return { percentile: 5, result: 'Intellectually Impaired' };
         } else if (age >= 30 && age <= 34 && score >= 20 && score <= 25) {
             return { percentile: 10, result: 'Intellectually Impaired' };
@@ -81,7 +87,9 @@ const IQResult: React.FC = () => {
         }
 
         //35-39 Age
-          else if (age >= 35 && age <= 39 && score <= 30) {
+          else if (age >= 35 && age <= 39 && score == 0) {
+            return { percentile: 0, result: 'Intellectually Impaired' };
+        } else if (age >= 35 && age <= 39 && score >= 1 && score <= 30) {
             return { percentile: 25, result: 'Below Average In Intellectual Capacity' };
         } else if (age >= 35 && age <= 39 && score >= 31 && score <= 40) {
             return { percentile: 50, result: 'Intellectually Average' };
@@ -94,7 +102,9 @@ const IQResult: React.FC = () => {
         }
 
         //40-44 Age
-          else if (age >= 40 && age <= 44 && score <= 27) {
+          else if (age >= 40 && age <= 44 && score == 0) {
+            return { percentile: 0, result: 'Intellectually Impaired' };
+        } else if (age >= 40 && age <= 44 && score >= 1 && score <= 27) {
             return { percentile: 25, result: 'Below Average In Intellectual Capacity' };
         } else if (age >= 40 && age <= 44 && score >= 28 && score <= 38) {
             return { percentile: 50, result: 'Intellectually Average' };
@@ -107,7 +117,9 @@ const IQResult: React.FC = () => {
         }
 
         //45-49 Age
-          else if (age >= 45 && age <= 49 && score <= 24) {
+          else if (age >= 45 && age <= 49 && score == 0) {
+            return { percentile: 0, result: 'Intellectually Impaired' };
+        } else if (age >= 45 && age <= 49 && score >= 1 && score <= 24) {
             return { percentile: 25, result: 'Below Average In Intellectual Capacity' };
         } else if (age >= 45 && age <= 49 && score >= 25 && score <= 35) {
             return { percentile: 50, result: 'Intellectually Average' };
@@ -120,7 +132,9 @@ const IQResult: React.FC = () => {
         }
 
         //50-54 Age
-          else if (age >= 50 && age <= 54 && score <= 21) {
+          else if (age >= 50 && age <= 54 && score == 0) {
+            return { percentile: 0, result: 'Intellectually Impaired' };
+        } else if (age >= 50 && age <= 54 && score >= 1 && score <= 21) {
             return { percentile: 25, result: 'Below Average In Intellectual Capacity' };
         } else if (age >= 50 && age <= 54 && score >= 22 && score <= 33) {
             return { percentile: 50, result: 'Intellectually Average' };
@@ -133,7 +147,9 @@ const IQResult: React.FC = () => {
         }
 
         //55-59 Age
-          else if (age >= 55 && age <= 59 && score <= 18) {
+          else if (age >= 55 && age <= 59 && score == 0) {
+            return { percentile: 0, result: 'Intellectually Impaired' };
+        } else if (age >= 55 && age <= 59 && score >= 1 && score <= 18) {
             return { percentile: 25, result: 'Below Average In Intellectual Capacity' };
         } else if (age >= 55 && age <= 59 && score >= 19 && score <= 30) {
             return { percentile: 50, result: 'Intellectually Average' };
@@ -146,7 +162,9 @@ const IQResult: React.FC = () => {
         }
 
         //60-64 Age
-          else if (age >= 60 && age <= 64 && score <= 15) {
+          else if (age >= 60 && age <= 64 && score == 0) {
+            return { percentile: 0, result: 'Intellectually Impaired' };
+        } else if (age >= 60 && age <= 64 && score >= 1 && score <= 15) {
             return { percentile: 25, result: 'Below Average In Intellectual Capacity' };
         } else if (age >= 60 && age <= 64 && score >= 16 && score <= 27) {
             return { percentile: 50, result: 'Intellectually Average' };
@@ -159,7 +177,9 @@ const IQResult: React.FC = () => {
         }
 
         //65 Age and above
-          else if (age >= 65 && score <= 13) {
+          else if (age >= 65 && score == 0) {
+            return { percentile: 0, result: 'Intellectually Impaired' };
+        } else if (age >= 65 && score >= 1 && score <= 13) {
             return { percentile: 25, result: 'Below Average In Intellectual Capacity' };
         } else if (age >= 65 && score >= 14 && score <= 24) {
             return { percentile: 50, result: 'Intellectually Average' };
