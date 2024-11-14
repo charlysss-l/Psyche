@@ -250,6 +250,7 @@ const IQResultsList: React.FC = () => {
           <table className={styles.resultsTableIQ}>
             <thead>
               <tr>
+                <th>userID</th>
                 <th>Name</th>
                 <th>Age</th>
                 <th>Sex</th>
@@ -264,6 +265,7 @@ const IQResultsList: React.FC = () => {
             <tbody>
               {currentResults.map((result) => (
                 <tr key={result.userID} className={styles.eachResultIQ}>
+                  <td>{result.userID}</td>
                   <td>{result.firstName} {result.lastName}</td>
                   <td>{result.age}</td>
                   <td>{result.sex}</td>
@@ -299,7 +301,6 @@ const IQResultsList: React.FC = () => {
                   <td>
                     <ul>
                      
-                      <li>Score: {result.totalScore}</li>
                       <li>Interpretation: {result.interpretation.result}</li>
                     </ul>
                   </td>

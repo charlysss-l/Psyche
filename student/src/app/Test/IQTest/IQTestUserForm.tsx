@@ -66,6 +66,7 @@ const UserForm: React.FC = () => {
                 <option value="Online">Online</option>
                 <option value="Physical">Physical</option>
             </select>
+            <p>Note: Timer Will Start Once You Click The Start Button</p>
             <button className={style.start} type="submit">Start Test</button>
         </form>
     );
