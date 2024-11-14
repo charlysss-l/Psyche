@@ -65,14 +65,149 @@ const IQResultsList: React.FC = () => {
   }, []);
 
   const getInterpretation = (age: number, score: number) => {
-    if (age >= 20 && age <= 24 && score <= 3) {
-      return { percentilePoints: 5, resultInterpretation: 'Intellectually Impaired' };
-    } else if (age >= 20 && age <= 24 && score >= 4) {
-      return { percentilePoints: 100, resultInterpretation: 'Intelligent' };
-    } else {
-      return { percentilePoints: 50, resultInterpretation: 'Average' };
-    }
-  };
+        
+        //20-24 Age
+        if (age >= 20 && age <= 24 && score <= 23) {
+            return { percentile: 5, resultInterpretation: 'Intellectually Impaired' };
+        } else if (age >= 20 && age <= 24 && score >= 24 && score <= 28) {
+            return { percentile: 10, resultInterpretation: 'Intellectually Impaired' };
+        } else if (age >= 20 && age <= 24 && score >= 29 && score <= 37) {
+            return { percentile: 25, resultInterpretation: 'Below Average In Intellectual Capacity' };
+        } else if (age >= 20 && age <= 24 && score >= 38 && score <= 44) {
+            return { percentile: 50, resultInterpretation: 'Intellectually Average' };
+        } else if (age >= 20 && age <= 24 && score >= 45 && score <= 49) {
+            return { percentile: 75, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 20 && age <= 24 && score >= 50 && score <= 54) {
+            return { percentile: 90, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 20 && age <= 24 && score >= 55 && score <= 60) {
+            return { percentile: 95, resultInterpretation: 'Intellectually Superior' };
+        }
+
+        //25-29 Age         
+          else if (age >= 25 && age <= 29 && score <= 23) {
+            return { percentile: 5, resultInterpretation: 'Intellectually Impaired' };
+        } else if (age >= 25 && age <= 29 && score >= 24 && score <= 28) {
+            return { percentile: 10, resultInterpretation: 'Intellectually Impaired' };
+        } else if (age >= 25 && age <= 29 && score >= 29 && score <= 37) {
+            return { percentile: 25, resultInterpretation: 'Below Average In Intellectual Capacity' };
+        } else if (age >= 25 && age <= 29 && score >= 38 && score <= 44) {
+            return { percentile: 50, resultInterpretation: 'Intellectually Average' };
+        } else if (age >= 25 && age <= 29 && score >= 45 && score <= 49) {
+            return { percentile: 75, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 25 && age <= 29 && score >= 50 && score <= 54) {
+            return { percentile: 90, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 25 && age <= 29 && score >= 55 && score <= 60) {
+            return { percentile: 95, resultInterpretation: 'Intellectually Superior' };
+        }
+
+        //30-34 Age
+          else if (age >= 30 && age <= 34 && score <= 19) {
+            return { percentile: 5, resultInterpretation: 'Intellectually Impaired' };
+        } else if (age >= 30 && age <= 34 && score >= 20 && score <= 25) {
+            return { percentile: 10, resultInterpretation: 'Intellectually Impaired' };
+        } else if (age >= 30 && age <= 34 && score >= 26 && score <= 34) {
+            return { percentile: 25, resultInterpretation: 'Below Average In Intellectual Capacity' };
+        } else if (age >= 30 && age <= 34 && score >= 35 && score <= 42) {
+            return { percentile: 50, resultInterpretation: 'Intellectually Average' };
+        } else if (age >= 30 && age <= 34 && score >= 43 && score <= 47) {
+            return { percentile: 75, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 30 && age <= 34 && score >= 48 && score <= 53) {
+            return { percentile: 90, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 30 && age <= 34 && score >= 54 && score <= 60) {
+            return { percentile: 95, resultInterpretation: 'Intellectually Superior' };
+        }
+
+        //35-39 Age
+          else if (age >= 35 && age <= 39 && score <= 30) {
+            return { percentile: 25, resultInterpretation: 'Below Average In Intellectual Capacity' };
+        } else if (age >= 35 && age <= 39 && score >= 31 && score <= 40) {
+            return { percentile: 50, resultInterpretation: 'Intellectually Average' };
+        } else if (age >= 35 && age <= 39 && score >= 41 && score <= 45) {
+            return { percentile: 75, reresultInterpretationsult: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 35 && age <= 39 && score >= 46 && score <= 52) {
+            return { percentile: 90, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 35 && age <= 39 && score >= 53 && score <= 60) {
+            return { percentile: 95, resultInterpretation: 'Intellectually Superior' };
+        }
+
+        //40-44 Age
+          else if (age >= 40 && age <= 44 && score <= 27) {
+            return { percentile: 25, resultInterpretation: 'Below Average In Intellectual Capacity' };
+        } else if (age >= 40 && age <= 44 && score >= 28 && score <= 38) {
+            return { percentile: 50, resultInterpretation: 'Intellectually Average' };
+        } else if (age >= 40 && age <= 44 && score >= 39 && score <= 43) {
+            return { percentile: 75, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 40 && age <= 44 && score >= 44 && score <= 51) {
+            return { percentile: 90, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 40 && age <= 44 && score >= 52 && score <= 60) {
+            return { percentile: 95, resultInterpretation: 'Intellectually Superior' };
+        }
+
+        //45-49 Age
+          else if (age >= 45 && age <= 49 && score <= 24) {
+            return { percentile: 25, resultInterpretation: 'Below Average In Intellectual Capacity' };
+        } else if (age >= 45 && age <= 49 && score >= 25 && score <= 35) {
+            return { percentile: 50, resultInterpretation: 'Intellectually Average' };
+        } else if (age >= 45 && age <= 49 && score >= 36 && score <= 41) {
+            return { percentile: 75, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 45 && age <= 49 && score >= 42 && score <= 49) {
+            return { percentile: 90, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 45 && age <= 49 && score >= 50 && score <= 60) {
+            return { percentile: 95, resultInterpretation: 'Intellectually Superior' };
+        }
+
+        //50-54 Age
+          else if (age >= 50 && age <= 54 && score <= 21) {
+            return { percentile: 25, resultInterpretation: 'Below Average In Intellectual Capacity' };
+        } else if (age >= 50 && age <= 54 && score >= 22 && score <= 33) {
+            return { percentile: 50, resultInterpretation: 'Intellectually Average' };
+        } else if (age >= 50 && age <= 54 && score >= 34 && score <= 39) {
+            return { percentile: 75, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 50 && age <= 54 && score >= 40 && score <= 47) {
+            return { percentile: 90, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 50 && age <= 54 && score >= 48 && score <= 60) {
+            return { percentile: 95, resultInterpretation: 'Intellectually Superior' };
+        }
+
+        //55-59 Age
+          else if (age >= 55 && age <= 59 && score <= 18) {
+            return { percentile: 25, resultInterpretation: 'Below Average In Intellectual Capacity' };
+        } else if (age >= 55 && age <= 59 && score >= 19 && score <= 30) {
+            return { percentile: 50, resultInterpretation: 'Intellectually Average' };
+        } else if (age >= 55 && age <= 59 && score >= 31 && score <= 37) {
+            return { percentile: 75, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 55 && age <= 59 && score >= 38 && score <= 45) {
+            return { percentile: 90, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 55 && age <= 59 && score >= 46 && score <= 60) {
+            return { percentile: 95, resultInterpretation: 'Intellectually Superior' };
+        }
+
+        //60-64 Age
+          else if (age >= 60 && age <= 64 && score <= 15) {
+            return { percentile: 25, resultInterpretation: 'Below Average In Intellectual Capacity' };
+        } else if (age >= 60 && age <= 64 && score >= 16 && score <= 27) {
+            return { percentile: 50, resultInterpretation: 'Intellectually Average' };
+        } else if (age >= 60 && age <= 64 && score >= 28 && score <= 35) {
+            return { percentile: 75, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 60 && age <= 64 && score >= 36 && score <= 43) {
+            return { percentile: 90, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 60 && age <= 64 && score >= 44 && score <= 60) {
+            return { percentile: 95, resultInterpretation: 'Intellectually Superior' };
+        }
+
+        //65 Age and above
+          else if (age >= 65 && score <= 13) {
+            return { percentile: 25, resultInterpretation: 'Below Average In Intellectual Capacity' };
+        } else if (age >= 65 && score >= 14 && score <= 24) {
+            return { percentile: 50, resultInterpretation: 'Intellectually Average' };
+        } else if (age >= 65 && score >= 25 && score <= 33) {
+            return { percentile: 75, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 65 && score >= 34 && score <= 41) {
+            return { percentile: 90, resultInterpretation: 'Above Average In Intellectual Capacity' };
+        } else if (age >= 65 && score >= 42 && score <= 60) {
+            return { percentile: 95, resultInterpretation: 'Intellectually Superior' };
+        }
+    };
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;

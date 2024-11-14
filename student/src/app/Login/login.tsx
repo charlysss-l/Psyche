@@ -65,7 +65,7 @@ const Login: React.FC = () => {
     // Store the token and userId in localStorage
     if (data.token) {
       localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.userId); // Store the userId
+      localStorage.setItem("userId", data.userId || data.studentId); // Store userId, fallback to studentId
     }
     
     return data; // Return data containing the user info and token

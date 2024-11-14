@@ -34,6 +34,7 @@ const IQTest: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [responses, setResponses] = useState<Record<string, string>>({});
     const [userID, setUserID] = useState<string>('');
+
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
     const [age, setAge] = useState<string>('');
@@ -52,6 +53,14 @@ const IQTest: React.FC = () => {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        // Retrieve studentId from localStorage when component mounts
+        const storedStudentId = localStorage.getItem("studentId");
+        if (storedStudentId) {
+          setUserID(storedStudentId);
+        }
+      }, []);
 
     useEffect(() => {
         fetchTest();
@@ -130,9 +139,17 @@ const IQTest: React.FC = () => {
         <form onSubmit={handleSubmit} className={style.formTest}>
             <h1>{iqTest?.nameOfTest}</h1>
             <p>Number of Questions: {iqTest?.numOfQuestions}</p>
+            <p className={style.ageWarning}> "You Must Be 20 Years Old and Above To Take This Test" <br/> 
+            "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up"
+            </p>
+
             <div>
-                <input type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required />
-                <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+            <input
+        type="text"
+        id="studentId"
+        value={userID || ""}
+        readOnly // Make the field read-only if you don't want it to be editable
+      />                <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
                 <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                 <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
                 <select value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')} required>
