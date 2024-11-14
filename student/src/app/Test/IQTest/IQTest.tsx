@@ -37,11 +37,11 @@ const IQTest: React.FC = () => {
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
     const [age, setAge] = useState<string>('');
-    const [sex, setSex] = useState<'Male' | 'Female' | ''>(''); 
-    const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');
-    const [course, setCourse] = useState<string>('');  // Keep empty initially
-    const [year, setYear] = useState<string>('');      // Keep empty initially
+    const [course, setCourse] = useState<string>('');
+    const [year, setYear] = useState<string>('');
     const [section, setSection] = useState<string>('');
+    const [sex, setSex] = useState<'Male' | 'Female' | ''>('');
+    const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');    
     const [currentPage, setCurrentPage] = useState(1);
     const questionsPerPage = 5; // Display 5 questions per page
 
@@ -107,9 +107,6 @@ const IQTest: React.FC = () => {
             lastName,
             age,
             sex,
-            course,
-            year,
-            section,
             testID: iqTest?.testID || '',
             responses: responsesWithAnswers,
             totalScore: score.totalScore,
@@ -149,7 +146,8 @@ const IQTest: React.FC = () => {
             </p>
 
             <div>
-                <input type="text" id="studentId" value={userID || ""} readOnly />
+                <input type="text" id="studentId" value={userID || ""} readOnly // Make the field read-only if you don't want it to be editable
+                />                
                 <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
                 <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                 <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
@@ -158,13 +156,6 @@ const IQTest: React.FC = () => {
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
-
-                <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
-                    <option value="" disabled>Select Exam Type</option>
-                    <option value="Online">Online</option>
-                    <option value="Physical">Physical</option>
-                </select>
-
                 <select value={course} onChange={(e) => setCourse(e.target.value)} required>
                     <option value="" disabled>Select Course</option>
                     <option value="BSCS">BSCS</option>
@@ -196,9 +187,14 @@ const IQTest: React.FC = () => {
                     <option value="9">9</option>
                     <option value="10">10</option>
                 </select>
+                
 
+                <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
+                    <option value="" disabled>Select Exam Type</option>
+                    <option value="Online">Online</option>
+                    <option value="Physical">Physical</option>
+                </select>
             </div>
-
             <div className={style.questionContainer}>
                 {currentQuestions?.map((q) => (
                     <div className={style.questionBox} key={q.questionID}>
@@ -220,13 +216,18 @@ const IQTest: React.FC = () => {
                     </div>
                 ))}
             </div>
-
-            <div className={style.navigationButtons}>
-                <button type="button" onClick={handlePrevPage} disabled={currentPage === 1}>Previous</button>
-                <button type="button" onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
+            <div className={style.pagination}>
+                <button type="button" onClick={handlePrevPage} disabled={currentPage === 1}>
+                    Previous
+                </button>
+                <span>Page {currentPage} of {totalPages}</span>
+                <button type="button" onClick={handleNextPage} disabled={currentPage === totalPages}>
+                    Next
+                </button>
             </div>
-
-            <button type="submit">Submit Test</button>
+            {currentPage === totalPages && (
+                <button type="submit">Submit Answers</button>
+            )}
         </form>
     );
 };
