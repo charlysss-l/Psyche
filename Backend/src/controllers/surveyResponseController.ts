@@ -13,59 +13,54 @@ export const getAllSurveysForStudents = async (req: Request, res: Response) => {
   }
 };
 
-// Controller to submit survey responses
 export const submitSurveyResponses = async (req: Request, res: Response) => {
-    try {
-      const { studentId, surveyId, responses } = req.body;
-  
-      // Convert studentId to ObjectId
-      const studentObjectId = new Object(studentId);  // Ensure studentId is an ObjectId
-  
-      const newResponse = new SurveyResponse({
-        studentId: studentObjectId,  // Save the ObjectId in the database
-        surveyId,
-        responses,
-      });
-  
-      await newResponse.save();
-      res.status(201).json({ message: 'Survey responses submitted successfully' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Error submitting responses' });
-    }
-  };
+  try {
+    const { surveyId, responses, userId } = req.body;  // Extract userId from the request body
 
-  // Admin: Get all survey responses (for a specific survey or all surveys)
+    const newResponse = new SurveyResponse({
+      surveyId,
+      userId,  // Save userId in the survey response
+      responses,
+    });
+
+    await newResponse.save();
+    res.status(201).json({ message: 'Survey responses submitted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error submitting responses' });
+  }
+};
+
+// Admin: Get all survey responses (for a specific survey or all surveys)
 export const getAllSurveyResponses = async (req: Request, res: Response) => {
-    try {
-      const { surveyId } = req.query;  // Optionally, filter by surveyId
-      const filter = surveyId ? { surveyId } : {};  // If surveyId is provided, filter responses by surveyId
+  try {
+    const { surveyId } = req.query;  // Optionally, filter by surveyId
+    const filter = surveyId ? { surveyId } : {};  // If surveyId is provided, filter responses by surveyId
   
-      const responses = await SurveyResponse.find(filter)
-        .populate('studentId', 'email userId')  // Populate student information (email, userId)
-        .populate('surveyId', 'title')  // Populate survey title
-        .populate('responses.questionId', 'questionText')  // Populate question text
-        .exec();
+    const responses = await SurveyResponse.find(filter)
+      .populate('surveyId', 'title')  // Populate survey title
+      .populate('responses.questionId', 'questionText')  // Populate question text
+      .exec();
   
-      res.status(200).json(responses);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Error fetching survey responses' });
-    }
-  };
+    res.status(200).json(responses);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching survey responses' });
+  }
+};
 
-  // controllers/surveyResponseController.ts
+ // Get responses for a specific student (userId)
 export const getStudentResponses = async (req: Request, res: Response) => {
-    const { studentId } = req.params;  // Get the studentId from the URL params
+  const { userId } = req.params;  // Changed studentId to userId
   
-    try {
-      const responses = await SurveyResponse.find({ studentId });  // Find all responses for the given studentId
-      res.status(200).json(responses);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Error fetching responses' });
-    }
-  };
+  try {
+    const responses = await SurveyResponse.find({ userId });  // Changed studentId to userId
+    res.status(200).json(responses);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching responses' });
+  }
+};
   
 // controllers/surveyResponseController.ts
 export const getAllStudentsSurveyResponses = async (req: Request, res: Response) => {
@@ -75,7 +70,6 @@ export const getAllStudentsSurveyResponses = async (req: Request, res: Response)
   
       // Populate the surveyId to get the questions from the Survey model
       const responses = await SurveyResponse.find(filter)
-        .populate('studentId', 'email userId')  // Populate student information (email, userId)
         .populate('surveyId', 'title questions')  // Populate surveyId and include the questions
         
         .exec();

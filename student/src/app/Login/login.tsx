@@ -34,7 +34,8 @@ const Login: React.FC = () => {
       if (response.token) {
         setSuccessMessage("Login successful!");
         localStorage.setItem("token", response.token);  // Store token in localStorage
-        localStorage.setItem("studentId", response.studentId);  // Store studentId in localStorage
+        localStorage.setItem("studentId", response.studentId); 
+        localStorage.setItem("userId", response.userId); // Store studentId in localStorage
         setTimeout(() => {
           navigate("/home");
         }, 1500);
@@ -65,8 +66,11 @@ const Login: React.FC = () => {
     // Store the token and userId in localStorage
     if (data.token) {
       localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.userId || data.studentId); // Store userId, fallback to studentId
+      localStorage.setItem("userId", data.userId); // Store userId
+      localStorage.setItem("studentId", data.studentId); // Store studentId
+      console.log("Stored userId in localStorage:", data.userId);  // Debugging line
     }
+    
     
     return data; // Return data containing the user info and token
   };

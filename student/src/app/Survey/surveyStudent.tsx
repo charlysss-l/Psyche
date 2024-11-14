@@ -1,7 +1,7 @@
 // components/SurveyAnswerForm.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './surveyStudent.module.scss';  // Import the SCSS module
+import styles from './surveyStudent.module.scss';
 
 interface Survey {
   _id: string;
@@ -17,13 +17,20 @@ interface Survey {
 const SurveyAnswerForm: React.FC = () => {
   const [surveys, setSurveys] = useState<Survey[]>([]);
   const [selectedAnswers, setSelectedAnswers] = useState<any>({});
+  const [userId, setUserId] = useState<string>('');  // Store userId
+
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const surveysPerPage = 5;  // Number of surveys to display per page
+  const surveysPerPage = 5;
 
   useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+      console.log("Retrieved userId from localStorage:", storedUserId);  // Debugging line
+    }
     const fetchSurveys = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/surveys');  // Correct URL
+        const response = await axios.get('http://localhost:5000/api/surveys');
         setSurveys(response.data);
       } catch (error) {
         console.error('Error fetching surveys', error);
@@ -43,12 +50,6 @@ const SurveyAnswerForm: React.FC = () => {
   };
 
   const handleSubmit = async (surveyId: string) => {
-    const studentId = localStorage.getItem("studentId");  // Retrieve studentId from localStorage
-    if (!studentId) {
-      alert("You need to be logged in to submit the survey.");
-      return;
-    }
-
     const responses = Object.keys(selectedAnswers[surveyId] || {}).map((questionId) => ({
       questionId,
       choice: selectedAnswers[surveyId][questionId],
@@ -56,8 +57,8 @@ const SurveyAnswerForm: React.FC = () => {
 
     try {
       await axios.post('http://localhost:5000/api/response/surveys/submit', {
-        studentId,  // Send studentId to the backend
         surveyId,
+        userId,  // Send userId in the request body
         responses,
       });
       alert('Survey submitted successfully');
@@ -75,7 +76,14 @@ const SurveyAnswerForm: React.FC = () => {
 
   return (
     <div className={styles.surveyFormContainer}>
-      <h2>Available Surveys <span className={styles.surveyCount}>({surveys.length})</span></h2> {/* Display count here */}
+      <h2>Available Surveys <span className={styles.surveyCount}>({surveys.length})</span></h2>
+      
+      {userId ? (
+        <p className={styles.userId}>User ID: {userId}</p>
+      ) : (
+        <p>Loading...</p>
+      )}
+
       {currentSurveys.map((survey) => (
         <div key={survey._id} className={styles.survey}>
           <h3 className={styles.title}>{survey.title}</h3>

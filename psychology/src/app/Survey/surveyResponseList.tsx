@@ -1,23 +1,21 @@
-import React, { Key, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './surveyResponseList.module.scss';  // Import the SCSS module
 
 interface SurveyResponse {
-  _id: Key | null | undefined;
-  studentId: {
-    userId: string; // Display student ID instead of email
-  };
+  _id: string;
+  userId: string; // Assuming the userId is part of the response data
   surveyId: {
     title: string;
     questions: {
-      _id: any;
-      questionText: string; // Each question in the survey
-      choices: string[];     // The choices for each question
-    }[]; 
+      _id: string;
+      questionText: string;
+      choices: string[];
+    }[];
   };
   responses: {
-    questionId: string; // Store as ObjectId (not questionText directly)
-    choice: string;     // The answer/choice given
+    questionId: string;
+    choice: string;
   }[];
   submittedAt: string;
 }
@@ -26,12 +24,12 @@ const SurveyResponseList: React.FC = () => {
   const [responses, setResponses] = useState<SurveyResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const responsesPerPage = 5;  // Number of responses to display per page
+  const responsesPerPage = 5;
 
   useEffect(() => {
     const fetchSurveyResponses = async () => {
       try {
-        const surveyId = ''; // Leave empty to get all responses
+        const surveyId = ''; // Empty to get all responses
         const response = await axios.get('http://localhost:5000/api/survey-responses', {
           params: { surveyId },
         });
@@ -76,7 +74,7 @@ const SurveyResponseList: React.FC = () => {
           <tbody>
             {currentResponses.map((response) => (
               <tr key={response._id}>
-                <td>{response.studentId.userId}</td>
+                <td>{response.userId}</td>  {/* Display userId from the response */}
                 <td>{response.surveyId.title}</td>
                 <td>
                   {response.surveyId.questions.map((question, index) => {
