@@ -13,7 +13,7 @@ const Test = () => {
           </Link>
         </div>
         <div className={style.iqLinkContainer}>
-          <Link to="/iqtest" className={style.iqLink}>
+          <Link to="/iqtestuserform" className={style.iqLink}>
             IQ Test
           </Link>
         </div>

@@ -44,6 +44,8 @@ const IQTest: React.FC = () => {
     const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');    
     const [currentPage, setCurrentPage] = useState(1);
     const questionsPerPage = 5; // Display 5 questions per page
+    const [timer, setTimer] = useState<number>(1 * 10); // 45 minutes in seconds
+    const [isTimeUp, setIsTimeUp] = useState<boolean>(false);
 
     const fetchTest = async () => {
         try {
@@ -60,13 +62,46 @@ const IQTest: React.FC = () => {
         // Retrieve studentId from localStorage when component mounts
         const storedStudentId = localStorage.getItem("studentId");
         if (storedStudentId) {
-          setUserID(storedStudentId);
+            setUserID(storedStudentId);
         }
-      }, []);
+    }, []);
+
+    useEffect(() => {
+        // Retrieve user details from localStorage and set them in state
+        const storedUserDetails = localStorage.getItem("userDetails");
+        if (storedUserDetails) {
+            const {  firstName, lastName, age, sex, course, year, section, testType } = JSON.parse(storedUserDetails);
+            setFirstName(firstName);
+            setLastName(lastName);
+            setAge(age);
+            setSex(sex);
+            setCourse(course);
+            setYear(year);
+            setSection(section);
+            setTestType(testType);
+        }
+    }, []);
 
     useEffect(() => {
         fetchTest();
     }, []);
+
+    useEffect(() => {
+        if (timer === 0) {
+            setIsTimeUp(true);
+            handleSubmit(new Event('submit') as unknown as React.FormEvent<HTMLFormElement>); // Corrected here
+        }
+    }, [timer]);
+
+    useEffect(() => {
+        const timerID = setInterval(() => {
+            if (timer > 0) {
+                setTimer(prevTime => prevTime - 1);
+            }
+        }, 1000);
+
+        return () => clearInterval(timerID); // Cleanup on component unmount
+    }, [timer]);
 
     const handleChange = (questionID: string, value: string) => {
         setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));
@@ -80,7 +115,7 @@ const IQTest: React.FC = () => {
         return { correctAnswer: `${totalCorrect}`, totalScore: totalCorrect };
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const responsesWithAnswers = Object.keys(responses).map(questionID => {
             const question = iqTest?.questions.find(q => q.questionID === questionID);
@@ -141,60 +176,13 @@ const IQTest: React.FC = () => {
         <form onSubmit={handleSubmit} className={style.formTest}>
             <h1>{iqTest?.nameOfTest}</h1>
             <p>Number of Questions: {iqTest?.numOfQuestions}</p>
-            <p className={style.ageWarning}> "You Must Be 20 Years Old and Above To Take This Test" <br/> 
-            "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up"
+            <p className={style.ageWarning}> 
+                "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up"
             </p>
+            <p>Time Remaining: {Math.floor(timer / 60)}:{timer % 60}</p>
 
-            <div>
-                <input type="text" id="studentId" value={userID || ""} readOnly // Make the field read-only if you don't want it to be editable
-                />                
-                <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-                <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-                <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
-                <select value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')} required>
-                    <option value="" disabled>Select Sex</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-                <select value={course} onChange={(e) => setCourse(e.target.value)} required>
-                    <option value="" disabled>Select Course</option>
-                    <option value="BSCS">BSCS</option>
-                    <option value="BSIT">BSIT</option>
-                    <option value="BSP">BSP</option>
-                    <option value="BSCrim">BSCrim</option>
-                    <option value="BSEd">BSEd</option>
-                    <option value="BSHRM">BSHRM</option>
-                </select>
+            {/* Your form fields here */}
 
-                <select value={year} onChange={(e) => setYear(e.target.value)} required>
-                    <option value="" disabled>Select Year</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-
-                <select value={section} onChange={(e) => setSection(e.target.value)} required>
-                    <option value="" disabled>Select Section</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-                
-
-                <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
-                    <option value="" disabled>Select Exam Type</option>
-                    <option value="Online">Online</option>
-                    <option value="Physical">Physical</option>
-                </select>
-            </div>
             <div className={style.questionContainer}>
                 {currentQuestions?.map((q) => (
                     <div className={style.questionBox} key={q.questionID}>
@@ -225,7 +213,7 @@ const IQTest: React.FC = () => {
                     Next
                 </button>
             </div>
-            {currentPage === totalPages && (
+            {currentPage === totalPages && !isTimeUp && (
                 <button type="submit">Submit Answers</button>
             )}
         </form>
