@@ -1,6 +1,11 @@
 body{
   background-color: #f4f2ee;
  }
+
+ body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
  
  .App {
    display: flex;
@@ -25,3 +30,19 @@ body{
    margin-top: 0px;
  }
  
+ /* Position the theme toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+  z-index: 1000;
+}
+
+body.dark-mode .theme-toggle {
+  color: #fff;
+}

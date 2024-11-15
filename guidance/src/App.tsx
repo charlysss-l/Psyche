@@ -8,6 +8,7 @@ import Calendar from './app/Calendar/Calendar';
 import Profile from './app/Profile/Profile';
 import './App.css';
 import Login from './app/Login/login';
+import ThemeToggle from './darkMode';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                     </Routes>
                   </div>
                 </div>
+                <ThemeToggle />
               </>
             }
           />

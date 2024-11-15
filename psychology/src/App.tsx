@@ -16,6 +16,8 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSideBar';
 import PFResultsList from './app/Test/PFTest/PFResultsList/PFResultsList';
 import IQResultsList from './app/Test/IQTest/IQResultsList/IQResultsList';
+import ThemeToggle from "./darkMode";
+
 
 function App() {
   return (
@@ -77,6 +79,7 @@ function App() {
             </Routes>
           </div>
         </div>
+        <ThemeToggle />
       </div>
     </Router>
   );

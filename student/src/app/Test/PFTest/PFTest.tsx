@@ -166,7 +166,7 @@ const PFTest: React.FC = () => {
             </div>
 
             {currentPage === totalPages && (
-                <button type="submit">Submit Test</button>
+                <button className={styles.submitButton} type="submit">Submit Test</button>
             )}
         </form>
     );

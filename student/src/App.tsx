@@ -18,6 +18,7 @@ import "./App.css";
 import Login from "./app/Login/login";
 import SignupForm from "./app/Signup/Signup";
 import LandingPage from './app/Home/LandingPage';
+import ThemeToggle from "./darkMode";
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
                 <Sidebar />
                 <div className="main-content">
                   <Navbar />
+
+                  
                   <div className="content">
                     <Routes>
                       <Route path="/home" element={<Home />} />
@@ -56,6 +59,8 @@ function App() {
                     </Routes>
                   </div>
                 </div>
+                <ThemeToggle /> {/* Add the ThemeToggle component here */}
+
               </>
             }
           />

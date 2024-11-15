@@ -1,25 +1,48 @@
-body {
+body{
   background-color: #f4f2ee;
-  margin: 0;
+ }
+
+ body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+ 
+ .App {
+   display: flex;
+   min-height: 100vh;
+   padding: 0;
+ }
+ 
+ 
+ .main-content {
+   display: flex;
+   flex-direction: column;
+   margin: 10px;
+   padding:0;
+   flex: 1;
+ }
+ 
+ 
+ .content {
+   flex: 1;  
+   padding: 0px;
+   border-radius: 5px;
+   margin-top: 0px;
+ }
+ 
+ /* Position the theme toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+  z-index: 1000;
 }
 
-.App {
-  display: flex;
-  min-height: 100vh;
-  padding: 0;
-}
-
-.main-content {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  flex: 1;
-}
-
-.content {
-  flex: 1;
-  padding: 20px;
-  border-radius: 5px;
-  margin-top: 0px;
+body.dark-mode .theme-toggle {
+  color: #fff;
 }
