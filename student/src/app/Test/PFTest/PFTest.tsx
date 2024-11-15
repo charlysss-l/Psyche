@@ -113,16 +113,16 @@ const PFTest: React.FC = () => {
             <p>Number of Questions: {test?.numOfQuestions}</p>
 
             <div>
-                <input type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required />
-                <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-                <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-                <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
-                <select value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')} required>
+                <input className={styles.inputTextPf} type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required />
+                <input className={styles.inputTextPf} type="text"  placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                <input className={styles.inputTextPf} type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                <input className={styles.inputNumberPf} type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
+                <select  className={styles.selectPF} value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')} required>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
-                <input type="text" placeholder="Course Section" value={courseSection} onChange={(e) => setCourseSection(e.target.value)} required />
-                <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
+                <input className={styles.inputTextPf} type="text" placeholder="Course Section" value={courseSection} onChange={(e) => setCourseSection(e.target.value)} required />
+                <select className={styles.selectPF} value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
                     <option value="Online">Online</option>
                     <option value="Physical">Physical</option>
                 </select>
@@ -132,20 +132,21 @@ const PFTest: React.FC = () => {
                 {currentQuestions && currentQuestions.length > 0 ? (
                     currentQuestions.map((q: Question, index: number) => (
                         <div className={styles.questionBox} key={q.questionID}>
-                            <p>{(currentPage - 1) * questionsPerPage + index + 1}. {q.questionText}</p>
-                            <div>
-                                {Object.entries(q.choices).map(([key, value]) => (
-                                    <label key={key}>
-                                        <input
-                                            type="radio"
-                                            name={q.questionID}
-                                            value={key}
-                                            checked={responses[q.questionID] === key}
-                                            onChange={() => handleChange(q.questionID, key)}
-                                        />
-                                        {value}
-                                    </label>
-                                ))}
+                            <p className={styles.pPFtest}>{(currentPage - 1) * questionsPerPage + index + 1}. {q.questionText}</p>
+                        <div className={styles.allChoicesPF}>
+                            {Object.entries(q.choices).map(([key, value]) => (
+                        <label key={key} className={styles.labelPF}>
+                            <input
+                                type="radio"
+                                name={q.questionID}
+                                value={key}
+                                className={styles.inputRadioPFTest}
+                                checked={responses[q.questionID] === key}
+                                onChange={() => handleChange(q.questionID, key)}
+                            />
+                            <span>{key}. {value}</span>
+                        </label>
+                    ))}
                             </div>
                         </div>
                     ))
