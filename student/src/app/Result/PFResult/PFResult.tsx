@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './studentpfresult.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface TestResultData {
     userID: string;
@@ -8,7 +9,9 @@ interface TestResultData {
     lastName: string;
     age: string;
     sex: 'Male' | 'Female';
-    courseSection: string;
+    course: string;
+    year: number;
+    section: number;
     testType: 'Online' | 'Physical';
     responses: {
         questionID: string;
@@ -447,6 +450,7 @@ const calculateStenScore = (rawScore: number, factorLetter: string): number => {
 };
 
 const PFResult: React.FC = () => {
+    const navigate = useNavigate();
     const [results, setResults] = useState<TestResultData | null>(null);
 
     useEffect(() => {
@@ -506,6 +510,7 @@ const PFResult: React.FC = () => {
 
     const handleCancel = () => {
         alert('Result sharing cancelled.');
+        navigate('/home');
     };
 
     return (
@@ -514,7 +519,9 @@ const PFResult: React.FC = () => {
             <p className={styles.info}>User ID: {results.userID}</p>
             <p className={styles.info}>Age: {results.age}</p>
             <p className={styles.info}>Sex: {results.sex}</p>
-            <p className={styles.info}>Course Section: {results.courseSection}</p>
+            <p className={styles.info}>Course: {results.course}</p>
+            <p className={styles.info}>Year: {results.year}</p>
+            <p className={styles.info}>Section: {results.section}</p>
             <p className={styles.info}>Test Type: {results.testType}</p>
 
             <h3 className={styles.subheading}>Scoring Summary</h3>

@@ -18,6 +18,7 @@ export interface Question {
 
 // Define structure for the entire test.
 export interface User16PFTest {
+    testID: string;
     nameofTest: string;
     numOfQuestions: number;
     question: Question[];
