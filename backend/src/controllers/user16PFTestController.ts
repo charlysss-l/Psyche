@@ -423,11 +423,11 @@ const calculateStenScore = (rawScore: number, factorLetter: string): number => {
     return 1;
 };
 export const createUser16PFTest = async (req: Request, res: Response) => {
-    const { userID, firstName, lastName, age, sex, course, year, section, responses, testType, testDate } = req.body;
+    const { userID, firstName, lastName, age, sex, courseSection, responses, testType } = req.body;
 
     try {
         // Validate that required fields are present
-        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section  || !responses || !testType || !testDate) {
+        if (!userID || !firstName || !lastName || !age || !sex || !courseSection || !responses || !testType) {
             res.status(400).json({ message: 'Missing required fields' });
             return;
         }
@@ -437,9 +437,6 @@ export const createUser16PFTest = async (req: Request, res: Response) => {
             res.status(400).json({ message: 'Responses must be a non-empty array' });
             return;
         }
-
-        // Generate a unique testID using userID and current timestamp
-        const testID = `${userID}-${Date.now()}`;
 
         // Map responses ensuring they contain the necessary fields
         const mappedResponses = responses.map((response: any) => {
@@ -484,22 +481,11 @@ export const createUser16PFTest = async (req: Request, res: Response) => {
             lastName,
             age,
             sex,
-            course,
-            year,
-            section,
-            testID,
+            courseSection,
             responses: mappedResponses,
             scoring, // Use the newly constructed scoring object
             testType,
-            testDate
         });
-
-        // Check for existing testID
-const existingTest = await User16PFTestSchema.findOne({ testID });
-if (existingTest) {
-    return res.status(400).json({ message: 'Duplicate testID found. Each test attempt must have a unique testID.' });
-}
-
 
         await testDocument.save();
         res.status(201).json({ message: 'Test created successfully!', data: testDocument });

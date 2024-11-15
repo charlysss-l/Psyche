@@ -1,7 +1,7 @@
 .form {
   background-color: #ffffff;
   padding: 20px;
-  padding-bottom: 120px; /* Increase padding for pagination */
+  padding-bottom: 120px; 
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   max-width: 800px;
@@ -10,50 +10,43 @@
   position: relative;
 }
 
-/* Title and other text */
-
-
-p {
-  color: #45474B; /* Dark gray for general text */
+.pPFtest {
+  color: #45474B; 
   
 }
 
-/* Input Fields */
-input[type="text"],
-input[type="number"],
-select {
+
+.inputTextPf , .inputNumberPf  , .selectPF {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  background-color: #ffffff; /* White background for inputs */
-  color: #45474B; /* Dark gray text */
+  background-color: #ffffff; 
+  color: #45474B; 
   box-sizing: border-box;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
-select:focus {
-  border-color: #2E5266; /* Focus border color */
-  box-shadow: 0 0 5px rgba(46, 82, 102, 0.5); /* Light glow effect on focus */
+.inputTextPf:focus,.inputNumberPf :focus,.selectPF:focus {
+  border-color: #2E5266; 
+  box-shadow: 0 0 5px rgba(46, 82, 102, 0.5); 
 }
 
-/* Select dropdown styling */
-select {
+
+.selectPF {
   background-color: #ffffff;
   color: #45474B;
 }
 
-/* Labels */
-label {
+
+.labelPF {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
   color: #45474B;
 }
 
-/* Question section styling */
+
 .questionContainer {
   display: flex;
   flex-direction: column;
@@ -62,36 +55,44 @@ label {
 }
 
 .questionBox {
-  background-color: #ffffff; /* White background for each question box */
-  border: 1px solid #2E5266; /* Dark blue border */
+  background-color: #ffffff; 
+  border: 1px solid #2E5266; 
   border-radius:10px;
   padding: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s ease;
 }
 
-/* Question box hover effect */
+
 .questionBox:hover {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Radio button and label styles */
-input[type="radio"] {
+
+.inputRadioPFTest{
   margin-right: 10px;
+  font-weight: 100;
 }
 
-/* Submit button styling */
+
 .submitPFbutton {
+  margin-top: 30px;
   background-color: black;
   color: white;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  font-weight: 500;
 }
 
 .submitPFbutton:hover {
   background-color: #e8e6e2;
   color: black;
+  border: 0;
+  font-weight: 600;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1); 
 }
 
-/* Pagination styling */
 .pagination {
   display: flex;
   justify-content: center;
@@ -110,7 +111,7 @@ input[type="radio"] {
 }
 
 .pagination button:hover {
-  background-color: #1d3a46; /* Darker shade on hover */
+  background-color: #1d3a46; 
 }
 
 .pagination button:disabled {
@@ -118,7 +119,7 @@ input[type="radio"] {
   cursor: not-allowed;
 }
 
-/* Active page button */
+
 .pagination .active {
   background-color: #1d3a46;
   font-weight: bold;

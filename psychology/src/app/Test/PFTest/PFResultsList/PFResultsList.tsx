@@ -7,10 +7,8 @@ interface User16PFTest {
   firstName: string;
   lastName: string;
   age: string;
-  sex: 'Female' | 'Male'| '';
-  course: string;
-  year: number;
-  section: number;
+  sex: 'Female' | 'Male';
+  courseSection: string;
   responses: {
     questionID: string;
     selectedChoice: 'a' | 'b' | 'c';
@@ -24,7 +22,7 @@ interface User16PFTest {
       stenScore: number;
     }[];
   };
-  testType: 'Online' | 'Physical'| '';
+  testType: 'Online' | 'Physical';
 }
 
 const PFResultsList: React.FC = () => {
@@ -81,13 +79,10 @@ const PFResultsList: React.FC = () => {
           <table className={styles.resultsTable}>
             <thead>
               <tr>
-                <th>userID</th>
                 <th>Name</th>
                 <th>Age</th>
                 <th>Sex</th>
-                <th>Course</th>
-                <th>Year</th>
-                <th>Section</th>
+                <th>Course Section</th>
                 <th>Test Type</th>
                 <th>Responses</th>
                 <th>Scores</th>
@@ -96,13 +91,10 @@ const PFResultsList: React.FC = () => {
             <tbody>
               {currentResults.map((result) => (
                 <tr key={result.userID} className={styles.eachResultPF}>
-                  <td>{result.userID}</td>
                   <td>{result.firstName} {result.lastName}</td>
                   <td>{result.age}</td>
                   <td>{result.sex}</td>
-                  <td>{result.course}</td>
-                  <td>{result.year}</td>
-                  <td>{result.section}</td>
+                  <td>{result.courseSection}</td>
                   <td>{result.testType}</td>
                   <td>
                     <table className={styles.responsesTable}>
