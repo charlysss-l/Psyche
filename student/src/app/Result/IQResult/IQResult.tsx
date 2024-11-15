@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styles from './IQResult.module.scss';
-import { Navigate, useNavigate } from 'react-router-dom';
 
 interface IQTestResultData {
     userID: string;
@@ -8,9 +7,6 @@ interface IQTestResultData {
     lastName: string;
     age: number;
     sex: 'Male' | 'Female';
-    course: string;
-    year: number;
-    section: number;
     testType: 'Online' | 'Physical';
     totalScore: number;
     interpretation?: {
@@ -20,7 +16,6 @@ interface IQTestResultData {
 }
 
 const IQResult: React.FC = () => {
-    const navigate = useNavigate();
     const [result, setResult] = useState<IQTestResultData | null>(null);
 
     useEffect(() => {
@@ -46,7 +41,7 @@ const IQResult: React.FC = () => {
         } else if (age >= 20 && age <= 24 && score >= 38 && score <= 44) {
             return { percentile: 50, result: 'Intellectually Average' };
         } else if (age >= 20 && age <= 24 && score >= 45 && score <= 49) {
-            return { percentile: 75, result: 'Intellectually Average' };
+            return { percentile: 75, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 20 && age <= 24 && score >= 50 && score <= 54) {
             return { percentile: 90, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 20 && age <= 24 && score >= 55 && score <= 60) {
@@ -65,7 +60,7 @@ const IQResult: React.FC = () => {
         } else if (age >= 25 && age <= 29 && score >= 38 && score <= 44) {
             return { percentile: 50, result: 'Intellectually Average' };
         } else if (age >= 25 && age <= 29 && score >= 45 && score <= 49) {
-            return { percentile: 75, result: 'Intellectually Average' };
+            return { percentile: 75, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 25 && age <= 29 && score >= 50 && score <= 54) {
             return { percentile: 90, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 25 && age <= 29 && score >= 55 && score <= 60) {
@@ -84,7 +79,7 @@ const IQResult: React.FC = () => {
         } else if (age >= 30 && age <= 34 && score >= 35 && score <= 42) {
             return { percentile: 50, result: 'Intellectually Average' };
         } else if (age >= 30 && age <= 34 && score >= 43 && score <= 47) {
-            return { percentile: 75, result: 'Intellectually Average' };
+            return { percentile: 75, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 30 && age <= 34 && score >= 48 && score <= 53) {
             return { percentile: 90, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 30 && age <= 34 && score >= 54 && score <= 60) {
@@ -97,7 +92,7 @@ const IQResult: React.FC = () => {
         } else if (age >= 35 && age <= 39 && score >= 31 && score <= 40) {
             return { percentile: 50, result: 'Intellectually Average' };
         } else if (age >= 35 && age <= 39 && score >= 41 && score <= 45) {
-            return { percentile: 75, result: 'Intellectually Average' };
+            return { percentile: 75, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 35 && age <= 39 && score >= 46 && score <= 51) {
             return { percentile: 90, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 35 && age <= 39 && score >= 52 && score <= 60) {
@@ -110,7 +105,7 @@ const IQResult: React.FC = () => {
         } else if (age >= 40 && age <= 44 && score >= 28 && score <= 38) {
             return { percentile: 50, result: 'Intellectually Average' };
         } else if (age >= 40 && age <= 44 && score >= 39 && score <= 43) {
-            return { percentile: 75, result: 'Intellectually Average' };
+            return { percentile: 75, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 40 && age <= 44 && score >= 44 && score <= 49) {
             return { percentile: 90, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 40 && age <= 44 && score >= 50 && score <= 60) {
@@ -123,7 +118,7 @@ const IQResult: React.FC = () => {
         } else if (age >= 45 && age <= 49 && score >= 25 && score <= 35) {
             return { percentile: 50, result: 'Intellectually Average' };
         } else if (age >= 45 && age <= 49 && score >= 36 && score <= 41) {
-            return { percentile: 75, result: 'Intellectually Average' };
+            return { percentile: 75, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 45 && age <= 49 && score >= 42 && score <= 47) {
             return { percentile: 90, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 45 && age <= 49 && score >= 48 && score <= 60) {
@@ -136,7 +131,7 @@ const IQResult: React.FC = () => {
         } else if (age >= 50 && age <= 54 && score >= 22 && score <= 33) {
             return { percentile: 50, result: 'Intellectually Average' };
         } else if (age >= 50 && age <= 54 && score >= 34 && score <= 39) {
-            return { percentile: 75, result: 'Intellectually Average' };
+            return { percentile: 75, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 50 && age <= 54 && score >= 40 && score <= 45) {
             return { percentile: 90, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 50 && age <= 54 && score >= 46 && score <= 60) {
@@ -149,7 +144,7 @@ const IQResult: React.FC = () => {
         } else if (age >= 55 && age <= 59 && score >= 19 && score <= 30) {
             return { percentile: 50, result: 'Intellectually Average' };
         } else if (age >= 55 && age <= 59 && score >= 31 && score <= 37) {
-            return { percentile: 75, result: 'Intellectually Average' };
+            return { percentile: 75, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 55 && age <= 59 && score >= 38 && score <= 43) {
             return { percentile: 90, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 55 && age <= 59 && score >= 44 && score <= 60) {
@@ -162,7 +157,7 @@ const IQResult: React.FC = () => {
         } else if (age >= 60 && age <= 64 && score >= 16 && score <= 27) {
             return { percentile: 50, result: 'Intellectually Average' };
         } else if (age >= 60 && age <= 64 && score >= 28 && score <= 35) {
-            return { percentile: 75, result: 'Intellectually Average' };
+            return { percentile: 75, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 60 && age <= 64 && score >= 36 && score <= 41) {
             return { percentile: 90, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 60 && age <= 64 && score >= 42 && score <= 60) {
@@ -175,7 +170,7 @@ const IQResult: React.FC = () => {
         } else if (age >= 65 && score >= 14 && score <= 24) {
             return { percentile: 50, result: 'Intellectually Average' };
         } else if (age >= 65 && score >= 25 && score <= 33) {
-            return { percentile: 75, result: 'Intellectually Average' };
+            return { percentile: 75, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 65 && score >= 34 && score <= 39) {
             return { percentile: 90, result: 'Above Average In Intellectual Capacity' };
         } else if (age >= 65 && score >= 40 && score <= 60) {
@@ -189,7 +184,6 @@ const IQResult: React.FC = () => {
 
     const handleCancel = () => {
         alert('Result sharing cancelled.');
-        navigate('/home');
     };
 
     return (
@@ -210,18 +204,6 @@ const IQResult: React.FC = () => {
                         <span className={styles.value}>{result.sex}</span>
                     </div>
                     <div className={styles.section}>
-                        <span className={styles.label}>Course:</span>
-                        <span className={styles.value}>{result.course}</span>
-                    </div>
-                    <div className={styles.section}>
-                        <span className={styles.label}>Year:</span>
-                        <span className={styles.value}>{result.year}</span>
-                    </div>
-                    <div className={styles.section}>
-                        <span className={styles.label}>Section:</span>
-                        <span className={styles.value}>{result.section}</span>
-                    </div>
-                    <div className={styles.section}>
                         <span className={styles.label}>Test Type:</span>
                         <span className={styles.value}>{result.testType}</span>
                     </div>
@@ -232,7 +214,6 @@ const IQResult: React.FC = () => {
                     {result.interpretation && (
                         <div className={styles.interpretationSection}>
                             <h3>Interpretation</h3>
-                            <p>Percentile: {result.interpretation.percentile}</p>
                             <p>Interpretation: {result.interpretation.result}</p>
                             
                             {/* Share Prompt */}
