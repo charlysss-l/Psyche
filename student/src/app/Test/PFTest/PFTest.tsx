@@ -17,9 +17,21 @@ const PFTest: React.FC = () => {
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
     const [age, setAge] = useState<string>('');
-    const [sex, setSex] = useState<'Male' | 'Female'>('Male');
-    const [courseSection, setCourseSection] = useState<string>('');
-    const [testType, setTestType] = useState<'Online' | 'Physical'>('Online');
+    const [sex, setSex] = useState<'Male' | 'Female' | ''>('');
+    const [course, setCourse] = useState<string>('');
+    const [year, setYear] = useState<string>('');
+    const [section, setSection] = useState<string>('');
+    const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');
+
+    useEffect(() => {
+        // Fetch userID from localStorage and set it in state
+        const storedUserID = localStorage.getItem('userId');
+        if (storedUserID) {
+            setUserID(storedUserID);
+        }
+
+        fetchTest();
+    }, []);
 
     const fetchTest = async () => {
         try {
@@ -31,10 +43,6 @@ const PFTest: React.FC = () => {
             setLoading(false);
         }
     };
-
-    useEffect(() => {
-        fetchTest();
-    }, []);
 
     const handleChange = (questionID: string, value: string) => {
         setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));
@@ -76,10 +84,14 @@ const PFTest: React.FC = () => {
             lastName,
             age,
             sex,
-            courseSection,
+            course,
+            year,
+            section,
+            testID: `${userID}-${Date.now()}`,  // Generate unique testID
             responses: formattedResponses,
             scoring,
             testType,
+            testDate: new Date(),
         };
 
         try {
@@ -113,16 +125,41 @@ const PFTest: React.FC = () => {
             <p>Number of Questions: {test?.numOfQuestions}</p>
 
             <div>
-                <input className={styles.inputTextPf} type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required />
-                <input className={styles.inputTextPf} type="text"  placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-                <input className={styles.inputTextPf} type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-                <input className={styles.inputNumberPf} type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
-                <select  className={styles.selectPF} value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')} required>
+                <input type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required readOnly/>
+                <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
+                <select value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')} required>
+                    <option value="" disabled>Select Sex</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
-                <input className={styles.inputTextPf} type="text" placeholder="Course Section" value={courseSection} onChange={(e) => setCourseSection(e.target.value)} required />
-                <select className={styles.selectPF} value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
+                <select value={course} onChange={(e) => setCourse(e.target.value)} required>
+                    <option value="" disabled>Select Course</option>
+                    <option value="BSCS">BSCS</option>
+                    <option value="BSIT">BSIT</option>
+                    <option value="BSP">BSP</option>
+                    <option value="BSCrim">BSCrim</option>
+                    <option value="BSEd">BSEd</option>
+                    <option value="BSHRM">BSHRM</option>
+                </select>
+                <select value={year} onChange={(e) => setYear(e.target.value)} required>
+                    <option value="" disabled>Select Year</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <select value={section} onChange={(e) => setSection(e.target.value)} required>
+                    <option value="" disabled>Select Section</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
+                    <option value="" disabled>Select Exam Type</option>
                     <option value="Online">Online</option>
                     <option value="Physical">Physical</option>
                 </select>
@@ -132,21 +169,20 @@ const PFTest: React.FC = () => {
                 {currentQuestions && currentQuestions.length > 0 ? (
                     currentQuestions.map((q: Question, index: number) => (
                         <div className={styles.questionBox} key={q.questionID}>
-                            <p className={styles.pPFtest}>{(currentPage - 1) * questionsPerPage + index + 1}. {q.questionText}</p>
-                        <div className={styles.allChoicesPF}>
-                            {Object.entries(q.choices).map(([key, value]) => (
-                        <label key={key} className={styles.labelPF}>
-                            <input
-                                type="radio"
-                                name={q.questionID}
-                                value={key}
-                                className={styles.inputRadioPFTest}
-                                checked={responses[q.questionID] === key}
-                                onChange={() => handleChange(q.questionID, key)}
-                            />
-                            <span>{key}. {value}</span>
-                        </label>
-                    ))}
+                            <p>{(currentPage - 1) * questionsPerPage + index + 1}. {q.questionText}</p>
+                            <div>
+                                {Object.entries(q.choices).map(([key, value]) => (
+                                    <label key={key}>
+                                        <input
+                                            type="radio"
+                                            name={q.questionID}
+                                            value={key}
+                                            checked={responses[q.questionID] === key}
+                                            onChange={() => handleChange(q.questionID, key)}
+                                        />
+                                        {value}
+                                    </label>
+                                ))}
                             </div>
                         </div>
                     ))
@@ -165,7 +201,7 @@ const PFTest: React.FC = () => {
                 </button>
             </div>
 
-            {currentPage === totalPages && (
+            {currentPage === totalPages  && (
                 <button className={styles.submitButton} type="submit">Submit Test</button>
             )}
         </form>

@@ -16,6 +16,12 @@ const UserForm: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Check if the user is 20 years or older
+        if (parseInt(age) < 20) {
+            alert("You must be 20 years or older to take this test.");
+            return;
+        }
+
         // Store the user data in localStorage or pass to IQTest as state
         localStorage.setItem('userDetails', JSON.stringify({ firstName, lastName, age, course, year, section, sex, testType }));
 
@@ -26,8 +32,9 @@ const UserForm: React.FC = () => {
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>
             <h1>IQ Test</h1>
-            <p className={style.ageWarning}> "You Must Be 20 Years Old and Above To Take This Test" <br/> 
-            "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up"
+            <p className={style.ageWarning}>
+                "You Must Be 20 Years Old and Above To Take This Test" <br/> 
+                "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up"
             </p>
             <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
             <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
