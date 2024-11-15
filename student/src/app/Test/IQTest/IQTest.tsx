@@ -44,7 +44,7 @@ const IQTest: React.FC = () => {
     const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');    
     const [currentPage, setCurrentPage] = useState(1);
     const questionsPerPage = 5; // Display 5 questions per page
-    const [timer, setTimer] = useState<number>(1 * 20); // 45 minutes in seconds
+    const [timer, setTimer] = useState<number>(45 * 60); // 45 minutes in seconds
     const [isTimeUp, setIsTimeUp] = useState<boolean>(false);
 
     const fetchTest = async () => {
@@ -217,8 +217,8 @@ const IQTest: React.FC = () => {
                 </button>
             </div>
             {currentPage === totalPages && !isTimeUp && (
-                <button type="submit">Submit Answers</button>
-            )}
+    <button type="submit" className={style.submitButton}>Submit Answers</button>
+)}
         </form>
     );
 };

@@ -201,8 +201,8 @@ const PFTest: React.FC = () => {
                 </button>
             </div>
 
-            {currentPage === totalPages && (
-                <button type="submit">Submit Test</button>
+            {currentPage === totalPages  && (
+                <button className={styles.submitButton} type="submit">Submit Test</button>
             )}
         </form>
     );

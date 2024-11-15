@@ -123,3 +123,22 @@ input[type="radio"] {
   background-color: #1d3a46;
   font-weight: bold;
 }
+
+.submitButton{
+  padding: 10px 15px;
+  background-color: #67b2da;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 40px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #1d3a46; /* Darker shade on hover */
+}

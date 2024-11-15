@@ -223,3 +223,33 @@ li {
 .start:hover {
   background-color: darken($primary-color, 10%); /* Darker shade on hover */
 }
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+  }
+}
+
+.submitButton {
+  padding: 10px 15px;
+  background-color: #67b2da;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 40px;
+  
+  
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #1d3a46; /* Darker shade on hover */
+}
