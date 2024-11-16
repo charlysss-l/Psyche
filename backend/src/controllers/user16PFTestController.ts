@@ -571,7 +571,7 @@ export const updateUser16PFTest = async (req: Request, res: Response) => {
 export const deleteUser16PFTest = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const deletedUserPFTest = await User16PFTestSchema.findByIdAndDelete(id);
+        const deletedUserPFTest = await User16PFTestSchema.findOneAndDelete({userID : id});
         if (!deletedUserPFTest) {
             res.status(404).json({ message: 'Test not found' });
             return;

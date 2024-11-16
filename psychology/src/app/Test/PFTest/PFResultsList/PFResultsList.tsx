@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styles from './page.module.scss';  // Import the CSS module
+import styles from './page.module.scss';  
+import { useNavigate } from 'react-router-dom';
 
 // Define the interface for the user results
 interface User16PFTest {
@@ -33,7 +34,7 @@ const PFResultsList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 8;
-
+  const navigate = useNavigate();
   // Fetch data function
   const fetchData = async () => {
     try {
@@ -59,6 +60,26 @@ const PFResultsList: React.FC = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleDelete = async (userID: string) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/user16pf/${userID}`, {
+        method: 'DELETE',
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Error deleting the test: ${response.statusText}`);
+      }
+
+      // Remove the deleted user from the state
+      setResults(results.filter((result) => result.userID !== userID));
+      navigate('/pfresults_list'); 
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      console.error('Error deleting test:', err);
+    }
+  };
+
 
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
@@ -91,6 +112,7 @@ const PFResultsList: React.FC = () => {
                 <th>Test Type</th>
                 <th>Responses</th>
                 <th>Scores</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -145,6 +167,14 @@ const PFResultsList: React.FC = () => {
                         ))}
                       </tbody>
                     </table>
+                  </td>
+                  <td>
+                    <button 
+                      className={styles.deleteButton} 
+                      onClick={() => handleDelete(result.userID)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
