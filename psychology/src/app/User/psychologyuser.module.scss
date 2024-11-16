@@ -1,7 +1,7 @@
-// psychologyuser.module.scss
-
 $user-background-color: #131313;
 $font-color: white;
+$edit-color: #007bff; // Bootstrap blue
+$delete-color: #dc3545; // Bootstrap red
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
@@ -9,7 +9,7 @@ $font-color: white;
   font-size: 1.8rem;
   color: black;
   margin-bottom: 1rem;
-  text-align: center; // Centers the h2
+  text-align: center;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -17,9 +17,8 @@ $font-color: white;
   width: 100%;
   border-collapse: collapse;
   background-color: $user-background-color;
-  text-align: center; // Center-aligns all content in the table cells
+  text-align: center;
   font-family: 'Roboto', sans-serif;
-
 }
 
 .th, .td {
@@ -30,4 +29,36 @@ $font-color: white;
 
 .th {
   font-weight: bold;
+}
+
+.button-action {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.edit {
+  background-color: $edit-color;
+  color: white;
+
+  &:hover {
+    background-color: darken($edit-color, 10%);
+  }
+}
+
+.delete {
+  background-color: $delete-color;
+  color: white;
+
+  &:hover {
+    background-color: darken($delete-color, 10%);
+  }
 }

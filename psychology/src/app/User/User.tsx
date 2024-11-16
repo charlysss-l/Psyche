@@ -9,14 +9,12 @@ interface User {
 
 const User = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [editUserId, setEditUserId] = useState<string | null>(null); // For handling edits
+  const [editUserId, setEditUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/allusers/users"
-        );
+        const response = await fetch("http://localhost:5000/api/allusers/users");
         const data = await response.json();
         setUsers(data);
       } catch (error) {
@@ -34,11 +32,11 @@ const User = () => {
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ role }), // Send the role with delete request
+          body: JSON.stringify({ role }),
         }
       );
       if (response.ok) {
-        setUsers(users.filter((user) => user.userId !== userId)); // Remove user from state after deletion
+        setUsers(users.filter((user) => user.userId !== userId));
       }
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -79,7 +77,7 @@ const User = () => {
             <th className={style.th}>User ID</th>
             <th className={style.th}>Email</th>
             <th className={style.th}>Role</th>
-            <th className={style.th}>Actions</th> {/* New column for buttons */}
+            <th className={style.th}>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -91,13 +89,17 @@ const User = () => {
                 <td className={style.td}>{user.role}</td>
                 <td className={style.td}>
                   <button
+                    className={`${style["button-action"]} ${style["edit"]}`}
                     onClick={() =>
                       handleEdit(user.userId, user.email, user.role)
                     }
                   >
                     Edit
                   </button>
-                  <button onClick={() => handleDelete(user.userId, user.role)}>
+                  <button
+                    className={`${style["button-action"]} ${style["delete"]}`}
+                    onClick={() => handleDelete(user.userId, user.role)}
+                  >
                     Delete
                   </button>
                 </td>
