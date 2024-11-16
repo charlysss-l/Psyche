@@ -3,18 +3,20 @@ $font-color: #45474B;
 
 .loginContainer {
   display: flex;
-  height: 100%;
-  width: 100%;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh;
   background-color: $background-color;
-  justify-content: center;
-  align-items: center;
+  gap: 20px; /* Space between the image and the form */
+  padding: 20px;
 }
 
 .imageContainer {
-  background-image: url('https://images.unsplash.com/photo-1610707421341-c8b9295ad1fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080');
+  background-image: url('https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
   background-size: cover;
   background-position: center;
-  flex: 1;
+  height: 100vh; /* Full viewport height */
+  width: 70vw; /* Full viewport width */
   border-radius: 10px;
 }
 
@@ -23,11 +25,10 @@ $font-color: #45474B;
   background-color: white;
   padding: 40px;
   max-width: 400px;
-  width: 200%;
+  width: 100%;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 8px;
   text-align: center;
-  margin-right: 550px;
   font-family: Arial, Helvetica, sans-serif;
 
 }
@@ -66,8 +67,8 @@ $font-color: #45474B;
 }
 
 .submitButtonLog {
-  background-color: #f3f1f1;
-  color: black;
+  background-color: black;
+  color: white;
   padding: 12px 20px;
   border: none;
   border-radius: 10px;
@@ -79,7 +80,7 @@ $font-color: #45474B;
 }
 
 .submitButtonLog:hover {
-  background-color: #f3f1f1;
+  background-color: white;
   color: black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
 }
