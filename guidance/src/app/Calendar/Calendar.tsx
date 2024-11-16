@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Calendar from "react-calendar"; // Assuming you installed react-calendar
+import Calendar from "react-calendar";
 import { fetchConsultationRequests } from "../services/consultationservice";
 import axios from "axios";
 import styles from "./Calendar.scss";
@@ -98,9 +98,31 @@ const SchedulingCalendar: React.FC = () => {
     (request) => new Date(request.date).toDateString() === selectedDate?.toDateString()
   );
 
+  // Function to determine if a date has schedules and should be red
+  const isScheduledDate = (date: Date) => {
+    return consultationRequests.some(
+      (request) => new Date(request.date).toDateString() === date.toDateString()
+    );
+  };
+
   return (
     <div className={styles.calendarContainer}>
-      <Calendar onClickDay={handleDateClick} />
+      <Calendar
+        onClickDay={handleDateClick}
+        tileClassName={({ date }) => {
+          // Add red background for dates with schedules
+          return isScheduledDate(date) ? styles.scheduledDate : "";
+        }}
+        tileContent={({ date, view }) => {
+          if (view === "month") {
+            const count = consultationRequests.filter(
+              (request) => new Date(request.date).toDateString() === date.toDateString()
+            ).length;
+            return count ? <div className="schedule-count">{count}</div> : null;
+          }
+          return null;
+        }}
+      />
       {selectedDate && (
         <div className={styles.requestList}>
           <h2>Requests for {selectedDate.toDateString()}</h2>
