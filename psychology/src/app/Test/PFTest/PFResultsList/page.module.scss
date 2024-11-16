@@ -5,6 +5,7 @@
     background-color: rgb(255, 252, 252);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064); 
     border: 1px solid #9e979791; 
+    width: 100%;
   }
   
 
@@ -27,12 +28,19 @@
 
   .eachResultPF:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
-    transform: translateY(-5px); 
+    transform: translateY(-1px); 
     cursor: pointer;
     background-color: rgb(245, 244, 244);
     border: 1px solid #9e979791; 
   }
-  
+  .deleteButton{
+    background-color: red;
+    padding: 8px;
+  }
+
+  .deleteButton:hover{
+    background-color: rgb(230, 3, 3);
+  }
   .pagination {
     display: flex;
     justify-content: center;

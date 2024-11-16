@@ -126,7 +126,7 @@ export const updateIQTestResult = async (req: Request, res: Response) => {
 export const deleteIQTestResult = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const deletedIQTestResult = await UserIQTest.findByIdAndDelete(id);
+        const deletedIQTestResult = await UserIQTest.findOneAndDelete({userID : id});
         if (!deletedIQTestResult) {
             res.status(404).json({ message: 'Test result not found' });
             return;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './page.module.scss'; // Import your CSS module
+import { useNavigate } from 'react-router-dom';
 
 interface Response {
   questionID: string;
@@ -42,6 +43,7 @@ const IQResultsList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 8;
+  const navigate = useNavigate();
 
   // Fetch data from the server
   const fetchData = async () => {
@@ -69,6 +71,27 @@ const IQResultsList: React.FC = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+
+  const handleDelete = async (userID: string) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/useriq/${userID}`, {
+        method: 'DELETE',
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Error deleting the test: ${response.statusText}`);
+      }
+
+      // Remove the deleted user from the state
+      setResults(results.filter((result) => result.userID !== userID));
+      navigate('/iqresults_list'); 
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      console.error('Error deleting test:', err);
+    }
+  };
+
 
   const getInterpretation = (age: number, score: number) => {
         
@@ -254,6 +277,7 @@ const IQResultsList: React.FC = () => {
                 <th>Responses</th>
                 <th>Total Score</th>
                 <th>Interpretation</th>
+                <th>Actions</th>
               </tr>
             </thead>
 
@@ -306,6 +330,14 @@ const IQResultsList: React.FC = () => {
                     </ul>
                   </td>
                   )}
+                                    <td>
+                    <button 
+                      className={styles.deleteButtonIQLIST} 
+                      onClick={() => handleDelete(result.userID)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
