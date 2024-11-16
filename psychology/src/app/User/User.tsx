@@ -71,7 +71,7 @@ const User = () => {
   return (
     <div>
       <h2 className={style.userTitle}>LIST OF USERS</h2>
-      <table className={style.table}>
+      <table className={style.tableUser}>
         <thead>
           <tr>
             <th className={style.th}>User ID</th>

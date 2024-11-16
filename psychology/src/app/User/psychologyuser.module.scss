@@ -1,9 +1,3 @@
-$user-background-color: #131313;
-$font-color: white;
-$edit-color: #007bff; // Bootstrap blue
-$delete-color: #dc3545; // Bootstrap red
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 .userTitle {
   font-size: 1.8rem;
@@ -13,22 +7,30 @@ $delete-color: #dc3545; // Bootstrap red
   font-family: 'Roboto', sans-serif;
 }
 
-.table {
+.tableUser {
   width: 100%;
   border-collapse: collapse;
-  background-color: $user-background-color;
+  background-color: rgb(255, 252, 252);
   text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064); 
+  border: 1px solid #9e979791; 
   font-family: 'Roboto', sans-serif;
+
 }
 
-.th, .td {
-  border: 1px solid $font-color;
-  padding: 0.8rem;
-  color: $font-color;
+.tableUser th{
+  color: #333;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  background-color: rgb(245, 242, 242);
+  border-bottom: 1px solid #9e979791; 
 }
 
-.th {
-  font-weight: bold;
+.tableUser td{
+  padding: 5px;
+  font-size: 13px;
+  border-bottom: 1px solid #9e979791; 
 }
 
 .button-action {
@@ -46,19 +48,21 @@ $delete-color: #dc3545; // Bootstrap red
 }
 
 .edit {
-  background-color: $edit-color;
+  background-color: blue;
   color: white;
+  margin: 10px;
+  width: 20%;
 
   &:hover {
-    background-color: darken($edit-color, 10%);
+    background-color: darken(blue, 10%);
   }
 }
 
 .delete {
-  background-color: $delete-color;
-  color: white;
+  background-color: red;
+  width: 20%;
 
   &:hover {
-    background-color: darken($delete-color, 10%);
+    background-color: rgb(230, 3, 3);
   }
 }
