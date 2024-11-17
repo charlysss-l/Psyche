@@ -477,6 +477,8 @@ const PFResult: React.FC = () => {
     const navigate = useNavigate();
     const [results, setResults] = useState<TestResultData | null>(null);
 
+    const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
+
     useEffect(() => {
         // Retrieve results from local storage
         const storedResults = localStorage.getItem('pfTestResults');
@@ -492,6 +494,13 @@ const PFResult: React.FC = () => {
             </div>
         );
     }
+
+    const sortedScoring = results.scoring.sort((a, b) => {
+        const indexA = factorOrder.indexOf(a.factorLetter);
+        const indexB = factorOrder.indexOf(b.factorLetter);
+        return indexA - indexB;
+    });
+
 
     // Submit results to the backend
     const submitResultsToBackend = async () => {
@@ -538,11 +547,11 @@ const PFResult: React.FC = () => {
     };
 
     const chartData = {
-        labels: results.scoring.map((score) => score.factorLetter), // Factor Letters on x-axis
+        labels: sortedScoring.map((score) => score.factorLetter), // Factor Letters on x-axis in order
         datasets: [
             {
                 label: 'Sten Score',
-                data: results.scoring.map((score) =>
+                data: sortedScoring.map((score) =>
                     calculateStenScore(score.rawScore, score.factorLetter)
                 ), // Calculate sten scores dynamically
                 borderColor: 'rgba(75, 192, 192, 1)', // Line color
@@ -623,10 +632,29 @@ const PFResult: React.FC = () => {
             <Line data={chartData} options={chartOptions} />;
         </div>
     
+        <div className={styles.resultTable}>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Factor Letter</th>
+                            <th> Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sortedScoring.map((score) => (
+                            <tr key={score.factorLetter}>
+                                <td>{score.factorLetter}</td>
+                                <td>{calculateStenScore(score.rawScore, score.factorLetter)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+        </div>
+
         <div className={styles.sharePrompt}>
             <p>Would you like to share your result with our guidance counselor?</p>
             <button onClick={handleShareResult} className={styles.buttonYes}>Yes</button>
-            <button onClick={handleCancel} className={styles.buttonCancel}>Cancel</button>
+            <button onClick={handleCancel} className={styles.buttonCancel}>No</button>
         </div>
     </div>
     
