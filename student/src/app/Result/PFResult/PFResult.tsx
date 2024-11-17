@@ -3,6 +3,19 @@ import { Link } from 'react-router-dom';
 import styles from './studentpfresult.module.scss';
 import { useNavigate } from 'react-router-dom';
 
+import { Line } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+
+
 interface TestResultData {
     userID: string;
     firstName: string;
@@ -25,6 +38,17 @@ interface TestResultData {
         stenScore: number;
     }[] | [];
 }
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
 
 // Function to calculate stenScore based on rawScore and factorLetter
 const calculateStenScore = (rawScore: number, factorLetter: string): number => {
@@ -513,6 +537,52 @@ const PFResult: React.FC = () => {
         navigate('/home');
     };
 
+    const chartData = {
+        labels: results.scoring.map((score) => score.factorLetter), // Factor Letters on x-axis
+        datasets: [
+            {
+                label: 'Sten Score',
+                data: results.scoring.map((score) =>
+                    calculateStenScore(score.rawScore, score.factorLetter)
+                ), // Calculate sten scores dynamically
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.4, // Smooth curve
+                borderWidth: 2,
+            },
+        ],
+    };
+
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top' as const,
+            },
+            tooltip: {
+                mode: 'index' as const,
+                intersect: false,
+            },
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Factor Letter',
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Sten Score',
+                },
+                min: 1,
+                max: 10,
+            },
+        },
+    };
+
     return (
         <div className={styles.container}>
             <h2 className={styles.heading}>Test Results for {results.firstName} {results.lastName}</h2>
@@ -551,6 +621,11 @@ const PFResult: React.FC = () => {
                 <p>No scoring data available.</p>
             )}
 
+            <h3 className={styles.subheading}>Sten Score Graph</h3>
+            <div className={styles.chartContainer}>
+                <Line data={chartData} options={chartOptions} />
+            </div>
+                
             {/* Share Prompt */}
             <div className={styles.sharePrompt}>
                 <p>Would you like to share your result with our guidance counselor?</p>
