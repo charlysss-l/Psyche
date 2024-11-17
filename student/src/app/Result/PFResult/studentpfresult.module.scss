@@ -71,6 +71,11 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.PFInterpretation{
+    background-color: rgb(90, 88, 88);
+    color: white;
+    border: 1px solid rgb(90, 88, 88);
+}
 .resultTable th,
 .resultTable td {
     padding: 12px;
@@ -87,16 +92,8 @@
 
 .resultTable td {
     font-size: 14px;
-    background-color: #f9f9f9;
 }
 
-.resultTable tr:nth-child(even) td {
-    background-color: #f1f1f1;
-}
-
-.resultTable tr:hover {
-    background-color: #eaeaea;
-}
 
 .resultTable td,
 .resultTable th {

@@ -731,23 +731,36 @@ const PFResult: React.FC = () => {
                             <th>Factor Letter</th>
                             <th> STEN</th>
                             <th> Left Meaning</th>
+                            <th> Interpretation</th>
                             <th> Right Meaning</th>
                         </tr>
                     </thead>
                     <tbody>
             {sortedScoring.map((score) => {
-                    const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
-                    return (
-                        <tr key={score.factorLetter}>
-                            <td>{score.factorLetter}</td>
-                            <td>{calculateStenScore(score.rawScore, score.factorLetter)}</td>
-                            <td>{leftMeaning}</td>
-                            <td>{rightMeaning}</td>
-                        </tr>
-                    );
-                })}
-            </tbody>    
-                    </table>
+                const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+                const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
+                
+                let interpretation = "";
+                if (stenScore >= 1 && stenScore <= 3) {
+                    interpretation = "Left";
+                } else if (stenScore >= 4 && stenScore <= 7) {
+                    interpretation = "Average";
+                } else if (stenScore >= 8 && stenScore <= 10) {
+                    interpretation = "Right";
+                }
+
+                return (
+                    <tr key={score.factorLetter}>
+                        <td>{score.factorLetter}</td>
+                        <td>{stenScore}</td>
+                        <td>{leftMeaning}</td>
+                        <td className={styles.PFInterpretation}>{interpretation}</td>
+                        <td>{rightMeaning}</td>
+                    </tr>
+                );
+            })}
+        </tbody> 
+                </table>
         </div>
 
         <div className={styles.sharePrompt}>
