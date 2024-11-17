@@ -545,14 +545,15 @@ const PFResult: React.FC = () => {
                 data: results.scoring.map((score) =>
                     calculateStenScore(score.rawScore, score.factorLetter)
                 ), // Calculate sten scores dynamically
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Fill color
                 tension: 0.4, // Smooth curve
                 borderWidth: 2,
             },
         ],
     };
-
+    
+    // Define chart options
     const chartOptions = {
         responsive: true,
         plugins: {
@@ -579,10 +580,22 @@ const PFResult: React.FC = () => {
                 },
                 min: 1,
                 max: 10,
+                grid: {
+                    drawOnChartArea: true,
+                    color: (context: any) => {
+                        const yValue = context.tick.value;
+                        // Apply gray background color to grid lines for Sten 4-7
+                        if (yValue >= 4 && yValue <= 7) {
+                            return 'rgba(128, 128, 128, 1)'; 
+                        }
+                        return 'rgba(0, 0, 0, 0.1)'; 
+                    },
+                },
             },
         },
     };
-
+    
+    
     return (
         <div className={styles.container}>
             <h2 className={styles.heading}>Test Results for {results.firstName} {results.lastName}</h2>
@@ -594,36 +607,10 @@ const PFResult: React.FC = () => {
             <p className={styles.info}>Section: {results.section}</p>
             <p className={styles.info}>Test Type: {results.testType}</p>
 
-            <h3 className={styles.subheading}>Scoring Summary</h3>
-            {results.scoring && results.scoring.length > 0 ? (
-                <table className={styles.table}>
-                    <thead>
-                        <tr>
-                            <th>Factor Letter</th>
-                            <th>Raw Score</th>
-                            <th>Sten Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {results.scoring.map((score, index) => {
-                            const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
-                            return (
-                                <tr key={index}>
-                                    <td>{score.factorLetter}</td>
-                                    <td>{score.rawScore}</td>
-                                    <td>{stenScore}</td> {/* Display the calculated stenScore */}
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            ) : (
-                <p>No scoring data available.</p>
-            )}
 
-            <h3 className={styles.subheading}>Sten Score Graph</h3>
+            <h3 className={styles.subheading}>Test Result</h3>
             <div className={styles.chartContainer}>
-                <Line data={chartData} options={chartOptions} />
+                <Line data={chartData} options={chartOptions} />;
             </div>
                 
             {/* Share Prompt */}
