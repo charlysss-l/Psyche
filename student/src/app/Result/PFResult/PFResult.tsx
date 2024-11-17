@@ -641,7 +641,7 @@ const PFResult: React.FC = () => {
         labels: sortedScoring.map((score) => score.factorLetter), // Factor Letters on x-axis in order
         datasets: [
             {
-                label: 'Sten Score',
+                label: 'Standard Ten Score (STEN)',
                 data: sortedScoring.map((score) =>
                     calculateStenScore(score.rawScore, score.factorLetter)
                 ), // Calculate sten scores dynamically
@@ -676,7 +676,7 @@ const PFResult: React.FC = () => {
             y: {
                 title: {
                     display: true,
-                    text: 'Sten Score',
+                    text: 'Sten',
                 },
                 min: 1,
                 max: 10,
@@ -687,6 +687,7 @@ const PFResult: React.FC = () => {
                         // Apply gray background color to grid lines for Sten 4-7
                         if (yValue >= 4 && yValue <= 7) {
                             return 'rgba(128, 128, 128, 1)'; 
+                            
                         }
                         return 'rgba(0, 0, 0, 0.1)'; 
                     },
@@ -728,7 +729,7 @@ const PFResult: React.FC = () => {
                     <thead>
                         <tr>
                             <th>Factor Letter</th>
-                            <th> Score</th>
+                            <th> STEN</th>
                             <th> Left Meaning</th>
                             <th> Right Meaning</th>
                         </tr>
