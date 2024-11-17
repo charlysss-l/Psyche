@@ -196,7 +196,7 @@ const IQResult: React.FC = () => {
         <div className={styles.container}>
             {result ? (
                 <div>
-                    <h2 className={styles.header}>IQ Test Results for {result.firstName} {result.lastName}</h2>
+                    <h2 className={styles.header}>{result.firstName} {result.lastName}</h2>
                     <div className={styles.section}>
                         <span className={styles.label}>User ID:</span>
                         <span className={styles.value}>{result.userID}</span>
@@ -214,12 +214,8 @@ const IQResult: React.FC = () => {
                         <span className={styles.value}>{result.course}</span>
                     </div>
                     <div className={styles.section}>
-                        <span className={styles.label}>Year:</span>
-                        <span className={styles.value}>{result.year}</span>
-                    </div>
-                    <div className={styles.section}>
-                        <span className={styles.label}>Section:</span>
-                        <span className={styles.value}>{result.section}</span>
+                        <span className={styles.label}>Year and Section:</span>
+                        <span className={styles.value}>{result.year} - {result.section}</span>
                     </div>
                     <div className={styles.section}>
                         <span className={styles.label}>Test Type:</span>
@@ -231,9 +227,7 @@ const IQResult: React.FC = () => {
                     </div>
                     {result.interpretation && (
                         <div className={styles.interpretationSection}>
-                            <h3>Interpretation</h3>
-                            <p>Percentile: {result.interpretation.percentile}</p>
-                            <p>Interpretation: {result.interpretation.result}</p>
+                            <h3>Interpretation: {result.interpretation.result}</h3>
                             
                             {/* Share Prompt */}
                             <div className={styles.sharePrompt}>
