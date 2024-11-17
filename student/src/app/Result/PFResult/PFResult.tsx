@@ -598,28 +598,38 @@ const PFResult: React.FC = () => {
     
     return (
         <div className={styles.container}>
-            <h2 className={styles.heading}>Test Results for {results.firstName} {results.lastName}</h2>
-            <p className={styles.info}>User ID: {results.userID}</p>
-            <p className={styles.info}>Age: {results.age}</p>
-            <p className={styles.info}>Sex: {results.sex}</p>
-            <p className={styles.info}>Course: {results.course}</p>
-            <p className={styles.info}>Year: {results.year}</p>
-            <p className={styles.info}>Section: {results.section}</p>
-            <p className={styles.info}>Test Type: {results.testType}</p>
-
-
-            <h3 className={styles.subheading}>Test Result</h3>
-            <div className={styles.chartContainer}>
-                <Line data={chartData} options={chartOptions} />;
-            </div>
-                
-            {/* Share Prompt */}
-            <div className={styles.sharePrompt}>
-                <p>Would you like to share your result with our guidance counselor?</p>
-                <button onClick={handleShareResult} className={styles.buttonYes}>Yes</button>
-                <button onClick={handleCancel} className={styles.buttonCancel}>Cancel</button>
-            </div>
+        <h2 className={styles.heading}>Test Results for {results.firstName} {results.lastName}</h2>
+        <div className={styles.info}>
+            <strong>User ID:</strong> <span>{results.userID}</span>
         </div>
+        <div className={styles.info}>
+            <strong>Age:</strong> <span>{results.age}</span>
+        </div>
+        <div className={styles.info}>
+            <strong>Sex:</strong> <span>{results.sex}</span>
+        </div>
+        <div className={styles.info}>
+            <strong>Course:</strong> <span>{results.course}</span>
+        </div>
+        <div className={styles.info}>
+            <strong>Year and Section:</strong> <span>{results.year} - {results.section}</span>
+        </div>
+        <div className={styles.info}>
+            <strong>Test Type:</strong> <span>{results.testType}</span>
+        </div>
+    
+        <h3 className={styles.subheading}>Test Result</h3>
+        <div className={styles.chartContainer}>
+            <Line data={chartData} options={chartOptions} />;
+        </div>
+    
+        <div className={styles.sharePrompt}>
+            <p>Would you like to share your result with our guidance counselor?</p>
+            <button onClick={handleShareResult} className={styles.buttonYes}>Yes</button>
+            <button onClick={handleCancel} className={styles.buttonCancel}>Cancel</button>
+        </div>
+    </div>
+    
     );
 };
 
