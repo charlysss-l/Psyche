@@ -551,22 +551,6 @@ const PFResult: React.FC = () => {
                 <p>No scoring data available.</p>
             )}
 
-            <h3 className={styles.subheading}>Responses</h3>
-            {results.responses && results.responses.length > 0 ? (
-                <ul className={styles.responseList}>
-                    {results.responses.map((response, index) => (
-                        <li key={index} className={styles.responseItem}>
-                            <p>Question ID: {response.questionID}</p>
-                            <p>Selected Choice: {response.selectedChoice}</p>
-                            <p>Equivalent Score: {response.equivalentScore}</p>
-                            <p>Factor Letter: {response.factorLetter}</p>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No responses available.</p>
-            )}
-
             {/* Share Prompt */}
             <div className={styles.sharePrompt}>
                 <p>Would you like to share your result with our guidance counselor?</p>
