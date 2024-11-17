@@ -51,428 +51,519 @@ ChartJS.register(
 
 
 // Function to calculate stenScore based on rawScore and factorLetter
-const calculateStenScore = (rawScore: number, factorLetter: string): number => {
-    // Factor-specific mappings
-    switch (factorLetter) {
-        case 'A':
-            if (rawScore >= 0 && rawScore <= 3) {
-                return 1; // Factor A custom mapping
-            }else if (rawScore >= 4 && rawScore <= 5) {
-                return 2; 
-            } else if (rawScore >= 6 && rawScore <= 8) {
-                return 3; 
-            }else if (rawScore >= 9 && rawScore <= 11) {
-                return 4; 
-            }
-            else if (rawScore >= 12 && rawScore <= 14) {
-                return 5; 
-            }
-            else if (rawScore >= 15 && rawScore <= 17) {
-                return 6; 
-            }
-            else if (rawScore >= 18 && rawScore <= 19) {
-                return 7; 
-            }
-            else if (rawScore === 20) {
-                return 8; 
-            }
-            else if (rawScore >= 21 && rawScore <= 22) {
-                return 9; 
-            }
-            break;
-        case 'B':
-            if (rawScore >= 0 && rawScore <= 3) {
-                return 1; 
-            } else if (rawScore === 4) {
-                return 2; 
-            }
-            else if (rawScore >=  5 && rawScore <= 6 ) {
-                return 3; 
-            }
-            else if (rawScore >= 7 && rawScore <= 8) {
-                return 4; 
-            }
-            else if (rawScore >= 9 && rawScore <= 10) {
-                return 5; 
-            }
-            else if (rawScore >=  11 && rawScore <= 12) {
-                return 6; 
-            }
-            else if (rawScore === 13 ) {
-                return 7; 
-            }
-            else if (rawScore === 14 ) {
-                return 8; 
-            }
-            else if (rawScore === 15 ) {
-                return 9; 
-            }
-            break;
-            case 'C':
-                if (rawScore >= 0 && rawScore <= 2 ) {
-                    return 1; 
-                } else if (rawScore >= 3 && rawScore <= 5 ) {
+    const calculateStenScore = (rawScore: number, factorLetter: string): number => {
+        // Factor-specific mappings
+        switch (factorLetter) {
+            case 'A':
+                if (rawScore >= 0 && rawScore <= 3) {
+                    return 1; // Factor A custom mapping
+                }else if (rawScore >= 4 && rawScore <= 5) {
                     return 2; 
-                }
-                else if (rawScore >= 6 && rawScore <= 8) {
+                } else if (rawScore >= 6 && rawScore <= 8) {
                     return 3; 
-                }
-                else if (rawScore >= 9 && rawScore <= 12 ) {
+                }else if (rawScore >= 9 && rawScore <= 11) {
                     return 4; 
                 }
-                else if (rawScore >=  13 && rawScore <= 16) {
+                else if (rawScore >= 12 && rawScore <= 14) {
                     return 5; 
                 }
-                else if (rawScore >= 17  && rawScore <= 18 ) {
+                else if (rawScore >= 15 && rawScore <= 17) {
                     return 6; 
                 }
-                else if (rawScore === 19 ) {
+                else if (rawScore >= 18 && rawScore <= 19) {
                     return 7; 
                 }
-                else if (rawScore === 20 ) {
+                else if (rawScore === 20) {
                     return 8; 
                 }
+                else if (rawScore >= 21 && rawScore <= 22) {
+                    return 9; 
+                }
                 break;
-                case 'E':
-                    if (rawScore >= 0 && rawScore <= 2) {
+            case 'B':
+                if (rawScore >= 0 && rawScore <= 3) {
+                    return 1; 
+                } else if (rawScore === 4) {
+                    return 2; 
+                }
+                else if (rawScore >=  5 && rawScore <= 6 ) {
+                    return 3; 
+                }
+                else if (rawScore >= 7 && rawScore <= 8) {
+                    return 4; 
+                }
+                else if (rawScore >= 9 && rawScore <= 10) {
+                    return 5; 
+                }
+                else if (rawScore >=  11 && rawScore <= 12) {
+                    return 6; 
+                }
+                else if (rawScore === 13 ) {
+                    return 7; 
+                }
+                else if (rawScore === 14 ) {
+                    return 8; 
+                }
+                else if (rawScore === 15 ) {
+                    return 9; 
+                }
+                break;
+                case 'C':
+                    if (rawScore >= 0 && rawScore <= 2 ) {
                         return 1; 
-                    } else if (rawScore >= 3 && rawScore <= 5) {
+                    } else if (rawScore >= 3 && rawScore <= 5 ) {
                         return 2; 
                     }
                     else if (rawScore >= 6 && rawScore <= 8) {
                         return 3; 
                     }
-                    else if (rawScore >=  9 && rawScore <= 11) {
+                    else if (rawScore >= 9 && rawScore <= 12 ) {
                         return 4; 
                     }
-                    else if (rawScore >= 12 && rawScore <= 14) {
+                    else if (rawScore >=  13 && rawScore <= 16) {
                         return 5; 
                     }
-                    else if (rawScore >=  15 && rawScore <= 17) {
+                    else if (rawScore >= 17  && rawScore <= 18 ) {
                         return 6; 
-                    }
-                    else if (rawScore === 18 ) {
-                        return 7; 
                     }
                     else if (rawScore === 19 ) {
-                        return 8; 
+                        return 7; 
                     }
                     else if (rawScore === 20 ) {
-                        return 9; 
-                    }
-                break;
-                case 'G':
-                    if (rawScore >=  0&& rawScore <= 2) {
-                        return 1; 
-                    } else if (rawScore >= 3 && rawScore <= 5) {
-                        return 2; 
-                    }
-                    else if (rawScore >= 6 && rawScore <=8 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >=  9&& rawScore <= 11) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  12&& rawScore <= 15) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  16&& rawScore <= 18 ) {
-                        return 6; 
-                    }
-                    else if (rawScore >=  19&& rawScore <= 20) {
-                        return 7; 
-                    }
-                    else if (rawScore === 21 ) {
                         return 8; 
                     }
-                    else if (rawScore === 22 ) {
-                        return 9; 
-                    }
-                break;
-                case 'H':
-                    if (rawScore >=   0&& rawScore <=1 ) {
-                        return 2; 
-                    } else if (rawScore >= 2 && rawScore <= 3) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 4 && rawScore <= 7) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  8&& rawScore <=12 ) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 13 && rawScore <= 16) {
-                        return 6; 
-                    }
-                    else if (rawScore >=  17&& rawScore <= 18) {
-                        return 7; 
-                    }
-                    else if (rawScore === 19) {
-                        return 8; 
-                    }
-                    else if (rawScore=== 20 ) {
-                        return 9; 
-                    }
-                break;
-                case 'I':
-                    if (rawScore === 0 ) {
-                        return 1; 
-                    } else if (rawScore >= 1 && rawScore <=2 ) {
-                        return 2; 
-                    }
-                    else if (rawScore >=  3&& rawScore <= 5) {
-                        return 3; 
-                    }
-                    else if (rawScore >=  6&& rawScore <=8 ) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  9&& rawScore <= 12) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 13 && rawScore <= 16) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 17 && rawScore <= 19) {
-                        return 7; 
-                    }
-                    else if (rawScore >= 20 && rawScore <= 21) {
-                        return 8; 
-                    }
-                    else if (rawScore === 22) {
-                        return 9; 
-                    }
-                break;
-                case 'L':
-                    if (rawScore >=  0&& rawScore <= 1) {
-                        return 1; 
-                    } else if (rawScore >= 2 && rawScore <= 3) {
-                        return 2; 
-                    }
-                    else if (rawScore >= 4 && rawScore <= 5) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 6 && rawScore <= 7) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  8&& rawScore <= 10) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  11&& rawScore <= 13) {
-                        return 6; 
-                    }
-                    else if (rawScore >=  14&& rawScore <=15 ) {
-                        return 7; 
-                    }
-                    else if (rawScore >=  16&& rawScore <= 17) {
-                        return 8; 
-                    }
-                    else if (rawScore >= 18 && rawScore <= 19) {
-                        return 9; 
-                    }
-                    else if (rawScore ===20) {
-                        return 10; 
-                    }
-                break;
-                case 'M':
-                    if (rawScore ===0 ) {
-                        return 2; 
-                    } else if (rawScore ===1 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 2 && rawScore <= 3) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  4&& rawScore <= 6) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  7&& rawScore <=10 ) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 11 && rawScore <= 14) {
-                        return 7; 
-                    }
-                    else if (rawScore >=  15&& rawScore <= 18) {
-                        return 8; 
-                    }
-                    else if (rawScore >= 19 && rawScore <= 20) {
-                        return 9; 
-                    }
-                    else if (rawScore >= 21 && rawScore <=22 ) {
-                        return 10; 
-                    }
-                break;
-                case 'N':
-                    if (rawScore ===0 ) {
-                        return 1; 
-                    } else if (rawScore >= 1 && rawScore <=2 ) {
-                        return 2; 
-                    }
-                    else if (rawScore >=  3&& rawScore <=4 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 5 && rawScore <= 7) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  8&& rawScore <= 10) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  11&& rawScore <= 14) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 15 && rawScore <=17 ) {
-                        return 7; 
-                    }
-                    else if (rawScore >=  18&& rawScore <=19 ) {
-                        return 8; 
-                    }
-                    else if (rawScore ===20 ) {
-                        return 9; 
-                    }
-                break;
-                case 'O':
-                    if (rawScore >= 0 && rawScore <=1 ) {
-                        return 2; 
-                    } else if (rawScore >= 2 && rawScore <= 3) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 4 && rawScore <=6 ) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  7&& rawScore <= 10) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 11 && rawScore <=14 ) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 15 && rawScore <= 17) {
-                        return 7; 
-                    }
-                    else if (rawScore >=  18&& rawScore <= 19) {
-                        return 8; 
-                    }
-                    else if (rawScore===20 ) {
-                        return 9; 
-                    }
-                break;
-                case 'Q1':
-                    if (rawScore >=  0&& rawScore <= 4) {
-                        return 1; 
-                    } else if (rawScore >= 5 && rawScore <=7 ) {
-                        return 2; 
-                    }
-                    else if (rawScore >=  8&& rawScore <= 9) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 10 && rawScore <= 13 ) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  14&& rawScore <= 17) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 18 && rawScore <=20 ) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 21 && rawScore <= 23) {
-                        return 7; 
-                    }
-                    else if (rawScore >= 24 && rawScore <= 25) {
-                        return 8; 
-                    }
-                    else if (rawScore >= 26 && rawScore <= 27 ) {
-                        return 9; 
-                    }
-                    else if (rawScore === 28) {
-                        return 10; 
-                    }
-                break;
-                case 'Q2':
-                    if (rawScore ===0 ) {
-                        return 2; 
-                    } else if (rawScore ===1 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 2 && rawScore <=3 ) {
-                        return 4; 
-                    }
-                    else if (rawScore >= 4 && rawScore <=6 ) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 7 && rawScore <= 10) {
-                        return 6; 
-                    }
-                    else if (rawScore >=  11&& rawScore <=14 ) {
-                        return 7; 
-                    }
-                    else if (rawScore >=  15&& rawScore <= 16) {
-                        return 8; 
-                    }
-                    else if (rawScore >=  17&& rawScore <=18 ) {
-                        return 9; 
-                    }
-                    else if (rawScore >=  19&& rawScore <= 20) {
-                        return 10; 
-                    }
-                break;
-                case 'Q3':
-                    if (rawScore >= 0 && rawScore <=1 ) {
-                        return 1; 
-                    } else if (rawScore >= 2 && rawScore <= 3) {
-                        return 2; 
-                    }
-                    else if (rawScore >= 4 && rawScore <=5 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 6 && rawScore <= 8) {
-                        return 4; 
-                    }
-                    else if (rawScore >= 9 && rawScore <= 12) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  13&& rawScore <=15 ) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 16 && rawScore <= 17) {
-                        return 7; 
-                    }
-                    else if (rawScore ===18 ) {
-                        return 8; 
-                    }
-                    else if (rawScore >=  19&& rawScore <= 20 ) {
-                        return 9; 
-                    }
-                break;
-                case 'Q4':
-                    if (rawScore >= 0 && rawScore <= 1) {
-                        return 2; 
-                    } else if (rawScore >= 2 && rawScore <=3 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 4 && rawScore <= 6) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  7&& rawScore <=10 ) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 11 && rawScore <= 14) {
-                        return 6; 
-                    }
-                    else if (rawScore >=  15&& rawScore <=17 ) {
-                        return 7; 
-                    }
-                    else if (rawScore >= 18 && rawScore <=19 ) {
-                        return 8; 
-                    }
-                    else if (rawScore === 20 ) {
-                        return 9; 
-                    }
+                    break;
+                    case 'E':
+                        if (rawScore >= 0 && rawScore <= 2) {
+                            return 1; 
+                        } else if (rawScore >= 3 && rawScore <= 5) {
+                            return 2; 
+                        }
+                        else if (rawScore >= 6 && rawScore <= 8) {
+                            return 3; 
+                        }
+                        else if (rawScore >=  9 && rawScore <= 11) {
+                            return 4; 
+                        }
+                        else if (rawScore >= 12 && rawScore <= 14) {
+                            return 5; 
+                        }
+                        else if (rawScore >=  15 && rawScore <= 17) {
+                            return 6; 
+                        }
+                        else if (rawScore === 18 ) {
+                            return 7; 
+                        }
+                        else if (rawScore === 19 ) {
+                            return 8; 
+                        }
+                        else if (rawScore === 20 ) {
+                            return 9; 
+                        }
+                    break;
+                    case 'G':
+                        if (rawScore >=  0&& rawScore <= 2) {
+                            return 1; 
+                        } else if (rawScore >= 3 && rawScore <= 5) {
+                            return 2; 
+                        }
+                        else if (rawScore >= 6 && rawScore <=8 ) {
+                            return 3; 
+                        }
+                        else if (rawScore >=  9&& rawScore <= 11) {
+                            return 4; 
+                        }
+                        else if (rawScore >=  12&& rawScore <= 15) {
+                            return 5; 
+                        }
+                        else if (rawScore >=  16&& rawScore <= 18 ) {
+                            return 6; 
+                        }
+                        else if (rawScore >=  19&& rawScore <= 20) {
+                            return 7; 
+                        }
+                        else if (rawScore === 21 ) {
+                            return 8; 
+                        }
+                        else if (rawScore === 22 ) {
+                            return 9; 
+                        }
+                    break;
+                    case 'H':
+                        if (rawScore >=   0&& rawScore <=1 ) {
+                            return 2; 
+                        } else if (rawScore >= 2 && rawScore <= 3) {
+                            return 3; 
+                        }
+                        else if (rawScore >= 4 && rawScore <= 7) {
+                            return 4; 
+                        }
+                        else if (rawScore >=  8&& rawScore <=12 ) {
+                            return 5; 
+                        }
+                        else if (rawScore >= 13 && rawScore <= 16) {
+                            return 6; 
+                        }
+                        else if (rawScore >=  17&& rawScore <= 18) {
+                            return 7; 
+                        }
+                        else if (rawScore === 19) {
+                            return 8; 
+                        }
+                        else if (rawScore=== 20 ) {
+                            return 9; 
+                        }
+                    break;
+                    case 'I':
+                        if (rawScore === 0 ) {
+                            return 1; 
+                        } else if (rawScore >= 1 && rawScore <=2 ) {
+                            return 2; 
+                        }
+                        else if (rawScore >=  3&& rawScore <= 5) {
+                            return 3; 
+                        }
+                        else if (rawScore >=  6&& rawScore <=8 ) {
+                            return 4; 
+                        }
+                        else if (rawScore >=  9&& rawScore <= 12) {
+                            return 5; 
+                        }
+                        else if (rawScore >= 13 && rawScore <= 16) {
+                            return 6; 
+                        }
+                        else if (rawScore >= 17 && rawScore <= 19) {
+                            return 7; 
+                        }
+                        else if (rawScore >= 20 && rawScore <= 21) {
+                            return 8; 
+                        }
+                        else if (rawScore === 22) {
+                            return 9; 
+                        }
+                    break;
+                    case 'L':
+                        if (rawScore >=  0&& rawScore <= 1) {
+                            return 1; 
+                        } else if (rawScore >= 2 && rawScore <= 3) {
+                            return 2; 
+                        }
+                        else if (rawScore >= 4 && rawScore <= 5) {
+                            return 3; 
+                        }
+                        else if (rawScore >= 6 && rawScore <= 7) {
+                            return 4; 
+                        }
+                        else if (rawScore >=  8&& rawScore <= 10) {
+                            return 5; 
+                        }
+                        else if (rawScore >=  11&& rawScore <= 13) {
+                            return 6; 
+                        }
+                        else if (rawScore >=  14&& rawScore <=15 ) {
+                            return 7; 
+                        }
+                        else if (rawScore >=  16&& rawScore <= 17) {
+                            return 8; 
+                        }
+                        else if (rawScore >= 18 && rawScore <= 19) {
+                            return 9; 
+                        }
+                        else if (rawScore ===20) {
+                            return 10; 
+                        }
+                    break;
+                    case 'M':
+                        if (rawScore ===0 ) {
+                            return 2; 
+                        } else if (rawScore ===1 ) {
+                            return 3; 
+                        }
+                        else if (rawScore >= 2 && rawScore <= 3) {
+                            return 4; 
+                        }
+                        else if (rawScore >=  4&& rawScore <= 6) {
+                            return 5; 
+                        }
+                        else if (rawScore >=  7&& rawScore <=10 ) {
+                            return 6; 
+                        }
+                        else if (rawScore >= 11 && rawScore <= 14) {
+                            return 7; 
+                        }
+                        else if (rawScore >=  15&& rawScore <= 18) {
+                            return 8; 
+                        }
+                        else if (rawScore >= 19 && rawScore <= 20) {
+                            return 9; 
+                        }
+                        else if (rawScore >= 21 && rawScore <=22 ) {
+                            return 10; 
+                        }
+                    break;
+                    case 'N':
+                        if (rawScore ===0 ) {
+                            return 1; 
+                        } else if (rawScore >= 1 && rawScore <=2 ) {
+                            return 2; 
+                        }
+                        else if (rawScore >=  3&& rawScore <=4 ) {
+                            return 3; 
+                        }
+                        else if (rawScore >= 5 && rawScore <= 7) {
+                            return 4; 
+                        }
+                        else if (rawScore >=  8&& rawScore <= 10) {
+                            return 5; 
+                        }
+                        else if (rawScore >=  11&& rawScore <= 14) {
+                            return 6; 
+                        }
+                        else if (rawScore >= 15 && rawScore <=17 ) {
+                            return 7; 
+                        }
+                        else if (rawScore >=  18&& rawScore <=19 ) {
+                            return 8; 
+                        }
+                        else if (rawScore ===20 ) {
+                            return 9; 
+                        }
+                    break;
+                    case 'O':
+                        if (rawScore >= 0 && rawScore <=1 ) {
+                            return 2; 
+                        } else if (rawScore >= 2 && rawScore <= 3) {
+                            return 3; 
+                        }
+                        else if (rawScore >= 4 && rawScore <=6 ) {
+                            return 4; 
+                        }
+                        else if (rawScore >=  7&& rawScore <= 10) {
+                            return 5; 
+                        }
+                        else if (rawScore >= 11 && rawScore <=14 ) {
+                            return 6; 
+                        }
+                        else if (rawScore >= 15 && rawScore <= 17) {
+                            return 7; 
+                        }
+                        else if (rawScore >=  18&& rawScore <= 19) {
+                            return 8; 
+                        }
+                        else if (rawScore===20 ) {
+                            return 9; 
+                        }
+                    break;
+                    case 'Q1':
+                        if (rawScore >=  0&& rawScore <= 4) {
+                            return 1; 
+                        } else if (rawScore >= 5 && rawScore <=7 ) {
+                            return 2; 
+                        }
+                        else if (rawScore >=  8&& rawScore <= 9) {
+                            return 3; 
+                        }
+                        else if (rawScore >= 10 && rawScore <= 13 ) {
+                            return 4; 
+                        }
+                        else if (rawScore >=  14&& rawScore <= 17) {
+                            return 5; 
+                        }
+                        else if (rawScore >= 18 && rawScore <=20 ) {
+                            return 6; 
+                        }
+                        else if (rawScore >= 21 && rawScore <= 23) {
+                            return 7; 
+                        }
+                        else if (rawScore >= 24 && rawScore <= 25) {
+                            return 8; 
+                        }
+                        else if (rawScore >= 26 && rawScore <= 27 ) {
+                            return 9; 
+                        }
+                        else if (rawScore === 28) {
+                            return 10; 
+                        }
+                    break;
+                    case 'Q2':
+                        if (rawScore ===0 ) {
+                            return 2; 
+                        } else if (rawScore ===1 ) {
+                            return 3; 
+                        }
+                        else if (rawScore >= 2 && rawScore <=3 ) {
+                            return 4; 
+                        }
+                        else if (rawScore >= 4 && rawScore <=6 ) {
+                            return 5; 
+                        }
+                        else if (rawScore >= 7 && rawScore <= 10) {
+                            return 6; 
+                        }
+                        else if (rawScore >=  11&& rawScore <=14 ) {
+                            return 7; 
+                        }
+                        else if (rawScore >=  15&& rawScore <= 16) {
+                            return 8; 
+                        }
+                        else if (rawScore >=  17&& rawScore <=18 ) {
+                            return 9; 
+                        }
+                        else if (rawScore >=  19&& rawScore <= 20) {
+                            return 10; 
+                        }
+                    break;
+                    case 'Q3':
+                        if (rawScore >= 0 && rawScore <=1 ) {
+                            return 1; 
+                        } else if (rawScore >= 2 && rawScore <= 3) {
+                            return 2; 
+                        }
+                        else if (rawScore >= 4 && rawScore <=5 ) {
+                            return 3; 
+                        }
+                        else if (rawScore >= 6 && rawScore <= 8) {
+                            return 4; 
+                        }
+                        else if (rawScore >= 9 && rawScore <= 12) {
+                            return 5; 
+                        }
+                        else if (rawScore >=  13&& rawScore <=15 ) {
+                            return 6; 
+                        }
+                        else if (rawScore >= 16 && rawScore <= 17) {
+                            return 7; 
+                        }
+                        else if (rawScore ===18 ) {
+                            return 8; 
+                        }
+                        else if (rawScore >=  19&& rawScore <= 20 ) {
+                            return 9; 
+                        }
+                    break;
+                    case 'Q4':
+                        if (rawScore >= 0 && rawScore <= 1) {
+                            return 2; 
+                        } else if (rawScore >= 2 && rawScore <=3 ) {
+                            return 3; 
+                        }
+                        else if (rawScore >= 4 && rawScore <= 6) {
+                            return 4; 
+                        }
+                        else if (rawScore >=  7&& rawScore <=10 ) {
+                            return 5; 
+                        }
+                        else if (rawScore >= 11 && rawScore <= 14) {
+                            return 6; 
+                        }
+                        else if (rawScore >=  15&& rawScore <=17 ) {
+                            return 7; 
+                        }
+                        else if (rawScore >= 18 && rawScore <=19 ) {
+                            return 8; 
+                        }
+                        else if (rawScore === 20 ) {
+                            return 9; 
+                        }
 
-                break;
+                    break;
 
-    }
-    // Default to 1 if no custom logic applies
-    return 1;
-};
+        }
+        // Default to 1 if no custom logic applies
+        return 1;
+    };
 
+    //Function for Factor Description
+    const getFactorDescription = (factorLetter: string) => {
+        switch (factorLetter) {
+            case 'A':
+                return {
+                    leftMeaning: 'Reserved, Impersonal, Distant',
+                    rightMeaning: 'Warm, Outgoing, Attentive to Others',
+                };
+            case 'B':
+                return {
+                    leftMeaning: 'Concrete',
+                    rightMeaning: 'Abstract',
+                };
+            case 'C':
+                return {
+                    leftMeaning: 'Reactive, Emotionally Changeable',
+                    rightMeaning: 'Emotionally Stable, Adaptive, Mature',
+                };
+            case 'E':
+                return {
+                    leftMeaning: 'Deferential, Cooperative, Avoids Conflict',
+                    rightMeaning: 'Dominant, Forceful, Assertive',
+                };
+            case 'F':
+                return {
+                    leftMeaning: 'Serious, Restrained, Careful',
+                    rightMeaning: 'Lively, Animated, Spontaneous',
+                };
+            case 'G':
+                return {
+                    leftMeaning: 'Expedient, Nonconforming',
+                    rightMeaning: 'Rule-conscious, Dutiful',
+                };
+            case 'H':
+                return {
+                    leftMeaning: 'Shy, Threat-Sensitive, Timid',
+                    rightMeaning: 'Socially Bold, Venturesome, Thick Skinned',
+                };
+            case 'I':
+                return {
+                    leftMeaning: 'Utilitarian, Objective, Unsentimentak',
+                    rightMeaning: 'Sensitive, Aesthetic, Sentimental',
+                };
+            case 'L':
+                return {
+                    leftMeaning: 'Trusting, Unsuspecting, Accepting',
+                    rightMeaning: 'Vigilant, Suspicious, Skeptical, Wary',
+                };
+            case 'M':
+                return {
+                    leftMeaning: 'Grounded, Practical, Solution-Oriented',
+                    rightMeaning: 'Abstracted, Imagivative, Idea-Oriented',
+                };
+            case 'N':
+                return {
+                    leftMeaning: 'Forthright, Genuine, Artless',
+                    rightMeaning: 'Private, Discreet, Non-Disclosing',
+                };
+            case 'O':
+                return {
+                    leftMeaning: 'Self-Assured, Unqorried, Complacent',
+                    rightMeaning: 'Apprehensive, Self-Doubting, Worried',
+                };
+            case 'Q1':
+                return {
+                    leftMeaning: 'Traditional, Attached to Familiar',
+                    rightMeaning: 'Open to Change, Experimenting',
+                };
+            case 'Q2':
+                return {
+                    leftMeaning: 'Group-Oriented, Affiliative',
+                    rightMeaning: 'Self-reliant, Solitary, Individualistic',
+                };
+            case 'Q3':
+                return {
+                    leftMeaning: 'Tolerates Disorder, Unexating, Flexible',
+                    rightMeaning: 'Perfectionistic, Organized, Self-Disciplined',
+                };
+            case 'Q4':
+                return {
+                    leftMeaning: 'Relaxed, Placid, Patient',
+                    rightMeaning: 'Tense, High Energy, Impatient, Driven',
+                };
+            default:
+                return {
+                    leftMeaning: '',
+                    rightMeaning: '',
+                };
+        }
+    };
+    
 const PFResult: React.FC = () => {
     const navigate = useNavigate();
     const [results, setResults] = useState<TestResultData | null>(null);
@@ -638,17 +729,24 @@ const PFResult: React.FC = () => {
                         <tr>
                             <th>Factor Letter</th>
                             <th> Score</th>
+                            <th> Left Meaning</th>
+                            <th> Right Meaning</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {sortedScoring.map((score) => (
-                            <tr key={score.factorLetter}>
-                                <td>{score.factorLetter}</td>
-                                <td>{calculateStenScore(score.rawScore, score.factorLetter)}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            {sortedScoring.map((score) => {
+                    const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+                    return (
+                        <tr key={score.factorLetter}>
+                            <td>{score.factorLetter}</td>
+                            <td>{calculateStenScore(score.rawScore, score.factorLetter)}</td>
+                            <td>{leftMeaning}</td>
+                            <td>{rightMeaning}</td>
+                        </tr>
+                    );
+                })}
+            </tbody>    
+                    </table>
         </div>
 
         <div className={styles.sharePrompt}>
