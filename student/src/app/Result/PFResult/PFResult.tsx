@@ -699,77 +699,67 @@ const PFResult: React.FC = () => {
     
     return (
         <div className={styles.container}>
-        <h2 className={styles.heading}>{results.firstName} {results.lastName}</h2>
-        <div className={styles.info}>
-            <strong>User ID:</strong> <span>{results.userID}</span>
-        </div>
-        <div className={styles.info}>
-            <strong>Age:</strong> <span>{results.age}</span>
-        </div>
-        <div className={styles.info}>
-            <strong>Sex:</strong> <span>{results.sex}</span>
-        </div>
-        <div className={styles.info}>
-            <strong>Course:</strong> <span>{results.course}</span>
-        </div>
-        <div className={styles.info}>
-            <strong>Year and Section:</strong> <span>{results.year} - {results.section}</span>
-        </div>
-        <div className={styles.info}>
-            <strong>Test Type:</strong> <span>{results.testType}</span>
-        </div>
+            <h2 className={styles.heading}>
+                {results.firstName} {results.lastName}
+            </h2>
     
-        <h3 className={styles.subheading}>Test Result</h3>
-        <div className={styles.chartContainer}>
-            <Line data={chartData} options={chartOptions} />;
-        </div>
+            <h3 className={styles.subheading}>Test Result</h3>
+            <div className={styles.chartContainer}>
+                <Line data={chartData} options={chartOptions} />
+            </div>
     
-        <div className={styles.resultTable}>
+            <div className={styles.resultTable}>
                 <table>
                     <thead>
                         <tr>
                             <th>Factor Letter</th>
-                            <th> STEN</th>
-                            <th> Left Meaning</th>
-                            <th> Interpretation</th>
-                            <th> Right Meaning</th>
+                            <th>Sten</th>
+                            <th>Result Interpretation</th>
                         </tr>
                     </thead>
-                    <tbody>
-            {sortedScoring.map((score) => {
-                const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
-                const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
-                
-                let interpretation = "";
-                if (stenScore >= 1 && stenScore <= 3) {
-                    interpretation = "Left";
-                } else if (stenScore >= 4 && stenScore <= 7) {
-                    interpretation = "Average";
-                } else if (stenScore >= 8 && stenScore <= 10) {
-                    interpretation = "Right";
-                }
+                    <tbody> 
+                    {sortedScoring.map((score) => {
+                        const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+                        const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
 
-                return (
-                    <tr key={score.factorLetter}>
-                        <td>{score.factorLetter}</td>
-                        <td>{stenScore}</td>
-                        <td>{leftMeaning}</td>
-                        <td className={styles.PFInterpretation}>{interpretation}</td>
-                        <td>{rightMeaning}</td>
-                    </tr>
-                );
-            })}
-        </tbody> 
+                        // Change the type to React.ReactNode
+                        let interpretation: React.ReactNode = ""; // Initialize as an empty string
+
+                        if (stenScore >= 1 && stenScore <= 3) {
+                            interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
+                        } else if (stenScore >= 4 && stenScore <= 7) {
+                            interpretation = (
+                                <>
+                                    <span className={styles.leftMeaning}>{leftMeaning}</span> 
+                                    <span className={styles.average}> (Average) </span> 
+                                    <span className={styles.rightMeaning}>{rightMeaning}</span>
+                                </>
+                            );
+                        } else if (stenScore >= 8 && stenScore <= 10) {
+                            interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
+                        }
+                            return (
+                                <tr key={score.factorLetter}>
+                                    <td>{score.factorLetter}</td>
+                                    <td>{stenScore}</td>
+                                    <td>{interpretation}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
                 </table>
-        </div>
-
-        <div className={styles.sharePrompt}>
-            <p>Would you like to share your result with our guidance counselor?</p>
-            <button onClick={handleShareResult} className={styles.buttonYes}>Yes</button>
-            <button onClick={handleCancel} className={styles.buttonCancel}>No</button>
-        </div>
-    </div>
+            </div>
     
+            <div className={styles.sharePrompt}>
+                <p>Would you like to share your result with our guidance counselor?</p>
+                <button onClick={handleShareResult} className={styles.buttonYes}>
+                    Yes
+                </button>
+                <button onClick={handleCancel} className={styles.buttonCancel}>
+                    No
+                </button>
+            </div>
+        </div>
     );
 };
 
