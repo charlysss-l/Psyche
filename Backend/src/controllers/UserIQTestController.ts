@@ -4,14 +4,17 @@ import { Interpretation, Response as IQResponse } from '../models/UserIQTestSche
 
 // Controller to handle creating a new IQ test result
 export const createIQTestResult = async (req: Request, res: Response) => {
-    const { userID, firstName, lastName, age, sex, course, year, section, testID, responses,  interpretation, testType, testDate } = req.body;
+    const { userID, firstName, lastName, age, sex, course, year, section, responses,  interpretation, testType, testDate } = req.body;
 
     try {
         // Validate required fields
-        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section || !testID || !responses || !interpretation || !testType || !testDate) {
+        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section  || !responses || !interpretation || !testType || !testDate) {
             res.status(400).json({ message: 'Missing required fields' });
             return;
         }
+
+        const testID = `${userID}-${Date.now()}`;
+
 
         // Process responses and calculate total score
         let totalScore = 0;
