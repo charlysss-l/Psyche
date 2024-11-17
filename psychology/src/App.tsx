@@ -17,7 +17,7 @@ import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSi
 import PFResultsList from './app/Test/PFTest/PFResultsList/PFResultsList';
 import IQResultsList from './app/Test/IQTest/IQResultsList/IQResultsList';
 import ThemeToggle from "./darkMode";
-
+import OMRCamera from "./app/OMR/OMRCamera/OMRCamera"
 
 function App() {
   return (
@@ -75,6 +75,11 @@ function App() {
               <Route
                 path="/iqresults_list"
                 element={<ProtectedRoute><IQResultsList /></ProtectedRoute>}
+              />
+              
+              <Route
+                path="/omrcamera"
+                element={<ProtectedRoute><OMRCamera /></ProtectedRoute>}
               />
             </Routes>
           </div>

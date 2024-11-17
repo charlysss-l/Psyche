@@ -19,6 +19,7 @@ import Login from "./app/Login/login";
 import SignupForm from "./app/Signup/Signup";
 import LandingPage from './app/Home/LandingPage';
 import ThemeToggle from "./darkMode";
+import OMRCamera from "./app/OMR/OMRCamera/OMRCamera";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
                       <Route path="/iqtest" element={<IQTest />} />
                       <Route path="/pf-results" element={<PFResult />} />
                       <Route path="/iq-results" element={<IQResult />} />
+                      <Route path="/omrcamera" element={<OMRCamera />} />
                     </Routes>
                   </div>
                 </div>
