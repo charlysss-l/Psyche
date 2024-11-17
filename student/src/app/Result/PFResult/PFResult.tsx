@@ -598,7 +598,7 @@ const PFResult: React.FC = () => {
     
     return (
         <div className={styles.container}>
-        <h2 className={styles.heading}>Test Results for {results.firstName} {results.lastName}</h2>
+        <h2 className={styles.heading}>{results.firstName} {results.lastName}</h2>
         <div className={styles.info}>
             <strong>User ID:</strong> <span>{results.userID}</span>
         </div>
