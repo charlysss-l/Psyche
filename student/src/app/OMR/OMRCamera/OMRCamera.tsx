@@ -25,6 +25,7 @@ const OMRCamera: React.FC = () => {
   const [isCameraActive, setIsCameraActive] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [omrScore, setOmrScore] = useState<number | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
@@ -44,7 +45,7 @@ const OMRCamera: React.FC = () => {
     if (!selectedFile) return;
 
     try {
-      const fileName = `uploads/ OMR/${uuidv4()}_${selectedFile.name}`;
+      const fileName = `uploads/OMR/${uuidv4()}_${selectedFile.name}`;
       const storageRef = ref(storage, fileName);
 
       // Upload the file to Firebase
@@ -52,14 +53,33 @@ const OMRCamera: React.FC = () => {
 
       // Get the download URL
       const downloadURL = await getDownloadURL(storageRef);
-      setUploadURL(downloadURL);
+      setUploadURL(downloadURL); // This URL will be used by the Python backend
 
       console.log("File uploaded successfully:", downloadURL);
-
-      // Set the preview of the uploaded image directly after upload
       setImagePreview(downloadURL); // Display the uploaded image here
     } catch (error) {
       console.error("Error uploading file:", error);
+    }
+  };
+
+  const handleOMRProcessing = async () => {
+    if (!uploadURL) return;
+
+    try {
+      const response = await fetch('http://localhost:5000/process_omr', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image_url: uploadURL,
+        }),
+      });
+
+      const data = await response.json();
+      setOmrScore(data.score);
+    } catch (error) {
+      console.error("Error processing OMR:", error);
     }
   };
 
@@ -76,7 +96,7 @@ const OMRCamera: React.FC = () => {
           console.error("Error accessing camera: ", error);
         });
     }
-  
+
     return () => {
       // Stop the camera when the component is unmounted
       if (videoRef.current) {
@@ -86,7 +106,6 @@ const OMRCamera: React.FC = () => {
       }
     };
   }, [isCameraActive]);
-  
 
   const handleCapture = () => {
     if (canvasRef.current && videoRef.current) {
@@ -101,6 +120,10 @@ const OMRCamera: React.FC = () => {
         setIsCameraActive(false);
       }
     }
+  };
+
+  const handleCancelCamera = () => {
+    setIsCameraActive(false);
   };
 
   // Convert base64 data URL to a File object
@@ -135,12 +158,14 @@ const OMRCamera: React.FC = () => {
         {isCameraActive ? (
           <div>
             <video ref={videoRef} autoPlay playsInline className={styles.video} />
-            <button onClick={handleCapture} className={styles.captureButton}>Capture</button>
+            <div className={styles.cameraControls}>
+              <button onClick={handleCapture} className={styles.captureButton}>Capture</button>
+              <button onClick={handleCancelCamera} className={styles.cancelButton}>X</button>
+            </div>
           </div>
         ) : (
           <div>
             <button onClick={() => setIsCameraActive(true)} className={styles.openCameraButton}>Use Camera</button>
-            <input id="fileInput" type="file" onChange={handleFileChange} className={styles.fileInput} />
           </div>
         )}
       </div>
@@ -157,6 +182,16 @@ const OMRCamera: React.FC = () => {
         <div className={styles.uploadedImage}>
           <p className={styles.uploadedImageText}>Image uploaded successfully:</p>
           <img src={uploadURL} alt="Uploaded Image" className={styles.uploadedImagePreview} />
+        </div>
+      )}
+
+      <button onClick={handleOMRProcessing} className={styles.omrProcessButton} disabled={!uploadURL}>
+        Process OMR and Score
+      </button>
+
+      {omrScore !== null && (
+        <div>
+          <h3>OMR Score: {omrScore}</h3>
         </div>
       )}
 
