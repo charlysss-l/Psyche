@@ -15,6 +15,7 @@ import authStudentsRoutes from './authRoutes/authStudentsRoutes';
 import userRoutes from './authRoutes/userRoutes';
 import surveyRoutes from './routes/surveyRoutes';
 import surveyResponseRoutes from './routes/surveyResponseRoutes';
+import { updateInterpretationBySpecificId } from './controllers/IQTestController';
 
 
 dotenv.config();
@@ -36,6 +37,8 @@ app.use('/api/16pf', Test16PFRoutes);
 app.use('/api/IQtest', IQTestRoutes);
 app.use('/api', uploadRoutes);
 app.use('/api/consult', consultationsRoutes);
+app.put('/api/IQtest/:id/interpretation/:interpretationId', updateInterpretationBySpecificId);
+
 
 // Survey routes
 app.use('/api', surveyRoutes); // Prefix your routes with /api

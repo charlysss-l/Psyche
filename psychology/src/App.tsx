@@ -18,6 +18,7 @@ import PFResultsList from './app/Test/PFTest/PFResultsList/PFResultsList';
 import IQResultsList from './app/Test/IQTest/IQResultsList/IQResultsList';
 import ThemeToggle from "./darkMode";
 import OMRCamera from "./app/OMR/OMRCamera/OMRCamera"
+import IQInterpretation from './app/Test/IQTest/IQResultsList/IQInterpretation';
 
 function App() {
   return (
@@ -70,6 +71,11 @@ function App() {
               <Route
                 path="/pfresults_list"
                 element={<ProtectedRoute><PFResultsList /></ProtectedRoute>}
+              />
+
+              <Route
+                path="/iqinterpretation"
+                element={<ProtectedRoute><IQInterpretation /></ProtectedRoute>}
               />
 
               <Route

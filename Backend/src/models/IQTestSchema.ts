@@ -9,6 +9,7 @@ interface Question {
 }
 
 interface Interpretation {
+    byId: string; // This will automatically be assigned by MongoDB
     minAge: number;  
     maxAge: number;
     minTestScore: number;
@@ -63,6 +64,10 @@ const IQTestSchema = new Schema<IQTest>({
         },
     }],
     interpretation: [{
+        byId: {
+            type: String,
+            required: true,
+        },
         minAge: {
             type: Number,
             required: true,
