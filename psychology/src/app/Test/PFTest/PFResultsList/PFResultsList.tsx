@@ -141,8 +141,7 @@ const PFResultsList: React.FC = () => {
                 <th>Age</th>
                 <th>Sex</th>
                 <th>Course</th>
-                <th>Year</th>
-                <th>Section</th>
+                <th>Year & Section</th>
                 <th>Test Type</th>
                 <th>Responses</th>
                 <th>Scores</th>
@@ -157,8 +156,7 @@ const PFResultsList: React.FC = () => {
                   <td>{result.age}</td>
                   <td>{result.sex}</td>
                   <td>{result.course}</td>
-                  <td>{result.year}</td>
-                  <td>{result.section}</td>
+                  <td>{result.year} - {result.section}</td>
                   <td>{result.testType}</td>
                   <td>
                     <table className={styles.responsesTable}>
