@@ -12,15 +12,24 @@ export const getAllSurveysForStudents = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error fetching surveys' });
   }
 };
-
 export const submitSurveyResponses = async (req: Request, res: Response) => {
   try {
-    const { surveyId, responses, userId } = req.body;  // Extract userId from the request body
+    const { surveyId, responses, userId } = req.body;  // Extract surveyId, responses, and userId from the request body
 
+    // Map the responses to ensure they are aligned with sections
+    const formattedResponses = responses.map((response: any) => {
+      return {
+        sectionTitle: response.sectionTitle,  // Ensure sectionTitle is present
+        questionId: response.questionId,  // Reference to the question
+        choice: response.choice,  // The choice selected by the user
+      };
+    });
+
+    // Create a new SurveyResponse entry
     const newResponse = new SurveyResponse({
       surveyId,
-      userId,  // Save userId in the survey response
-      responses,
+      userId,
+      responses: formattedResponses,  // Save the responses including sections
     });
 
     await newResponse.save();
@@ -36,12 +45,12 @@ export const getAllSurveyResponses = async (req: Request, res: Response) => {
   try {
     const { surveyId } = req.query;  // Optionally, filter by surveyId
     const filter = surveyId ? { surveyId } : {};  // If surveyId is provided, filter responses by surveyId
-  
+
     const responses = await SurveyResponse.find(filter)
       .populate('surveyId', 'title')  // Populate survey title
       .populate('responses.questionId', 'questionText')  // Populate question text
       .exec();
-  
+
     res.status(200).json(responses);
   } catch (error) {
     console.error(error);
@@ -49,10 +58,10 @@ export const getAllSurveyResponses = async (req: Request, res: Response) => {
   }
 };
 
- // Get responses for a specific student (userId)
+// Get responses for a specific student (userId)
 export const getStudentResponses = async (req: Request, res: Response) => {
   const { userId } = req.params;  // Changed studentId to userId
-  
+
   try {
     const responses = await SurveyResponse.find({ userId });  // Changed studentId to userId
     res.status(200).json(responses);
@@ -61,25 +70,21 @@ export const getStudentResponses = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error fetching responses' });
   }
 };
-  
-// controllers/surveyResponseController.ts
+
+
 export const getAllStudentsSurveyResponses = async (req: Request, res: Response) => {
-    try {
-      const { surveyId } = req.query;
-      const filter = surveyId ? { surveyId } : {};  // Optionally, filter by surveyId
-  
-      // Populate the surveyId to get the questions from the Survey model
-      const responses = await SurveyResponse.find(filter)
-        .populate('surveyId', 'title questions')  // Populate surveyId and include the questions
-        
-        .exec();
-  
-      // Now, questions will be available inside the surveyId field in the response
-      res.status(200).json(responses);
-    } catch (error) {
-      console.error('Error fetching survey responses:', error);
-      res.status(500).json({ message: 'Error fetching survey responses' });
-    }
-  };
-  
-  
+  try {
+    const { surveyId } = req.query;
+    const filter = surveyId ? { surveyId } : {};  // Optionally, filter by surveyId
+
+    // Populate surveyId to get the sections and questions from the Survey model
+    const responses = await SurveyResponse.find(filter)
+      .populate('surveyId', 'title sections')  // Populate surveyId and include the sections
+      .exec();
+
+    res.status(200).json(responses);  // Return the responses with sections populated
+  } catch (error) {
+    console.error('Error fetching survey responses:', error);
+    res.status(500).json({ message: 'Error fetching survey responses' });
+  }
+};

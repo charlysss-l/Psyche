@@ -1,4 +1,3 @@
-// models/surveyResponseModel.ts
 import mongoose from 'mongoose';
 
 const choiceSchema = new mongoose.Schema({
@@ -7,15 +6,17 @@ const choiceSchema = new mongoose.Schema({
 
 const surveyResponseSchema = new mongoose.Schema({
   surveyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Survey', required: true },
-  userId: { type: String, required: true },  // Add userId field here
+  userId: { type: String, required: true },  // Add userId to track the user who submits the survey
   responses: [
     {
+      sectionTitle: { type: String, required: true },  // New field to associate responses with sections
       questionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Question' },
-      choice: { type: String, required: true },
+      choice: { type: String, required: true },  // The choice selected for the question
     },
   ],
   submittedAt: { type: Date, default: Date.now },
 });
+
 
 const SurveyResponse = mongoose.model('SurveyResponse', surveyResponseSchema);
 export default SurveyResponse;
