@@ -9,8 +9,8 @@ interface Question {
 }
 
 interface Interpretation {
-    ageRange: string;  // Stored as a string, e.g., "5-7"
-    sex: 'Female' | 'Male';
+    minAge: number;  
+    maxAge: number;
     minTestScore: number;
     maxTestScore: number;
     percentilePoints: number;
@@ -63,13 +63,12 @@ const IQTestSchema = new Schema<IQTest>({
         },
     }],
     interpretation: [{
-        ageRange: {
-            type: String,
+        minAge: {
+            type: Number,
             required: true,
         },
-        sex: {
-            type: String,
-            enum: ['Female', 'Male'],
+        maxAge: {
+            type: Number,
             required: true,
         },
         minTestScore: {
