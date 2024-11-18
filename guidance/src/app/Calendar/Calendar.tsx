@@ -159,7 +159,7 @@ const SchedulingCalendar: React.FC = () => {
             <p>No requests for this date.</p>
           )}
 
-          <h3>Add New Schedule</h3>
+          <h3 className={styles.Add}>Add New Schedule</h3>
           {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
           <form onSubmit={handleSubmit}>
             <div>

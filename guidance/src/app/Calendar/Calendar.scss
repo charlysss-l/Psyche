@@ -10,10 +10,11 @@ $border-radius: 10px;
   flex-direction: column;
   align-items: center;
   margin: 20px;
-  background-color: $main-bg; /* Main background color */
+  background-color: white; 
   border-radius: $border-radius;
   width: 90%;
   max-width: 700px; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .requestList {
@@ -28,6 +29,7 @@ $border-radius: 10px;
 h2, h3 {
   text-align: center;
   color: $main-text;
+  margin-top:30px;
 }
 
 table {
@@ -49,15 +51,17 @@ table th {
 }
 
 button {
-  background-color: $button-bg;
-  color: $main-text;
+  background-color: rgb(190, 188, 188);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
   padding: 8px 12px;
+  margin-bottom: 8px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 
   &:hover {
-    background-color: $button-hover-bg;
+    background-color: rgb(164, 155, 155);
   }
 }
 
@@ -137,20 +141,19 @@ p {
 }
 
 .react-calendar {
-  background-color: $main-text;
-  color: white;
+  background-color: rgb(229, 226, 226);
   border-radius: $border-radius;
   padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .react-calendar__navigation {
-  background-color: $main-text;
-  color: blue;
+  background-color: rgb(229, 226, 226);
 }
 
 .react-calendar__tile {
-  background-color: #333;
-  color: white;
+  background-color: rgb(191, 188, 188);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.126);
   position: relative;
 }
 
