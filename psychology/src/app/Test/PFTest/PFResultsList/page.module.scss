@@ -41,6 +41,27 @@
   .deleteButton:hover{
     background-color: rgb(230, 3, 3);
   }
+
+  .leftMeaning {
+    color: green;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.rightMeaning {
+    color: red;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.average {
+    color: gray;
+    font-style: italic;
+    font-size: 13px;
+}
+
+
+
   .pagination {
     display: flex;
     justify-content: center;

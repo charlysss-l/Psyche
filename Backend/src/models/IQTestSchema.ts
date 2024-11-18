@@ -9,8 +9,9 @@ interface Question {
 }
 
 interface Interpretation {
-    ageRange: string;  // Stored as a string, e.g., "5-7"
-    sex: 'Female' | 'Male';
+    byId: string; // This will automatically be assigned by MongoDB
+    minAge: number;  
+    maxAge: number;
     minTestScore: number;
     maxTestScore: number;
     percentilePoints: number;
@@ -63,13 +64,16 @@ const IQTestSchema = new Schema<IQTest>({
         },
     }],
     interpretation: [{
-        ageRange: {
+        byId: {
             type: String,
             required: true,
         },
-        sex: {
-            type: String,
-            enum: ['Female', 'Male'],
+        minAge: {
+            type: Number,
+            required: true,
+        },
+        maxAge: {
+            type: Number,
             required: true,
         },
         minTestScore: {

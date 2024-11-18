@@ -21,7 +21,7 @@ const Navbar = () => {
             <Link to="/consultation" className={style.navlink_gd}>Consultation</Link>
           </li>
           <li className={style.navbar_LI_gd}>
-            <Link to="/" className={style.navlink_gd}>Logout</Link>
+            <Link to="/login" className={style.navlink_gd}>Login</Link>
           </li>
         </ul>
       </div>

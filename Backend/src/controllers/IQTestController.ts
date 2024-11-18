@@ -84,3 +84,44 @@ export const deleteIQTestById: RequestHandler = async (req, res) => {
         res.status(500).json({ message: 'Error deleting IQ Test', error });
     }
 };
+
+// Update a specific interpretation within an IQTest
+export const updateInterpretationBySpecificId: RequestHandler = async (req, res) => {
+    try {
+        const { id, interpretationId } = req.params;
+        const updatedData = req.body;
+
+        const iqTest = await IQTest.findById(id);
+        if (!iqTest) {
+            res.status(404).json({ message: 'IQ Test not found' });
+            return; // End execution early if not found
+        }
+
+        const interpretationIndex = iqTest.interpretation.findIndex(
+            (interpretation) => interpretation.byId === interpretationId
+        );
+
+        if (interpretationIndex === -1) {
+            res.status(404).json({ message: 'Interpretation not found' });
+            return; // End execution early if interpretation not found
+        }
+
+        // Update the interpretation at the found index
+        iqTest.interpretation[interpretationIndex] = {
+            ...iqTest.interpretation[interpretationIndex],
+            ...updatedData,
+        };
+
+        // Save the updated IQTest document
+        await iqTest.save();
+
+        // Respond with the updated IQTest
+        res.status(200).json({
+            message: 'Interpretation updated successfully',
+            iqTest,
+        });
+    } catch (error) {
+        // Handle any errors
+        res.status(500).json({ message: 'Error updating interpretation', error });
+    }
+};
