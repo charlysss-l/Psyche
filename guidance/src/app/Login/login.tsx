@@ -6,6 +6,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null); // State for success message
 
   const navigate = useNavigate();
 
@@ -17,18 +18,53 @@ const Login: React.FC = () => {
       return;
     }
 
-    const isLoginSuccessful = await mockLogin(email, password);
+    try {
+      const response = await loginUser(email, password);
+      
+      if (response.token) {
+        // Store the token in localStorage or sessionStorage
+        localStorage.setItem("token", response.token);
 
-    if (isLoginSuccessful) {
-      navigate("/dashboard");
-    } else {
-      setError("Invalid email or password.");
+        // Show success message
+        setSuccessMessage("Login successful!");
+
+        // Redirect to the /report page after a delay (to allow the message to show)
+        setTimeout(() => {
+          navigate("/report"); // Redirect to /report route
+        }, 1500); // 1.5 seconds delay
+      } else {
+        setError("Invalid username or password.");
+      }
+    } catch (error) {
+      const err = error as any; // type assertion
+      if (err?.message === "Invalid username") {
+        setError("Invalid username.");
+      } else if (err?.message === "Invalid password") {
+        setError("Invalid password.");
+      } else {
+        setError("Invalid Credentials!");
+      }
+      console.error(err);
     }
   };
 
-  const mockLogin = async (email: string, password: string): Promise<boolean> => {
-    return email === "user@example.com" && password === "password123";
+  // Function to call the backend API
+  const loginUser = async (email: string, password: string) => {
+    const response = await fetch("http://localhost:5000/api/authGuidance", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Login failed");
+    }
+
+    return response.json();
   };
+
 
   return (
     <div className={styles.loginContainer}>
