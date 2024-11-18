@@ -35,6 +35,50 @@ const PFResultsList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 8;
   const navigate = useNavigate();
+
+  // Define the factor order
+  const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
+
+  // Function to get factor descriptions
+  const getFactorDescription = (factorLetter: string) => {
+    switch (factorLetter) {
+      case 'A':
+        return { leftMeaning: 'Reserved, Impersonal, Distant', rightMeaning: 'Warm, Outgoing, Attentive to Others' };
+      case 'B':
+        return { leftMeaning: 'Concrete', rightMeaning: 'Abstract' };
+      case 'C':
+        return { leftMeaning: 'Reactive, Emotionally Changeable', rightMeaning: 'Emotionally Stable, Adaptive, Mature' };
+      case 'E':
+        return { leftMeaning: 'Deferential, Cooperative, Avoids Conflict', rightMeaning: 'Dominant, Forceful, Assertive' };
+      case 'F':
+        return { leftMeaning: 'Serious, Restrained, Careful', rightMeaning: 'Lively, Animated, Spontaneous' };
+      case 'G':
+        return { leftMeaning: 'Expedient, Nonconforming', rightMeaning: 'Rule-conscious, Dutiful' };
+      case 'H':
+        return { leftMeaning: 'Shy, Threat-Sensitive, Timid', rightMeaning: 'Socially Bold, Venturesome, Thick Skinned' };
+      case 'I':
+        return { leftMeaning: 'Utilitarian, Objective, Unsentimental', rightMeaning: 'Sensitive, Aesthetic, Sentimental' };
+      case 'L':
+        return { leftMeaning: 'Trusting, Unsuspecting, Accepting', rightMeaning: 'Vigilant, Suspicious, Skeptical, Wary' };
+      case 'M':
+        return { leftMeaning: 'Grounded, Practical, Solution-Oriented', rightMeaning: 'Abstracted, Imaginative, Idea-Oriented' };
+      case 'N':
+        return { leftMeaning: 'Forthright, Genuine, Artless', rightMeaning: 'Private, Discreet, Non-Disclosing' };
+      case 'O':
+        return { leftMeaning: 'Self-Assured, Unworried, Complacent', rightMeaning: 'Apprehensive, Self-Doubting, Worried' };
+      case 'Q1':
+        return { leftMeaning: 'Traditional, Attached to Familiar', rightMeaning: 'Open to Change, Experimenting' };
+      case 'Q2':
+        return { leftMeaning: 'Group-Oriented, Affiliative', rightMeaning: 'Self-reliant, Solitary, Individualistic' };
+      case 'Q3':
+        return { leftMeaning: 'Tolerates Disorder, Unexciting, Flexible', rightMeaning: 'Perfectionistic, Organized, Self-Disciplined' };
+      case 'Q4':
+        return { leftMeaning: 'Relaxed, Placid, Patient', rightMeaning: 'Tense, High Energy, Impatient, Driven' };
+      default:
+        return { leftMeaning: '', rightMeaning: '' };
+    }
+  };
+
   // Fetch data function
   const fetchData = async () => {
     try {
@@ -46,14 +90,12 @@ const PFResultsList: React.FC = () => {
 
       const data = await response.json();
       console.log('Fetched Data:', data);
-      
-      // Update results to use the correct data field
-      setResults(data.data);  // Access the 'data' array in the response
+      setResults(data.data); // Update results to use the correct data field
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error fetching data:', err);
     } finally {
-      setLoading(false);  // Stop loading when done
+      setLoading(false); // Stop loading when done
     }
   };
 
@@ -71,28 +113,20 @@ const PFResultsList: React.FC = () => {
         throw new Error(`Error deleting the test: ${response.statusText}`);
       }
 
-      // Remove the deleted user from the state
-      setResults(results.filter((result) => result.userID !== userID));
-      navigate('/pfresults_list'); 
+      setResults(results.filter((result) => result.userID !== userID)); // Remove deleted user
+      navigate('/pfresults_list');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error deleting test:', err);
     }
   };
 
-
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
-  // Calculate the total number of pages
   const totalPages = Math.ceil(results.length / resultsPerPage);
-
-  // Slice results based on the current page
-  const currentResults = results.slice(
-    (currentPage - 1) * resultsPerPage,
-    currentPage * resultsPerPage
-  );
+  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
 
   return (
     <div>
@@ -155,43 +189,63 @@ const PFResultsList: React.FC = () => {
                           <th>Factor Letter</th>
                           <th>Raw Score</th>
                           <th>Sten Score</th>
+                          <th>Results Interpretation</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {result.scoring.scores.map((score, index) => (
-                          <tr key={index}>
-                            <td>{score.factorLetter}</td>
-                            <td>{score.rawScore}</td>
-                            <td>{score.stenScore}</td>
-                          </tr>
-                        ))}
-                      </tbody>
+                      {factorOrder.map((factorLetter) => {
+                        const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
+                        if (score) {
+                          const { leftMeaning, rightMeaning } = getFactorDescription(factorLetter);
+                          const stenScore = score.stenScore;
+
+                          let interpretation: React.ReactNode = ""; // Initialize as an empty string
+
+                          if (stenScore >= 1 && stenScore <= 3) {
+                            interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
+                          } else if (stenScore >= 4 && stenScore <= 7) {
+                            interpretation = (
+                              <>
+                                <span className={styles.leftMeaning}>{leftMeaning}</span>
+                                <span className={styles.average}> (Average) </span>
+                                <span className={styles.rightMeaning}>{rightMeaning}</span>
+                              </>
+                            );
+                          } else if (stenScore >= 8 && stenScore <= 10) {
+                            interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
+                          }
+
+                          return (
+                            <tr key={factorLetter}>
+                              <td>{score.factorLetter}</td>
+                              <td>{score.rawScore}</td>
+                              <td>{score.stenScore}</td>
+                              <td>{interpretation}</td> {/* Updated to render interpretation */}
+                            </tr>
+                          );
+                        }
+                        return null;
+                      })}
+                    </tbody>
+
                     </table>
                   </td>
                   <td>
-                    <button 
-                      className={styles.deleteButton} 
-                      onClick={() => handleDelete(result.userID)}
-                    >
-                      Delete
-                    </button>
+                    <button onClick={() => handleDelete(result.userID)} className={styles.deleteButton}>Delete</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          {/* Pagination Controls */}
-          <div className={styles.pagination}>
+          <div>
             <button
               onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
               disabled={currentPage === 1}
             >
               Previous
             </button>
-            <span>
-              Page {currentPage} of {totalPages}
-            </span>
+            <span>{currentPage} of {totalPages}</span>
             <button
               onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
               disabled={currentPage === totalPages}
@@ -201,7 +255,7 @@ const PFResultsList: React.FC = () => {
           </div>
         </div>
       ) : (
-        <p>No results found.</p>
+        <p>No results available.</p>
       )}
     </div>
   );
