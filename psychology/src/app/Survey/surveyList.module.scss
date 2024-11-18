@@ -1,82 +1,99 @@
-// components/SurveyList.module.scss
 .surveyListContainer {
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.surveyCard {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  div:hover {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   }
-  
-  .surveyCard {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  }
-  
-  h2 {
-    font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.surveyCount {
+  font-size: 1rem;
+  color: #007bff;
+  margin-left: 10px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+}
+
+p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.sectionContainer {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+  h4 {
     font-weight: bold;
-    color: #333;
+    color: #000;
   }
-  
-  .surveyCount {
-    font-size: 1rem;
-    color: #007bff;
-    margin-left: 10px;
+}
+
+.questionList {
+  list-style: none;
+  padding-left: 0;
+}
+
+.questionItem {
+  margin-bottom: 10px;
+
+  strong {
+    color: rgb(33, 199, 3);
   }
-  
-  h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #007bff;
+}
+
+.choiceList {
+  list-style: none;
+  padding-left: 20px;
+}
+
+.choiceItem {
+  font-size: 1rem;
+  color: #444;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
   }
-  
-  p {
-    font-size: 1rem;
-    color: #666;
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
   }
-  
-  .questionList {
-    list-style: none;
-    padding-left: 0;
-  }
-  
-  .questionItem {
-    margin-bottom: 10px;
-  }
-  
-  .choiceList {
-    list-style: none;
-    padding-left: 20px;
-  }
-  
-  .choiceItem {
-    font-size: 1rem;
-    color: #444;
-  }
-  
-  .pagination {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .pagination button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #0056b3;
-    }
-  
-    &:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-  }
-  
+}

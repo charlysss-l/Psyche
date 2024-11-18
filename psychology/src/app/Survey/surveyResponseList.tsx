@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import styles from './surveyResponseList.module.scss';  // Import the SCSS module
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import styles from "./surveyResponseList.module.scss"; // Import the SCSS module
 
 interface SurveyResponse {
   _id: string;
-  userId: string; // Assuming the userId is part of the response data
+  userId: string;
   surveyId: {
     title: string;
-    questions: {
-      _id: string;
-      questionText: string;
-      choices: string[];
+    sections: {
+      title: string;
+      questions: {
+        _id: string;
+        questionText: string;
+        choices: string[];
+      }[];
     }[];
   };
   responses: {
@@ -29,14 +32,17 @@ const SurveyResponseList: React.FC = () => {
   useEffect(() => {
     const fetchSurveyResponses = async () => {
       try {
-        const surveyId = ''; // Empty to get all responses
-        const response = await axios.get('http://localhost:5000/api/survey-responses', {
-          params: { surveyId },
-        });
+        const surveyId = ""; // Empty to get all responses
+        const response = await axios.get(
+          "http://localhost:5000/api/survey-responses",
+          {
+            params: { surveyId },
+          }
+        );
         setResponses(response.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching survey responses:', error);
+        console.error("Error fetching survey responses:", error);
         setLoading(false);
       }
     };
@@ -44,9 +50,17 @@ const SurveyResponseList: React.FC = () => {
     fetchSurveyResponses();
   }, []);
 
+  // Sort responses by survey title
+  const sortedResponses = [...responses].sort((a, b) =>
+    a.surveyId.title.localeCompare(b.surveyId.title)
+  );
+
   const indexOfLastResponse = currentPage * responsesPerPage;
   const indexOfFirstResponse = indexOfLastResponse - responsesPerPage;
-  const currentResponses = responses.slice(indexOfFirstResponse, indexOfLastResponse);
+  const currentResponses = sortedResponses.slice(
+    indexOfFirstResponse,
+    indexOfLastResponse
+  );
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -57,7 +71,10 @@ const SurveyResponseList: React.FC = () => {
   return (
     <div className={styles.responseListContainer}>
       <h2>
-        Survey Responses <span className={styles.responseCount}>({responses.length} responses)</span>
+        Survey Responses{" "}
+        <span className={styles.responseCount}>
+          ({responses.length} responses)
+        </span>
       </h2>
       {responses.length === 0 ? (
         <p>No responses available.</p>
@@ -67,27 +84,32 @@ const SurveyResponseList: React.FC = () => {
             <tr>
               <th>Student ID</th>
               <th>Survey Title</th>
-              <th>Questions and Answers</th>
+              <th>Sections and Answers</th>
               <th>Submitted At</th>
             </tr>
           </thead>
           <tbody>
             {currentResponses.map((response) => (
               <tr key={response._id}>
-                <td>{response.userId}</td>  {/* Display userId from the response */}
+                <td>{response.userId}</td>
                 <td>{response.surveyId.title}</td>
                 <td>
-                  {response.surveyId.questions.map((question, index) => {
-                    const answer = response.responses.find(
-                      (response) => response.questionId.toString() === question._id.toString()
-                    );
-                    return (
-                      <div key={index}>
-                        <strong>{question.questionText}: </strong>
-                        {answer ? answer.choice : 'No answer'}
-                      </div>
-                    );
-                  })}
+                  {response.surveyId.sections.map((section, sectionIndex) => (
+                    <div key={sectionIndex}>
+                      <strong>{sectionIndex}: </strong>
+                      {section.questions.map((question) => {
+                        const answer = response.responses.find(
+                          (res) => res.questionId === question._id
+                        );
+                        return (
+                          <div key={question._id}>
+                            <strong>{question.questionText}: </strong>
+                            {answer ? answer.choice : "No answer"}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
                 </td>
                 <td>{new Date(response.submittedAt).toLocaleString()}</td>
               </tr>

@@ -1,58 +1,103 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import styles from './survey.module.scss';  // Import SCSS styles
+import React, { useState } from "react";
+import axios from "axios";
+import styles from "./survey.module.scss";
 
 const SurveyForm: React.FC = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState(''); // New state for description
-  const [questions, setQuestions] = useState<{ questionText: string; choices: string[] }[]>([
-    { questionText: '', choices: [''] },
-  ]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [sections, setSections] = useState<
+    {
+      sectionTitle: string;
+      questions: { questionText: string; choices: string[] }[];
+    }[]
+  >([{ sectionTitle: "", questions: [{ questionText: "", choices: [""] }] }]);
 
-  const handleAddQuestion = () => {
-    setQuestions([...questions, { questionText: '', choices: [''] }]);
+  const handleAddSection = () => {
+    setSections([
+      ...sections,
+      { sectionTitle: "", questions: [{ questionText: "", choices: [""] }] },
+    ]);
   };
 
-  const handleAddChoice = (index: number) => {
-    const newQuestions = [...questions];
-    newQuestions[index].choices.push('');
-    setQuestions(newQuestions);
+  const handleAddQuestion = (sectionIndex: number) => {
+    const newSections = [...sections];
+    newSections[sectionIndex].questions.push({
+      questionText: "",
+      choices: [""],
+    });
+    setSections(newSections);
   };
 
-  const handleDeleteQuestion = (index: number) => {
-    const newQuestions = [...questions];
-    newQuestions.splice(index, 1); // Remove the question at the specified index
-    setQuestions(newQuestions);
+  const handleDeleteSection = (sectionIndex: number) => {
+    const newSections = sections.filter((_, index) => index !== sectionIndex);
+    setSections(newSections);
   };
 
-  const handleDeleteChoice = (questionIndex: number, choiceIndex: number) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].choices.splice(choiceIndex, 1); // Remove the choice
-    setQuestions(newQuestions);
+  const handleAddChoice = (sectionIndex: number, questionIndex: number) => {
+    const newSections = [...sections];
+    newSections[sectionIndex].questions[questionIndex].choices.push("");
+    setSections(newSections);
+  };
+  const handleDeleteQuestion = (
+    sectionIndex: number,
+    questionIndex: number
+  ) => {
+    const newSections = [...sections];
+    newSections[sectionIndex].questions.splice(questionIndex, 1);
+    setSections(newSections);
+  };
+
+  const handleDeleteChoice = (
+    sectionIndex: number,
+    questionIndex: number,
+    choiceIndex: number
+  ) => {
+    const newSections = [...sections];
+    newSections[sectionIndex].questions[questionIndex].choices.splice(
+      choiceIndex,
+      1
+    );
+    setSections(newSections);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const surveyData = { title, description, questions }; // Include description in survey data
+    const surveyData = { title, description, sections };
     try {
-      await axios.post('http://localhost:5000/api/surveys/create', surveyData);
-      alert('Survey created successfully');
+      await axios.post("http://localhost:5000/api/surveys/create", surveyData);
+      alert("Survey created successfully");
     } catch (error) {
-      console.error('Error creating survey:', error);
-      alert('Error creating survey');
+      console.error("Error creating survey:", error);
+      alert("Error creating survey");
     }
   };
 
-  const handleChangeQuestion = (index: number, value: string) => {
-    const newQuestions = [...questions];
-    newQuestions[index].questionText = value;
-    setQuestions(newQuestions);
+  const handleChangeSectionTitle = (index: number, value: string) => {
+    const newSections = [...sections];
+    newSections[index].sectionTitle = value;
+    setSections(newSections);
   };
 
-  const handleChangeChoice = (questionIndex: number, choiceIndex: number, value: string) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].choices[choiceIndex] = value;
-    setQuestions(newQuestions);
+  const handleChangeQuestion = (
+    sectionIndex: number,
+    questionIndex: number,
+    value: string
+  ) => {
+    const newSections = [...sections];
+    newSections[sectionIndex].questions[questionIndex].questionText = value;
+    setSections(newSections);
+  };
+
+  const handleChangeChoice = (
+    sectionIndex: number,
+    questionIndex: number,
+    choiceIndex: number,
+    value: string
+  ) => {
+    const newSections = [...sections];
+    newSections[sectionIndex].questions[questionIndex].choices[choiceIndex] =
+      value;
+    setSections(newSections);
   };
 
   return (
@@ -68,51 +113,84 @@ const SurveyForm: React.FC = () => {
       <textarea
         placeholder="Survey Description"
         value={description}
-        onChange={(e) => setDescription(e.target.value)} // Handle description change
+        onChange={(e) => setDescription(e.target.value)}
         required
       />
-      {questions.map((q, qIndex) => (
-        <div key={qIndex} className={styles.questionContainer}>
+      {sections.map((section, sIndex) => (
+        <div key={sIndex} className={styles.sectionContainer}>
           <input
             type="text"
-            placeholder={`Question ${qIndex + 1}`}
-            value={q.questionText}
-            onChange={(e) => handleChangeQuestion(qIndex, e.target.value)}
+            placeholder={`Section Title ${sIndex + 1}`}
+            value={section.sectionTitle}
+            onChange={(e) => handleChangeSectionTitle(sIndex, e.target.value)}
+            className={styles.sectionTitle}
             required
           />
-          {q.choices.map((choice, cIndex) => (
-            <div key={cIndex} className={styles.choicesContainer}>
-              <input
-                type="text"
-                placeholder={`Choice ${cIndex + 1}`}
-                value={choice}
-                onChange={(e) => handleChangeChoice(qIndex, cIndex, e.target.value)}
-                required
-              />
-              <button
-                type="button"
-                className={styles.deleteButton}
-                onClick={() => handleDeleteChoice(qIndex, cIndex)}
-              >
-                Delete Choice
-              </button>
-            </div>
-          ))}
-          <button type="button" onClick={() => handleAddChoice(qIndex)}>Add Choice</button>
+          <button type="button" onClick={handleAddSection}>
+            Add Section
+          </button>
           <button
             type="button"
             className={styles.deleteButton}
-            onClick={() => handleDeleteQuestion(qIndex)}
+            onClick={() => handleDeleteSection(sIndex)}
           >
-            Delete Question
+            Delete Section
           </button>
+          {section.questions.map((q, qIndex) => (
+            <div key={qIndex} className={styles.questionContainer}>
+              <input
+                type="text"
+                placeholder={`Question ${qIndex + 1}`}
+                value={q.questionText}
+                onChange={(e) =>
+                  handleChangeQuestion(sIndex, qIndex, e.target.value)
+                }
+                required
+              />
+              <button type="button" onClick={() => handleAddQuestion(sIndex)}>
+                Add Question
+              </button>
+              <button
+                type="button"
+                className={styles.deleteButton}
+                onClick={() => handleDeleteQuestion(sIndex, qIndex)}
+              >
+                Delete Question
+              </button>
+              {q.choices.map((choice, cIndex) => (
+                <div key={cIndex} className={styles.choicesContainer}>
+                  <input
+                    type="text"
+                    placeholder={`Choice ${cIndex + 1}`}
+                    value={choice}
+                    onChange={(e) =>
+                      handleChangeChoice(sIndex, qIndex, cIndex, e.target.value)
+                    }
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleAddChoice(sIndex, qIndex)}
+                  >
+                    Add Choice
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.deleteButton}
+                    onClick={() => handleDeleteChoice(sIndex, qIndex, cIndex)}
+                  >
+                    Delete Choice
+                  </button>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       ))}
       <div className={styles.formActions}>
-        <button type="button" onClick={handleAddQuestion}>
-          Add Question
+        <button type="submit" className={styles.createSurveyButton}>
+          Create Survey
         </button>
-        <button type="submit" className={styles.createSurveyButton}>Create Survey</button>
       </div>
     </form>
   );

@@ -4,7 +4,6 @@ import { createSurvey, getAllSurveys } from '../controllers/surveyController';
 
 const router = express.Router();
 
-// Correct async route handler with proper types
 router.post('/surveys/create', async (req: Request, res: Response) => {
   try {
     await createSurvey(req, res);
@@ -20,7 +19,5 @@ router.get('/surveys', async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error fetching surveys', error });
   }
 });
-
-
 
 export default router;
