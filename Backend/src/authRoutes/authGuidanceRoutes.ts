@@ -17,7 +17,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
 // PUT route for updating username and password
 router.put('/update', async (req: Request, res: Response): Promise<void> => {
     try {
-      await updateGuidanceUser(req, res); // Call the update controller function
+      await updateGuidanceUser(req, res); 
     } catch (error) {
       res.status(500).json({ message: 'Internal server error' });
     }

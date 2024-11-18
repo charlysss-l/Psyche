@@ -12,7 +12,7 @@ const Navbar = () => {
       <div className={style.navbar_gd}>
         <ul className={style.navbar_UL_gd}>
           <li className={style.navbar_LI_gd}>
-            <Link to="/home" className={style.navlink_gd}>Home</Link>
+            <Link to="/" className={style.navlink_gd}>Home</Link>
           </li>
           <li className={style.navbar_LI_gd}>
             <Link to="/calendar" className={style.navlink_gd}>Calendar</Link>
@@ -21,7 +21,7 @@ const Navbar = () => {
             <Link to="/consultation" className={style.navlink_gd}>Consultation</Link>
           </li>
           <li className={style.navbar_LI_gd}>
-            <Link to="/" className={style.navlink_gd}>Logout</Link>
+            <Link to="/login" className={style.navlink_gd}>Login</Link>
           </li>
         </ul>
       </div>

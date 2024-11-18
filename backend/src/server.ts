@@ -9,11 +9,13 @@ import IQTestRoutes from './routes/IQTestRoutes';
 import uploadRoutes from './controllers/uploadController';
 import consultationsRoutes from './routes/consultationroutes';
 import authPsychRoutes from './authRoutes/authPsychRoutes';
+
 import authGuidanceRoutes from './authRoutes/authGuidanceRoutes';
 import authStudentsRoutes from './authRoutes/authStudentsRoutes';
 import userRoutes from './authRoutes/userRoutes';
 import surveyRoutes from './routes/surveyRoutes';
 import surveyResponseRoutes from './routes/surveyResponseRoutes';
+
 
 dotenv.config();
 
@@ -42,11 +44,13 @@ app.use('/api', surveyResponseRoutes);
 
 
 // Authentication routes
+
 app.use('/api/auth', authPsychRoutes);
 app.use('/api/authGuidance', authGuidanceRoutes);
 app.use('/api/authStudents', authStudentsRoutes);
 
 app.use('/api/allusers', userRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 
