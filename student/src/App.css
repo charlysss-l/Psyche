@@ -1,11 +1,20 @@
-/* App.css */
+/* Variables */
+$bg-light: #f4f4f4; /* Light grey background for Light Mode */
+$font-light: #000000; /* Black font color for Light Mode */
+
+$bg-dark: #121212; /* Dark grey background for Dark Mode */
+$font-dark: #ffffff; /* White font color for Dark Mode */
+
+/* Light Mode Styles */
 body {
-  background-color: #f4f2ee;
+  background-color: $bg-light;
+  color: $font-light;
 }
 
+/* Dark Mode Styles */
 body.dark-mode {
-  background-color: #121212;
-  color: #ffffff;
+  background-color: $bg-dark;
+  color: $font-dark;
 }
 
 .App {
@@ -26,10 +35,10 @@ body.dark-mode {
   flex: 1;
   padding: 20px;
   border-radius: 5px;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
-/* Position the theme toggle button */
+/* Theme Toggle Button */
 .theme-toggle {
   position: fixed;
   top: 20px;
@@ -38,10 +47,14 @@ body.dark-mode {
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #000;
+  color: $font-light; /* Black font color for Light Mode */
   z-index: 1000;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 body.dark-mode .theme-toggle {
-  color: #fff;
+  color: $font-dark; /* White font color for Dark Mode */
 }

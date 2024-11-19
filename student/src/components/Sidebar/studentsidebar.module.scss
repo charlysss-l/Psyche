@@ -1,17 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
+/* Variables */
+$bg-light: #F5F5F5; /* Light grey background */
+$font-light: #131313; /* Black font color */
+$link-bg: #D3D3D3; /* Light beige for links */
+$link-hover: #e7e5e1; /* Lighter beige for hover state */
+$link-active: red; /* Active state color for links */
+$box-shadow-color: rgba(0, 0, 0, 0.1); /* Box shadow color */
 
+/* Sidebar Styles */
 .sidebar {
   padding: 20px;
-  width: 150px; 
-  height: 100vh; 
+  width: 150px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
-  align-items: center;     
-  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0px 8px $box-shadow-color;
   border-radius: 8px;
   margin: 0;
+  background-color: $bg-light; /* Sidebar background */
 }
 
 .sidebar_UL {
@@ -21,7 +30,6 @@
 }
 
 .sidebar_LI {
-  
   width: 130px;
   display: flex;
   justify-content: center;
@@ -29,34 +37,33 @@
   margin: 20px 0;
 }
 
-
-.link{
+/* Link Styles */
+.link {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #131313;
+  color: $font-light; /* Link font color */
   font-weight: 400;
   font-size: 16px;
-  transition: color 0.3s ease;
-  background-color: #d1cfcb;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  background-color: $link-bg; /* Link background color */
   width: 130px;
-  height:50px;
+  height: 50px;
   text-align: center;
   justify-content: center;
   border-radius: 10px;
-
-
 
   .icon {
     width: 30px;
     height: 30px;
     margin-right: 5px;
   }
+}
 
+.link:hover {
+  background-color: $link-hover; /* Hover background color */
 }
-.link:hover{
-  background-color: #e7e5e1;
-}
-.link:active{
-  background-color: red;
+
+.link:active {
+  background-color: $link-active; /* Active background color */
 }
