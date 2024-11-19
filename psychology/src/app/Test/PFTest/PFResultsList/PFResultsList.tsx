@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './pfresult.module.scss';  
 import { useNavigate } from 'react-router-dom';
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-
-// Register chart.js components
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-
 // Define the interface for the user results
 interface User16PFTest {
   userID: string;
@@ -135,59 +128,11 @@ const PFResultsList: React.FC = () => {
   const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
 
   // Prepare data for the stacked bar chart
-  const chartData = {
-    labels: factorOrder,
-    datasets: [
-      {
-        label: 'Left Meaning',
-        data: factorOrder.map((factorLetter) => {
-          // Count how many users have left meaning for this factor
-          const countLeftMeaning = results.filter((result) => {
-            const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
-            const { leftMeaning } = getFactorDescription(factorLetter);
-            return score && leftMeaning && score.stenScore <= 3; // Sten score between 1 and 3 for left meaning
-          }).length;
-          return countLeftMeaning;
-        }),
-        backgroundColor: 'green',
-      },
-      {
-        label: 'Average',
-        data: factorOrder.map((factorLetter) => {
-          // Count how many users have average score for this factor
-          const countAverage = results.filter((result) => {
-            const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
-            const { leftMeaning, rightMeaning } = getFactorDescription(factorLetter);
-            const stenScore = score?.stenScore || 0;
-            return stenScore >= 4 && stenScore <= 7; // Sten score between 4 and 7 for average range
-          }).length;
-          return countAverage;
-        }),
-        backgroundColor: 'gray',
-      },
-      {
-        label: 'Right Meaning',
-        data: factorOrder.map((factorLetter) => {
-          // Count how many users have right meaning for this factor
-          const countRightMeaning = results.filter((result) => {
-            const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
-            const { rightMeaning } = getFactorDescription(factorLetter);
-            return score && rightMeaning && score.stenScore >= 8; // Sten score between 8 and 10 for right meaning
-          }).length;
-          return countRightMeaning;
-        }),
-        backgroundColor: 'red',
-      },
-    ],
-  };
-  
+
 
   return (
     <div>
       <h2>PF Results List</h2>
-      <div className={styles.barContainerPF}>
-        <Bar className = {styles.tablegraph} data={chartData} options={{ responsive: true, plugins: { title: { display: true, text: 'Factor Interpretations' } } }} />
-      </div>
      
       {results.length > 0 ? (
         <div>

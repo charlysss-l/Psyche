@@ -21,6 +21,8 @@ import OMRCamera from "./app/OMR/OMRCamera/OMRCamera"
 import IQInterpretation from './app/Test/IQTest/IQResultsList/IQInterpretation';
 import OmrIQResultsList from './app/Test/IQTest/IQResultsList/Omr_IQResultList';
 import IQResultListBoth from './app/Test/IQTest/IQResultsList/IQtestListBoth';
+import PFStatistics from './app/Test/PFTest/PFStatistics/PFStatistics';
+import IQStatistics from './app/Test/IQTest/IQResultsList/IQStatistics/IQStatistics';
 function App() {
   return (
     <Router>
@@ -96,6 +98,10 @@ function App() {
               <Route
                 path="/omrcamera"
                 element={<ProtectedRoute><OMRCamera /></ProtectedRoute>}
+              />
+              <Route
+                path="/iq-statistics"
+                element={<ProtectedRoute><IQStatistics /></ProtectedRoute>}
               />
             </Routes>
           </div>
