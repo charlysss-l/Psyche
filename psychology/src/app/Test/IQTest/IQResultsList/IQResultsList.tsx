@@ -148,7 +148,7 @@ const IQResultsList: React.FC = () => {
     labels: Object.keys(interpretationCounts), // Categories of resultInterpretation
     datasets: [
       {
-        label: 'Test Scores Based on Interpretation',
+        label: 'Number of Students',
         data: Object.values(interpretationCounts), // Store corresponding counts of results for each interpretation
         backgroundColor: '#42a5f5', // Customize the color of the bars
       },
@@ -159,7 +159,7 @@ const IQResultsList: React.FC = () => {
     <div>
       <h2>IQ Results List</h2>
       <div className={styles.chartContainer}>
-        <Bar className={styles.tablegraph} data={chartData} options={{ responsive: true, plugins: { title: { display: true, text: 'Factor Interpretations' } } }} />
+        <Bar className={styles.tablegraph} data={chartData} options={{ responsive: true, plugins: { title: { display: true, text: 'Score Interpretations' } } }} />
       
         </div>
 
