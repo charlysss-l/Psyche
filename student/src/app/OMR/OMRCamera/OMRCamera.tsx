@@ -64,9 +64,9 @@ const OMRCamera: React.FC = () => {
 
   const handleOMRProcessing = async () => {
     if (!uploadURL) return;
-
+  
     try {
-      const response = await fetch('http://localhost:5000/process_omr', {
+      const response = await fetch('http://127.0.0.1:5000/process_omr', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -75,13 +75,18 @@ const OMRCamera: React.FC = () => {
           image_url: uploadURL,
         }),
       });
-
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
       const data = await response.json();
       setOmrScore(data.score);
     } catch (error) {
       console.error("Error processing OMR:", error);
     }
   };
+  
 
   useEffect(() => {
     // Start the camera when the component is mounted
