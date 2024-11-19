@@ -37,11 +37,7 @@ export const createIQTestResult = async (req: Request, res: Response) => {
 
         // Prepare interpretation object
         const testInterpretation: Interpretation = {
-            minAge: interpretation.minAge,
-            maxAge: interpretation.maxAge,
-            minTestScore: interpretation.minTestScore,
-            maxTestScore: interpretation.maxTestScore,
-            percentilePoints: interpretation.percentilePoints,
+            
             resultInterpretation: interpretation.resultInterpretation,
         };
 

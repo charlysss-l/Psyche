@@ -71,7 +71,6 @@ const UserForm: React.FC = () => {
             <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
                 <option value="" disabled>Select Exam Type</option>
                 <option value="Online">Online</option>
-                <option value="Physical">Physical</option>
             </select>
             <p>Note: Timer Will Start Once You Click The Start Button</p>
             <button className={style.start} type="submit">Start Test</button>
