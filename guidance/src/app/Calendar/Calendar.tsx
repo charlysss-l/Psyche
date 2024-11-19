@@ -12,9 +12,10 @@ interface ConsultationRequest {
   date: string;
   status: string;
 }
-
 const SchedulingCalendar: React.FC = () => {
-  const [consultationRequests, setConsultationRequests] = useState<ConsultationRequest[]>([]);
+  const [consultationRequests, setConsultationRequests] = useState<
+    ConsultationRequest[]
+  >([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [newSchedule, setNewSchedule] = useState({
     userId: "",
@@ -27,7 +28,10 @@ const SchedulingCalendar: React.FC = () => {
     const loadConsultationRequests = async () => {
       try {
         const requests = await fetchConsultationRequests();
-        setConsultationRequests(requests);
+        const acceptedRequests = requests.filter(
+          (request: ConsultationRequest) => request.status === "accepted"
+        );
+        setConsultationRequests(acceptedRequests);
       } catch (error) {
         console.error("Error loading consultation requests:", error);
       }
@@ -52,7 +56,9 @@ const SchedulingCalendar: React.FC = () => {
     }
   };
 
-  const handleScheduleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleScheduleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setNewSchedule((prevState) => ({
       ...prevState,
@@ -68,7 +74,11 @@ const SchedulingCalendar: React.FC = () => {
       return;
     }
 
-    if (!newSchedule.userId || !newSchedule.timeForConsultation || !newSchedule.note) {
+    if (
+      !newSchedule.userId ||
+      !newSchedule.timeForConsultation ||
+      !newSchedule.note
+    ) {
       setErrorMessage("Please fill in all fields.");
       return;
     }
@@ -80,8 +90,14 @@ const SchedulingCalendar: React.FC = () => {
         status: "pending",
       };
 
-      const response = await axios.post("http://localhost:5000/api/consult", newRequest);
-      setConsultationRequests((prevRequests) => [...prevRequests, response.data]);
+      const response = await axios.post(
+        "http://localhost:5000/api/consult",
+        newRequest
+      );
+      setConsultationRequests((prevRequests) => [
+        ...prevRequests,
+        response.data,
+      ]);
       setNewSchedule({
         userId: "",
         timeForConsultation: "",
@@ -90,12 +106,15 @@ const SchedulingCalendar: React.FC = () => {
       setErrorMessage(""); // Clear error message on successful submit
     } catch (error) {
       console.error("Error adding new schedule:", error);
-      setErrorMessage("There was an error adding the schedule. Please try again.");
+      setErrorMessage(
+        "There was an error adding the schedule. Please try again."
+      );
     }
   };
 
   const filteredRequests = consultationRequests.filter(
-    (request) => new Date(request.date).toDateString() === selectedDate?.toDateString()
+    (request) =>
+      new Date(request.date).toDateString() === selectedDate?.toDateString()
   );
 
   // Function to determine if a date has schedules and should be red
@@ -116,7 +135,8 @@ const SchedulingCalendar: React.FC = () => {
         tileContent={({ date, view }) => {
           if (view === "month") {
             const count = consultationRequests.filter(
-              (request) => new Date(request.date).toDateString() === date.toDateString()
+              (request) =>
+                new Date(request.date).toDateString() === date.toDateString()
             ).length;
             return count ? <div className="schedule-count">{count}</div> : null;
           }
@@ -160,7 +180,9 @@ const SchedulingCalendar: React.FC = () => {
           )}
 
           <h3 className={styles.Add}>Add New Schedule</h3>
-          {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+          {errorMessage && (
+            <p className={styles.errorMessage}>{errorMessage}</p>
+          )}
           <form onSubmit={handleSubmit}>
             <div>
               <label>User ID:</label>
