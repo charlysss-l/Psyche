@@ -3,6 +3,8 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './OMRCamera.module.scss'; // Import SCSS styles
+import { useNavigate } from 'react-router-dom';
+
 
 // Initialize Firebase with your configuration
 const firebaseConfig = {
@@ -26,6 +28,8 @@ const OMRCamera: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [omrScore, setOmrScore] = useState<number | null>(null);
+  const navigate = useNavigate();
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
@@ -84,6 +88,14 @@ const OMRCamera: React.FC = () => {
       setOmrScore(data.score);
     } catch (error) {
       console.error("Error processing OMR:", error);
+    }
+  };
+
+  const handleSaveScore = () => {
+    if (omrScore !== null) {
+      localStorage.setItem('omrScore', omrScore.toString());
+      alert('Score saved successfully!');
+      navigate('/omrresult');
     }
   };
   
@@ -197,6 +209,10 @@ const OMRCamera: React.FC = () => {
       {omrScore !== null && (
         <div>
           <h3>OMR Score: {omrScore}</h3>
+          <button onClick={handleSaveScore} className={styles.saveScoreButton}>
+            Save and Interpret Your Score
+
+          </button>
         </div>
       )}
 

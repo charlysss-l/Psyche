@@ -13,7 +13,7 @@ const router = Router();
 router.post('/', createIQTestResult);
 
 // Route to retrieve all IQ test results for a specific user
-router.get('/', getIQTestResultsByUser);
+router.get('/:userID', getIQTestResultsByUser);
 
 // Route to retrieve a specific IQ test result by test ID
 router.get('/:id', getIQTestResultById);

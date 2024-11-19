@@ -59,9 +59,9 @@ export interface totalScore {
 
 // Response Schema
 const ResponseSchema = new Schema<Response>({
-    questionID: { type: String, required: true },
-    selectedChoice: { type: String, required: true },
-    isCorrect: { type: Boolean, required: true },
+    questionID: { type: String },
+    selectedChoice: { type: String },
+    isCorrect: { type: Boolean},
 }, { _id: false });
 
 // Question Schema

@@ -11,7 +11,7 @@ const Result = () => {
           </div>
          
           <div className={style.iqLinkContainer_res}>
-            <Link to="/iq-results" className={style.iqLink_res}>IQ Results</Link>
+          <Link to="/iqresultlist" className={style.iqLink_res}>IQ Results</Link>
           </div>
           
         </div>

@@ -81,12 +81,20 @@ const testDocument = new UserIQTest({
 
 // Controller to retrieve all IQ test results for a user
 export const getIQTestResultsByUser = async (req: Request, res: Response) => {
+    const { userID } = req.params;
+
     try {
-        const allUserIQTests = await UserIQTest.find();
-        res.status(200).json({ data: allUserIQTests });
-    } catch (error: unknown) {
-        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-        res.status(500).json({ message: 'Error fetching IQ tests', error: errorMessage });
+        const testResult = await UserIQTest.find({ userID });
+        if (!testResult) {
+            res.status(404).json({ message: 'Test result not found' });
+            return;
+        }
+        res.status(200).json({ data: testResult });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error retrieving IQ test result',
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        });
     }
 };
 
