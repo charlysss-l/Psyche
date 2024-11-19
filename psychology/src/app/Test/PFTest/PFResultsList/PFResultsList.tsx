@@ -185,9 +185,10 @@ const PFResultsList: React.FC = () => {
   return (
     <div>
       <h2>PF Results List</h2>
-
-      <Bar className = {styles.tablegraph} data={chartData} options={{ responsive: true, plugins: { title: { display: true, text: 'Factor Interpretations' } } }} />
-
+      <div className={styles.barContainerPF}>
+        <Bar className = {styles.tablegraph} data={chartData} options={{ responsive: true, plugins: { title: { display: true, text: 'Factor Interpretations' } } }} />
+      </div>
+     
       {results.length > 0 ? (
         <div>
           <table className={styles.resultsTable}>

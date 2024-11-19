@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styles from './page.module.scss'; // Import your CSS module
 import { useNavigate } from 'react-router-dom';
 
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+
+// Register chart.js components
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
 interface Response {
   questionID: string;
   selectedChoice: string;
@@ -131,9 +137,33 @@ const IQResultsList: React.FC = () => {
     currentPage * resultsPerPage
   );
 
+  // Prepare chart data for bar chart
+  const interpretationCounts: Record<string, number> = {};
+  results.forEach((result) => {
+    const interpretation = result.interpretation?.resultInterpretation ?? 'No interpretation available';
+    interpretationCounts[interpretation] = (interpretationCounts[interpretation] || 0) + 1;
+  });
+
+  const chartData = {
+    labels: Object.keys(interpretationCounts), // Categories of resultInterpretation
+    datasets: [
+      {
+        label: 'Test Scores Based on Interpretation',
+        data: Object.values(interpretationCounts), // Store corresponding counts of results for each interpretation
+        backgroundColor: '#42a5f5', // Customize the color of the bars
+      },
+    ],
+  };
+
   return (
     <div>
       <h2>IQ Results List</h2>
+      <div className={styles.chartContainer}>
+        <Bar className={styles.tablegraph} data={chartData} options={{ responsive: true, plugins: { title: { display: true, text: 'Factor Interpretations' } } }} />
+      
+        </div>
+
+
       
       {/* Button to navigate to IQ Interpretation */}
       <button 
@@ -242,7 +272,7 @@ const IQResultsList: React.FC = () => {
           </div>
         </div>
       ) : (
-        <p>No results found.</p>
+        <div>No results found.</div>
       )}
     </div>
   );
