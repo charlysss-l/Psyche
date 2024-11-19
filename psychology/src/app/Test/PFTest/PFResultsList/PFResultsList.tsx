@@ -216,6 +216,8 @@ const PFResultsList: React.FC = () => {
                   <td>{result.year} - {result.section}</td>
                   <td>{result.testType}</td>
                   <td>
+                  <div className={styles.responsesWrapper}>
+
                     <table className={styles.responsesTable}>
                       <thead>
                         <tr>
@@ -236,8 +238,12 @@ const PFResultsList: React.FC = () => {
                         ))}
                       </tbody>
                     </table>
+
+                  </div>
                   </td>
                   <td>
+                  <div className={styles.responsesWrapper}>
+
                     <table className={styles.scoresTable}>
                       <thead>
                         <tr>
@@ -284,6 +290,8 @@ const PFResultsList: React.FC = () => {
                     </tbody>
 
                     </table>
+
+                  </div>
                   </td>
                   <td>
                     <button onClick={() => handleDelete(result.userID)} className={styles.deleteButton}>Delete</button>

@@ -96,3 +96,19 @@
     font-size: 16px;
   }
   
+  .responsesWrapper {
+    max-height: 250px;  // Adjust the height as per your design needs
+    overflow-y: auto;   // Enable vertical scrolling when content overflows
+    margin-top: 10px;   // Optional, for some space between elements
+  }
+  
+  .responsesTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .responsesTable th, .responsesTable td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
