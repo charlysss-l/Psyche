@@ -4,13 +4,17 @@ import {
     getOmrResultsByUser,
     getOmrResultById,
     updateOmrResult,
-    deleteOmrResult
+    deleteOmrResult,
+    getIQTestResultsByAll
 } from '../controllers/omrController'; // Ensure this path is correct
 
 const router = Router();
 
 // Route to create a new IQ test result
 router.post('/', createOmrResult);
+
+router.get('/', getIQTestResultsByAll);
+
 
 // Route to retrieve all IQ test results for a specific user
 router.get('/:userID', getOmrResultsByUser);

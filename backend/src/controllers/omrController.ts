@@ -57,6 +57,19 @@ const testDocument = new OmrSchema({
     }
 };
 
+
+// Controller to retrieve all IQ test results for a user
+export const getIQTestResultsByAll = async (req: Request, res: Response) => {
+    
+    try {
+        const allUserIQTests = await OmrSchema.find();
+        res.status(200).json({ data: allUserIQTests });
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+        res.status(500).json({ message: 'Error fetching IQ tests', error: errorMessage });
+    }
+};
+
 // Controller to retrieve all IQ test results for a user
 export const getOmrResultsByUser = async (req: Request, res: Response) => {
     const { userID } = req.params;

@@ -19,7 +19,8 @@ import IQResultsList from './app/Test/IQTest/IQResultsList/IQResultsList';
 import ThemeToggle from "./darkMode";
 import OMRCamera from "./app/OMR/OMRCamera/OMRCamera"
 import IQInterpretation from './app/Test/IQTest/IQResultsList/IQInterpretation';
-
+import OmrIQResultsList from './app/Test/IQTest/IQResultsList/Omr_IQResultList';
+import IQResultListBoth from './app/Test/IQTest/IQResultsList/IQtestListBoth';
 function App() {
   return (
     <Router>
@@ -82,7 +83,16 @@ function App() {
                 path="/iqresults_list"
                 element={<ProtectedRoute><IQResultsList /></ProtectedRoute>}
               />
+
+              <Route
+                path="/omriqresults_list"
+                element={<ProtectedRoute><OmrIQResultsList /></ProtectedRoute>}
+              />
               
+              <Route 
+                path="/iqresults_list_both"
+                element={<ProtectedRoute><IQResultListBoth /></ProtectedRoute>}
+              />
               <Route
                 path="/omrcamera"
                 element={<ProtectedRoute><OMRCamera /></ProtectedRoute>}
