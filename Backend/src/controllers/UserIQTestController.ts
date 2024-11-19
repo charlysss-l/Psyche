@@ -38,7 +38,7 @@ export const createIQTestResult = async (req: Request, res: Response) => {
         // Prepare interpretation object
         const testInterpretation: Interpretation = {
 
-          
+            
             resultInterpretation: interpretation.resultInterpretation,
         };
 
@@ -76,7 +76,19 @@ const testDocument = new UserIQTest({
 };
 
 // Controller to retrieve all IQ test results for a user
-export const getIQTestResultsByUser = async (req: Request, res: Response) => {
+export const getIQTestResultsByAll = async (req: Request, res: Response) => {
+    
+    try {
+        const allUserIQTests = await UserIQTest.find();
+        res.status(200).json({ data: allUserIQTests });
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+        res.status(500).json({ message: 'Error fetching IQ tests', error: errorMessage });
+    }
+};
+
+// Controller to retrieve all IQ test results for a user
+export const getIQTestResultsByUserID = async (req: Request, res: Response) => {
     const { userID } = req.params;
 
     try {

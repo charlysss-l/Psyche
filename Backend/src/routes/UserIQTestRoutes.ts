@@ -1,7 +1,8 @@
 import { Router, Request, Response } from 'express';  // Make sure to import Request and Response
 import {
     createIQTestResult,
-    getIQTestResultsByUser,
+    getIQTestResultsByAll,
+    getIQTestResultsByUserID,
     getIQTestResultById,
     updateIQTestResult,
     deleteIQTestResult
@@ -13,7 +14,9 @@ const router = Router();
 router.post('/', createIQTestResult);
 
 // Route to retrieve all IQ test results for a specific user
-router.get('/:userID', getIQTestResultsByUser);
+router.get('/:userID', getIQTestResultsByUserID);
+router.get('/', getIQTestResultsByAll);
+
 
 // Route to retrieve a specific IQ test result by test ID
 router.get('/:id', getIQTestResultById);
