@@ -12,8 +12,8 @@ interface Question {
 }
 
 interface Interpretation {
-    ageRange: string;
-    sex: 'Female' | 'Male' | '';
+    minAge: number;
+    maxAge: number;
     minTestScore: number;
     maxTestScore: number;
     percentilePoints: number;
@@ -128,8 +128,9 @@ const IQTest: React.FC = () => {
 
         const score = calculateScore();
         const interpretation: Interpretation = {
-            ageRange: '20-30',
-            sex,
+
+            minAge: 0,
+            maxAge: 100,
             minTestScore: 10,
             maxTestScore: 100,
             percentilePoints: 85,
