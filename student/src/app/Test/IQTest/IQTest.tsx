@@ -16,7 +16,6 @@ interface Interpretation {
     maxAge: number;
     minTestScore: number;
     maxTestScore: number;
-    percentilePoints: number;
     resultInterpretation: string;
 }
 
@@ -25,6 +24,8 @@ interface IQTests {
     nameOfTest: string;
     numOfQuestions: number;
     questions: Question[];
+    interpretation: Interpretation[];  // Added interpretation field
+
 }
 
 const IQTest: React.FC = () => {
@@ -46,6 +47,8 @@ const IQTest: React.FC = () => {
     const questionsPerPage = 5; // Display 5 questions per page
     const [timer, setTimer] = useState<number>(45 * 60); // 45 minutes in seconds
     const [isTimeUp, setIsTimeUp] = useState<boolean>(false);
+    const [interpretation, setInterpretation] = useState<Interpretation | null>(null);
+
 
     const fetchTest = async () => {
         try {
@@ -127,15 +130,15 @@ const IQTest: React.FC = () => {
         });
 
         const score = calculateScore();
-        const interpretation: Interpretation = {
-
-            minAge: 0,
-            maxAge: 100,
-            minTestScore: 10,
-            maxTestScore: 100,
-            percentilePoints: 85,
-            resultInterpretation: 'Above average intelligence',
-        };
+       // Determine interpretation based on age and score
+       const matchedInterpretation = iqTest?.interpretation.find((interp) => 
+        Number(age) >= interp.minAge &&
+        Number(age) <= interp.maxAge &&
+        score.totalScore >= interp.minTestScore &&
+        score.totalScore <= interp.maxTestScore
+    );
+    
+    setInterpretation(matchedInterpretation || null);
 
         const dataToSubmit = {
             userID,
@@ -149,7 +152,7 @@ const IQTest: React.FC = () => {
             testID: iqTest?.testID || '',
             responses: responsesWithAnswers,
             totalScore: score.totalScore,
-            interpretation,
+            interpretation: matchedInterpretation || null,
             testType,
             testDate: new Date(),
         };
@@ -217,9 +220,13 @@ const IQTest: React.FC = () => {
                     Next
                 </button>
             </div>
-            {currentPage === totalPages && !isTimeUp && (
-    <button type="submit" className={style.submitButton}>Submit Answers</button>
-)}
+            {isTimeUp && <p>Your time is up. The test is automatically submitted.</p>}
+            
+            {/* Only show submit button on the last page */}
+            {currentPage === totalPages && (
+                <button type="submit" className={style.submitButton}>Submit Test</button>
+            )}
+
         </form>
     );
 };

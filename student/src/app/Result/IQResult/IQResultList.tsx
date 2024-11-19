@@ -148,7 +148,6 @@ const IQResultsList: React.FC = () => {
                 <th>Section</th>
                 <th>Test Type</th>
                 <th>Test Date</th>
-                <th>Responses</th>
                 <th>Total Score</th>
                 <th>Interpretation</th>
                 <th>Actions</th>
@@ -167,36 +166,10 @@ const IQResultsList: React.FC = () => {
                   <td>{result.section}</td>
                   <td>{result.testType}</td>
                   <td>{new Date(result.testDate).toLocaleDateString()}</td>
-                  <td>
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Question ID</th>
-                          <th>Selected Choice</th>
-                          <th>Correct</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {result.responses.map((response, index) => (
-                          <tr key={index}>
-                            <td>{response.questionID}</td>
-                            <td>
-                              <img
-                                className={styles['selected-choice-img']}
-                                src={response.selectedChoice}
-                                alt={`Choice ${index + 1}`}
-                              />
-                            </td>
-                            <td>{response.isCorrect ? 'Correct' : 'Incorrect'}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </td>
+                  
                   <td>{result.totalScore}</td>
                   <td>
                     <ul>
-                      <li>Percentile: {result.interpretation?.percentilePoints ?? 'N/A'}</li>
                       <li>Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}</li>
                     </ul>
                   </td>

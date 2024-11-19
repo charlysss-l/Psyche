@@ -10,11 +10,6 @@ export interface Response {
 // Define structure for the interpretation
 export interface Interpretation {
 
-    minAge: number;
-    maxAge: number;
-    minTestScore: number;
-    maxTestScore: number;
-    percentilePoints: number;
     resultInterpretation: string;
 }
 
@@ -76,11 +71,6 @@ const QuestionSchema = new Schema<Question>({
 // Interpretation Schema
 const InterpretationSchema = new Schema<Interpretation>({
 
-    minAge: { type: Number, required: true },
-    maxAge: { type: Number, required: true },
-    minTestScore: { type: Number, required: true },
-    maxTestScore: { type: Number, required: true },
-    percentilePoints: { type: Number, required: true },
     resultInterpretation: { type: String, required: true },
 }, { _id: false });
 
