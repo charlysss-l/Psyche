@@ -9,8 +9,8 @@ export interface Response {
 
 // Define structure for the interpretation
 export interface Interpretation {
-    ageRange: string;
-    sex: 'Female' | 'Male';
+    minAge: number;
+    maxAge: number;
     minTestScore: number;
     maxTestScore: number;
     percentilePoints: number;
@@ -58,9 +58,9 @@ export interface totalScore {
 
 // Response Schema
 const ResponseSchema = new Schema<Response>({
-    questionID: { type: String, required: true },
-    selectedChoice: { type: String, required: true },
-    isCorrect: { type: Boolean, required: true },
+    questionID: { type: String },
+    selectedChoice: { type: String},
+    isCorrect: { type: Boolean },
 }, { _id: false });
 
 // Question Schema
@@ -74,8 +74,8 @@ const QuestionSchema = new Schema<Question>({
 
 // Interpretation Schema
 const InterpretationSchema = new Schema<Interpretation>({
-    ageRange: { type: String, required: true },
-    sex: { type: String, enum: ['Female', 'Male'], required: true },
+    minAge: { type: Number, required: true },
+    maxAge: { type: Number, required: true },
     minTestScore: { type: Number, required: true },
     maxTestScore: { type: Number, required: true },
     percentilePoints: { type: Number, required: true },

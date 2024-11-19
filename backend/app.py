@@ -1,3 +1,11 @@
+# step 1: user will upload an image and store it in firebase with a URL file name (OMRCamera.tsx)
+# step 2: user will send a request to the backend to process the image (OMRCamera.tsx)
+# step 3: backend will download the URL image and process it (app.py)
+# step 4: backend will return the score to the localhost named http://127.0.0.1:5000/process_omr (app.py)
+# step 5: frontend will fetch the score from the same localhost (OMRCamera.tsx)
+# step 6: frontend will display the score (OMRCamera.tsx)
+
+
 from io import BytesIO
 import requests
 import cv2
@@ -20,7 +28,7 @@ def omr_processing(image):
 
     # Define the grid positions for the answer bubbles
     answer_bubbles = {
-        1: [(171, 535), (311, 535), (451, 535), (601, 535)],  # Q1: A, B, C, D positions
+        1: [(171, 535), (311, 535), (451, 535), (801, 535)],  # Q1: A, B, C, D positions
         2: [(171, 601), (311, 601), (451, 601), (601, 601)],  # Q2: A, B, C, D positions
         3: [(171, 671), (311, 671), (451, 671), (601, 671)],  # Q3: A, B, C, D positions
         4: [(171, 740), (311, 740), (451, 740), (601, 740)],  # Q4: A, B, C, D positions
@@ -28,7 +36,7 @@ def omr_processing(image):
     }
 
     # Correct answer key
-    answer_key = {1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'C'}
+    answer_key = {1: 'C', 2: 'B', 3: 'C', 4: 'D', 5: 'C'}
     
     marked_answers = {}
     
@@ -37,7 +45,7 @@ def omr_processing(image):
         print(f"Processing Question {question} with bubbles {bubbles}")  # Debugging print
         for i, (x, y) in enumerate(bubbles):
             # Draw rectangles on the image to visualize bubble positions
-            cv2.rectangle(image, (x-20, y-20), (x+20, y+20), (255, 0, 0), 2)  # Blue rectangle for each bubble
+            cv2.circle(image, (x, y), 20, (255, 0, 0), 2)  # Blue circle with radius 20
             
             # Extract region of interest (ROI) for each bubble
             roi = thresh[y-20:y+20, x-20:x+20]  # Small region around the bubble
@@ -52,7 +60,7 @@ def omr_processing(image):
         correct_answer = answer_key[question]
         correct_index = ord(correct_answer) - 65  # Convert 'A', 'B', 'C', 'D' to index 0, 1, 2, 3
         correct_x, correct_y = bubbles[correct_index]
-        cv2.rectangle(image, (correct_x-20, correct_y-20), (correct_x+20, correct_y+20), (0, 0, 255), 2)  # Green box for correct answer
+        cv2.circle(image, (correct_x, correct_y), 20, (0, 0, 255), 2)  # red circle for correct answer
         cv2.putText(image, "Correct", (correct_x - 40, correct_y - 40), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
     # Calculate the score

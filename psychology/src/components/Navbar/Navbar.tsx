@@ -36,7 +36,6 @@ const Navbar = () => {
             <Link to="/user" className={style.navlink_ps}>User</Link>
           </li>
           <li className={style.navbar_LI_ps}>
-            {/* Bind the handleLogout function to the Logout link */}
             <button onClick={handleLogout} className={style.navlink_logout}>Logout</button>
           </li>
         </ul>
