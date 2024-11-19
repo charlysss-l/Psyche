@@ -9,12 +9,19 @@ $bg-color-light-yellow: #fff3cd;
 $bg-color-light-gray: #f4f4f4;
 $bg-color-gray: #f8f9fa;
 $bg-color-dark-gray: #343a40;
-$bg-color-light-gray-2: #e9ecef;
+$bg-color-light-gray-2: #ffffff;
 $bg-color-green: #28a745;
 $bg-color-yellow: #ffc107;
 $bg-color-red: #dc3545;
 $bg-color-dark-gray-2: #6c757d;
 $bg-color-black-overlay: rgba(0, 0, 0, 0.5);
+
+$bg-light: #F5F5F5; /* Light grey background */
+$font-light: #131313; /* Black font color */
+$link-bg: #D3D3D3; /* Light beige for links */
+$link-hover: #e7e5e1; /* Lighter beige for hover state */
+$link-active: red; /* Active state color for links */
+$box-shadow-color: rgba(0, 0, 0, 0.1); /* Box shadow color */
 
 $border-radius: 5px;
 $padding-small: 5px 10px;
@@ -186,6 +193,7 @@ button {
   }
 }
 
+/* Warning Box */
 .warning {
   background-color: $bg-color-yellow;
   padding: 10px;
