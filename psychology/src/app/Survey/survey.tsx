@@ -102,97 +102,108 @@ const SurveyForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.formContainer}>
-      <h2>Create Survey</h2>
-      <input
-        type="text"
-        placeholder="Survey Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <textarea
-        placeholder="Survey Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-      {sections.map((section, sIndex) => (
-        <div key={sIndex} className={styles.sectionContainer}>
-          <input
-            type="text"
-            placeholder={`Section Title ${sIndex + 1}`}
-            value={section.sectionTitle}
-            onChange={(e) => handleChangeSectionTitle(sIndex, e.target.value)}
-            className={styles.sectionTitle}
-            required
-          />
-          <button type="button" onClick={handleAddSection}>
-            Add Section
-          </button>
-          <button
-            type="button"
-            className={styles.deleteButton}
-            onClick={() => handleDeleteSection(sIndex)}
-          >
-            Delete Section
-          </button>
-          {section.questions.map((q, qIndex) => (
-            <div key={qIndex} className={styles.questionContainer}>
-              <input
-                type="text"
-                placeholder={`Question ${qIndex + 1}`}
-                value={q.questionText}
-                onChange={(e) =>
-                  handleChangeQuestion(sIndex, qIndex, e.target.value)
-                }
-                required
-              />
-              <button type="button" onClick={() => handleAddQuestion(sIndex)}>
-                Add Question
-              </button>
-              <button
-                type="button"
-                className={styles.deleteButton}
-                onClick={() => handleDeleteQuestion(sIndex, qIndex)}
-              >
-                Delete Question
-              </button>
-              {q.choices.map((choice, cIndex) => (
-                <div key={cIndex} className={styles.choicesContainer}>
-                  <input
-                    type="text"
-                    placeholder={`Choice ${cIndex + 1}`}
-                    value={choice}
-                    onChange={(e) =>
-                      handleChangeChoice(sIndex, qIndex, cIndex, e.target.value)
-                    }
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleAddChoice(sIndex, qIndex)}
-                  >
-                    Add Choice
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.deleteButton}
-                    onClick={() => handleDeleteChoice(sIndex, qIndex, cIndex)}
-                  >
-                    Delete Choice
-                  </button>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      ))}
-      <div className={styles.formActions}>
-        <button type="submit" className={styles.createSurveyButton}>
-          Create Survey
+    <h2>Create Survey</h2>
+    <input
+      type="text"
+      placeholder="Survey Title"
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+      required
+    />
+    <textarea
+      placeholder="Survey Description"
+      value={description}
+      onChange={(e) => setDescription(e.target.value)}
+      required
+    />
+    {sections.map((section, sIndex) => (
+      <div key={sIndex} className={styles.sectionContainer}>
+        <input
+          type="text"
+          placeholder={`Section Title ${sIndex + 1}`}
+          value={section.sectionTitle}
+          onChange={(e) => handleChangeSectionTitle(sIndex, e.target.value)}
+          className={styles.sectionTitle}
+          required
+        />
+        <button
+          type="button"
+          className={styles.addSectionButton}
+          onClick={handleAddSection}
+        >
+          Add Section
         </button>
+        <button
+          type="button"
+          className={styles.deleteSectionButton}
+          onClick={() => handleDeleteSection(sIndex)}
+        >
+          Delete Section
+        </button>
+        {section.questions.map((q, qIndex) => (
+          <div key={qIndex} className={styles.questionContainer}>
+            <input
+              type="text"
+              placeholder={`Question ${qIndex + 1}`}
+              value={q.questionText}
+              onChange={(e) =>
+                handleChangeQuestion(sIndex, qIndex, e.target.value)
+              }
+              required
+            />
+            <button
+              type="button"
+              className={styles.addQuestionButton}
+              onClick={() => handleAddQuestion(sIndex)}
+            >
+              Add Question
+            </button>
+            <button
+              type="button"
+              className={styles.deleteQuestionButton}
+              onClick={() => handleDeleteQuestion(sIndex, qIndex)}
+            >
+              Delete Question
+            </button>
+            {q.choices.map((choice, cIndex) => (
+              <div key={cIndex} className={styles.choicesContainer}>
+                <input
+                  type="text"
+                  placeholder={`Choice ${cIndex + 1}`}
+                  value={choice}
+                  onChange={(e) =>
+                    handleChangeChoice(sIndex, qIndex, cIndex, e.target.value)
+                  }
+                  required
+                />
+                <button
+                  type="button"
+                  className={styles.addChoiceButton}
+                  onClick={() => handleAddChoice(sIndex, qIndex)}
+                >
+                  Add Choice
+                </button>
+                <button
+                  type="button"
+                  className={styles.deleteChoiceButton}
+                  onClick={() => handleDeleteChoice(sIndex, qIndex, cIndex)}
+                >
+                  Delete Choice
+                </button>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
-    </form>
+    ))}
+    <div className={styles.formActions}>
+      <button type="submit" className={styles.createSurveyButton}>
+        Create Survey
+      </button>
+    </div>
+  </form>
+  
+ 
   );
 };
 

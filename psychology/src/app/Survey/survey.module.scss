@@ -131,3 +131,78 @@ input:focus, textarea:focus {
 .addSectionButton:hover {
   background-color: #218838;
 }
+
+.addChoiceButton {
+  background-color: #007bff;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.addChoiceButton:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.deleteChoiceButton {
+  background-color: #dc3545;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.deleteChoiceButton:hover {
+  background-color: #c82333;
+  color: white;
+}
+
+.addQuestionButton {
+  background-color: #007bff;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.addQuestionButton:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.deleteQuestionButton {
+  background-color: #dc3545;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.deleteQuestionButton:hover {
+  background-color: #c82333;
+  color: white;
+}
+
+.deleteSectionButton {
+  background-color: #dc3545;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.deleteSectionButton:hover {
+  background-color: #c82333;
+  color: white;
+}
