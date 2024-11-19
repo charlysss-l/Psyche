@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './page.module.scss';  
+import styles from './pfresult.module.scss';  
 import { useNavigate } from 'react-router-dom';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
@@ -185,7 +185,8 @@ const PFResultsList: React.FC = () => {
   return (
     <div>
       <h2>PF Results List</h2>
-      <Bar data={chartData} options={{ responsive: true, plugins: { title: { display: true, text: 'Factor Interpretations' } } }} />
+
+      <Bar className = {styles.tablegraph} data={chartData} options={{ responsive: true, plugins: { title: { display: true, text: 'Factor Interpretations' } } }} />
 
       {results.length > 0 ? (
         <div>

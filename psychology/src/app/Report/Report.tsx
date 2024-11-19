@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './page.module.scss';  
+import styles from './report.module.scss';  
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -141,21 +141,21 @@ const Report: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>16PF Report</h2>
+    <div className={styles.reportContainer}>
+      <h2 className={styles.heading}>16PF Report</h2>
 
       {/* Filter Widget */}
       <div className={styles.filterContainer}>
-        <label htmlFor="filter">Filter by factor interpretation: </label>
-        <select id="filter" value={filter} onChange={handleFilterChange}>
+        <label htmlFor="filter" className={styles.label}>Filter by factor interpretation:</label>
+        <select id="filter" value={filter} onChange={handleFilterChange} className={styles.select}>
           <option value="all">All</option>
           <option value="left">Left Meaning</option>
           <option value="average">Average</option>
           <option value="right">Right Meaning</option>
         </select>
 
-        <label htmlFor="factor">Factor Letter: </label>
-        <select id="factor" value={selectedFactor} onChange={handleFactorChange}>
+        <label htmlFor="factor" className={styles.label}>Factor Letter:</label>
+        <select id="factor" value={selectedFactor} onChange={handleFactorChange} className={styles.select}>
           {factorOrder.map((factor, index) => (
             <option key={index} value={factor}>{factor}</option>
           ))}
@@ -164,24 +164,34 @@ const Report: React.FC = () => {
 
       {/* Display filtered User IDs only when filter is not 'all' */}
       {filter !== 'all' && (
-      <div>
-        <h3>
-          User IDs of Students with {filter.charAt(0).toUpperCase() + filter.slice(1)} Meaning for Factor {selectedFactor}:
-        </h3>
-        <ul>
-          {filteredUserIDs.length > 0 ? (
-            filteredUserIDs.map((userID, index) => (
-              <li key={index}>Student {index + 1} - {userID}</li>
-            ))
-          ) : (
-            <li>No users found.</li>
-          )}
-        </ul>
-      </div>
-    )}
+        <div className={styles.userListContainer}>
+          <h3 className={styles.subHeading}>
+            User IDs of Students with {filter.charAt(0).toUpperCase() + filter.slice(1)} Meaning for Factor {selectedFactor}:
+          </h3>
+          <ul className={styles.userList}>
+            {filteredUserIDs.length > 0 ? (
+              filteredUserIDs.map((userID, index) => (
+                <li key={index} className={styles.userListItem}>
+                  Student {index + 1} - {userID}
+                </li>
+              ))
+            ) : (
+              <li className={styles.noUsers}>No users found.</li>
+            )}
+          </ul>
+        </div>
+      )}
 
       {/* Bar chart */}
-      <Bar data={chartData} options={{ responsive: true, plugins: { title: { display: true, text: 'Factor Interpretations' } } }} />
+      <div className={styles.chartContainer}>
+        <Bar
+          data={chartData}
+          options={{
+            responsive: true,
+            plugins: { title: { display: true, text: "Factor Interpretations" } },
+          }}
+        />
+      </div>
     </div>
   );
 };
