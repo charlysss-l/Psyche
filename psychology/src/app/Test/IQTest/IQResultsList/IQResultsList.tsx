@@ -144,16 +144,26 @@ const IQResultsList: React.FC = () => {
     interpretationCounts[interpretation] = (interpretationCounts[interpretation] || 0) + 1;
   });
 
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+  
   const chartData = {
-    labels: Object.keys(interpretationCounts), // Categories of resultInterpretation
+    labels: Object.keys(interpretationCounts), 
     datasets: [
       {
         label: 'Number of Students',
-        data: Object.values(interpretationCounts), // Store corresponding counts of results for each interpretation
-        backgroundColor: '#42a5f5', // Customize the color of the bars
+        data: Object.values(interpretationCounts), 
+        backgroundColor: Object.keys(interpretationCounts).map(() => getRandomColor()),
       },
     ],
   };
+  
 
   return (
     <div>
