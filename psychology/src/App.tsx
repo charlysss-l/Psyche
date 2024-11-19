@@ -100,6 +100,10 @@ function App() {
                 element={<ProtectedRoute><OMRCamera /></ProtectedRoute>}
               />
               <Route
+                path="/pf-statistics"
+                element={<ProtectedRoute><PFStatistics /></ProtectedRoute>}
+              />
+              <Route
                 path="/iq-statistics"
                 element={<ProtectedRoute><IQStatistics /></ProtectedRoute>}
               />

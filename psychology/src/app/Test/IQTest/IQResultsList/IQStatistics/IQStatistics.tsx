@@ -179,20 +179,6 @@ const IQStatistics: React.FC = () => {
           placeholder="Filter by User ID"
         />
         <input
-          type="text"
-          name="firstName"
-          value={filters.firstName}
-          onChange={handleFilterChange}
-          placeholder="Filter by First Name"
-        />
-        <input
-          type="text"
-          name="lastName"
-          value={filters.lastName}
-          onChange={handleFilterChange}
-          placeholder="Filter by Last Name"
-        />
-        <input
           type="number"
           name="age"
           value={filters.age}
@@ -225,11 +211,11 @@ const IQStatistics: React.FC = () => {
           onChange={handleFilterChange}
           placeholder="Filter by Section"
         />
-        <select name="testType" value={filters.testType} onChange={handleFilterChange}>
+        {/*<select name="testType" value={filters.testType} onChange={handleFilterChange}>
           <option value="">Filter by Test Type</option>
           <option value="Online">Online</option>
           <option value="Physical">Physical</option>
-        </select>
+        </select>*/}
       </div>
 
       <div className={styles.chartContainer}>
