@@ -29,11 +29,6 @@ interface OMR extends Document {
     testDate: Date;
 }
 
-export interface totalScore {
-    totalScore: number;
-}
-
-
 
 // Interpretation Schema
 const InterpretationSchema = new Schema<Interpretation>({

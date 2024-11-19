@@ -217,6 +217,8 @@ const IQResultsList: React.FC = () => {
                   <td>{result.testType}</td>
                   <td>{new Date(result.testDate).toLocaleDateString()}</td>
                   <td>
+                  <div className={styles.responsesWrapper}>
+
                     <table>
                       <thead>
                         <tr>
@@ -241,6 +243,8 @@ const IQResultsList: React.FC = () => {
                         ))}
                       </tbody>
                     </table>
+
+                  </div>
                   </td>
                   <td>{result.totalScore}</td>
                   <td>
