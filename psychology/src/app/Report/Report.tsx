@@ -183,7 +183,7 @@ const Report: React.FC = () => {
       )}
 
       {/* Bar chart */}
-      <div className={styles.chartContainer}>
+      <div className={styles.chartContainerPF}>
         <Bar
           data={chartData}
           options={{
