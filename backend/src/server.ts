@@ -16,6 +16,8 @@ import userRoutes from './authRoutes/userRoutes';
 import surveyRoutes from './routes/surveyRoutes';
 import surveyResponseRoutes from './routes/surveyResponseRoutes';
 import { updateInterpretationBySpecificId } from './controllers/IQTestController';
+import omrRoutes from './routes/omrRoutes';
+
 
 
 dotenv.config();
@@ -38,6 +40,8 @@ app.use('/api/IQtest', IQTestRoutes);
 app.use('/api', uploadRoutes);
 app.use('/api/consult', consultationsRoutes);
 app.put('/api/IQtest/:id/interpretation/:interpretationId', updateInterpretationBySpecificId);
+
+app.use('/api/omr', omrRoutes);
 
 
 // Survey routes

@@ -30,7 +30,7 @@ const OMRResult: React.FC = () => {
     }, []);
 
     // Handle the form submission
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         // Check if the user is 20 years or older
@@ -42,12 +42,46 @@ const OMRResult: React.FC = () => {
         // Convert omrScore to totalScore (assuming a conversion factor or logic here)
         const totalScore = omrScore ? omrScore * 2 : 0;  // Example conversion logic
 
-        // Store the user data in localStorage
-        const userDetails = { firstName, lastName, age, course, year, section, sex, testType, totalScore };
-        localStorage.setItem('userDetails', JSON.stringify(userDetails));
-
-        // Navigate to the IQ result page
-        navigate('/iq-results');
+        // Prepare the user data to be submitted, matching the schema
+        const userDetails = {
+            userID,
+            firstName,
+            lastName,
+            age: parseInt(age),  // Ensure age is a number
+            sex,
+            course,
+            year: parseInt(year),  // Ensure year is a number
+            section: parseInt(section),  // Ensure section is a number
+            testID: 'unique-test-id',  // Generate a unique testID or let the backend handle it
+            totalScore,
+            interpretation: {
+                resultInterpretation: 'Your result interpretation goes here'  // You can adjust this based on the score
+            },
+            testType,
+            testDate: new Date(),  // Current date and time
+        };
+    
+        try {
+            // Send the data to the backend
+            const response = await fetch('http://localhost:5000/api/omr', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userDetails),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to submit the form');
+            }
+    
+            // Handle success - Navigate to IQ results page or show success message
+            alert('Form submitted successfully!');
+            navigate('/iq-results');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while submitting the form.');
+        }
     };
 
     return (
@@ -90,6 +124,8 @@ const OMRResult: React.FC = () => {
                 <option value="5">5</option>
             </select>
             <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
+            <option value="" disabled>Select Exam Type</option>
+
                 <option value="Physical">Physical</option>
             </select>
 
