@@ -215,28 +215,33 @@ const PFResultsList: React.FC = () => {
                   <td>{result.year} - {result.section}</td>
                   <td>{result.testType}</td>
                   <td>
-                    <table className={styles.responsesTable}>
-                      <thead>
-                        <tr>
-                          <th>Question Number</th>
-                          <th>Selected Choice</th>
-                          <th>Equivalent Score</th>
-                          <th>Factor Letter</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {result.responses.map((response, index) => (
-                          <tr key={index}>
-                            <td>{response.questionID}</td>
-                            <td>{response.selectedChoice}</td>
-                            <td>{response.equivalentScore}</td>
-                            <td>{response.factorLetter}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </td>
+  <div className={styles.responsesWrapper}>
+    <table className={styles.responsesTable}>
+      <thead>
+        <tr>
+          <th>Question Number</th>
+          <th>Selected Choice</th>
+          <th>Equivalent Score</th>
+          <th>Factor Letter</th>
+        </tr>
+      </thead>
+      <tbody>
+        {result.responses.map((response, index) => (
+          <tr key={index}>
+            <td>{response.questionID}</td>
+            <td>{response.selectedChoice}</td>
+            <td>{response.equivalentScore}</td>
+            <td>{response.factorLetter}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</td>
+
                   <td>
+                  <div className={styles.responsesWrapper}>
+
                     <table className={styles.scoresTable}>
                       <thead>
                         <tr>
@@ -283,7 +288,9 @@ const PFResultsList: React.FC = () => {
                     </tbody>
 
                     </table>
+                  </div>
                   </td>
+
                   <td>
                     <button onClick={() => handleDelete(result.userID)} className={styles.deleteButton}>Delete</button>
                   </td>
