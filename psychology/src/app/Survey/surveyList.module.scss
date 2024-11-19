@@ -1,16 +1,47 @@
 .surveyListContainer {
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: #eae8e8;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
+.linkSurveyChoices{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.createsurveyButton{
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: right;
+  width: 10%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+.createsurveyButton:hover{
+  background-color: white;
+  color: black;
+}
 .surveyCard {
   margin-bottom: 20px;
   padding: 15px;
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   div:hover {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
@@ -45,6 +76,7 @@ p {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 15px;
+  width: 80%;
   h4 {
     font-weight: bold;
     color: #000;
