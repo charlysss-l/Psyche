@@ -92,7 +92,7 @@ const IQTest: React.FC = () => {
                     ))}
                 </tbody>
             </table>
-            <Link to="/iqresults_list" className={style.testResultsLink}>Test Results</Link>
+            <Link to="/iqresults_list_both" className={style.testResultsLink}>Test Results</Link>
 
             <h2>Questions</h2>
             <table className={style.table}>
