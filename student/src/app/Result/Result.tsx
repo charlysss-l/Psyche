@@ -11,8 +11,10 @@ const Result = () => {
           </div>
          
           <div className={style.iqLinkContainer_res}>
-          <Link to="/iqresultlist" className={style.iqLink_res}>IQ Results</Link>
+          <Link to="/iqresultlistboth" className={style.iqLink_res}>IQ Results</Link>
           </div>
+
+
           
         </div>
     </div>

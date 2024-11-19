@@ -22,6 +22,8 @@ import ThemeToggle from "./darkMode";
 import OMRCamera from "./app/OMR/OMRCamera/OMRCamera";
 import OMRResult from "./app/OMR/OMRCamera/OMRResult";
 import IQResultList from "./app/Result/IQResult/IQResultList";
+import OmrIQResultsList from "./app/Result/IQResult/OmrIQResultList";
+import IQResultListBoth from "./app/Result/IQResult/IQResultListBoth";
 
 function App() {
   return (
@@ -62,6 +64,8 @@ function App() {
                       <Route path="/omrcamera" element={<OMRCamera />} />
                       <Route path="/omrresult" element={<OMRResult />} />
                       <Route path="/iqresultlist" element={<IQResultList />} />
+                      <Route path="/omriqresultlist" element={<OmrIQResultsList />} />
+                      <Route path="/iqresultlistboth" element={<IQResultListBoth />} />
                     </Routes>
                   </div>
                 </div>

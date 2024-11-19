@@ -2,43 +2,38 @@ import React, { useState, useEffect } from 'react';
 import styles from './page.module.scss'; // Import your CSS module
 import { useNavigate } from 'react-router-dom';
 
-interface Response {
-  questionID: string;
-  selectedChoice: string;
-  isCorrect: boolean;
-}
+
 
 interface Interpretation {
+  
   minAge: number;
   maxAge: number;
   minTestScore: number;
   maxTestScore: number;
-  percentilePoints: number;
   resultInterpretation: string;
 }
 
-interface UserIQTest {
-  userID: string;
-  firstName: string;
-  lastName: string;
-  age: number;
-  sex: 'Female' | 'Male';
-  course: string;
-  year: number;
-  section: number;
-  testID: string;
-  responses: Response[];
-  totalScore: number;
-  testType: 'Online' | 'Physical';
-  testDate: Date;
-  interpretation?: {
-    percentilePoints: number;
-    resultInterpretation: string;
-  };
+
+
+
+interface OMR {
+    userID: string;
+    firstName: string;
+    lastName: string;
+    age: number;  // Changed from string to number
+    sex: 'Female' | 'Male';
+    course: string;
+    year: number;
+    section: number;
+    testID: string;
+    totalScore: number; // Include totalScore here
+    interpretation: Interpretation;
+    testType: 'Online' | 'Physical';
+    testDate: Date;
 }
 
-const IQResultsList: React.FC = () => {
-  const [results, setResults] = useState<UserIQTest[]>([]);
+const OmrIQResultsList: React.FC = () => {
+  const [results, setResults] = useState<OMR[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [userID, setUserID] = useState<string | null>(null);
@@ -59,7 +54,7 @@ const IQResultsList: React.FC = () => {
     if (!userID) return; // Don't fetch if userID is not available
 
     try {
-      const response = await fetch(`http://localhost:5000/api/useriq/${userID}`);
+      const response = await fetch(`http://localhost:5000/api/omr/${userID}`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
@@ -74,7 +69,7 @@ const IQResultsList: React.FC = () => {
       const interpretations: Interpretation[] = iqTestData.interpretation;
 
       // Add interpretation to the user's result
-      const resultWithInterpretation = data.data.map((result: UserIQTest) => {
+      const resultWithInterpretation = data.data.map((result: OMR) => {
         const interpretation = interpretations.find(
           (interp) =>
             result.age >= interp.minAge &&
@@ -87,10 +82,9 @@ const IQResultsList: React.FC = () => {
           ...result,
           interpretation: interpretation
             ? {
-                percentilePoints: interpretation.percentilePoints,
                 resultInterpretation: interpretation.resultInterpretation,
               }
-            : { percentilePoints: 0, resultInterpretation: 'No interpretation available' },
+            : { resultInterpretation: 'No interpretation available' },
         };
       });
 
@@ -110,7 +104,7 @@ const IQResultsList: React.FC = () => {
 
   const handleDelete = async (userID: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/useriq/${userID}`, {
+      const response = await fetch(`http://localhost:5000/api/omr/${userID}`, {
         method: 'DELETE',
       });
       
@@ -132,7 +126,7 @@ const IQResultsList: React.FC = () => {
 
   return (
     <div>
-      <h2>IQ Results List</h2>
+      <h2>IQ Results List (by Physical)</h2>
 
       {results.length > 0 ? (
         <div>
@@ -193,4 +187,4 @@ const IQResultsList: React.FC = () => {
   );
 };
 
-export default IQResultsList;
+export default OmrIQResultsList;

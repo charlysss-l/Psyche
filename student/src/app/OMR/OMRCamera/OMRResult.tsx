@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './OMRResult.module.scss';
+import axios from 'axios';
 
 const OMRResult: React.FC = () => {
     const navigate = useNavigate();
@@ -40,10 +41,10 @@ const OMRResult: React.FC = () => {
         }
 
         // Convert omrScore to totalScore (assuming a conversion factor or logic here)
-        const totalScore = omrScore ? omrScore * 2 : 0;  // Example conversion logic
+        const totalScore = omrScore ? omrScore * 1 : 0;  // Example conversion logic
 
         // Prepare the user data to be submitted, matching the schema
-        const userDetails = {
+        const dataToSubmit = {
             userID,
             firstName,
             lastName,
@@ -62,25 +63,13 @@ const OMRResult: React.FC = () => {
         };
     
         try {
-            // Send the data to the backend
-            const response = await fetch('http://localhost:5000/api/omr', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userDetails),
-            });
-    
-            if (!response.ok) {
-                throw new Error('Failed to submit the form');
-            }
-    
-            // Handle success - Navigate to IQ results page or show success message
-            alert('Form submitted successfully!');
+            await axios.post('http://localhost:5000/api/omr', dataToSubmit);
+            alert('Test submitted successfully!');
+            localStorage.setItem('iqTestResults', JSON.stringify(dataToSubmit));
             navigate('/iq-results');
         } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred while submitting the form.');
+            console.error('Error submitting answers:', error);
+            alert('An error occurred while submitting the test.');
         }
     };
 
