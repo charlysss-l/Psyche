@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-/* Variables */
-$bg-light: #F5F5F5; /* Light grey background */
-$font-light: #131313; /* Black font color */
-$link-bg: #D3D3D3; /* Light beige for links */
-$link-hover: #e7e5e1; /* Lighter beige for hover state */
-$link-active: red; /* Active state color for links */
-$box-shadow-color: rgba(0, 0, 0, 0.1); /* Box shadow color */
+/* Define color variables */
+$bg-light: #faf9f6; /* Light background color */
+$font-dark: #000000; /* Dark font color */
+$link-hover: #e2dfd2; /* Link hover color */
+
+$accent-light: #f2a9a9; /* Light pink for accents */
+$accent-dark: #7b3f3f; /* Darker maroon for contrast */
+$secondary-bg: #dbe2e7; /* Light blue-gray background for contrast */
+$button-bg: #6c757d; /* Muted gray button background */
+$button-hover: #495057; /* Button hover color */
 
 /* Sidebar Styles */
 .sidebar {
@@ -17,18 +20,19 @@ $box-shadow-color: rgba(0, 0, 0, 0.1); /* Box shadow color */
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0px 8px $box-shadow-color;
   border-radius: 8px;
   margin: 0;
-  background-color: $bg-light; /* Sidebar background */
+  background-color: $bg-light; /* Using light background color variable */
 }
 
+/* Sidebar List Styles */
 .sidebar_UL {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
+/* Sidebar List Item Styles */
 .sidebar_LI {
   width: 130px;
   display: flex;
@@ -42,11 +46,11 @@ $box-shadow-color: rgba(0, 0, 0, 0.1); /* Box shadow color */
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: $font-light; /* Link font color */
+  color: $font-dark; /* Using dark font color variable */
   font-weight: 400;
   font-size: 16px;
   transition: color 0.3s ease, background-color 0.3s ease;
-  background-color: $link-bg; /* Link background color */
+  background-color: $bg-light; /* Using light background color variable */
   width: 130px;
   height: 50px;
   text-align: center;
@@ -61,9 +65,9 @@ $box-shadow-color: rgba(0, 0, 0, 0.1); /* Box shadow color */
 }
 
 .link:hover {
-  background-color: $link-hover; /* Hover background color */
+  background-color: $link-hover; /* Using link hover color variable */
 }
 
 .link:active {
-  background-color: $link-active; /* Active background color */
+  background-color: $link-hover; /* Active background color using the same as hover */
 }
