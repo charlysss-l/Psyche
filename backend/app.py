@@ -19,7 +19,7 @@ CORS(app)
 
 def omr_processing(image):
     # Resize image if needed (adjust size based on your sheet size)
-    image = cv2.resize(image, (800, 1000))  # Adjust size as per your sheet
+    image = cv2.resize(image, (1000, 1400))  # Adjust size as per your sheet
     
     # Convert to grayscale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -29,15 +29,81 @@ def omr_processing(image):
 
     # Define the grid positions for the answer bubbles
     answer_bubbles = {
-        1: [(171, 535), (311, 535), (451, 535), (601, 535)],  # Q1: A, B, C, D positions
-        2: [(171, 601), (311, 601), (451, 601), (601, 601)],  # Q2: A, B, C, D positions
-        3: [(171, 671), (311, 671), (451, 671), (601, 671)],  # Q3: A, B, C, D positions
-        4: [(171, 740), (311, 740), (451, 740), (601, 740)],  # Q4: A, B, C, D positions
-        5: [(171, 809), (311, 809), (451, 809), (601, 809)],  # Q5: A, B, C, D positions
+        1: [(253, 182) ], 
+        2: [(253, 212) ],
+        3: [(253, 242) ],
+        4: [(253, 272) ],
+        5: [(253, 302) ],
+        6: [(253, 332) ],
+        7: [(253, 362) ],
+        8: [(253, 392) ],
+        9: [(253, 422) ],
+        10: [(253, 452) ],
+        11: [(253, 482) ],
+        12: [(253, 512) ],
+
+        13: [(613, 182) ],
+        14: [(613, 212) ],
+        15: [(613, 242) ],
+        16: [(613, 272) ],
+        17: [(613, 302) ],
+        18: [(613, 332) ],
+        19: [(613, 362) ],
+        20: [(613, 392) ],
+        21: [(613, 422) ],
+        22: [(613, 452) ],
+        23: [(613, 482) ],
+        24: [(613, 512) ],
+
+        25: [(103, 742) ],
+        26: [(103, 772) ],
+        27: [(103, 802) ],
+        28: [(103, 832) ],
+        29: [(103, 862) ],
+        30: [(103, 892) ],
+        31: [(103, 922) ],
+        32: [(103, 952) ],
+        33: [(103, 982) ],
+        34: [(103, 1012) ],
+        35: [(103, 1042) ],
+        36: [(103, 1072) ],
+
+        37: [(403, 742) ],
+        38: [(403, 772) ],
+        39: [(403, 802) ],
+        40: [(403, 832) ],
+        41: [(403, 862) ],
+        42: [(403, 892) ],
+        43: [(403, 922) ],
+        44: [(403, 952) ],
+        45: [(403, 982) ],
+        46: [(403, 1012) ],
+        47: [(403, 1042) ],
+        48: [(403, 1072) ],
+
+        49: [(713, 742) ],
+        50: [(713, 772) ],
+        51: [(713, 802) ],
+        52: [(713, 832) ],
+        53: [(713, 862) ],
+        54: [(713, 892) ],
+        55: [(713, 922) ],
+        56: [(713, 952) ],
+        57: [(713, 982) ],
+        58: [(713, 1012) ],
+        59: [(713, 1042) ],
+        60: [(713, 1072) ]
+        
+        
+       
     }
 
     # Correct answer key
-    answer_key = {1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'C'}
+    answer_key = {1: 'A', 2: 'A', 3: 'A', 4: 'A', 5: 'A', 6: 'A', 7: 'A', 8: 'A', 9: 'A', 10: 'A', 11: 'A', 12: 'A',
+        13: 'A', 14: 'A', 15: 'A', 16: 'A', 17: 'A', 18: 'A', 19: 'A', 20: 'A', 21: 'A', 22: 'A', 23: 'A', 24: 'A',
+        25: 'A', 26: 'A', 27: 'A', 28: 'A', 29: 'A', 30: 'A', 31: 'A', 32: 'A', 33: 'A', 34: 'A', 35: 'A', 36: 'A',
+        37: 'A', 38: 'A', 39: 'A', 40: 'A', 41: 'A', 42: 'A', 43: 'A', 44: 'A', 45: 'A', 46: 'A', 47: 'A', 48: 'A',
+        49: 'A', 50: 'A', 51: 'A', 52: 'A', 53: 'A', 54: 'A', 55: 'A', 56: 'A', 57: 'A', 58: 'A', 59: 'A', 60: 'A'}
     
     marked_answers = {}
     
@@ -46,7 +112,7 @@ def omr_processing(image):
         print(f"Processing Question {question} with bubbles {bubbles}")  # Debugging print
         for i, (x, y) in enumerate(bubbles):
             # Draw rectangles on the image to visualize bubble positions
-            cv2.circle(image, (x, y), 20, (255, 0, 0), 2)  # Blue circle with radius 20
+            cv2.circle(image, (x, y), 11, (255, 0, 0), 2)  # Blue circle with radius 20
             
             # Extract region of interest (ROI) for each bubble
             roi = thresh[y-20:y+20, x-20:x+20]  # Small region around the bubble
@@ -61,8 +127,8 @@ def omr_processing(image):
         correct_answer = answer_key[question]
         correct_index = ord(correct_answer) - 65  # Convert 'A', 'B', 'C', 'D' to index 0, 1, 2, 3
         correct_x, correct_y = bubbles[correct_index]
-        cv2.circle(image, (correct_x, correct_y), 20, (0, 0, 255), 2)  # red circle for correct answer
-        cv2.putText(image, "Correct", (correct_x - 40, correct_y - 40), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+        # cv2.circle(image, (correct_x, correct_y), 11, (0, 0, 255), 2)  # red circle for correct answer
+        # cv2.putText(image, "Correct", (correct_x - 40, correct_y - 40), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
     # Calculate the score
     correct_answers = 0
