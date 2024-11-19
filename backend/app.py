@@ -110,6 +110,7 @@ def omr_processing(image):
     # Visualize detection for debugging
     for question, bubbles in answer_bubbles.items():
         print(f"Processing Question {question} with bubbles {bubbles}")  # Debugging print
+        marked_bubble_count = 0
         for i, (x, y) in enumerate(bubbles):
             # Draw rectangles on the image to visualize bubble positions
             cv2.circle(image, (x, y), 10, (255, 0, 0), 2)  # Blue circle with radius 20
@@ -120,7 +121,12 @@ def omr_processing(image):
             # Check if the ROI is filled (marked)
             filled = cv2.countNonZero(roi)
             if filled > 500:  # Threshold for considering it marked
-                marked_answers[question] = chr(65 + i)  # 'A' is 65 in ASCII, 'B' is 66, etc.
+                marked_bubble_count += 1
+                if marked_bubble_count > 1:  # Check for multiple marked bubbles
+                    marked_answers[question] = None  # Award zero points if multiple marked
+                    break  # No need to check further bubbles for this question
+                else:
+                    marked_answers[question] = chr(65 + i)  # 'A' is 65 in ASCII
                 cv2.putText(image, "Marked", (x - 40, y - 40), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
         # Now draw the correct answer with a green box for visualization
