@@ -22,6 +22,21 @@ const ConsultationRequestForm: React.FC = () => {
     }
   }, []);
 
+  const [consultationRequests, setConsultationRequests] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchConsultationRequests = async () => {
+      try {
+        const response = await axios.get(API_URL);
+        setConsultationRequests(response.data);
+      } catch (error) {
+        console.error("Error fetching consultation requests:", error);
+      }
+    };
+
+    fetchConsultationRequests();
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -106,6 +121,36 @@ const ConsultationRequestForm: React.FC = () => {
           Submit Request
         </button>
       </form>
+
+      <h3 className={styles.consultationHeading}>Your Consultation Schedule</h3>
+      <table className={styles.consultationTable}>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Time for Consultation</th>
+            <th>Note</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {consultationRequests
+            .filter((request) => request.userId === userId)
+            .map((request) => (
+              <tr key={request._id}>
+                <td>{request.userId}</td>
+                <td>{request.timeForConsultation}</td>
+                <td>{request.note}</td>
+                <td
+                  className={
+                    request.status === "accepted" ? styles.acceptedStatus : ""
+                  }
+                >
+                  {request.status}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </div>
   );
 };
