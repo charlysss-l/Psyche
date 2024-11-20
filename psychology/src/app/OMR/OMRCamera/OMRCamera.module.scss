@@ -1,173 +1,205 @@
-// Styles for the OMRCamera component container
+// OMRCamera.module.scss
+
 .omrCameraContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-  
-    h2 {
-      color: #333;
-      font-size: 1.5em;
-      margin-bottom: 20px;
-    }
-  
-    .fileInputWrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 15px;
-  
-      input[type="file"] {
-        display: none;
-      }
-  
-      .uploadLabel {
-        cursor: pointer;
-        color: #007bff;
-        background-color: #e7f3ff;
-        padding: 10px 20px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-  
-        &:hover {
-          background-color: #cfe8ff;
-        }
-      }
-    }
-  
-    .uploadButton {
-      padding: 10px 20px;
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.3s;
-  
-      &:hover {
-        background-color: #45a049;
-      }
-  
-      &:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-    }
-  
-    .imagePreview {
-      margin-top: 15px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-  
-      .previewImage {
-        max-width: 100%;
-        max-height: 300px;
-        object-fit: contain;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-      }
-    }
-  
-    .successMessage {
-      margin-top: 15px;
-      color: #28a745;
-      font-size: 0.9em;
-  
-      a {
-        color: #28a745;
-        text-decoration: underline;
-  
-        &:hover {
-          text-decoration: none;
-        }
-      }
-    }
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+
+  h2 {
+    color: #fff;
+    margin-bottom: 20px;
   }
-  
-  .cameraWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 15px;
+}
 
-    .video {
-      width: 100%;
-      max-width: 300px;
-      height: auto;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      margin-bottom: 10px;
-    }
+.fileInputWrapper {
+  margin-bottom: 15px;
 
-    .captureButton {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      margin-top: 10px;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: #0056b3;
-      }
-    }
-
-    .openCameraButton {
-      padding: 10px 20px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      margin-top: 10px;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: #218838;
-      }
-    }
+  label {
+    font-size: 16px;
+    color: #ccc;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 5px;
   }
-  .fileInput {
+
+  input[type="file"] {
     display: none;
   }
+}
 
-  .imagePreview {
-    margin-top: 20px;
+.uploadLabel {
+  background-color: #333;
+  padding: 8px 16px;
+  border-radius: 5px;
+  color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
-    .previewImage {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      border: 1px solid #ddd;
+  &:hover {
+    background-color: #555;
+  }
+}
+
+.imagePreview {
+  margin-top: 20px;
+  max-width: 100%;
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+}
+
+.cameraWrapper {
+  margin-top: 20px;
+
+  .video {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .cameraControls {
+    margin-top: 10px;
+
+    .captureButton, .cancelButton {
+      background-color: #555;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 0 10px;
+
+      &:hover {
+        background-color: #777;
+      }
+    }
+
+    .cancelButton {
+      background-color: #cc0000;
     }
   }
 
+  .openCameraButton {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
 
-  .uploadedImagePreview {
-    margin-top: 20px;
-    width: 350px;
-    height: 500px;
-
+    &:hover {
+      background-color: #666;
+    }
   }
 
-  .uploadedImageText {
+  .fileInput {
     margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    
+    display: block;
+    background-color: #444;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #666;
+    }
   }
-  
+}
+
+.uploadButton {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+
+  &:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.uploadedImage {
+  margin-top: 20px;
+  text-align: left;
+
+  p {
+    color: #ccc;
+    font-size: 14px;
+  }
+
+  img {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+}
+
+.omrProcessButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+
+  &:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background-color: #218838;
+  }
+}
+
+canvas {
+  display: none;
+}
+
+
+
+.saveScoreButton {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}

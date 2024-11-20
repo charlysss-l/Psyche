@@ -18,14 +18,14 @@ interface OMR extends Document {
     firstName: string;
     lastName: string;
     age: number;  // Changed from string to number
-    sex: 'Female' | 'Male';
+    sex: string;
     course: string;
     year: number;
     section: number;
     testID: string;
     totalScore: number; // Include totalScore here
     interpretation: Interpretation;
-    testType: 'Online' | 'Physical';
+    testType: string;
     testDate: Date;
 }
 
@@ -42,14 +42,14 @@ const OmrSchema = new Schema<OMR>({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     age: { type: Number, required: true },  // Changed from String to Number
-    sex: { type: String, enum: ['Female', 'Male'], required: true },
+    sex: { type: String, required: true },
     course: { type: String, required: true },
     year: { type: Number, required: true },
     section: { type: Number, required: true },
     testID: { type: String, required: true, unique: true },
     totalScore: { type: Number, required: true },  // Direct totalScore as a number
     interpretation: InterpretationSchema, 
-    testType: { type: String, enum: ['Online', 'Physical'], required: true },
+    testType: { type: String, required: true },
     testDate: { type: Date, required: true, default: Date.now },
 });
 

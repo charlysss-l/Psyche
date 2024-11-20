@@ -18,6 +18,7 @@ import PFResultsList from './app/Test/PFTest/PFResultsList/PFResultsList';
 import IQResultsList from './app/Test/IQTest/IQResultsList/IQResultsList';
 import ThemeToggle from "./darkMode";
 import OMRCamera from "./app/OMR/OMRCamera/OMRCamera"
+import OMRResult from "./app/OMR/OMRCamera/OMRResult"
 import IQInterpretation from './app/Test/IQTest/IQResultsList/IQInterpretation';
 import OmrIQResultsList from './app/Test/IQTest/IQResultsList/Omr_IQResultList';
 import IQResultListBoth from './app/Test/IQTest/IQResultsList/IQtestListBoth';
@@ -92,6 +93,11 @@ function App() {
               <Route
                 path="/omriqresults_list"
                 element={<ProtectedRoute><OmrIQResultsList /></ProtectedRoute>}
+              />
+
+              <Route  
+                path="/omrresult"
+                element={<ProtectedRoute><OMRResult /></ProtectedRoute>}
               />
               
               <Route 
