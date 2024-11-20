@@ -18,11 +18,8 @@ $button-hover: #495057; /* Button hover color */
   align-items: center;
   font-family: 'Poppins', sans-serif; /* Apply Poppins font */
   flex-direction: column;
-  margin-top: 0.1%;
   margin-left: 1%;
   width: 100%; /* Set width to 100% of the container */
-  height: 200px; /* Set a specific height for the navbar */
-  background-color: $bg-light; /* Background color */
 }
 
 /* Logo Section */
@@ -74,6 +71,6 @@ $button-hover: #495057; /* Button hover color */
   transition: color 0.3s ease; /* Smooth transition for hover effect */
 
   &:hover {
-    color: $link-hover; /* Change color on hover */
+    color: rgb(94, 93, 93); /* Change color on hover */
   }
 }

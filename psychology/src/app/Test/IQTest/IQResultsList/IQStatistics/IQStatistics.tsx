@@ -169,6 +169,23 @@ const IQStatistics: React.FC = () => {
     <div>
       <h2>IQ Statistics</h2>
 
+      <div className={styles.chartContainer}>
+        <Bar
+          className={styles.tablegraph}
+          data={chartData}
+          options={{
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Score Interpretations',
+              },
+            },
+          }}
+        />
+      </div>
+      
+      <h2>Filter Result</h2>
       <div className={styles.filters}>
         {/* Filter Inputs */}
         <input
@@ -218,54 +235,22 @@ const IQStatistics: React.FC = () => {
         </select>*/}
       </div>
 
-      <div className={styles.chartContainer}>
-        <Bar
-          className={styles.tablegraph}
-          data={chartData}
-          options={{
-            responsive: true,
-            plugins: {
-              title: {
-                display: true,
-                text: 'Score Interpretations',
-              },
-            },
-          }}
-        />
-      </div>
-
       {/* You can display the filtered results as a table or in any other format here */}
       {/* Example: */}
-      {/* <table>
+      <table className={styles.userListContaIner}>
         <thead>
           <tr>
-            <th>User ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Age</th>
-            <th>Sex</th>
-            <th>Course</th>
-            <th>Year</th>
-            <th>Section</th>
-            <th>Test Type</th>
+            <th>List of Filtered User</th>
           </tr>
         </thead>
         <tbody>
           {filteredResults.map((result) => (
-            <tr key={result.userID}>
-              <td>{result.userID}</td>
-              <td>{result.firstName}</td>
-              <td>{result.lastName}</td>
-              <td>{result.age}</td>
-              <td>{result.sex}</td>
-              <td>{result.course}</td>
-              <td>{result.year}</td>
-              <td>{result.section}</td>
-              <td>{result.testType}</td>
+            <tr key={result.userID}  className={styles.userList} >
+              <td className={styles.idIqlist}>{result.userID}</td>
             </tr>
           ))}
         </tbody>
-      </table> */}
+      </table>
     </div>
   );
 };

@@ -67,8 +67,11 @@
   transition: color 0.3s ease;
   border: none;
   background-color: rgba(0, 0, 0, 0);
+  margin: 0;
+  padding: 0;
 
   &:hover {
     color: #131313;
+    background-color: rgba(0, 0, 0, 0);
   }
 }

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styles from "./survey.module.scss";
+import { useNavigate } from 'react-router-dom';
 
 const SurveyForm: React.FC = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [sections, setSections] = useState<
@@ -66,6 +68,7 @@ const SurveyForm: React.FC = () => {
     try {
       await axios.post("http://localhost:5000/api/surveys/create", surveyData);
       alert("Survey created successfully");
+      navigate("/surveyDashboard");
     } catch (error) {
       console.error("Error creating survey:", error);
       alert("Error creating survey");

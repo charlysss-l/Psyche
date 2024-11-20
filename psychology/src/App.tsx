@@ -23,6 +23,9 @@ import OmrIQResultsList from './app/Test/IQTest/IQResultsList/Omr_IQResultList';
 import IQResultListBoth from './app/Test/IQTest/IQResultsList/IQtestListBoth';
 import PFStatistics from './app/Test/PFTest/PFStatistics/PFStatistics';
 import IQStatistics from './app/Test/IQTest/IQResultsList/IQStatistics/IQStatistics';
+import SurveyList from './app/Survey/surveyList';
+import SurveyResponseList from './app/Survey/surveyResponseList';
+import SurveyForm from './app/Survey/survey';
 function App() {
   return (
     <Router>
@@ -106,6 +109,14 @@ function App() {
               <Route
                 path="/iq-statistics"
                 element={<ProtectedRoute><IQStatistics /></ProtectedRoute>}
+              />
+              <Route
+                path="/survey-response-list"
+                element={<ProtectedRoute><SurveyResponseList /></ProtectedRoute>}
+              />
+              <Route
+                path="/survey-form"
+                element={<ProtectedRoute><SurveyForm /></ProtectedRoute>}
               />
             </Routes>
           </div>

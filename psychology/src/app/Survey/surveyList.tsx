@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./surveyList.module.scss"; // SCSS module for styling
+import {Link} from "react-router-dom";
 
 const SurveyList: React.FC = () => {
   const [surveys, setSurveys] = useState<any[]>([]);
@@ -28,6 +29,11 @@ const SurveyList: React.FC = () => {
 
   return (
     <div className={styles.surveyListContainer}>
+      <div className={styles.linkSurveyChoices}>
+      <Link to="/survey-form" className={styles.createsurveyButton}> Create Survey</Link>
+      <Link to="/survey-response-list" className={styles.createsurveyButton}> Response List</Link>
+      </div>
+     
       <h2>
         Available Surveys{" "}
         <span className={styles.surveyCount}>({surveys.length} surveys)</span>
@@ -57,6 +63,8 @@ const SurveyList: React.FC = () => {
                   )
                 )}
               </ul>
+
+              {/*<Link to="/survey-response-list"> Response List</Link>*/}
             </div>
           ))}
         </div>
