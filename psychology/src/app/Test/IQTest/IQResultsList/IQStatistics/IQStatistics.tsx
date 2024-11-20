@@ -167,7 +167,7 @@ const IQStatistics: React.FC = () => {
 
   return (
     <div>
-      <h2>IQ Statistics</h2>
+      <h2>IQ Analytics</h2>
 
       <div className={styles.chartContainer}>
         <Bar
@@ -194,6 +194,7 @@ const IQStatistics: React.FC = () => {
           value={filters.userID}
           onChange={handleFilterChange}
           placeholder="Filter by User ID"
+          className={styles.inputIQStat}
         />
         <input
           type="number"
