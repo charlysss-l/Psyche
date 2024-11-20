@@ -142,7 +142,7 @@ const PFStatistics: React.FC = () => {
 
   return (
     <div className={styles.reportContainer}>
-      <h2 className={styles.heading}>16PF Report</h2>
+      <h2 className={styles.heading}>16PF Analytics</h2>
 
               {/* Bar chart */}
       <div className={styles.chartContainerPF}>
