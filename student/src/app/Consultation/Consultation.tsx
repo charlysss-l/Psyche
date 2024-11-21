@@ -16,67 +16,64 @@ const ConsultationRequestForm: React.FC = () => {
   const [selectedTestID, setSelectedTestID] = useState<string>(""); // For selected test ID
   const [date, setDate] = useState("");
   const [consultation, setConsultation] = useState([]);
+  
+
 
   useEffect(() => {
     // Fetch userID from localStorage and set it in state
     const storedUserID = localStorage.getItem("userId");
     if (storedUserID) {
-<<<<<<< Updated upstream
+
         setUserID(storedUserID);
-        fetchConsultations(storedUserID);
     }
+
 }, []);
-=======
-      setUserID(storedUserID);
-    }
-  }, []);
 
-  useEffect(() => {
-    // Reset test IDs and selectedTestID when note changes
-    setTestIDs([]);
-    if (note === "Others") {
-      setSelectedTestID("N/A"); // Automatically set to "N/A" for Others
-      return;
-    } else {
-      setSelectedTestID(""); // Reset if not "Others"
-    }
+useEffect(() => {
+  // Reset test IDs and selectedTestID when note changes
+  setTestIDs([]);
+  if (note === "Others") {
+    setSelectedTestID("N/A"); // Automatically set to "N/A" for Others
+    return;
+  } else {
+    setSelectedTestID(""); // Reset if not "Others"
+  }
 
-    // Fetch test IDs based on the selected note
-    const fetchTestIDs = async () => {
-      if (!userId) return;
+  // Fetch test IDs based on the selected note
+  const fetchTestIDs = async () => {
+    if (!userId) return;
 
-      try {
-        let response;
-        if (note === "IQ Test") {
-          response = await axios.get(`${USERIQ_URL}${userId}`);
-        } else if (note === "Personality Test") {
-          response = await axios.get(`${USERPF_URL}${userId}`);
-        }
+    try {
+      let response;
+      if (note === "IQ Test") {
+        response = await axios.get(`${USERIQ_URL}${userId}`);
+      } else if (note === "Personality Test") {
+        response = await axios.get(`${USERPF_URL}${userId}`);
+      }
 
-        if (response?.data?.data) {
-          const ids = response.data.data.map(
-            (test: { testID: string }) => test.testID
-          );
-          setTestIDs(ids);
-        } else {
-          setTestIDs([]);
-        }
-      } catch (error) {
-        console.error("Error fetching test IDs:", error);
+      if (response?.data?.data) {
+        const ids = response.data.data.map(
+          (test: { testID: string }) => test.testID
+        );
+        setTestIDs(ids);
+      } else {
         setTestIDs([]);
       }
-    };
-
-    if (note === "IQ Test" || note === "Personality Test") {
-      fetchTestIDs();
+    } catch (error) {
+      console.error("Error fetching test IDs:", error);
+      setTestIDs([]);
     }
-  }, [note, userId]);
->>>>>>> Stashed changes
+  };
+
+  if (note === "IQ Test" || note === "Personality Test") {
+    fetchTestIDs();
+  }
+}, [note, userId]);
 
   const fetchConsultations = async (userId: string) => {
     try {
       const response = await axios.get(`${API_URL}${userId}`);
-      setConsultation(response.data);
+      fetchConsultations(response.data);
     } catch (error) {
       console.error("Error fetching consultations:", error);
     }
@@ -95,7 +92,6 @@ const ConsultationRequestForm: React.FC = () => {
       };
       await axios.post(API_URL, consultationRequest);
       alert("Consultation request submitted successfully.");
-      fetchConsultations(userId);
     } catch (error) {
       console.error("Error submitting consultation request:", error);
     }
@@ -103,21 +99,10 @@ const ConsultationRequestForm: React.FC = () => {
 
   return (
     <div className={styles.consulForm}>
-<<<<<<< Updated upstream
       <div className={styles.tableContainer}>
         <form className={styles.formCon} onSubmit={handleSubmit}>
-      <label className={styles.conLabel} >
-        User ID
-        <input
-          className={styles.conInput}
-          type="text"
-          value={userId} 
-          onChange={(e) => setUserID(e.target.value)} 
-          required 
-          readOnly
-        />
-      </label>
-=======
+      
+      </form>
       <form className={styles.formCon} onSubmit={handleSubmit}>
         <label className={styles.conLabel}>
           User ID
@@ -130,7 +115,7 @@ const ConsultationRequestForm: React.FC = () => {
             readOnly
           />
         </label>
->>>>>>> Stashed changes
+
 
         <label className={styles.conLabel}>
           Date
@@ -193,7 +178,7 @@ const ConsultationRequestForm: React.FC = () => {
             </label>
           )}
 
-<<<<<<< Updated upstream
+
       <button type="submit" className={styles.submitCon}>Submit Request</button>
     </form>
     <h2>Your Consultation Schedule</h2>
@@ -219,14 +204,9 @@ const ConsultationRequestForm: React.FC = () => {
         </table>
 
     </div>
-=======
-        <button type="submit" className={styles.submitCon}>
-          Submit Request
-        </button>
-      </form>
->>>>>>> Stashed changes
     </div>
   );
 };
+
 
 export default ConsultationRequestForm;
