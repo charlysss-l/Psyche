@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Consultation.module.scss";
 
 const API_URL = "http://localhost:5000/api/consult/";
 
 const ConsultationRequestForm: React.FC = () => {
-  const [userId, setUserId] = useState("");
+  const [userID, setUserID] = useState("");
   const [timeForConsultation, setTimeForConsultation] = useState("");
   const [note, setNote] = useState<"IQ Test" | "Personality Test" | "Others">(
     "IQ Test"
@@ -14,12 +14,21 @@ const ConsultationRequestForm: React.FC = () => {
     useState(false);
   const [date, setDate] = useState("");
 
+  useEffect(() => {
+    // Fetch userID from localStorage and set it in state
+    const storedUserID = localStorage.getItem('userId');
+    if (storedUserID) {
+        setUserID(storedUserID);
+    }
+
+}, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       const consultationRequest = {
-        userId,
+        userID,
         timeForConsultation,
         note,
         permissionForTestResults,
@@ -40,9 +49,10 @@ const ConsultationRequestForm: React.FC = () => {
         <input
           className={styles.conInput}
           type="text"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          required
+          value={userID} 
+          onChange={(e) => setUserID(e.target.value)} 
+          required 
+          readOnly
         />
       </label>
 
