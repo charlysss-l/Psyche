@@ -5,11 +5,11 @@ import Student from '../authModels/authStudentsSchema';
 
 // Sign Up Student
 export const signupStudent = async (req: Request, res: Response): Promise<Response> => {
-    const { email, password, userId } = req.body;
+    const { email, password, studentNumber, userId } = req.body;
 
     try {
         // Check if email or userId already exists
-        const existingStudent = await Student.findOne({ $or: [{ email }, { userId }] });
+        const existingStudent = await Student.findOne({ $or: [{ email }, {studentNumber}, { userId }] });
 
         if (existingStudent) {
             // Send specific errors if email or userId exists
@@ -26,6 +26,7 @@ export const signupStudent = async (req: Request, res: Response): Promise<Respon
         const newStudent = new Student({
             email,
             password: hashedPassword,
+            studentNumber,
             userId,
         });
 
@@ -71,7 +72,7 @@ export const loginStudent = async (req: Request, res: Response): Promise<Respons
 
 // Update Student Profile
 export const updateStudentProfile = async (req: Request, res: Response) => {
-    const { username, password } = req.body;
+    const { username, studentNumber, password } = req.body;
 
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
@@ -93,8 +94,9 @@ export const updateStudentProfile = async (req: Request, res: Response) => {
         }
 
         // Check if the provided email or password is the same as the current ones
-        const updates: { email?: string; password?: string } = {};
+        const updates: { email?: string; studentNumber?: string; password?: string } = {};
         if (username && username !== student.email) updates.email = username;
+        if (studentNumber && studentNumber !== student.studentNumber) updates.studentNumber = studentNumber;
         if (password && password !== student.password) updates.password = await bcrypt.hash(password, 12);
 
         if (Object.keys(updates).length === 0) {
@@ -133,13 +135,13 @@ export const getStudentProfile = async (req: Request, res: Response) => {
         }
   
         const decoded = jwt.verify(token, jwtSecret) as { userId: string };
-        const student = await Student.findById(decoded.userId, 'email userId');
+        const student = await Student.findById(decoded.userId, 'email userId studentNumber');
   
         if (!student) {
             return res.status(404).json({ message: 'Student not found' });
         }
   
-        res.json({ email: student.email, userId: student.userId });
+        res.json({ email: student.email, studentNumber: student.studentNumber, userId: student.userId });
     } catch (error) {
         console.error('Error fetching profile:', error);
         res.status(500).json({ message: 'Server error while fetching profile' });
