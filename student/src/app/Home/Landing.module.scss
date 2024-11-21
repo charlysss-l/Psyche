@@ -1,69 +1,55 @@
-.landing-page {
+.landing_page {
+  background-image: url('../../images/landing.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  color: #fff;
+  margin: 0;
+  padding: 0;
   justify-content: center;
-  min-height: 100vh;
-  min-width: 200vh;
-  background-color: #f0f4f8;
-  text-align: center;
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  align-items: center;
 
-.landing-page h1 {
-  font-size: 3rem;
-  font-weight: bold;  /* Make the h1 text bold for emphasis */
-  color: #131313;  /* Dark black for h1 */
-  margin-bottom: 20px;
-}
+  .content {
+    text-align: center;
+    padding: 0 2rem;
 
-.landing-page h2 {
-  font-size: 1.8rem;
-  color: #131313;  /* Corrected color to black */
-  margin-bottom: 15px;
-}
+    .logo{
+      color: white;
+    }
+    .landing_page_subheader {
+      font-size: 3rem;
+      margin-bottom: 3rem;
+      color: #f3a847; 
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); 
+    }
 
-.landing-page p {
-  font-size: 1.2rem;
-  color: #7f8c8d;
-  margin-bottom: 30px;
-}
+    .landing_page_description,
+    .landing_page_extra_description {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      color: white;
+      text-shadow: 2px 2px 4px rgb(236, 0, 0); 
+    }
+    .get_started_btn {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #f3a847;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); 
 
-.get-started-btn {
-  padding: 12px 24px;
-  font-size: 1.2rem;
-  background-color: #7f8c8d;
-  color: #131313;  /* Dark text for contrast */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.get-started-btn:hover {
-  background-color: #e8e6e2;  /* Slightly lighter gray for hover */
-}
-
-@media (max-width: 768px) {
-  .landing-page {
-    padding: 15px;
-  }
-
-  .landing-page h1 {
-    font-size: 2.5rem;
-  }
-
-  .landing-page h2 {
-    font-size: 1.5rem;
-  }
-
-  .landing-page p {
-    font-size: 1rem;
-  }
-
-  .get-started-btn {
-    font-size: 1rem;
-    padding: 10px 20px;
+      &:hover {
+        background-color: #d48b30;
+      }
+    }
   }
 }

@@ -108,7 +108,7 @@ const SignupForm: React.FC = () => {
         <h4 className={styles.loginLink_info}>
           Already have an account?{" "}
           <span onClick={() => navigate("/")} className={styles.loginLink}>
-            Log in here
+            Log in
           </span>
         </h4>
       </form>

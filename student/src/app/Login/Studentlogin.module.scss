@@ -6,11 +6,11 @@ $error-color: red;
 
 .loginContainer {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  justify-content: center; 
+  align-items: center; 
   height: 100vh;
   background-color: $background-color;
-  gap: 20px; /* Space between the image and the form */
+  gap: 20px; 
   padding: 20px;
 }
 
@@ -18,8 +18,8 @@ $error-color: red;
   background-image: url('https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
   background-size: cover;
   background-position: center;
-  height: 100vh; /* Full viewport height */
-  width: 70vw; /* Full viewport width */
+  height: 100vh; 
+  width: 70vw; 
   border-radius: 10px;
 }
 

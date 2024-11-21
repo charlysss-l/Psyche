@@ -81,7 +81,7 @@ const Login: React.FC = () => {
     <div className={styles.loginContainer}>
       <div className={styles.imageContainer}></div>
       <div className={styles.loginForm}>
-        <h1 className={styles.loginForm_h1}>Welcome Back!</h1>
+        <h1 className={styles.loginForm_h1}>Welcome to Discover U!</h1>
         <h2 className={styles.loginForm_h2}>Login</h2>
 
         {error && <p className={styles.errorMessage}>{error}</p>}
@@ -117,13 +117,7 @@ const Login: React.FC = () => {
           </button>
 
           <h1 className={styles.Signuplink_info}>
-            Don't have an account?
-            <span
-              onClick={() => navigate("/signup")}
-              className={styles.Signuplink}
-            >
-              Sign Up
-            </span>
+            Don't have an account? <span onClick={() => navigate("/signup")} className={styles.Signuplink} > Sign Up </span>
           </h1>
         </form>
       </div>
