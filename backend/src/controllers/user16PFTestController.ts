@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import User16PFTestSchema, { Scoring, ScoreEntry } from '../models/User16PFTestSchema';
+import User16PFTest, { Scoring, ScoreEntry } from '../models/User16PFTestSchema';
 
 const calculateStenScore = (rawScore: number, factorLetter: string): number => {
     // Factor-specific mappings
@@ -422,20 +422,18 @@ const calculateStenScore = (rawScore: number, factorLetter: string): number => {
     // Default to 1 if no custom logic applies
     return 1;
 };
-export const createUser16PFTest = async (req: Request, res: Response) => {
+export const createUser16PFTest = async (req: Request, res: Response): Promise<Response> => {
     const { userID, firstName, lastName, age, sex, course, year, section, responses, testType, testDate } = req.body;
 
     try {
         // Validate that required fields are present
         if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section  || !responses || !testType || !testDate) {
-            res.status(400).json({ message: 'Missing required fields' });
-            return;
+            return res.status(400).json({ message: 'Missing required fields' });
         }
 
         // Check that responses array is not empty and contains the required structure
         if (!Array.isArray(responses) || responses.length === 0) {
-            res.status(400).json({ message: 'Responses must be a non-empty array' });
-            return;
+            return res.status(400).json({ message: 'Responses must be a non-empty array' });
         }
 
         // Generate a unique testID using userID and current timestamp
@@ -478,7 +476,7 @@ export const createUser16PFTest = async (req: Request, res: Response) => {
         });
 
         // Create the test document
-        const testDocument = new User16PFTestSchema({
+        const testDocument = new User16PFTest({
             userID,
             firstName,
             lastName,
@@ -495,18 +493,17 @@ export const createUser16PFTest = async (req: Request, res: Response) => {
         });
 
         // Check for existing testID
-const existingTest = await User16PFTestSchema.findOne({ testID });
-if (existingTest) {
-    return res.status(400).json({ message: 'Duplicate testID found. Each test attempt must have a unique testID.' });
-}
+        const existingTest = await User16PFTest.findOne({ testID });
+        if (existingTest) {
+            return res.status(400).json({ message: 'Duplicate testID found. Each test attempt must have a unique testID.' });
+        }
 
-
+        // Save the test document to the database
         await testDocument.save();
-        res.status(201).json({ message: 'Test created successfully!', data: testDocument });
+        return res.status(201).json({ message: 'Test created successfully!', data: testDocument });
     } catch (error) {
-        console.log('Request body:', req.body);
         console.error('Error creating test:', error);
-        res.status(500).json({
+        return res.status(500).json({
             message: 'Error creating test',
             error: error instanceof Error ? error.message : 'An unknown error occurred',
             stack: error instanceof Error ? error.stack : undefined // Optional: Include stack trace for debugging
@@ -517,7 +514,7 @@ if (existingTest) {
 // Controller to get all User16PFTests
 export const getUser16PFTests = async (req: Request, res: Response) => {
     try {
-        const allUser16PFtests = await User16PFTestSchema.find();
+        const allUser16PFtests = await User16PFTest.find();
         res.status(200).json({ data: allUser16PFtests });
     } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
@@ -525,11 +522,66 @@ export const getUser16PFTests = async (req: Request, res: Response) => {
     }
 };
 
+export const getUser16PFTestByUserId = async (req: Request, res: Response): Promise<Response> => {
+    const { userID } = req.params; // Extract `userID` from route params
+
+    try {
+        // Ensure `userID` is provided and not empty
+        if (!userID) {
+            return res.status(400).json({ message: 'userID is required' });
+        }
+
+        console.log("Fetching tests for userID:", userID);
+
+        // Query the User16PFTest collection for the specific userID
+        const userTests = await User16PFTest.find({ userID });
+
+        // Check if any tests were found
+        if (!userTests || userTests.length === 0) {
+            return res.status(404).json({ message: 'No tests found for this user' });
+        }
+
+        return res.status(200).json({ data: userTests });
+    } catch (error) {
+        console.error('Error fetching test by userID:', error);
+        return res.status(500).json({ message: 'Error fetching test', error: (error as Error).message });
+    }
+};
+
+export const getUser16PFTestByTestID = async (req: Request, res: Response): Promise<Response> => {
+    const { testID } = req.params; // Extract `userID` from route params
+
+    try {
+        // Ensure `userID` is provided and not empty
+        if (!testID) {
+            return res.status(400).json({ message: 'userID is required' });
+        }
+
+        console.log("Fetching tests for userID:", testID);
+
+        // Query the User16PFTest collection for the specific userID
+        const userTests = await User16PFTest.find({ testID });
+
+        // Check if any tests were found
+        if (!userTests || userTests.length === 0) {
+            return res.status(404).json({ message: 'No tests found for this user' });
+        }
+
+        return res.status(200).json({ data: userTests });
+    } catch (error) {
+        console.error('Error fetching test by userID:', error);
+        return res.status(500).json({ message: 'Error fetching test', error: (error as Error).message });
+    }
+};
+
+
+
+
 // Controller to get a specific User16PFTest by ID
 export const getUser16PFTestById = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const PFuserTest = await User16PFTestSchema.findById(id);
+        const PFuserTest = await User16PFTest.findById(id);
         if (!PFuserTest) {
             res.status(404).json({ message: 'Test not found' });
             return;
@@ -549,11 +601,17 @@ export const getUser16PFTestById = async (req: Request, res: Response) => {
     }
 };
 
+
+
+
+
+
+
 // Controller to update a User16PFTest by ID
 export const updateUser16PFTest = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const updatedUserPFTest = await User16PFTestSchema.findByIdAndUpdate(id, req.body, { new: true });
+        const updatedUserPFTest = await User16PFTest.findByIdAndUpdate(id, req.body, { new: true });
         if (!updatedUserPFTest) {
             res.status(404).json({ message: 'Test not found' });
             return;
@@ -571,7 +629,7 @@ export const updateUser16PFTest = async (req: Request, res: Response) => {
 export const deleteUser16PFTest = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const deletedUserPFTest = await User16PFTestSchema.findOneAndDelete({userID : id});
+        const deletedUserPFTest = await User16PFTest.findOneAndDelete({userID : id});
         if (!deletedUserPFTest) {
             res.status(404).json({ message: 'Test not found' });
             return;
