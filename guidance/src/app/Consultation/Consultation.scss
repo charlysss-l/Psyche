@@ -127,18 +127,18 @@ button {
 
   &.accept {
     background-color: $bg-color-green; /* Green for accept */
-    color: white;
+    color: black;
   }
 
   &.decline {
     background-color: $bg-color-red; /* Red for decline */
-    color: white;
+    color: black;
     margin-left: 10px;
   }
 
   &.viewInfo {
     background-color: $bg-color-dark-gray-2; /* Gray for view info */
-    color: white;
+    color: black;
     cursor: not-allowed;
   }
 

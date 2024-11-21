@@ -1,38 +1,52 @@
-$background-color: #f3f1f1;
-$font-color: #45474B;
+$background-color: #ffffff;
+$font-color: #45474b;
 $button-bg-color: #000000;
 $button-hover-bg-color: #f2f2f2;
 $error-color: red;
 
 .loginContainer {
   display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
   height: 100vh;
   background-color: $background-color;
-  justify-content: space-between; /* Distribute space between the form and the image */
-  align-items: center;
+  gap: 20px; /* Add spacing between the form and the image */
   padding: 20px;
-  gap: 20px; /* Adds space between the image and the form */
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack form and image on smaller screens */
+    gap: 10px; /* Reduce gap for smaller devices */
+  }
 }
 
 .imageContainer {
   background-image: url('https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
   background-size: cover;
   background-position: center;
-  flex: 1; /* Take up the remaining space */
+  height: 100vh; 
+  width: 70vw; 
   border-radius: 10px;
-  min-height: 100%; /* Ensure it covers the full height */
-  margin-right: 20px;
 
+  @media (max-width: 768px) {
+    height: 300px; /* Adjust height for mobile */
+    width: 100%; /* Take full width on smaller screens */
+  }
 }
 
 .loginForm {
   background-color: white;
   padding: 40px;
   max-width: 400px;
-  width: 100%; /* Ensure the form width is consistent */
+  width: 100%;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 8px;
   text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+
+  @media (max-width: 768px) {
+    max-width: 90%; /* Shrink form width for mobile */
+    padding: 20px;
+  }
 }
 
 .loginForm_h1 {
@@ -61,17 +75,15 @@ $error-color: red;
   font-size: 1rem;
   margin-bottom: 15px;
   box-sizing: border-box;
-}
 
-.logInput:focus {
-  border-color: #f2f2f2;
-  outline: none;
-  border-radius: 10px;
-
+  &:focus {
+    border-color: $button-hover-bg-color;
+    outline: none;
+  }
 }
 
 .submitButtonLog {
-  background-color: #000000;
+  background-color: $button-bg-color;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -80,13 +92,12 @@ $error-color: red;
   width: 100%;
   cursor: pointer;
   transition: background-color 0.3s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);   
-}
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
-.submitButtonLog:hover {
-  background-color: #f2f2f2;
-  color: black;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  &:hover {
+    background-color: $button-hover-bg-color;
+    color: black;
+  }
 }
 
 .errorMessage {
@@ -98,17 +109,16 @@ $error-color: red;
 .Signuplink_info {
   color: black;
   font-size: 20px;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .Signuplink {
   font-size: 17px;
   color: rgb(13, 25, 158);
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
-}
+  cursor: pointer;
 
-.Signuplink:hover {
-  border-bottom: 1px solid rgb(8, 17, 122);
-  color: rgb(8, 17, 122);
+  &:hover {
+    border-bottom: 1px solid rgb(8, 17, 122);
+    color: rgb(8, 17, 122);
+  }
 }
