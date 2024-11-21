@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./pagelogin.module.scss";
 
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -19,12 +20,13 @@ const Login: React.FC = () => {
     }
 
     try {
+      setError(""); // Clear any previous error
       const response = await loginUser(email, password);
       
       if (response.token) {
         // Store the token in localStorage or sessionStorage
         localStorage.setItem("token", response.token);
-
+        setError(""); 
         // Show success message
         setSuccessMessage("Login successful!");
 
@@ -73,6 +75,7 @@ const Login: React.FC = () => {
         <h1 className={styles.loginForm_h1}>Welcome Back!</h1>
         <h2 className={styles.loginForm_h2}>Login</h2>
         {error && <p className={styles.errorMessage}>{error}</p>}
+        {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <label htmlFor="email" className={styles.logLabel}>Email:</label>
           <input
@@ -93,8 +96,6 @@ const Login: React.FC = () => {
             required
           />
           <button type="submit" className={styles.submitButtonLog}>Login</button>
-
-          <h1 className={styles.Signuplink_info}>Don't have an account? <Link to="/signup" className={styles.Signuplink}>Sign Up</Link></h1>
         </form>
       </div>
     </div>
