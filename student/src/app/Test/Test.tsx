@@ -5,7 +5,7 @@ import style from './studentpftest.module.scss';
 const Test = () => {
   return (
     <div className={style.TestContent}>
-      <h1>List of Test</h1>
+      <h1>List of Standardized Test</h1>
       <div className={style.ListTest}>
         <div className={style.TestPF}>
           <Link to="/pftest" className={style.pfLink}>

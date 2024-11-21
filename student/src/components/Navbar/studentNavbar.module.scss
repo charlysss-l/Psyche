@@ -74,3 +74,9 @@ $button-hover: #495057; /* Button hover color */
     color: rgb(94, 93, 93); /* Change color on hover */
   }
 }
+
+.navLink.active {
+  color: $accent-dark; /* Change text color when link is active */
+  font-weight: bold;
+  border-bottom: 2px solid $accent-dark; /* Add underline for active link */
+}

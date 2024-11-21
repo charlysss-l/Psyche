@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import style from "./studentNavbar.module.scss";
 
 const Navbar = () => {
@@ -13,34 +13,52 @@ const Navbar = () => {
       <div className={style.navigationSection}>
         <ul className={style.navList}>
           <li className={style.navItem}>
-            <Link to="/home" className={style.navLink}>
+            <NavLink
+              to="/home"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
               Home
-            </Link>
+            </NavLink>
           </li>
           <li className={style.navItem}>
-            <Link to="/test" className={style.navLink}>
+            <NavLink
+              to="/test"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
               Test
-            </Link>
+            </NavLink>
           </li>
           <li className={style.navItem}>
-            <Link to="/result" className={style.navLink}>
+            <NavLink
+              to="/result"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
               Result
-            </Link>
+            </NavLink>
           </li>
           <li className={style.navItem}>
-            <Link to="/consultation" className={style.navLink}>
+            <NavLink
+              to="/consultation"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
               Consultation
-            </Link>
+            </NavLink>
           </li>
           <li className={style.navItem}>
-            <Link to="/surveyDashboard" className={style.navLink}>
+            <NavLink
+              to="/surveyDashboard"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
               Survey
-            </Link>
+            </NavLink>
           </li>
           <li className={style.navItem}>
-            <Link to="/" className={style.navLink}>
+            <NavLink
+              to="/"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
               Logout
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>
