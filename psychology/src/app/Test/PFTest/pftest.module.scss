@@ -54,7 +54,7 @@ h2 {
   .pagination button {
     padding: 10px 15px;
     margin: 0 10px;
-    background-color: #4CAF50;
+    background-color: #DC143C;
     color: white;
     border: none;
     border-radius: 5px;
@@ -62,7 +62,7 @@ h2 {
   }
   
   .pagination button:disabled {
-    background-color: #ccc;
+    background-color: #4169E1;
     cursor: not-allowed;
   }
   
@@ -76,7 +76,7 @@ h2 {
     justify-content: center;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #0056b3;
+    background-color: #DC143C;
     color: white;
     text-decoration: none;
     font-weight: bold;
@@ -84,7 +84,7 @@ h2 {
     transition: background-color 0.3s ease;
 
     &:hover {
-        background-color: #01458d;
+        background-color: #4169E1;
     }
 
     &:focus {

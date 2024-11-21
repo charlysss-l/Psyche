@@ -1,3 +1,20 @@
+// Define SCSS variables
+$primary-bg-color: #333;
+$secondary-bg-color: #555;
+$sidebar-bg-color: #eeeeee;
+$text-color: #131313;
+$hover-bg-color: #bebcbc;
+$active-text-color: white;
+$font-size: 16px;
+$font-weight-normal: 400;
+$font-weight-bold: bold;
+$button-padding: 0.5rem 1rem;
+$link-height: 50px;
+$sidebar-width: 250px;
+$icon-size: 30px;
+$border-radius: 10px;
+$transition-speed: 0.3s;
+
 .sidebarContainer {
   position: relative;
 
@@ -5,29 +22,29 @@
     position: absolute;
     top: 1rem;
     left: 3rem;
-    background-color: #333;
-    color: #fff;
+    background-color: $primary-bg-color;
+    color: $active-text-color;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: $button-padding;
     cursor: pointer;
     z-index: 1000;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: $font-size;
+    font-weight: $font-weight-bold;
 
     &:hover {
-      background-color: #555;
+      background-color: $secondary-bg-color;
     }
   }
 
   .sidebar {
     position: fixed;
     top: 0;
-    left: -250px; // Hidden by default
-    width: 250px;
+    left: -$sidebar-width; // Hidden by default
+    width: $sidebar-width;
     height: 100vh;
-    background-color: #eeeeee;
-    color: black;
-    transition: left 0.3s ease;
+    background-color: $sidebar-bg-color;
+    color: $text-color;
+    transition: left $transition-speed ease;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     padding: 2rem 0;
     display: flex;
@@ -53,32 +70,32 @@
           display: flex;
           align-items: center;
           text-decoration: none;
-          color: #131313;
-          font-weight: 400;
-          font-size: 18px;
-          transition: all 0.3s ease;
+          color: $text-color;
+          font-weight: $font-weight-normal;
+          font-size: $font-size;
+          transition: all $transition-speed ease;
           width: 100%;
-          height: 50px;
+          height: $link-height;
           text-align: center;
           justify-content: center;
           padding: 0 1rem;
-          border-radius: 10px;
+          border-radius: $border-radius;
 
           &:hover {
-            background-color: #bebcbc;
-            color: #000;
+            background-color: $hover-bg-color;
+            color: $text-color;
           }
 
           &.active {
-            background-color: #bebcbc;
-            color: white;
-            font-weight: bold;
+            background-color: $hover-bg-color;
+            color: $active-text-color;
+            font-weight: $font-weight-bold;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
           }
 
           .icon {
-            width: 30px;
-            height: 30px;
+            width: $icon-size;
+            height: $icon-size;
             margin-right: 10px;
           }
         }
@@ -92,7 +109,7 @@
 }
 
 .icon {
-  width: 30px;
-  height: 30px;
+  width: $icon-size;
+  height: $icon-size;
   margin-right: 10px;
 }

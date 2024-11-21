@@ -1,42 +1,58 @@
+$font-family: Arial, sans-serif;
+$primary-color: #007bff;
+$secondary-color: #333;
+$bg-light: #D3D3D3;
+$box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+
+$border-radius: 8px;
+
+:root {
+  font-family: $font-family;
+}
+
 .surveyListContainer {
   padding: 20px;
-  background-color: #eae8e8;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: $bg-light;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.linkSurveyChoices{
+
+.linkSurveyChoices {
   width: 100%;
   display: flex;
   justify-content: space-around;
 }
-.createsurveyButton{
+
+.createsurveyButton {
   text-decoration: none;
-  color: black;
+  color: black; /* Font color is black */
   font-size: 20px;
   display: flex;
   justify-content: center;
-  align-items: right;
-  width: 10%;
-  padding: 10px;
-  background-color: black;
-  color: white;
+  align-items: center; /* Corrected to 'center' for proper alignment */
+  width: auto; /* Adjusted to fit content */
+  padding: 6px 12px; /* Adjusted padding to fit text */
+  background-color: #f4f2ee; /* Light background */
   border-radius: 10px;
-  border: 1px solid black;
+  border: 1px solid black; /* Accent border color */
+
+  &:hover {
+    background-color: black; /* Accent color on hover */
+    color: white; /* Text turns white on hover */
+  }
 }
-.createsurveyButton:hover{
-  background-color: white;
-  color: black;
-}
+
+
 .surveyCard {
   margin-bottom: 20px;
   padding: 15px;
   background-color: #ffffff;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: $box-shadow;
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -48,27 +64,21 @@
   }
 }
 
-h2 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #333;
+h2, h3, p {
+  &.title {
+    font-weight: bold;
+    color: $secondary-color;
+  }
+
+  &.highlight {
+    color: $primary-color;
+  }
 }
 
 .surveyCount {
   font-size: 1rem;
-  color: #007bff;
+  color: $primary-color;
   margin-left: 10px;
-}
-
-h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #007bff;
-}
-
-p {
-  font-size: 1rem;
-  color: #666;
 }
 
 .sectionContainer {
@@ -77,6 +87,7 @@ p {
   padding: 10px;
   margin-bottom: 15px;
   width: 80%;
+
   h4 {
     font-weight: bold;
     color: #000;
@@ -86,24 +97,24 @@ p {
 .questionList {
   list-style: none;
   padding-left: 0;
-}
 
-.questionItem {
-  margin-bottom: 10px;
+  .questionItem {
+    margin-bottom: 10px;
 
-  strong {
-    color: rgb(33, 199, 3);
+    strong {
+      color: rgb(33, 199, 3);
+    }
   }
 }
 
 .choiceList {
   list-style: none;
   padding-left: 20px;
-}
 
-.choiceItem {
-  font-size: 1rem;
-  color: #444;
+  .choiceItem {
+    font-size: 1rem;
+    color: #444;
+  }
 }
 
 .pagination {
@@ -111,21 +122,21 @@ p {
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
-}
 
-.pagination button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
+  button {
+    background-color: $primary-color;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
 
-  &:hover {
-    background-color: #0056b3;
-  }
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
 
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
   }
 }

@@ -1,23 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 /* Define color variables */
-$bg-light: #faf9f6; 
-$font-dark: #000000; 
-$link-hover: #e2dfd2; 
-
-$accent-light: #f2a9a9; 
-$accent-dark: #7b3f3f; 
-$secondary-bg: #dbe2e7; 
-$button-bg: #6c757d; 
-$button-hover: #495057; 
+$bg-light: #faf9f6;
+$font-dark: #000000;
+$accent-dark: #7b3f3f;
 
 /* Navbar Styles */
 .studentNavbar {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Poppins', sans-serif; 
   flex-direction: column;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
   margin-left: 1%;
   width: 100%;
 }
@@ -25,58 +18,53 @@ $button-hover: #495057;
 /* Logo Section */
 .logoSection {
   color: $font-dark;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  text-align: center;
 
-.logoSection h1 {
-  font-size: 24px;
-  margin: 0;
-}
+  h1 {
+    font-size: 24px;
+    margin: 0;
+  }
 
-.logoSection p {
-  font-size: 14px;
-  color: #777; 
+  p {
+    font-size: 14px;
+    color: #777;
+  }
 }
 
 /* Navigation Section */
 .navigationSection {
   display: flex;
-  align-items: center;
 }
 
 .navList {
-  list-style-type: none;
+  display: flex;
+  list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
 }
 
 .navItem {
   margin-left: 30px;
-  border-radius: 0;
+
+  &:hover {
+    border-bottom: 1px solid #777;
+  }
 }
 
-.navItem:hover {
-  border-bottom: 1px solid #777; 
-}
-
-/* Navigation Links */
 .navLink {
   color: $font-dark;
   text-decoration: none;
   font-size: 16px;
-  font-weight: 700; 
-  transition: color 0.3s ease; 
+  font-weight: 700;
+  transition: color 0.3s ease;
 
   &:hover {
-    color: rgb(94, 93, 93); 
+    color: rgb(94, 93, 93);
   }
-}
 
-.navLink.active {
-  color: $accent-dark; 
-  font-weight: bold;
-  border-bottom: 2px solid $accent-dark; 
+  &.active {
+    color: $accent-dark;
+    font-weight: bold;
+    border-bottom: 2px solid $accent-dark;
+  }
 }
