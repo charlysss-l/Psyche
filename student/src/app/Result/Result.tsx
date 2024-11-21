@@ -7,7 +7,7 @@ const Result = () => {
       <h1>List of Results</h1>
         <div className={style.ListResult}>
           <div className={style.TestPF_res}>
-            <Link to="/pf-results" className={style.pfLink_res}>PF Results</Link>
+            <Link to="/pfbothlist" className={style.pfLink_res}>PF Results</Link>
           </div>
          
           <div className={style.iqLinkContainer_res}>

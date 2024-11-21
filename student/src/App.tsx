@@ -24,6 +24,9 @@ import OMRResult from "./app/OMR/OMRCamera/OMRResult";
 import IQResultList from "./app/Result/IQResult/IQResultList";
 import OmrIQResultsList from "./app/Result/IQResult/OmrIQResultList";
 import IQResultListBoth from "./app/Result/IQResult/IQResultListBoth";
+import PFBothList from "./app/Result/PFResult/PFBothList/PFBothList";
+import PFOMRList from "./app/Result/PFResult/PFOMRList/PFOMRList";
+import PFOnlineList from "./app/Result/PFResult/PFOnlineList/PFOnlineList";
 
 function App() {
   return (
@@ -66,6 +69,9 @@ function App() {
                       <Route path="/iqresultlist" element={<IQResultList />} />
                       <Route path="/omriqresultlist" element={<OmrIQResultsList />} />
                       <Route path="/iqresultlistboth" element={<IQResultListBoth />} />
+                      <Route path="/pfbothlist" element={<PFBothList />} />
+                      <Route path="/pfomrlist" element={<PFOMRList />} />
+                      <Route path="/pfonlinelist" element={<PFOnlineList />} />
                     </Routes>
                   </div>
                 </div>

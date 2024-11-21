@@ -1,0 +1,124 @@
+/* Main container for the section */
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading for the section */
+.heading {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.subheading{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: rgb(1, 59, 1);
+    font-size: 25px;
+}
+
+/* Chart container styling */
+.chartContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.resultTable table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.resultTable th, .resultTable td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.resultTable th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.resultTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.resultTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+.leftMeaning {
+    color: green;
+    font-weight: bold;
+}
+
+.rightMeaning {
+    color: red;
+    font-weight: bold;
+}
+
+.average {
+    color: gray;
+    font-style: italic;
+}
+
+
+/* Share prompt section */
+.sharePrompt {
+    margin-top: 40px;
+    text-align: center;
+}
+
+/* Prompt text */
+.sharePrompt p {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+/* Buttons for sharing result */
+.buttonYes, .buttonCancel {
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.buttonYes {
+    background-color: #4CAF50;
+    color: white;
+    margin-right: 10px;
+}
+
+.buttonYes:hover {
+    background-color: #45a049;
+}
+
+.buttonCancel {
+    background-color: #f44336;
+    color: white;
+}
+
+.buttonCancel:hover {
+    background-color: #e53935;
+}

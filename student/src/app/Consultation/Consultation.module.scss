@@ -59,7 +59,7 @@ $border-dark: #2c2c2c; /* Dark border color */
   color: $hover-font; /* Hover font color */
 }
 .consulForm {
-  background-color: #f9f9f9; // Light gray for background
+  background: linear-gradient(135deg, #f9fafb, #e3f2f1);
   border: 1px solid #e0e0e0; // Subtle border
   border-radius: 8px; // Rounded corners
   padding: 20px;
@@ -83,7 +83,7 @@ $border-dark: #2c2c2c; /* Dark border color */
 
 .conInput,
 select {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;

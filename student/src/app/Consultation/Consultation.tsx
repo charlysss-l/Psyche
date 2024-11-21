@@ -5,7 +5,7 @@ import styles from "./Consultation.module.scss";
 const API_URL = "http://localhost:5000/api/consult/";
 
 const ConsultationRequestForm: React.FC = () => {
-  const [userID, setUserID] = useState("");
+  const [userId, setUserID] = useState("");
   const [timeForConsultation, setTimeForConsultation] = useState("");
   const [note, setNote] = useState<"IQ Test" | "Personality Test" | "Others">(
     "IQ Test"
@@ -28,7 +28,7 @@ const ConsultationRequestForm: React.FC = () => {
 
     try {
       const consultationRequest = {
-        userID,
+        userId,
         timeForConsultation,
         note,
         permissionForTestResults,
@@ -49,7 +49,7 @@ const ConsultationRequestForm: React.FC = () => {
         <input
           className={styles.conInput}
           type="text"
-          value={userID} 
+          value={userId} 
           onChange={(e) => setUserID(e.target.value)} 
           required 
           readOnly
@@ -87,6 +87,7 @@ const ConsultationRequestForm: React.FC = () => {
           }
           required
         >
+          <option value="" disabled>Select Note</option>
           <option value="IQ Test">IQ Test</option>
           <option value="Personality Test">Personality Test</option>
           <option value="Others">Others</option>
