@@ -13,6 +13,7 @@ $border-dark: #2c2c2c; /* Dark border color */
   justify-content: center;
 }
 
+
 .formCon {
   background-color: $bg-dark; /* Form container background */
   padding: 2rem;
@@ -23,8 +24,8 @@ $border-dark: #2c2c2c; /* Dark border color */
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 2rem; /* Added space between the form and the table */
 }
-
 .conInput {
   width: 100%;
   padding: 0.75rem;
@@ -124,4 +125,27 @@ select {
     background-color: #969696; // Even darker on click
     transform: translateY(0); // Reset lift
   }
+}
+.consulTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem; /* Add space between form and table */
+}
+
+.consulTable th, .consulTable td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.consulTable th {
+  background-color: #f4f4f4;
+}
+
+.consulTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.consulTable tr:hover {
+  background-color: #f1f1f1;
 }

@@ -13,15 +13,25 @@ const ConsultationRequestForm: React.FC = () => {
   const [permissionForTestResults, setPermissionForTestResults] =
     useState(false);
   const [date, setDate] = useState("");
+  const [consultation, setConsultation] = useState([]);
 
   useEffect(() => {
     // Fetch userID from localStorage and set it in state
     const storedUserID = localStorage.getItem('userId');
     if (storedUserID) {
         setUserID(storedUserID);
+        fetchConsultations(storedUserID);
     }
-
 }, []);
+
+  const fetchConsultations = async (userId: string) => {
+    try {
+      const response = await axios.get(`${API_URL}${userId}`);
+      setConsultation(response.data);
+    } catch (error) {
+      console.error("Error fetching consultations:", error);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,6 +46,7 @@ const ConsultationRequestForm: React.FC = () => {
       };
       await axios.post(API_URL, consultationRequest);
       alert("Consultation request submitted successfully.");
+      fetchConsultations(userId);
     } catch (error) {
       console.error("Error submitting consultation request:", error);
     }
@@ -43,6 +54,7 @@ const ConsultationRequestForm: React.FC = () => {
 
   return (
     <div className={styles.consulForm}>
+      <div className={styles.tableContainer}>
         <form className={styles.formCon} onSubmit={handleSubmit}>
       <label className={styles.conLabel} >
         User ID
@@ -106,6 +118,29 @@ const ConsultationRequestForm: React.FC = () => {
 
       <button type="submit" className={styles.submitCon}>Submit Request</button>
     </form>
+    <h2>Your Consultation Schedule</h2>
+        <table className={styles.consulTable}>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Note</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+           {consultation.map((consult: any) => (
+              <tr key={consult._id}>
+                <td>{consult.date}</td>
+                <td>{consult.timeForConsultation}</td>
+                <td>{consult.note}</td>
+                <td>{consult.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+    </div>
     </div>
     
   );
