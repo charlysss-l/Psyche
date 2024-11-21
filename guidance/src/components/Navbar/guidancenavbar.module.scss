@@ -1,16 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-.navbar_gd {
+/* Define color variables */
+$bg-light: #faf9f6; 
+$font-dark: #000000; 
+$link-hover: #e2dfd2; 
+
+$accent-light: #f2a9a9; 
+$accent-dark: #7b3f3f; 
+$secondary-bg: #dbe2e7; 
+$button-bg: #6c757d; 
+$button-hover: #495057; 
+
+/* Navbar Styles */
+.studentNavbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+  font-family: 'Poppins', sans-serif; 
   flex-direction: column;
-  margin-top: 10px;
+  margin-left: 1%;
+  width: 100%;
 }
 
+/* Logo Section */
 .logoSection {
-  color: #5f5c5c;
+  color: $font-dark;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,35 +40,43 @@
   color: #777; 
 }
 
-.navbar_gd{
+/* Navigation Section */
+.navigationSection {
   display: flex;
   align-items: center;
 }
 
-.navbar_UL_gd {
+.navList {
   list-style-type: none;
   padding: 0;
   margin: 0;
   display: flex;
-  
 }
 
-.navbar_LI_gd {
+.navItem {
   margin-left: 30px;
   border-radius: 0;
 }
-.navbar_LI_gd:hover{
-  border-bottom: 1px solid #777;
+
+.navItem:hover {
+  border-bottom: 1px solid #777; 
 }
 
-.navlink_gd {
-  color: #626262;
+/* Navigation Links */
+.navLink {
+  color: $font-dark;
   text-decoration: none;
   font-size: 16px;
-  font-weight: 700; /* Bold for better visibility */
-  transition: color 0.3s ease;
+  font-weight: 700; 
+  transition: color 0.3s ease; 
 
   &:hover {
-    color: #131313;
+    color: rgb(94, 93, 93); 
   }
+}
+
+.navLink.active {
+  color: $accent-dark; 
+  font-weight: bold;
+  border-bottom: 2px solid $accent-dark; 
 }

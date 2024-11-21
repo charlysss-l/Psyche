@@ -1,33 +1,53 @@
-import React from 'react';
-import style from './guidancenavbar.module.scss';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import style from "./guidancenavbar.module.scss";
 
 const Navbar = () => {
   return (
-    <nav className={style.navbar_gd}>
+    <nav className={style.studentNavbar}>
       <div className={style.logoSection}>
         <h1>Discover U</h1>
-        <p>Guidance</p>
+        <p>Student</p>
       </div>
-      <div className={style.navbar_gd}>
-        <ul className={style.navbar_UL_gd}>
-          <li className={style.navbar_LI_gd}>
-            <Link to="/home" className={style.navlink_gd}>Home</Link>
+
+      <div className={style.navigationSection}>
+        <ul className={style.navList}>
+          <li className={style.navItem}>
+            <NavLink
+              to="/home"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              Home
+            </NavLink>
           </li>
-          <li className={style.navbar_LI_gd}>
-            <Link to="/calendar" className={style.navlink_gd}>Calendar</Link>
+          <li className={style.navItem}>
+            <NavLink
+              to="/calendar"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              Calendar
+            </NavLink>
           </li>
-          <li className={style.navbar_LI_gd}>
-            <Link to="/consultation" className={style.navlink_gd}>Consultation</Link>
+          <li className={style.navItem}>
+            <NavLink
+              to="/consultation"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              Consultation
+            </NavLink>
           </li>
-          <li className={style.navbar_LI_gd}>
-            <Link to="/login" className={style.navlink_gd}>Login</Link>
+          <li className={style.navItem}>
+            <NavLink
+              to="/"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              Login
+            </NavLink>
           </li>
         </ul>
       </div>
-      
     </nav>
   );
-}
+};
 
 export default Navbar;

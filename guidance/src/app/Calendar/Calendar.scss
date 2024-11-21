@@ -5,17 +5,6 @@ $container-bg: #ffffff;
 $main-text: #131313;
 $border-radius: 10px;
 
-.calendarContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px;
-  background-color: white; 
-  border-radius: $border-radius;
-  width: 90%;
-  max-width: 700px; 
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
 
 .requestList {
   width: 100%;
@@ -145,6 +134,8 @@ p {
   border-radius: $border-radius;
   padding: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-left: 220px;
+  
 }
 
 .react-calendar__navigation {
