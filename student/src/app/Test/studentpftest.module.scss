@@ -1,11 +1,34 @@
+// Variables for easy customization
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+$primary-color: #f3a847;
+$bg-color: #ffffff;
+$bg-gradient-start: #f9fafb;
+$bg-gradient-end: #e3f2f1;
+$hover-bg-color: #e6e6e6;
+$shadow-light: rgba(0, 0, 0, 0.1);
+$shadow-dark: rgba(0, 0, 0, 0.2);
+$box-shadow-small: 0 4px 8px $shadow-light;
+$box-shadow-large: 0 8px 16px $shadow-dark;
+$font-color: #333;
+$font-size: 20px;
+$font-weight: bold;
+$letter-spacing: 1.5px;
+$transition-duration: 0.3s;
+$border-radius: 12px;
+$padding-size: 20px;
+$test-size: 400px;
+
+// Main container
 .TestContent {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: $padding-size;
 }
 
+// List of tests
 .ListTest {
   display: flex;
   gap: 20px;
@@ -14,61 +37,66 @@
   justify-content: center;
 }
 
+// Test containers with common styles
 .TestPF, .iqLinkContainer {
-  background-color: #ffffff;
-  width: 400px;
-  height: 400px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
+  background-color: $bg-color;
+  width: $test-size;
+  height: $test-size;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-small; 
   transition: all 0.3s ease-in-out; 
   overflow: hidden; 
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f9fafb, #e3f2f1);
+  background: linear-gradient(135deg, $bg-gradient-start, $bg-gradient-end);
 }
 
+// Hover effects for test containers
 .TestPF:hover, .iqLinkContainer:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); 
+  box-shadow: $box-shadow-large; 
   transform: translateY(-10px); 
   cursor: pointer;
-  background-color: #e6e6e6;
+  background-color: $hover-bg-color;
 }
 
+// Link styling inside containers
 .pfLink, .iqLink {
-  color: #1c1c1c;
+  color: $font-color;
   text-decoration: none;
   width: 100%; 
   height: 100%; 
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: 1.5px;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  letter-spacing: $letter-spacing;
   text-align: center; 
-  color: #333;
+  color: $font-color;
 }
 
+// Hover effect for links
 .pfLink:hover, .iqLink:hover {
-  color: #f3a847;
-  transition: color 0.3s ease;
+  color: $primary-color;
+  transition: color $transition-duration ease;
 }
 
+// Span inside links for text shadow effect
 .pfLink span, .iqLink span {
   position: relative;
   z-index: 1;
   text-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); 
 }
 
+// Reapply common styles for box-shadow and transition
 .TestPF, .iqLinkContainer {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
-  transition: transform 0.2s, box-shadow 0.3s ease;
+  box-shadow: $box-shadow-small;
+  transition: transform 0.2s, box-shadow $transition-duration ease;
 }
 
 .TestPF:hover, .iqLinkContainer:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+  box-shadow: $box-shadow-large; 
   transform: translateY(-5px);
 }
