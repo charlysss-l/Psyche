@@ -1,43 +1,57 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
-import style from './psychologynavbar.module.scss';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import style from "./psychologynavbar.module.scss";
+
 
 const Navbar = () => {
-  const navigate = useNavigate(); // Initialize the navigate function for redirection
-
-  // Handle logout
-  const handleLogout = () => {
-    // Remove the token from localStorage
-    localStorage.removeItem("token");
-
-    // Redirect to the login page
-    navigate("/");
-  };
-
   return (
-    <nav className={style.navbar}>
-      <div className={style.logo}>
+    <nav className={style.studentNavbar}>
+      <div className={style.logoSection}>
         <h1>Discover U</h1>
-        <p>Psychology</p>
+        <p>Student</p>
       </div>
-      
-      <div className={style.navbar_ps}>
-        <ul className={style.navbar_UL_ps}>
-          <li className={style.navbar_LI_ps}>
-            <Link to="/report" className={style.navlink_ps}>Report</Link>
+
+      <div className={style.navigationSection}>
+        <ul className={style.navList}>
+          <li className={style.navItem}>
+            <NavLink
+              to="/report"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              Report
+            </NavLink>
           </li>
-          <li className={style.navbar_LI_ps}>
-            <Link to="/test" className={style.navlink_ps}>Test</Link>
+          <li className={style.navItem}>
+            <NavLink
+              to="/test"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              Test
+            </NavLink>
           </li>
-          <li className={style.navbar_LI_ps}>
-            <Link to="/surveyDashboard" className={style.navlink_ps}>Survey</Link>
+          <li className={style.navItem}>
+            <NavLink
+              to="/surveyDashboard"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              Survey
+            </NavLink>
           </li>
-          <li className={style.navbar_LI_ps}>
-            <Link to="/user" className={style.navlink_ps}>User</Link>
+          <li className={style.navItem}>
+            <NavLink
+              to="/user"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              User
+            </NavLink>
           </li>
-          <li className={style.navbar_LI_ps}>
-            {/* Bind the handleLogout function to the Logout link */}
-            <button onClick={handleLogout} className={style.navlink_logout}>Logout</button>
+          <li className={style.navItem}>
+            <NavLink
+              to="/"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              Logout
+            </NavLink>
           </li>
         </ul>
       </div>

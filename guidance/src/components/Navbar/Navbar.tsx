@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className={style.studentNavbar}>
       <div className={style.logoSection}>
         <h1>Discover U</h1>
-        <p>Student</p>
+        <p>Guidance</p>
       </div>
 
       <div className={style.navigationSection}>
