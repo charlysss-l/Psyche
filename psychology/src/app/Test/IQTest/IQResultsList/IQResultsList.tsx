@@ -114,10 +114,6 @@ const IQResultsList: React.FC = () => {
     }
   };
 
-  // Handler for navigating to /iqinterpretation
-  const handleNavigateToInterpretation = () => {
-    navigate('/iqinterpretation');
-  };
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
@@ -135,15 +131,7 @@ const IQResultsList: React.FC = () => {
     <div>
       <h2>IQ Results List</h2>
 
-      
-      {/* Button to navigate to IQ Interpretation */}
-      <button 
-        onClick={handleNavigateToInterpretation} 
-        className={styles.navigationButton} // Optional styling
-      >
-        Edit IQ Interpretation
-      </button>
-
+    
       {results.length > 0 ? (
         <div>
           <table className={styles.resultsTableIQ}>
