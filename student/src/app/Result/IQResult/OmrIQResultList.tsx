@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './page.module.scss'; // Import your CSS module
 import { useNavigate } from 'react-router-dom';
 
-
-
 interface Interpretation {
-  
   minAge: number;
   maxAge: number;
   minTestScore: number;
@@ -13,23 +10,20 @@ interface Interpretation {
   resultInterpretation: string;
 }
 
-
-
-
 interface OMR {
-    userID: string;
-    firstName: string;
-    lastName: string;
-    age: number;  // Changed from string to number
-    sex: 'Female' | 'Male';
-    course: string;
-    year: number;
-    section: number;
-    testID: string;
-    totalScore: number; // Include totalScore here
-    interpretation: Interpretation;
-    testType: 'Online' | 'Physical';
-    testDate: Date;
+  userID: string;
+  firstName: string;
+  lastName: string;
+  age: number;
+  sex: 'Female' | 'Male';
+  course: string;
+  year: number;
+  section: number;
+  testID: string;
+  totalScore: number;
+  interpretation: Interpretation;
+  testType: 'Online' | 'Physical';
+  testDate: Date;
 }
 
 const OmrIQResultsList: React.FC = () => {
@@ -37,9 +31,10 @@ const OmrIQResultsList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [userID, setUserID] = useState<string | null>(null);
+  const [editingTestID, setEditingTestID] = useState<string | null>(null); // Track the testID of the item being edited
+  const [updatedData, setUpdatedData] = useState<Partial<OMR>>({}); // Store updated data for the current test
   const navigate = useNavigate();
 
-  // Fetch userID from localStorage and set it in state
   useEffect(() => {
     const storedUserID = localStorage.getItem('userId');
     if (storedUserID) {
@@ -49,9 +44,8 @@ const OmrIQResultsList: React.FC = () => {
     }
   }, []);
 
-  // Fetch data based on userID
   const fetchData = async () => {
-    if (!userID) return; // Don't fetch if userID is not available
+    if (!userID) return;
 
     try {
       const response = await fetch(`http://localhost:5000/api/omr/${userID}`);
@@ -60,7 +54,6 @@ const OmrIQResultsList: React.FC = () => {
       }
       const data = await response.json();
 
-      // Fetch IQ test interpretation data
       const iqTestResponse = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
       if (!iqTestResponse.ok) {
         throw new Error(`Failed to fetch IQ test: ${iqTestResponse.statusText}`);
@@ -68,7 +61,6 @@ const OmrIQResultsList: React.FC = () => {
       const iqTestData = await iqTestResponse.json();
       const interpretations: Interpretation[] = iqTestData.interpretation;
 
-      // Add interpretation to the user's result
       const resultWithInterpretation = data.data.map((result: OMR) => {
         const interpretation = interpretations.find(
           (interp) =>
@@ -100,24 +92,66 @@ const OmrIQResultsList: React.FC = () => {
     if (userID) {
       fetchData();
     }
-  }, [userID]); // Trigger fetchData when userID changes
+  }, [userID]);
 
-  const handleDelete = async (userID: string) => {
+  const handleDelete = async (id: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/omr/${userID}`, {
+      const response = await fetch(`http://localhost:5000/api/omr/${id}`, {
         method: 'DELETE',
       });
-      
+
       if (!response.ok) {
         throw new Error(`Error deleting the test: ${response.statusText}`);
       }
 
-      // Remove the deleted user from the state
-      setResults(results.filter((result) => result.userID !== userID));
-      navigate('/iqresultlistboth'); 
+      setResults(results.filter((result) => result.userID !== id));
+      navigate('/iqresultlistboth');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error deleting test:', err);
+    }
+  };
+
+  const handleEditClick = (testID: string) => {
+    setEditingTestID(testID);
+    const testToEdit = results.find(result => result.testID === testID);
+    if (testToEdit) {
+      setUpdatedData({
+        age: testToEdit.age,
+        sex: testToEdit.sex,
+        course: testToEdit.course,
+        year: testToEdit.year,
+        section: testToEdit.section,
+        firstName: testToEdit.firstName,  // Add firstName to editable state
+        lastName: testToEdit.lastName,    // Add lastName to editable state
+      });
+    }
+  };
+
+  const handleUpdate = async (testID: string) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/omr/test/${testID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error updating the test: ${response.statusText}`);
+      }
+
+      const updatedResult = await response.json();
+      setResults(prevResults =>
+        prevResults.map(result =>
+          result.testID === testID ? { ...result, ...updatedResult.data } : result
+        )
+      );
+      setEditingTestID(null); // Reset the editing state
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      console.error('Error updating test:', err);
     }
   };
 
@@ -134,7 +168,8 @@ const OmrIQResultsList: React.FC = () => {
             <thead>
               <tr>
                 <th>userID</th>
-                <th>Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>Age</th>
                 <th>Sex</th>
                 <th>Course</th>
@@ -150,30 +185,112 @@ const OmrIQResultsList: React.FC = () => {
 
             <tbody>
               {results.map((result) => (
-                <tr key={result.userID} className={styles.eachResultIQ}>
+                <tr key={result.testID} className={styles.eachResultIQ}>
                   <td>{result.userID}</td>
-                  <td>{result.firstName} {result.lastName}</td>
-                  <td>{result.age}</td>
-                  <td>{result.sex}</td>
-                  <td>{result.course}</td>
-                  <td>{result.year}</td>
-                  <td>{result.section}</td>
-                  <td>{result.testType}</td>
-                  <td>{new Date(result.testDate).toLocaleDateString()}</td>
-                  
-                  <td>{result.totalScore}</td>
                   <td>
-                    <ul>
-                      <li>Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}</li>
-                    </ul>
+                    {editingTestID === result.testID ? (
+                      <input
+                        type="text"
+                        value={updatedData.firstName}
+                        onChange={(e) => setUpdatedData({ ...updatedData, firstName: e.target.value })}
+                      />
+                    ) : (
+                      result.firstName
+                    )}
                   </td>
                   <td>
-                    <button 
-                      className={styles.deleteButtonIQLIST} 
+                    {editingTestID === result.testID ? (
+                      <input
+                        type="text"
+                        value={updatedData.lastName}
+                        onChange={(e) => setUpdatedData({ ...updatedData, lastName: e.target.value })}
+                      />
+                    ) : (
+                      result.lastName
+                    )}
+                  </td>
+                  <td>
+                    {editingTestID === result.testID ? (
+                      <input
+                        type="number"
+                        value={updatedData.age}
+                        onChange={(e) => setUpdatedData({ ...updatedData, age: Number(e.target.value) })}
+                      />
+                    ) : (
+                      result.age
+                    )}
+                  </td>
+                  <td>
+                    {editingTestID === result.testID ? (
+                      <select
+                        value={updatedData.sex}
+                        onChange={(e) => setUpdatedData({ ...updatedData, sex: e.target.value as 'Female' | 'Male' })}
+                      >
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                      </select>
+                    ) : (
+                      result.sex
+                    )}
+                  </td>
+                  <td>
+                    {editingTestID === result.testID ? (
+                      <input
+                        type="text"
+                        value={updatedData.course}
+                        onChange={(e) => setUpdatedData({ ...updatedData, course: e.target.value })}
+                      />
+                    ) : (
+                      result.course
+                    )}
+                  </td>
+                  <td>
+                    {editingTestID === result.testID ? (
+                      <input
+                        type="number"
+                        value={updatedData.year}
+                        onChange={(e) => setUpdatedData({ ...updatedData, year: Number(e.target.value) })}
+                      />
+                    ) : (
+                      result.year
+                    )}
+                  </td>
+                  <td>
+                    {editingTestID === result.testID ? (
+                      <input
+                        type="number"
+                        value={updatedData.section}
+                        onChange={(e) => setUpdatedData({ ...updatedData, section: Number(e.target.value) })}
+                      />
+                    ) : (
+                      result.section
+                    )}
+                  </td>
+                  <td>{result.testType}</td>
+                  <td>{new Date(result.testDate).toLocaleDateString()}</td>
+                  <td>{result.totalScore}</td>
+                  <td>{result.interpretation.resultInterpretation ?? 'N/A'}</td>
+                  <td>
+                    <button
+                      className={styles.deleteButtonIQLIST}
                       onClick={() => handleDelete(result.userID)}
                     >
                       Delete
                     </button>
+                    <button
+                      className={styles.updateButtonIQLIST}
+                      onClick={() => handleEditClick(result.testID)}
+                    >
+                      Edit
+                    </button>
+                    {editingTestID === result.testID && (
+                      <button
+                        className={styles.updateButtonIQLIST}
+                        onClick={() => handleUpdate(result.testID)}
+                      >
+                        Save
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -181,7 +298,7 @@ const OmrIQResultsList: React.FC = () => {
           </table>
         </div>
       ) : (
-        <p>No results found.</p>
+        <p>No results found</p>
       )}
     </div>
   );

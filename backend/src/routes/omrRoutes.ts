@@ -23,7 +23,7 @@ router.get('/:userID', getOmrResultsByUser);
 router.get('/:id', getOmrResultById);
 
 // Route to update an IQ test result by test ID
-router.put('/:id', updateOmrResult);
+router.put('/test/:testID', updateOmrResult);
 
 // Route to delete an IQ test result by test ID
 router.delete('/:id', deleteOmrResult);
