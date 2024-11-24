@@ -32,6 +32,7 @@ function App() {
                       <Route path="/calendar" element={<Calendar />} />
                       <Route path="/consultation" element={<Consultation />} />
                       <Route path="/profile" element={<Profile />} />
+                    
                     </Routes>
                   </div>
                 </div>

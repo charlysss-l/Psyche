@@ -1,134 +1,103 @@
-// Define color and styling variables
-$main-bg: #f4f2ee;
-$button-bg: #d7d5d1;
-$button-hover-bg: #e8e6e2;
-$container-bg: #ffffff;
-$container-hover-bg: #f3f1f1;
-$main-text: #131313;
-$navbar-text: #626262;
-$navbar-hover-text: #131313;
-$input-border-color: #ccc;
-$input-focus-border-color: $main-text;
-$button-hover-color: $main-text;
-$font-family: Arial, sans-serif;
+/* page.module.scss */
 
-// Global container styles
+/* Container for the whole profile page */
 .container {
-  background-color: $container-bg;
-  border-radius: 10px;
+  max-width: 800px;
+  margin: 0 auto;
   padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-  width: 400px; // Set the width of the form
-  margin: 0 auto; // Center the form horizontally
-  font-family: $font-family;
-
-  &:hover {
-    background-color: $container-hover-bg;
-  }
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-// Header styles
+/* Title for the profile page */
 .userinfo_pr {
-  color: $main-text;
-  font-size: 24px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
   margin-bottom: 20px;
 }
 
-// Information container styles
+/* Container for user information display */
 .infoContainer {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  color: #555;
 }
 
-// UserID Display styles
+/* Styles for the user ID display */
 .userIDDisplay {
-  font-size: 14px;
-  color: $main-text;
-  margin-bottom: 10px;
+  font-weight: bold;
+  color: #007bff;
 }
 
-// Label and input styles
+/* Label styling */
 .pr_label {
-  font-size: 16px;
-  color: $main-text;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #444;
 }
 
+/* Input field styling */
 .pr_input {
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid $input-border-color;
-  border-radius: 10px;
-  width: 100%;
-  box-sizing: border-box;
-
-  &:focus {
-    border-color: $input-focus-border-color;
-    outline: none;
-  }
+  width: 97%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-// Button container styles
+.pr_input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Button container */
 .buttonContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  text-align: center;
 }
 
-// Submit button styles
+/* Button styling */
 .submitButton {
-  padding: 10px 20px;
-  font-size: 16px;
-  color: $main-text;
-  background-color: $button-bg;
+  background-color: #007bff;
+  color: white;
   border: none;
-  border-radius: 10px;
+  padding: 12px 25px;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: $button-hover-bg;
-    color: $button-hover-color;
-  }
-
-  &:focus {
-    outline: none;
-  }
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
 
-// Success message styles
+.submitButton:hover {
+  background-color: #0056b3;
+}
+
+/* Success and error message styling */
 .updateMessageSuccess {
+  margin-top: 20px;
+  padding: 10px;
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
-  padding: 15px;
   border-radius: 4px;
-  margin-top: 15px;
-  font-size: 16px;
-  font-weight: 500;
   text-align: center;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: #c3e6cb;
-  }
 }
 
-// Error message styles
 .updateMessageError {
+  margin-top: 20px;
+  padding: 10px;
   background-color: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
-  padding: 15px;
   border-radius: 4px;
-  margin-top: 15px;
-  font-size: 16px;
-  font-weight: 500;
   text-align: center;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: #f5c6cb;
-  }
 }

@@ -4,21 +4,23 @@ import axios from "axios";
 import styles from "./Consultation.scss";
 
 const API_URL = "http://localhost:5000/api/consult/";
+const USERIQ_URL = "http://localhost:5000/api/useriq/test/";
+const USERPF_URL = "http://localhost:5000/api/user16pf/test/";
 
 interface ConsultationRequest {
   _id: string;
   userId: string;
   timeForConsultation: string;
   note: string;
-  permissionForTestResults: boolean;
+  testID: string;
   date: string;
   status: string;
 }
 
 const GuidanceConsultation: React.FC = () => {
-  const [consultationRequests, setConsultationRequests] = useState<
-    ConsultationRequest[]
-  >([]);
+  const [consultationRequests, setConsultationRequests] = useState<ConsultationRequest[]>([]);
+  const [testDetails, setTestDetails] = useState<any>(null);  // For storing test results
+  const [showTestInfo, setShowTestInfo] = useState<boolean>(false);  // To control modal visibility
   const [declineNote, setDeclineNote] = useState<string>("");
   const [showDeclineModal, setShowDeclineModal] = useState<boolean>(false);
   const [decliningRequestId, setDecliningRequestId] = useState<string>("");
@@ -35,12 +37,33 @@ const GuidanceConsultation: React.FC = () => {
     loadConsultationRequests();
   }, []);
 
-  const pendingRequests = consultationRequests.filter(
-    (request) => request.status === "pending"
-  );
-  const acceptedRequests = consultationRequests.filter(
-    (request) => request.status === "accepted"
-  );
+  // Fetch test details based on testID
+  const fetchTestDetails = async (testID: string, note: string) => {
+    try {
+      let response;
+      if (note === "IQ Test") {
+        response = await axios.get(`${USERIQ_URL}${testID}`);
+      } else if (note === "Personality Test") {
+        response = await axios.get(`${USERPF_URL}${testID}`);
+      }
+
+      if (response?.data) {
+        setTestDetails(response.data);
+        setShowTestInfo(true);  // Show modal with test details
+      } else {
+        console.log("No test details found.");
+      }
+    } catch (error) {
+      console.error("Error fetching test details:", error);
+    }
+  };
+
+  const handleViewInfo = (testID: string, note: string) => {
+    fetchTestDetails(testID, note);
+  };
+
+  const pendingRequests = consultationRequests.filter((request) => request.status === "pending");
+  const acceptedRequests = consultationRequests.filter((request) => request.status === "accepted");
 
   // Accept a consultation request
   const acceptRequest = async (id: string) => {
@@ -132,7 +155,10 @@ const GuidanceConsultation: React.FC = () => {
                       </button>
                     </>
                   ) : (
-                    <button className={styles.viewInfo} disabled>
+                    <button
+                      className={styles.viewInfo}
+                      onClick={() => handleViewInfo(request.testID, request.note)}
+                    >
                       View Info
                     </button>
                   )}
@@ -144,21 +170,146 @@ const GuidanceConsultation: React.FC = () => {
       </div>
 
       {showDeclineModal && (
-        <div className={styles.declineModal}>
-          <div className={styles.declineModalContent}>
-            <h3>Decline Consultation Request</h3>
-            <textarea
-              value={declineNote}
-              onChange={(e) => setDeclineNote(e.target.value)}
-              placeholder="Enter the reason for declining"
-            />
-            <div>
-              <button onClick={() => setShowDeclineModal(false)}>Cancel</button>
-              <button onClick={declineRequest}>Submit</button>
-            </div>
-          </div>
-        </div>
-      )}
+  <div className={`${styles.declineModal} ${styles.show}`}>
+    <div className={styles.declineModalContent}>
+      <h3>Decline Consultation Request</h3>
+      <textarea
+        value={declineNote}
+        onChange={(e) => setDeclineNote(e.target.value)}
+        placeholder="Enter the reason for declining"
+      />
+      <div>
+        <button onClick={() => setShowDeclineModal(false)}>Cancel</button>
+        <button onClick={declineRequest}>Submit</button>
+      </div>
+    </div>
+  </div>
+)}
+
+{showTestInfo && (
+  <div className={`${styles.testInfoModal} ${styles.show}`}>
+    <div className={styles.testInfoModalContent}>
+      <h3>Test Information</h3>
+      <table className={styles.testInfoTable}>
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {testDetails?.data?.map((test: any) => (
+            <React.Fragment key={test._id}>
+              <tr>
+                <td>User ID</td>
+                <td>{test.userID}</td>
+              </tr>
+              <tr>
+                <td>Name</td>
+                <td>{test.firstName} {test.lastName}</td>
+              </tr>
+              <tr>
+                <td>Age</td>
+                <td>{test.age}</td>
+              </tr>
+              <tr>
+                <td>Sex</td>
+                <td>{test.sex}</td>
+              </tr>
+              <tr>
+                <td>Course</td>
+                <td>{test.course}</td>
+              </tr>
+              <tr>
+                <td>Year</td>
+                <td>{test.year}</td>
+              </tr>
+              <tr>
+                <td>Section</td>
+                <td>{test.section}</td>
+              </tr>
+              <tr>
+                <td>Test ID</td>
+                <td>{test.testID}</td>
+              </tr>
+              <tr>
+                <td>Test Type</td>
+                <td>{test.testType}</td>
+              </tr>
+              <tr>
+                <td>Test Date</td>
+                <td>{new Date(test.testDate).toLocaleString()}</td>
+              </tr>
+
+              {/* Conditionally show totalScore for IQ test only */}
+              {test.testType === 'IQ' && (
+                <tr>
+                  <td>Total Score</td>
+                  <td>{test.totalScore || 'N/A'}</td>
+                </tr>
+              )}
+
+              {test.scoring && (
+                <React.Fragment>
+                  <tr>
+                    <td>Scoring</td>
+                    <td>
+                      <ul>
+                        {test.scoring.scores.map((score: any, index: number) => (
+                          <li key={index}>
+                            Factor: {score.factorLetter}, Raw Score: {score.rawScore}, Sten Score: {score.stenScore}
+                          </li>
+                        ))}
+                      </ul>
+                    </td>
+                  </tr>
+                </React.Fragment>
+              )}
+
+              <tr>
+                <td>Interpretation</td>
+                <td>{test.interpretation?.resultInterpretation || 'N/A'}</td>
+              </tr>
+
+              {/* Show responses with isCorrect */}
+              {test.responses && (
+                <tr>
+                  <td>Responses</td>
+                  <td>
+                    <ul>
+                      {test.responses.map((response: any, index: number) => (
+                        <li key={index}>
+                          {response.questionID ? `Question ${response.questionID}: ` : ''} 
+                          {response.selectedChoice ? (
+                            response.selectedChoice.includes('http') ? (
+                              <img src={response.selectedChoice} alt={`Question ${response.questionID}`} className={styles.responseImage} />
+                            ) : (
+                              `Selected: ${response.selectedChoice}`
+                            )
+                          ) : 'No choice selected'}
+                          {response.equivalentScore ? `, Score: ${response.equivalentScore}` : ''}
+                          {response.factorLetter ? `, Factor: ${response.factorLetter}` : ''}
+
+                          {/* Display if the answer is correct or not */}
+                          {response.isCorrect !== undefined && (
+                            <span>{response.isCorrect ? 'Correct' : 'Incorrect'}</span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                </tr>
+              )}
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
+      <button onClick={() => setShowTestInfo(false)}>Close</button>
+    </div>
+  </div>
+)}
+
+
     </div>
   );
 };

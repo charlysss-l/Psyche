@@ -106,6 +106,25 @@ export const getIQTestResultsByUserID = async (req: Request, res: Response) => {
     }
 };
 
+// Controller to retrieve all IQ test results for a user
+export const getIQTestResultsByTestID = async (req: Request, res: Response) => {
+    const { testID } = req.params;
+
+    try {
+        const testResult = await UserIQTest.find({ testID });
+        if (!testResult) {
+            res.status(404).json({ message: 'Test result not found' });
+            return;
+        }
+        res.status(200).json({ data: testResult });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error retrieving IQ test result',
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        });
+    }
+};
+
 // Controller to retrieve a specific IQ test result
 export const getIQTestResultById = async (req: Request, res: Response) => {
     const { id } = req.params;

@@ -1,32 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./studentsignup.module.scss";
 
 const SignupForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [studentNumber, setStudentNumber] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    generateUniqueUserId();
+  }, []);
+
+  const generateRandomUserId = () => {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    for (let i = 0; i < 8; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  };
+
+  const checkUserIdExists = async (id: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/authStudents/students/${id}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        return !!data; // If data exists, return true
+      }
+    } catch (error) {
+      console.error("Error checking User ID:", error);
+    }
+    return false; // Default to not existing if an error occurs
+  };
+
+  const generateUniqueUserId = async () => {
+    let uniqueId = "";
+    let isUnique = false;
+    while (!isUnique) {
+      uniqueId = generateRandomUserId();
+      isUnique = !(await checkUserIdExists(uniqueId));
+    }
+    setUserId(uniqueId);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Check if all fields are filled
-    if (!email || !password || !userId) {
-      setError("Please fill up all fields");
-      return;
-    }
-
-    // Check if userId is exactly 8 digits
-    if (userId.length !== 8 || isNaN(Number(userId))) {
-      setError("User ID must be exactly 8 digits.");
+    if (!email || !password) {
+      setError("Email and Password are required.");
       return;
     }
 
     try {
-      const response = await signupUser(email, password, userId);
+      const response = await signupUser(email, password, studentNumber, userId);
 
-      // Check if the message is a success or handle known errors
       if (response.message === "Student created successfully") {
         navigate("/", {
           state: { message: "Signup successful! Please log in." },
@@ -36,10 +68,10 @@ const SignupForm: React.FC = () => {
           "Email already exists. Please log in or use a different email."
         );
       } else if (response.error === "userId_exists") {
-        setError("User ID already exists. Please choose a different User ID.");
+        setError("User ID already exists. Please refresh the page.");
       }
     } catch (error) {
-      setError("Something went wrong. Please try again.");
+      setError("Email already exists. Please log in or use a different email.");
       console.error(error);
     }
   };
@@ -47,6 +79,7 @@ const SignupForm: React.FC = () => {
   const signupUser = async (
     email: string,
     password: string,
+    studentNumber: string,
     userId: string
   ) => {
     const response = await fetch(
@@ -56,7 +89,7 @@ const SignupForm: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password, userId }),
+        body: JSON.stringify({ email, password, studentNumber, userId }),
       }
     );
 
@@ -73,7 +106,9 @@ const SignupForm: React.FC = () => {
       {error && <p className={styles.errorMessage}>{error}</p>}
       <form onSubmit={handleSubmit} className={styles.signup_form}>
         <div>
-          <label className={styles.signuplabel}>Email:</label>
+          <label className={styles.signuplabel}>
+            Email: <span className={styles.required}>*</span>
+          </label>
           <input
             className={styles.signupInput}
             type="email"
@@ -83,7 +118,18 @@ const SignupForm: React.FC = () => {
           />
         </div>
         <div>
-          <label className={styles.signuplabel}>Password:</label>
+          <label className={styles.signuplabel}>Student Number (optional):</label>
+          <input
+            className={styles.signupInput}
+            type="text"
+            value={studentNumber}
+            onChange={(e) => setStudentNumber(e.target.value)}
+          />
+        </div>
+        <div>
+          <label className={styles.signuplabel}>
+            Password: <span className={styles.required}>*</span>
+          </label>
           <input
             className={styles.signupInput}
             type="password"
@@ -93,13 +139,11 @@ const SignupForm: React.FC = () => {
           />
         </div>
         <div>
-          <label className={styles.signuplabel}>User ID:</label>
           <input
-            className={styles.signupInput}
+            className={styles.hidden}
             type="text"
             value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            required
+            readOnly
           />
         </div>
         <button type="submit" className={styles.signupSubmit}>

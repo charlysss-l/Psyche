@@ -107,23 +107,35 @@ export const getOmrResultById = async (req: Request, res: Response) => {
     }
 };
 
-// Controller to update an IQ test result
+// Controller to update an IQ test result by testID
 export const updateOmrResult = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { testID } = req.params; // Extract testID from the request parameters
+
     try {
-        const updatedIQTestResult = await OmrSchema.findByIdAndUpdate(id, req.body, { new: true });
+        // Find and update the test document using testID
+        const updatedIQTestResult = await OmrSchema.findOneAndUpdate(
+            { testID }, // Find the document with the matching testID
+            req.body,   // Apply the updates from the request body
+            { new: true } // Return the updated document
+        );
+
         if (!updatedIQTestResult) {
             res.status(404).json({ message: 'Test result not found' });
             return;
         }
-        res.status(200).json({ message: 'IQ test result updated successfully', data: updatedIQTestResult });
+
+        res.status(200).json({
+            message: 'IQ test result updated successfully',
+            data: updatedIQTestResult,
+        });
     } catch (error: unknown) {
         res.status(500).json({
             message: 'Error updating IQ test result',
-            error: error instanceof Error ? error.message : 'An unknown error occurred'
+            error: error instanceof Error ? error.message : 'An unknown error occurred',
         });
     }
 };
+
 
 // Controller to delete an IQ test result
 export const deleteOmrResult = async (req: Request, res: Response) => {

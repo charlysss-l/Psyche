@@ -4,12 +4,14 @@ import style from "./page.module.scss";
 const Profile: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [studentNumber, setStudentNumber] = useState<string>("");
+  const [password, setPassword] = useState<string>(""); // New password input
+  const [currentEmail, setCurrentEmail] = useState<string>(""); // For displaying current email
+  const [currentStudentNumber, setCurrentStudentNumber] = useState<string>(""); // For displaying current student number
   const [message, setMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch user profile data (including userId) from the server
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -29,7 +31,8 @@ const Profile: React.FC = () => {
         const result = await response.json();
         if (response.ok) {
           setUserId(result.userId);
-          setUsername(result.email);
+          setCurrentEmail(result.email); // Set current email for display
+          setCurrentStudentNumber(result.studentNumber); // Set current student number for display
         } else {
           setMessage(result.message || "Failed to load profile.");
         }
@@ -47,10 +50,8 @@ const Profile: React.FC = () => {
     setMessage(null);
     setErrorMessage(null);
 
-    // Check if the email format is valid
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (username && !emailRegex.test(username)) {
-      setErrorMessage("Please enter a valid email format.");
+    if (!username && !studentNumber && !password) {
+      setErrorMessage("Please enter at least one new value to update.");
       return;
     }
 
@@ -61,21 +62,6 @@ const Profile: React.FC = () => {
     }
 
     try {
-      // Check if the email and password are different from the current ones
-      const response = await fetch(
-        "http://localhost:5000/api/authStudents/profile",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const result = await response.json();
-      if (result.email === username && result.password === password) {
-        setErrorMessage("No changes detected. Profile update failed.");
-        return;
-      }
-
       const updateResponse = await fetch(
         "http://localhost:5000/api/authStudents/update",
         {
@@ -84,7 +70,7 @@ const Profile: React.FC = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ username, password }),
+          body: JSON.stringify({ username, studentNumber, password }),
         }
       );
 
@@ -105,20 +91,37 @@ const Profile: React.FC = () => {
     <div className={style.container}>
       <h2 className={style.userinfo_pr}>User Information</h2>
       <div className={style.infoContainer}>
-        <div className={style.userIDDisplay}>
-          UserID: {userId || "Loading..."}
-        </div>
+        <div className={style.userIDDisplay}>UserID: {userId || "Loading..."}</div>
+        <p>
+          <strong>Current Email:</strong> {currentEmail || "Loading..."}
+        </p>
+        <p>
+          <strong>Current Student Number:</strong> {currentStudentNumber || "Loading..."}
+        </p>
+        <p>
+          <strong>Current Password:</strong> ****** 
+        </p>
         <form onSubmit={handleSubmit}>
-          <label className={style.pr_label}>Email</label>
+          <label className={style.pr_label}>New Username</label>
           <input
             type="text"
+            placeholder="Enter new username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className={style.pr_input}
           />
-          <label className={style.pr_label}>Password</label>
+          <label className={style.pr_label}>New Student Number</label>
+          <input
+            type="text"
+            placeholder="Enter new student number"
+            value={studentNumber}
+            onChange={(e) => setStudentNumber(e.target.value)}
+            className={style.pr_input}
+          />
+          <label className={style.pr_label}>New Password</label>
           <input
             type="password"
+            placeholder="Enter new password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={style.pr_input}

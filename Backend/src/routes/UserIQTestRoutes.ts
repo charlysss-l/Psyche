@@ -5,7 +5,8 @@ import {
     getIQTestResultsByUserID,
     getIQTestResultById,
     updateIQTestResult,
-    deleteIQTestResult
+    deleteIQTestResult,
+    getIQTestResultsByTestID,
 } from '../controllers/UserIQTestController'; // Ensure this path is correct
 
 const router = Router();
@@ -16,6 +17,8 @@ router.post('/', createIQTestResult);
 // Route to retrieve all IQ test results for a specific user
 router.get('/:userID', getIQTestResultsByUserID);
 router.get('/', getIQTestResultsByAll);
+
+router.get('/test/:testID', getIQTestResultsByTestID);
 
 
 // Route to retrieve a specific IQ test result by test ID

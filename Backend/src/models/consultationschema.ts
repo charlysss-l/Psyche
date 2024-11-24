@@ -3,9 +3,8 @@ import mongoose, { Schema, Document } from 'mongoose';
 interface IConsultationRequest extends Document {
   userId: string;
   timeForConsultation: string;
-
+  testID: string;
   note: 'IQ Test' | 'Personality Test' | 'Others';
-  permissionForTestResults: boolean;
   date: Date;
   status: 'pending' | 'accepted' | 'declined';
 }
@@ -22,15 +21,16 @@ const ConsultationRequestSchema: Schema = new Schema({
     required: true,
     match: /^(?:[01]\d|2[0-3]):(?:[0-5]\d)$/,  // Validate time format (HH:mm)
   },
+  testID: {
+    type: String,
+    required: true,
+  },
   note: {
     type: String,
     enum: ['IQ Test', 'Personality Test', 'Others'],  // Only allow these three options
     required: true,
   },
-  permissionForTestResults: {
-    type: Boolean,
-    required: true,
-  },
+  
   date: {
     type: Date,
     required: true,

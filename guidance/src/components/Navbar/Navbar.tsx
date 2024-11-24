@@ -41,7 +41,7 @@ const Navbar = () => {
               to="/"
               className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
             >
-              Login
+              Logout
             </NavLink>
           </li>
         </ul>
