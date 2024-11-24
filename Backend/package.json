@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon --watch src --exec ts-node src/server.ts",
-    "python": "python app.py", 
-    "all": "concurrently \"npm run dev\" \"npm run python\""
+    "python1": "python 16pf.py", 
+    "python2": "python iqtest.py",
+    "all": "concurrently \"npm run dev\" \"npm run python1\" \"npm run python2\""
   },
   "keywords": [],
   "author": "",

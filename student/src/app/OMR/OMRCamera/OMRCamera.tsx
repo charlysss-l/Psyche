@@ -85,11 +85,13 @@ const OMRCamera: React.FC = () => {
       }
   
       const data = await response.json();
-      setOmrScore(data.score);
+      console.log('OMR response:', data); // Log the response to check its structure
+      setOmrScore(data.score); // Assuming data.score is a number
     } catch (error) {
       console.error("Error processing OMR:", error);
     }
   };
+  
 
   const handleSaveScore = () => {
     if (omrScore !== null) {
@@ -206,15 +208,23 @@ const OMRCamera: React.FC = () => {
         Process OMR and Score
       </button>
 
-      {omrScore !== null && (
-        <div>
-          <h3>OMR Score: {omrScore}</h3>
-          <button onClick={handleSaveScore} className={styles.saveScoreButton}>
-            Save and Interpret Your Score
-
-          </button>
+      {omrScore && (
+  <div>
+    <h3>OMR Score:</h3>
+    <pre>
+      {Object.entries(omrScore).map(([section, score]) => (
+        <div key={section}>
+          <strong>{section}:</strong> {score}
         </div>
-      )}
+      ))}
+    </pre>
+    <button onClick={handleSaveScore} className={styles.saveScoreButton}>
+      Save and Interpret Your Score
+    </button>
+  </div>
+)}
+
+
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
     </div>
