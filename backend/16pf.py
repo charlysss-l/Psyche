@@ -430,7 +430,7 @@ def omr_processing(image):
     
     return section_scores
 
-@app.route('/process_omr', methods=['POST'])
+@app.route('/process_omr_PF', methods=['POST'])
 def process_omr():
     # Get the image URL from the incoming request
     image_url = request.json.get('image_url')
@@ -447,4 +447,4 @@ def process_omr():
     return jsonify({'score': score})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
