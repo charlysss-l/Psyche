@@ -16,7 +16,8 @@ import userRoutes from './authRoutes/userRoutes';
 import surveyRoutes from './routes/surveyRoutes';
 import surveyResponseRoutes from './routes/surveyResponseRoutes';
 import { updateInterpretationBySpecificId } from './controllers/IQTestController';
-import omrRoutes from './routes/omrRoutes';
+import omrIQRoutes from './routes/omrIQRoutes';
+import omrPFRoutes from './routes/omrPFRoutes';
 
 
 
@@ -41,7 +42,8 @@ app.use('/api', uploadRoutes);
 app.use('/api/consult', consultationsRoutes);
 app.put('/api/IQtest/:id/interpretation/:interpretationId', updateInterpretationBySpecificId);
 
-app.use('/api/omr', omrRoutes);
+app.use('/api/omr', omrIQRoutes);
+app.use('/api/omr16pf', omrPFRoutes);
 
 
 // Survey routes

@@ -1,57 +1,44 @@
 import { Request, Response } from 'express';
-import OmrSchema from '../models/omrSchema';
-import { Interpretation } from '../models/omrSchema';
+import OmrPFSchema from '../models/omrPFSchema';
 
-// Controller to handle creating a new IQ test result
+// Controller to handle creating a new OMR result
 export const createOmrResult = async (req: Request, res: Response) => {
-    const { userID, firstName, lastName, age, sex, course, year, section, totalScore, interpretation, testType, testDate } = req.body;
+    const { userID, firstName, lastName, age, sex, course, year, section, scoring, testType, testDate } = req.body;
 
     try {
         // Validate required fields
-        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section  || !totalScore || !interpretation || !testType || !testDate) {
+        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section || !scoring || !testType || !testDate) {
             res.status(400).json({ message: 'Missing required fields' });
             return;
         }
 
         const testID = `${userID}-${Date.now()}`;
 
-
-        
         
 
-        // Prepare interpretation object
-        const testInterpretation: Interpretation = {
-            
-            resultInterpretation: interpretation.resultInterpretation,
-        };
-
-// Create and save the test document
-const testDocument = new OmrSchema({
-    userID,
-    firstName,
-    lastName,
-    age,
-    sex,
-    course,
-    year,
-    section,
-    testID,
-    interpretation: testInterpretation,
-    totalScore,  // Pass totalScore directly
-    testType,
-    testDate,
-});
-
-
-
+        // Create and save the test document
+        const testDocument = new OmrPFSchema({
+            userID,
+            firstName,
+            lastName,
+            age,
+            sex,
+            course,
+            year,
+            section,
+            testID,
+            scoring,  // Use the transformed scoring data
+            testType,
+            testDate,
+        });
 
         await testDocument.save();
-        res.status(201).json({ message: 'IQ Test result saved successfully', data: testDocument });
+        res.status(201).json({ message: 'OMR result saved successfully', data: testDocument });
 
     } catch (error) {
-        console.error('Error creating IQ test result:', error);
+        console.error('Error creating OMR result:', error);
         res.status(500).json({
-            message: 'Error saving IQ test result',
+            message: 'Error saving OMR result',
             error: error instanceof Error ? error.message : 'An unknown error occurred',
         });
     }
@@ -62,7 +49,7 @@ const testDocument = new OmrSchema({
 export const getIQTestResultsByAll = async (req: Request, res: Response) => {
     
     try {
-        const allUserIQTests = await OmrSchema.find();
+        const allUserIQTests = await OmrPFSchema.find();
         res.status(200).json({ data: allUserIQTests });
     } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
@@ -75,7 +62,7 @@ export const getOmrResultsByUser = async (req: Request, res: Response) => {
     const { userID } = req.params;
 
     try {
-        const testResult = await OmrSchema.find({ userID });
+        const testResult = await OmrPFSchema.find({ userID });
         if (!testResult) {
             res.status(404).json({ message: 'Test result not found' });
             return;
@@ -93,7 +80,7 @@ export const getOmrResultsByUser = async (req: Request, res: Response) => {
 export const getOmrResultById = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const testResult = await OmrSchema.findById(id);
+        const testResult = await OmrPFSchema.findById(id);
         if (!testResult) {
             res.status(404).json({ message: 'Test result not found' });
             return;
@@ -113,7 +100,7 @@ export const updateOmrResult = async (req: Request, res: Response) => {
 
     try {
         // Find and update the test document using testID
-        const updatedIQTestResult = await OmrSchema.findOneAndUpdate(
+        const updatedIQTestResult = await OmrPFSchema.findOneAndUpdate(
             { testID }, // Find the document with the matching testID
             req.body,   // Apply the updates from the request body
             { new: true } // Return the updated document
@@ -141,7 +128,7 @@ export const updateOmrResult = async (req: Request, res: Response) => {
 export const deleteOmrResult = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const deletedIQTestResult = await  OmrSchema.findOneAndDelete({userID : id});
+        const deletedIQTestResult = await  OmrPFSchema.findOneAndDelete({userID : id});
         if (!deletedIQTestResult) {
             res.status(404).json({ message: 'Test result not found' });
             return;

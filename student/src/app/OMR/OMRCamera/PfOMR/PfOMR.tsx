@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import { v4 as uuidv4 } from 'uuid';
-import styles from './OMRCamera.module.scss'; // Import SCSS styles
+import styles from './PfOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
 
 
@@ -20,7 +20,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const storage = getStorage();
 
-const OMRCamera: React.FC = () => {
+const PfOMR: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadURL, setUploadURL] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -95,9 +95,9 @@ const OMRCamera: React.FC = () => {
 
   const handleSaveScore = () => {
     if (omrScore !== null) {
-      localStorage.setItem('omrScore', omrScore.toString());
+      localStorage.setItem('omrScore', JSON.stringify(omrScore));
       alert('Score saved successfully!');
-      navigate('/omrresult');
+      navigate('/pfomrresult');
     }
   };
   
@@ -159,8 +159,10 @@ const OMRCamera: React.FC = () => {
   };
 
   return (
+    <div className={styles.mainContainer}>
+
     <div className={styles.omrCameraContainer}>
-      <h2>OMRCamera</h2>
+      <h2>Personality Test Upload</h2>
       <div className={styles.fileInputWrapper}>
         <label htmlFor="fileInput" className={styles.uploadLabel}>Choose Image</label>
         <input id="fileInput" type="file" onChange={handleFileChange} />
@@ -227,8 +229,20 @@ const OMRCamera: React.FC = () => {
 
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
-    </div>
+
+      </div>
+
+    {/* Instruction Container */}
+    <div className={styles.instructionContainer}>
+    <h2>Instructions</h2>
+    <p>1. Choose an image of your OMR sheet using the "Choose Image" button.</p>
+    <p>2. Alternatively, capture an image using your camera.</p>
+    <p>3. Upload the image to the system by clicking the "Upload Image" button.</p>
+    <p>4. Process the uploaded image to calculate your OMR score.</p>
+    <p>5. Save and interpret your score to view detailed results.</p>
+  </div>
+</div>
   );
 };
 
-export default OMRCamera;
+export default PfOMR;

@@ -6,7 +6,7 @@ import {
     updateOmrResult,
     deleteOmrResult,
     getIQTestResultsByAll
-} from '../controllers/omrController'; // Ensure this path is correct
+} from '../controllers/omrIQController'; // Ensure this path is correct
 
 const router = Router();
 
