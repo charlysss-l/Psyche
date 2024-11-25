@@ -181,6 +181,7 @@ const OmrIQResultsList: React.FC = () => {
                 <th>Year&#8203;</th>
                 <th>Section</th>
                 <th>Test Type</th>
+                <th>Test ID</th>
                 <th>Test Date</th>
                 <th>Total Score</th>
                 <th>Interpretation</th>
@@ -296,6 +297,7 @@ const OmrIQResultsList: React.FC = () => {
                     )}
                   </td>
                   <td>{result.testType}</td>
+                  <td>{result.testID}</td>
                   <td>{new Date(result.testDate).toLocaleDateString()}</td>
                   <td>{result.totalScore}</td>
                   <td>{result.interpretation.resultInterpretation ?? 'N/A'}</td>

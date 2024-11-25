@@ -95,6 +95,109 @@ const GuidanceConsultation: React.FC = () => {
     }
   };
 
+  const getFactorDescription = (factorLetter: string) => {
+    switch (factorLetter) {
+        case 'A':
+            return {
+                leftMeaning: 'Reserved, Impersonal, Distant',
+                rightMeaning: 'Warm, Outgoing, Attentive to Others',
+            };
+        case 'B':
+            return {
+                leftMeaning: 'Concrete',
+                rightMeaning: 'Abstract',
+            };
+        case 'C':
+            return {
+                leftMeaning: 'Reactive, Emotionally Changeable',
+                rightMeaning: 'Emotionally Stable, Adaptive, Mature',
+            };
+        case 'E':
+            return {
+                leftMeaning: 'Deferential, Cooperative, Avoids Conflict',
+                rightMeaning: 'Dominant, Forceful, Assertive',
+            };
+        case 'F':
+            return {
+                leftMeaning: 'Serious, Restrained, Careful',
+                rightMeaning: 'Lively, Animated, Spontaneous',
+            };
+        case 'G':
+            return {
+                leftMeaning: 'Expedient, Nonconforming',
+                rightMeaning: 'Rule-conscious, Dutiful',
+            };
+        case 'H':
+            return {
+                leftMeaning: 'Shy, Threat-Sensitive, Timid',
+                rightMeaning: 'Socially Bold, Venturesome, Thick Skinned',
+            };
+        case 'I':
+            return {
+                leftMeaning: 'Utilitarian, Objective, Unsentimentak',
+                rightMeaning: 'Sensitive, Aesthetic, Sentimental',
+            };
+        case 'L':
+            return {
+                leftMeaning: 'Trusting, Unsuspecting, Accepting',
+                rightMeaning: 'Vigilant, Suspicious, Skeptical, Wary',
+            };
+        case 'M':
+            return {
+                leftMeaning: 'Grounded, Practical, Solution-Oriented',
+                rightMeaning: 'Abstracted, Imagivative, Idea-Oriented',
+            };
+        case 'N':
+            return {
+                leftMeaning: 'Forthright, Genuine, Artless',
+                rightMeaning: 'Private, Discreet, Non-Disclosing',
+            };
+        case 'O':
+            return {
+                leftMeaning: 'Self-Assured, Unqorried, Complacent',
+                rightMeaning: 'Apprehensive, Self-Doubting, Worried',
+            };
+        case 'Q1':
+            return {
+                leftMeaning: 'Traditional, Attached to Familiar',
+                rightMeaning: 'Open to Change, Experimenting',
+            };
+        case 'Q2':
+            return {
+                leftMeaning: 'Group-Oriented, Affiliative',
+                rightMeaning: 'Self-reliant, Solitary, Individualistic',
+            };
+        case 'Q3':
+            return {
+                leftMeaning: 'Tolerates Disorder, Unexating, Flexible',
+                rightMeaning: 'Perfectionistic, Organized, Self-Disciplined',
+            };
+        case 'Q4':
+            return {
+                leftMeaning: 'Relaxed, Placid, Patient',
+                rightMeaning: 'Tense, High Energy, Impatient, Driven',
+            };
+        default:
+            return {
+                leftMeaning: '',
+                rightMeaning: '',
+            };
+    }
+};
+
+// Function to determine interpretation based on stenScore
+const getStenScoreMeaning = (stenScore: number, factorLetter: string) => {
+  const factorDescription = getFactorDescription(factorLetter);
+  if (stenScore >= 1 && stenScore <= 3) {
+      return factorDescription.leftMeaning;
+  } else if (stenScore >= 4 && stenScore <= 7) {
+      return 'Average';
+  } else if (stenScore >= 8 && stenScore <= 10) {
+      return factorDescription.rightMeaning;
+  }
+  return 'Invalid Sten Score';
+};
+
   return (
     <div>
       <div className={styles.statusBoxContainer}>
@@ -252,26 +355,62 @@ const GuidanceConsultation: React.FC = () => {
               {test.scoring && (
                 <React.Fragment>
                   <tr>
-                    <td>Scoring</td>
+                    <td className="scoring-label">Scoring</td>
                     <td>
-                      <ul>
-                        {test.scoring.scores.map((score: any, index: number) => (
-                          <li key={index}>
-                            Factor: {score.factorLetter}, Raw Score: {score.rawScore}, Sten Score: {score.stenScore}
-                          </li>
-                        ))}
-                      </ul>
+                      <table className="scoring-table">
+                        <thead>
+                          <tr>
+                            <th>Factor Letter</th>
+                            <th>Raw Score</th>
+                            <th>Sten Score</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {test.scoring.scores.map((score: any, index: number) => (
+                            <tr key={index}>
+                              <td>{score.factorLetter}</td>
+                              <td>{score.rawScore}</td>
+                              <td>{score.stenScore}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </td>
                   </tr>
                 </React.Fragment>
               )}
 
+
               <tr>
                 <td>Interpretation</td>
-                <td>{test.interpretation?.resultInterpretation || 'N/A'}</td>
+                
+                {test.interpretation?.resultInterpretation ? (
+                  <td>{test.interpretation.resultInterpretation}</td>
+                ) : (
+                  <td>
+                <th>Factor Letter</th>
+                <th>Result Interpretation</th>
+
+                 
+
+                
+                {test.scoring.scores.map((score: any, index: number) => (
+                            <tr key={index}>
+                              <td>{score.factorLetter}</td>
+                              <td>{getStenScoreMeaning(score.stenScore, score.factorLetter)}</td>
+
+                            </tr>
+                          ))}
+
+                </td>
+                )}
+
+
+                
+      
               </tr>
 
-              {/* Show responses with isCorrect */}
+              {/* Show responses with isCorrect
               {test.responses && (
                 <tr>
                   <td>Responses</td>
@@ -291,15 +430,15 @@ const GuidanceConsultation: React.FC = () => {
                           {response.factorLetter ? `, Factor: ${response.factorLetter}` : ''}
 
                           {/* Display if the answer is correct or not */}
-                          {response.isCorrect !== undefined && (
+                          {/* {response.isCorrect !== undefined && (
                             <span>{response.isCorrect ? 'Correct' : 'Incorrect'}</span>
                           )}
                         </li>
                       ))}
                     </ul>
                   </td>
-                </tr>
-              )}
+                </tr> */}
+              {/* )} */} 
             </React.Fragment>
           ))}
         </tbody>

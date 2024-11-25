@@ -5,6 +5,7 @@ import styles from "./Consultation.module.scss";
 const API_URL = "http://localhost:5000/api/consult/";
 const USERIQ_URL = "http://localhost:5000/api/useriq/";
 const USERPF_URL = "http://localhost:5000/api/user16pf/user/";
+const USERIQOMRE_URL = "http://localhost:5000/api/omr/"
 
 const ConsultationRequestForm: React.FC = () => {
   const [userId, setUserID] = useState("");
@@ -44,21 +45,30 @@ useEffect(() => {
     if (!userId) return;
 
     try {
-      let response;
-      if (note === "IQ Test") {
-        response = await axios.get(`${USERIQ_URL}${userId}`);
+      let iqTestIDs: string[] = [];
+      let omrTestIDs: string[] = [];
+
+       // Fetch IQ test IDs
+       if (note === "IQ Test") {
+        const iqResponse = await axios.get(`${USERIQ_URL}${userId}`);
+        iqTestIDs = iqResponse.data?.data.map(
+          (test: { testID: string }) => test.testID
+        ) || [];
+
+        // Fetch OMR test IDs
+        const omrResponse = await axios.get(`${USERIQOMRE_URL}${userId}`);
+        omrTestIDs = omrResponse.data?.data.map(
+          (test: { testID: string }) => test.testID
+        ) || [];
       } else if (note === "Personality Test") {
-        response = await axios.get(`${USERPF_URL}${userId}`);
+        const pfResponse = await axios.get(`${USERPF_URL}${userId}`);
+        iqTestIDs = pfResponse.data?.data.map(
+          (test: { testID: string }) => test.testID
+        ) || [];
       }
 
-      if (response?.data?.data) {
-        const ids = response.data.data.map(
-          (test: { testID: string }) => test.testID
-        );
-        setTestIDs(ids);
-      } else {
-        setTestIDs([]);
-      }
+      // Combine both IQ and OMR test IDs if available
+      setTestIDs([...iqTestIDs, ...omrTestIDs]);
     } catch (error) {
       console.error("Error fetching test IDs:", error);
       setTestIDs([]);
