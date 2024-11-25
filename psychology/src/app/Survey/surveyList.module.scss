@@ -3,8 +3,9 @@ $primary-color: #007bff;
 $secondary-color: #333;
 $bg-light: #D3D3D3;
 $box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-
 $border-radius: 8px;
+$table-header-bg: #f4f4f4;
+$table-border-color: #ddd;
 
 :root {
   font-family: $font-family;
@@ -29,23 +30,39 @@ $border-radius: 8px;
 
 .createsurveyButton {
   text-decoration: none;
-  color: black; /* Font color is black */
+  color: black;
   font-size: 20px;
   display: flex;
   justify-content: center;
-  align-items: center; /* Corrected to 'center' for proper alignment */
-  width: auto; /* Adjusted to fit content */
-  padding: 6px 12px; /* Adjusted padding to fit text */
-  background-color: #f4f2ee; /* Light background */
+  align-items: center;
+  width: auto;
+  padding: 6px 12px;
+  background-color: #f4f2ee;
   border-radius: 10px;
-  border: 1px solid black; /* Accent border color */
+  border: 1px solid black;
 
   &:hover {
-    background-color: black; /* Accent color on hover */
-    color: white; /* Text turns white on hover */
+    background-color: black;
+    color: white;
   }
 }
 
+.viewDetailsButton {
+  text-decoration: none;
+  color: $primary-color;
+  font-size: 16px;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: 1px solid $primary-color;
+  background-color: white;
+  text-align: center;
+
+  &:hover {
+    background-color: $primary-color;
+    color: white;
+  }
+}
 
 .surveyCard {
   margin-bottom: 20px;
@@ -137,6 +154,55 @@ h2, h3, p {
     &:disabled {
       background-color: #ccc;
       cursor: not-allowed;
+    }
+  }
+}
+
+// New styles for the participant filters table
+.filters {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid $table-border-color;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  h4 {
+    font-size: 1.2rem;
+    color: $primary-color;
+    margin-bottom: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    text-align: left;
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid $table-border-color;
+      font-size: 1rem;
+    }
+
+    th {
+      background-color: $table-header-bg;
+      color: $secondary-color;
+      font-weight: bold;
+    }
+
+    td {
+      background-color: #fff;
+      color: #555;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e9f5ff;
     }
   }
 }

@@ -27,6 +27,7 @@ import IQStatistics from './app/Test/IQTest/IQResultsList/IQStatistics/IQStatist
 import SurveyList from './app/Survey/surveyList';
 import SurveyResponseList from './app/Survey/surveyResponseList';
 import SurveyForm from './app/Survey/survey';
+import SurveyDetails from './app/Survey/surveyDetails';
 function App() {
   return (
     <Router>
@@ -124,6 +125,7 @@ function App() {
                 path="/survey-form"
                 element={<ProtectedRoute><SurveyForm /></ProtectedRoute>}
               />
+               <Route path="/survey-details/:id" element={<SurveyDetails />} />
             </Routes>
           </div>
         </div>
