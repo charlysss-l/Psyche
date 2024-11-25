@@ -1,29 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import style from './OMRResult.module.scss';
+import style from './OmrResult.module.scss';
 import axios from 'axios';
 
-const OMRResult: React.FC = () => {
+const OmrResult: React.FC = () => {
     const navigate = useNavigate();
-    const [userID, setUserID] = useState<string>(''); 
+    const [userID, setUserID] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('N/A');
     const [lastName, setLastName] = useState<string>('N/A');
     const [age, setAge] = useState<number>(0);              
     const [course, setCourse] = useState<string>('N/A');
     const [year, setYear] = useState<number>(0);            
-    const [section, setSection] = useState<number>(0);       
+    const [section, setSection] = useState<number>(0); 
     const [sex, setSex] = useState<string>('N/A');             
     const [testType, setTestType] = useState<string>('N/A');   
-    const [omrScore, setOmrScore] = useState<number | null>(null);
+    const [sectionScores, setSectionScores] = useState<{ [key: string]: number }>({}); // Section scores state
     const [userExists, setUserExists] = useState<boolean>(false);
     const [userFoundMessage, setUserFoundMessage] = useState<string>('');
 
-    // Reset userID when the page is refreshed
+
     useEffect(() => {
+        // Fetch userID and scores from localStorage
+        const storedScores = localStorage.getItem('omrScore'); // Assuming scores are stored in JSON format
+
+        
         setUserID('');
-        const storedOmrScore = localStorage.getItem('omrScore');
-        if (storedOmrScore) {
-            setOmrScore(Number(storedOmrScore));
+        
+
+        if (storedScores) {
+            setSectionScores(JSON.parse(storedScores)); // Parse the stored scores into an object
         }
     }, []);
 
@@ -66,15 +71,18 @@ const OMRResult: React.FC = () => {
             return;
         }
 
-        // Ensure `age`, `year`, and `section` are set to 0 if they are empty or invalid
-        const finalAge = age || 1;
-        const finalYear = year || 1;
-        const finalSection = section || 1;
+         // Ensure `age`, `year`, and `section` are set to 0 if they are empty or invalid
+         const finalAge = age || 1;
+         const finalYear = year || 1;
+         const finalSection = section || 1;
 
-        // Convert omrScore to totalScore
-        const totalScore = omrScore ? omrScore * 1 : 0;  
+        // Map sectionScores to the format expected by the backend (factorLetter and rawScore)
+        const Scoring = Object.entries(sectionScores).map(([section, score]) => ({
+            factorLetter: section, // The section is the factorLetter
+            rawScore: score, // The score is the rawScore
+        }));
 
-        // Prepare the user data to be submitted
+        // Prepare the user data to be submitted, matching the schema
         const dataToSubmit = {
             userID,
             firstName,
@@ -84,19 +92,17 @@ const OMRResult: React.FC = () => {
             course,
             year: finalYear, // Ensure year is 0 if not set
             section: finalSection, // Ensure section is 0 if not set
-            testID: 'unique-test-id',  // Generate a unique testID or let the backend handle it
-            totalScore,
-            interpretation: {
-                resultInterpretation: 'Your result interpretation goes here' 
-            },
+            testID: 'unique-test-id', // Generate a unique testID or let the backend handle it
+            scoring: Scoring, // Submit the scoring data
             testType,
-            testDate: new Date(),
+            testDate: new Date(), // Current date and time
         };
 
         try {
-            await axios.post('http://localhost:5000/api/omr', dataToSubmit);
+            await axios.post('http://localhost:5000/api/omr16pf', dataToSubmit);
             alert('Test submitted successfully!');
-            localStorage.setItem('iqTestResults', JSON.stringify(dataToSubmit));
+            localStorage.setItem('pfTestResults', JSON.stringify(dataToSubmit));
+            // navigate('/pf-results');
         } catch (error) {
             console.error('Error submitting answers:', error);
             alert('An error occurred while submitting the test.');
@@ -111,9 +117,9 @@ const OMRResult: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>
-            <h1>OMR Result</h1>
+            <h1>OMR Personality Test Result</h1>
             <p className={style.ageWarning}>
-                "Find UserID and submit it if found"
+                "Find UserID and submit it to that User if found"
             </p>
 
             <input
@@ -124,12 +130,10 @@ const OMRResult: React.FC = () => {
                 required
             />
 
-            {/* Display the success or error message */}
-            <p style={{ color: userExists ? 'green' : 'red' }}>
+<p style={{ color: userExists ? 'green' : 'red' }}>
                 {userFoundMessage}
             </p>
-
-            {/* All other form fields are hidden but their data is retained */}
+            
             <div className={ style.hidden}>
                 <input
                     type="text"
@@ -189,15 +193,23 @@ const OMRResult: React.FC = () => {
                 />
             </div>
 
-            {omrScore !== null && (
+            {/* Display Section Scores */}
+            {Object.keys(sectionScores).length > 0 && (
                 <div>
-                    <h3>Your OMR Score: {omrScore}</h3>
+                    <h3>Section Scores:</h3>
+                    <ul>
+                        {Object.entries(sectionScores).map(([section, score]) => (
+                            <li key={section}>
+                                <strong>{section}:</strong> {score}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
 
-            <button type="submit">Submit</button>
-        </form>
+<button type="submit">Submit</button>
+</form>
     );
 };
 
-export default OMRResult;
+export default OmrResult;

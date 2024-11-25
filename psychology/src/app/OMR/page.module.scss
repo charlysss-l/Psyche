@@ -24,7 +24,7 @@
     justify-content: space-between;
 }
 
-.OMRLinkUpload{
+.OMRlinkOnline, .OMRLinkUpload{
     text-decoration: none;
     margin-right: 50px;
     width: 200px;
@@ -36,7 +36,7 @@
     background-color: black;
     color: white;
 }
-.OMRLinkUpload:hover{
+.OMRlinkOnline:hover, .OMRLinkUpload:hover{
     background-color: white;
     border: 1px solid black;
     color: black;

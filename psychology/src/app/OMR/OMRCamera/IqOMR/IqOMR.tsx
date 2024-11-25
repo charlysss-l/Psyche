@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import { v4 as uuidv4 } from 'uuid';
-import styles from './OMRCamera.module.scss'; // Import SCSS styles
+import styles from './IqOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
 
 
@@ -20,7 +20,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const storage = getStorage();
 
-const OMRCamera: React.FC = () => {
+const IqOMR: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadURL, setUploadURL] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -70,7 +70,7 @@ const OMRCamera: React.FC = () => {
     if (!uploadURL) return;
   
     try {
-      const response = await fetch('http://127.0.0.1:5000/process_omr', {
+      const response = await fetch('http://127.0.0.1:5000/process_omr_IQ', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,17 +85,18 @@ const OMRCamera: React.FC = () => {
       }
   
       const data = await response.json();
-      setOmrScore(data.score);
+      setOmrScore(data.score); // Assuming data.score is a number
     } catch (error) {
       console.error("Error processing OMR:", error);
     }
   };
+  
 
   const handleSaveScore = () => {
     if (omrScore !== null) {
       localStorage.setItem('omrScore', omrScore.toString());
       alert('Score saved successfully!');
-      navigate('/omrresult');
+      navigate('/iqomrresult');
     }
   };
   
@@ -157,68 +158,81 @@ const OMRCamera: React.FC = () => {
   };
 
   return (
-    <div className={styles.omrCameraContainer}>
-      <h2>OMRCamera</h2>
-      <div className={styles.fileInputWrapper}>
-        <label htmlFor="fileInput" className={styles.uploadLabel}>Choose Image</label>
-        <input id="fileInput" type="file" onChange={handleFileChange} />
-      </div>
-
-      {/* Display image preview if available */}
-      {imagePreview && (
-        <div className={styles.imagePreview}>
-          <img src={imagePreview} alt="Image Preview" className={styles.previewImage} />
+    <div className={styles.mainContainer}>
+      {/* OMR Container */}
+      <div className={styles.omrCameraContainer}>
+        <h2>IQ Test Upload</h2>
+        <div className={styles.fileInputWrapper}>
+          <label htmlFor="fileInput" className={styles.uploadLabel}>Choose Image</label>
+          <input id="fileInput" type="file" onChange={handleFileChange} />
         </div>
-      )}
-
-      <div className={styles.cameraWrapper}>
-        {isCameraActive ? (
-          <div>
-            <video ref={videoRef} autoPlay playsInline className={styles.video} />
-            <div className={styles.cameraControls}>
-              <button onClick={handleCapture} className={styles.captureButton}>Capture</button>
-              <button onClick={handleCancelCamera} className={styles.cancelButton}>X</button>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <button onClick={() => setIsCameraActive(true)} className={styles.openCameraButton}>Use Camera</button>
+  
+        {/* Display image preview if available */}
+        {imagePreview && (
+          <div className={styles.imagePreview}>
+            <img src={imagePreview} alt="Image Preview" className={styles.previewImage} />
           </div>
         )}
+  
+        <div className={styles.cameraWrapper}>
+          {isCameraActive ? (
+            <div>
+              <video ref={videoRef} autoPlay playsInline className={styles.video} />
+              <div className={styles.cameraControls}>
+                <button onClick={handleCapture} className={styles.captureButton}>Capture</button>
+                <button onClick={handleCancelCamera} className={styles.cancelButton}>X</button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <button onClick={() => setIsCameraActive(true)} className={styles.openCameraButton}>Use Camera</button>
+            </div>
+          )}
+        </div>
+  
+        <button
+          onClick={handleUpload}
+          className={styles.uploadButton}
+          disabled={!selectedFile}
+        >
+          Upload Image
+        </button>
+  
+        {uploadURL && (
+          <div className={styles.uploadedImage}>
+            <p className={styles.uploadedImageText}>Image uploaded successfully:</p>
+            <img src={uploadURL} alt="Uploaded Image" className={styles.uploadedImagePreview} />
+          </div>
+        )}
+  
+        <button onClick={handleOMRProcessing} className={styles.omrProcessButton} disabled={!uploadURL}>
+          Process OMR and Score
+        </button>
+  
+        {omrScore !== null && (
+          <div>
+            <h3>OMR Score: {omrScore}</h3>
+            <button onClick={handleSaveScore} className={styles.saveScoreButton}>
+              Save and Interpret Your Score
+            </button>
+          </div>
+        )}
+  
+        <canvas ref={canvasRef} style={{ display: 'none' }} />
       </div>
-
-      <button
-        onClick={handleUpload}
-        className={styles.uploadButton}
-        disabled={!selectedFile}
-      >
-        Upload Image
-      </button>
-
-      {uploadURL && (
-        <div className={styles.uploadedImage}>
-          <p className={styles.uploadedImageText}>Image uploaded successfully:</p>
-          <img src={uploadURL} alt="Uploaded Image" className={styles.uploadedImagePreview} />
-        </div>
-      )}
-
-      <button onClick={handleOMRProcessing} className={styles.omrProcessButton} disabled={!uploadURL}>
-        Process OMR and Score
-      </button>
-
-      {omrScore !== null && (
-        <div>
-          <h3>OMR Score: {omrScore}</h3>
-          <button onClick={handleSaveScore} className={styles.saveScoreButton}>
-            Save and Interpret Your Score
-
-          </button>
-        </div>
-      )}
-
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
+  
+      {/* Instruction Container */}
+      <div className={styles.instructionContainer}>
+        <h2>Instructions</h2>
+        <p>1. Choose an image of your OMR sheet using the "Choose Image" button.</p>
+        <p>2. Alternatively, capture an image using your camera.</p>
+        <p>3. Upload the image to the system by clicking the "Upload Image" button.</p>
+        <p>4. Process the uploaded image to calculate your OMR score.</p>
+        <p>5. Save and interpret your score to view detailed results.</p>
+      </div>
     </div>
   );
+  
 };
 
-export default OMRCamera;
+export default IqOMR;
