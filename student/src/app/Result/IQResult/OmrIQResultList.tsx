@@ -94,6 +94,8 @@ const OmrIQResultsList: React.FC = () => {
     }
   }, [userID]);
 
+  
+
   const handleDelete = async (id: string) => {
     try {
       const response = await fetch(`http://localhost:5000/api/omr/${id}`, {
@@ -131,6 +133,8 @@ const OmrIQResultsList: React.FC = () => {
   };
 
   const handleUpdate = async (testID: string) => {
+
+    
     try {
       const response = await fetch(`http://localhost:5000/api/omr/test/${testID}`, {
         method: 'PUT',
