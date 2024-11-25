@@ -17,8 +17,6 @@ import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSi
 import PFResultsList from './app/Test/PFTest/PFResultsList/PFResultsList';
 import IQResultsList from './app/Test/IQTest/IQResultsList/IQResultsList';
 import ThemeToggle from "./darkMode";
-import IqOMR from "./app/OMR/OMRCamera/IqOMR/IqOMR"
-import OMRResult from "./app/OMR/OMRCamera/IqOMR/OMRResult"
 import IQInterpretation from './app/Test/IQTest/IQResultsList/IQInterpretation';
 import OmrIQResultsList from './app/Test/IQTest/IQResultsList/Omr_IQResultList';
 import IQResultListBoth from './app/Test/IQTest/IQResultsList/IQtestListBoth';
@@ -32,6 +30,8 @@ import PfOMR from './app/OMR/OMRCamera/PfOMR/PfOMR';
 import OmrResult from './app/OMR/OMRCamera/PfOMR/OmrResult';
 import AllPfTestList from './app/Test/PFTest/AllPfTestList';
 import PFOmrList from './app/Test/PFTest/PFOmrList/PFOmrList';
+import IqOMR from './app/OMR/OMRCamera/IqOMR/IqOMR';
+import OMRResult from './app/OMR/OMRCamera/IqOMR/OMRResult';
 
 function App() {
   return (
@@ -125,10 +125,6 @@ function App() {
               <Route
                 path="/allomr"
                 element={<ProtectedRoute><AllOMR /></ProtectedRoute>} 
-              />
-              <Route
-                path="/survey-list"
-                element={<ProtectedRoute><SurveyList /></ProtectedRoute>}
               />
               <Route
                 path="/pf-statistics"

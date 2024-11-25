@@ -1,6 +1,6 @@
 // routes/surveyRoutes.ts
 import express, { Request, Response } from 'express';
-import { createSurvey, getAllSurveys } from '../controllers/surveyController';
+import { createSurvey, getAllSurveys, getSurveyById  } from '../controllers/surveyController';
 
 const router = express.Router();
 
@@ -19,5 +19,7 @@ router.get('/surveys', async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error fetching surveys', error });
   }
 });
+
+router.get("/surveys/:id", getSurveyById);
 
 export default router;
