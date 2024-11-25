@@ -17,8 +17,8 @@ import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSi
 import PFResultsList from './app/Test/PFTest/PFResultsList/PFResultsList';
 import IQResultsList from './app/Test/IQTest/IQResultsList/IQResultsList';
 import ThemeToggle from "./darkMode";
-import OMRCamera from "./app/OMR/OMRCamera/OMRCamera"
-import OMRResult from "./app/OMR/OMRCamera/OMRResult"
+import IqOMR from "./app/OMR/OMRCamera/IqOMR/IqOMR"
+import OMRResult from "./app/OMR/OMRCamera/IqOMR/OMRResult"
 import IQInterpretation from './app/Test/IQTest/IQResultsList/IQInterpretation';
 import OmrIQResultsList from './app/Test/IQTest/IQResultsList/Omr_IQResultList';
 import IQResultListBoth from './app/Test/IQTest/IQResultsList/IQtestListBoth';
@@ -27,6 +27,10 @@ import IQStatistics from './app/Test/IQTest/IQResultsList/IQStatistics/IQStatist
 import SurveyList from './app/Survey/surveyList';
 import SurveyResponseList from './app/Survey/surveyResponseList';
 import SurveyForm from './app/Survey/survey';
+import AllOMR from './app/OMR/AllOMR';
+import PfOMR from './app/OMR/OMRCamera/PfOMR/PfOMR';
+import OmrResult from './app/OMR/OMRCamera/PfOMR/OmrResult';
+
 function App() {
   return (
     <Router>
@@ -96,7 +100,7 @@ function App() {
               />
 
               <Route  
-                path="/omrresult"
+                path="/iqomrresult"
                 element={<ProtectedRoute><OMRResult /></ProtectedRoute>}
               />
               
@@ -105,9 +109,22 @@ function App() {
                 element={<ProtectedRoute><IQResultListBoth /></ProtectedRoute>}
               />
               <Route
-                path="/omrcamera"
-                element={<ProtectedRoute><OMRCamera /></ProtectedRoute>}
+                path="/iqomr"
+                element={<ProtectedRoute><IqOMR /></ProtectedRoute>}
               />
+              <Route 
+                path="/pfomrresult"
+                element={<ProtectedRoute><OmrResult /></ProtectedRoute>}
+              />
+              <Route
+                path="/pfomr"
+                element={<ProtectedRoute><PfOMR /></ProtectedRoute>}
+              />
+              <Route
+                path="/allomr"
+                element={<ProtectedRoute><AllOMR /></ProtectedRoute>} 
+              />
+              
               <Route
                 path="/pf-statistics"
                 element={<ProtectedRoute><PFStatistics /></ProtectedRoute>}

@@ -9,7 +9,7 @@ const OMR = () => {
         paper markings for assessment and scoring. </h6>
 
         <div className={styles.OMRbutton}>
-              <Link to="/omrcamera" className={styles.OMRLinkUpload}>Upload Test</Link>
+              <Link to="/allomr" className={styles.OMRLinkUpload}>Upload Test</Link>
         </div>
 
     </div>
