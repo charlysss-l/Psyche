@@ -78,7 +78,7 @@ h2 {
 }
 
 table {
-  width: 100%;
+  width:50%;
   border-collapse: collapse;
   background-color: $bg-color-light-gray-2;
   text-align: center;
@@ -270,6 +270,7 @@ button:hover {
   font-weight: bold;
   padding: 10px 15px;
   background-color: #ffffff;
+  width: 20%;
 }
 
 .scoring-table {

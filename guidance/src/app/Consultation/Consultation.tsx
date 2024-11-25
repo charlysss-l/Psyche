@@ -405,6 +405,8 @@ function getDynamicInterpretation(age: number, score: number): string {
                   )}</td>
                 ) : (
                   <td>
+         <table className="scoring-table">
+   
                 <th>Factor Letter</th>
                 <th>Result Interpretation</th>
 
@@ -418,6 +420,7 @@ function getDynamicInterpretation(age: number, score: number): string {
 
                             </tr>
                           ))}
+                </table>
 
                 </td>
                 )}
