@@ -1,16 +1,25 @@
-$font-family: Arial, sans-serif;
+// Define your global variables for color, typography, spacing, etc.
+$font-family: 'Arial', sans-serif;
 $primary-color: #007bff;
 $secondary-color: #333;
 $bg-light: #f9f9f9;
-$box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+$bg-dark: #222;
+$box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 $border-radius: 8px;
 $border-color: #ddd;
 $padding: 20px;
+$section-padding: 30px;
+$spacing-unit: 15px;
+$font-size-lg: 1.5rem;
+$font-size-md: 1.2rem;
+$font-size-sm: 1rem;
 
+// Define your font family globally
 :root {
   font-family: $font-family;
 }
 
+// Container for the entire survey details page
 .surveyDetailsContainer {
   padding: $padding;
   background-color: $bg-light;
@@ -21,44 +30,57 @@ $padding: 20px;
   align-items: center;
   max-width: 900px;
   margin: 0 auto;
+  overflow: hidden;
 
-  h1 {
-    font-size: 1.5rem;
-    color: $primary-color;
-    margin-bottom: 10px;
+  .surveyh1Title {
+    font-size: $font-size-lg;
+    color: black;
+    margin-bottom: $spacing-unit;
+    font-weight: 600;
   }
 
   p {
-    font-size: 1.2rem;
+    font-size: $font-size-md;
     color: $secondary-color;
-    margin-bottom: 20px;
+    margin-bottom: $spacing-unit * 2;
     line-height: 1.6;
   }
 }
 
+// Style for each section containing questions
 .sectionContainer {
   background-color: white;
-  padding: $padding;
-  margin-bottom: 20px;
+  padding: $section-padding;
+  margin-bottom: $spacing-unit * 3;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
   width: 100%;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
 
   h3 {
-    font-size: 1.6rem;
-    color: $primary-color;
-    margin-bottom: 10px;
+    font-size: 20px;
+    color: black;
+    margin-bottom: $spacing-unit;
+    font-weight: 400;
+    border-bottom: 2px solid $primary-color;
+    padding-bottom: 10px;
   }
 }
 
+// List for questions within each section
 .questionList {
   list-style: none;
   padding-left: 0;
-  margin-top: 10px;
+  margin-top: $spacing-unit;
 
   .questionItem {
-    margin-bottom: 15px;
-    font-size: 1.2rem;
+    margin-bottom: $spacing-unit * 2;
+    font-size: $font-size-md;
 
     strong {
       color: $secondary-color;
@@ -67,20 +89,57 @@ $padding: 20px;
   }
 }
 
+// Style for the table of choices (if applicable)
+.choicesTable {
+  width: 100%;
+  margin-top: $spacing-unit * 2;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 12px;
+    border: 1px solid $border-color;
+    text-align: left;
+    font-size: $font-size-sm;
+  }
+
+  th {
+    background-color: $primary-color;
+    color: white;
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+    transition: all 0.3s ease;
+  }
+
+  td {
+    font-size: $font-size-sm;
+    color: $secondary-color;
+  }
+}
+
+// Choices list (for other input options like radio buttons, checkboxes, etc.)
 .choiceList {
   list-style: none;
   padding-left: 0;
-  margin-top: 10px;
+  margin-top: $spacing-unit * 2;
 }
 
 .choiceItem {
-  font-size: 1rem;
-  color: #444;
-  padding: 8px 12px;
+  font-size: $font-size-sm;
+  color: $secondary-color;
+  padding: 10px 15px;
   border: 1px solid $border-color;
-  margin: 5px 0;
-  border-radius: 5px;
+  margin: $spacing-unit;
+  border-radius: 6px;
   background-color: #fff;
+  transition: background-color 0.3s, color 0.3s;
 
   &:hover {
     background-color: $primary-color;
@@ -88,30 +147,22 @@ $padding: 20px;
   }
 }
 
-.choicesTable {
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-}
+// Mobile and small screen responsiveness
+@media (max-width: 768px) {
+  .surveyDetailsContainer {
+    padding: $spacing-unit;
+  }
 
-.choicesTable th,
-.choicesTable td {
-  padding: 10px;
-  border: 1px solid $border-color;
-  text-align: left;
-}
+  .sectionContainer {
+    padding: $spacing-unit;
+  }
 
-.choicesTable th {
-  background-color: $primary-color;
-  color: white;
-}
+  .questionItem {
+    font-size: $font-size-sm;
+  }
 
-.choicesTable tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.choicesh1 {
-  font-size: 1.5rem;
-  color: $primary-color;
-  margin-bottom: 10px;
+  .choicesTable th,
+  .choicesTable td {
+    padding: 8px;
+  }
 }

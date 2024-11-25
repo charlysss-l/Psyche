@@ -25,18 +25,17 @@ const SurveyDetails: React.FC = () => {
 
   return (
     <div className={styles.surveyDetailsContainer}>
-      <h1>{survey.title}</h1>
+      <h1 className={styles.surveyh1Title}>{survey.title}</h1>
       <p>{survey.description}</p>
       {survey.sections.map((section: any, sectionIndex: number) => (
         <div key={sectionIndex} className={styles.sectionContainer}>
-          <h3>{section.sectionTitle}</h3>
+          <h3>Section: {section.sectionTitle}</h3>
           {section.questions.map((question: any, questionIndex: number) => (
             <div key={questionIndex} className={styles.questionList}>
               <div className={styles.questionItem}>
                 <strong>Question: {question.questionText}</strong>
                 {question.choices && question.choices.length > 0 ? (
                   <>
-                    <h1 className={styles.choicesh1}>Choices</h1>
                     <table className={styles.choicesTable}>
                       <thead>
                         <tr>
