@@ -32,6 +32,7 @@ import AllPfTestList from './app/Test/PFTest/AllPfTestList';
 import PFOmrList from './app/Test/PFTest/PFOmrList/PFOmrList';
 import IqOMR from './app/OMR/OMRCamera/IqOMR/IqOMR';
 import OMRResult from './app/OMR/OMRCamera/IqOMR/OMRResult';
+import SurveyDetails from './app/Survey/surveyDetails';
 
 function App() {
   return (
@@ -149,6 +150,14 @@ function App() {
               <Route
                 path="/pfomr-list"
                 element={<ProtectedRoute><PFOmrList /></ProtectedRoute>}
+              />
+              <Route
+                path="/survey-list"
+                element={<ProtectedRoute><SurveyList /></ProtectedRoute>}
+              />
+              <Route
+                path="/survey-details/:id"
+                element={<ProtectedRoute><SurveyDetails /></ProtectedRoute>}
               />
             </Routes>
           </div>
