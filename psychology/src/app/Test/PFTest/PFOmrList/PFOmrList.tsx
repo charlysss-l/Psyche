@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './PFOMRList.module.scss';  
+import styles from './PFOmrList.module.scss';  
 import { useNavigate } from 'react-router-dom';
 // Define the interface for the user results
 interface User16PFTest {
@@ -491,7 +491,7 @@ const calculateStenScore = (rawScore: number, factorLetter: string): number => {
   };
 
 
-const PFOMRList: React.FC = () => {
+const PFOmrList: React.FC = () => {
   const [results, setResults] = useState<User16PFTest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -532,7 +532,7 @@ const PFOMRList: React.FC = () => {
   // Fetch data function
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/omr16pf/${userID}`);
+      const response = await fetch(`http://localhost:5000/api/omr16pf`);
       
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -633,7 +633,7 @@ const PFOMRList: React.FC = () => {
 
   return (
     <div>
-      <h2>PF Results List</h2>
+      <h2>PF Results List (for Pyhsical)</h2>
      
       {results.length > 0 ? (
         <div>
@@ -651,7 +651,6 @@ const PFOMRList: React.FC = () => {
                 <th>Test Type</th>
                 <th>Test Date</th>
                 <th>Scores</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -822,28 +821,7 @@ const PFOMRList: React.FC = () => {
 
                   </div>
                   </td>
-                  <td>
-                    <button
-                      className={styles.deleteButtonIQLIST}
-                      onClick={() => handleDelete(result.userID)}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className={styles.updateButtonIQLIST}
-                      onClick={() => handleEditClick(result.testID)}
-                    >
-                      Edit
-                    </button>
-                    {editingTestID === result.testID && (
-                      <button
-                        className={styles.updateButtonIQLIST}
-                        onClick={() => handleUpdate(result.testID)}
-                      >
-                        Save
-                      </button>
-                    )}
-                  </td>
+                  
                 </tr>
               ))}
             </tbody>
@@ -872,4 +850,4 @@ const PFOMRList: React.FC = () => {
   );
 };
 
-export default PFOMRList;
+export default PFOmrList;

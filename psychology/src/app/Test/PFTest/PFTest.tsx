@@ -91,7 +91,7 @@ const PFTest: React.FC = () => {
                 </tbody>
             </table>
             <div className={style.inkPFTestList}>
-                <Link to="/pfresults_list" className={style.testResultsLink}>Test Results</Link>
+                <Link to="/all-pf-test-list" className={style.testResultsLink}>Test Results</Link>
                 <Link to="/pf-statistics" className={style.testResultsLink}>Analytics</Link>
             </div>
 

@@ -105,6 +105,8 @@ const OmrIQResultsList: React.FC = () => {
       }
 
       setResults(results.filter((result) => result.userID !== id));
+      window.location.reload();
+
       navigate('/iqresultlistboth');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
@@ -149,6 +151,9 @@ const OmrIQResultsList: React.FC = () => {
         )
       );
       setEditingTestID(null); // Reset the editing state
+
+      // Reload the page after successful update
+    window.location.reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error updating test:', err);
@@ -160,7 +165,7 @@ const OmrIQResultsList: React.FC = () => {
 
   return (
     <div>
-      <h2>IQ Results List (by Physical)</h2>
+      <h2>IQ Results List (by Physical) <p className={styles.ageWarning}>*Your Age Must Be 20 years old and Above to see the Interpretation.</p></h2>
 
       {results.length > 0 ? (
         <div>
@@ -173,7 +178,7 @@ const OmrIQResultsList: React.FC = () => {
                 <th>Age</th>
                 <th>Sex</th>
                 <th>Course</th>
-                <th>Year</th>
+                <th>Year&#8203;</th>
                 <th>Section</th>
                 <th>Test Type</th>
                 <th>Test Date</th>
@@ -226,6 +231,7 @@ const OmrIQResultsList: React.FC = () => {
                         value={updatedData.sex}
                         onChange={(e) => setUpdatedData({ ...updatedData, sex: e.target.value as 'Female' | 'Male' })}
                       >
+                        <option value="" disabled>Select</option>
                         <option value="Female">Female</option>
                         <option value="Male">Male</option>
                       </select>
@@ -235,33 +241,56 @@ const OmrIQResultsList: React.FC = () => {
                   </td>
                   <td>
                     {editingTestID === result.testID ? (
-                      <input
-                        type="text"
+                      <select
                         value={updatedData.course}
                         onChange={(e) => setUpdatedData({ ...updatedData, course: e.target.value })}
-                      />
+                      >
+                        <option value="" disabled>Select</option>
+                        <option value="BSCS">BSCS</option>
+                        <option value="BSIT">BSIT</option>
+                        <option value="BSBA">BSBA</option>
+                        <option value="BSECE">BSECE</option>
+                        <option value="BSCE">BSCE</option>
+                        <option value="BSED">BSED</option>
+                      </select>
                     ) : (
                       result.course
                     )}
                   </td>
                   <td>
                     {editingTestID === result.testID ? (
-                      <input
-                        type="number"
+                      <select
                         value={updatedData.year}
                         onChange={(e) => setUpdatedData({ ...updatedData, year: Number(e.target.value) })}
-                      />
+                      >
+                        <option value="" disabled>Select</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                      </select>
                     ) : (
                       result.year
                     )}
                   </td>
                   <td>
                     {editingTestID === result.testID ? (
-                      <input
-                        type="number"
+                      <select
                         value={updatedData.section}
                         onChange={(e) => setUpdatedData({ ...updatedData, section: Number(e.target.value) })}
-                      />
+                      >
+                        <option value="" disabled>Select</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                        <option value={6}>6</option>
+                        <option value={7}>7</option>
+                        <option value={8}>8</option>
+                        <option value={9}>9</option>
+                        
+                      </select>
                     ) : (
                       result.section
                     )}

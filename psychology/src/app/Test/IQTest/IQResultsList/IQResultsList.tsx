@@ -149,7 +149,6 @@ const IQResultsList: React.FC = () => {
                 <th>Responses</th>
                 <th>Total Score</th>
                 <th>Interpretation</th>
-                <th>Actions</th>
               </tr>
             </thead>
 
@@ -202,14 +201,7 @@ const IQResultsList: React.FC = () => {
                       <li>Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}</li>
                     </ul>
                   </td>
-                  <td>
-                    <button 
-                      className={styles.deleteButtonIQLIST} 
-                      onClick={() => handleDelete(result.userID)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+                 
                 </tr>
               ))}
             </tbody>

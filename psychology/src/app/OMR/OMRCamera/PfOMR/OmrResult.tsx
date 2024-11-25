@@ -46,7 +46,7 @@ const OmrResult: React.FC = () => {
                 setYear(response.data.year || 1);
                 setSection(response.data.section || 1);
                 setSex(response.data.sex || 'N/A');
-                setTestType(response.data.testType || 'N/A');
+                setTestType(response.data.testType || 'Physical');
             }
         } catch (error) {
             console.error('Error checking user ID:', error);

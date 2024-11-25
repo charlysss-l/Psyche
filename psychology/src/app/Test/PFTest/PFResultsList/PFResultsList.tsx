@@ -148,7 +148,6 @@ const PFResultsList: React.FC = () => {
                 <th>Test Type</th>
                 <th>Responses</th>
                 <th>Scores</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -239,9 +238,7 @@ const PFResultsList: React.FC = () => {
 
                   </div>
                   </td>
-                  <td>
-                    <button onClick={() => handleDelete(result.userID)} className={styles.deleteButton}>Delete</button>
-                  </td>
+                  
                 </tr>
               ))}
             </tbody>

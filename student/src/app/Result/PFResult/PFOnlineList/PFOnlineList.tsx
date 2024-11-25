@@ -1,766 +1,284 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './PFOnlineList.module.scss';
+import React, { useState, useEffect } from 'react';
+import styles from './PFOnlineList.module.scss';  
 import { useNavigate } from 'react-router-dom';
-
-import { Line } from 'react-chartjs-2';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js';
-
-
-interface TestResultData {
-    userID: string;
-    firstName: string;
-    lastName: string;
-    age: string;
-    sex: 'Male' | 'Female';
-    course: string;
-    year: number;
-    section: number;
-    testType: 'Online' | 'Physical';
-    responses: {
-        questionID: string;
-        selectedChoice: string;
-        equivalentScore: number;
-        factorLetter: string;
-    }[] | [];
-    scoring: {
-        factorLetter: string;
-        rawScore: number;
-        stenScore: number;
-    }[] | [];
+// Define the interface for the user results
+interface User16PFTest {
+  userID: string;
+  firstName: string;
+  lastName: string;
+  age: string;
+  sex: 'Female' | 'Male'| '';
+  course: string;
+  year: number;
+  section: number;
+  responses: {
+    questionID: string;
+    selectedChoice: 'a' | 'b' | 'c';
+    equivalentScore: number;
+    factorLetter: string;
+  }[];
+  scoring: {
+    scores: {
+      factorLetter: string;
+      rawScore: number;
+      stenScore: number;
+    }[];
+  };
+  testType: 'Online' | 'Physical'| '';
 }
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
-
-
-// Function to calculate stenScore based on rawScore and factorLetter
-    const calculateStenScore = (rawScore: number, factorLetter: string): number => {
-        // Factor-specific mappings
-        switch (factorLetter) {
-            case 'A':
-                if (rawScore >= 0 && rawScore <= 3) {
-                    return 1; // Factor A custom mapping
-                }else if (rawScore >= 4 && rawScore <= 5) {
-                    return 2; 
-                } else if (rawScore >= 6 && rawScore <= 8) {
-                    return 3; 
-                }else if (rawScore >= 9 && rawScore <= 11) {
-                    return 4; 
-                }
-                else if (rawScore >= 12 && rawScore <= 14) {
-                    return 5; 
-                }
-                else if (rawScore >= 15 && rawScore <= 17) {
-                    return 6; 
-                }
-                else if (rawScore >= 18 && rawScore <= 19) {
-                    return 7; 
-                }
-                else if (rawScore === 20) {
-                    return 8; 
-                }
-                else if (rawScore >= 21 && rawScore <= 22) {
-                    return 9; 
-                }
-                break;
-            case 'B':
-                if (rawScore >= 0 && rawScore <= 3) {
-                    return 1; 
-                } else if (rawScore === 4) {
-                    return 2; 
-                }
-                else if (rawScore >=  5 && rawScore <= 6 ) {
-                    return 3; 
-                }
-                else if (rawScore >= 7 && rawScore <= 8) {
-                    return 4; 
-                }
-                else if (rawScore >= 9 && rawScore <= 10) {
-                    return 5; 
-                }
-                else if (rawScore >=  11 && rawScore <= 12) {
-                    return 6; 
-                }
-                else if (rawScore === 13 ) {
-                    return 7; 
-                }
-                else if (rawScore === 14 ) {
-                    return 8; 
-                }
-                else if (rawScore === 15 ) {
-                    return 9; 
-                }
-                break;
-                case 'C':
-                    if (rawScore >= 0 && rawScore <= 2 ) {
-                        return 1; 
-                    } else if (rawScore >= 3 && rawScore <= 5 ) {
-                        return 2; 
-                    }
-                    else if (rawScore >= 6 && rawScore <= 8) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 9 && rawScore <= 12 ) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  13 && rawScore <= 16) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 17  && rawScore <= 18 ) {
-                        return 6; 
-                    }
-                    else if (rawScore === 19 ) {
-                        return 7; 
-                    }
-                    else if (rawScore === 20 ) {
-                        return 8; 
-                    }
-                    break;
-                    case 'E':
-                        if (rawScore >= 0 && rawScore <= 2) {
-                            return 1; 
-                        } else if (rawScore >= 3 && rawScore <= 5) {
-                            return 2; 
-                        }
-                        else if (rawScore >= 6 && rawScore <= 8) {
-                            return 3; 
-                        }
-                        else if (rawScore >=  9 && rawScore <= 11) {
-                            return 4; 
-                        }
-                        else if (rawScore >= 12 && rawScore <= 14) {
-                            return 5; 
-                        }
-                        else if (rawScore >=  15 && rawScore <= 17) {
-                            return 6; 
-                        }
-                        else if (rawScore === 18 ) {
-                            return 7; 
-                        }
-                        else if (rawScore === 19 ) {
-                            return 8; 
-                        }
-                        else if (rawScore === 20 ) {
-                            return 9; 
-                        }
-                    break;
-                    case 'G':
-                        if (rawScore >=  0&& rawScore <= 2) {
-                            return 1; 
-                        } else if (rawScore >= 3 && rawScore <= 5) {
-                            return 2; 
-                        }
-                        else if (rawScore >= 6 && rawScore <=8 ) {
-                            return 3; 
-                        }
-                        else if (rawScore >=  9&& rawScore <= 11) {
-                            return 4; 
-                        }
-                        else if (rawScore >=  12&& rawScore <= 15) {
-                            return 5; 
-                        }
-                        else if (rawScore >=  16&& rawScore <= 18 ) {
-                            return 6; 
-                        }
-                        else if (rawScore >=  19&& rawScore <= 20) {
-                            return 7; 
-                        }
-                        else if (rawScore === 21 ) {
-                            return 8; 
-                        }
-                        else if (rawScore === 22 ) {
-                            return 9; 
-                        }
-                    break;
-                    case 'H':
-                        if (rawScore >=   0&& rawScore <=1 ) {
-                            return 2; 
-                        } else if (rawScore >= 2 && rawScore <= 3) {
-                            return 3; 
-                        }
-                        else if (rawScore >= 4 && rawScore <= 7) {
-                            return 4; 
-                        }
-                        else if (rawScore >=  8&& rawScore <=12 ) {
-                            return 5; 
-                        }
-                        else if (rawScore >= 13 && rawScore <= 16) {
-                            return 6; 
-                        }
-                        else if (rawScore >=  17&& rawScore <= 18) {
-                            return 7; 
-                        }
-                        else if (rawScore === 19) {
-                            return 8; 
-                        }
-                        else if (rawScore=== 20 ) {
-                            return 9; 
-                        }
-                    break;
-                    case 'I':
-                        if (rawScore === 0 ) {
-                            return 1; 
-                        } else if (rawScore >= 1 && rawScore <=2 ) {
-                            return 2; 
-                        }
-                        else if (rawScore >=  3&& rawScore <= 5) {
-                            return 3; 
-                        }
-                        else if (rawScore >=  6&& rawScore <=8 ) {
-                            return 4; 
-                        }
-                        else if (rawScore >=  9&& rawScore <= 12) {
-                            return 5; 
-                        }
-                        else if (rawScore >= 13 && rawScore <= 16) {
-                            return 6; 
-                        }
-                        else if (rawScore >= 17 && rawScore <= 19) {
-                            return 7; 
-                        }
-                        else if (rawScore >= 20 && rawScore <= 21) {
-                            return 8; 
-                        }
-                        else if (rawScore === 22) {
-                            return 9; 
-                        }
-                    break;
-                    case 'L':
-                        if (rawScore >=  0&& rawScore <= 1) {
-                            return 1; 
-                        } else if (rawScore >= 2 && rawScore <= 3) {
-                            return 2; 
-                        }
-                        else if (rawScore >= 4 && rawScore <= 5) {
-                            return 3; 
-                        }
-                        else if (rawScore >= 6 && rawScore <= 7) {
-                            return 4; 
-                        }
-                        else if (rawScore >=  8&& rawScore <= 10) {
-                            return 5; 
-                        }
-                        else if (rawScore >=  11&& rawScore <= 13) {
-                            return 6; 
-                        }
-                        else if (rawScore >=  14&& rawScore <=15 ) {
-                            return 7; 
-                        }
-                        else if (rawScore >=  16&& rawScore <= 17) {
-                            return 8; 
-                        }
-                        else if (rawScore >= 18 && rawScore <= 19) {
-                            return 9; 
-                        }
-                        else if (rawScore ===20) {
-                            return 10; 
-                        }
-                    break;
-                    case 'M':
-                        if (rawScore ===0 ) {
-                            return 2; 
-                        } else if (rawScore ===1 ) {
-                            return 3; 
-                        }
-                        else if (rawScore >= 2 && rawScore <= 3) {
-                            return 4; 
-                        }
-                        else if (rawScore >=  4&& rawScore <= 6) {
-                            return 5; 
-                        }
-                        else if (rawScore >=  7&& rawScore <=10 ) {
-                            return 6; 
-                        }
-                        else if (rawScore >= 11 && rawScore <= 14) {
-                            return 7; 
-                        }
-                        else if (rawScore >=  15&& rawScore <= 18) {
-                            return 8; 
-                        }
-                        else if (rawScore >= 19 && rawScore <= 20) {
-                            return 9; 
-                        }
-                        else if (rawScore >= 21 && rawScore <=22 ) {
-                            return 10; 
-                        }
-                    break;
-                    case 'N':
-                        if (rawScore ===0 ) {
-                            return 1; 
-                        } else if (rawScore >= 1 && rawScore <=2 ) {
-                            return 2; 
-                        }
-                        else if (rawScore >=  3&& rawScore <=4 ) {
-                            return 3; 
-                        }
-                        else if (rawScore >= 5 && rawScore <= 7) {
-                            return 4; 
-                        }
-                        else if (rawScore >=  8&& rawScore <= 10) {
-                            return 5; 
-                        }
-                        else if (rawScore >=  11&& rawScore <= 14) {
-                            return 6; 
-                        }
-                        else if (rawScore >= 15 && rawScore <=17 ) {
-                            return 7; 
-                        }
-                        else if (rawScore >=  18&& rawScore <=19 ) {
-                            return 8; 
-                        }
-                        else if (rawScore ===20 ) {
-                            return 9; 
-                        }
-                    break;
-                    case 'O':
-                        if (rawScore >= 0 && rawScore <=1 ) {
-                            return 2; 
-                        } else if (rawScore >= 2 && rawScore <= 3) {
-                            return 3; 
-                        }
-                        else if (rawScore >= 4 && rawScore <=6 ) {
-                            return 4; 
-                        }
-                        else if (rawScore >=  7&& rawScore <= 10) {
-                            return 5; 
-                        }
-                        else if (rawScore >= 11 && rawScore <=14 ) {
-                            return 6; 
-                        }
-                        else if (rawScore >= 15 && rawScore <= 17) {
-                            return 7; 
-                        }
-                        else if (rawScore >=  18&& rawScore <= 19) {
-                            return 8; 
-                        }
-                        else if (rawScore===20 ) {
-                            return 9; 
-                        }
-                    break;
-                    case 'Q1':
-                        if (rawScore >=  0&& rawScore <= 4) {
-                            return 1; 
-                        } else if (rawScore >= 5 && rawScore <=7 ) {
-                            return 2; 
-                        }
-                        else if (rawScore >=  8&& rawScore <= 9) {
-                            return 3; 
-                        }
-                        else if (rawScore >= 10 && rawScore <= 13 ) {
-                            return 4; 
-                        }
-                        else if (rawScore >=  14&& rawScore <= 17) {
-                            return 5; 
-                        }
-                        else if (rawScore >= 18 && rawScore <=20 ) {
-                            return 6; 
-                        }
-                        else if (rawScore >= 21 && rawScore <= 23) {
-                            return 7; 
-                        }
-                        else if (rawScore >= 24 && rawScore <= 25) {
-                            return 8; 
-                        }
-                        else if (rawScore >= 26 && rawScore <= 27 ) {
-                            return 9; 
-                        }
-                        else if (rawScore === 28) {
-                            return 10; 
-                        }
-                    break;
-                    case 'Q2':
-                        if (rawScore ===0 ) {
-                            return 2; 
-                        } else if (rawScore ===1 ) {
-                            return 3; 
-                        }
-                        else if (rawScore >= 2 && rawScore <=3 ) {
-                            return 4; 
-                        }
-                        else if (rawScore >= 4 && rawScore <=6 ) {
-                            return 5; 
-                        }
-                        else if (rawScore >= 7 && rawScore <= 10) {
-                            return 6; 
-                        }
-                        else if (rawScore >=  11&& rawScore <=14 ) {
-                            return 7; 
-                        }
-                        else if (rawScore >=  15&& rawScore <= 16) {
-                            return 8; 
-                        }
-                        else if (rawScore >=  17&& rawScore <=18 ) {
-                            return 9; 
-                        }
-                        else if (rawScore >=  19&& rawScore <= 20) {
-                            return 10; 
-                        }
-                    break;
-                    case 'Q3':
-                        if (rawScore >= 0 && rawScore <=1 ) {
-                            return 1; 
-                        } else if (rawScore >= 2 && rawScore <= 3) {
-                            return 2; 
-                        }
-                        else if (rawScore >= 4 && rawScore <=5 ) {
-                            return 3; 
-                        }
-                        else if (rawScore >= 6 && rawScore <= 8) {
-                            return 4; 
-                        }
-                        else if (rawScore >= 9 && rawScore <= 12) {
-                            return 5; 
-                        }
-                        else if (rawScore >=  13&& rawScore <=15 ) {
-                            return 6; 
-                        }
-                        else if (rawScore >= 16 && rawScore <= 17) {
-                            return 7; 
-                        }
-                        else if (rawScore ===18 ) {
-                            return 8; 
-                        }
-                        else if (rawScore >=  19&& rawScore <= 20 ) {
-                            return 9; 
-                        }
-                    break;
-                    case 'Q4':
-                        if (rawScore >= 0 && rawScore <= 1) {
-                            return 2; 
-                        } else if (rawScore >= 2 && rawScore <=3 ) {
-                            return 3; 
-                        }
-                        else if (rawScore >= 4 && rawScore <= 6) {
-                            return 4; 
-                        }
-                        else if (rawScore >=  7&& rawScore <=10 ) {
-                            return 5; 
-                        }
-                        else if (rawScore >= 11 && rawScore <= 14) {
-                            return 6; 
-                        }
-                        else if (rawScore >=  15&& rawScore <=17 ) {
-                            return 7; 
-                        }
-                        else if (rawScore >= 18 && rawScore <=19 ) {
-                            return 8; 
-                        }
-                        else if (rawScore === 20 ) {
-                            return 9; 
-                        }
-
-                    break;
-
-        }
-        // Default to 1 if no custom logic applies
-        return 1;
-    };
-
-    //Function for Factor Description
-    const getFactorDescription = (factorLetter: string) => {
-        switch (factorLetter) {
-            case 'A':
-                return {
-                    leftMeaning: 'Reserved, Impersonal, Distant',
-                    rightMeaning: 'Warm, Outgoing, Attentive to Others',
-                };
-            case 'B':
-                return {
-                    leftMeaning: 'Concrete',
-                    rightMeaning: 'Abstract',
-                };
-            case 'C':
-                return {
-                    leftMeaning: 'Reactive, Emotionally Changeable',
-                    rightMeaning: 'Emotionally Stable, Adaptive, Mature',
-                };
-            case 'E':
-                return {
-                    leftMeaning: 'Deferential, Cooperative, Avoids Conflict',
-                    rightMeaning: 'Dominant, Forceful, Assertive',
-                };
-            case 'F':
-                return {
-                    leftMeaning: 'Serious, Restrained, Careful',
-                    rightMeaning: 'Lively, Animated, Spontaneous',
-                };
-            case 'G':
-                return {
-                    leftMeaning: 'Expedient, Nonconforming',
-                    rightMeaning: 'Rule-conscious, Dutiful',
-                };
-            case 'H':
-                return {
-                    leftMeaning: 'Shy, Threat-Sensitive, Timid',
-                    rightMeaning: 'Socially Bold, Venturesome, Thick Skinned',
-                };
-            case 'I':
-                return {
-                    leftMeaning: 'Utilitarian, Objective, Unsentimentak',
-                    rightMeaning: 'Sensitive, Aesthetic, Sentimental',
-                };
-            case 'L':
-                return {
-                    leftMeaning: 'Trusting, Unsuspecting, Accepting',
-                    rightMeaning: 'Vigilant, Suspicious, Skeptical, Wary',
-                };
-            case 'M':
-                return {
-                    leftMeaning: 'Grounded, Practical, Solution-Oriented',
-                    rightMeaning: 'Abstracted, Imagivative, Idea-Oriented',
-                };
-            case 'N':
-                return {
-                    leftMeaning: 'Forthright, Genuine, Artless',
-                    rightMeaning: 'Private, Discreet, Non-Disclosing',
-                };
-            case 'O':
-                return {
-                    leftMeaning: 'Self-Assured, Unqorried, Complacent',
-                    rightMeaning: 'Apprehensive, Self-Doubting, Worried',
-                };
-            case 'Q1':
-                return {
-                    leftMeaning: 'Traditional, Attached to Familiar',
-                    rightMeaning: 'Open to Change, Experimenting',
-                };
-            case 'Q2':
-                return {
-                    leftMeaning: 'Group-Oriented, Affiliative',
-                    rightMeaning: 'Self-reliant, Solitary, Individualistic',
-                };
-            case 'Q3':
-                return {
-                    leftMeaning: 'Tolerates Disorder, Unexating, Flexible',
-                    rightMeaning: 'Perfectionistic, Organized, Self-Disciplined',
-                };
-            case 'Q4':
-                return {
-                    leftMeaning: 'Relaxed, Placid, Patient',
-                    rightMeaning: 'Tense, High Energy, Impatient, Driven',
-                };
-            default:
-                return {
-                    leftMeaning: '',
-                    rightMeaning: '',
-                };
-        }
-    };
-    
 const PFOnlineList: React.FC = () => {
-    const navigate = useNavigate();
-    const [results, setResults] = useState<TestResultData | null>(null);
+  const [results, setResults] = useState<User16PFTest[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [userID, setUserID] = useState<string | null>(null);
 
-    const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
+  const resultsPerPage = 8;
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        // Retrieve results from local storage
-        const storedResults = localStorage.getItem('pfTestResults');
-        if (storedResults) {
-            setResults(JSON.parse(storedResults));
-        }
-    }, []);
+  // Define the factor order
+  const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
 
-    if (!results) {
-        return (
-            <div className={styles.container}>
-                <p className={styles.noResults}>No results available. Please complete the test.</p>
-            </div>
-        );
+  // Function to get factor descriptions
+  const getFactorDescription = (factorLetter: string) => {
+    switch (factorLetter) {
+      case 'A':
+        return { leftMeaning: 'Reserved, Impersonal, Distant', rightMeaning: 'Warm, Outgoing, Attentive to Others' };
+      case 'B':
+        return { leftMeaning: 'Concrete', rightMeaning: 'Abstract' };
+      case 'C':
+        return { leftMeaning: 'Reactive, Emotionally Changeable', rightMeaning: 'Emotionally Stable, Adaptive, Mature' };
+      case 'E':
+        return { leftMeaning: 'Deferential, Cooperative, Avoids Conflict', rightMeaning: 'Dominant, Forceful, Assertive' };
+      case 'F':
+        return { leftMeaning: 'Serious, Restrained, Careful', rightMeaning: 'Lively, Animated, Spontaneous' };
+      case 'G':
+        return { leftMeaning: 'Expedient, Nonconforming', rightMeaning: 'Rule-conscious, Dutiful' };
+      case 'H':
+        return { leftMeaning: 'Shy, Threat-Sensitive, Timid', rightMeaning: 'Socially Bold, Venturesome, Thick Skinned' };
+      case 'I':
+        return { leftMeaning: 'Utilitarian, Objective, Unsentimental', rightMeaning: 'Sensitive, Aesthetic, Sentimental' };
+      case 'L':
+        return { leftMeaning: 'Trusting, Unsuspecting, Accepting', rightMeaning: 'Vigilant, Suspicious, Skeptical, Wary' };
+      case 'M':
+        return { leftMeaning: 'Grounded, Practical, Solution-Oriented', rightMeaning: 'Abstracted, Imaginative, Idea-Oriented' };
+      case 'N':
+        return { leftMeaning: 'Forthright, Genuine, Artless', rightMeaning: 'Private, Discreet, Non-Disclosing' };
+      case 'O':
+        return { leftMeaning: 'Self-Assured, Unworried, Complacent', rightMeaning: 'Apprehensive, Self-Doubting, Worried' };
+      case 'Q1':
+        return { leftMeaning: 'Traditional, Attached to Familiar', rightMeaning: 'Open to Change, Experimenting' };
+      case 'Q2':
+        return { leftMeaning: 'Group-Oriented, Affiliative', rightMeaning: 'Self-reliant, Solitary, Individualistic' };
+      case 'Q3':
+        return { leftMeaning: 'Tolerates Disorder, Unexciting, Flexible', rightMeaning: 'Perfectionistic, Organized, Self-Disciplined' };
+      case 'Q4':
+        return { leftMeaning: 'Relaxed, Placid, Patient', rightMeaning: 'Tense, High Energy, Impatient, Driven' };
+      default:
+        return { leftMeaning: '', rightMeaning: '' };
     }
+  };
 
-    const sortedScoring = results.scoring.sort((a, b) => {
-        const indexA = factorOrder.indexOf(a.factorLetter);
-        const indexB = factorOrder.indexOf(b.factorLetter);
-        return indexA - indexB;
-    });
+  // Fetch userID from localStorage and set it in state
+  useEffect(() => {
+    const storedUserID = localStorage.getItem('userId');
+    if (storedUserID) {
+      setUserID(storedUserID);
+    } else {
+      setError('User ID not found. Please log in again.');
+    }
+  }, []);
+
+  // Fetch data function
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/user16pf/user/${userID}`);
+      
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('Fetched Data:', data);
+      setResults(data.data); // Update results to use the correct data field
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      console.error('Error fetching data:', err);
+    } finally {
+      setLoading(false); // Stop loading when done
+    }
+  };
+
+  useEffect(() => {
+    if (userID) {
+      fetchData();
+    }
+  }, [userID]);
+
+  const handleDelete = async (userID: string) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/user16pf/${userID}`, {
+        method: 'DELETE',
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Error deleting the test: ${response.statusText}`);
+      }
+
+      setResults(results.filter((result) => result.userID !== userID)); // Remove deleted user
+      navigate('/pfresults_list');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      console.error('Error deleting test:', err);
+    }
+  };
+
+  // Conditional rendering based on loading or error
+  if (loading) return <div className={styles.loading}>Loading...</div>;
+  if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
+
+  const totalPages = Math.ceil(results.length / resultsPerPage);
+  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+
+  // Prepare data for the stacked bar chart
 
 
-    // Submit results to the backend
-    const submitResultsToBackend = async () => {
-        if (!results) return;
+  return (
+    <div>
+      <h2>PF Results List</h2>
+     
+      {results.length > 0 ? (
+        <div>
+          <table className={styles.resultsTable}>
+            <thead>
+              <tr>
+                <th>userID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Course</th>
+                <th>Year & Section</th>
+                <th>Test Type</th>
+                <th>Responses</th>
+                <th>Scores</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentResults.map((result) => (
+                <tr key={result.userID} className={styles.eachResultPF}>
+                  <td>{result.userID}</td>
+                  <td>{result.firstName} {result.lastName}</td>
+                  <td>{result.age}</td>
+                  <td>{result.sex}</td>
+                  <td>{result.course}</td>
+                  <td>{result.year} - {result.section}</td>
+                  <td>{result.testType}</td>
+                  <td>
+                  <div className={styles.responsesWrapper}>
 
-        const updatedScoring = results.scoring.map(score => {
-            const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
-            return { ...score, stenScore };
-        });
-
-        const resultData = {
-            ...results,
-            scoring: updatedScoring,
-        };
-
-        try {
-            const response = await fetch('http://localhost:5000/api/user16pf', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(resultData),
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                alert('Your result has been shared with the guidance counselor.');
-            } else {
-                alert('There was an error sharing the result.');
-            }
-        } catch (error) {
-            console.error('Error submitting result:', error);
-            alert('An error occurred while submitting the results.');
-        }
-    };
-
-    const handleShareResult = () => {
-        submitResultsToBackend();
-    };
-
-    const handleCancel = () => {
-        alert('Result sharing cancelled.');
-        navigate('/home');
-    };
-
-    const chartData = {
-        labels: sortedScoring.map((score) => score.factorLetter), // Factor Letters on x-axis in order
-        datasets: [
-            {
-                label: 'Standard Ten Score (STEN)',
-                data: sortedScoring.map((score) =>
-                    calculateStenScore(score.rawScore, score.factorLetter)
-                ), // Calculate sten scores dynamically
-                borderColor: 'rgba(75, 192, 192, 1)', // Line color
-                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Fill color
-                tension: 0.4, // Smooth curve
-                borderWidth: 2,
-            },
-        ],
-    };
-    
-    // Define chart options
-    const chartOptions = {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top' as const,
-            },
-            tooltip: {
-                mode: 'index' as const,
-                intersect: false,
-            },
-        },
-        scales: {
-            x: {
-                title: {
-                    display: true,
-                    text: 'Factor Letter',
-                },
-            },
-            y: {
-                title: {
-                    display: true,
-                    text: 'Sten',
-                },
-                min: 1,
-                max: 10,
-                grid: {
-                    drawOnChartArea: true,
-                    color: (context: any) => {
-                        const yValue = context.tick.value;
-                        // Apply gray background color to grid lines for Sten 4-7
-                        if (yValue >= 4 && yValue <= 7) {
-                            return 'rgba(128, 128, 128, 1)'; 
-                            
-                        }
-                        return 'rgba(0, 0, 0, 0.1)'; 
-                    },
-                },
-            },
-        },
-    };
-    
-    
-    return (
-        <div className={styles.container}>
-            <h2 className={styles.heading}>
-                {results.firstName} {results.lastName}
-            </h2>
-    
-            <h3 className={styles.subheading}>Test Result</h3>
-            <div className={styles.chartContainer}>
-                <Line data={chartData} options={chartOptions} />
-            </div>
-    
-            <div className={styles.resultTable}>
-                <table>
-                    <thead>
+                    <table className={styles.responsesTable}>
+                      <thead>
                         <tr>
-                            <th>Factor Letter</th>
-                            <th>Sten</th>
-                            <th>Result Interpretation</th>
+                          <th>Question Number</th>
+                          <th>Selected Choice</th>
+                          <th>Equivalent Score</th>
+                          <th>Factor Letter</th>
                         </tr>
-                    </thead>
-                    <tbody> 
-                    {sortedScoring.map((score) => {
-                        const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
-                        const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
+                      </thead>
+                      <tbody>
+                        {result.responses.map((response, index) => (
+                          <tr key={index}>
+                            <td>{response.questionID}</td>
+                            <td>{response.selectedChoice}</td>
+                            <td>{response.equivalentScore}</td>
+                            <td>{response.factorLetter}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
 
-                        // Change the type to React.ReactNode
-                        let interpretation: React.ReactNode = ""; // Initialize as an empty string
+                  </div>
+                  </td>
+                  <td>
+                  <div className={styles.responsesWrapper}>
 
-                        if (stenScore >= 1 && stenScore <= 3) {
+                    <table className={styles.scoresTable}>
+                      <thead>
+                        <tr>
+                          <th>Factor Letter</th>
+                          <th>Raw Score</th>
+                          <th>Sten Score</th>
+                          <th>Results Interpretation</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {factorOrder.map((factorLetter) => {
+                        const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
+                        if (score) {
+                          const { leftMeaning, rightMeaning } = getFactorDescription(factorLetter);
+                          const stenScore = score.stenScore;
+
+                          let interpretation: React.ReactNode = ""; // Initialize as an empty string
+
+                          if (stenScore >= 1 && stenScore <= 3) {
                             interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
-                        } else if (stenScore >= 4 && stenScore <= 7) {
+                          } else if (stenScore >= 4 && stenScore <= 7) {
                             interpretation = (
-                                <>
-                                    <span className={styles.leftMeaning}>{leftMeaning}</span> 
-                                    <span className={styles.average}> (Average) </span> 
-                                    <span className={styles.rightMeaning}>{rightMeaning}</span>
-                                </>
+                              <>
+                                <span className={styles.leftMeaning}>{leftMeaning}</span>
+                                <span className={styles.average}> (Average) </span>
+                                <span className={styles.rightMeaning}>{rightMeaning}</span>
+                              </>
                             );
-                        } else if (stenScore >= 8 && stenScore <= 10) {
+                          } else if (stenScore >= 8 && stenScore <= 10) {
                             interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
+                          }
+
+                          return (
+                            <tr key={factorLetter}>
+                              <td>{score.factorLetter}</td>
+                              <td>{score.rawScore}</td>
+                              <td>{score.stenScore}</td>
+                              <td>{interpretation}</td> {/* Updated to render interpretation */}
+                            </tr>
+                          );
                         }
-                            return (
-                                <tr key={score.factorLetter}>
-                                    <td>{score.factorLetter}</td>
-                                    <td>{stenScore}</td>
-                                    <td>{interpretation}</td>
-                                </tr>
-                            );
-                        })}
+                        return null;
+                      })}
                     </tbody>
-                </table>
-            </div>
-    
-            <div className={styles.sharePrompt}>
-                <p>Would you like to share your result with our guidance counselor?</p>
-                <button onClick={handleShareResult} className={styles.buttonYes}>
-                    Yes
-                </button>
-                <button onClick={handleCancel} className={styles.buttonCancel}>
-                    No
-                </button>
-            </div>
+
+                    </table>
+
+                  </div>
+                  </td>
+                  
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div>
+            <button
+              onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>{currentPage} of {totalPages}</span>
+            <button
+              onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
         </div>
-    );
+      ) : (
+        <p>No results available.</p>
+      )}
+    </div>
+  );
 };
 
 export default PFOnlineList;

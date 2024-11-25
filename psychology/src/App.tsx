@@ -30,6 +30,8 @@ import SurveyForm from './app/Survey/survey';
 import AllOMR from './app/OMR/AllOMR';
 import PfOMR from './app/OMR/OMRCamera/PfOMR/PfOMR';
 import OmrResult from './app/OMR/OMRCamera/PfOMR/OmrResult';
+import AllPfTestList from './app/Test/PFTest/AllPfTestList';
+import PFOmrList from './app/Test/PFTest/PFOmrList/PFOmrList';
 
 function App() {
   return (
@@ -124,7 +126,10 @@ function App() {
                 path="/allomr"
                 element={<ProtectedRoute><AllOMR /></ProtectedRoute>} 
               />
-              
+              <Route
+                path="/survey-list"
+                element={<ProtectedRoute><SurveyList /></ProtectedRoute>}
+              />
               <Route
                 path="/pf-statistics"
                 element={<ProtectedRoute><PFStatistics /></ProtectedRoute>}
@@ -140,6 +145,14 @@ function App() {
               <Route
                 path="/survey-form"
                 element={<ProtectedRoute><SurveyForm /></ProtectedRoute>}
+              />
+              <Route
+                path="/all-pf-test-list"
+                element={<ProtectedRoute><AllPfTestList /></ProtectedRoute>}
+              />
+              <Route
+                path="/pfomr-list"
+                element={<ProtectedRoute><PFOmrList /></ProtectedRoute>}
               />
             </Routes>
           </div>
