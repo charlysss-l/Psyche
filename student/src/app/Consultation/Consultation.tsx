@@ -6,11 +6,12 @@ const API_URL = "http://localhost:5000/api/consult/";
 const USERIQ_URL = "http://localhost:5000/api/useriq/";
 const USERPF_URL = "http://localhost:5000/api/user16pf/user/";
 const USERIQOMRE_URL = "http://localhost:5000/api/omr/"
+const USERPFOMRE_URL = "http://localhost:5000/api/omr16pf/"
 
 const ConsultationRequestForm: React.FC = () => {
   const [userId, setUserID] = useState("");
   const [timeForConsultation, setTimeForConsultation] = useState("");
-  const [note, setNote] = useState<"IQ Test" | "Personality Test" | "Others" | "">(
+  const [note, setNote] = useState<"IQ Test (Online)" | "IQ Test (Physical)" | "Personality Test (Physical)" | "Personality Test (Online)"  | "Others" | "">(
     ""
   );
   const [testIDs, setTestIDs] = useState<string[]>([]); // To store fetched test IDs
@@ -45,39 +46,32 @@ useEffect(() => {
     if (!userId) return;
 
     try {
-      let iqTestIDs: string[] = [];
-      let omrTestIDs: string[] = [];
-
-       // Fetch IQ test IDs
-       if (note === "IQ Test") {
-        const iqResponse = await axios.get(`${USERIQ_URL}${userId}`);
-        iqTestIDs = iqResponse.data?.data.map(
-          (test: { testID: string }) => test.testID
-        ) || [];
-
-        // Fetch OMR test IDs
-        const omrResponse = await axios.get(`${USERIQOMRE_URL}${userId}`);
-        omrTestIDs = omrResponse.data?.data.map(
-          (test: { testID: string }) => test.testID
-        ) || [];
-      } else if (note === "Personality Test") {
-        const pfResponse = await axios.get(`${USERPF_URL}${userId}`);
-        iqTestIDs = pfResponse.data?.data.map(
-          (test: { testID: string }) => test.testID
-        ) || [];
+      let response;
+      if (note === "IQ Test (Online)") {
+        response = await axios.get(`${USERIQ_URL}${userId}`);
+      } else if (note === "IQ Test (Physical)") {
+        response = await axios.get(`${USERIQOMRE_URL}${userId}`);
+      } else if (note === "Personality Test (Online)") {
+        response = await axios.get(`${USERPF_URL}${userId}`);
+      } else if (note === "Personality Test (Physical)") {
+        response = await axios.get(`${USERPFOMRE_URL}${userId}`);
       }
 
-      // Combine both IQ and OMR test IDs if available
-      setTestIDs([...iqTestIDs, ...omrTestIDs]);
+      if (response?.data?.data) {
+        const ids = response.data.data.map(
+          (test: { testID: string }) => test.testID
+        );
+        setTestIDs(ids);
+      } else {
+        setTestIDs([]);
+      }
     } catch (error) {
       console.error("Error fetching test IDs:", error);
       setTestIDs([]);
     }
   };
 
-  if (note === "IQ Test" || note === "Personality Test") {
-    fetchTestIDs();
-  }
+  fetchTestIDs();
 }, [note, userId]);
 
   const fetchConsultations = async (userId: string) => {
@@ -154,20 +148,22 @@ useEffect(() => {
           <select
             value={note}
             onChange={(e) =>
-              setNote(e.target.value as "IQ Test" | "Personality Test" | "Others")
+              setNote(e.target.value as "IQ Test (Online)" | "IQ Test (Physical)" | "Personality Test (Online)" | "Personality Test (Physical)" | "Others")
             }
             required
           >
             <option value="" disabled>
               Select Your Concern
             </option>
-            <option value="IQ Test">IQ Test</option>
-            <option value="Personality Test">Personality Test</option>
+            <option value="IQ Test (Online)">IQ Test (Online)</option>
+            <option value="IQ Test (Physical)">IQ Test (Physical)</option>
+            <option value="Personality Test (Online)">Personality Test (Online)</option>
+            <option value="Personality Test (Physical)">Personality Test (Physical)</option>
             <option value="Others">Others</option>
           </select>
         </label>
 
-        {(note === "IQ Test" || note === "Personality Test") &&
+        {(note === "IQ Test (Online)" || note === "IQ Test (Physical)" || note === "Personality Test (Online)" || note === "Personality Test (Physical)") &&
           testIDs.length > 0 && (
             <label className={styles.conLabel} aria-required>
               Select Test ID

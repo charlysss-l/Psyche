@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { fetchConsultationRequests } from "../services/consultationservice";
 import axios from "axios";
 import styles from "./Consultation.scss";
+import e from "express";
 
 const API_URL = "http://localhost:5000/api/consult/";
 const USERIQ_URL = "http://localhost:5000/api/useriq/test/";
 const USERPF_URL = "http://localhost:5000/api/user16pf/test/";
+const USERIQOMRE_URL = "http://localhost:5000/api/omr/test/";
+const USERPFOMRE_URL = "http://localhost:5000/api/omr16pf/test/";
 
 interface ConsultationRequest {
   _id: string;
@@ -41,10 +44,16 @@ const GuidanceConsultation: React.FC = () => {
   const fetchTestDetails = async (testID: string, note: string) => {
     try {
       let response;
-      if (note === "IQ Test") {
-        response = await axios.get(`${USERIQ_URL}${testID}`);
-      } else if (note === "Personality Test") {
+      if (note === "IQ Test (Online)") {
+        response = await axios.get(`${USERIQ_URL}${testID}`);	
+      } else if (note === "IQ Test (Physical)") {
+        response = await axios.get(`${USERIQOMRE_URL}${testID}`);
+      } else if (note === "Personality Test (Online)") {
         response = await axios.get(`${USERPF_URL}${testID}`);
+      } else if (note === "Personality Test (Physical)") {
+        response = await axios.get(`${USERPFOMRE_URL}${testID}`);
+      } else if (note === "Others") {
+        
       }
 
       if (response?.data) {
@@ -301,58 +310,57 @@ const getStenScoreMeaning = (stenScore: number, factorLetter: string) => {
           </tr>
         </thead>
         <tbody>
-          {testDetails?.data?.map((test: any) => (
-            <React.Fragment key={test._id}>
+          {testDetails?.data?.map((testDetails: any) => (
+            <React.Fragment key={testDetails._id}>
               <tr>
                 <td>User ID</td>
-                <td>{test.userID}</td>
+                <td>{testDetails.userID}</td>
               </tr>
               <tr>
                 <td>Name</td>
-                <td>{test.firstName} {test.lastName}</td>
+                <td>{testDetails.firstName} {testDetails.lastName}</td>
               </tr>
               <tr>
                 <td>Age</td>
-                <td>{test.age}</td>
+                <td>{testDetails.age}</td>
               </tr>
               <tr>
                 <td>Sex</td>
-                <td>{test.sex}</td>
+                <td>{testDetails.sex}</td>
               </tr>
               <tr>
                 <td>Course</td>
-                <td>{test.course}</td>
+                <td>{testDetails.course}</td>
               </tr>
               <tr>
                 <td>Year</td>
-                <td>{test.year}</td>
+                <td>{testDetails.year}</td>
               </tr>
               <tr>
                 <td>Section</td>
-                <td>{test.section}</td>
+                <td>{testDetails.section}</td>
               </tr>
               <tr>
                 <td>Test ID</td>
-                <td>{test.testID}</td>
+                <td>{testDetails.testID}</td>
               </tr>
               <tr>
                 <td>Test Type</td>
-                <td>{test.testType}</td>
+                <td>{testDetails.testType}</td>
               </tr>
               <tr>
                 <td>Test Date</td>
-                <td>{new Date(test.testDate).toLocaleString()}</td>
+                <td>{new Date(testDetails.testDate).toLocaleString()}</td>
               </tr>
-
-              {/* Conditionally show totalScore for IQ test only */}
-              {test.testType === 'IQ' && (
+              {/* Display Total Score only if it exists */}
+              {testDetails.totalScore && (
                 <tr>
                   <td>Total Score</td>
-                  <td>{test.totalScore || 'N/A'}</td>
+                  <td>{testDetails.totalScore}</td>
                 </tr>
               )}
 
-              {test.scoring && (
+              {testDetails.scoring && (
                 <React.Fragment>
                   <tr>
                     <td className="scoring-label">Scoring</td>
@@ -366,7 +374,7 @@ const getStenScoreMeaning = (stenScore: number, factorLetter: string) => {
                           </tr>
                         </thead>
                         <tbody>
-                          {test.scoring.scores.map((score: any, index: number) => (
+                          {testDetails.scoring.scores.map((score: any, index: number) => (
                             <tr key={index}>
                               <td>{score.factorLetter}</td>
                               <td>{score.rawScore}</td>
@@ -384,8 +392,8 @@ const getStenScoreMeaning = (stenScore: number, factorLetter: string) => {
               <tr>
                 <td>Interpretation</td>
                 
-                {test.interpretation?.resultInterpretation ? (
-                  <td>{test.interpretation.resultInterpretation}</td>
+                {testDetails.interpretation?.resultInterpretation ? (
+                  <td>{testDetails.interpretation.resultInterpretation}</td>
                 ) : (
                   <td>
                 <th>Factor Letter</th>
@@ -394,7 +402,7 @@ const getStenScoreMeaning = (stenScore: number, factorLetter: string) => {
                  
 
                 
-                {test.scoring.scores.map((score: any, index: number) => (
+                {testDetails.scoring.scores.map((score: any, index: number) => (
                             <tr key={index}>
                               <td>{score.factorLetter}</td>
                               <td>{getStenScoreMeaning(score.stenScore, score.factorLetter)}</td>

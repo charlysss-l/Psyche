@@ -42,8 +42,8 @@ app.use('/api', uploadRoutes);
 app.use('/api/consult', consultationsRoutes);
 app.put('/api/IQtest/:id/interpretation/:interpretationId', updateInterpretationBySpecificId);
 
-app.use('/api/omr', omrIQRoutes);
-app.use('/api/omr16pf', omrPFRoutes);
+app.use('/api/omr', omrIQRoutes); // iq
+app.use('/api/omr16pf', omrPFRoutes); //pf
 
 
 // Survey routes

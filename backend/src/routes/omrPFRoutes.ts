@@ -5,7 +5,8 @@ import {
     getOmrResultById,
     updateOmrResult,
     deleteOmrResult,
-    getIQTestResultsByAll
+    getIQTestResultsByAll,
+    getOmrResultsByTestID
 } from '../controllers/omrPFController'; // Ensure this path is correct
 
 const router = Router();
@@ -21,6 +22,8 @@ router.get('/:userID', getOmrResultsByUser);
 
 // Route to retrieve a specific IQ test result by test ID
 router.get('/:id', getOmrResultById);
+
+router.get('/test/:testID', getOmrResultsByTestID);
 
 // Route to update an IQ test result by test ID
 router.put('/test/:testID', updateOmrResult);

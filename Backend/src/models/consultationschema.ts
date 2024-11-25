@@ -4,7 +4,7 @@ interface IConsultationRequest extends Document {
   userId: string;
   timeForConsultation: string;
   testID: string;
-  note: 'IQ Test' | 'Personality Test' | 'Others';
+  note: 'IQ Test (Online)' | 'IQ Test (Physical)' | 'Personality Test (Online)' | 'Personality Test (Physical)' | 'Others';
   date: Date;
   status: 'pending' | 'accepted' | 'declined';
 }
@@ -27,7 +27,7 @@ const ConsultationRequestSchema: Schema = new Schema({
   },
   note: {
     type: String,
-    enum: ['IQ Test', 'Personality Test', 'Others'],  // Only allow these three options
+    enum: ['IQ Test (Online)', 'IQ Test (Physical)', 'Personality Test (Online)', 'Personality Test (Physical)', 'Others'],  // Only allow these three options
     required: true,
   },
   
