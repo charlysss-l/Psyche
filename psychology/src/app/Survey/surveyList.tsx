@@ -47,9 +47,6 @@ const SurveyList: React.FC = () => {
         <Link to="/survey-form" className={styles.createsurveyButton}>
           Create Survey
         </Link>
-        <Link to="/survey-response-list" className={styles.createsurveyButton}>
-          Response List
-        </Link>
       </div>
 
       <h2>

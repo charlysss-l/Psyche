@@ -12,24 +12,27 @@ export const getAllSurveysForStudents = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error fetching surveys' });
   }
 };
+
 export const submitSurveyResponses = async (req: Request, res: Response) => {
   try {
-    const { surveyId, responses, userId } = req.body;  // Extract surveyId, responses, and userId from the request body
+    const { surveyId, responses, userId } = req.body;
 
-    // Map the responses to ensure they are aligned with sections
+    // Validate that each response has a valid questionId and choice
     const formattedResponses = responses.map((response: any) => {
+      if (!response.questionId || !response.choice) {
+        throw new Error('Invalid response data');
+      }
       return {
-        sectionTitle: response.sectionTitle,  // Ensure sectionTitle is present
-        questionId: response.questionId,  // Reference to the question
-        choice: response.choice,  // The choice selected by the user
+        questionId: response.questionId,
+        choice: response.choice,
       };
     });
 
     // Create a new SurveyResponse entry
     const newResponse = new SurveyResponse({
       surveyId,
-      userId,
-      responses: formattedResponses,  // Save the responses including sections
+      userId,  // Store the userId along with responses
+      responses: formattedResponses,  
     });
 
     await newResponse.save();

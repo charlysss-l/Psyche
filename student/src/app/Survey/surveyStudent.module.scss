@@ -1,144 +1,154 @@
-// Define variables for easy customization
 $font-family: Arial, sans-serif;
-$bg-light: #D3D3D3;; /* Light grey background */
-$bg-white: #ffffff;  /* White background */
-$bg-dark: #333333;   /* Dark grey background */
-$bg-black: #000000;  /* Black background */
-$bg-disabled: #d3d3d3; /* Light grey for disabled states */
-$font-light: #131313; /* Black font color */
-$font-medium: #666666; /* Medium grey text color */
-$font-white: #ffffff;  /* White text color */
-$link-bg: #D3D3D3; /* Light beige for links */
-$link-hover: #e7e5e1; /* Lighter beige for hover state */
-$link-active: red; /* Active state color for links */
-$box-shadow-color: rgba(0, 0, 0, 0.1); /* Box shadow color */
+$primary-color: #007bff;
+$secondary-color: #333;
+$bg-light: #d3d3d3;
+$box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+$border-radius: 8px;
+$table-header-bg: #f4f4f4;
+$table-border-color: #ddd;
 
-// Form container
-.surveyFormContainer {
-  padding: 20px;
-  background-color: $bg-light;  // Light grey background
-  border-radius: 8px;
-  box-shadow: 0 2px 4px $box-shadow-color;  // Box shadow
-  font-family: $font-family; 
+:root {
+  font-family: $font-family;
 }
 
-// Survey container
-.survey {
+.surveyListContainer {
+  padding: 20px;
+  background-color: $bg-light;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    font-size: 1.8rem;
+    color: $secondary-color;
+    margin-bottom: 20px;
+
+    .surveyCount {
+      font-size: 1.2rem;
+      color: $primary-color;
+      margin-left: 10px;
+    }
+  }
+}
+
+.surveyCard {
   margin-bottom: 20px;
   padding: 15px;
-  background-color: $bg-white;  // White background
-  border-radius: 5px;
-  box-shadow: 0 2px 4px $box-shadow-color;  // Box shadow
-  font-family: $font-family; 
-}
+  background-color: #ffffff;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
 
-// Title
-.title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: $font-light;  // Black font color
-  font-family: $font-family; 
-}
-
-// Description text
-.description {
-  font-size: 1rem;
-  color: $font-medium;  // Medium grey text
-  margin-top: 10px;
-  margin-bottom: 15px;
-  font-family: $font-family; 
-}
-
-// Question styling
-.question {
-  margin-bottom: 10px;
-  font-family: $font-family; 
-}
-
-// Submit button
-.submitButton {
-  background-color: $bg-dark;  // Dark grey background
-  color: $font-white;  // White text
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-family: $font-family; 
-
-  &:hover {
-    background-color: $bg-black;  // Black background on hover
+  h3 {
+    font-size: 1.5rem;
+    color: $secondary-color;
+    margin-bottom: 10px;
   }
 
-  &:disabled {
-    background-color: $bg-disabled;  // Light grey when disabled
-    cursor: not-allowed;
+  p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+  }
+
+  .filters {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid $table-border-color;
+    border-radius: $border-radius;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    h4 {
+      font-size: 1.2rem;
+      color: $primary-color;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      text-align: left;
+
+      th,
+      td {
+        padding: 12px 15px;
+        border: 1px solid $table-border-color;
+        font-size: 1rem;
+      }
+
+      th {
+        background-color: $table-header-bg;
+        color: $secondary-color;
+        font-weight: bold;
+      }
+
+      td {
+        background-color: #fff;
+        color: #555;
+      }
+
+      tr:nth-child(even) td {
+        background-color: #f2f2f2;
+      }
+
+      tr:hover {
+        background-color: #e9f5ff;
+      }
+    }
+  }
+
+  .surveyActions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+
+    .viewDetailsButton {
+      text-decoration: none;
+      color: $primary-color;
+      font-size: 16px;
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: $border-radius;
+      border: 1px solid $primary-color;
+      background-color: white;
+      text-align: center;
+
+      &:hover {
+        background-color: $primary-color;
+        color: white;
+      }
+    }
   }
 }
 
-// Pagination styling
 .pagination {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
-  font-family: $font-family; 
-}
 
-.pagination button {
-  background-color: $bg-dark;  // Dark grey background
-  color: $font-white;  // White text
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: $font-family; 
+  button {
+    background-color: $primary-color;
+    color: white;
+    padding: 10px;
+    border-radius: $border-radius;
+    cursor: pointer;
+    border: none;
 
-  &:hover {
-    background-color: $bg-black;  // Black background on hover
-  }
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
 
-  &:disabled {
-    background-color: $bg-disabled;  // Light grey when disabled
-    cursor: not-allowed;
-  }
-}
-
-// Survey count styling
-.surveyCount {
-  font-size: 1rem;
-  color: $font-light;  // Black font color
-  margin-left: 10px;
-  font-weight: normal;
-  font-family: $font-family; 
-}
-
-// Link styling
-.link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: $font-light;  // Black font color
-  font-weight: 400;
-  font-size: 16px;
-  transition: color 0.3s ease;
-  background-color: $link-bg;  // Light beige for links
-  width: 130px;
-  height: 50px;
-  text-align: center;
-  justify-content: center;
-  border-radius: 10px;
-
-  .icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-  }
-
-  &:hover {
-    background-color: $link-hover;  // Lighter beige on hover
-  }
-
-  &:active {
-    background-color: $link-active;  // Red on active state
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
   }
 }

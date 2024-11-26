@@ -31,6 +31,7 @@ import AllOMR from "./app/OMR/AllOMR";
 import IqOMR from "./app/OMR/OMRCamera/IqOMR/IqOMR";
 import PfOMR from "./app/OMR/OMRCamera/PfOMR/PfOMR";
 import OmrResult from "./app/OMR/OMRCamera/PfOMR/OmrResult";
+import SurveyDetails from "./app/Survey/surveyDetails";
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
                       <Route path="/iqomrresult" element={<OMRResult />} />
                       <Route path="/pfomr" element={<PfOMR />} />
                       <Route path="/pfomrresult" element={<OmrResult />} />
+                      <Route path="/survey-details/:surveyId" element={<SurveyDetails />} />
                     </Routes>
                   </div>
                 </div>
