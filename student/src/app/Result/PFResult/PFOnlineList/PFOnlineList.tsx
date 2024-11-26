@@ -24,6 +24,8 @@ interface User16PFTest {
       stenScore: number;
     }[];
   };
+  testID: string;
+  testDate: Date;
   testType: 'Online' | 'Physical'| '';
 }
 
@@ -160,6 +162,8 @@ const PFOnlineList: React.FC = () => {
                 <th>Course</th>
                 <th>Year & Section</th>
                 <th>Test Type</th>
+                <th>Test ID</th>
+                <th>Test Date</th>
                 <th>Responses</th>
                 <th>Scores</th>
               </tr>
@@ -174,6 +178,8 @@ const PFOnlineList: React.FC = () => {
                   <td>{result.course}</td>
                   <td>{result.year} - {result.section}</td>
                   <td>{result.testType}</td>
+                  <td>{result.testID}</td>
+                  <td>{new Date(result.testDate).toLocaleDateString()}</td>
                   <td>
                   <div className={styles.responsesWrapper}>
 

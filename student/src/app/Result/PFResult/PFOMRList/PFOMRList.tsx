@@ -649,6 +649,7 @@ const PFOMRList: React.FC = () => {
                 <th>Year&#8203;</th>
                 <th>Section</th>
                 <th>Test Type</th>
+                <th>Test ID</th>
                 <th>Test Date</th>
                 <th>Scores</th>
                 <th>Actions</th>
@@ -762,6 +763,7 @@ const PFOMRList: React.FC = () => {
                   )}
                 </td>
                   <td>{result.testType}</td>
+                  <td>{result.testID}</td>
                   <td>{new Date(result.testDate).toLocaleDateString()}</td>
 
                   
