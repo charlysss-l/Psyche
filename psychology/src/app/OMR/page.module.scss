@@ -8,12 +8,12 @@
     height: 50vh;
 }
 .OMRTITLE{
-    color: rgb(1, 1, 24);
+    color: #0056B3;
     font-size: 50px;
     margin: 0;
 }
 .OMRTITLE:hover{
-    color: rgb(0, 0, 0);
+    color: #A8C8FF;
 }
 .OMRDesc{
    font-size: 18px;
@@ -33,11 +33,11 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    background-color: black;
+    background-color: #B30000;
     color: white;
 }
 .OMRlinkOnline:hover, .OMRLinkUpload:hover{
     background-color: white;
     border: 1px solid black;
-    color: black;
+    color: #FFB3B3;
 }

@@ -21,7 +21,7 @@
   width: 800px;
   height: 120px;
   border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px #E9E9E9;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   position: relative;
@@ -29,7 +29,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f9fafb, #e3f2f1);
+  background: linear-gradient(135deg, #D2D2D2, #e9E9E9);
 }
 
 .TestPF_res:hover, .iqLinkContainer_res:hover {
@@ -55,7 +55,7 @@
 }
 
 .pfLink_res:hover, .iqLink_res:hover {
-  color: #f3a847;
+  color: #0056B3;
   transition: color 0.3s ease;
 }
 
