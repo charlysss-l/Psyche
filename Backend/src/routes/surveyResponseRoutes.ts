@@ -10,8 +10,6 @@ router.get('/surveys', getAllSurveysForStudents);
 // Route to submit survey responses
 router.post('/surveys/submit', submitSurveyResponses);
 
-
-
 // Route to get responses for a specific student
 router.get('/responses/student/:studentId', getStudentResponses);
 

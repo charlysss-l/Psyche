@@ -15,6 +15,7 @@ export const getAllSurveysForStudents = async (req: Request, res: Response) => {
 
 export const submitSurveyResponses = async (req: Request, res: Response) => {
   try {
+    console.log(req.body);
     const { surveyId, responses, userId } = req.body;
 
     // Validate that each response has a valid questionId and choice
@@ -25,6 +26,7 @@ export const submitSurveyResponses = async (req: Request, res: Response) => {
       return {
         questionId: response.questionId,
         choice: response.choice,
+
       };
     });
 
@@ -42,7 +44,6 @@ export const submitSurveyResponses = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error submitting responses' });
   }
 };
-
 
 // Get responses for a specific student (userId)
 export const getStudentResponses = async (req: Request, res: Response) => {
