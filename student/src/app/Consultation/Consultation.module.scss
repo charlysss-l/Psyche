@@ -1,9 +1,9 @@
 /* Variables */
 $bg-dark: #ffffff; /* Dark form background */
-$bg-light: #e0e0e0; /* Light submit button background */
-$font-light: #555; /* Light font color for labels */
+$bg-light: #e9E9E9; /* Light submit button background */
+$font-light: #000000; /* Light font color for labels */
 $font-dark: #2c2c2c; /* Dark font color */
-$hover-bg: #e8e6e2; /* Hover background for submit button */
+$hover-bg: #D2D2D2; /* Hover background for submit button */
 $hover-font: black; /* Hover font color for submit button */
 $border-dark: #2c2c2c; /* Dark border color */
 
@@ -34,7 +34,7 @@ $border-dark: #2c2c2c; /* Dark border color */
 .conLabel {
   font-size: 14px;
   font-weight: 600;
-  color: #333; // Dark gray for text
+  color: #000000; // Dark gray for text
   margin-bottom: 5px;
 }
 
@@ -50,7 +50,7 @@ select {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
   &:focus {
-    border-color: #007bff; // Blue focus border
+    border-color: #0056B3; // Blue focus border
     box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); // Blue focus shadow
     outline: none;
   }
