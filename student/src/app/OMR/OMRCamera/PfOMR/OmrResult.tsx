@@ -50,7 +50,7 @@ const OmrResult: React.FC = () => {
             course,
             year: parseInt(year), // Ensure year is a number
             section: parseInt(section), // Ensure section is a number
-            testID: 'unique-test-id', // Generate a unique testID or let the backend handle it
+            testID: `test-${Date.now()}`,  // Generate a unique testID or let the backend handle it
             scoring: Scoring, // Submit the scoring data
             testType,
             testDate: new Date(), // Current date and time

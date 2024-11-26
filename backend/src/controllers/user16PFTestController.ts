@@ -111,6 +111,16 @@ const calculateStenScore = (rawScore: number, factorLetter: string): number => {
                         return 9; 
                     }
                 break;
+                case 'F':
+                if (rawScore >= 0 && rawScore <= 3) { return 2;
+                }else if (rawScore >= 4 && rawScore <= 6) { return 3;
+                }else if (rawScore >= 7 && rawScore <= 9) { return 4;
+                }else if (rawScore >= 10 && rawScore <= 12) { return 5;
+                }else if (rawScore >= 13 && rawScore <= 15) { return 6;
+                }else if (rawScore >= 16 && rawScore <= 17) { return 7;
+                }else if (rawScore === 18) { return 8;
+                }else if (rawScore >= 19 && rawScore <= 20) { return 9;
+                }break;
                 case 'G':
                     if (rawScore >=  0&& rawScore <= 2) {
                         return 1; 
