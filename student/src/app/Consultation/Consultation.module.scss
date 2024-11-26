@@ -10,12 +10,16 @@ $border-dark: #2c2c2c; /* Dark border color */
 /* Form Styles */
 .consulForm {
   display: flex;
+  position:absolute;
+  left: 40%;
+  top: 15%; 
+  flex-direction: column;
   justify-content: center;
   background: linear-gradient(135deg, #D2D2D2, #e9E9E9);
   border: 1px solid #e0e0e0; // Subtle border
   border-radius: 8px; // Rounded corners
   padding: 20px;
-  max-width: 500px;
+  width: 20%;
   margin: 0 auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
 
@@ -40,7 +44,7 @@ $border-dark: #2c2c2c; /* Dark border color */
 
 .conInput,
 select {
-  width: 100%; /* Ensure full width */
+  width: 95%; /* Ensure full width */
   padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;
