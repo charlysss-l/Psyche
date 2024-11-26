@@ -77,3 +77,26 @@ export const getSurveyById = async (req: Request, res: Response): Promise<void> 
   }
 };
 
+export const deleteSurvey = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params; // Extract the survey ID from the route parameter
+
+  try {
+    console.log("ID received for deletion:", id); // Log the ID for debugging
+
+    // Attempt to delete the survey
+    const deletedSurvey = await SurveyModel.findByIdAndDelete(id);
+
+    // If no survey is found, return a 404 error
+    if (!deletedSurvey) {
+      res.status(404).json({ message: 'Survey not found' });
+      return;
+    }
+
+    // Respond with success
+    res.status(200).json({ message: 'Survey deleted successfully.', survey: deletedSurvey });
+  } catch (error) {
+    // Handle errors and respond
+    console.error("Error deleting survey:", error);
+    res.status(500).json({ message: 'Error deleting survey', error: (error as Error).message });
+  }
+};

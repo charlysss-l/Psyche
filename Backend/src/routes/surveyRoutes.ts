@@ -20,6 +20,7 @@ router.get('/surveys', async (req: Request, res: Response) => {
   }
 });
 
+router.delete('/surveys/:id', deleteSurvey);
 router.get("/surveys/:id", getSurveyById);
 
 export default router;

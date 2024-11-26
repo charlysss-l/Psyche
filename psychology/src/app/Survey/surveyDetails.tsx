@@ -27,6 +27,8 @@ const SurveyDetails: React.FC = () => {
     <div className={styles.surveyDetailsContainer}>
       <h1 className={styles.surveyh1Title}>{survey.title}</h1>
       <p>{survey.description}</p>
+      <h4>Category: {survey.category}</h4>
+      <h5>Release Date: {survey.releaseDate}</h5>
       {survey.sections.map((section: any, sectionIndex: number) => (
         <div key={sectionIndex} className={styles.sectionContainer}>
           <h3>Section: {section.sectionTitle}</h3>

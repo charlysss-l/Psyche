@@ -26,6 +26,21 @@ const SurveyList: React.FC = () => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  // Handler for removing a survey
+  const handleRemoveSurvey = async (surveyId: string) => {
+    if (window.confirm("Are you sure you want to delete this survey?")) {
+      try {
+        await axios.delete(`http://localhost:5000/api/surveys/${surveyId}`);
+        // Update the state to remove the deleted survey
+        setSurveys((prevSurveys) => prevSurveys.filter((s) => s._id !== surveyId));
+        alert("Survey removed successfully!");
+      } catch (error) {
+        console.error("Error deleting survey", error);
+        alert("Failed to delete the survey.");
+      }
+    }
+  };
+
   return (
     <div className={styles.surveyListContainer}>
       <div className={styles.linkSurveyChoices}>
@@ -59,21 +74,31 @@ const SurveyList: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {survey.filters.map((filter: { field: string, options: string }, index: number) => (
-                  <tr key={index}>
-                    <td>{filter.field}</td>
-                    <td>{filter.options}</td>
-                  </tr>
-                ))}
+                {survey.filters.map(
+                  (filter: { field: string; options: string }, index: number) => (
+                    <tr key={index}>
+                      <td>{filter.field}</td>
+                      <td>{filter.options}</td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
           </div>
-          <Link
-            to={`/survey-details/${survey._id}`}
-            className={styles.viewDetailsButton}
-          >
-            View Details
-          </Link>
+          <div className={styles.surveyActions}>
+            <Link
+              to={`/survey-details/${survey._id}`}
+              className={styles.viewDetailsButton}
+            >
+              View Details
+            </Link>
+            <button
+              onClick={() => handleRemoveSurvey(survey._id)}
+              className={styles.removeButton}
+            >
+              Remove
+            </button>
+          </div>
         </div>
       ))}
 
