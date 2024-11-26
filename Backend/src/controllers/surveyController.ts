@@ -4,11 +4,11 @@ import SurveyModel from '../models/surveySchema';
 // Create a new survey
 export const createSurvey = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { title, description, category, filters, sections } = req.body;
+    const { title, description, category, filters, sections, releaseDate } = req.body;
 
     // Validate that the required fields are present
-    if (!title || !description || !category || !sections) {
-      res.status(400).json({ message: 'Title, description, category, and sections are required' });
+    if (!title || !description || !category || !sections || !releaseDate) {
+      res.status(400).json({ message: 'Title, description, category, sections, and releaseDate are required' });
       return;
     }
 
@@ -32,8 +32,11 @@ export const createSurvey = async (req: Request, res: Response): Promise<void> =
       }
     }
 
+    // Generate a unique surveyId (you could use a UUID or generate it in other ways)
+    const surveyId = `survey-${Date.now()}`;
+
     // Create a new survey instance
-    const newSurvey = new SurveyModel({ title, description, category, filters, sections });
+    const newSurvey = new SurveyModel({ title, description, category, filters, sections, releaseDate, surveyId });
     await newSurvey.save();
 
     // Send back the created survey as a response
@@ -42,7 +45,6 @@ export const createSurvey = async (req: Request, res: Response): Promise<void> =
     res.status(500).json({ message: 'Error creating survey', error });
   }
 };
-
 // Get all surveys
 export const getAllSurveys = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -74,3 +76,4 @@ export const getSurveyById = async (req: Request, res: Response): Promise<void> 
     res.status(500).json({ message: 'Server error' });
   }
 };
+

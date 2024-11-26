@@ -48,6 +48,7 @@ const SurveyList: React.FC = () => {
           <h3>{survey.title}</h3>
           <p>Description: {survey.description}</p>
           <p>Category: {survey.category}</p>
+          <p>Release Date: {survey.releaseDate}</p>
           <div className={styles.filters}>
             <h4>Participant Filters:</h4>
             <table>

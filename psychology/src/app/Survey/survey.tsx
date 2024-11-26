@@ -7,6 +7,7 @@ const SurveyForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+  const [releaseDate, setreleaseDate] = useState('');
   const [filters, setFilters] = useState([{ field: '', options: '' }]);
   const [sections, setSections] = useState([
     {
@@ -84,6 +85,7 @@ const SurveyForm = () => {
       title,
       description,
       category,
+      releaseDate,
       filters,
       sections,
     };
@@ -139,6 +141,16 @@ const SurveyForm = () => {
           type="text"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          className={styles.input}
+          required
+        />
+      </div>
+      <div className={styles.formGroup}>
+        <label>Release date:</label>
+        <input
+          type="date"
+          value={releaseDate}
+          onChange={(e) => setreleaseDate(e.target.value)}
           className={styles.input}
           required
         />

@@ -1,6 +1,6 @@
 // routes/surveyRoutes.ts
 import express, { Request, Response } from 'express';
-import { createSurvey, getAllSurveys, getSurveyById  } from '../controllers/surveyController';
+import { createSurvey, getAllSurveys, getSurveyById ,deleteSurvey } from '../controllers/surveyController';
 
 const router = express.Router();
 
