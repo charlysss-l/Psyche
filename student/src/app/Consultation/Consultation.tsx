@@ -22,12 +22,37 @@ const ConsultationRequestForm: React.FC = () => {
   // Fields for "Others"
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState<number | "">("");
   const [sex, setSex] = useState<"Male" | "Female" | "">("");
   const [course, setCourse] = useState<"BSCS" | "BSIT" | "BSCrim" | "BSHRM" | "BSEDUC" | "BSP" | "">("");
   const [year, setYear] = useState<1 | 2 | 3 | 4 | "">("");
   const [section, setSection] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | "">("");
   const [reasonForConsultation, setReasonForConsultation] = useState("");
+
+  useEffect(() => {
+    if (note !== "Others") {
+      // Reset fields to default values
+      setFirstName("N/A");
+      setLastName("N/A");
+      setAge(1);
+      setSex("");
+      setCourse("");
+      setYear(1);
+      setSection(1);
+      setReasonForConsultation("N/A");
+    } else {
+      // Clear fields for user input
+      setFirstName("");
+      setLastName("");
+      setAge("");
+      setSex("");
+      setCourse("");
+      setYear("");
+      setSection("");
+      setReasonForConsultation("");
+    }
+  }, [note]);
+  
 
   useEffect(() => {
     // Fetch userID from localStorage and set it in state
@@ -90,27 +115,31 @@ const ConsultationRequestForm: React.FC = () => {
         userId,
         timeForConsultation,
         note,
-        testID: selectedTestID, // Include selected test ID
+        testID: selectedTestID,
         date,
-        // Include additional data for "Others" note
-        firstName,
-        lastName,
-        age,
-        sex,
-        course,
-        year,
-        section,
-        reasonForConsultation
+        firstName: firstName || "N/A",
+        lastName: lastName || "N/A",
+        age: age || 1,
+        sex: sex || "N/A",
+        course: course || "N/A",
+        year: year || 1,
+        section: section || 1,
+        reasonForConsultation: reasonForConsultation || "N/A",
       };
+      console.log("Request data:", consultationRequest);
+
+      
+  
       await axios.post(API_URL, consultationRequest);
       alert("Consultation request submitted successfully.");
 
-      window.location.reload(); // This will reload the current page
-
+      window.location.reload();
     } catch (error) {
       console.error("Error submitting consultation request:", error);
+      alert("ERROR: Consultation request with this test ID already exists.");
     }
   };
+  
 
   return (
     <div className={styles.consulForm}>
@@ -200,6 +229,8 @@ const ConsultationRequestForm: React.FC = () => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   required
+                  disabled={note !== "Others"}
+
                 />
               </label>
 
@@ -211,6 +242,8 @@ const ConsultationRequestForm: React.FC = () => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   required
+                  disabled={note !== "Others"}
+
                 />
               </label>
 
@@ -220,10 +253,13 @@ const ConsultationRequestForm: React.FC = () => {
                   className={styles.conInput}
                   type="number"
                   value={age}
-                  onChange={(e) => setAge(e.target.value)}
+                  onChange={(e) => setAge(parseInt(e.target.value) )} // Parse the input as an integer or set to 0 if empty
                   required
+                  disabled={note !== "Others"}
+
                 />
               </label>
+
 
               <label className={styles.conLabel}>
                 Sex
@@ -231,6 +267,8 @@ const ConsultationRequestForm: React.FC = () => {
                   value={sex}
                   onChange={(e) => setSex(e.target.value as "Male" | "Female")}
                   required
+                  disabled={note !== "Others"}
+
                 >
                   <option value="" disabled>Select Sex</option>
                   <option value="Male">Male</option>
@@ -244,6 +282,8 @@ const ConsultationRequestForm: React.FC = () => {
                   value={course}
                   onChange={(e) => setCourse(e.target.value as "BSCS" | "BSIT" | "BSCrim" | "BSHRM" | "BSEDUC" | "BSP")}
                   required
+                  disabled={note !== "Others"}
+
                 >
                   <option value="" disabled>Select Course</option>
                   <option value="BSCS">BSCS</option>
@@ -261,6 +301,8 @@ const ConsultationRequestForm: React.FC = () => {
                   value={year}
                   onChange={(e) => setYear(Number(e.target.value) as 1 | 2 | 3 | 4)}
                   required
+                  disabled={note !== "Others"}
+
                 >
                   <option value="" disabled>Select Year</option>
                   <option value={1}>1</option>
@@ -276,6 +318,8 @@ const ConsultationRequestForm: React.FC = () => {
                   value={section}
                   onChange={(e) => setSection(Number(e.target.value) as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9)}
                   required
+                  disabled={note !== "Others"}
+
                 >
                   <option value="" disabled>Select Section</option>
                   <option value={1}>1</option>
@@ -298,6 +342,8 @@ const ConsultationRequestForm: React.FC = () => {
                   value={reasonForConsultation}
                   onChange={(e) => setReasonForConsultation(e.target.value)}
                   required
+                  disabled={note !== "Others"}
+
                 />
               </label>
             </>

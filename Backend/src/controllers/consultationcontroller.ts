@@ -16,7 +16,7 @@ export const getConsultationRequestsById = async (req: Request, res: Response) =
 
     try {
         const ConsultationRequestTestID = await ConsultationRequest.find({ testID });
-        if (!ConsultationRequestTestID) {
+        if (ConsultationRequestTestID.length === 0) {
             res.status(404).json({ message: 'Test result not found' });
             return;
         }
