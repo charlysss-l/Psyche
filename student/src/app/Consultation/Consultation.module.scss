@@ -11,61 +11,18 @@ $border-dark: #2c2c2c; /* Dark border color */
 .consulForm {
   display: flex;
   justify-content: center;
-}
-
-.formCon {
-  background-color: $bg-dark; /* Form container background */
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.conInput {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid $border-dark; /* Input border color */
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.conLabel {
-  font-size: 0.9rem;
-  color: $font-light; /* Label font color */
-}
-
-.conLabelCheck {
-  margin-left: 0.5rem;
-  transform: scale(1.2);
-}
-
-.submitCon {
-  background-color: $bg-light; /* Submit button background */
-  color: $font-dark; /* Submit button font color */
-  padding: 0.75rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.submitCon:hover {
-  background-color: $hover-bg; /* Hover background color */
-  color: $hover-font; /* Hover font color */
-}
-.consulForm {
-  background: linear-gradient(135deg, #f9fafb, #e3f2f1);
+  background: linear-gradient(135deg, #D2D2D2, #e9E9E9);
   border: 1px solid #e0e0e0; // Subtle border
   border-radius: 8px; // Rounded corners
   padding: 20px;
   max-width: 500px;
   margin: 0 auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+
+  @media (max-width: 768px) {
+    max-width: 100%; // Allow form to take full width on smaller screens
+    padding: 15px;
+  }
 }
 
 .formCon {
@@ -83,7 +40,7 @@ $border-dark: #2c2c2c; /* Dark border color */
 
 .conInput,
 select {
-  width: 95%;
+  width: 100%; /* Ensure full width */
   padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -105,24 +62,28 @@ select {
 }
 
 .submitCon {
-  padding: 12px 20px;
+  padding: 10px 15px;
   font-size: 16px;
   font-weight: bold;
   color: #fff; // White text
-  background-color: #383838; // Blue background
+  background-color: #0056B3; // Blue background
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: #6e6e6e; // Darker blue on hover
+    background-color: #A8C8FF; // Darker blue on hover
     transform: translateY(-2px); // Lift effect
   }
 
   &:active {
     background-color: #969696; // Even darker on click
     transform: translateY(0); // Reset lift
+  }
+
+  @media (max-width: 768px) {
+    width: 100%; /* Full width button on smaller screens */
   }
 }
 
@@ -149,4 +110,3 @@ select {
 .consulTable tr:hover {
   background-color: #f1f1f1;
 }
-
