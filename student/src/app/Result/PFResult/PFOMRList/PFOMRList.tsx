@@ -1,454 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PFOMRList.module.scss';  
 import { useNavigate } from 'react-router-dom';
-// Define the interface for the user results
-interface User16PFTest {
+
+// Define structure for a single score entry
+export interface ScoreEntry {
+  factorLetter: string;
+  rawScore: number;
+  stenScore: number;
+}
+
+// Update the Scoring schema to hold an array of score entries
+export interface Scoring {
+  scores: ScoreEntry[]; 
+}
+
+// UserIQTest interface
+interface OMRpf  {
   userID: string;
   firstName: string;
   lastName: string;
-  age: number;
-  sex: 'Female' | 'Male'| '';
+  age: number;  // Changed from string to number
+  sex: string;
   course: string;
   year: number;
   section: number;
   testID: string;
+  scoring: Scoring[]; // Store an array of factorLetter and rawScore pairs
+  testType: string;
   testDate: Date;
-
-  responses: {
-    questionID: string;
-    selectedChoice: 'a' | 'b' | 'c';
-    equivalentScore: number;
-    factorLetter: string;
-  }[];
-  scoring: {
-    factorLetter: string;
-    rawScore: number;
-    stenScore: number;
-}[] | [];
-  testType: 'Online' | 'Physical'| '';
 }
 
-const calculateStenScore = (rawScore: number, factorLetter: string): number => {
-    // Factor-specific mappings
-    switch (factorLetter) {
-        case 'A':
-            if (rawScore >= 0 && rawScore <= 3) {
-                return 1; // Factor A custom mapping
-            }else if (rawScore >= 4 && rawScore <= 5) {
-                return 2; 
-            } else if (rawScore >= 6 && rawScore <= 8) {
-                return 3; 
-            }else if (rawScore >= 9 && rawScore <= 11) {
-                return 4; 
-            }
-            else if (rawScore >= 12 && rawScore <= 14) {
-                return 5; 
-            }
-            else if (rawScore >= 15 && rawScore <= 17) {
-                return 6; 
-            }
-            else if (rawScore >= 18 && rawScore <= 19) {
-                return 7; 
-            }
-            else if (rawScore === 20) {
-                return 8; 
-            }
-            else if (rawScore >= 21 && rawScore <= 22) {
-                return 9; 
-            }
-            break;
-        case 'B':
-            if (rawScore >= 0 && rawScore <= 3) {
-                return 1; 
-            } else if (rawScore === 4) {
-                return 2; 
-            }
-            else if (rawScore >=  5 && rawScore <= 6 ) {
-                return 3; 
-            }
-            else if (rawScore >= 7 && rawScore <= 8) {
-                return 4; 
-            }
-            else if (rawScore >= 9 && rawScore <= 10) {
-                return 5; 
-            }
-            else if (rawScore >=  11 && rawScore <= 12) {
-                return 6; 
-            }
-            else if (rawScore === 13 ) {
-                return 7; 
-            }
-            else if (rawScore === 14 ) {
-                return 8; 
-            }
-            else if (rawScore === 15 ) {
-                return 9; 
-            }
-            break;
-            case 'C':
-                if (rawScore >= 0 && rawScore <= 2 ) {
-                    return 1; 
-                } else if (rawScore >= 3 && rawScore <= 5 ) {
-                    return 2; 
-                }
-                else if (rawScore >= 6 && rawScore <= 8) {
-                    return 3; 
-                }
-                else if (rawScore >= 9 && rawScore <= 12 ) {
-                    return 4; 
-                }
-                else if (rawScore >=  13 && rawScore <= 16) {
-                    return 5; 
-                }
-                else if (rawScore >= 17  && rawScore <= 18 ) {
-                    return 6; 
-                }
-                else if (rawScore === 19 ) {
-                    return 7; 
-                }
-                else if (rawScore === 20 ) {
-                    return 8; 
-                }
-                break;
-                case 'E':
-                    if (rawScore >= 0 && rawScore <= 2) {
-                        return 1; 
-                    } else if (rawScore >= 3 && rawScore <= 5) {
-                        return 2; 
-                    }
-                    else if (rawScore >= 6 && rawScore <= 8) {
-                        return 3; 
-                    }
-                    else if (rawScore >=  9 && rawScore <= 11) {
-                        return 4; 
-                    }
-                    else if (rawScore >= 12 && rawScore <= 14) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  15 && rawScore <= 17) {
-                        return 6; 
-                    }
-                    else if (rawScore === 18 ) {
-                        return 7; 
-                    }
-                    else if (rawScore === 19 ) {
-                        return 8; 
-                    }
-                    else if (rawScore === 20 ) {
-                        return 9; 
-                    }
-                break;
-                case 'G':
-                    if (rawScore >=  0&& rawScore <= 2) {
-                        return 1; 
-                    } else if (rawScore >= 3 && rawScore <= 5) {
-                        return 2; 
-                    }
-                    else if (rawScore >= 6 && rawScore <=8 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >=  9&& rawScore <= 11) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  12&& rawScore <= 15) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  16&& rawScore <= 18 ) {
-                        return 6; 
-                    }
-                    else if (rawScore >=  19&& rawScore <= 20) {
-                        return 7; 
-                    }
-                    else if (rawScore === 21 ) {
-                        return 8; 
-                    }
-                    else if (rawScore === 22 ) {
-                        return 9; 
-                    }
-                break;
-                case 'H':
-                    if (rawScore >=   0&& rawScore <=1 ) {
-                        return 2; 
-                    } else if (rawScore >= 2 && rawScore <= 3) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 4 && rawScore <= 7) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  8&& rawScore <=12 ) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 13 && rawScore <= 16) {
-                        return 6; 
-                    }
-                    else if (rawScore >=  17&& rawScore <= 18) {
-                        return 7; 
-                    }
-                    else if (rawScore === 19) {
-                        return 8; 
-                    }
-                    else if (rawScore=== 20 ) {
-                        return 9; 
-                    }
-                break;
-                case 'I':
-                    if (rawScore === 0 ) {
-                        return 1; 
-                    } else if (rawScore >= 1 && rawScore <=2 ) {
-                        return 2; 
-                    }
-                    else if (rawScore >=  3&& rawScore <= 5) {
-                        return 3; 
-                    }
-                    else if (rawScore >=  6&& rawScore <=8 ) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  9&& rawScore <= 12) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 13 && rawScore <= 16) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 17 && rawScore <= 19) {
-                        return 7; 
-                    }
-                    else if (rawScore >= 20 && rawScore <= 21) {
-                        return 8; 
-                    }
-                    else if (rawScore === 22) {
-                        return 9; 
-                    }
-                break;
-                case 'L':
-                    if (rawScore >=  0&& rawScore <= 1) {
-                        return 1; 
-                    } else if (rawScore >= 2 && rawScore <= 3) {
-                        return 2; 
-                    }
-                    else if (rawScore >= 4 && rawScore <= 5) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 6 && rawScore <= 7) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  8&& rawScore <= 10) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  11&& rawScore <= 13) {
-                        return 6; 
-                    }
-                    else if (rawScore >=  14&& rawScore <=15 ) {
-                        return 7; 
-                    }
-                    else if (rawScore >=  16&& rawScore <= 17) {
-                        return 8; 
-                    }
-                    else if (rawScore >= 18 && rawScore <= 19) {
-                        return 9; 
-                    }
-                    else if (rawScore ===20) {
-                        return 10; 
-                    }
-                break;
-                case 'M':
-                    if (rawScore ===0 ) {
-                        return 2; 
-                    } else if (rawScore ===1 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 2 && rawScore <= 3) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  4&& rawScore <= 6) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  7&& rawScore <=10 ) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 11 && rawScore <= 14) {
-                        return 7; 
-                    }
-                    else if (rawScore >=  15&& rawScore <= 18) {
-                        return 8; 
-                    }
-                    else if (rawScore >= 19 && rawScore <= 20) {
-                        return 9; 
-                    }
-                    else if (rawScore >= 21 && rawScore <=22 ) {
-                        return 10; 
-                    }
-                break;
-                case 'N':
-                    if (rawScore ===0 ) {
-                        return 1; 
-                    } else if (rawScore >= 1 && rawScore <=2 ) {
-                        return 2; 
-                    }
-                    else if (rawScore >=  3&& rawScore <=4 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 5 && rawScore <= 7) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  8&& rawScore <= 10) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  11&& rawScore <= 14) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 15 && rawScore <=17 ) {
-                        return 7; 
-                    }
-                    else if (rawScore >=  18&& rawScore <=19 ) {
-                        return 8; 
-                    }
-                    else if (rawScore ===20 ) {
-                        return 9; 
-                    }
-                break;
-                case 'O':
-                    if (rawScore >= 0 && rawScore <=1 ) {
-                        return 2; 
-                    } else if (rawScore >= 2 && rawScore <= 3) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 4 && rawScore <=6 ) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  7&& rawScore <= 10) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 11 && rawScore <=14 ) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 15 && rawScore <= 17) {
-                        return 7; 
-                    }
-                    else if (rawScore >=  18&& rawScore <= 19) {
-                        return 8; 
-                    }
-                    else if (rawScore===20 ) {
-                        return 9; 
-                    }
-                break;
-                case 'Q1':
-                    if (rawScore >=  0&& rawScore <= 4) {
-                        return 1; 
-                    } else if (rawScore >= 5 && rawScore <=7 ) {
-                        return 2; 
-                    }
-                    else if (rawScore >=  8&& rawScore <= 9) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 10 && rawScore <= 13 ) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  14&& rawScore <= 17) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 18 && rawScore <=20 ) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 21 && rawScore <= 23) {
-                        return 7; 
-                    }
-                    else if (rawScore >= 24 && rawScore <= 25) {
-                        return 8; 
-                    }
-                    else if (rawScore >= 26 && rawScore <= 27 ) {
-                        return 9; 
-                    }
-                    else if (rawScore === 28) {
-                        return 10; 
-                    }
-                break;
-                case 'Q2':
-                    if (rawScore ===0 ) {
-                        return 2; 
-                    } else if (rawScore ===1 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 2 && rawScore <=3 ) {
-                        return 4; 
-                    }
-                    else if (rawScore >= 4 && rawScore <=6 ) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 7 && rawScore <= 10) {
-                        return 6; 
-                    }
-                    else if (rawScore >=  11&& rawScore <=14 ) {
-                        return 7; 
-                    }
-                    else if (rawScore >=  15&& rawScore <= 16) {
-                        return 8; 
-                    }
-                    else if (rawScore >=  17&& rawScore <=18 ) {
-                        return 9; 
-                    }
-                    else if (rawScore >=  19&& rawScore <= 20) {
-                        return 10; 
-                    }
-                break;
-                case 'Q3':
-                    if (rawScore >= 0 && rawScore <=1 ) {
-                        return 1; 
-                    } else if (rawScore >= 2 && rawScore <= 3) {
-                        return 2; 
-                    }
-                    else if (rawScore >= 4 && rawScore <=5 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 6 && rawScore <= 8) {
-                        return 4; 
-                    }
-                    else if (rawScore >= 9 && rawScore <= 12) {
-                        return 5; 
-                    }
-                    else if (rawScore >=  13&& rawScore <=15 ) {
-                        return 6; 
-                    }
-                    else if (rawScore >= 16 && rawScore <= 17) {
-                        return 7; 
-                    }
-                    else if (rawScore ===18 ) {
-                        return 8; 
-                    }
-                    else if (rawScore >=  19&& rawScore <= 20 ) {
-                        return 9; 
-                    }
-                break;
-                case 'Q4':
-                    if (rawScore >= 0 && rawScore <= 1) {
-                        return 2; 
-                    } else if (rawScore >= 2 && rawScore <=3 ) {
-                        return 3; 
-                    }
-                    else if (rawScore >= 4 && rawScore <= 6) {
-                        return 4; 
-                    }
-                    else if (rawScore >=  7&& rawScore <=10 ) {
-                        return 5; 
-                    }
-                    else if (rawScore >= 11 && rawScore <= 14) {
-                        return 6; 
-                    }
-                    else if (rawScore >=  15&& rawScore <=17 ) {
-                        return 7; 
-                    }
-                    else if (rawScore >= 18 && rawScore <=19 ) {
-                        return 8; 
-                    }
-                    else if (rawScore === 20 ) {
-                        return 9; 
-                    }
 
-                break;
-
-    }
-    // Default to 1 if no custom logic applies
-    return 1;
-};
 
  // Function to get factor descriptions
  const getFactorDescription = (factorLetter: string) => {
@@ -492,13 +74,13 @@ const calculateStenScore = (rawScore: number, factorLetter: string): number => {
 
 
 const PFOMRList: React.FC = () => {
-  const [results, setResults] = useState<User16PFTest[]>([]);
+  const [results, setResults] = useState<OMRpf[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [userID, setUserID] = useState<string | null>(null);
   const [editingTestID, setEditingTestID] = useState<string | null>(null); // Track the testID of the item being edited
-  const [updatedData, setUpdatedData] = useState<Partial<User16PFTest>>({}); // Store updated data for the current test
+  const [updatedData, setUpdatedData] = useState<Partial<OMRpf>>({}); // Store updated data for the current test
 
   const resultsPerPage = 8;
   const navigate = useNavigate();
@@ -508,14 +90,20 @@ const PFOMRList: React.FC = () => {
   // Define the factor order
   const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
 
-  // Function to sort the scoring based on the factor order
-  const sortedScoring = (scoring: { factorLetter: string; rawScore: number; stenScore: number }[]) => {
-    return scoring.sort((a, b) => {
+  const sortedScoring = (scoring: Scoring[] | Scoring) => {
+    // Ensure scoring is an array. If it's a single object, convert it to an array.
+    const scoresArray = Array.isArray(scoring)
+      ? scoring.flatMap((scoringItem) => scoringItem.scores)  // Use flatMap if it's an array
+      : scoring.scores;  // If it's a single object, just access its scores directly
+  
+    // Sort the scores based on the factorOrder
+    return scoresArray.sort((a, b) => {
       const indexA = factorOrder.indexOf(a.factorLetter);
       const indexB = factorOrder.indexOf(b.factorLetter);
       return indexA - indexB;
     });
   };
+
 
  
 
@@ -780,45 +368,40 @@ const PFOMRList: React.FC = () => {
                         </tr>
                       </thead>
                       <tbody>
-                      {sortedScoring(result.scoring).map((score) => {
-                        if (score) {
-                            const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
-                            const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
+  {sortedScoring(result.scoring).map((score) => {
+    if (score) {
+      const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+      const stenScore = score.stenScore;
 
-                          let interpretation: React.ReactNode = ""; // Initialize as an empty string
+      let interpretation: React.ReactNode = ""; // Initialize as an empty string
 
-                          if (stenScore >= 1 && stenScore <= 3) {
-                            interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
-                          } else if (stenScore >= 4 && stenScore <= 7) {
-                            interpretation = (
-                              <>
-                                <span className={styles.leftMeaning}>{leftMeaning}</span>
-                                <span className={styles.average}> (Average) </span>
-                                <span className={styles.rightMeaning}>{rightMeaning}</span>
-                              </>
-                            );
-                          } else if (stenScore >= 8 && stenScore <= 10) {
-                            interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
-                          }
+      if (stenScore >= 1 && stenScore <= 3) {
+        interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
+      } else if (stenScore >= 4 && stenScore <= 7) {
+        interpretation = (
+          <>
+            <span className={styles.leftMeaning}>{leftMeaning}</span>
+            <span className={styles.average}> (Average) </span>
+            <span className={styles.rightMeaning}>{rightMeaning}</span>
+          </>
+        );
+      } else if (stenScore >= 8 && stenScore <= 10) {
+        interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
+      }
 
-                          return (
-                            <tr key={score.factorLetter}>
-                              <td>{score.factorLetter}</td>
-                              <td>{score.rawScore}</td>
-                              <td>{stenScore}</td>
-                              <td>{interpretation}</td> {/* Updated to render interpretation */}
+      return (
+        <tr key={score.factorLetter}>
+          <td>{score.factorLetter}</td>
+          <td>{score.rawScore}</td>
+          <td>{score.stenScore}</td>
+          <td>{interpretation}</td> {/* Updated to render interpretation */}
+        </tr>
+      );
+    }
+    return null;
+  })}
+</tbody>
 
-                              
-                            </tr>
-                          );
-
-
-                        }
-                        return null;
-                      })}
-
-
-                    </tbody>
 
                     </table>
 
