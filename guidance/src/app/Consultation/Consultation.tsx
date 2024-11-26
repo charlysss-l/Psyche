@@ -53,7 +53,7 @@ const GuidanceConsultation: React.FC = () => {
       } else if (note === "Personality Test (Physical)") {
         response = await axios.get(`${USERPFOMRE_URL}${testID}`);
       }else if (note === "Others") {
-        
+        response = await axios.get(`${API_URL}${testID}`);
       }
 
       if (response?.data) {
@@ -67,8 +67,8 @@ const GuidanceConsultation: React.FC = () => {
     }
   };
 
-  const handleViewInfo = (testID: string, note: string) => {
-    fetchTestDetails(testID, note);
+  const handleViewInfo = ( testID: string, note: string) => {
+    fetchTestDetails( testID, note);
   };
 
   const pendingRequests = consultationRequests.filter((request) => request.status === "pending");
@@ -274,7 +274,7 @@ function getDynamicInterpretation(age: number, score: number): string {
                   ) : (
                     <button
                       className={styles.viewInfo}
-                      onClick={() => handleViewInfo(request.testID, request.note)}
+                      onClick={() => handleViewInfo( request.testID, request.note)}
                     >
                       View Info
                     </button>
@@ -315,36 +315,41 @@ function getDynamicInterpretation(age: number, score: number): string {
           </tr>
         </thead>
         <tbody>
-          {testDetails?.data?.map((testDetails: any) => (
-            <React.Fragment key={testDetails._id}>
-              <tr>
-                <td>User ID</td>
-                <td>{testDetails.userID}</td>
-              </tr>
-              <tr>
-                <td>Name</td>
-                <td>{testDetails.firstName} {testDetails.lastName}</td>
-              </tr>
-              <tr>
-                <td>Age</td>
-                <td>{testDetails.age}</td>
-              </tr>
-              <tr>
-                <td>Sex</td>
-                <td>{testDetails.sex}</td>
-              </tr>
-              <tr>
-                <td>Course</td>
-                <td>{testDetails.course}</td>
-              </tr>
-              <tr>
-                <td>Year</td>
-                <td>{testDetails.year}</td>
-              </tr>
-              <tr>
-                <td>Section</td>
-                <td>{testDetails.section}</td>
-              </tr>
+  {testDetails?.data?.map((testDetails: any) => (
+    <React.Fragment key={testDetails._id}>
+      <tr>
+        <td>Name</td>
+        <td>{testDetails.firstName} {testDetails.lastName}</td>
+      </tr>
+      <tr>
+        <td>Age</td>
+        <td>{testDetails.age}</td>
+      </tr>
+      <tr>
+        <td>Sex</td>
+        <td>{testDetails.sex}</td>
+      </tr>
+      <tr>
+        <td>Course</td>
+        <td>{testDetails.course}</td>
+      </tr>
+      <tr>
+        <td>Year</td>
+        <td>{testDetails.year}</td>
+      </tr>
+      <tr>
+        <td>Section</td>
+        <td>{testDetails.section}</td>
+      </tr>
+      {testDetails.reasonForConsultation && (
+        <tr>
+        <td>Reason for Consultation</td>
+        <td>{testDetails.reasonForConsultation}</td>
+      </tr>
+      )}
+      
+      {testDetails.note !== 'Others' && (
+        <>
               <tr>
                 <td>Test ID</td>
                 <td>{testDetails.testID}</td>
@@ -363,7 +368,9 @@ function getDynamicInterpretation(age: number, score: number): string {
                   <td>Total Score</td>
                   <td>{testDetails.totalScore}</td>
                 </tr>
+                
               )}
+              
 
               {testDetails.scoring && (
                 <React.Fragment>
@@ -385,14 +392,16 @@ function getDynamicInterpretation(age: number, score: number): string {
                               <td>{score.rawScore}</td>
                               <td>{score.stenScore}</td>
                             </tr>
+                            
                           ))}
+                          
                         </tbody>
                       </table>
                     </td>
                   </tr>
+                  
                 </React.Fragment>
               )}
-
 
               <tr>
                 <td>Interpretation</td>
@@ -410,9 +419,6 @@ function getDynamicInterpretation(age: number, score: number): string {
                 <th>Factor Letter</th>
                 <th>Result Interpretation</th>
 
-                 
-
-                
                 {testDetails.scoring.scores.map((score: any, index: number) => (
                             <tr key={index}>
                               <td>{score.factorLetter}</td>
@@ -425,12 +431,29 @@ function getDynamicInterpretation(age: number, score: number): string {
                 </td>
                 )}
 
-
-                
-      
               </tr>
+              </>
+      )}
 
-              {/* Show responses with isCorrect
+             
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
+      <button onClick={() => setShowTestInfo(false)}>Close</button>
+    </div>
+  </div>
+)}
+
+
+    </div>
+  );
+};
+
+export default GuidanceConsultation;
+
+
+ {/* Show responses with isCorrect
               {test.responses && (
                 <tr>
                   <td>Responses</td>
@@ -459,18 +482,3 @@ function getDynamicInterpretation(age: number, score: number): string {
                   </td>
                 </tr> */}
               {/* )} */} 
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={() => setShowTestInfo(false)}>Close</button>
-    </div>
-  </div>
-)}
-
-
-    </div>
-  );
-};
-
-export default GuidanceConsultation;
