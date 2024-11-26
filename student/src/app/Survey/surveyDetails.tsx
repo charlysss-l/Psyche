@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./surveyDetails.module.scss";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 interface Survey {
   _id: string;
@@ -12,7 +12,7 @@ interface Survey {
       _id: string;
       questionText: string;
       choices: string[];
-    }[];  
+    }[];
   }[];
 }
 
@@ -22,6 +22,7 @@ interface SelectedAnswers {
 
 const SurveyDetails: React.FC = () => {
   const { surveyId } = useParams<{ surveyId: string }>();
+  const navigate = useNavigate();
   const [survey, setSurvey] = useState<Survey | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState<SelectedAnswers>({});
   const [loading, setLoading] = useState<boolean>(true);
@@ -56,7 +57,6 @@ const SurveyDetails: React.FC = () => {
   const handleSubmit = async () => {
     if (!survey) return;
 
-    // Retrieve the userId (this might come from context, global state, or local storage)
     const userId = localStorage.getItem("userId");
 
     if (!userId) {
@@ -70,27 +70,23 @@ const SurveyDetails: React.FC = () => {
     }));
 
     try {
-      console.log("Submitting Survey:", {
-        surveyId: survey._id,
-        responses,
-        userId, // Include userId in the request
-      });
-
-      // Pass the userId along with the surveyId and responses
       await axios.post("http://localhost:5000/api/response/surveys/submit", {
         surveyId: survey._id,
         responses,
-        userId, // Send the userId to the server
+        userId,
       });
 
+      // After successfully submitting the survey, add the survey ID to the answered surveys list
+      const answeredSurveys = JSON.parse(localStorage.getItem("answeredSurveys") || "[]");
+      answeredSurveys.push(survey._id);
+      localStorage.setItem("answeredSurveys", JSON.stringify(answeredSurveys));
+
       alert("Survey submitted successfully!");
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        alert(`Failed to submit survey. Error: ${error.response?.data?.message || error.message}`);
-      } else {
-        alert(`Failed to submit survey. Unknown error occurred.`);
-      }
-      console.error("Error submitting survey:", error);
+
+      navigate("/surveyDashboard");
+
+    } catch (error) {
+      alert(`Failed to submit survey. Error: ${error}`);
     }
   };
 

@@ -26,6 +26,16 @@ const SurveyList: React.FC = () => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  // Function to format the date
+  const formatDate = (date: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return new Date(date).toLocaleDateString(undefined, options);
+  };
+
   // Handler for removing a survey
   const handleRemoveSurvey = async (surveyId: string) => {
     if (window.confirm("Are you sure you want to delete this survey?")) {
@@ -60,7 +70,7 @@ const SurveyList: React.FC = () => {
           <h3>{survey.title}</h3>
           <p>Description: {survey.description}</p>
           <p>Category: {survey.category}</p>
-          <p>Release Date: {survey.releaseDate}</p>
+          <p>Release Date: {formatDate(survey.releaseDate)}</p>
           <div className={styles.filters}>
             <h4>Participant Filters:</h4>
             <table>
@@ -98,7 +108,6 @@ const SurveyList: React.FC = () => {
             <Link to={`/survey-responses/${survey._id}`} className={styles.viewDetailsButton}>
               Responses List
             </Link>
-
           </div>
         </div>
       ))}

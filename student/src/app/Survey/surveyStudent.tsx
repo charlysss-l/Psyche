@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import styles from "./surveyStudent.module.scss";
 import { Link } from "react-router-dom";
+import styles from "./surveyStudent.module.scss"; // Assuming you're using a CSS module for styling
 
 interface Survey {
   _id: string;
   title: string;
   description: string;
-  category: string;
   releaseDate: string;
+  category: string;
   filters: { field: string; options: string }[];
 }
 
@@ -21,6 +21,7 @@ const SurveyAnswerForm: React.FC = () => {
     const fetchSurveys = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/surveys");
+        console.log("All Surveys:", response.data); // Debugging API response
         setSurveys(response.data);
       } catch (error) {
         console.error("Error fetching surveys", error);
@@ -29,9 +30,39 @@ const SurveyAnswerForm: React.FC = () => {
     fetchSurveys();
   }, []);
 
+  // Get today's date in YYYY-MM-DD format (ignoring time)
+  const today = new Date();
+  const todayString = today.toISOString().split("T")[0];
+
+  // Function to remove time from releaseDate and compare only dates (ignores time part)
+  const getDateWithoutTime = (date: string) => {
+    const releaseDate = new Date(date);
+    return releaseDate.toISOString().split("T")[0]; // Returns only the date part in YYYY-MM-DD
+  };
+
+  // Filter surveys to show only those released today or in the past
+  const filteredSurveys = surveys.filter(
+    (survey) => getDateWithoutTime(survey.releaseDate) <= todayString
+  );
+
+  // Get answered surveys from localStorage (IDs of surveys that the user has answered)
+  const answeredSurveys = JSON.parse(localStorage.getItem("answeredSurveys") || "[]");
+
+  console.log("Answered Surveys from localStorage:", answeredSurveys); // Debugging answered surveys
+
+  // Format release date to a more readable format (e.g., "November 26, 2024")
+  const formatReleaseDate = (date: string) => {
+    const releaseDate = new Date(date);
+    return releaseDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   const indexOfLastSurvey = currentPage * surveysPerPage;
   const indexOfFirstSurvey = indexOfLastSurvey - surveysPerPage;
-  const currentSurveys = surveys.slice(indexOfFirstSurvey, indexOfLastSurvey);
+  const currentSurveys = filteredSurveys.slice(indexOfFirstSurvey, indexOfLastSurvey);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -39,46 +70,51 @@ const SurveyAnswerForm: React.FC = () => {
     <div className={styles.surveyListContainer}>
       <h2>
         Available Surveys{" "}
-        <span className={styles.surveyCount}>({surveys.length} surveys)</span>
+        <span className={styles.surveyCount}>({filteredSurveys.length} surveys)</span>
       </h2>
 
-      {currentSurveys.map((survey) => (
-        <div key={survey._id} className={styles.surveyCard}>
-          <h3>{survey.title}</h3>
-          <p>Description: {survey.description}</p>
-          <p>Category: {survey.category}</p>
-          <p>Release Date: {survey.releaseDate}</p>
-          <div className={styles.filters}>
-            <h4>Participant Filters:</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Field</th>
-                  <th>Options</th>
-                </tr>
-              </thead>
-              <tbody>
-                {survey.filters.map(
-                  (filter: { field: string; options: string }, index: number) => (
-                    <tr key={index}>
-                      <td>{filter.field}</td>
-                      <td>{filter.options}</td>
+      {currentSurveys.length === 0 ? (
+        <p>No surveys available</p>
+      ) : (
+        currentSurveys.map((survey) => {
+          // Check if the survey has been answered by comparing _id
+          const isAnswered = answeredSurveys.includes(survey._id);
+
+          return (
+            <div key={survey._id} className={styles.surveyCard}>
+              <h3>{survey.title}</h3>
+              <p>Description: {survey.description}</p>
+              <p>Category: {survey.category}</p>
+              <p>Release Date: {formatReleaseDate(survey.releaseDate)}</p>
+              <div className={styles.filters}>
+                <h4>Participant Filters:</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Field</th>
+                      <th>Options</th>
                     </tr>
-                  )
-                )}
-              </tbody>
-            </table>
-          </div>
-          <div className={styles.surveyActions}>
-            <Link
-              to={`/survey-details/${survey._id}`}
-              className={styles.viewDetailsButton}
-            >
-              View Details
-            </Link>
-          </div>
-        </div>
-      ))}
+                  </thead>
+                  <tbody>
+                    {survey.filters.map((filter, index) => (
+                      <tr key={index}>
+                        <td>{filter.field}</td>
+                        <td>{filter.options}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className={styles.surveyActions}>
+                {/* Always show "View Details" regardless of whether answered or not */}
+                <Link to={`/survey-details/${survey._id}`} className={styles.viewDetailsButton}>
+                  View Details
+                </Link>
+              </div>
+            </div>
+          );
+        })
+      )}
 
       <div className={styles.pagination}>
         <button
@@ -89,7 +125,7 @@ const SurveyAnswerForm: React.FC = () => {
         </button>
         <button
           onClick={() => paginate(currentPage + 1)}
-          disabled={indexOfLastSurvey >= surveys.length}
+          disabled={indexOfLastSurvey >= filteredSurveys.length}
         >
           Next
         </button>
@@ -99,3 +135,5 @@ const SurveyAnswerForm: React.FC = () => {
 };
 
 export default SurveyAnswerForm;
+
+
