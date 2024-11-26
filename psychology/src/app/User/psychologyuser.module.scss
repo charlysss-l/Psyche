@@ -13,24 +13,24 @@
   background-color: rgb(255, 252, 252);
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064); 
-  border: 1px solid #9e979791; 
+  border: 2px solid #e9e9e9; 
   font-family: 'Roboto', sans-serif;
 
 }
 
 .tableUser th{
-  color: #333;
+  color: #000000;
   padding: 10px;
   text-align: center;
   font-size: 13px;
-  background-color: rgb(245, 242, 242);
-  border-bottom: 1px solid #9e979791; 
+  background-color: #f2f2f2;
+  border-bottom: 2px solid #e9e9e9; 
 }
 
 .tableUser td{
   padding: 5px;
   font-size: 13px;
-  border-bottom: 1px solid #9e979791; 
+  border-bottom: 2px solid #e9e9e9; 
 }
 
 .button-action {
@@ -48,21 +48,21 @@
 }
 
 .edit {
-  background-color: #DC143C;
+  background-color: #b30000;
   color: white;
   margin: 10px;
   width: 20%;
 
   &:hover {
-    background-color: darken(#FF0000, 10%);
+    background-color: darken(#ffd6d6, 10%);
   }
 }
 
 .delete {
-  background-color: #4169E1;
+  background-color: #0056b3;
   width: 20%;
   margin: 10px;
   &:hover {
-    background-color: #0000FF;
+    background-color: #d0e2ff;
   }
 }

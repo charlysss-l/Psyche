@@ -1,11 +1,12 @@
 $font-family: Arial, sans-serif;
-$primary-color: #007bff;
-$secondary-color: #333;
-$bg-light: #D3D3D3;
-$box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-$border-radius: 8px;
-$table-header-bg: #f4f4f4;
-$table-border-color: #ddd;
+$primary-color: #b30000;
+$secondary-color: #f2f2f2;
+$bg-light: #e9e9e9;
+$box-shadow: 0 6px 12px $bg-light; // Adjusted box-shadow color to use $bg-light
+$border-radius: 10px;
+$table-header-bg: $bg-light; // Used $bg-light for consistency
+$table-border-color: #d2d2d2;
+
 
 :root {
   font-family: $font-family;
@@ -30,20 +31,19 @@ $table-border-color: #ddd;
 
 .createsurveyButton {
   text-decoration: none;
-  color: black;
+  color: #ffffff;
   font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: auto;
   padding: 6px 12px;
-  background-color: #f4f2ee;
+  background-color: #0056b3;
   border-radius: 10px;
-  border: 1px solid black;
 
   &:hover {
-    background-color: black;
-    color: white;
+    background-color: #a8c8ff;
+    color: #000000;
   }
 }
 
