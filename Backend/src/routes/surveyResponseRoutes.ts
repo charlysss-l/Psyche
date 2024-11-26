@@ -1,6 +1,6 @@
 // routes/surveyResponseRoutes.ts
 import express from 'express';
-import { getAllSurveysForStudents, submitSurveyResponses, getAllSurveyResponses, getStudentResponses, getAllStudentsSurveyResponses, } from '../controllers/surveyResponseController';
+import { getAllSurveysForStudents, submitSurveyResponses, getStudentResponses, getAllStudentsSurveyResponses, } from '../controllers/surveyResponseController';
 
 const router = express.Router();
 
@@ -10,8 +10,7 @@ router.get('/surveys', getAllSurveysForStudents);
 // Route to submit survey responses
 router.post('/surveys/submit', submitSurveyResponses);
 
-// Route to get all survey responses (for admin)
-router.get('/responses', getAllSurveyResponses); // Admin route to get responses
+
 
 // Route to get responses for a specific student
 router.get('/responses/student/:studentId', getStudentResponses);

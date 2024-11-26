@@ -48,7 +48,6 @@ app.use('/api/omr16pf', omrPFRoutes); //pf
 
 // Survey routes
 app.use('/api', surveyRoutes);
-app.use('/api/response', surveyResponseRoutes);
 app.use('/api', surveyResponseRoutes); 
 
 

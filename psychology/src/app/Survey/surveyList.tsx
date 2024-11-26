@@ -95,6 +95,10 @@ const SurveyList: React.FC = () => {
             >
               Remove
             </button>
+            <Link to={`/survey-responses/${survey._id}`} className={styles.viewDetailsButton}>
+              Responses List
+            </Link>
+
           </div>
         </div>
       ))}

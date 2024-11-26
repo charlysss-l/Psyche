@@ -57,7 +57,7 @@ const SurveyDetails: React.FC = () => {
     if (!survey) return;
 
     // Retrieve the userId (this might come from context, global state, or local storage)
-    const userId = localStorage.getItem("userId"); // Replace with your actual userId fetching logic
+    const userId = localStorage.getItem("userId");
 
     if (!userId) {
       alert("User is not logged in.");

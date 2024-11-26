@@ -1,0 +1,57 @@
+.surveyResponseContainer {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .error {
+    color: red;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .responsesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .responsesTable th, .responsesTable td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .responsesTable th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+  }
+  
+  .responsesTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .responsesTable tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .responsesTable ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .responsesTable li {
+    margin-bottom: 8px;
+  }
+  
+  .responsesTable li strong {
+    font-weight: bold;
+  }
+  

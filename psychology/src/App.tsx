@@ -23,7 +23,6 @@ import IQResultListBoth from './app/Test/IQTest/IQResultsList/IQtestListBoth';
 import PFStatistics from './app/Test/PFTest/PFStatistics/PFStatistics';
 import IQStatistics from './app/Test/IQTest/IQResultsList/IQStatistics/IQStatistics';
 import SurveyList from './app/Survey/surveyList';
-import SurveyResponseList from './app/Survey/surveyResponseList';
 import SurveyForm from './app/Survey/survey';
 import AllOMR from './app/OMR/AllOMR';
 import PfOMR from './app/OMR/OMRCamera/PfOMR/PfOMR';
@@ -33,7 +32,7 @@ import PFOmrList from './app/Test/PFTest/PFOmrList/PFOmrList';
 import IqOMR from './app/OMR/OMRCamera/IqOMR/IqOMR';
 import OMRResult from './app/OMR/OMRCamera/IqOMR/OMRResult';
 import SurveyDetails from './app/Survey/surveyDetails';
-
+import SurveyResponse from './app/Survey/surveyResponse';
 function App() {
   return (
     <Router>
@@ -136,10 +135,6 @@ function App() {
                 element={<ProtectedRoute><IQStatistics /></ProtectedRoute>}
               />
               <Route
-                path="/survey-response-list"
-                element={<ProtectedRoute><SurveyResponseList /></ProtectedRoute>}
-              />
-              <Route
                 path="/survey-form"
                 element={<ProtectedRoute><SurveyForm /></ProtectedRoute>}
               />
@@ -159,6 +154,8 @@ function App() {
                 path="/survey-details/:id"
                 element={<ProtectedRoute><SurveyDetails /></ProtectedRoute>}
               />
+               <Route path="/survey-responses/:surveyId" element={<ProtectedRoute><SurveyResponse /></ProtectedRoute>} />
+
             </Routes>
           </div>
         </div>
