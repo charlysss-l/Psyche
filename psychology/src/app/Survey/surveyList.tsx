@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 const SurveyList: React.FC = () => {
   const [surveys, setSurveys] = useState<any[]>([]);
+  const [filteredSurveys, setFilteredSurveys] = useState<any[]>([]);
+  const [categories, setCategories] = useState<string[]>(["All"]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const surveysPerPage = 5;
 
@@ -13,6 +15,19 @@ const SurveyList: React.FC = () => {
       try {
         const response = await axios.get("http://localhost:5000/api/surveys");
         setSurveys(response.data);
+        setFilteredSurveys(response.data);
+
+        // Get unique categories for filter
+        const uniqueCategories = [
+          "All", 
+          ...response.data.reduce((acc: string[], survey: any) => {
+            if (!acc.includes(survey.category)) {
+              acc.push(survey.category);
+            }
+            return acc;
+          }, []),
+        ];
+        setCategories(uniqueCategories);
       } catch (error) {
         console.error("Error fetching surveys", error);
       }
@@ -22,7 +37,7 @@ const SurveyList: React.FC = () => {
 
   const indexOfLastSurvey = currentPage * surveysPerPage;
   const indexOfFirstSurvey = indexOfLastSurvey - surveysPerPage;
-  const currentSurveys = surveys.slice(indexOfFirstSurvey, indexOfLastSurvey);
+  const currentSurveys = filteredSurveys.slice(indexOfFirstSurvey, indexOfLastSurvey);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -43,12 +58,25 @@ const SurveyList: React.FC = () => {
         await axios.delete(`http://localhost:5000/api/surveys/${surveyId}`);
         // Update the state to remove the deleted survey
         setSurveys((prevSurveys) => prevSurveys.filter((s) => s._id !== surveyId));
+        setFilteredSurveys((prevSurveys) => prevSurveys.filter((s) => s._id !== surveyId)); // Update filtered surveys
         alert("Survey removed successfully!");
       } catch (error) {
         console.error("Error deleting survey", error);
         alert("Failed to delete the survey.");
       }
     }
+  };
+
+  // Handle category filtering
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCategory = e.target.value;
+    if (selectedCategory === "All") {
+      setFilteredSurveys(surveys);
+    } else {
+      const filtered = surveys.filter((survey) => survey.category === selectedCategory);
+      setFilteredSurveys(filtered);
+    }
+    setCurrentPage(1); // Reset to the first page when filter changes
   };
 
   return (
@@ -61,10 +89,22 @@ const SurveyList: React.FC = () => {
 
       <h2>
         Available Surveys{" "}
-        <span className={styles.surveyCount}>({surveys.length} surveys)</span>
+        <span className={styles.surveyCount}>({filteredSurveys.length} surveys)</span>
       </h2>
 
-      {/* Display Surveys with Title, Description, Field and Options */}
+      {/* Filter Dropdown */}
+      <div className={styles.filterContainer}>
+        <label htmlFor="category">Filter by Category:</label>
+        <select id="category" onChange={handleCategoryChange}>
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Display Surveys with Title, Description, Field, and Options */}
       {currentSurveys.map((survey) => (
         <div key={survey._id} className={styles.surveyCard}>
           <h3>{survey.title}</h3>
@@ -81,14 +121,12 @@ const SurveyList: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {survey.filters.map(
-                  (filter: { field: string; options: string }, index: number) => (
-                    <tr key={index}>
-                      <td>{filter.field}</td>
-                      <td>{filter.options}</td>
-                    </tr>
-                  )
-                )}
+                {survey.filters.map((filter: { field: string; options: string }, index: number) => (
+                  <tr key={index}>
+                    <td>{filter.field}</td>
+                    <td>{filter.options}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -113,15 +151,12 @@ const SurveyList: React.FC = () => {
       ))}
 
       <div className={styles.pagination}>
-        <button
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
+        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
           Previous
         </button>
         <button
           onClick={() => paginate(currentPage + 1)}
-          disabled={indexOfLastSurvey >= surveys.length}
+          disabled={indexOfLastSurvey >= filteredSurveys.length}
         >
           Next
         </button>
