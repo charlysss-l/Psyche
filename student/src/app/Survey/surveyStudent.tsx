@@ -13,7 +13,9 @@ interface Survey {
 }
 
 const SurveyAnswerForm: React.FC = () => {
-  const [surveys, setSurveys] = useState<Survey[]>([]);
+  const [surveys, setSurveys] = useState<Survey[]>([]); // Current filtered surveys
+  const [allSurveys, setAllSurveys] = useState<Survey[]>([]); // Full list of surveys (without filtering)
+  const [categories, setCategories] = useState<string[]>(["All"]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const surveysPerPage = 5;
 
@@ -21,8 +23,21 @@ const SurveyAnswerForm: React.FC = () => {
     const fetchSurveys = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/surveys");
-        console.log("All Surveys:", response.data); // Debugging API response
-        setSurveys(response.data);
+        console.log("All Surveys:", response.data);
+        setAllSurveys(response.data); // Set all surveys
+        setSurveys(response.data); // Set surveys to all surveys initially
+
+        // Using reduce to get unique categories
+        const uniqueCategories = [
+          "All",
+          ...response.data.reduce((acc: string[], survey: Survey) => {
+            if (!acc.includes(survey.category)) {
+              acc.push(survey.category);
+            }
+            return acc;
+          }, []),
+        ];
+        setCategories(uniqueCategories);
       } catch (error) {
         console.error("Error fetching surveys", error);
       }
@@ -60,11 +75,24 @@ const SurveyAnswerForm: React.FC = () => {
     });
   };
 
+  // Pagination Logic
   const indexOfLastSurvey = currentPage * surveysPerPage;
   const indexOfFirstSurvey = indexOfLastSurvey - surveysPerPage;
   const currentSurveys = filteredSurveys.slice(indexOfFirstSurvey, indexOfLastSurvey);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const category = e.target.value;
+    if (category === "All") {
+      // Reset surveys to the full list when "All" is selected
+      setSurveys(allSurveys);
+    } else {
+      // Filter surveys based on the selected category
+      const filteredByCategory = allSurveys.filter((survey) => survey.category === category);
+      setSurveys(filteredByCategory);
+    }
+  };
 
   return (
     <div className={styles.surveyListContainer}>
@@ -72,6 +100,18 @@ const SurveyAnswerForm: React.FC = () => {
         Available Surveys{" "}
         <span className={styles.surveyCount}>({filteredSurveys.length} surveys)</span>
       </h2>
+
+      <div className={styles.filterContainer}>
+        {/* Filter by Category */}
+        <label htmlFor="category">Filter by Category:</label>
+        <select id="category" onChange={handleCategoryChange}>
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {currentSurveys.length === 0 ? (
         <p>No surveys available</p>
@@ -117,10 +157,7 @@ const SurveyAnswerForm: React.FC = () => {
       )}
 
       <div className={styles.pagination}>
-        <button
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
+        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
           Previous
         </button>
         <button
@@ -135,5 +172,3 @@ const SurveyAnswerForm: React.FC = () => {
 };
 
 export default SurveyAnswerForm;
-
-
