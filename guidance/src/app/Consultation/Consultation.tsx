@@ -132,7 +132,7 @@ const getStenScoreMeaning = (stenScore: number, factorLetter: string) => {
   if (stenScore >= 1 && stenScore <= 3) {
       return factorDescription.leftMeaning;
   } else if (stenScore >= 4 && stenScore <= 7) {
-      return factorDescription.leftMeaning + " // " + 'Average' + " // " + factorDescription.rightMeaning;
+      return factorDescription.leftMeaning + " ( " + 'AVERAGE' + " ) " + factorDescription.rightMeaning;
   } else if (stenScore >= 8 && stenScore <= 10) {
       return factorDescription.rightMeaning;
   }

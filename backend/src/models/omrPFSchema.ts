@@ -1,9 +1,15 @@
 import { Schema, model, Document } from 'mongoose';
 
-// Interface for scoring object
-interface Scoring {
+// Define structure for a single score entry
+export interface ScoreEntry {
     factorLetter: string;
     rawScore: number;
+    stenScore: number;
+}
+
+// Update the Scoring schema to hold an array of score entries
+export interface Scoring {
+    scores: ScoreEntry[]; 
 }
 
 // UserIQTest interface
@@ -22,6 +28,18 @@ interface OMRpf extends Document {
     testDate: Date;
 }
 
+// ScoreEntry Schema
+const ScoreEntrySchema = new Schema<ScoreEntry>({
+    factorLetter: { type: String, required: true },
+    rawScore: { type: Number, required: true, default: 0 },
+    stenScore: { type: Number, required: true, default: 1 },
+}, { _id: false });
+
+// Scoring Schema
+const ScoringSchema = new Schema<Scoring>({
+    scores: [ScoreEntrySchema], 
+}, { _id: false });
+
 // Main UserIQTest Schema
 const OmrPFSchema = new Schema<OMRpf>({
     userID: { type: String, required: true },
@@ -33,12 +51,7 @@ const OmrPFSchema = new Schema<OMRpf>({
     year: { type: Number, required: true },
     section: { type: Number, required: true },
     testID: { type: String, required: true, unique: true },
-    scoring: [
-        {
-            factorLetter: { type: String, required: true },
-            rawScore: { type: Number, required: true }
-        }
-    ],
+    scoring: ScoringSchema, // This now refers to a Scoring object
     testType: { type: String, required: true },
     testDate: { type: Date, required: true, default: Date.now },
 });
