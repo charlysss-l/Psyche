@@ -3,6 +3,14 @@ import axios from "axios";
 import styles from "./Consultation.module.scss";
 import { v4 as uuidv4 } from 'uuid'; // Install with `npm install uuid`
 
+interface Consultation {
+  userId: string;
+  date: string;
+  timeForConsultation: string;
+  note: string;
+  status: string;
+}
+
 
 const API_URL = "http://localhost:5000/api/consult/";
 const USERIQ_URL = "http://localhost:5000/api/useriq/";
@@ -17,7 +25,7 @@ const ConsultationRequestForm: React.FC = () => {
   const [testIDs, setTestIDs] = useState<string[]>([]); // To store fetched test IDs
   const [selectedTestID, setSelectedTestID] = useState<string>(""); // For selected test ID
   const [date, setDate] = useState("");
-  const [consultation, setConsultation] = useState([]);
+  const [consultations, setConsultation] = useState<Consultation[]>([]);
   
   // Fields for "Others"
   const [firstName, setFirstName] = useState("");
@@ -139,11 +147,32 @@ const ConsultationRequestForm: React.FC = () => {
       alert("ERROR: Consultation request with this test ID already exists.");
     }
   };
+
+  useEffect(() => {
+    // Fetch userId from localStorage
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserID(storedUserId);
+      fetchConsultations(storedUserId);
+    }
+  }, []);
+
+  const fetchConsultations = async (id: string) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/consult/user/${id}`);
+      if (response?.data?.data) {
+        setConsultation(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching consultations:", error);
+    }
+  };
   
 
   return (
+    <div className={styles.consultMain}>
     <div className={styles.consulForm}>
-      <div className={styles.tableContainer}>
+      <div className={styles.consultContainer}>
         <form className={styles.formCon} onSubmit={handleSubmit}>
           <label className={styles.conLabel}>
             User ID
@@ -158,16 +187,16 @@ const ConsultationRequestForm: React.FC = () => {
           </label>
 
           <label className={styles.conLabel}>
-  Date
-  <input
-    className={styles.conInput}
-    type="date"
-    value={date}
-    onChange={(e) => setDate(e.target.value)}
-    required
-    min={new Date().toISOString().split('T')[0]}  // Restrict to today and future dates
-  />
-</label>
+            Date
+            <input
+              className={styles.conInput}
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+              min={new Date().toISOString().split('T')[0]}  // Restrict to today and future dates
+            />
+          </label>
 
           <label className={styles.conLabel}>
             Time for Consultation
@@ -260,6 +289,8 @@ const ConsultationRequestForm: React.FC = () => {
 
                 />
               </label>
+
+              
 
 
               <label className={styles.conLabel}>
@@ -354,8 +385,57 @@ const ConsultationRequestForm: React.FC = () => {
             Submit
           </button>
         </form>
+
+        
+
+        
       </div>
+      
     </div>
+
+    <div className={styles.tableContainer}>
+
+    <h2>Consultation Records</h2>
+    <div className={styles.responsesWrapper}>
+
+    <table className={styles.table}>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Date</th>
+          <th>Time for Consultation</th>
+          <th>Note</th>
+          <th>Status</th>
+          <th>Actions</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        {consultations.length > 0 ? (
+          consultations.map((consultation) => (
+            <tr key={consultation.userId + consultation.date + consultation.timeForConsultation}>
+              <td>{consultation.userId}</td>
+              <td>{new Date(consultation.date).toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  })}</td>
+              <td>{consultation.timeForConsultation}</td>
+              <td>{consultation.note}</td>
+              <td>{consultation.status}</td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan={5}>No consultations found</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+  </div>
+  </div>
+    
   );
 };
 

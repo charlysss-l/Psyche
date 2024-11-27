@@ -29,6 +29,24 @@ export const getConsultationRequestsById = async (req: Request, res: Response) =
     }
 };
 
+export const getConsultationRequestsByUserID = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+    try {
+        const ConsultationRequestUserID = await ConsultationRequest.find({ userId });
+        if (ConsultationRequestUserID.length === 0) {
+            res.status(404).json({ message: 'Test result not found' });
+            return;
+        }
+        res.status(200).json({ data: ConsultationRequestUserID });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error retrieving IQ test result',
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        });
+    }
+};
+
 export const getConsultationRequests = async (req: Request, res: Response) => {
   try {
     const requests = await ConsultationRequest.find();

@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { createConsultationRequest, getConsultationRequestsById, acceptConsultationRequest, declineConsultationRequest, getConsultationRequests  } from '../controllers/consultationcontroller';
+import { createConsultationRequest, getConsultationRequestsById, acceptConsultationRequest, declineConsultationRequest, getConsultationRequests, getConsultationRequestsByUserID  } from '../controllers/consultationcontroller';
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ router.post('/', async (req: Request, res: Response) => {
     }
   });
 router.get('/', getConsultationRequests);
+router.get('/user/:userId', getConsultationRequestsByUserID);
 router.get('/:testID', getConsultationRequestsById);
 router.put('/:id/accept', acceptConsultationRequest);
 router.delete('/:id/decline', declineConsultationRequest);
