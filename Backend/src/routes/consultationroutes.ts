@@ -32,6 +32,12 @@ router.delete('/test/:testID/delete', async (req: Request, res: Response) => {
   }
 });
 router.put('/:testID/cancel', cancelConsultationRequest);
-router.put('/:id/decline', declineConsultationRequest);
 
+router.put('/:id/decline', async (req: Request, res: Response) => {
+  try {
+    await declineConsultationRequest(req, res);  // Use the testID for deletion
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting consultation by testID', error });
+  }
+});
 export default router;

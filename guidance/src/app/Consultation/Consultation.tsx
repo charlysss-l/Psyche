@@ -18,6 +18,7 @@ interface ConsultationRequest {
   testID: string;
   date: string;
   status: string;
+  message: string;
 }
 
 const GuidanceConsultation: React.FC = () => {
@@ -89,26 +90,27 @@ const GuidanceConsultation: React.FC = () => {
   };
 
   // Decline a consultation request
-const declineRequest = async () => {
-  try {
-    await axios.put(`${API_URL}${decliningRequestId}/decline`, {
-      data: { note: declineNote },
-    });
-    setConsultationRequests((prevRequests) =>
-      prevRequests.map((request) =>
-        request._id === decliningRequestId
-          ? { ...request, status: "declined", note: declineNote }
-          : request
-      )
-    );
-    setShowDeclineModal(false); // Close modal
-    setDeclineNote(""); // Reset the decline note
-    alert("Consultation request declined successfully.");
-  } catch (error) {
-    console.error("Error declining consultation request:", error);
-    alert("Failed to decline consultation request.");
-  }
-};
+  const declineRequest = async () => {
+    try {
+      await axios.put(`${API_URL}${decliningRequestId}/decline`, {
+        note: declineNote,
+      });
+      setConsultationRequests((prevRequests) =>
+        prevRequests.map((request) =>
+          request._id === decliningRequestId
+            ? { ...request, status: "declined", note: declineNote }
+            : request
+        )
+      );
+      setShowDeclineModal(false); // Close modal
+      setDeclineNote(""); // Reset the decline note
+      alert("Consultation request declined successfully.");
+    } catch (error) {
+      console.error("Error declining consultation request:", error);
+      alert("Failed to decline consultation request.");
+    }
+  };
+  
 
 
 const deleteConsultation = async (_id: string) => {

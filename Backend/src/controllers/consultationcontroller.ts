@@ -68,12 +68,32 @@ export const acceptConsultationRequest = async (req: Request, res: Response) => 
 
 export const declineConsultationRequest = async (req: Request, res: Response) => {
   try {
-    const request = await ConsultationRequest.findByIdAndUpdate(req.params.id, { status: 'declined' }, { new: true });
+    // Extract the decline note (message) from the request body
+    const { note } = req.body;
+
+    // Update the consultation request with both status and message
+    const request = await ConsultationRequest.findByIdAndUpdate(
+      req.params.id, 
+      { 
+        status: 'declined', 
+        message: note  // Update the message with the decline reason
+      },
+      { new: true }  // This returns the updated document
+    );
+
+    // If the request was not found, return an error
+    if (!request) {
+      return res.status(404).json({ message: 'Consultation request not found' });
+    }
+
+    // Return the updated request as the response
     res.status(200).json(request);
   } catch (error) {
-    res.status(400).json({ message: 'Error' });
+    // Return an error if something went wrong
+    res.status(400).json({ message: 'Error', error: error });
   }
 };
+
 
 // Admin route to mark consultation request as "removed" using the id
 export const deleteConsultationRequestById = async (req: Request, res: Response) => {
