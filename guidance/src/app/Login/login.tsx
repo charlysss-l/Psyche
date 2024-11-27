@@ -32,7 +32,7 @@ const Login: React.FC = () => {
 
         // Redirect to the /report page after a delay (to allow the message to show)
         setTimeout(() => {
-          navigate("/report"); // Redirect to /report route
+          navigate("/home"); // Redirect to /report route
         }, 1500); // 1.5 seconds delay
       } else {
         setError("Invalid username or password.");
