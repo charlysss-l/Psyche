@@ -160,3 +160,72 @@ export const cancelConsultationRequest = async (req: Request, res: Response) => 
     });
 }
 };
+
+export const archiveConsultationRequest = async (req: Request, res: Response) => {
+  const { testID } = req.params;
+  try {
+    const ArchiveConsultationRequestTestID = await ConsultationRequest.findOne({ testID });
+    if (!ArchiveConsultationRequestTestID) {
+        res.status(404).json({ message: 'Test result not found' });
+        return;
+    }
+
+     // Update the status to "cancelled"
+     ArchiveConsultationRequestTestID.status = 'archived';
+     await ArchiveConsultationRequestTestID.save(); // Save the updated document
+
+    res.status(200).json({ data: ArchiveConsultationRequestTestID });
+} catch (error) {
+    res.status(500).json({
+        message: 'Error retrieving IQ test result',
+        error: error instanceof Error ? error.message : 'An unknown error occurred'
+    });
+}
+};
+
+// Route to get archived consultations
+export const getArchivedConsultationsByUserID = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  try {
+    // Modify the query to filter by both userId and status = 'archived'
+    const ConsultationRequestUserID = await ConsultationRequest.find({
+      userId,
+      status: 'archived',  // Filter by status as well
+    });
+
+    if (ConsultationRequestUserID.length === 0) {
+      res.status(404).json({ message: 'No archived consultations found for this user' });
+      return;
+    }
+
+    res.status(200).json({ data: ConsultationRequestUserID });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error retrieving archived consultations',
+      error: error instanceof Error ? error.message : 'An unknown error occurred',
+    });
+  }
+};
+
+
+
+
+// Mark consultation request as "Completed" using the ID
+export const markConsultationRequestAsDone = async (req: Request, res: Response) => {
+  try {
+    const request = await ConsultationRequest.findByIdAndUpdate(
+      req.params.id,
+      { status: 'completed' },
+      { new: true }
+    );
+
+    if (!request) {
+      return res.status(404).json({ message: 'Consultation request not found' });
+    }
+
+    res.status(200).json(request); // Return the updated request
+  } catch (error) {
+    res.status(400).json({ message: 'Error marking consultation request as done', error });
+  }
+};

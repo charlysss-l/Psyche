@@ -32,6 +32,7 @@ import IqOMR from "./app/OMR/OMRCamera/IqOMR/IqOMR";
 import PfOMR from "./app/OMR/OMRCamera/PfOMR/PfOMR";
 import OmrResult from "./app/OMR/OMRCamera/PfOMR/OmrResult";
 import SurveyDetails from "./app/Survey/surveyDetails";
+import ArchiveInbox from "./app/Consultation/ArchiveInbox";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
                       <Route path="/test" element={<Test />} />
                       <Route path="/result" element={<Result />} />
                       <Route path="/consultation" element={<Consultation />} />
+                      <Route path="/archive" element={<ArchiveInbox />} />
                       <Route path="/surveyDashboard" element={<StudentDashboard />} />
                       <Route path="/profile" element={<Profile />} />
                       <Route path="/omr" element={<OMR />} />

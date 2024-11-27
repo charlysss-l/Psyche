@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Consultation.module.scss";
 import { v4 as uuidv4 } from 'uuid'; // Install with `npm install uuid`
+import ArchiveInbox from "./ArchiveInbox";
 
 interface Consultation {
   userId: string;
@@ -28,6 +29,12 @@ const ConsultationRequestForm: React.FC = () => {
   const [selectedTestID, setSelectedTestID] = useState<string>(""); // For selected test ID
   const [date, setDate] = useState("");
   const [consultations, setConsultation] = useState<Consultation[]>([]);
+
+  const [showArchived, setShowArchived] = useState(false);  // State to toggle the archive list visibility
+  const toggleArchivedList = () => {
+    setShowArchived(prevState => !prevState);  // Toggle the state
+  };
+
   
   // Fields for "Others"
   const [firstName, setFirstName] = useState("");
@@ -208,6 +215,23 @@ const ConsultationRequestForm: React.FC = () => {
     }
   };
   
+  const handleArchive = async (testID: string) => {
+    try {
+      // Make an API call to archive the consultation
+      await axios.put(`${API_URL}archive/${testID}`);
+      setConsultation((prevConsultations) =>
+        prevConsultations.map((consultation) =>
+          consultation.testID === testID
+            ? { ...consultation, status: "archived" }
+            : consultation
+        )
+      );
+      alert(" Archived successfully.");
+    } catch (error) {
+      console.error("Error archiving consultation:", error);
+      alert("Failed to archive consultation.");
+    }
+  };
   
 
   return (
@@ -435,7 +459,17 @@ const ConsultationRequestForm: React.FC = () => {
     </div>
 
     <div className={styles.tableContainer}>
-  <h2>Consultation Records</h2>
+  <h2>
+    Consultation Records
+    <button
+      className={styles.archiveButton}
+      onClick={toggleArchivedList}
+    >
+      Archive List
+    </button>
+  </h2>
+  {showArchived && <ArchiveInbox />}
+
   <div className={styles.responsesWrapper}>
     <table className={styles.table}>
       <thead>
@@ -452,56 +486,59 @@ const ConsultationRequestForm: React.FC = () => {
       </thead>
       <tbody>
         {consultations.length > 0 ? (
-          consultations.map((consultation) => (
-            <tr
-              key={
-                consultation.userId +
-                consultation.date +
-                consultation.timeForConsultation+
-                consultation.testID
-
-              }
-            >
-              <td>{consultation.userId}</td>
-              <td>
-                {new Date(consultation.date).toLocaleDateString("en-US", {
-                  month: "2-digit",
-                  day: "2-digit",
-                  year: "numeric",
-                })}
-              </td>
-              <td>{consultation.timeForConsultation}</td>
-              <td>{consultation.testID}</td>
-              <td>{consultation.note}</td>
-              <td>{consultation.status}</td>
-              <td>
-                <button
-                    className={`${styles.actionButton} ${
-                      consultation.status === "declined"
-                ? styles.delete
-                : consultation.status === "cancelled" || consultation.status === "removed"
-                ? styles.delete
-                : styles.cancel
-            }`}                  
-            onClick={() =>
-              consultation.status === "declined"
-                ? deleteConsultation(consultation.testID)
-                : consultation.status === "cancelled" || consultation.status === "removed"
-                ? deleteConsultation(consultation.testID)
-                : cancelConsultation(consultation.testID)
-            }
-          >
-            {consultation.status === "declined"
-              ? "Delete"
-              : consultation.status === "cancelled" || consultation.status === "removed"
-              ? "Delete"
-              : "Cancel"}
-          </button>
-              </td>
-              <td>{consultation.message}</td>
-              
-            </tr>
-          ))
+          consultations
+            .filter(consultation => consultation.status !== "archived")  
+            .map((consultation) => (
+              <tr
+                key={
+                  consultation.userId +
+                  consultation.date +
+                  consultation.timeForConsultation +
+                  consultation.testID
+                }
+              >
+                <td>{consultation.userId}</td>
+                <td>
+                  {new Date(consultation.date).toLocaleDateString("en-US", {
+                    month: "2-digit",
+                    day: "2-digit",
+                    year: "numeric",
+                  })}
+                </td>
+                <td>{consultation.timeForConsultation}</td>
+                <td>{consultation.testID}</td>
+                <td>{consultation.note}</td>
+                <td>{consultation.status}</td>
+                <td>
+                  {/* Button logic */}
+                  {consultation.status === "completed" ? (
+                    <button
+                      className={`${styles.actionButton} ${styles.archive}`}
+                      onClick={() => handleArchive(consultation.testID)}
+                    >
+                      Archive
+                    </button>
+                  ) : consultation.status === "declined" ||
+                    consultation.status === "cancelled" ||
+                    consultation.status === "removed" ? (
+                    <button
+                      className={`${styles.actionButton} ${styles.delete}`}
+                      onClick={() => deleteConsultation(consultation.testID)}
+                    >
+                      Delete
+                    </button>
+                  ) : (
+                    <button
+                      className={`${styles.actionButton} ${styles.cancel}`}
+                      onClick={() => cancelConsultation(consultation.testID)}
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </td>
+                <td>{consultation.message}</td>
+              </tr>
+            ))
         ) : (
           <tr>
             <td colSpan={7}>No consultations found</td>
@@ -511,6 +548,9 @@ const ConsultationRequestForm: React.FC = () => {
     </table>
   </div>
 </div>
+
+<div>  </div>
+
 
   </div>
     

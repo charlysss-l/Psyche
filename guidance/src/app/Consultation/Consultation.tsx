@@ -28,6 +28,7 @@ const GuidanceConsultation: React.FC = () => {
   const [declineNote, setDeclineNote] = useState<string>("");
   const [showDeclineModal, setShowDeclineModal] = useState<boolean>(false);
   const [decliningRequestId, setDecliningRequestId] = useState<string>("");
+  const [showTestModal, setShowTestModal] = useState<boolean>(false);
 
   useEffect(() => {
     const loadConsultationRequests = async () => {
@@ -73,7 +74,7 @@ const GuidanceConsultation: React.FC = () => {
   };
 
   const pendingRequests = consultationRequests.filter((request) => request.status === "pending" || request.status === "cancelled");
-  const acceptedRequests = consultationRequests.filter((request) => request.status === "accepted" );
+  const acceptedRequests = consultationRequests.filter((request) => request.status === "accepted" || request.status === "completed");
 
   // Accept a consultation request
   const acceptRequest = async (id: string) => {
@@ -132,6 +133,36 @@ const deleteConsultation = async (_id: string) => {
   } catch (error) {
     console.error("Error deleting consultation:", error);
     alert("Failed to delete consultation.");
+  }
+};
+
+const handleMarkAsDone = async (id: string) => {
+  try {
+    await axios.put(`${API_URL}${id}/mark-done`);
+    setConsultationRequests((prevRequests) =>
+      prevRequests.map((request) =>
+        request._id === id ? { ...request, status: "completed" } : request
+      )
+    );
+  } catch (error) {
+    console.error("Error accepting consultation request:", error);
+  }
+};
+
+const handleArchive = async (id: string) => {
+  try {
+    // Send the request to archive the consultation request (for example, change the status to "Archived")
+    const response = await axios.put(`http://localhost:5000/api/consult/${id}/archive`);
+    
+    // Update the local state to reflect the change
+    const updatedRequests = acceptedRequests.map(request => 
+      request._id === id ? { ...request, status: 'Archived' } : request
+    );
+    
+    setConsultationRequests(updatedRequests); // Update the state accordingly
+    console.log('Request archived');
+  } catch (error) {
+    console.error('Error archiving request:', error);
   }
 };
 
@@ -329,51 +360,74 @@ function getDynamicInterpretation(age: number, score: number): string {
 </div>
 
 
-    {/* Accepted Requests Table */}
-    <div className={styles.tableBox}>
-      <h2>Accepted Consultation Requests</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Note</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {acceptedRequests.map((request) => (
-            <tr key={request._id}>
-              <td>{request.userId}</td>
-              <td>
-                {new Date(request.date).toLocaleDateString("en-US", {
-                  month: "2-digit",
-                  day: "2-digit",
-                  year: "numeric",
-                })}
-              </td>
-              <td>{request.timeForConsultation}</td>
-              <td>{request.note}</td>
-              <td>
-                <span className={`${styles.statusButton} ${styles.acceptedStatus}`}>
-                  {request.status}
-                </span>
-              </td>
-              <td>
-                <button
-                  className={styles.viewInfo}
-                  onClick={() => handleViewInfo(request.testID, request.note)}
-                >
-                  View Info
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+{/* Accepted Requests Table */}
+<div className={styles.tableBox}>
+  <h2>Accepted Consultation Requests</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Note</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {acceptedRequests.map((request) => (
+        <tr key={request._id}>
+          <td>{request.userId}</td>
+          <td>
+            {new Date(request.date).toLocaleDateString("en-US", {
+              month: "2-digit",
+              day: "2-digit",
+              year: "numeric",
+            })}
+          </td>
+          <td>{request.timeForConsultation}</td>
+          <td>{request.note}</td>
+          <td>
+            <span className={`${styles.statusButton} ${styles.acceptedStatus}`}>
+              {request.status}
+            </span>
+          </td>
+          <td>
+            <button
+              className={styles.viewInfo}
+              onClick={() => handleViewInfo(request.testID, request.note)}
+            >
+              View Info
+            </button>
+
+            {/* Mark as Done Button (only shows when status is not "Completed") */}
+            {request.status !== 'completed' && (
+              <button
+                className={styles.markDone}
+                onClick={() => handleMarkAsDone(request._id)}
+              >
+                Mark as Done
+              </button>
+            )}
+
+            {/* Archive Button (only shows when status is "Completed") */}
+            {request.status === 'completed' && (
+              <button
+                className={styles.archive}
+                onClick={() => handleArchive(request._id)}
+              >
+                Archive
+              </button>
+            )}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+
+
 
     {showDeclineModal && (
       <div className={`${styles.declineModal} ${styles.show}`}>

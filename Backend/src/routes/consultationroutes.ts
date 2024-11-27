@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { createConsultationRequest, getConsultationRequestsById, acceptConsultationRequest, deleteConsultationRequest, getConsultationRequests, getConsultationRequestsByUserID, cancelConsultationRequest, declineConsultationRequest, deleteConsultationRequestById  } from '../controllers/consultationcontroller';
+import { createConsultationRequest, getConsultationRequestsById, getArchivedConsultationsByUserID, markConsultationRequestAsDone, archiveConsultationRequest, acceptConsultationRequest, deleteConsultationRequest, getConsultationRequests, getConsultationRequestsByUserID, cancelConsultationRequest, declineConsultationRequest, deleteConsultationRequestById  } from '../controllers/consultationcontroller';
 
 const router = express.Router();
 
@@ -13,6 +13,7 @@ router.post('/', async (req: Request, res: Response) => {
 router.get('/', getConsultationRequests);
 router.get('/user/:userId', getConsultationRequestsByUserID);
 router.get('/:testID', getConsultationRequestsById);
+router.get('/archive/userId/:userId', getArchivedConsultationsByUserID);
 router.put('/:id/accept', acceptConsultationRequest);
 // Mark consultation request as "removed" by id (admin)
 router.delete('/id/:id/delete', async (req: Request, res: Response) => {
@@ -32,6 +33,14 @@ router.delete('/test/:testID/delete', async (req: Request, res: Response) => {
   }
 });
 router.put('/:testID/cancel', cancelConsultationRequest);
+router.put('/archive/:testID', archiveConsultationRequest);
+router.put('/:id/mark-done', async (req: Request, res: Response) => {
+  try {
+    await markConsultationRequestAsDone(req, res);  // Use the testID for deletion
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting consultation by testID', error });
+  }
+});
 
 router.put('/:id/decline', async (req: Request, res: Response) => {
   try {
