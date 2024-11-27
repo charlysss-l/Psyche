@@ -231,6 +231,7 @@ function getDynamicInterpretation(age: number, score: number): string {
           <thead>
             <tr>
               <th>User ID</th>
+              <th>Date</th>
               <th>Time</th>
               <th>Note</th>
               <th>Status</th>
@@ -241,6 +242,13 @@ function getDynamicInterpretation(age: number, score: number): string {
             {consultationRequests.map((request) => (
               <tr key={request._id}>
                 <td>{request.userId}</td>
+                <td>
+  {new Date(request.date).toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  })}
+</td>
                 <td>{request.timeForConsultation}</td>
                 <td>{request.note}</td>
                 <td>

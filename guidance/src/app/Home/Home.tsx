@@ -55,6 +55,7 @@ const GuidanceHome: React.FC = () => {
             <thead>
               <tr>
                 <th>User ID</th>
+                <th>Date</th>
                 <th>Time</th>
                 <th>Note</th>
                 <th>Status</th>
@@ -64,6 +65,14 @@ const GuidanceHome: React.FC = () => {
               {newConsultations.map((request) => (
                 <tr key={request._id}>
                   <td>{request.userId}</td>
+                  <td>
+  {new Date(request.date).toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  })}
+</td>
+
                   <td>{request.timeForConsultation}</td>
                   <td>{request.note}</td>
                   <td>
@@ -96,6 +105,7 @@ const GuidanceHome: React.FC = () => {
               <thead>
                 <tr>
                   <th>User ID</th>
+                  <th>Date</th>
                   <th>Time</th>
                   <th>Note</th>
                 </tr>
@@ -104,6 +114,14 @@ const GuidanceHome: React.FC = () => {
                 {todayConsultations.map((consultation) => (
                   <tr key={consultation._id}>
                     <td>{consultation.userId}</td>
+                    <td>
+  {new Date(consultation.date).toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  })}
+</td>
+
                     <td>{consultation.timeForConsultation}</td>
                     <td>{consultation.note}</td>
                   </tr>
