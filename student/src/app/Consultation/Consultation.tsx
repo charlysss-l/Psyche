@@ -158,15 +158,16 @@ const ConsultationRequestForm: React.FC = () => {
           </label>
 
           <label className={styles.conLabel}>
-            Date
-            <input
-              className={styles.conInput}
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-            />
-          </label>
+  Date
+  <input
+    className={styles.conInput}
+    type="date"
+    value={date}
+    onChange={(e) => setDate(e.target.value)}
+    required
+    min={new Date().toISOString().split('T')[0]}  // Restrict to today and future dates
+  />
+</label>
 
           <label className={styles.conLabel}>
             Time for Consultation
