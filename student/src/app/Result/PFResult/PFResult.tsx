@@ -347,11 +347,14 @@ const PFResult: React.FC = () => {
         );
     }
 
-    const sortedScoring = results.scoring.sort((a, b) => {
-        const indexA = factorOrder.indexOf(a.factorLetter);
-        const indexB = factorOrder.indexOf(b.factorLetter);
-        return indexA - indexB;
-    });
+    const sortedScoring = results.scoring
+  .filter((score: any) => factorOrder.includes(score.factorLetter)) // Filter by factorOrder
+  .sort((a: any, b: any) => {
+    const indexA = factorOrder.indexOf(a.factorLetter);
+    const indexB = factorOrder.indexOf(b.factorLetter);
+    return indexA - indexB; // Sort based on factorOrder
+  });
+
 
 
     // Submit results to the backend

@@ -103,6 +103,10 @@ const GuidanceConsultation: React.FC = () => {
       console.error("Error declining consultation request:", error);
     }
   };
+  const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
+
+  
+
 
   const getFactorDescription = (factorLetter: string) => {
     switch (factorLetter) {
@@ -426,7 +430,16 @@ function getDynamicInterpretation(age: number, score: number): string {
                           </tr>
                         </thead>
                         <tbody>
-                          {testDetails.scoring.scores.map((score: any, index: number) => (
+                        {testDetails.scoring.scores
+              // Filter to include only factorLetters in factorOrder
+              .filter((score: any) => factorOrder.includes(score.factorLetter))
+              // Sort scores based on factorOrder
+              .sort((a: any, b: any) => {
+                const indexA = factorOrder.indexOf(a.factorLetter);
+                const indexB = factorOrder.indexOf(b.factorLetter);
+                return indexA - indexB;
+              })
+              .map((score: any, index: number) => (
                             <tr key={index}>
                               <td>{score.factorLetter}</td>
                               <td>{score.rawScore}</td>
@@ -459,7 +472,16 @@ function getDynamicInterpretation(age: number, score: number): string {
                 <th>Factor Letter</th>
                 <th>Result Interpretation</th>
 
-                {testDetails.scoring.scores.map((score: any, index: number) => (
+                {testDetails.scoring.scores
+              // Filter to include only factorLetters in factorOrder
+              .filter((score: any) => factorOrder.includes(score.factorLetter))
+              // Sort scores based on factorOrder
+              .sort((a: any, b: any) => {
+                const indexA = factorOrder.indexOf(a.factorLetter);
+                const indexB = factorOrder.indexOf(b.factorLetter);
+                return indexA - indexB;
+              })
+              .map((score: any, index: number) => (
                             <tr key={index}>
                               <td>{score.factorLetter}</td>
                               <td>{getStenScoreMeaning(score.stenScore, score.factorLetter)}</td>
