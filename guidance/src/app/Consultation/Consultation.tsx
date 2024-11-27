@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { fetchConsultationRequests } from "../services/consultationservice";
 import axios from "axios";
-import styles from "./Consultation.scss";
+import styles from "./Consultation.module.scss";
 import e from "express";
+import ArchiveInbox from "./ArchiveInbox";
 
 const API_URL = "http://localhost:5000/api/consult/";
 const USERIQ_URL = "http://localhost:5000/api/useriq/test/";
@@ -29,6 +30,11 @@ const GuidanceConsultation: React.FC = () => {
   const [showDeclineModal, setShowDeclineModal] = useState<boolean>(false);
   const [decliningRequestId, setDecliningRequestId] = useState<string>("");
   const [showTestModal, setShowTestModal] = useState<boolean>(false);
+
+  const [showArchived, setShowArchived] = useState(false);  // State to toggle the archive list visibility
+  const toggleArchivedList = () => {
+    setShowArchived(prevState => !prevState);  // Toggle the state
+  };
 
   useEffect(() => {
     const loadConsultationRequests = async () => {
@@ -149,20 +155,21 @@ const handleMarkAsDone = async (id: string) => {
   }
 };
 
-const handleArchive = async (id: string) => {
+const handleArchive = async (testID: string) => {
   try {
-    // Send the request to archive the consultation request (for example, change the status to "Archived")
-    const response = await axios.put(`http://localhost:5000/api/consult/${id}/archive`);
-    
-    // Update the local state to reflect the change
-    const updatedRequests = acceptedRequests.map(request => 
-      request._id === id ? { ...request, status: 'Archived' } : request
+    // Make an API call to archive the consultation
+    await axios.put(`${API_URL}archive/${testID}`);
+    setConsultationRequests((prevConsultations) =>
+      prevConsultations.map((consultation) =>
+        consultation.testID === testID
+          ? { ...consultation, status: "archived" }
+          : consultation
+      )
     );
-    
-    setConsultationRequests(updatedRequests); // Update the state accordingly
-    console.log('Request archived');
+    alert(" Archived successfully.");
   } catch (error) {
-    console.error('Error archiving request:', error);
+    console.error("Error archiving consultation:", error);
+    alert("Failed to archive consultation.");
   }
 };
 
@@ -295,7 +302,15 @@ function getDynamicInterpretation(age: number, score: number): string {
 
     {/* Pending Requests Table */}
 <div className={styles.tableBox}>
-  <h2>Pending Consultation Requests</h2>
+  <h2>Pending Consultation Requests
+  <button
+      className={styles.archiveButton}
+      onClick={toggleArchivedList}
+    >
+      Archive List
+    </button>
+  </h2>
+  {showArchived && <ArchiveInbox />}
   <table>
     <thead>
       <tr>
@@ -414,7 +429,7 @@ function getDynamicInterpretation(age: number, score: number): string {
             {request.status === 'completed' && (
               <button
                 className={styles.archive}
-                onClick={() => handleArchive(request._id)}
+                onClick={() => handleArchive(request.testID)}
               >
                 Archive
               </button>

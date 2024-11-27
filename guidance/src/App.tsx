@@ -9,6 +9,7 @@ import Profile from './app/Profile/Profile';
 import './App.css';
 import Login from './app/Login/login';
 import ThemeToggle from './darkMode';
+import ArchiveInbox from './app/Consultation/ArchiveInbox';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
                       <Route path="/calendar" element={<Calendar />} />
                       <Route path="/consultation" element={<Consultation />} />
                       <Route path="/profile" element={<Profile />} />
+                      <Route path="/archive" element={<ArchiveInbox />} />
                     
                     </Routes>
                   </div>

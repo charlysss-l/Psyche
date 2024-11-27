@@ -161,6 +161,28 @@ export const cancelConsultationRequest = async (req: Request, res: Response) => 
 }
 };
 
+export const restoreConsultationRequest = async (req: Request, res: Response) => {
+  const { testID } = req.params;
+  try {
+    const RestoreConsultationRequestTestID = await ConsultationRequest.findOne({ testID });
+    if (!RestoreConsultationRequestTestID) {
+        res.status(404).json({ message: 'Test result not found' });
+        return;
+    }
+
+     // Update the status to "cancelled"
+     RestoreConsultationRequestTestID.status = 'completed';
+     await RestoreConsultationRequestTestID.save(); // Save the updated document
+
+    res.status(200).json({ data: RestoreConsultationRequestTestID });
+} catch (error) {
+    res.status(500).json({
+        message: 'Error retrieving IQ test result',
+        error: error instanceof Error ? error.message : 'An unknown error occurred'
+    });
+}
+};
+
 export const archiveConsultationRequest = async (req: Request, res: Response) => {
   const { testID } = req.params;
   try {
@@ -200,6 +222,28 @@ export const getArchivedConsultationsByUserID = async (req: Request, res: Respon
     }
 
     res.status(200).json({ data: ConsultationRequestUserID });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error retrieving archived consultations',
+      error: error instanceof Error ? error.message : 'An unknown error occurred',
+    });
+  }
+};
+
+
+export const getArchivedConsultations = async (req: Request, res: Response) => {
+  try {
+    // Fetch all consultations with status 'archived'
+    const archivedConsultations = await ConsultationRequest.find({
+      status: 'archived',  // Filter by archived status
+    });
+
+    if (archivedConsultations.length === 0) {
+      res.status(404).json({ message: 'No archived consultations found' });
+      return;
+    }
+
+    res.status(200).json({ data: archivedConsultations });
   } catch (error) {
     res.status(500).json({
       message: 'Error retrieving archived consultations',
