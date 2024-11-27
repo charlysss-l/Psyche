@@ -214,102 +214,134 @@ function getDynamicInterpretation(age: number, score: number): string {
 
   return (
     <div>
-      <div className={styles.statusBoxContainer}>
-        <div className={styles.acceptedBox}>
-          <h3>Accepted Requests</h3>
-          <p>{acceptedRequests.length}</p>
-        </div>
-        <div className={styles.pendingBox}>
-          <h3>Pending Requests</h3>
-          <p>{pendingRequests.length}</p>
-        </div>
+    <div className={styles.statusBoxContainer}>
+      <div className={styles.acceptedBox}>
+        <h3>Accepted Requests</h3>
+        <p>{acceptedRequests.length}</p>
       </div>
-
-      <div className={styles.tableBox}>
-        <h2>Consultation Requests</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Note</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {consultationRequests.map((request) => (
-              <tr key={request._id}>
-                <td>{request.userId}</td>
-                <td>
-  {new Date(request.date).toLocaleDateString("en-US", {
-    month: "2-digit",
-    day: "2-digit",
-    year: "numeric",
-  })}
-</td>
-                <td>{request.timeForConsultation}</td>
-                <td>{request.note}</td>
-                <td>
-                  <span
-                    className={`${styles.statusButton} ${
-                      request.status === "accepted" ? styles.acceptedStatus : ""
-                    }`}
-                  >
-                    {request.status}
-                  </span>
-                </td>
-                <td>
-                  {request.status === "pending" ? (
-                    <>
-                      <button
-                        className={styles.accept}
-                        onClick={() => acceptRequest(request._id)}
-                      >
-                        Accept
-                      </button>
-                      <button
-                        className={styles.decline}
-                        onClick={() => {
-                          setDecliningRequestId(request._id);
-                          setShowDeclineModal(true);
-                        }}
-                      >
-                        Decline
-                      </button>
-                    </>
-                  ) : (
-                    <button
-                      className={styles.viewInfo}
-                      onClick={() => handleViewInfo( request.testID, request.note)}
-                    >
-                      View Info
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {showDeclineModal && (
-  <div className={`${styles.declineModal} ${styles.show}`}>
-    <div className={styles.declineModalContent}>
-      <h3>Decline Consultation Request</h3>
-      <textarea
-        value={declineNote}
-        onChange={(e) => setDeclineNote(e.target.value)}
-        placeholder="Enter the reason for declining"
-      />
-      <div>
-        <button onClick={() => setShowDeclineModal(false)}>Cancel</button>
-        <button onClick={declineRequest}>Submit</button>
+      <div className={styles.pendingBox}>
+        <h3>Pending Requests</h3>
+        <p>{pendingRequests.length}</p>
       </div>
     </div>
-  </div>
-)}
+
+    {/* Pending Requests Table */}
+    <div className={styles.tableBox}>
+      <h2>Pending Consultation Requests</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Note</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pendingRequests.map((request) => (
+            <tr key={request._id}>
+              <td>{request.userId}</td>
+              <td>
+                {new Date(request.date).toLocaleDateString("en-US", {
+                  month: "2-digit",
+                  day: "2-digit",
+                  year: "numeric",
+                })}
+              </td>
+              <td>{request.timeForConsultation}</td>
+              <td>{request.note}</td>
+              <td>
+                <span className={`${styles.statusButton}`}>
+                  {request.status}
+                </span>
+              </td>
+              <td>
+                <button
+                  className={styles.accept}
+                  onClick={() => acceptRequest(request._id)}
+                >
+                  Accept
+                </button>
+                <button
+                  className={styles.decline}
+                  onClick={() => {
+                    setDecliningRequestId(request._id);
+                    setShowDeclineModal(true);
+                  }}
+                >
+                  Decline
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    {/* Accepted Requests Table */}
+    <div className={styles.tableBox}>
+      <h2>Accepted Consultation Requests</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Note</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {acceptedRequests.map((request) => (
+            <tr key={request._id}>
+              <td>{request.userId}</td>
+              <td>
+                {new Date(request.date).toLocaleDateString("en-US", {
+                  month: "2-digit",
+                  day: "2-digit",
+                  year: "numeric",
+                })}
+              </td>
+              <td>{request.timeForConsultation}</td>
+              <td>{request.note}</td>
+              <td>
+                <span className={`${styles.statusButton} ${styles.acceptedStatus}`}>
+                  {request.status}
+                </span>
+              </td>
+              <td>
+                <button
+                  className={styles.viewInfo}
+                  onClick={() => handleViewInfo(request.testID, request.note)}
+                >
+                  View Info
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    {showDeclineModal && (
+      <div className={`${styles.declineModal} ${styles.show}`}>
+        <div className={styles.declineModalContent}>
+          <h3>Decline Consultation Request</h3>
+          <textarea
+            value={declineNote}
+            onChange={(e) => setDeclineNote(e.target.value)}
+            placeholder="Enter the reason for declining"
+          />
+          <div>
+            <button onClick={() => setShowDeclineModal(false)}>Cancel</button>
+            <button onClick={declineRequest}>Submit</button>
+          </div>
+        </div>
+      </div>
+    )}
 
 {showTestInfo && (
   <div className={`${styles.testInfoModal} ${styles.show}`}>
