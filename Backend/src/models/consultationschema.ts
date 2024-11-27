@@ -6,7 +6,7 @@ interface IConsultationRequest extends Document {
   testID: string;
   note: 'IQ Test (Online)' | 'IQ Test (Physical)' | 'Personality Test (Online)' | 'Personality Test (Physical)' | 'Others';
   date: Date;
-  status: 'pending' | 'accepted' | 'declined';
+  status: 'pending' | 'accepted' | 'declined' | 'cancelled' | 'completed' | 'deleted' | 'removed';
   message: string;
   firstName?: string;
   lastName?: string;
@@ -45,7 +45,7 @@ const ConsultationRequestSchema: Schema = new Schema({
   status: {
     type: String,
     default: 'pending',
-    enum: ['pending', 'accepted', 'declined'], // Status can only be one of these
+    enum: ['pending', 'accepted', 'declined', 'cancelled', 'completed', 'deleted' , 'removed'], // Status can only be one of these
   },
   message: {
     type: String,

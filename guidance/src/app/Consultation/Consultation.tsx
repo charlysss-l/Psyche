@@ -71,8 +71,8 @@ const GuidanceConsultation: React.FC = () => {
     fetchTestDetails( testID, note);
   };
 
-  const pendingRequests = consultationRequests.filter((request) => request.status === "pending");
-  const acceptedRequests = consultationRequests.filter((request) => request.status === "accepted");
+  const pendingRequests = consultationRequests.filter((request) => request.status === "pending" || request.status === "cancelled");
+  const acceptedRequests = consultationRequests.filter((request) => request.status === "accepted" );
 
   // Accept a consultation request
   const acceptRequest = async (id: string) => {
@@ -89,20 +89,51 @@ const GuidanceConsultation: React.FC = () => {
   };
 
   // Decline a consultation request
-  const declineRequest = async () => {
-    try {
-      await axios.delete(`${API_URL}${decliningRequestId}/decline`, {
-        data: { note: declineNote },
-      });
-      setConsultationRequests((prevRequests) =>
-        prevRequests.filter((request) => request._id !== decliningRequestId)
-      );
-      setShowDeclineModal(false); // Close modal
-      setDeclineNote(""); // Reset the decline note
-    } catch (error) {
-      console.error("Error declining consultation request:", error);
-    }
-  };
+const declineRequest = async () => {
+  try {
+    await axios.put(`${API_URL}${decliningRequestId}/decline`, {
+      data: { note: declineNote },
+    });
+    setConsultationRequests((prevRequests) =>
+      prevRequests.map((request) =>
+        request._id === decliningRequestId
+          ? { ...request, status: "declined", note: declineNote }
+          : request
+      )
+    );
+    setShowDeclineModal(false); // Close modal
+    setDeclineNote(""); // Reset the decline note
+    alert("Consultation request declined successfully.");
+  } catch (error) {
+    console.error("Error declining consultation request:", error);
+    alert("Failed to decline consultation request.");
+  }
+};
+
+
+const deleteConsultation = async (_id: string) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this consultation?");
+  if (!confirmDelete) return;
+
+  try {
+    await axios.delete(`${API_URL}/id/${_id}/delete`);
+    setConsultationRequests((prevRequests) =>
+      prevRequests.map((request) =>  
+        request._id === _id
+    ? { ...request } : request
+      )
+          
+    );
+    alert("Consultation deleted successfully.");
+
+    window.location.reload();
+  } catch (error) {
+    console.error("Error deleting consultation:", error);
+    alert("Failed to delete consultation.");
+  }
+};
+
+
   const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
 
   
@@ -230,38 +261,47 @@ function getDynamicInterpretation(age: number, score: number): string {
     </div>
 
     {/* Pending Requests Table */}
-    <div className={styles.tableBox}>
-      <h2>Pending Consultation Requests</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Note</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pendingRequests.map((request) => (
-            <tr key={request._id}>
-              <td>{request.userId}</td>
-              <td>
-                {new Date(request.date).toLocaleDateString("en-US", {
-                  month: "2-digit",
-                  day: "2-digit",
-                  year: "numeric",
-                })}
-              </td>
-              <td>{request.timeForConsultation}</td>
-              <td>{request.note}</td>
-              <td>
-                <span className={`${styles.statusButton}`}>
-                  {request.status}
-                </span>
-              </td>
-              <td>
+<div className={styles.tableBox}>
+  <h2>Pending Consultation Requests</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Note</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {pendingRequests.map((request) => (
+        <tr key={request._id}>
+          <td>{request.userId}</td>
+          <td>
+            {new Date(request.date).toLocaleDateString("en-US", {
+              month: "2-digit",
+              day: "2-digit",
+              year: "numeric",
+            })}
+          </td>
+          <td>{request.timeForConsultation}</td>
+          <td>{request.note}</td>
+          <td>
+            <span className={`${styles.statusButton}`}>
+              {request.status}
+            </span>
+          </td>
+          <td>
+            {request.status === "cancelled" ? (
+              <button
+                className={styles.delete}
+                onClick={() => deleteConsultation(request._id)}
+              >
+                Delete
+              </button>
+            ) : (
+              <>
                 <button
                   className={styles.accept}
                   onClick={() => acceptRequest(request._id)}
@@ -277,12 +317,15 @@ function getDynamicInterpretation(age: number, score: number): string {
                 >
                   Decline
                 </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+              </>
+            )}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
 
     {/* Accepted Requests Table */}
     <div className={styles.tableBox}>

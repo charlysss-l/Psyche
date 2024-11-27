@@ -176,7 +176,7 @@ const ConsultationRequestForm: React.FC = () => {
     if (!confirmDelete) return;
   
     try {
-      await axios.delete(`${API_URL}${testID}/delete`);
+      await axios.delete(`${API_URL}/test/${testID}/delete`);
       setConsultation((prevConsultations) =>
         prevConsultations.filter((consultation) => consultation.testID !== testID)
       );
@@ -477,23 +477,23 @@ const ConsultationRequestForm: React.FC = () => {
               <td>
                 <button
                     className={`${styles.actionButton} ${
-                      consultation.status === "accepted"
+                      consultation.status === "declined"
                 ? styles.delete
-                : consultation.status === "cancelled"
+                : consultation.status === "cancelled" || consultation.status === "removed"
                 ? styles.delete
                 : styles.cancel
             }`}                  
             onClick={() =>
-              consultation.status === "accepted"
+              consultation.status === "declined"
                 ? deleteConsultation(consultation.testID)
-                : consultation.status === "cancelled"
+                : consultation.status === "cancelled" || consultation.status === "removed"
                 ? deleteConsultation(consultation.testID)
                 : cancelConsultation(consultation.testID)
             }
           >
-            {consultation.status === "accepted"
+            {consultation.status === "declined"
               ? "Delete"
-              : consultation.status === "cancelled"
+              : consultation.status === "cancelled" || consultation.status === "removed"
               ? "Delete"
               : "Cancel"}
           </button>
