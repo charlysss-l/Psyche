@@ -16,11 +16,6 @@ interface ConsultationRequest {
 const SchedulingCalendar: React.FC = () => {
   const [consultationRequests, setConsultationRequests] = useState<ConsultationRequest[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [newSchedule, setNewSchedule] = useState({
-    userId: "",
-    timeForConsultation: "",
-    note: "",
-  });
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
@@ -39,84 +34,29 @@ const SchedulingCalendar: React.FC = () => {
     setSelectedDate(date);
   };
 
-  const acceptRequest = async (id: string) => {
-    try {
-      await axios.put(`http://localhost:5000/api/consult/${id}/accept`);
-      setConsultationRequests((prevRequests) =>
-        prevRequests.map((request) =>
-          request._id === id ? { ...request, status: "accepted" } : request
-        )
-      );
-    } catch (error) {
-      console.error("Error accepting consultation request:", error);
-    }
-  };
-
-  const handleScheduleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setNewSchedule((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!selectedDate) {
-      setErrorMessage("Please select a date for the consultation.");
-      return;
-    }
-
-    if (!newSchedule.userId || !newSchedule.timeForConsultation || !newSchedule.note) {
-      setErrorMessage("Please fill in all fields.");
-      return;
-    }
-
-    try {
-      const newRequest = {
-        ...newSchedule,
-        date: selectedDate?.toISOString(),
-        status: "pending",
-      };
-
-      const response = await axios.post("http://localhost:5000/api/consult", newRequest);
-      setConsultationRequests((prevRequests) => [...prevRequests, response.data]);
-      setNewSchedule({
-        userId: "",
-        timeForConsultation: "",
-        note: "",
-      });
-      setErrorMessage(""); // Clear error message on successful submit
-    } catch (error) {
-      console.error("Error adding new schedule:", error);
-      setErrorMessage("There was an error adding the schedule. Please try again.");
-    }
-  };
-
-  const filteredRequests = consultationRequests.filter(
-    (request) => new Date(request.date).toDateString() === selectedDate?.toDateString()
-  );
-
   // Function to determine if a date has schedules and should be red
   const isScheduledDate = (date: Date) => {
     return consultationRequests.some(
-      (request) => new Date(request.date).toDateString() === date.toDateString()
+      (request) => new Date(request.date).toDateString() === date.toDateString() && request.status === "accepted"
     );
   };
+
+  const filteredRequests = consultationRequests.filter(
+    (request) => new Date(request.date).toDateString() === selectedDate?.toDateString() && request.status === "accepted"
+  );
 
   return (
     <div className={styles.calendarContainer}>
       <Calendar
         onClickDay={handleDateClick}
         tileClassName={({ date }) => {
-          // Add red background for dates with schedules
+          // Add red background for dates with accepted consultations
           return isScheduledDate(date) ? styles.scheduledDate : "";
         }}
         tileContent={({ date, view }) => {
           if (view === "month") {
             const count = consultationRequests.filter(
-              (request) => new Date(request.date).toDateString() === date.toDateString()
+              (request) => new Date(request.date).toDateString() === date.toDateString() && request.status === "accepted"
             ).length;
             return count ? <div className="schedule-count">{count}</div> : null;
           }
@@ -134,7 +74,6 @@ const SchedulingCalendar: React.FC = () => {
                   <th>Time</th>
                   <th>Note</th>
                   <th>Status</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -144,52 +83,29 @@ const SchedulingCalendar: React.FC = () => {
                     <td>{request.timeForConsultation}</td>
                     <td>{request.note}</td>
                     <td>{request.status}</td>
-                    <td>
-                      {request.status === "pending" && (
-                        <button onClick={() => acceptRequest(request._id)}>
-                          Accept
-                        </button>
-                      )}
-                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <p>No requests for this date.</p>
+            <p>No accepted requests for this date.</p>
           )}
 
+          {/* Form to Add New Schedule */}
           <h3 className={styles.Add}>Add New Schedule</h3>
           {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <div>
               <label>User ID:</label>
-              <input
-                type="text"
-                name="userId"
-                value={newSchedule.userId}
-                onChange={handleScheduleChange}
-                required
-              />
+              <input type="text" name="userId" required />
             </div>
             <div>
               <label>Time for Consultation:</label>
-              <input
-                type="time"
-                name="timeForConsultation"
-                value={newSchedule.timeForConsultation}
-                onChange={handleScheduleChange}
-                required
-              />
+              <input type="time" name="timeForConsultation" required />
             </div>
             <div>
               <label>Note:</label>
-              <textarea
-                name="note"
-                value={newSchedule.note}
-                onChange={handleScheduleChange}
-                required
-              />
+              <textarea name="note" required />
             </div>
             <button type="submit">Add Schedule</button>
           </form>
