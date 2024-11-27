@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchConsultationRequests } from "../services/consultationservice";
-import styles from "./Home.scss";
+import styles from "./homepage.module.scss";
 
 const GuidanceHome: React.FC = () => {
   const [consultationRequests, setConsultationRequests] = useState<any[]>([]);
@@ -42,15 +42,21 @@ const GuidanceHome: React.FC = () => {
         <p className={styles.welcomeMessage}>
           Get updated on student's consultation request and track your schedule here now in your calendar
         </p>
+        <button
+            className={styles.viewCalendar}
+            onClick={() => window.location.href = '/calendar'}>
+            View Calendar
+          </button>
       </div>
 
       {/* New Consultation Request Section */}
       <div className={styles.newConsultationSection}>
-        <h1>New Consultation Request</h1>
-        <p>{newConsultations.length} pending consultation request(s)</p>
+        
 
         {/* Table for New Consultation Requests */}
         <div className={styles.tableBox}>
+        <h1>New Consultation Request</h1>
+        <p>{newConsultations.length} pending consultation request(s)</p>
           <table>
             <thead>
               <tr>
@@ -88,18 +94,20 @@ const GuidanceHome: React.FC = () => {
               ))}
             </tbody>
           </table>
-        </div>
-     {/* Below the table, add the link button */}
+          {/* Below the table, add the link button */}
      <div className={styles.viewConsultationContainer}>
+      <p>to Update the status of Request view consultation table</p>
           <button
             className={styles.viewConsultationButton}
             onClick={() => window.location.href = '/consultation'}>
             View Consultation Table
           </button>
         </div>
+        </div>
         {/* Consultation Schedule for Today */}
         <div className={styles.tableBox}>
           <h2>Guidance's Consultation Schedule for Today</h2>
+          <p>{todayConsultations.length} pending consultation request(s)</p>
           {todayConsultations.length > 0 ? (
             <table>
               <thead>
