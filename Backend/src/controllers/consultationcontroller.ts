@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { ConsultationRequest } from '../models/consultationschema';
+import { param } from 'express-validator';
 
 export const createConsultationRequest = async (req: Request, res: Response) => {
   try {
@@ -65,11 +66,36 @@ export const acceptConsultationRequest = async (req: Request, res: Response) => 
   }
 };
 
-export const declineConsultationRequest = async (req: Request, res: Response) => {
+export const deleteConsultationRequest = async (req: Request, res: Response) => {
+  const { testID } = req.params;
   try {
-    await ConsultationRequest.findByIdAndDelete(req.params.id);
-    res.status(204).send();
-  } catch (error) {
-    res.status(400).json({ message: 'Error' });
-  }
+    const DeleteConsultationRequestTestID = await ConsultationRequest.findOne({ testID });
+    if (!DeleteConsultationRequestTestID) {
+        res.status(404).json({ message: 'Test result not found' });
+        return;
+    }
+    res.status(200).json({ data: DeleteConsultationRequestTestID });
+} catch (error) {
+    res.status(500).json({
+        message: 'Error retrieving IQ test result',
+        error: error instanceof Error ? error.message : 'An unknown error occurred'
+    });
+}
+};
+
+export const cancelConsultationRequest = async (req: Request, res: Response) => {
+  const { testID } = req.params;
+  try {
+    const CancelConsultationRequestTestID = await ConsultationRequest.findOne({ testID });
+    if (!CancelConsultationRequestTestID) {
+        res.status(404).json({ message: 'Test result not found' });
+        return;
+    }
+    res.status(200).json({ data: CancelConsultationRequestTestID });
+} catch (error) {
+    res.status(500).json({
+        message: 'Error retrieving IQ test result',
+        error: error instanceof Error ? error.message : 'An unknown error occurred'
+    });
+}
 };

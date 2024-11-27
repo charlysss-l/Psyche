@@ -6,9 +6,11 @@ import { v4 as uuidv4 } from 'uuid'; // Install with `npm install uuid`
 interface Consultation {
   userId: string;
   date: string;
+  testID: string;
   timeForConsultation: string;
   note: string;
   status: string;
+  message: string;
 }
 
 
@@ -125,6 +127,7 @@ const ConsultationRequestForm: React.FC = () => {
         note,
         testID: selectedTestID,
         date,
+        message: "No Message Yet",
         firstName: firstName || "N/A",
         lastName: lastName || "N/A",
         age: age || 1,
@@ -167,6 +170,44 @@ const ConsultationRequestForm: React.FC = () => {
       console.error("Error fetching consultations:", error);
     }
   };
+
+  const deleteConsultation = async (testID: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this consultation?");
+    if (!confirmDelete) return;
+  
+    try {
+      await axios.delete(`${API_URL}${testID}/delete`);
+      setConsultation((prevConsultations) =>
+        prevConsultations.filter((consultation) => consultation.testID !== testID)
+      );
+      alert("Consultation deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting consultation:", error);
+      alert("Failed to delete consultation.");
+    }
+  };
+  
+  
+  const cancelConsultation = async (testID: string) => {
+    const confirmCancel = window.confirm("Are you sure you want to cancel this consultation?");
+    if (!confirmCancel) return;
+
+    try {
+      await axios.put(`${API_URL}${testID}/cancel`);
+      setConsultation((prevConsultations) =>
+        prevConsultations.map((consultation) =>
+          consultation.testID === testID
+            ? { ...consultation, status: "cancelled" }
+            : consultation
+        )
+      );
+      alert("Consultation cancelled successfully.");
+    } catch (error) {
+      console.error("Error cancelling consultation:", error);
+      alert("Failed to cancel consultation.");
+    }
+  };
+  
   
 
   return (
@@ -394,16 +435,15 @@ const ConsultationRequestForm: React.FC = () => {
     </div>
 
     <div className={styles.tableContainer}>
-
-    <h2>Consultation Records</h2>
-    <div className={styles.responsesWrapper}>
-
+  <h2>Consultation Records</h2>
+  <div className={styles.responsesWrapper}>
     <table className={styles.table}>
       <thead>
         <tr>
           <th>User ID</th>
           <th>Date</th>
           <th>Time for Consultation</th>
+          <th>Test ID</th>
           <th>Note</th>
           <th>Status</th>
           <th>Actions</th>
@@ -413,27 +453,65 @@ const ConsultationRequestForm: React.FC = () => {
       <tbody>
         {consultations.length > 0 ? (
           consultations.map((consultation) => (
-            <tr key={consultation.userId + consultation.date + consultation.timeForConsultation}>
+            <tr
+              key={
+                consultation.userId +
+                consultation.date +
+                consultation.timeForConsultation+
+                consultation.testID
+
+              }
+            >
               <td>{consultation.userId}</td>
-              <td>{new Date(consultation.date).toLocaleDateString("en-US", {
-    month: "2-digit",
-    day: "2-digit",
-    year: "numeric",
-  })}</td>
+              <td>
+                {new Date(consultation.date).toLocaleDateString("en-US", {
+                  month: "2-digit",
+                  day: "2-digit",
+                  year: "numeric",
+                })}
+              </td>
               <td>{consultation.timeForConsultation}</td>
+              <td>{consultation.testID}</td>
               <td>{consultation.note}</td>
               <td>{consultation.status}</td>
+              <td>
+                <button
+                    className={`${styles.actionButton} ${
+                      consultation.status === "accepted"
+                ? styles.delete
+                : consultation.status === "cancelled"
+                ? styles.delete
+                : styles.cancel
+            }`}                  
+            onClick={() =>
+              consultation.status === "accepted"
+                ? deleteConsultation(consultation.testID)
+                : consultation.status === "cancelled"
+                ? deleteConsultation(consultation.testID)
+                : cancelConsultation(consultation.testID)
+            }
+          >
+            {consultation.status === "accepted"
+              ? "Delete"
+              : consultation.status === "cancelled"
+              ? "Delete"
+              : "Cancel"}
+          </button>
+              </td>
+              <td>{consultation.message}</td>
+              
             </tr>
           ))
         ) : (
           <tr>
-            <td colSpan={5}>No consultations found</td>
+            <td colSpan={7}>No consultations found</td>
           </tr>
         )}
       </tbody>
     </table>
   </div>
-  </div>
+</div>
+
   </div>
     
   );

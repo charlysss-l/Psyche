@@ -7,6 +7,7 @@ interface IConsultationRequest extends Document {
   note: 'IQ Test (Online)' | 'IQ Test (Physical)' | 'Personality Test (Online)' | 'Personality Test (Physical)' | 'Others';
   date: Date;
   status: 'pending' | 'accepted' | 'declined';
+  message: string;
   firstName?: string;
   lastName?: string;
   sex?: string;
@@ -45,6 +46,10 @@ const ConsultationRequestSchema: Schema = new Schema({
     type: String,
     default: 'pending',
     enum: ['pending', 'accepted', 'declined'], // Status can only be one of these
+  },
+  message: {
+    type: String,
+    required: true,
   },
   firstName: {
     type: String, // Optional field

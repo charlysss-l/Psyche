@@ -170,3 +170,39 @@ h2 {
   overflow-y: auto;   // Enable vertical scrolling when content overflows
   margin-top: 10px;   // Optional, for some space between elements
 }
+
+// Define a base style for all buttons
+.actionButton {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &.delete {
+    background-color: #c53b2b; // Red for delete
+    color: white;
+
+    &:hover {
+      background-color: #690e04; // Darker red
+    }
+  }
+
+  &.cancel {
+    background-color: #2881b4; // Yellow for cancel
+    color: black;
+
+    &:hover {
+      background-color: #034a74; // Darker yellow
+    }
+  }
+}
