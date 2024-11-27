@@ -241,7 +241,7 @@ h2 {
 }
 
 .archiveButton:active {
-  background-color: #2a3e5f; /* Darker blue when clicked */
+  background-color: #5f2a2a; /* Darker blue when clicked */
   transform: scale(0.98); /* Slight click animation */
 }
 
@@ -257,7 +257,7 @@ h2 {
   display: block;
   width: 0;
   height: 4px;
-  background-color: #2d4373;
+  background-color: #dd1e1e;
   margin: 0 auto;
   border-radius: 2px;
   transition: width 0.3s ease;

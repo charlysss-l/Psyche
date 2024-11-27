@@ -64,6 +64,8 @@ const ArchiveInbox = () => {
   return (
     <div className={styles.tableContainer}>
       <h2>Archived Consultation Records</h2>
+      <button className={styles.closeButton} onClick={handleClose}>Close</button> {/* Close button */}
+
 
       <div className={styles.responsesWrapper}>
         <table className={styles.table}>
