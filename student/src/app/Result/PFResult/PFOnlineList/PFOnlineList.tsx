@@ -36,7 +36,7 @@ const PFOnlineList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [userID, setUserID] = useState<string | null>(null);
 
-  const resultsPerPage = 8;
+  const resultsPerPage = 5;
   const navigate = useNavigate();
 
   // Define the factor order
@@ -188,8 +188,7 @@ const PFOnlineList: React.FC = () => {
                         <tr>
                           <th>Question Number</th>
                           <th>Selected Choice</th>
-                          <th>Equivalent Score</th>
-                          <th>Factor Letter</th>
+                       
                         </tr>
                       </thead>
                       <tbody>
@@ -197,8 +196,7 @@ const PFOnlineList: React.FC = () => {
                           <tr key={index}>
                             <td>{response.questionID}</td>
                             <td>{response.selectedChoice}</td>
-                            <td>{response.equivalentScore}</td>
-                            <td>{response.factorLetter}</td>
+                       
                           </tr>
                         ))}
                       </tbody>
@@ -212,9 +210,7 @@ const PFOnlineList: React.FC = () => {
                     <table className={styles.scoresTable}>
                       <thead>
                         <tr>
-                          <th>Factor Letter</th>
-                          <th>Raw Score</th>
-                          <th>Sten Score</th>
+                      
                           <th>Results Interpretation</th>
                         </tr>
                       </thead>
@@ -243,9 +239,7 @@ const PFOnlineList: React.FC = () => {
 
                           return (
                             <tr key={factorLetter}>
-                              <td>{score.factorLetter}</td>
-                              <td>{score.rawScore}</td>
-                              <td>{score.stenScore}</td>
+                              
                               <td>{interpretation}</td> {/* Updated to render interpretation */}
                             </tr>
                           );

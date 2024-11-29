@@ -10,7 +10,7 @@ const PFTest: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [responses, setResponses] = useState<Record<string, string>>({});
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const questionsPerPage = 5; // Number of questions per page
+    const questionsPerPage = 10; // Number of questions per page
     const navigate = useNavigate();
 
     const [userID, setUserID] = useState<string>('');
@@ -109,12 +109,17 @@ const PFTest: React.FC = () => {
     const currentQuestions = test?.question.slice((currentPage - 1) * questionsPerPage, currentPage * questionsPerPage);
 
     const goToNextPage = () => {
-        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+        setCurrentPage((prevPage) => {
+            const nextPage = Math.min(prevPage + 1, totalPages);
+            if (nextPage !== prevPage) window.scrollTo(0, 0); // Scroll to top
+            return nextPage;
+        });
     };
-
+    
     const goToPreviousPage = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
     };
+    
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -122,48 +127,60 @@ const PFTest: React.FC = () => {
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
             <h1>{test?.nameofTest}</h1>
-            <p>Number of Questions: {test?.numOfQuestions}</p>
-
-            <div>
-                <input type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required readOnly/>
-                <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-                <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-                <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
-                <select value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')} required>
-                    <option value="" disabled>Select Sex</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-                <select value={course} onChange={(e) => setCourse(e.target.value)} required>
-                    <option value="" disabled>Select Course</option>
-                    <option value="BSCS">BSCS</option>
-                    <option value="BSIT">BSIT</option>
-                    <option value="BSP">BSP</option>
-                    <option value="BSCrim">BSCrim</option>
-                    <option value="BSEd">BSEd</option>
-                    <option value="BSHRM">BSHRM</option>
-                </select>
-                <select value={year} onChange={(e) => setYear(e.target.value)} required>
-                    <option value="" disabled>Select Year</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-                <select value={section} onChange={(e) => setSection(e.target.value)} required>
-                    <option value="" disabled>Select Section</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-                <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
-                    <option value="" disabled>Select Exam Type</option>
-                    <option value="Online">Online</option>
-                </select>
-            </div>
-
+            <h2>Instructions:</h2>
+            <p>
+                <span className={styles.highlight}>*</span> This 16 PF personality test contains <span className={styles.highlight}>{test?.question.length}</span> statements. There is no time limit. Please allow yourself plenty of time. <br />
+                <span className={styles.highlight}>*</span> Please respond to all of the statements and answer in sequence. <br />
+                <span className={styles.highlight}>*</span> Double-check that you have made the right choice. If you need to change an answer, simply select the new response and the incorrect response will disappear. <br />
+                <span className={styles.highlight}>*</span> Try not to use the 'Neutral' option too often. <br />
+                <span className={styles.highlight}>*</span> Describe yourself as you honestly see yourself now, not as you wish to be in the future.
+            </p>
+    
+            {/* Demographic Form Fields - Only on the First Page */}
+            {currentPage === 1 && (
+                <div>
+                    <input type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required readOnly />
+                    <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                    <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                    <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />
+                    <select value={sex} onChange={(e) => setSex(e.target.value as 'Male' | 'Female')} required>
+                        <option value="" disabled>Select Sex</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <select value={course} onChange={(e) => setCourse(e.target.value)} required>
+                        <option value="" disabled>Select Course</option>
+                        <option value="BSCS">BSCS</option>
+                        <option value="BSIT">BSIT</option>
+                        <option value="BSP">BSP</option>
+                        <option value="BSCrim">BSCrim</option>
+                        <option value="BSEd">BSEd</option>
+                        <option value="BSHRM">BSHRM</option>
+                    </select>
+                    <select value={year} onChange={(e) => setYear(e.target.value)} required>
+                        <option value="" disabled>Select Year</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <select value={section} onChange={(e) => setSection(e.target.value)} required>
+                        <option value="" disabled>Select Section</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
+                        <option value="" disabled>Select Exam Type</option>
+                        <option value="Online">Online</option>
+                        <option value="Physical">Physical</option>
+                    </select>
+                </div>
+            )}
+    
+            {/* Questions */}
             <div className={styles.questionContainer}>
                 {currentQuestions && currentQuestions.length > 0 ? (
                     currentQuestions.map((q: Question, index: number) => (
@@ -189,7 +206,8 @@ const PFTest: React.FC = () => {
                     <p>No questions available</p>
                 )}
             </div>
-
+    
+            {/* Pagination */}
             <div className={styles.pagination}>
                 <button type="button" onClick={goToPreviousPage} disabled={currentPage === 1}>
                     Previous
@@ -199,12 +217,16 @@ const PFTest: React.FC = () => {
                     Next
                 </button>
             </div>
-
-            {currentPage === totalPages  && (
-                <button className={styles.submitButton} type="submit">Submit Test</button>
+    
+            {/* Submit Button */}
+            {currentPage === totalPages && (
+                <button className={styles.submitButton} type="submit">
+                    Submit Test
+                </button>
             )}
         </form>
     );
+    
 };
 
 export default PFTest;

@@ -25,6 +25,7 @@ interface TestResultData {
     course: string;
     year: number;
     section: number;
+    testID: string;
     testType: 'Online' | 'Physical';
     responses: {
         questionID: string;
@@ -324,8 +325,30 @@ ChartJS.register(
                 };
         }
     };
+
+    const factorDescriptions: Record<string, string> = {
+        A: 'Warmth',
+        B: 'Reasoning',
+        C: 'Emotional Stability',
+        E: 'Dominance',
+        F: 'Liveliness',
+        G: 'Rule-Consciousness',
+        H: 'Social Boldness',
+        I: 'Sensitivity',
+        L: 'Vigilance',
+        M: 'Abstractedness',
+        N: 'Privateness',
+        O: 'Apprehension',
+        Q1: 'Openness to Change',
+        Q2: 'Self-Reliance',
+        Q3: 'Perfectionism',
+        Q4: 'Tension',
+    };
+    
     
 const PFResult: React.FC = () => {
+    const [isChecked, setIsChecked] = useState(false); // Track checkbox state
+
     const navigate = useNavigate();
     const [results, setResults] = useState<TestResultData | null>(null);
 
@@ -382,7 +405,7 @@ const PFResult: React.FC = () => {
 
             const result = await response.json();
             if (response.ok) {
-                alert('Your result has been shared with the guidance counselor.');
+                alert('Please Fill the Consultation Form to schedule a consultation with our Guidance Councelor.');
             } else {
                 alert('There was an error sharing the result.');
             }
@@ -393,16 +416,34 @@ const PFResult: React.FC = () => {
     };
 
     const handleShareResult = () => {
-        submitResultsToBackend();
+        if (!isChecked) {
+            alert("Please agree to share your results by checking the box.");
+            return;
+        }
+
+        const userConfirmed = window.confirm(
+            "Are you sure you want to be consulted and share your result with the guidance counselor?"
+        );
+        
+        if (userConfirmed) {
+            submitResultsToBackend();
+            navigate('/consultation');
+
+        } else {
+            alert("Result sharing cancelled. Your Result has been saved to your Result Page.");
+            navigate('/home');
+
+        }
     };
+    
 
     const handleCancel = () => {
-        alert('Result sharing cancelled.');
+        alert('Result sharing cancelled. Your Result has been saved to your Result Page.');
         navigate('/home');
     };
 
     const chartData = {
-        labels: sortedScoring.map((score) => score.factorLetter), // Factor Letters on x-axis in order
+        labels: sortedScoring.map((score) => factorDescriptions[score.factorLetter]), // Use descriptions for y-axis
         datasets: [
             {
                 label: 'Standard Ten Score (STEN)',
@@ -417,9 +458,9 @@ const PFResult: React.FC = () => {
         ],
     };
     
-    // Define chart options
     const chartOptions = {
         responsive: true,
+        indexAxis: 'y' as const, // Switch axes to make the chart horizontal
         plugins: {
             legend: {
                 display: true,
@@ -434,31 +475,31 @@ const PFResult: React.FC = () => {
             x: {
                 title: {
                     display: true,
-                    text: 'Factor Letter',
-                },
-            },
-            y: {
-                title: {
-                    display: true,
-                    text: 'Sten',
+                    text: 'Standard Ten Score (STEN)',
                 },
                 min: 1,
                 max: 10,
                 grid: {
                     drawOnChartArea: true,
                     color: (context: any) => {
-                        const yValue = context.tick.value;
+                        const xValue = context.tick.value;
                         // Apply gray background color to grid lines for Sten 4-7
-                        if (yValue >= 4 && yValue <= 7) {
+                        if (xValue >= 4 && xValue <= 7) {
                             return 'rgba(128, 128, 128, 1)'; 
-                            
                         }
-                        return 'rgba(0, 0, 0, 0.1)'; 
+                        return 'rgba(0, 0, 0, 0.1)';
                     },
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Factors',
                 },
             },
         },
     };
+    
     
     
     return (
@@ -476,52 +517,62 @@ const PFResult: React.FC = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Factor Letter</th>
-                            <th>Sten</th>
-                            <th>Result Interpretation</th>
+                            <th>Factors</th>
+                            <th>Result Interpretations</th>
                         </tr>
                     </thead>
-                    <tbody> 
-                    {sortedScoring.map((score) => {
-                        const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
-                        const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
+                    <tbody>
+    {sortedScoring.map((score) => {
+        const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+        const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
 
-                        // Change the type to React.ReactNode
-                        let interpretation: React.ReactNode = ""; // Initialize as an empty string
+        let interpretation: React.ReactNode = "";
 
-                        if (stenScore >= 1 && stenScore <= 3) {
-                            interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
-                        } else if (stenScore >= 4 && stenScore <= 7) {
-                            interpretation = (
-                                <>
-                                    <span className={styles.leftMeaning}>{leftMeaning}</span> 
-                                    <span className={styles.average}> (Average) </span> 
-                                    <span className={styles.rightMeaning}>{rightMeaning}</span>
-                                </>
-                            );
-                        } else if (stenScore >= 8 && stenScore <= 10) {
-                            interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
-                        }
-                            return (
-                                <tr key={score.factorLetter}>
-                                    <td>{score.factorLetter}</td>
-                                    <td>{stenScore}</td>
-                                    <td>{interpretation}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
+        if (stenScore >= 1 && stenScore <= 3) {
+            interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
+        } else if (stenScore >= 4 && stenScore <= 7) {
+            interpretation = (
+                <>
+                    <span className={styles.average}> (Average) <br/> </span> 
+                    <span className={styles.leftMeaning}>{leftMeaning} <br/></span> 
+                    <span className={styles.rightMeaning}>{rightMeaning}</span>
+                </>
+            );
+        } else if (stenScore >= 8 && stenScore <= 10) {
+            interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
+        }
+        return (
+            <tr key={score.factorLetter}>
+                <td>{factorDescriptions[score.factorLetter]}</td> {/* Use description */}
+                <td>{interpretation}</td>
+            </tr>
+        );
+    })}
+</tbody>
+
                 </table>
             </div>
     
             <div className={styles.sharePrompt}>
-                <p>Would you like to share your result with our guidance counselor?</p>
-                <button onClick={handleShareResult} className={styles.buttonYes}>
-                    Yes
-                </button>
-                <button onClick={handleCancel} className={styles.buttonCancel}>
-                    No
-                </button>
+                <p>Would you like to be consulted about your result with our guidance counselor?</p>
+                
+                <label>
+                    <input 
+                        type="checkbox" 
+                        checked={isChecked} 
+                        onChange={(e) => setIsChecked(e.target.checked)} 
+                    />
+                    I hereby agree to share my results with the guidance counselor.
+                </label>
+                
+                <div className={styles.buttons}>
+                    <button onClick={handleShareResult} className={styles.buttonYes}>
+                        Yes
+                    </button>
+                    <button onClick={handleCancel} className={styles.buttonCancel}>
+                        No
+                    </button>
+                </div>
             </div>
         </div>
     );

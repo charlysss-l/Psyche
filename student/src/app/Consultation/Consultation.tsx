@@ -149,7 +149,7 @@ const ConsultationRequestForm: React.FC = () => {
       
   
       await axios.post(API_URL, consultationRequest);
-      alert("Consultation request submitted successfully.");
+      alert("Consultation request submitted successfully. Your Result has been shared with the guidance counselor.");
 
       window.location.reload();
     } catch (error) {
@@ -239,6 +239,7 @@ const ConsultationRequestForm: React.FC = () => {
     <div className={styles.consulForm}>
       <div className={styles.consultContainer}>
         <form className={styles.formCon} onSubmit={handleSubmit}>
+          <p className={styles.conText}>Double Check The Test ID in the Results Page to Check for your Result that you want to be consulted.</p>
           <label className={styles.conLabel}>
             User ID
             <input
