@@ -116,13 +116,16 @@ const PFOnlineList: React.FC = () => {
     try {
       const response = await fetch(`http://localhost:5000/api/user16pf/user/${userID}`);
       
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      }
+      
 
       const data = await response.json();
       console.log('Fetched Data:', data);
-      setResults(data.data); // Update results to use the correct data field
+
+      // Check if data is empty and set results accordingly
+      if (data.data && data.data.length > 0) {
+        setResults(data.data); // Update results if there is data
+      } else {
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error fetching data:', err);

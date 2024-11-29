@@ -154,8 +154,8 @@ const ConsultationRequestForm: React.FC = () => {
       window.location.reload();
     } catch (error) {
       console.error("Error submitting consultation request:", error);
-      alert("ERROR: Consultation request with this test ID already exists.");
-    }
+      alert("Failed to submit consultation request.");
+   }
   };
 
   useEffect(() => {

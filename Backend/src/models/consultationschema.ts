@@ -22,12 +22,10 @@ const ConsultationRequestSchema: Schema = new Schema({
   userId: {
     type: String,
     required: true,
-    match: /^[0-9]{8}$/, // Validate that userId is 8 digits
   },
   timeForConsultation: {
     type: String,
     required: true,
-    match: /^(?:[01]\d|2[0-3]):(?:[0-5]\d)$/, // Validate time format (HH:mm)
   },
   testID: {
     type: String,
