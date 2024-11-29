@@ -107,7 +107,7 @@ const SchedulingCalendar: React.FC = () => {
               <label>Note:</label>
               <textarea name="note" required />
             </div>
-            <button type="submit">Add Schedule</button>
+            <button type="submit" className="submitAddSched">Add Schedule</button>
           </form>
         </div>
       )}
