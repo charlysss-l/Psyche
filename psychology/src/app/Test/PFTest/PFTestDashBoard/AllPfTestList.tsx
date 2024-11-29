@@ -1,6 +1,6 @@
 import React from 'react'
-import PFOmrList from './PFOmrList/PFOmrList'
-import PFResultsList from './PFResultsList/PFResultsList';
+import PFOmrList from '../PFOmrList/PFOmrList'
+import PFResultsList from '../PFOnlineList/PFResultsList';
 import styles from './AllPfTestList.module.scss'
 const AllPfTestList = () => {
   return (

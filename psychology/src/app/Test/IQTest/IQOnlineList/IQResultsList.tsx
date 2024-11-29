@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './page.module.scss'; // Import your CSS module
+import styles from './IQResultsList.module.scss'; // Import your CSS module
 import { useNavigate } from 'react-router-dom';
 
 interface Response {
@@ -149,6 +149,7 @@ const IQResultsList: React.FC = () => {
                 <th>Responses</th>
                 <th>Total Score</th>
                 <th>Interpretation</th>
+                <th>Actions</th>
               </tr>
             </thead>
 
@@ -195,12 +196,11 @@ const IQResultsList: React.FC = () => {
                   </div>
                   </td>
                   <td>{result.totalScore}</td>
-                  <td>
-                    <ul>
-                      <li>Percentile: {result.interpretation?.percentilePoints ?? 'N/A'}</li>
-                      <li>Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}</li>
-                    </ul>
-                  </td>
+                  <td>Percentile: {result.interpretation?.percentilePoints ?? 'N/A'} <br/>
+                  Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}</td>
+                  
+                   
+                 
                  
                 </tr>
               ))}

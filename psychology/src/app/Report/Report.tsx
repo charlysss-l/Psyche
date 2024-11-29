@@ -1,7 +1,7 @@
 import React from 'react'
 import PFStatistics from '../Test/PFTest/PFStatistics/PFStatistics'
 import IQStatistics
- from '../Test/IQTest/IQResultsList/IQStatistics/IQStatistics'
+ from '../Test/IQTest/IQStatistics/IQStatistics'
  import styles from './report.module.scss'
 const Report = () => {
   return (

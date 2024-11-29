@@ -1,0 +1,108 @@
+.chartContainer {
+  width: 50%; 
+  margin: 0 auto;
+}
+
+.resultsTableIQ {
+  border-collapse: collapse; 
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.6); /* Transparent white */
+  backdrop-filter: blur(10px); /* Glass effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+  border: 1px solid rgba(255, 255, 255, 0.4); /* Soft border */
+  width: 100%;
+  border-radius: 8px; /* Optional, rounded corners for a softer feel */
+}
+
+.resultsTableIQ th {
+  color: #333;
+  padding: 10px;
+  font-size: 13px;
+  background: rgba(245, 242, 242, 0.8); /* Slightly transparent background */
+  border-bottom: 1px solid #9e979791; 
+  backdrop-filter: blur(5px); /* Subtle blur for header */
+}
+
+.resultsTableIQ td {
+  text-align: center; /* Center-aligns text horizontally */
+  vertical-align: middle; /* Center-aligns text vertically */
+  padding: 5px;
+  font-size: 13px;
+  border-bottom: 1px solid #9e979791;
+  transition: background 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.eachResultIQ:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Intense shadow on hover */
+  transform: translateY(-1px); 
+  cursor: pointer;
+  background-color: rgba(245, 244, 244, 0.9); /* Slightly darker background */
+  border: 1px solid #9e979791; 
+}
+
+.selected-choice-img {
+  width: 60px;  
+  height: 50px; 
+  margin: 0 auto; 
+}
+
+.deleteButtonIQLIST {
+  background-color: red;
+  padding: 8px;
+  border-radius: 5px; /* Rounded corners for a soft look */
+  transition: background 0.3s ease;
+}
+
+.deleteButtonIQLIST:hover {
+  background-color: rgb(230, 3, 3);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  background-color: #5a5a5a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+}
+
+.responsesWrapper {
+  max-height: 250px;  // Adjust the height as per your design needs
+  overflow-y: auto;   // Enable vertical scrolling when content overflows
+  margin-top: 10px;   // Optional, for some space between elements
+}
+
+.responsesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsesTable th, .responsesTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.resultsTableIQ td, 
+.responsesTable td {
+  text-align: center;
+  vertical-align: middle;
+}
