@@ -1,6 +1,4 @@
 $main-bg: #fFFFFF;
-$button-bg: #D2D2D2;
-$button-hover-bg: #e9E9E9;
 $container-bg: #ffffff;
 $main-text: #000000;
 $border-radius: 10px;
@@ -38,22 +36,24 @@ table th {
   
 }
 
-button {
-  background-color: #D2D2D2;
+.submitAddSched {
+  background-color: #000000;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  color: #000000;
+  color: #ffffff;
   padding: 8px 12px;
   margin-bottom: 8px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin: 0 auto;
+  display: block;
 
   &:hover {
     background-color: rgb(164, 155, 155);
   }
 }
 
-form {
+.newSchedForm {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -101,19 +101,6 @@ textarea {
   min-height: 100px;
 }
 
-.submitAddSched {
-  background-color: $button-bg;
-  color: $main-text;
-  padding: 10px 15px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-
-  &:hover {
-    background-color: $button-hover-bg;
-  }
-}
 
 .errorMessage {
   color: red;

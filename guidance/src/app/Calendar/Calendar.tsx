@@ -30,6 +30,32 @@ const SchedulingCalendar: React.FC = () => {
     loadConsultationRequests();
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const userId = (form.elements.namedItem("userId") as HTMLInputElement).value;
+    const timeForConsultation = (form.elements.namedItem("timeForConsultation") as HTMLInputElement).value;
+    const note = (form.elements.namedItem("note") as HTMLInputElement).value;
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/consultationRequests", {
+        userId,
+        timeForConsultation,
+        note,
+        date: selectedDate?.toDateString(),
+        status: "accepted",
+      });
+      if (response.status === 201) {
+        setErrorMessage("");
+        const newRequest = response.data as ConsultationRequest;
+        setConsultationRequests([...consultationRequests, newRequest]);
+      }
+    } catch (error) {
+      console.error("Error adding consultation request:", error);
+      setErrorMessage("Error adding consultation request. Please try again.");
+    }
+  };
+
   const handleDateClick = (date: Date) => {
     setSelectedDate(date);
   };
@@ -94,7 +120,7 @@ const SchedulingCalendar: React.FC = () => {
           {/* Form to Add New Schedule */}
           <h3 className={styles.Add}>Add New Schedule</h3>
           {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleSubmit} className="newSchedForm">
             <div>
               <label>User ID:</label>
               <input type="text" name="userId" required />
