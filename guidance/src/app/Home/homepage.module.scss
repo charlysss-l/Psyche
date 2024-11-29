@@ -1,22 +1,53 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Slight slide up effect */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Final position */
+  }
+}
+
 .homeContainer {
   padding: 20px;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Roboto font for the page */
   background-color: #f9f9f9; /* Light background for the page */
 }
 
 /* Header Section */
 .headerSection {
+  position: relative; /* Ensures pseudo-element aligns correctly */
   text-align: center;
   margin-bottom: 30px;
-  background-image: url(../../app/Images/guidance.jpg);
+  background-image: url('../../app/Images/guidanceimg.jpg');
   background-size: cover; /* Ensures the image covers the entire div */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents the image from repeating */
   padding: 40px 20px; /* Increased padding for a larger section */
   border-radius: 8px;
   color: white;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.2s, box-shadow 0.3s;
   min-height: 300px; /* Ensures the div has a consistent height */
+  animation: fadeIn 1s ease-in-out;
+
+  /* Pseudo-element for dark overlay */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    border-radius: 8px; /* Match parent border-radius */
+    z-index: 1; /* Layer it below the content but above the background */
+  }
+
+  /* Ensures content is above the overlay */
+  * {
+    position: relative;
+    z-index: 2;
+  }
 }
 
 .headerSection:hover {
@@ -26,10 +57,11 @@
 
 
 .welcomeTitle {
-  font-size: 50px;
+  font-size: 45px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);  
-  color: #cccccc;
+  color: #ffffff;
 }
 
 .welcomeMessage {
@@ -43,11 +75,10 @@
   margin-top: 20px;
 }
 .viewCalendar {
-  padding: 10px 20px;
+  padding: 10px 30px;
   border-radius: 8px;
-  background-color: white;
-  border: 1px solid rgb(138, 138, 138);
-  color: black;
+  background-color: #a8a5a5d7; 
+  color: rgb(255, 255, 255); 
   font-size: 20px;
   cursor: pointer;
   text-decoration: none;
@@ -55,9 +86,8 @@
 }
 
 .viewCalendar:hover {
-  border: 1px solid #313131;
-  background-color: #313131; /* Blue background on hover */
-  color: white; /* White text on hover */
+  background-color: #949292d7;
+  color: rgb(255, 255, 255);
   transform: scale(1.05); /* Slight zoom */
 }
 
@@ -68,7 +98,7 @@
 
 .newConsultationSection h1 {
   font-size: 30px;
-  color: #313131;
+  color: #000000;
   margin-bottom: 15px;
   text-align: center;
   margin-top: 20px;
@@ -82,10 +112,20 @@
   padding: 15px;
   background-color: white;
   transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeIn 1s ease-in-out;
+  animation-delay: 0.3s; /* Optional delay for staggered animations */
+  opacity: 0; /* Hidden initially */
+  animation-fill-mode: forwards; /* Ensures the final state persists */ 
+}
+
+.tableBox h2 {
+  font-size: 25px;
+  color: #000000;
+  margin-bottom: 15px;
 }
 
 .tableBox:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -131,10 +171,10 @@ tr:hover td {
 
 .viewConsultationButton {
   padding: 10px 20px;
-  border: 1px solid rgb(138, 138, 138);
   border-radius: 8px;
-  background-color: white;
-  color: black;
+  background-color: #000000;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);  
   font-size: 20px;
   cursor: pointer;
   text-decoration: none;
@@ -142,7 +182,7 @@ tr:hover td {
 }
 
 .viewConsultationButton:hover {
-  background-color: #313131; /* Blue background on hover */
+  background-color: #1d1d1de8; /* Blue background on hover */
   color: white; /* White text on hover */
   transform: scale(1.05); /* Slight zoom */
 }

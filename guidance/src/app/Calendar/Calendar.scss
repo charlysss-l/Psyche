@@ -3,6 +3,16 @@ $container-bg: #ffffff;
 $main-text: #000000;
 $border-radius: 10px;
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Slight slide effect */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Final position */
+  }
+}
 
 .requestList {
   width: 100%;
@@ -31,7 +41,7 @@ table th, table td {
 }
 
 table th {
-  background-color: #F2F2F2;
+  background-color: #d3d3d3;
   color: #000000;
   
 }
@@ -121,6 +131,10 @@ p {
   padding: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   margin-left: 220px;
+  animation: fadeIn 1s ease-in-out;
+  opacity: 0; /* Hidden initially */
+  animation-fill-mode: forwards; /* Retain final state after animation */
+  animation-delay: 0.2s; /* Optional delay for staggered effect */
   
 }
 
