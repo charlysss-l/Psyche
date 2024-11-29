@@ -11,13 +11,13 @@ export const getAllUsers = async (req: Request, res: Response): Promise<void> =>
         // Fetch all psychology users
         const psychUsers = await PsychStudent.find().select('email');  // Select only email
         // Fetch all students
-        const studentUsers = await Student.find().select('userId email');  // Select only email
+        const studentUsers = await Student.find().select('userId email studentNumber');  // Select only email
 
         // Combine the data into one array
         const allUsers = [
             ...guidanceUsers.map(user => ({ userId: user._id, email: user.email, role: 'Guidance' })),
             ...psychUsers.map(user => ({ userId: user._id, email: user.email, role: 'Psychology' })),
-            ...studentUsers.map(user => ({ userId: user.userId, email: user.email, role: 'Student' }))
+            ...studentUsers.map(user => ({ userId: user.userId, studentNumber: user.studentNumber, email: user.email, role: 'Student' }))
         ];
 
         // Return the combined user list as JSON
