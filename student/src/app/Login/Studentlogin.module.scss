@@ -4,6 +4,28 @@ $button-bg-color: #000000;
 $button-hover-bg-color: #f2f2f2;
 $error-color: red;
 
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .loginContainer {
   display: flex;
   justify-content: center; 
@@ -15,12 +37,13 @@ $error-color: red;
 }
 
 .imageContainer {
-  background-image: url('https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-image: url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVzdCUyMHRha2luZ3xlbnwwfHwwfHx8MA%3D%3D');
   background-size: cover;
   background-position: center;
   height: 100vh; 
   width: 70vw; 
   border-radius: 10px;
+  animation: slideInFromLeft 1.5s ease-out;
 }
 
 .loginForm {
@@ -32,6 +55,8 @@ $error-color: red;
   border-radius: 8px;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
+  animation: fadeIn 1.5s ease-out 0.5s; 
+  animation-fill-mode: both; 
 }
 
 .loginForm_h1 {
