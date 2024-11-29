@@ -4,6 +4,8 @@ import { fetchConsultationRequests } from "../services/consultationservice";
 import axios from "axios";
 import styles from "./Calendar.scss";
 
+const API_URL = "http://localhost:5000/api/consult/";
+
 interface ConsultationRequest {
   _id: string;
   userId: string;
@@ -29,6 +31,20 @@ const SchedulingCalendar: React.FC = () => {
     };
     loadConsultationRequests();
   }, []);
+  
+
+  const handleMarkAsDone = async (id: string) => {
+    try {
+      await axios.put(`${API_URL}${id}/mark-done`);
+      setConsultationRequests((prevRequests) =>
+        prevRequests.map((request) =>
+          request._id === id ? { ...request, status: "completed" } : request
+        )
+      );
+    } catch (error) {
+      console.error("Error accepting consultation request:", error);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,6 +116,7 @@ const SchedulingCalendar: React.FC = () => {
                   <th>Time</th>
                   <th>Note</th>
                   <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -109,6 +126,9 @@ const SchedulingCalendar: React.FC = () => {
                     <td>{request.timeForConsultation}</td>
                     <td>{request.note}</td>
                     <td>{request.status}</td>
+                    <td>
+                      <button onClick={() => handleMarkAsDone(request._id)}>Mark as Done</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
