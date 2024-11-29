@@ -118,12 +118,13 @@ const SignupForm: React.FC = () => {
           />
         </div>
         <div>
-          <label className={styles.signuplabel}>Student Number (optional):</label>
+          <label className={styles.signuplabel}>Student Number:</label>
           <input
             className={styles.signupInput}
             type="text"
             value={studentNumber}
             onChange={(e) => setStudentNumber(e.target.value)}
+            required
           />
         </div>
         <div>

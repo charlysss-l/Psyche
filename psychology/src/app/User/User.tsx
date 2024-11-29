@@ -3,6 +3,7 @@ import style from "./psychologyuser.module.scss";
 
 interface User {
   userId: string;
+  studentNumber: string;
   email: string;
   role: string;
 }
@@ -75,6 +76,7 @@ const User = () => {
         <thead>
           <tr>
             <th className={style.th}>User ID</th>
+            <th className={style.th}>Student Number</th>
             <th className={style.th}>Email</th>
             <th className={style.th}>Role</th>
             <th className={style.th}>Actions</th>
@@ -85,6 +87,7 @@ const User = () => {
             users.map((user) => (
               <tr key={user.userId}>
                 <td className={style.td}>{user.userId}</td>
+                <td className={style.td}>{user.studentNumber}</td>
                 <td className={style.td}>{user.email}</td>
                 <td className={style.td}>{user.role}</td>
                 <td className={style.td}>

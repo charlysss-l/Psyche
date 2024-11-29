@@ -29,6 +29,26 @@ interface OMRpf  {
   testDate: Date;
 }
 
+const factorDescriptions: Record<string, string> = {
+  A: 'Warmth',
+  B: 'Reasoning',
+  C: 'Emotional Stability',
+  E: 'Dominance',
+  F: 'Liveliness',
+  G: 'Rule-Consciousness',
+  H: 'Social Boldness',
+  I: 'Sensitivity',
+  L: 'Vigilance',
+  M: 'Abstractedness',
+  N: 'Privateness',
+  O: 'Apprehension',
+  Q1: 'Openness to Change',
+  Q2: 'Self-Reliance',
+  Q3: 'Perfectionism',
+  Q4: 'Tension',
+};
+
+
 
 
  // Function to get factor descriptions
@@ -357,7 +377,7 @@ const PFOmrList: React.FC = () => {
                     <table className={styles.scoresTable}>
                       <thead>
                         <tr>
-                          <th>Factor Letter</th>
+                          <th>Factors</th>
                           <th>Raw Score</th>
                           <th>Sten Score</th>
                           <th>Results Interpretation</th>
@@ -387,7 +407,7 @@ const PFOmrList: React.FC = () => {
 
       return (
         <tr key={score.factorLetter}>
-          <td>{score.factorLetter}</td>
+          <td>{factorDescriptions[score.factorLetter]}</td>
           <td>{score.rawScore}</td>
           <td>{score.stenScore}</td>
           <td>{interpretation}</td> {/* Updated to render interpretation */}
