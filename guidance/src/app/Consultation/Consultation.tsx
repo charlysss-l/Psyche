@@ -22,6 +22,25 @@ interface ConsultationRequest {
   message: string;
 }
 
+const factorDescriptions: Record<string, string> = {
+  A: 'Warmth',
+  B: 'Reasoning',
+  C: 'Emotional Stability',
+  E: 'Dominance',
+  F: 'Liveliness',
+  G: 'Rule-Consciousness',
+  H: 'Social Boldness',
+  I: 'Sensitivity',
+  L: 'Vigilance',
+  M: 'Abstractedness',
+  N: 'Privateness',
+  O: 'Apprehension',
+  Q1: 'Openness to Change',
+  Q2: 'Self-Reliance',
+  Q3: 'Perfectionism',
+  Q4: 'Tension',
+};
+
 const GuidanceConsultation: React.FC = () => {
   const [consultationRequests, setConsultationRequests] = useState<ConsultationRequest[]>([]);
   const [testDetails, setTestDetails] = useState<any>(null);  // For storing test results
@@ -207,7 +226,7 @@ const getStenScoreMeaning = (stenScore: number, factorLetter: string) => {
   if (stenScore >= 1 && stenScore <= 3) {
       return factorDescription.leftMeaning;
   } else if (stenScore >= 4 && stenScore <= 7) {
-      return factorDescription.leftMeaning + " ( " + 'AVERAGE' + " ) " + factorDescription.rightMeaning;
+      return " ( " + 'Average' + " ) " + factorDescription.leftMeaning + " " + factorDescription.rightMeaning;
   } else if (stenScore >= 8 && stenScore <= 10) {
       return factorDescription.rightMeaning;
   }
@@ -583,7 +602,7 @@ function getDynamicInterpretation(age: number, score: number): string {
                   <td>
          <table className="scoring-table">
    
-                <th>Factor Letter</th>
+                <th>Factors</th>
                 <th>Result Interpretation</th>
 
                 {testDetails.scoring.scores
@@ -597,7 +616,7 @@ function getDynamicInterpretation(age: number, score: number): string {
               })
               .map((score: any, index: number) => (
                             <tr key={index}>
-                              <td>{score.factorLetter}</td>
+                              <td>{factorDescriptions[score.factorLetter]}</td>
                               <td>{getStenScoreMeaning(score.stenScore, score.factorLetter)}</td>
 
                             </tr>
