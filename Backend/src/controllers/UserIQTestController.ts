@@ -178,3 +178,101 @@ export const deleteIQTestResult = async (req: Request, res: Response) => {
         });
     }
 };
+
+
+
+// Archive Controller to archive an IQ test result
+
+
+
+// Controller to archive an IQ test result
+export const archiveIQTestResult = async (req: Request, res: Response) => {
+    const { testID } = req.params;
+    try {
+        // Use findOne() to search by testID (assuming testID is a string or custom ID)
+        const testResult = await UserIQTest.findOne({ testID: testID });
+
+        if (!testResult) {
+            return res.status(404).json({ message: 'Test result not found' });
+        }
+
+        // Mark the test result as archived
+        testResult.isArchived = true; // Assuming there's an `isArchived` field
+
+        await testResult.save();
+        res.status(200).json({ message: 'IQ test result archived successfully', data: testResult });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error archiving IQ test result',
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        });
+    }
+};
+
+
+
+
+// Controller for fetching archived IQ test results
+export const getArchivedIQTests = async (req: Request, res: Response) => {
+    try {
+        const archivedTests = await UserIQTest.find({ isArchived: true });
+        console.log('Archived tests:', archivedTests);  // This logs the archived tests to check if they're being returned
+
+        if (archivedTests.length === 0) {
+            return res.status(404).json({ message: 'No archived test results found' });
+        }
+
+        res.status(200).json({ message: 'Archived IQ test results fetched successfully', data: archivedTests });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error fetching archived IQ test results',
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        });
+    }
+};
+
+
+
+
+// Controller to unarchive an IQ test result
+export const unarchiveIQTestResult = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+        const testResult = await UserIQTest.findById(id);
+        if (!testResult) {
+            return res.status(404).json({ message: 'Test result not found' });
+        }
+
+        // Mark the test result as not archived
+        testResult.isArchived = false;
+
+        await testResult.save();
+        res.status(200).json({ message: 'IQ test result unarchived successfully', data: testResult });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error unarchiving IQ test result',
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        });
+    }
+};
+
+export const deleteArchivedIQTestResult = async (req: Request, res: Response) => {
+    const { testID } = req.params;
+  try {
+    const consultationRequest = await UserIQTest.findOne({ testID });
+    if (!consultationRequest) {
+      return res.status(404).json({ message: 'Consultation request not found' });
+    }
+
+    // Delete the consultation request
+    await UserIQTest.deleteOne({ testID });
+
+    res.status(200).json({ message: 'Consultation request deleted successfully' });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error deleting consultation request',
+      error: error instanceof Error ? error.message : 'An unknown error occurred',
+    });
+  }
+};
+

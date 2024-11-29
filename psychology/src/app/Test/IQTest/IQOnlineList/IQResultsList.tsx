@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './IQResultsList.module.scss'; // Import your CSS module
 import { useNavigate } from 'react-router-dom';
+import IQOnlineArchiveList from './IQOnlineArchiveList';
 
 interface Response {
   questionID: string;
@@ -42,8 +43,16 @@ const IQResultsList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 8;
+  const resultsPerPage = 5;
   const navigate = useNavigate();
+
+  const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
+
+  const toggleArchivedList = () => {
+    setIsArchivedListVisible(!isArchivedListVisible);
+  };
+
+  
 
   // Fetch data from the server
   const fetchData = async () => {
@@ -95,24 +104,31 @@ const IQResultsList: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (userID: string) => {
+  const handleArchive = async (testID: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/useriq/${userID}`, {
-        method: 'DELETE',
-      });
-      
-      if (!response.ok) {
-        throw new Error(`Error deleting the test: ${response.statusText}`);
-      }
+        console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
 
-      // Remove the deleted user from the state
-      setResults(results.filter((result) => result.userID !== userID));
-      navigate('/iqresults_list'); 
+        // Use the testID in the API request
+        const response = await fetch(`http://localhost:5000/api/useriq/archive/${testID}`, {
+            method: 'PUT', // Use PUT to match backend
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
+        }
+
+        // Update the UI state to reflect the archived status
+        setResults(results.filter((result) => result.testID !== testID)); // Ensure you filter by testID
+        alert('Test archived successfully.');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
-      console.error('Error deleting test:', err);
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        console.error('Error archiving test:', err);
     }
-  };
+};
+
+
+
 
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
@@ -128,13 +144,27 @@ const IQResultsList: React.FC = () => {
   );
 
   return (
+    
     <div>
-      <h2>IQ Results List</h2>
+      
+      <h2>IQ Results List  <button
+      className={isArchivedListVisible ? styles.closeButton : styles.archiveButton}
+      onClick={toggleArchivedList}
+    >
+      {isArchivedListVisible ? 'Close' : 'Archive List'}
+    </button>
+  </h2>
+  {isArchivedListVisible && <IQOnlineArchiveList />}
+
+      
+      
 
     
       {results.length > 0 ? (
         <div>
+          
           <table className={styles.resultsTableIQ}>
+            
             <thead>
               <tr>
                 <th>userID</th>
@@ -196,8 +226,11 @@ const IQResultsList: React.FC = () => {
                   </div>
                   </td>
                   <td>{result.totalScore}</td>
-                  <td>Percentile: {result.interpretation?.percentilePoints ?? 'N/A'} <br/>
+                  <td>Percentile: {result.interpretation?.percentilePoints ?? 'N/A'} <br/><br/>
                   Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}</td>
+                  <td><button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
+                      Archive
+                    </button></td>
                   
                    
                  

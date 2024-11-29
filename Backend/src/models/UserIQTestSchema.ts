@@ -46,6 +46,8 @@ interface UserIQTest extends Document {
     interpretation: Interpretation;
     testType: 'Online' | 'Physical';
     testDate: Date;
+    isArchived: boolean; // New field to track if the test result is archived
+
 }
 
 export interface totalScore {
@@ -90,6 +92,8 @@ const UserIQTestSchema = new Schema<UserIQTest>({
     interpretation: InterpretationSchema, 
     testType: { type: String, enum: ['Online', 'Physical'], required: true },
     testDate: { type: Date, required: true, default: Date.now },
+    isArchived: { type: Boolean, default: false }, // Default is not archived
+
 });
 
 // Create and export the model

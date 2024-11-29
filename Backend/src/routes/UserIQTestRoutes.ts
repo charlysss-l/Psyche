@@ -7,6 +7,13 @@ import {
     updateIQTestResult,
     deleteIQTestResult,
     getIQTestResultsByTestID,
+
+    // Archived routes
+    archiveIQTestResult,
+    getArchivedIQTests,
+    deleteArchivedIQTestResult,
+    
+    unarchiveIQTestResult
 } from '../controllers/UserIQTestController'; // Ensure this path is correct
 
 const router = Router();
@@ -29,5 +36,43 @@ router.put('/:id', updateIQTestResult);
 
 // Route to delete an IQ test result by test ID
 router.delete('/:id', deleteIQTestResult);
+
+
+
+// Route to archive an IQ test result 
+router.put('/archive/:testID', async (req: Request, res: Response) => {
+    try {
+      await archiveIQTestResult(req, res);  // Use the testID for deletion
+    } catch (error) {
+      res.status(500).json({ message: 'Error deleting consultation by testID', error });
+    }
+  });
+
+// Route to get archived IQ test results
+router.get('/isTrue/archived/all', async (req: Request, res: Response) => {
+    try {
+        await getArchivedIQTests(req, res);  // Fetch the archived IQ test results
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching archived IQ test results', error });
+    }
+});
+
+
+router.delete('/test/delete/:testID', async (req: Request, res: Response) => {
+    try {
+      await deleteArchivedIQTestResult(req, res);  // Use the testID for deletion
+    } catch (error) {
+      res.status(500).json({ message: 'Error deleting consultation by testID', error });
+    }
+  });
+
+
+router.put('/unarchive/:id', async (req: Request, res: Response) => {
+    try {
+      await unarchiveIQTestResult(req, res);  // Use the testID for deletion
+    } catch (error) {
+      res.status(500).json({ message: 'Error deleting consultation by testID', error });
+    }
+  });
 
 export default router;

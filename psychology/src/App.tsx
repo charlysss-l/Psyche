@@ -33,6 +33,9 @@ import IqOMR from './app/OMR/OMRCamera/IqOMR/IqOMR';
 import OMRResult from './app/OMR/OMRCamera/IqOMR/OMRResult';
 import SurveyDetails from './app/Survey/surveyDetails';
 import SurveyResponse from './app/Survey/surveyResponse';
+// Archive List Components
+import IQOnlineArchiveList from './app/Test/IQTest/IQOnlineList/IQOnlineArchiveList';
+
 function App() {
   return (
     <Router>
@@ -156,6 +159,15 @@ function App() {
               />
                <Route path="/survey-responses/:surveyId" element={<ProtectedRoute><SurveyResponse /></ProtectedRoute>} />
 
+            </Routes>
+
+            {/* Archive List Routes */}
+            
+            <Routes>
+              <Route
+                path="/iqonlinearchive"
+                element={<ProtectedRoute><IQOnlineArchiveList /></ProtectedRoute>}
+              />
             </Routes>
           </div>
         </div>

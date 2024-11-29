@@ -2,43 +2,43 @@
   width: 50%; 
   margin: 0 auto;
 }
-
 .resultsTableIQ {
-  border-collapse: collapse; 
-  font-size: 15px;
-  background: rgba(255, 255, 255, 0.6); /* Transparent white */
-  backdrop-filter: blur(10px); /* Glass effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
-  border: 1px solid rgba(255, 255, 255, 0.4); /* Soft border */
-  width: 100%;
-  border-radius: 8px; /* Optional, rounded corners for a softer feel */
-}
+    border-collapse: collapse; 
+    font-size: 15px;
+    background-color: rgb(255, 252, 252);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064); 
+    border: 1px solid #9e979791; 
+    width: 100%;
+  }
+  
 
-.resultsTableIQ th {
-  color: #333;
-  padding: 10px;
-  font-size: 13px;
-  background: rgba(245, 242, 242, 0.8); /* Slightly transparent background */
-  border-bottom: 1px solid #9e979791; 
-  backdrop-filter: blur(5px); /* Subtle blur for header */
-}
+  .resultsTableIQ th {
+    color: #333;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    background-color: rgb(245, 242, 242);
+    border-bottom: 1px solid #9e979791; 
+  }
+  
 
-.resultsTableIQ td {
-  text-align: center; /* Center-aligns text horizontally */
-  vertical-align: middle; /* Center-aligns text vertically */
-  padding: 5px;
-  font-size: 13px;
-  border-bottom: 1px solid #9e979791;
-  transition: background 0.3s ease; /* Smooth transition for hover effect */
-}
+  .resultsTableIQ td {
+    text-align: center; /* Center-aligns text horizontally */
+    vertical-align: middle; /* Center-aligns text vertically */
+    padding: 5px;
+    font-size: 13px;
+    border-bottom: 1px solid #9e979791; 
+  }
+  
 
-.eachResultIQ:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Intense shadow on hover */
-  transform: translateY(-1px); 
-  cursor: pointer;
-  background-color: rgba(245, 244, 244, 0.9); /* Slightly darker background */
-  border: 1px solid #9e979791; 
-}
+  .eachResultIQ:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+    transform: translateY(-1px); 
+    cursor: pointer;
+    background-color: rgb(245, 244, 244);
+    border: 1px solid #9e979791; 
+  }
+
 
 .selected-choice-img {
   width: 60px;  
@@ -46,16 +46,6 @@
   margin: 0 auto; 
 }
 
-.deleteButtonIQLIST {
-  background-color: red;
-  padding: 8px;
-  border-radius: 5px; /* Rounded corners for a soft look */
-  transition: background 0.3s ease;
-}
-
-.deleteButtonIQLIST:hover {
-  background-color: rgb(230, 3, 3);
-}
 
 .pagination {
   display: flex;
@@ -72,7 +62,6 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease;
 }
 
 .pagination button:disabled {
@@ -83,6 +72,7 @@
 .pagination span {
   font-size: 16px;
 }
+
 
 .responsesWrapper {
   max-height: 250px;  // Adjust the height as per your design needs
@@ -101,8 +91,102 @@
   text-align: left;
 }
 
-.resultsTableIQ td, 
-.responsesTable td {
+.archiveButtons {
+  background-color: #e0ca7f;
+  transition: all 0.3s ease;
+}
+
+.archiveButtons:hover {
+  background-color: #6d560d;
+}
+
+.archiveButton {
+  display: flex;
+  position: absolute;
+  top: 20%;
+  right: 21%;
+  background-color: #3b5998; /* Blue like a mailbox */
+  color: white; /* Text color */
+  border: 2px solid #2d4373; /* Slightly darker border */
+  border-radius: 12px; /* Rounded edges */
+  padding: 10px 20px; /* Adjust padding for size */
+  font-size: 16px; /* Slightly larger text */
+  font-weight: bold; /* Make text stand out */
+  cursor: pointer; /* Pointer cursor */
+  transition: all 0.3s ease; /* Smooth hover animation */
+  display: flex;
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+}
+
+.archiveButton:hover {
+  background-color: #4b70b5; /* Lighter blue on hover */
+  border-color: #5a86d5; /* Adjust border color */
+}
+
+.archiveButton:active {
+  background-color: #5f2a2a; /* Darker blue when clicked */
+  transform: scale(0.98); /* Slight click animation */
+}
+
+/* Add a mail icon */
+.archiveButton::before {
+  content: "✉️"; /* Unicode envelope icon */
+  font-size: 18px; /* Adjust icon size */
+}
+
+/* Optional: Add mailbox-specific animations */
+.archiveButton::after {
+  content: ""; /* Empty content for styling */
+  display: block;
+  width: 0;
+  height: 4px;
+  background-color: #dd1e1e;
+  margin: 0 auto;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.archiveButton:hover::after {
+  width: 80%; /* Expand underline on hover */
+}
+
+/* New button style for the Close button */
+.closeButton {
+  display: flex;
+  position: fixed;
+  z-index: 1100;  /* Ensures it appears on top of other content */
+  right: 21%;
+  top: 16%;
+  background-color: #ff4d4d; /* Red background for close button */
+  border-color: #d43f3f; /* Darker red border */
+  color: white;
+  font-size: 18px;
+  padding: 8px 16px;
+  border-radius: 12px; /* Rounded edges */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.closeButton:hover {
+  background-color: #d43f3f;
+  border-color: #c13232;
+}
+
+.closeButton:active {
+  background-color: #c13232;
+  transform: scale(0.98); /* Click animation */
+}
+
+.closeButton::before {
+  content: "❌"; /* Unicode close icon */
+  font-size: 20px; /* Adjust icon size */
+  margin-right: 8px;
+}
+
+.conText {
+  font-size: 20px;
+  font-weight: bold;
   text-align: center;
-  vertical-align: middle;
 }
