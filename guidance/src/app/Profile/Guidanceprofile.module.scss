@@ -103,7 +103,7 @@ $message-error: #B30000;
   }
 }
 
-button[type="submit"] {
+.submitButton {
   background-color: $button-color;
   color: white;
   padding: 12px 20px;
