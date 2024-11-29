@@ -265,15 +265,31 @@ const ConsultationRequestForm: React.FC = () => {
           </label>
 
           <label className={styles.conLabel}>
-            Time for Consultation
-            <input
-              className={styles.conInput}
-              type="time"
-              value={timeForConsultation}
-              onChange={(e) => setTimeForConsultation(e.target.value)}
-              required
-            />
-          </label>
+    Time for Consultation <br/>
+    ***Choose time between 9:00 AM and 5:00 PM***
+
+    <input
+        className={styles.conInput}
+        type="time"
+        value={timeForConsultation}
+        onChange={(e) => {
+            const selectedTime = e.target.value;
+            const [hours, minutes] = selectedTime.split(":").map(Number);
+            
+            // Check if the selected time is within the allowed range (9 AM to 5 PM)
+            if (hours >= 9 && hours < 17) {
+                setTimeForConsultation(selectedTime);
+            } else {
+                alert("Please choose a time between 9:00 AM and 5:00 PM.");
+            }
+        }}
+        required
+        min="09:00"
+        max="17:00"
+    />
+</label>
+
+
 
           <label className={styles.conLabel}>
             Note
