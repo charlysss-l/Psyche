@@ -29,6 +29,25 @@ interface User16PFTest {
   testType: 'Online' | 'Physical'| '';
 }
 
+const factorDescriptions: Record<string, string> = {
+  A: 'Warmth',
+  B: 'Reasoning',
+  C: 'Emotional Stability',
+  E: 'Dominance',
+  F: 'Liveliness',
+  G: 'Rule-Consciousness',
+  H: 'Social Boldness',
+  I: 'Sensitivity',
+  L: 'Vigilance',
+  M: 'Abstractedness',
+  N: 'Privateness',
+  O: 'Apprehension',
+  Q1: 'Openness to Change',
+  Q2: 'Self-Reliance',
+  Q3: 'Perfectionism',
+  Q4: 'Tension',
+};
+
 const PFOnlineList: React.FC = () => {
   const [results, setResults] = useState<User16PFTest[]>([]);
   const [loading, setLoading] = useState(true);
@@ -210,8 +229,8 @@ const PFOnlineList: React.FC = () => {
                     <table className={styles.scoresTable}>
                       <thead>
                         <tr>
-                      
-                          <th>Results Interpretation</th>
+                          <th>Factors</th>
+                          <th>Results Interpretations</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -239,7 +258,7 @@ const PFOnlineList: React.FC = () => {
 
                           return (
                             <tr key={factorLetter}>
-                              
+                              <td>{factorDescriptions[factorLetter]}</td>
                               <td>{interpretation}</td> {/* Updated to render interpretation */}
                             </tr>
                           );
