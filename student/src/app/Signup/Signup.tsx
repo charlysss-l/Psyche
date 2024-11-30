@@ -152,7 +152,7 @@ const SignupForm: React.FC = () => {
         </button>
         <h4 className={styles.loginLink_info}>
           Already have an account?{" "}
-          <span onClick={() => navigate("/")} className={styles.loginLink}>
+          <span onClick={() => navigate("/login")} className={styles.loginLink}>
             Log in
           </span>
         </h4>
