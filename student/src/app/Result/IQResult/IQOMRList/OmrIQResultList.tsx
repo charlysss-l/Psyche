@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './page.module.scss'; // Import your CSS module
+import styles from './OmrIQ.module.scss'; // Import your CSS module
 import { useNavigate } from 'react-router-dom';
 
 interface Interpretation {

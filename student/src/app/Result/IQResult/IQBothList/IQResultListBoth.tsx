@@ -1,7 +1,7 @@
 import React from 'react';
-import IQResultsList from '..//IQResult/IQResultList'; // Import your IQ Results component
-import OmrIQResultsList from '..//IQResult/OmrIQResultList';
-import styles from '..//IQResult/IQResultListBoth.module.scss';
+import IQResultsList from '..//IQOnlineList/IQResultList';
+import OmrIQResultsList from '..//IQOMRList/OmrIQResultList';
+import styles from './IQResultListBoth.module.scss';
 
 const IQResultListBoth: React.FC = () => {
   return (

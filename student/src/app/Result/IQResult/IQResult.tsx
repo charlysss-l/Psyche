@@ -28,6 +28,8 @@ const IQResult: React.FC = () => {
     const navigate = useNavigate();
     const [result, setResult] = useState<IQTestResultData | null>(null);
     const [interpretation, setInterpretation] = useState<Interpretation | null>(null);
+    const [isChecked, setIsChecked] = useState(false); // Track checkbox state
+
 
     useEffect(() => {
         const storedResults = localStorage.getItem('iqTestResults');
@@ -52,11 +54,28 @@ const IQResult: React.FC = () => {
     }, []);
 
     const handleShareResult = () => {
-        alert('Your result has been shared with the guidance counselor.');
+        if (!isChecked) {
+            alert("Please agree to share your results by checking the box.");
+            return;
+        }
+
+        const userConfirmed = window.confirm(
+            "Are you sure you want to be consulted and share your result with the guidance counselor?"
+        );
+        
+        if (userConfirmed) {
+            navigate('/consultation');
+            alert('Please Fill the Consultation Form to schedule a consultation with our Guidance Councelor.');
+
+        } else {
+            alert("Result sharing cancelled. Your Result has been saved to your Result Page.");
+            navigate('/home');
+
+        }
     };
 
     const handleCancel = () => {
-        alert('Result sharing cancelled.');
+        alert('Result sharing cancelled. Your Result has been saved to your Result Page.');
         navigate('/home');
     };
 
@@ -93,21 +112,27 @@ const IQResult: React.FC = () => {
                         <h3>Score</h3>
                         <p>Total Score: <span className={styles.score}>{result.totalScore}</span></p>
                     </div>
-                    <div className={styles.interpretationSection}>
-                        
-                        {interpretation ? (
-                            <>
-                            <h3>Interpretation: {interpretation.resultInterpretation} </h3>
-                            </>
-                        ) : (
-                            <p>No interpretation available for this score and age range.</p>
-                        )}
-                        <div className={styles.sharePrompt}>
-                            <p>Would you like to share your result with our guidance counselor?</p>
-                            <button onClick={handleShareResult} className={styles.buttonYes}>Yes</button>
-                            <button onClick={handleCancel} className={styles.buttonCancel}>Cancel</button>
-                        </div>
-                    </div>
+                    <div className={styles.sharePrompt}>
+                <p>Would you like to be consulted about your result with our guidance counselor?</p>
+                
+                <label>
+                    <input 
+                        type="checkbox" 
+                        checked={isChecked} 
+                        onChange={(e) => setIsChecked(e.target.checked)} 
+                    />
+                    I hereby agree to share my results with the guidance counselor.
+                </label>
+                
+                <div className={styles.buttons}>
+                    <button onClick={handleShareResult} className={styles.buttonYes}>
+                        Yes
+                    </button>
+                    <button onClick={handleCancel} className={styles.buttonCancel}>
+                        No
+                    </button>
+                </div>
+            </div>
                 </div>
             ) : (
                 <p className={styles.noResults}>No results available. Please complete the test.</p>
