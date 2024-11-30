@@ -35,6 +35,7 @@ interface User16PFTest extends Document {
     scoring: Scoring; 
     testType: 'Online' | 'Physical';
     testDate: Date;
+    isArchived: boolean;
 }
 
 // Response Schema
@@ -72,6 +73,7 @@ const User16PFTestSchema = new Schema<User16PFTest>({
     scoring: ScoringSchema, // This now refers to a Scoring object
     testType: { type: String, enum: ['Online', 'Physical'], required: true },
     testDate: { type: Date, required: true, default: Date.now },
+    isArchived: { type: Boolean, required: true, default: false },
 });
 
 User16PFTestSchema.index({ userID: 1 }); // Remove unique index if you want to allow duplicates

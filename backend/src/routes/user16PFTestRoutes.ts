@@ -7,6 +7,11 @@ import {
     updateUser16PFTest,
     deleteUser16PFTest,
     getUser16PFTestByTestID,
+
+    // Route to archive an PF test result
+    archivePFTestResult,
+    getArchivedPFTests,
+    deleteArchivedPFTestResult
     
 } from '../controllers/user16PFTestController';
 
@@ -38,5 +43,33 @@ router.get('/', getUser16PFTests);
 router.get('/:id', getUser16PFTestById);
 router.put('/:id', updateUser16PFTest);
 router.delete('/:id', deleteUser16PFTest); 
+
+
+// Route to archive an IQ test result 
+router.put('/archive/:testID', async (req: Request, res: Response) => {
+  try {
+    await archivePFTestResult(req, res);  // Use the testID for deletion
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting consultation by testID', error });
+  }
+});
+
+// Route to get archived IQ test results
+router.get('/isTrue/archived/all', async (req: Request, res: Response) => {
+  try {
+      await getArchivedPFTests(req, res);  // Fetch the archived IQ test results
+  } catch (error) {
+      res.status(500).json({ message: 'Error fetching archived IQ test results', error });
+  }
+});
+
+
+router.delete('/test/delete/:testID', async (req: Request, res: Response) => {
+  try {
+    await deleteArchivedPFTestResult(req, res);  // Use the testID for deletion
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting consultation by testID', error });
+  }
+});
 
 export default router;

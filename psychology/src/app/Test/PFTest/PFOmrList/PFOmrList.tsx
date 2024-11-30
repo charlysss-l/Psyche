@@ -101,7 +101,7 @@ const PFOmrList: React.FC = () => {
   const [editingTestID, setEditingTestID] = useState<string | null>(null); // Track the testID of the item being edited
   const [updatedData, setUpdatedData] = useState<Partial<OMRpf>>({}); // Store updated data for the current test
 
-  const resultsPerPage = 8;
+  const resultsPerPage = 5;
   const navigate = useNavigate();
 
   

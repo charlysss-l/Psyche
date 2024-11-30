@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import styles from './PFResultList.module.scss';  
+import styles from './PFOnlineArchivedList.module.scss';  
 import { useNavigate } from 'react-router-dom';
-import PFOnlineArchivedList from './PFOnlineArchivedList';
+import axios from 'axios';
 
 // Define the interface for the user results
 interface User16PFTest {
@@ -49,20 +49,13 @@ const factorDescriptions: Record<string, string> = {
   Q4: 'Tension',
 };
 
-const PFResultsList: React.FC = () => {
+const PFOnlineArchivedList: React.FC = () => {
   const [results, setResults] = useState<User16PFTest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
   const navigate = useNavigate();
-
-  const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
-
-  const toggleArchivedList = () => {
-    setIsArchivedListVisible(!isArchivedListVisible);
-  };
-
 
   // Define the factor order
   const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
@@ -110,7 +103,7 @@ const PFResultsList: React.FC = () => {
   // Fetch data function
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/user16pf');
+      const response = await fetch('http://localhost:5000/api/user16pf/isTrue/archived/all');
       
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -131,30 +124,22 @@ const PFResultsList: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleArchive = async (testID: string) => {
-    try {
-        console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
-
-        // Use the testID in the API request
-        const response = await fetch(`http://localhost:5000/api/user16pf/archive/${testID}`, {
-            method: 'PUT', // Use PUT to match backend
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
-        }
-
-        // Update the UI state to reflect the archived status
-        setResults(results.filter((result) => result.testID !== testID)); // Ensure you filter by testID
-        alert('Test archived successfully.');
-    } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
-        console.error('Error archiving test:', err);
-    }
-};
-
   
+  const handleDelete = async (testID: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this result?");
+    if (!confirmDelete) return;
+  
+    try {
+      await axios.delete(`http://localhost:5000/api/user16pf/test/delete/${testID}`);
+      setResults((prevConsultations) =>
+        prevConsultations.filter((consultation) => consultation.testID !== testID)
+      );
+      alert("IQ Result deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting IQ Result:", error);
+      alert("Failed to delete IQ Result.");
+    }
+  };
 
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
@@ -167,16 +152,8 @@ const PFResultsList: React.FC = () => {
 
 
   return (
-    <div>
-      <h2>PF Results List
-    <button
-      className={isArchivedListVisible ? styles.closeButton : styles.archiveButton}
-      onClick={toggleArchivedList}
-    >
-      {isArchivedListVisible ? 'Close' : 'Archive List'}
-    </button>
-  </h2>
-  {isArchivedListVisible && <PFOnlineArchivedList />}
+    <div className={styles.floatingContainer}>
+      <h2>PF Results List</h2>
      
       {results.length > 0 ? (
         <div>
@@ -277,15 +254,15 @@ const PFResultsList: React.FC = () => {
                         }
                         return null;
                       })}
-                      
                     </tbody>
+
                     </table>
+
                   </div>
                   </td>
-                  <td><button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
-                      Archive
+                  <td><button className={styles.deleteButtonIQLIST} onClick={() => handleDelete(result.testID)}>
+                      Delete
                     </button></td>
-                  
                 </tr>
               ))}
             </tbody>
@@ -308,10 +285,10 @@ const PFResultsList: React.FC = () => {
           </div>
         </div>
       ) : (
-        <p>No results available.</p>
+        <p>No Archived PF results Yet.</p>
       )}
     </div>
   );
 };
 
-export default PFResultsList;
+export default PFOnlineArchivedList;
