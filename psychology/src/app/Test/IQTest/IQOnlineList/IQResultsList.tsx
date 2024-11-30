@@ -43,7 +43,7 @@ const IQResultsList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 5;
+  const resultsPerPage = 3;
   const navigate = useNavigate();
 
   const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
@@ -54,24 +54,22 @@ const IQResultsList: React.FC = () => {
 
   
 
-  // Fetch data from the server
   const fetchData = async () => {
     try {
+      setLoading(true); // Ensure loading is displayed while fetching
       const response = await fetch('http://localhost:5000/api/useriq');
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const data = await response.json();
-
-      // Fetch IQ test interpretation data
+  
       const iqTestResponse = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
       if (!iqTestResponse.ok) {
         throw new Error(`Failed to fetch IQ test: ${iqTestResponse.statusText}`);
       }
       const iqTestData = await iqTestResponse.json();
       const interpretations: Interpretation[] = iqTestData.interpretation;
-
-      // Add interpretation to each result
+  
       const resultsWithInterpretation = data.data.map((result: UserIQTest) => {
         const interpretation = interpretations.find(
           (interp) =>
@@ -80,7 +78,7 @@ const IQResultsList: React.FC = () => {
             result.totalScore >= interp.minTestScore &&
             result.totalScore <= interp.maxTestScore
         );
-
+  
         return {
           ...result,
           interpretation: interpretation
@@ -91,7 +89,8 @@ const IQResultsList: React.FC = () => {
             : { percentilePoints: 0, resultInterpretation: 'No interpretation available' },
         };
       });
-
+  
+      // Replace state directly
       setResults(resultsWithInterpretation);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
@@ -99,6 +98,8 @@ const IQResultsList: React.FC = () => {
       setLoading(false);
     }
   };
+  
+  
 
   useEffect(() => {
     fetchData();

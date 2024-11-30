@@ -6,7 +6,12 @@ import {
     updateOmrResult,
     deleteOmrResult,
     getIQTestResultsByAll,
-    getOmrResultsByTestID
+    getOmrResultsByTestID,
+
+    // Archived routes
+    archiveIQTestResult,
+    getArchivedIQTests,
+    deleteArchivedIQTestResult
 } from '../controllers/omrIQController'; // Ensure this path is correct
 
 const router = Router();
@@ -30,6 +35,35 @@ router.put('/test/:testID', updateOmrResult);
 
 // Route to delete an IQ test result by test ID
 router.delete('/:id', deleteOmrResult);
+
+
+
+// Route to archive an IQ test result 
+router.put('/archive/:testID', async (req: Request, res: Response) => {
+    try {
+      await archiveIQTestResult(req, res);  // Use the testID for deletion
+    } catch (error) {
+      res.status(500).json({ message: 'Error deleting consultation by testID', error });
+    }
+  });
+
+// Route to get archived IQ test results
+router.get('/isTrue/archived/all', async (req: Request, res: Response) => {
+    try {
+        await getArchivedIQTests(req, res);  // Fetch the archived IQ test results
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching archived IQ test results', error });
+    }
+});
+
+
+router.delete('/test/delete/:testID', async (req: Request, res: Response) => {
+    try {
+      await deleteArchivedIQTestResult(req, res);  // Use the testID for deletion
+    } catch (error) {
+      res.status(500).json({ message: 'Error deleting consultation by testID', error });
+    }
+  });
 
 
 

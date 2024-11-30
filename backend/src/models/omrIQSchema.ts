@@ -27,6 +27,7 @@ interface OMR extends Document {
     interpretation: Interpretation;
     testType: string;
     testDate: Date;
+    isArchived: boolean
 }
 
 
@@ -51,6 +52,7 @@ const OmrSchema = new Schema<OMR>({
     interpretation: InterpretationSchema, 
     testType: { type: String, required: true },
     testDate: { type: Date, required: true, default: Date.now },
+    isArchived: { type: Boolean, default: false }, // Default is not archived
 });
 
 // Create and export the model

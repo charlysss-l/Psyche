@@ -124,8 +124,7 @@ const PFOnlineList: React.FC = () => {
       // Check if data is empty and set results accordingly
       if (data.data && data.data.length > 0) {
         setResults(data.data); // Update results if there is data
-      } else {
-      }
+      } 
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error fetching data:', err);
@@ -151,7 +150,6 @@ const PFOnlineList: React.FC = () => {
       }
 
       setResults(results.filter((result) => result.userID !== userID)); // Remove deleted user
-      navigate('/pfresults_list');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error deleting test:', err);
@@ -188,6 +186,7 @@ const PFOnlineList: React.FC = () => {
                 <th>Test Date</th>
                 <th>Responses</th>
                 <th>Scores</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -273,6 +272,10 @@ const PFOnlineList: React.FC = () => {
                     </table>
 
                   </div>
+                  </td>
+
+                  <td>
+                    <button onClick={() => handleDelete(result.userID)}>Delete</button>
                   </td>
                   
                 </tr>
