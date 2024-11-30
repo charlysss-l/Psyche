@@ -44,6 +44,9 @@ const IQResultsList: React.FC = () => {
   const [userID, setUserID] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultsPerPage = 5;
+
   // Fetch userID from localStorage and set it in state
   useEffect(() => {
     const storedUserID = localStorage.getItem('userId');
@@ -130,6 +133,9 @@ const IQResultsList: React.FC = () => {
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
+  const totalPages = Math.ceil(results.length / resultsPerPage);
+  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+
   return (
     <div>
       <h2>IQ Results List</h2>
@@ -156,7 +162,7 @@ const IQResultsList: React.FC = () => {
             </thead>
 
             <tbody>
-              {results.map((result) => (
+              {currentResults.map((result) => (
                 <tr key={result.userID} className={styles.eachResultIQ}>
                   <td>{result.userID}</td>
                   <td>{result.firstName} {result.lastName}</td>
@@ -187,6 +193,22 @@ const IQResultsList: React.FC = () => {
               ))}
             </tbody>
           </table>
+
+          <div>
+            <button
+              onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>{currentPage} of {totalPages}</span>
+            <button
+              onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
         </div>
       ) : (
         <p>No results found.</p>

@@ -52,9 +52,9 @@ const PFOnlineList: React.FC = () => {
   const [results, setResults] = useState<User16PFTest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  
   const [userID, setUserID] = useState<string | null>(null);
-
+  const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
   const navigate = useNavigate();
 

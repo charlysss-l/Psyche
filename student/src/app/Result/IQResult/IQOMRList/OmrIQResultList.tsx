@@ -35,6 +35,9 @@ const OmrIQResultsList: React.FC = () => {
   const [updatedData, setUpdatedData] = useState<Partial<OMR>>({}); // Store updated data for the current test
   const navigate = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultsPerPage = 5;
+
   useEffect(() => {
     const storedUserID = localStorage.getItem('userId');
     if (storedUserID) {
@@ -167,6 +170,9 @@ const OmrIQResultsList: React.FC = () => {
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
+  const totalPages = Math.ceil(results.length / resultsPerPage);
+  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+
   return (
     <div>
       <h2>IQ Results List (by Physical) <p className={styles.ageWarning}>*Your Age Must Be 20 years old and Above to see the Interpretation.</p></h2>
@@ -194,7 +200,7 @@ const OmrIQResultsList: React.FC = () => {
             </thead>
 
             <tbody>
-              {results.map((result) => (
+              {currentResults.map((result) => (
                 <tr key={result.testID} className={styles.eachResultIQ}>
                   <td>{result.userID}</td>
                   <td>
@@ -331,6 +337,22 @@ const OmrIQResultsList: React.FC = () => {
               ))}
             </tbody>
           </table>
+
+          <div>
+            <button
+              onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>{currentPage} of {totalPages}</span>
+            <button
+              onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
         </div>
       ) : (
         <p>No results found</p>
