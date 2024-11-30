@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import styles from './PFOmrList.module.scss';  
+import styles from './PFOmrArchivedList.module.scss';  
 import { useNavigate } from 'react-router-dom';
-import PFOmrArchivedList from './PFOmrArchivedList';
+import axios from 'axios';
 
 // Define structure for a single score entry
 export interface ScoreEntry {
@@ -94,7 +94,7 @@ const factorDescriptions: Record<string, string> = {
   };
 
 
-const PFOmrList: React.FC = () => {
+const PFOmrArchivedList: React.FC = () => {
   const [results, setResults] = useState<OMRpf[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -105,13 +105,6 @@ const PFOmrList: React.FC = () => {
 
   const resultsPerPage = 5;
   const navigate = useNavigate();
-
-  const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
-
-  const toggleArchivedList = () => {
-    setIsArchivedListVisible(!isArchivedListVisible);
-  };
-
 
   
 
@@ -148,7 +141,7 @@ const PFOmrList: React.FC = () => {
   // Fetch data function
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/omr16pf`);
+      const response = await fetch(`http://localhost:5000/api/omr16pf/isTrue/archived/all`);
       
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -171,32 +164,24 @@ const PFOmrList: React.FC = () => {
     }
   }, [userID]);
 
+
+
+
+  const handleDelete = async (testID: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this result?");
+    if (!confirmDelete) return;
   
-
-
-
-  const handleArchive = async (testID: string) => {
     try {
-        console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
-
-        // Use the testID in the API request
-        const response = await fetch(`http://localhost:5000/api/omr16pf/archive/${testID}`, {
-            method: 'PUT', // Use PUT to match backend
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
-        }
-
-        // Update the UI state to reflect the archived status
-        setResults(results.filter((result) => result.testID !== testID)); // Ensure you filter by testID
-        alert('Test archived successfully.');
-    } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
-        console.error('Error archiving test:', err);
+      await axios.delete(`http://localhost:5000/api/omr16pf/test/delete/${testID}`);
+      setResults((prevConsultations) =>
+        prevConsultations.filter((consultation) => consultation.testID !== testID)
+      );
+      alert("IQ Result deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting IQ Result:", error);
+      alert("Failed to delete IQ Result.");
     }
-};
+  };
 
   
 
@@ -211,18 +196,9 @@ const PFOmrList: React.FC = () => {
 
 
   return (
-    <div>
-      <h2>PF Results List (for Pyhsical)
-        
-        <button
-      className={isArchivedListVisible ? styles.closeButton : styles.archiveButton}
-      onClick={toggleArchivedList}
-    >
-      {isArchivedListVisible ? 'Close' : 'Archive List'}
-    </button>
-  </h2>
-  {isArchivedListVisible && <PFOmrArchivedList />}
-
+    <div className={styles.floatingContainer}>
+      <h2>PF Results List (for Pyhsical)</h2>
+     
       {results.length > 0 ? (
         <div>
           <table className={styles.resultsTable}>
@@ -367,46 +343,45 @@ const PFOmrList: React.FC = () => {
                       </thead>
                       <tbody>
                         {sortedScoring(result.scoring).map((score) => {
-                          if (score) {
+                            if (score) {
                             const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
                             const stenScore = score.stenScore;
 
                             let interpretation: React.ReactNode = ""; // Initialize as an empty string
 
                             if (stenScore >= 1 && stenScore <= 3) {
-                              interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
+                                interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
                             } else if (stenScore >= 4 && stenScore <= 7) {
-                              interpretation = (
+                                interpretation = (
                                 <>
-                                  <span className={styles.leftMeaning}>{leftMeaning}</span>
-                                  <span className={styles.average}> (Average) </span>
-                                  <span className={styles.rightMeaning}>{rightMeaning}</span>
+                                    <span className={styles.leftMeaning}>{leftMeaning}</span>
+                                    <span className={styles.average}> (Average) </span>
+                                    <span className={styles.rightMeaning}>{rightMeaning}</span>
                                 </>
-                              );
+                                );
                             } else if (stenScore >= 8 && stenScore <= 10) {
-                              interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
+                                interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
                             }
 
                             return (
-                              <tr key={score.factorLetter}>
+                                <tr key={score.factorLetter}>
                                 <td>{factorDescriptions[score.factorLetter]}</td>
                                 <td>{score.rawScore}</td>
                                 <td>{score.stenScore}</td>
                                 <td>{interpretation}</td> {/* Updated to render interpretation */}
-                              </tr>
+                                </tr>
                             );
-                          }
-                          return null;
+                            }
+                            return null;
                         })}
-                      </tbody>
+                        </tbody>
 
                     </table>
 
                   </div>
                   </td>
-
-                  <td><button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
-                      Archive
+                  <td><button className={styles.deleteButtonIQLIST} onClick={() => handleDelete(result.testID)}>
+                      Delete
                     </button></td>
                   
                 </tr>
@@ -437,4 +412,4 @@ const PFOmrList: React.FC = () => {
   );
 };
 
-export default PFOmrList;
+export default PFOmrArchivedList;

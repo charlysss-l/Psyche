@@ -26,6 +26,7 @@ interface OMRpf extends Document {
     scoring: Scoring[]; // Store an array of factorLetter and rawScore pairs
     testType: string;
     testDate: Date;
+    isArchived: boolean;
 }
 
 // ScoreEntry Schema
@@ -54,6 +55,7 @@ const OmrPFSchema = new Schema<OMRpf>({
     scoring: ScoringSchema, // This now refers to a Scoring object
     testType: { type: String, required: true },
     testDate: { type: Date, required: true, default: Date.now },
+    isArchived: { type: Boolean, default: false },
 });
 
 // Create and export the model
