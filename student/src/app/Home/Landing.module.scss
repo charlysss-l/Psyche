@@ -31,7 +31,7 @@
     z-index: 2;
 
     .logo{
-      color: #ffffffea;
+      color: #f3a847;
       text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
       font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
@@ -52,20 +52,18 @@
       text-shadow: 2px 2px 4px rgb(0, 0, 0); 
     }
     .get_started_btn {
-      padding: 1rem 3rem;
+      padding: 1rem 2rem;
       font-size: 1.2rem;
       color: #fff;
-      background-color: #ffffff41;
-      border: 1px solid #ffffff;
+      background-color: #f3a847;
       border-radius: 5px;
       font-family: Verdana, Geneva, Tahoma, sans-serif;
       cursor: pointer;
       text-decoration: none;
       transition: background-color 0.3s, opcaity 0.3s;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); 
 
       &:hover {
-        background-color: #8f8f8f41;
+        background-color: #bd843a;
       }
 
       &:active {

@@ -1,5 +1,7 @@
 .homepagestudent {
-  background-color: #2c7275;  /* Background color */
+  position: relative;
+  background: url('../../images/home.jpg');  /* Background color */
+  background-size: cover;
   color: white;
   height: 100vh;
   display: flex;
@@ -7,20 +9,36 @@
   align-items: center;
   text-align: center;
   margin: 0;
+  animation: fadeInPage 1.5s ease-in-out;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    z-index: 1;
+  }
 
   .content {
+    position: relative;
+    z-index: 2;
     padding: 2rem;
     max-width: 600px;
     width: 100%;
+    animation: fadeInText 2s ease-in-out;
   }
 
   .topHeader{
-    background-color: #4b9999;
+    background-color: #a0a0a0c4;
     padding: 20px;
     width: 70%;
     border-radius: 10px;
     font-size: 20px;
     color: white;
+    animation: textSlideUp 1.5s ease-in-out;
   }
   .homeLink{
     text-decoration: none;
@@ -31,11 +49,13 @@
     transform: translateY(-3px); 
   }
   .header {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
     color: #ffffff; 
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    animation: textFadeIn 2s ease-in-out; 
   }
 
   .description {
@@ -43,6 +63,7 @@
     margin-bottom: 2rem;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);  
+    animation: textFadeIn 2s ease-in-out;
   }
 
   .getStartedBtn {
@@ -57,9 +78,61 @@
     text-align: center;
     display: inline-block;
     transition: background-color 0.3s;
+    animation: buttonFadeIn 2s ease-in-out;
 
     &:hover {
       background-color: #d48b30;  
     }
+  }
+}
+
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes buttonFadeIn {
+  from {
+    opacity: 0;
+    
+  }
+  to {
+    opacity: 1;
+    
   }
 }
