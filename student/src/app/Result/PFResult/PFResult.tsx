@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './studentpfresult.module.scss';
 import { useNavigate } from 'react-router-dom';
-
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -14,6 +13,8 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 
 interface TestResultData {
@@ -500,15 +501,61 @@ const PFResult: React.FC = () => {
         },
     };
     
+    const generatePDF = async () => {
+        // Get the result container element
+        const resultContainer = document.getElementById("result-container");
+        if (!resultContainer) return;
+    
+        // Temporarily hide unwanted elements
+        const elementsToHide = resultContainer.querySelectorAll("button, input[type='checkbox'], label, p");
+        elementsToHide.forEach(element => {
+            if (element instanceof HTMLElement) {
+                element.style.display = "none"; // Explicitly hide the element
+            }
+        });
+    
+        // Generate canvas from the container
+        const canvas = await html2canvas(resultContainer);
+        const imgData = canvas.toDataURL("image/png");
+    
+        // Create PDF document
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    
+        // Scaling factor to zoom out (e.g., 0.85 for 85% zoom)
+        const scaleFactor = 0.85;
+    
+        // Apply scaling to width and height
+        const scaledWidth = pdfWidth * scaleFactor;
+        const scaledHeight = pdfHeight * scaleFactor;
+    
+        // Calculate the X position to center the image
+        const xPos = (pdfWidth - scaledWidth) / 2;
+    
+        // Add image to PDF with scaling and centered
+        pdf.addImage(imgData, "PNG", xPos, 0, scaledWidth, scaledHeight);
+        pdf.save("PFResult.pdf");
+    
+        // Restore the hidden elements
+        elementsToHide.forEach(element => {
+            if (element instanceof HTMLElement) {
+                element.style.display = ""; // Restore the element
+            }
+        });
+    };
+    
+    
+    
     
     
     return (
-        <div className={styles.container}>
+        <div className={styles.container} id="result-container">
             <h2 className={styles.heading}>
                 {results.firstName} {results.lastName}
             </h2>
     
-            <h3 className={styles.subheading}>Test Result</h3>
+            <h3 className={styles.subheading}>Personality Test Result</h3>
             <div className={styles.chartContainer}>
                 <Line data={chartData} options={chartOptions} />
             </div>
@@ -522,36 +569,38 @@ const PFResult: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-    {sortedScoring.map((score) => {
-        const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
-        const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
+                        {sortedScoring.map((score) => {
+                            const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+                            const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
 
-        let interpretation: React.ReactNode = "";
+                            let interpretation: React.ReactNode = "";
 
-        if (stenScore >= 1 && stenScore <= 3) {
-            interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
-        } else if (stenScore >= 4 && stenScore <= 7) {
-            interpretation = (
-                <>
-                    <span className={styles.average}> (Average) <br/> </span> 
-                    <span className={styles.leftMeaning}>{leftMeaning} <br/></span> 
-                    <span className={styles.rightMeaning}>{rightMeaning}</span>
-                </>
-            );
-        } else if (stenScore >= 8 && stenScore <= 10) {
-            interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
-        }
-        return (
-            <tr key={score.factorLetter}>
-                <td>{factorDescriptions[score.factorLetter]}</td> {/* Use description */}
-                <td>{interpretation}</td>
-            </tr>
-        );
-    })}
-</tbody>
+                            if (stenScore >= 1 && stenScore <= 3) {
+                                interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
+                            } else if (stenScore >= 4 && stenScore <= 7) {
+                                interpretation = (
+                                    <>
+                                        <span className={styles.average}> (Average) <br/> </span> 
+                                        <span className={styles.leftMeaning}>{leftMeaning} <br/></span> 
+                                        <span className={styles.rightMeaning}>{rightMeaning}</span>
+                                    </>
+                                );
+                            } else if (stenScore >= 8 && stenScore <= 10) {
+                                interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
+                            }
+                            return (
+                                <tr key={score.factorLetter}>
+                                    <td>{factorDescriptions[score.factorLetter]}</td> {/* Use description */}
+                                    <td>{interpretation}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
 
                 </table>
             </div>
+
+            
     
             <div className={styles.sharePrompt}>
                 <p>Would you like to be consulted about your result with our guidance counselor?</p>
@@ -573,6 +622,10 @@ const PFResult: React.FC = () => {
                         No
                     </button>
                 </div>
+                <button onClick={generatePDF} className={styles.pdfButton}>
+                    Save as PDF
+                </button>
+
             </div>
         </div>
     );

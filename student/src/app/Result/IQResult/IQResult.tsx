@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './IQResult.module.scss';
 import { useNavigate } from 'react-router-dom';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 interface IQTestResultData {
     userID: string;
@@ -79,11 +81,66 @@ const IQResult: React.FC = () => {
         navigate('/home');
     };
 
+    const generatePDF = async () => {
+        // Get the result container element
+        const resultContainer = document.getElementById("result-container");
+        if (!resultContainer) return;
+    
+        // Temporarily hide unwanted elements
+        const elementsToHide = resultContainer.querySelectorAll("button, input[type='checkbox'], label, p");
+        elementsToHide.forEach(element => {
+            if (element instanceof HTMLElement) {
+                element.style.display = "none"; // Explicitly hide the element
+            }
+        });
+    
+        // Generate canvas from the container
+        const canvas = await html2canvas(resultContainer);
+        const imgData = canvas.toDataURL("image/png");
+    
+        // Create PDF document
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+    
+        // Define scaling factors
+        const scaleFactor = 0.9; // Control zoom level (adjust for width scaling)
+        const stretchFactor = 0.8; // Control vertical stretching (adjust this to control vertical size)
+    
+        // Calculate the scaled width based on the scale factor
+        const scaledWidth = pdfWidth * scaleFactor;
+    
+        // Calculate the scaled height based on the stretch factor
+        const scaledHeight = pdfHeight * stretchFactor;
+    
+        // Calculate the X position to center the image
+        const xPos = (pdfWidth - scaledWidth) / 2;
+    
+        // Add a margin (for example, 10 mm from the top)
+        const marginTop = 20;  // Adjust the margin value as needed
+    
+        // Add image to PDF with scaling, centered, and a top margin
+        pdf.addImage(imgData, "PNG", xPos, marginTop, scaledWidth, scaledHeight);
+        pdf.save("IQResult.pdf");
+    
+        // Restore the hidden elements
+        elementsToHide.forEach(element => {
+            if (element instanceof HTMLElement) {
+                element.style.display = ""; // Restore the element
+            }
+        });
+    };
+    
+    
+    
+
     return (
-        <div className={styles.container}>
+        <div className={styles.container} id="result-container">
             {result ? (
                 <div>
                     <h2 className={styles.header}>{result.firstName} {result.lastName}</h2>
+                    <h3 className={styles.subheading}>IQ Test Result</h3>
+
                     <div className={styles.section}>
                         <span className={styles.label}>User ID:</span>
                         <span className={styles.value}>{result.userID}</span>
@@ -109,8 +166,10 @@ const IQResult: React.FC = () => {
                         <span className={styles.value}>{result.testType}</span>
                     </div>
                     <div className={styles.scoreSection}>
-                        <h3>Score</h3>
-                        <p>Total Score: <span className={styles.score}>{result.totalScore}</span></p>
+                        <h3>Total Score: <span className={styles.score}>{result.totalScore}</span> </h3>
+                        <h3>Interpretation: <span className={styles.interpretation}>
+                        {interpretation ? interpretation.resultInterpretation : "Interpretation not available."}
+                    </span></h3>
                     </div>
                     <div className={styles.sharePrompt}>
                 <p>Would you like to be consulted about your result with our guidance counselor?</p>
@@ -132,6 +191,9 @@ const IQResult: React.FC = () => {
                         No
                     </button>
                 </div>
+                <button onClick={generatePDF} className={styles.pdfButton}>
+                    Save as PDF
+                </button>
             </div>
                 </div>
             ) : (
