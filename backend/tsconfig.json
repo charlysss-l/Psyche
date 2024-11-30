@@ -10,6 +10,10 @@
     "baseUrl": "./src",
     "types": ["node", "express"]
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",       // Include all .ts files
+    "src/**/*.tsx",      // Include all .tsx files (React components)
+    "src/declarations.d.ts"  // Explicitly include the declaration file
+  ],
   "exclude": ["node_modules"]
 }
