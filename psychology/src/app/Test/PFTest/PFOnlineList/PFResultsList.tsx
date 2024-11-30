@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styles from './PFResultList.module.scss';  
 import { useNavigate } from 'react-router-dom';
 import PFOnlineArchivedList from './PFOnlineArchivedList';
+import * as XLSX from 'xlsx';
+
 
 // Define the interface for the user results
 interface User16PFTest {
@@ -14,6 +16,7 @@ interface User16PFTest {
   year: number;
   section: number;
   testID: string;
+  testDate: Date;
   responses: {
     questionID: string;
     selectedChoice: 'a' | 'b' | 'c';
@@ -165,17 +168,64 @@ const PFResultsList: React.FC = () => {
 
   // Prepare data for the stacked bar chart
 
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(results.map((result) => ({
+      userID: result.userID,
+      name: `${result.firstName} ${result.lastName}`,
+      age: result.age,
+      sex: result.sex,
+      course: result.course,
+      yearAndSection: `${result.year} - ${result.section}`,
+      testType: result.testType,
+      testDate: result.testDate,
+      responses: result.responses.map(response => 
+        `(Question Number: ${response.questionID}: (Selected Choice: ${response.selectedChoice}) (Score: ${response.equivalentScore}) (Factor Letter: ${response.factorLetter})`
+      ).join(', '),
+      scores: result.scoring.scores.map(score => {
+        const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+        const stenScore = score.stenScore;
+  
+        let interpretation = "";
+  
+        if (stenScore >= 1 && stenScore <= 3) {
+          interpretation = leftMeaning;
+        } else if (stenScore >= 4 && stenScore <= 7) {
+          interpretation = `(Average) (Left Meaning: ${leftMeaning}, Right Meaning: ${rightMeaning})`;
+        } else if (stenScore >= 8 && stenScore <= 10) {
+          interpretation = rightMeaning;
+        }
+  
+        return `(Factor: ${factorDescriptions[score.factorLetter]}) (Raw: ${score.rawScore}, Sten: ${score.stenScore}, Interpretation: ${interpretation})`;
+      }).join(', '),
+    })));
+  
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'PF Results');
+    
+    // Generate Excel file and prompt user to download
+    XLSX.writeFile(workbook, 'PFResults (Online).xlsx');
+  };
+  
+  
+
 
   return (
     <div>
-      <h2>PF Results List
+      <h2 className={styles.title}>
+  PF Results List
+  <div className={styles.buttonsWrapper}>
+    <button onClick={exportToExcel} className={styles.exportButton}>
+      Export to Excel
+    </button>
     <button
       className={isArchivedListVisible ? styles.closeButton : styles.archiveButton}
       onClick={toggleArchivedList}
     >
       {isArchivedListVisible ? 'Close' : 'Archive List'}
     </button>
-  </h2>
+  </div>
+</h2>
+
   {isArchivedListVisible && <PFOnlineArchivedList />}
      
       {results.length > 0 ? (
@@ -190,6 +240,7 @@ const PFResultsList: React.FC = () => {
                 <th>Course</th>
                 <th>Year & Section</th>
                 <th>Test Type</th>
+                <th>Test Date</th>
                 <th>Responses</th>
                 <th>Scores</th>
                 <th>Actions</th>
@@ -205,6 +256,7 @@ const PFResultsList: React.FC = () => {
                   <td>{result.course}</td>
                   <td>{result.year} - {result.section}</td>
                   <td>{result.testType}</td>
+                  <td>{new Date(result.testDate).toLocaleDateString()}</td>
                   <td>
                   <div className={styles.responsesWrapper}>
 
@@ -257,9 +309,9 @@ const PFResultsList: React.FC = () => {
                           } else if (stenScore >= 4 && stenScore <= 7) {
                             interpretation = (
                               <>
-                                <span className={styles.leftMeaning}>{leftMeaning}</span>
-                                <span className={styles.average}> (Average) </span>
-                                <span className={styles.rightMeaning}>{rightMeaning}</span>
+                                <span className={styles.average}>Average</span> <br/>
+                                <span className={styles.leftMeaning}>{leftMeaning}</span> <br/>
+                                <span className={styles.rightMeaning}>{rightMeaning}</span> 
                               </>
                             );
                           } else if (stenScore >= 8 && stenScore <= 10) {
@@ -284,7 +336,9 @@ const PFResultsList: React.FC = () => {
                   </td>
                   <td><button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
                       Archive
-                    </button></td>
+                    </button>
+                    
+                  </td>
                   
                 </tr>
               ))}

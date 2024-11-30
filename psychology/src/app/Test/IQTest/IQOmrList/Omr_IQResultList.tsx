@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styles from './Omr_IQResultList.module.scss';
 import { useNavigate } from 'react-router-dom';
 import IQOmrArchivedList from './IQOmrArchiveList';
+import * as XLSX from 'xlsx';
+
 
 
 
@@ -138,18 +140,44 @@ const currentResults = results.slice(
   (currentPage - 1) * resultsPerPage,
   currentPage * resultsPerPage
 );
+
+// export as excel
+const exportToExcel = () => {
+  const worksheet = XLSX.utils.json_to_sheet(results.map((result) => ({
+    userID: result.userID,
+    name: `${result.firstName} ${result.lastName}`,
+    age: result.age,
+    sex: result.sex,
+    course: result.course,
+    yearAndSection: `${result.year} - ${result.section}`,
+    testType: result.testType,
+    testDate: result.testDate,
+    totalScore: result.totalScore,
+    interpretation: result.interpretation ? result.interpretation.resultInterpretation : 'No interpretation available',
+  })));
+
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'IQ Results');
+  
+  // Generate Excel file and prompt user to download
+  XLSX.writeFile(workbook, 'IQResults (Physical).xlsx');
+};
   
 
   return (
     <div>
-      <h2>IQ Results List (by Physical)
-
-<button
+      <h2 className={styles.title}>IQ Results List (Physical)
+      <div className={styles.buttonsWrapper}>
+    <button onClick={exportToExcel} className={styles.exportButton}>
+      Export to Excel
+    </button>
+        <button
       className={isArchivedListVisible ? styles.closeButton : styles.archiveButton}
       onClick={toggleArchivedList}
     >
       {isArchivedListVisible ? 'Close' : 'Archive List'}
     </button>
+      </div>
   </h2>
   {isArchivedListVisible && <IQOmrArchivedList />}
 

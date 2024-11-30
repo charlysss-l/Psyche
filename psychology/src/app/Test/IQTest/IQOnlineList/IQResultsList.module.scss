@@ -100,11 +100,19 @@
   background-color: #6d560d;
 }
 
+.title {
+  display: flex; /* Make the title a flex container */
+  justify-content: space-between; /* Distribute the content: title on the left, buttons on the right */
+  align-items: center; /* Vertically align the title and buttons */
+}
+
+.buttonsWrapper {
+  display: flex; /* Arrange buttons in a row */
+  gap: 10px; /* Optional: Adds space between buttons */
+}
+
 .archiveButton {
-  display: flex;
-  position: absolute;
-  top: 30%;
-  right: 22%;
+  
   background-color: #3b5998; /* Blue like a mailbox */
   color: white; /* Text color */
   border: 2px solid #2d4373; /* Slightly darker border */
@@ -189,4 +197,19 @@
   font-size: 20px;
   font-weight: bold;
   text-align: center;
+}
+
+
+.exportButton {
+    
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  
+}
+
+.exportButton:hover {
+  background-color: #45a049;
 }

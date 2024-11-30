@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styles from './PFOmrList.module.scss';  
 import { useNavigate } from 'react-router-dom';
 import PFOmrArchivedList from './PFOmrArchivedList';
+import * as XLSX from 'xlsx';
+
 
 // Define structure for a single score entry
 export interface ScoreEntry {
@@ -207,20 +209,58 @@ const PFOmrList: React.FC = () => {
   const totalPages = Math.ceil(results.length / resultsPerPage);
   const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
 
-  // Prepare data for the stacked bar chart
-
+  // export as excel
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(results.map((result) => ({
+      userID: result.userID,
+      name: `${result.firstName} ${result.lastName}`,
+      age: result.age,
+      sex: result.sex,
+      course: result.course,
+      yearAndSection: `${result.year} - ${result.section}`,
+      testType: result.testType,
+      testDate: result.testDate,
+      scores: sortedScoring(result.scoring).map(score => {
+        const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+        const stenScore = score.stenScore;
+  
+        let interpretation = "";
+  
+        if (stenScore >= 1 && stenScore <= 3) {
+          interpretation = leftMeaning;
+        } else if (stenScore >= 4 && stenScore <= 7) {
+          interpretation = `(Average) (Left Meaning: ${leftMeaning}, Right Meaning: ${rightMeaning})`;
+        } else if (stenScore >= 8 && stenScore <= 10) {
+          interpretation = rightMeaning;
+        }
+  
+        return `(Factor: ${factorDescriptions[score.factorLetter]}) (Raw: ${score.rawScore}, Sten: ${score.stenScore}, Interpretation: ${interpretation})`;
+      }).join(', '),
+    })));
+  
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'PF Results');
+    
+    // Generate Excel file and prompt user to download
+    XLSX.writeFile(workbook, 'PFResults (Pyhsical).xlsx');
+  };
 
   return (
     <div>
-      <h2>PF Results List (for Pyhsical)
-        
-        <button
+      <h2 className={styles.title}>PF Results List (for Pyhsical)
+
+      <div className={styles.buttonsWrapper}>
+    <button onClick={exportToExcel} className={styles.exportButton}>
+      Export to Excel
+    </button>
+    <button
       className={isArchivedListVisible ? styles.closeButton : styles.archiveButton}
       onClick={toggleArchivedList}
     >
       {isArchivedListVisible ? 'Close' : 'Archive List'}
     </button>
-  </h2>
+  </div>
+</h2>
   {isArchivedListVisible && <PFOmrArchivedList />}
 
       {results.length > 0 ? (
@@ -378,8 +418,8 @@ const PFOmrList: React.FC = () => {
                             } else if (stenScore >= 4 && stenScore <= 7) {
                               interpretation = (
                                 <>
-                                  <span className={styles.leftMeaning}>{leftMeaning}</span>
-                                  <span className={styles.average}> (Average) </span>
+                                  <span className={styles.average}> (Average) </span> <br/>
+                                  <span className={styles.leftMeaning}>{leftMeaning}</span> <br/>
                                   <span className={styles.rightMeaning}>{rightMeaning}</span>
                                 </>
                               );
@@ -407,7 +447,9 @@ const PFOmrList: React.FC = () => {
 
                   <td><button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
                       Archive
-                    </button></td>
+                    </button>
+                    
+                  </td>
                   
                 </tr>
               ))}
