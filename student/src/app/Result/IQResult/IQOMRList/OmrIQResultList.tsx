@@ -18,7 +18,7 @@ interface OMR {
   sex: 'Female' | 'Male';
   course: string;
   year: number;
-  section: number;
+  section: string;
   testID: string;
   totalScore: number;
   interpretation: Interpretation;
@@ -275,10 +275,13 @@ const OmrIQResultsList: React.FC = () => {
                         onChange={(e) => setUpdatedData({ ...updatedData, year: Number(e.target.value) })}
                       >
                         <option value="" disabled>Select</option>
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
+                        <option value="Educ">Bachelor of Secondary Education</option>
+                        <option value="BM">BS Business Management</option>
+                        <option value="CS">BS Computer Science</option>
+                        <option value="Crim">BS Criminology</option>
+                        <option value="HM">BS Hospitality Management</option>
+                        <option value="IT">BS Information Technology</option>
+                        <option value="psych">BS Psychology</option>
                       </select>
                     ) : (
                       result.year
@@ -288,18 +291,20 @@ const OmrIQResultsList: React.FC = () => {
                     {editingTestID === result.testID ? (
                       <select
                         value={updatedData.section}
-                        onChange={(e) => setUpdatedData({ ...updatedData, section: Number(e.target.value) })}
+                        onChange={(e) => setUpdatedData({ ...updatedData, section: e.target.value })}
                       >
                         <option value="" disabled>Select</option>
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                        <option value={6}>6</option>
-                        <option value={7}>7</option>
-                        <option value={8}>8</option>
-                        <option value={9}>9</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="Irregular">Irregular</option>
                         
                       </select>
                     ) : (

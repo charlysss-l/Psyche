@@ -29,7 +29,7 @@ interface User16PFTest extends Document {
     sex: 'Female' | 'Male';
     course: string;
     year: number;
-    section: number;
+    section: string;
     testID: string;
     responses: Response[]; 
     scoring: Scoring; 
@@ -67,7 +67,7 @@ const User16PFTestSchema = new Schema<User16PFTest>({
     sex: { type: String, enum: ['Female', 'Male'], required: true },
     course: { type: String, required: true },
     year: { type: Number, required: true },
-    section: { type: Number, required: true },
+    section: { type: String, required: true },
     testID: { type: String, required: true, unique: true },
     responses: [ResponseSchema],
     scoring: ScoringSchema, // This now refers to a Scoring object

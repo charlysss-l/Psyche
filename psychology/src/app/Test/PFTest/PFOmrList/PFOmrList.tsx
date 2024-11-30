@@ -269,8 +269,7 @@ const PFOmrList: React.FC = () => {
             <thead>
               <tr>
               <th>userID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Name</th>
                 <th>Age</th>
                 <th>Sex</th>
                 <th>Course</th>
@@ -286,28 +285,7 @@ const PFOmrList: React.FC = () => {
               {currentResults.map((result) => (
                 <tr key={result.testID} className={styles.eachResultIQ}>
                 <td>{result.userID}</td>
-                <td>
-                  {editingTestID === result.testID ? (
-                    <input
-                      type="text"
-                      value={updatedData.firstName}
-                      onChange={(e) => setUpdatedData({ ...updatedData, firstName: e.target.value })}
-                    />
-                  ) : (
-                    result.firstName
-                  )}
-                </td>
-                <td>
-                  {editingTestID === result.testID ? (
-                    <input
-                      type="text"
-                      value={updatedData.lastName}
-                      onChange={(e) => setUpdatedData({ ...updatedData, lastName: e.target.value })}
-                    />
-                  ) : (
-                    result.lastName
-                  )}
-                </td>
+                <td>{result.firstName} {result.lastName}</td>
                 <td>
                   {editingTestID === result.testID ? (
                     <input

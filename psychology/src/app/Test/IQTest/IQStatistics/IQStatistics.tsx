@@ -208,27 +208,38 @@ const IQStatistics: React.FC = () => {
           <option value="Female">Female</option>
           <option value="Male">Male</option>
         </select>
-        <input
-          type="text"
-          name="course"
-          value={filters.course}
-          onChange={handleFilterChange}
-          placeholder="Filter by Course"
-        />
-        <input
-          type="number"
-          name="year"
-          value={filters.year}
-          onChange={handleFilterChange}
-          placeholder="Filter by Year"
-        />
-        <input
-          type="number"
-          name="section"
-          value={filters.section}
-          onChange={handleFilterChange}
-          placeholder="Filter by Section"
-        />
+        <select name="course" value={filters.course} onChange={handleFilterChange} >
+        <option value="" disabled>Select Course</option>
+        <option value="Educ">Bachelor of Secondary Education</option>
+        <option value="BM">BS Business Management</option>
+        <option value="CS">BS Computer Science</option>
+        <option value="Crim">BS Criminology</option>
+        <option value="HM">BS Hospitality Management</option>
+        <option value="IT">BS Information Technology</option>
+        <option value="psych">BS Psychology</option>
+        </select>
+        <select name="year" value={filters.year} onChange={handleFilterChange} >
+        <option value="" disabled>Select Year</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        </select>
+        <select name="section" value={filters.section} onChange={handleFilterChange} >
+        <option value="" disabled>Select Section</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="Irregular">Irregular</option>
+        </select>
+
         {/*<select name="testType" value={filters.testType} onChange={handleFilterChange}>
           <option value="">Filter by Test Type</option>
           <option value="Online">Online</option>

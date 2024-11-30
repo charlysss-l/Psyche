@@ -39,7 +39,7 @@ interface UserIQTest extends Document {
     sex: 'Female' | 'Male';
     course: string;
     year: number;
-    section: number;
+    section: string;
     testID: string;
     responses: Response[];
     totalScore: number; // Include totalScore here
@@ -85,7 +85,7 @@ const UserIQTestSchema = new Schema<UserIQTest>({
     sex: { type: String, enum: ['Female', 'Male'], required: true },
     course: { type: String, required: true },
     year: { type: Number, required: true },
-    section: { type: Number, required: true },
+    section: { type: String, required: true },
     testID: { type: String, required: true, unique: true },
     responses: [ResponseSchema],
     totalScore: { type: Number, required: true },  // Direct totalScore as a number

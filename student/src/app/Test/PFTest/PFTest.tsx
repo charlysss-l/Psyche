@@ -150,12 +150,13 @@ const PFTest: React.FC = () => {
                     </select>
                     <select value={course} onChange={(e) => setCourse(e.target.value)} required>
                         <option value="" disabled>Select Course</option>
-                        <option value="BSCS">BSCS</option>
-                        <option value="BSIT">BSIT</option>
-                        <option value="BSP">BSP</option>
-                        <option value="BSCrim">BSCrim</option>
-                        <option value="BSEd">BSEd</option>
-                        <option value="BSHRM">BSHRM</option>
+                        <option value="Educ">Bachelor of Secondary Education</option>
+                        <option value="BM">BS Business Management</option>
+                        <option value="CS">BS Computer Science</option>
+                        <option value="Crim">BS Criminology</option>
+                        <option value="HM">BS Hospitality Management</option>
+                        <option value="IT">BS Information Technology</option>
+                        <option value="psych">BS Psychology</option>
                     </select>
                     <select value={year} onChange={(e) => setYear(e.target.value)} required>
                         <option value="" disabled>Select Year</option>
@@ -171,11 +172,16 @@ const PFTest: React.FC = () => {
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="Irregular">Irregular</option>
                     </select>
                     <select value={testType} onChange={(e) => setTestType(e.target.value as 'Online' | 'Physical')} required>
                         <option value="" disabled>Select Exam Type</option>
                         <option value="Online">Online</option>
-                        <option value="Physical">Physical</option>
                     </select>
                 </div>
             )}
