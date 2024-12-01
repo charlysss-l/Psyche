@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PFOnlineList.module.scss';  
 import { useNavigate } from 'react-router-dom';
+import { Line } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+
+
+import Modal from 'react-modal'; // Install this package for modal functionality
+
+
+
 // Define the interface for the user results
 interface User16PFTest {
   userID: string;
@@ -28,6 +45,16 @@ interface User16PFTest {
   testDate: Date;
   testType: 'Online' | 'Physical'| '';
 }
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const factorDescriptions: Record<string, string> = {
   A: 'Warmth',
@@ -57,6 +84,9 @@ const PFOnlineList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
+
 
   // Define the factor order
   const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
@@ -166,9 +196,85 @@ const PFOnlineList: React.FC = () => {
   // Prepare data for the stacked bar chart
 
 
+  const Modal = ({ isOpen, onClose, data }: { isOpen: boolean, onClose: () => void, data: any }) => {
+    if (!isOpen || !data) return null;
+  
+    const chartData = {
+      labels: factorOrder.map(factorLetter => factorDescriptions[factorLetter] || factorLetter), // Use factor descriptions
+      datasets: [
+        {
+          label: 'Sten Score',
+          data: factorOrder.map(factorLetter => {
+            const score = data.scoring.scores.find((score: { factorLetter: string; }) => score.factorLetter === factorLetter);
+            return score ? score.stenScore : 0;
+          }),
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          fill: true,
+          tension: 0.4,
+        },
+      ],
+    };
+  
+    const chartOptions = {
+      responsive: true,
+      indexAxis: 'y' as const, // Switch axes to make the chart horizontal
+      plugins: {
+          legend: {
+              display: true,
+              position: 'top' as const,
+          },
+          tooltip: {
+              mode: 'index' as const,
+              intersect: false,
+          },
+      },
+      scales: {
+          x: {
+              title: {
+                  display: true,
+                  text: 'Standard Ten Score (STEN)',
+              },
+              min: 1,
+              max: 10,
+              grid: {
+                  drawOnChartArea: true,
+                  color: (context: any) => {
+                      const xValue = context.tick.value;
+                      // Apply gray background color to grid lines for Sten 4-7
+                      if (xValue >= 4 && xValue <= 7) {
+                          return 'rgba(128, 128, 128, 1)'; 
+                      }
+                      return 'rgba(0, 0, 0, 0.1)';
+                  },
+              },
+          },
+          y: {
+              title: {
+                  display: true,
+                  text: 'Factors',
+              },
+          },
+      },
+  };
+  
+    return (
+      <div className={styles.modal} onClick={onClose}>
+        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <h2>Factor Scores for {data.firstName} {data.lastName}</h2>
+          <Line data={chartData} options={chartOptions} />
+          <button onClick={onClose}>Close</button>
+        </div>
+      </div>
+    );
+  };
+  
+
+
   return (
     <div>
       <h2>PF Results List</h2>
+      
      
       {results.length > 0 ? (
         <div>
@@ -191,6 +297,7 @@ const PFOnlineList: React.FC = () => {
             </thead>
             <tbody>
               {currentResults.map((result) => (
+                
                 <tr key={result.userID} className={styles.eachResultPF}>
                   <td>{result.userID}</td>
                   <td>{result.firstName} {result.lastName}</td>
@@ -209,6 +316,7 @@ const PFOnlineList: React.FC = () => {
                         <tr>
                           <th>Question Number</th>
                           <th>Selected Choice</th>
+                          
                        
                         </tr>
                       </thead>
@@ -232,6 +340,8 @@ const PFOnlineList: React.FC = () => {
                       <thead>
                         <tr>
                           <th>Factors</th>
+                          <th>Raw Score</th>
+                          <th>Sten Score</th>
                           <th>Results Interpretations</th>
                         </tr>
                       </thead>
@@ -261,6 +371,8 @@ const PFOnlineList: React.FC = () => {
                           return (
                             <tr key={factorLetter}>
                               <td>{factorDescriptions[factorLetter]}</td>
+                              <td>{score.rawScore}</td>
+                              <td>{score.stenScore}</td>
                               <td>{interpretation}</td> {/* Updated to render interpretation */}
                             </tr>
                           );
@@ -275,7 +387,15 @@ const PFOnlineList: React.FC = () => {
                   </td>
 
                   <td>
-                    <button onClick={() => handleDelete(result.userID)}>Delete</button>
+                    <button className={styles.deleteButton} onClick={() => handleDelete(result.userID)}>Delete</button>
+                    <button 
+                className={styles.graphButton} 
+                onClick={() => { 
+                  setSelectedUser(result); 
+                  setIsModalOpen(true); 
+                }}>
+                Graph
+              </button>
                   </td>
                   
                 </tr>
@@ -302,6 +422,12 @@ const PFOnlineList: React.FC = () => {
       ) : (
         <p>No results available.</p>
       )}
+
+<Modal 
+  isOpen={isModalOpen} 
+  onClose={() => setIsModalOpen(false)} 
+  data={selectedUser} 
+/>
     </div>
   );
 };

@@ -441,7 +441,7 @@ const PFOMRList: React.FC = () => {
                     </button>
                     {editingTestID === result.testID && (
                       <button
-                        className={styles.updateButtonIQLIST}
+                        className={styles.saveButtonIQLIST}
                         onClick={() => handleUpdate(result.testID)}
                       >
                         Save

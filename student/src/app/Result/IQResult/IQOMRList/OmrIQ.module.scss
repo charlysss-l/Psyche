@@ -21,6 +21,8 @@
   
 
   .resultsTableIQ td {
+    text-align: center; /* Center-aligns text horizontally */
+    vertical-align: middle; /* Center-aligns text vertically */
     padding: 5px;
     font-size: 13px;
     border-bottom: 1px solid #9e979791; 
@@ -43,12 +45,50 @@
 }
 
 .deleteButtonIQLIST{
-  background-color: red;
-  padding: 8px;
+  width: 70px;
+      margin: 10px;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
 }
 .deleteButtonIQLIST:hover{
   background-color: rgb(230, 3, 3);
 }
+
+.updateButtonIQLIST{
+  width: 70px;
+  
+  margin: 10px;
+  background-color: rgb(11, 53, 240);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.updateButtonIQLIST:hover{
+  background-color: rgb(10, 39, 165);
+}
+
+.saveButtonIQLIST{
+  width: 70px;
+  margin: 10px;
+  background-color: rgb(235, 219, 4);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.saveButtonIQLIST:hover{
+  background-color: rgb(129, 121, 3);
+}
+
 .pagination {
   display: flex;
   justify-content: center;
