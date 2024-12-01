@@ -1,7 +1,7 @@
 $background-color: #ffffff;
 $font-color: #45474B;
 $button-bg-color: #000000;
-$button-hover-bg-color: #f2f2f2;
+$button-hover-bg-color: #cc63b5e1;
 $error-color: red;
 
 @keyframes slideInFromLeft {
@@ -107,7 +107,7 @@ $error-color: red;
 
 .submitButtonLog:hover {
   background-color: $button-hover-bg-color;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 .errorMessage {
@@ -124,11 +124,11 @@ $error-color: red;
 
 .Signuplink {
   font-size: 17px;
-  color: rgb(13, 25, 158);
+  color:  #cc63b5e1;
   cursor: pointer;
 }
 
 .Signuplink:hover {
-  border-bottom: 1px solid rgb(8, 17, 122);
-  color: rgb(8, 17, 122);
+  border-bottom: 1px solid #cc63b5e1;
+  color: #cc63b5e1;
 }

@@ -60,7 +60,7 @@ const SignupForm: React.FC = () => {
       const response = await signupUser(email, password, studentNumber, userId);
 
       if (response.message === "Student created successfully") {
-        navigate("/", {
+        navigate("/login", {
           state: { message: "Signup successful! Please log in." },
         });
       } else if (response.error === "email_exists") {
@@ -121,7 +121,7 @@ const SignupForm: React.FC = () => {
           <label className={styles.signuplabel}>Student Number:</label>
           <input
             className={styles.signupInput}
-            type="text"
+            type="studentNumber"
             value={studentNumber}
             onChange={(e) => setStudentNumber(e.target.value)}
             required
