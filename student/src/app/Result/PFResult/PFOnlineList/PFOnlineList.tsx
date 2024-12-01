@@ -14,7 +14,6 @@ import {
 } from 'chart.js';
 
 
-import Modal from 'react-modal'; // Install this package for modal functionality
 
 
 
@@ -373,8 +372,7 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
                       <thead>
                         <tr>
                           <th>Factors</th>
-                          <th>Raw Score</th>
-                          <th>Sten Score</th>
+                          
                           <th>Results Interpretations</th>
                         </tr>
                       </thead>
@@ -392,8 +390,8 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
                           } else if (stenScore >= 4 && stenScore <= 7) {
                             interpretation = (
                               <>
-                                <span className={styles.leftMeaning}>{leftMeaning}</span>
-                                <span className={styles.average}> (Average) </span>
+                                <span className={styles.average}> (Average) </span> <br/>
+                                <span className={styles.leftMeaning}>{leftMeaning}</span> <br/>
                                 <span className={styles.rightMeaning}>{rightMeaning}</span>
                               </>
                             );
@@ -404,8 +402,7 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
                           return (
                             <tr key={factorLetter}>
                               <td>{factorDescriptions[factorLetter]}</td>
-                              <td>{score.rawScore}</td>
-                              <td>{score.stenScore}</td>
+                            
                               <td>{interpretation}</td> {/* Updated to render interpretation */}
                             </tr>
                           );
