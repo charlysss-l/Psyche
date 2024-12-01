@@ -199,6 +199,29 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
   const Modal = ({ isOpen, onClose, data }: { isOpen: boolean, onClose: () => void, data: any }) => {
     if (!isOpen || !data) return null;
   
+    // List of 16 factor descriptions
+    const factorDescriptions: Record<string, string> = {
+      A: 'Warmth',
+      B: 'Reasoning',
+      C: 'Emotional Stability',
+      E: 'Dominance',
+      F: 'Liveliness',
+      G: 'Rule-Consciousness',
+      H: 'Social Boldness',
+      I: 'Sensitivity',
+      L: 'Vigilance',
+      M: 'Abstractedness',
+      N: 'Privateness',
+      O: 'Apprehension',
+      Q1: 'Openness to Change',
+      Q2: 'Self-Reliance',
+      Q3: 'Perfectionism',
+      Q4: 'Tension',
+    };
+  
+    // Assuming `factorOrder` contains all factor letters
+    const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
+  
     const chartData = {
       labels: factorOrder.map(factorLetter => factorDescriptions[factorLetter] || factorLetter), // Use factor descriptions
       datasets: [
@@ -206,7 +229,7 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
           label: 'Sten Score',
           data: factorOrder.map(factorLetter => {
             const score = data.scoring.scores.find((score: { factorLetter: string; }) => score.factorLetter === factorLetter);
-            return score ? score.stenScore : 0;
+            return score ? score.stenScore : 0; // Default to 0 if no score is found
           }),
           borderColor: 'rgba(75, 192, 192, 1)',
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -220,43 +243,49 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
       responsive: true,
       indexAxis: 'y' as const, // Switch axes to make the chart horizontal
       plugins: {
-          legend: {
-              display: true,
-              position: 'top' as const,
-          },
-          tooltip: {
-              mode: 'index' as const,
-              intersect: false,
-          },
+        legend: {
+          display: true,
+          position: 'top' as const,
+        },
+        tooltip: {
+          mode: 'index' as const,
+          intersect: false,
+        },
       },
       scales: {
-          x: {
-              title: {
-                  display: true,
-                  text: 'Standard Ten Score (STEN)',
-              },
-              min: 1,
-              max: 10,
-              grid: {
-                  drawOnChartArea: true,
-                  color: (context: any) => {
-                      const xValue = context.tick.value;
-                      // Apply gray background color to grid lines for Sten 4-7
-                      if (xValue >= 4 && xValue <= 7) {
-                          return 'rgba(128, 128, 128, 1)'; 
-                      }
-                      return 'rgba(0, 0, 0, 0.1)';
-                  },
-              },
+        x: {
+          title: {
+            display: true,
+            text: 'Standard Ten Score (STEN)',
           },
-          y: {
-              title: {
-                  display: true,
-                  text: 'Factors',
-              },
+          min: 1,
+          max: 10,
+          grid: {
+            drawOnChartArea: true,
+            color: (context: any) => {
+              const xValue = context.tick.value;
+              // Apply gray background color to grid lines for Sten 4-7
+              if (xValue >= 4 && xValue <= 7) {
+                return 'rgba(128, 128, 128, 1)'; 
+              }
+              return 'rgba(0, 0, 0, 0.1)';
+            },
           },
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Factors',
+          },
+          // Adding tick configuration to improve factor display on y-axis
+          ticks: {
+            autoSkip: false, // Prevent auto-skipping of labels
+            maxRotation: 45, // Rotate labels for better visibility
+            minRotation: 0,
+          },
+        },
       },
-  };
+    };
   
     return (
       <div className={styles.modal} onClick={onClose}>
@@ -268,6 +297,10 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
       </div>
     );
   };
+  
+  
+  
+  
   
 
 
