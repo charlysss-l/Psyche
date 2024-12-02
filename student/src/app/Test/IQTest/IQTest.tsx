@@ -168,7 +168,13 @@ const IQTest: React.FC = () => {
         }
     };
 
-    const handleNextPage = () => setCurrentPage(prev => prev + 1);
+    const handleNextPage = () => {
+        setCurrentPage((prevPage) => {
+            const nextPage = Math.min(prevPage + 1, totalPages);
+            if (nextPage !== prevPage) window.scrollTo(0, 0); // Scroll to top
+            return nextPage;
+        });
+    }
     const handlePrevPage = () => setCurrentPage(prev => prev - 1);
 
     if (loading) return <p>Loading...</p>;
