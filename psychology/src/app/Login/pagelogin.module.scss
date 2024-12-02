@@ -1,5 +1,5 @@
 $background-color: #ffffff;
-$font-color: #45474B;
+$font-color: #000000;
 
 @keyframes slideInFromLeft {
   from {
@@ -23,26 +23,39 @@ $font-color: #45474B;
   }
 }
 
-
 .loginContainer {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
   height: 100vh;
   background-color: $background-color;
-  gap: 20px; /* Space between the image and the form */
+  gap: 20px; /* Add spacing between the form and the image */
   padding: 20px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column; /* Stack items vertically */
+    gap: 20px; /* Reduce gap between form and image */
+    height: auto; /* Adjust height for smaller screens */
+  }
 }
 
 .imageContainer {
   background-image: url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVzdCUyMHRha2luZ3xlbnwwfHwwfHx8MA%3D%3D');
   background-position: center;
-  height: 100vh; /* Full viewport height */
-  width: 70vw; /* Full viewport width */
+  height: 100vh; 
+  width: 70vw; 
   border-radius: 10px;
   animation: slideInFromLeft 1.5s ease-out;
-}
 
+  @media (max-width: 1024px) {
+    height: 50vh; /* Reduce height for tablets */
+    width: 90vw; /* Adjust width for smaller screens */
+  }
+
+  @media (max-width: 768px) {
+    height: 40vh; /* Further reduce height for mobile */
+  }
+}
 
 .loginForm {
   background-color: white;
@@ -55,17 +68,29 @@ $font-color: #45474B;
   font-family: Arial, Helvetica, sans-serif;
   animation: fadeIn 1.5s ease-out 0.5s; 
   animation-fill-mode: both; 
+
+  @media (max-width: 768px) {
+    padding: 20px; /* Reduce padding for mobile */
+  }
 }
 
 .loginForm_h1 {
   font-size: 2rem;
   color: $font-color;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem; /* Adjust font size for smaller screens */
+  }
 }
 
 .loginForm_h2 {
   font-size: 1.2rem;
   margin-top: 10px;
   color: $font-color;
+
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
 }
 
 .logLabel {
@@ -73,6 +98,10 @@ $font-color: #45474B;
   margin: 10px 0 5px;
   color: $font-color;
   font-size: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* Adjust font size for mobile */
+  }
 }
 
 .logInput {
@@ -83,11 +112,16 @@ $font-color: #45474B;
   font-size: 1rem;
   margin-bottom: 15px;
   box-sizing: border-box;
-}
 
-.logInput:focus {
-  border-color: #f2f2f2;
-  outline: none;
+  &:focus {
+    border-color: #f2f2f2;
+    outline: none;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* Adjust font size for mobile */
+    padding: 8px; /* Adjust padding for mobile */
+  }
 }
 
 .submitButtonLog {
@@ -100,18 +134,26 @@ $font-color: #45474B;
   width: 100%;
   cursor: pointer;
   transition: background-color 0.3s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);   
-}
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
-.submitButtonLog:hover {
-  background-color: #cc63b5e1;
-  color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  &:hover {
+    background-color: #cc63b5e1;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* Adjust font size for mobile */
+    padding: 10px; /* Adjust padding for mobile */
+  }
 }
 
 .errorMessage {
   color: red;
   font-size: 0.9rem;
   margin-top: 10px;
-}
 
+  @media (max-width: 768px) {
+    font-size: 0.8rem; /* Adjust font size for mobile */
+  }
+}
