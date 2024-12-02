@@ -111,3 +111,51 @@ $transition-duration: 0.3s;
   height: 30px;
   margin-right: 10px;
 }
+
+// Media Queries
+@media (max-width: 768px) {
+  $sidebar-width: 200px;
+
+  .sidebarContainer {
+    .toggleButton {
+      top: 0.5rem;
+      left: 1rem;
+      font-size: 90%;
+    }
+
+    .sidebar {
+      width: $sidebar-width;
+      ul li .link {
+        font-size: 90%; // Adjust font size for smaller screens
+        height: 45px;
+        .icon {
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  $sidebar-width: 150px;
+
+  .sidebarContainer {
+    .toggleButton {
+      font-size: 80%;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .sidebar {
+      width: $sidebar-width;
+      ul li .link {
+        font-size: 80%; // Further reduce font size
+        height: 40px;
+        .icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}
