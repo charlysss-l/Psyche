@@ -76,6 +76,7 @@ $message-error: #B30000;
 
 .submitButton {
   background-color: $button-color;
+  align-self: center ;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -115,7 +116,6 @@ $message-error: #B30000;
   align-items: center;
   justify-content: center;
   display: flex;
-  margin-left: 105px;
 
   transition: background-color 0.3s;
 

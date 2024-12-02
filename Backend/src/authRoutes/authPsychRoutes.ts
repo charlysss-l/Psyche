@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { login, updateUser } from '../authControllers/authPsychController';
+import { login, updateUser, forgotPassword } from '../authControllers/authPsychController';
 
 const router = Router();
 
@@ -20,5 +20,14 @@ router.put('/update', async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+router.post('/forgot-password', async (req: Request, res: Response): Promise<void> => {
+  try {
+    await forgotPassword(req, res); // Call the login controller function
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 export default router;

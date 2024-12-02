@@ -107,8 +107,63 @@ $font-color: #000000;
   }
 }
 
+.forgotPasswordButton {
+  background-color: #cc63b5e1;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  margin-top: 15px;
+  width: 45%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    background-color: #793b6be1;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
 .errorMessage {
   color: red;
   font-size: 0.9rem;
   margin-top: 10px;
+}
+
+.modal {
+  position: fixed;
+  width: 30%;
+  height: 35%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+
+  .modalContent {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+    }
+
+    button {
+      align-self: center;
+      background-color: black;
+      border-radius: 20px;
+      width: 60%;
+      margin-top: 20px;
+
+      &:hover {
+        background-color: #cc63b5e1;
+      }
+    }
+  }
 }

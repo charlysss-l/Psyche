@@ -72,3 +72,30 @@ export const updateUser = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Server error while updating user' });
   }
 };
+
+// Forgot Password
+export const forgotPassword = async (req: Request, res: Response) => {
+  const { username, newPassword } = req.body;
+
+  if (username !== "cvsu.psychologydepartment@gmail.com") {
+    return res.status(400).json({ message: "Invalid username." });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const user = await UserPsych.findOneAndUpdate(
+      { email: username },
+      { password: hashedPassword },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.json({ message: "Password reset successful." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error while resetting password." });
+  }
+};

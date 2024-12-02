@@ -8,6 +8,11 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // State for success message
+  const [forgotPasswordModal, setForgotPasswordModal] = useState<boolean>(false);
+  const [resetUsername, setResetUsername] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [resetError, setResetError] = useState<string | null>(null);
+  const [resetSuccessMessage, setResetSuccessMessage] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -67,6 +72,36 @@ const Login: React.FC = () => {
     return response.json();
   };
 
+  const handleForgotPassword = async () => {
+    if (resetUsername !== "cvsu.guidance@gmail.com") {
+      setResetError("Invalid username.");
+      return;
+    }
+
+    if (!newPassword) {
+      setResetError("Please provide a new password.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/authGuidance/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: resetUsername, newPassword }),
+      });
+
+      if (!response.ok) throw new Error("Failed to reset password");
+
+      setResetError(null);
+      setResetSuccessMessage("Password reset successful!");
+      setTimeout(() => setForgotPasswordModal(false), 1500);
+    } catch (error) {
+      setResetError("Error resetting password. Try again.");
+      console.error(error);
+    }
+  };
+
+
 
   return (
     <div className={styles.loginContainer}>
@@ -97,7 +132,41 @@ const Login: React.FC = () => {
           />
           <button type="submit" className={styles.submitButtonLog}>Login</button>
         </form>
+        <button
+          type="button"
+          onClick={() => setForgotPasswordModal(true)}
+          className={styles.forgotPasswordButton}
+        >
+          Forgot Password?
+        </button>
       </div>
+      {forgotPasswordModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h3>Forgot Password</h3>
+            {resetError && <p className={styles.errorMessage}>{resetError}</p>}
+            {resetSuccessMessage && (
+              <p className={styles.successMessage}>{resetSuccessMessage}</p>
+            )}
+            <label>Enter Your Old Username:</label>
+            <input
+              type="text"
+              value={resetUsername}
+              onChange={(e) => setResetUsername(e.target.value)}
+              placeholder="Enter your username"
+            />
+            <label>New Password:</label>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter your new password"
+            />
+            <button onClick={handleForgotPassword}>Submit</button>
+            <button onClick={() => setForgotPasswordModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
