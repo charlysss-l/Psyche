@@ -67,22 +67,27 @@ const IQStatistics: React.FC = () => {
   // Fetch data from the server
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/useriq');
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+      const onlineResponse = await fetch('http://localhost:5000/api/useriq');
+      if (!onlineResponse.ok) {
+        throw new Error(`Network response was not ok: ${onlineResponse.statusText}`);
       }
-      const data = await response.json();
-
-      // Fetch IQ test interpretation data
+      const onlineData = await onlineResponse.json();
+  
+      const physicalResponse = await fetch('http://localhost:5000/api/omr');
+      if (!physicalResponse.ok) {
+        throw new Error(`Network response was not ok: ${physicalResponse.statusText}`);
+      }
+      const physicalData = await physicalResponse.json();
+  
       const iqTestResponse = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
       if (!iqTestResponse.ok) {
         throw new Error(`Failed to fetch IQ test: ${iqTestResponse.statusText}`);
       }
       const iqTestData = await iqTestResponse.json();
       const interpretations: Interpretation[] = iqTestData.interpretation;
-
-      // Add interpretation to each result
-      const resultsWithInterpretation = data.data.map((result: UserIQTest) => {
+  
+      // Combine data from both sources
+      const combinedData: UserIQTest[] = [...onlineData.data, ...physicalData.data].map((result) => {
         const interpretation = interpretations.find(
           (interp) =>
             result.age >= interp.minAge &&
@@ -90,7 +95,7 @@ const IQStatistics: React.FC = () => {
             result.totalScore >= interp.minTestScore &&
             result.totalScore <= interp.maxTestScore
         );
-
+  
         return {
           ...result,
           interpretation: interpretation
@@ -101,14 +106,15 @@ const IQStatistics: React.FC = () => {
             : { percentilePoints: 0, resultInterpretation: 'No interpretation available' },
         };
       });
-
-      setResults(resultsWithInterpretation);
+  
+      setResults(combinedData);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     fetchData();

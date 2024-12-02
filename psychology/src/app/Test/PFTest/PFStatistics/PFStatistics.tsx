@@ -38,14 +38,25 @@ const PFStatistics: React.FC = () => {
   // Fetch data function
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/user16pf');
+      const onlineResponse = await fetch('http://localhost:5000/api/user16pf');
       
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+      if (!onlineResponse.ok) {
+        throw new Error(`Network response was not ok: ${onlineResponse.statusText}`);
       }
 
-      const data = await response.json();
-      setResults(data.data); // Set fetched data
+      const onlineData = await onlineResponse.json();
+
+      const physicalResponse = await fetch('http://localhost:5000/api/omr16pf');
+      if (!physicalResponse.ok) {
+        throw new Error(`Network response was not ok: ${physicalResponse.statusText}`);
+      }
+
+      const physicalData = await physicalResponse.json();
+
+      // Combine data from both sources
+      onlineData.data = [...onlineData.data, ...physicalData.data];
+
+      setResults(onlineData.data); // Set fetched data
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
