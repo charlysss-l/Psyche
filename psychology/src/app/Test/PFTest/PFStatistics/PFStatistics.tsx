@@ -198,13 +198,28 @@ const PFStatistics: React.FC = () => {
 
       {/* Bar chart */}
       <div className={styles.chartContainerPF}>
-        <Bar
-          data={chartData}
-          options={{
-            responsive: true,
-            plugins: { title: { display: true, text: "Factor Interpretations" } },
-          }}
-        />
+      <Bar
+        data={chartData}
+        options={{
+          responsive: true,
+          plugins: { title: { display: true, text: "Factor Interpretations" } },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Factors', // X-axis title
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Number of Data', // Y-axis title
+              },
+            },
+          },
+        }}
+      />
+
       </div>
 
       <h2 className={styles.heading}>Filter Results</h2>
