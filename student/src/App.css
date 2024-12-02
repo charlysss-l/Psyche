@@ -27,6 +27,8 @@ body{
    flex: 1;  
    padding: 0px;
    border-radius: 5px;
+   margin: 50px;
+
  }
  
  /* Position the theme toggle button */
