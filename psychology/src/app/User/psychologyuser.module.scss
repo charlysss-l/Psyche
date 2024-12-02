@@ -48,10 +48,10 @@
 }
 
 .edit {
-  background-color: #b30000;
+  background-color:  #AF1740;
   color: white;
   margin: 10px;
-  width: 20%;
+  width: 25%;
 
   &:hover {
     background-color: darken(#ffd6d6, 10%);
@@ -59,8 +59,8 @@
 }
 
 .delete {
-  background-color: #0056b3;
-  width: 20%;
+  background-color:#0C3C78;
+  width: 25%;
   margin: 10px;
   &:hover {
     background-color: #d0e2ff;

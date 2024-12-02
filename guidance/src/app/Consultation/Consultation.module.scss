@@ -4,20 +4,21 @@ $font-size-small: 14px;
 $font-size-medium: 18px;
 $font-size-large: 24px;
 
-$bg-color-light-green: #d4edda;
-$bg-color-light-yellow: #fff3cd;
+$bg-color-light-green: #6C946F;
+$bg-color-light-yellow: #FFD35A;
 $bg-color-light-gray: #f4f4f4;
 $bg-color-gray: #f8f9fa;
 $bg-color-dark-gray: #343a40;
 $bg-color-light-gray-2: #ffffff;
-$bg-color-green: #006400;
-$bg-color-yellow: #ffff00;
-$bg-color-red: #dc3545;
-$bg-color-dark-gray-2: #6c757d;
+$bg-color-green: #6C946F;
+$bg-color-yellow: #FFD35A;
+$bg-color-red: #FFD35A;
+
+$bg-color-dark-gray-2: #AF1740;
 $bg-color-black-overlay: rgba(0, 0, 0, 0.5);
 
 $bg-light: #F5F5F5; /* Light grey background */
-$font-light: #131313; /* Black font color */
+$font-light: #F5F5F5; /* Black font color */
 $link-bg: #D3D3D3; /* Light beige for links */
 $link-hover: #e7e5e1; /* Lighter beige for hover state */
 $link-active: red; /* Active state color for links */
@@ -236,7 +237,7 @@ button {
 
 .testInfoTable a {
   text-decoration: none;
-  color: #007bff;
+  color: #0C3C78;
 }
 
 .testInfoTable a:hover {
@@ -251,7 +252,7 @@ button {
 }
 
 button {
-  background-color: #007bff;
+  background-color: #0C3C78;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -261,7 +262,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #0C3C78;
 }
 
 
@@ -325,8 +326,7 @@ button:hover {
 }
 
 .archiveButton:hover {
-  background-color: #4b70b5; /* Lighter blue on hover */
-  border-color: #5a86d5; /* Adjust border color */
+  background-color: #0C3C78; /* Lighter blue on hover */
 }
 
 .archiveButton:active {
@@ -346,7 +346,7 @@ button:hover {
   display: block;
   width: 0;
   height: 4px;
-  background-color: #dd1e1e;
+  background-color: #AF1740;
   margin: 0 auto;
   border-radius: 2px;
   transition: width 0.3s ease;
