@@ -166,7 +166,7 @@ const PFStatistics: React.FC = () => {
       {
         label: 'Left Meaning',
         data: filteredResults.map(result => result.left),
-        backgroundColor: 'purple',
+        backgroundColor: 'violet',
       },
       {
         label: 'Average',
