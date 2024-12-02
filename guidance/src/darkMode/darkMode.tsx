@@ -1,7 +1,8 @@
 // src/components/ThemeToggle.tsx
 import React, { useState, useEffect } from "react";
+import styles from "./darkMode.module.scss";
 
-const ThemeToggle: React.FC = () => {
+const DarkMode: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
@@ -21,10 +22,10 @@ const ThemeToggle: React.FC = () => {
   };
 
   return (
-    <button onClick={toggleTheme} className="theme-toggle">
+    <button onClick={toggleTheme} className={styles.darkModeButton}>
       {isDarkMode ? "🌙" : "☀️"}
     </button>
   );
 };
 
-export default ThemeToggle;
+export default DarkMode;

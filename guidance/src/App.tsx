@@ -8,7 +8,7 @@ import Calendar from './app/Calendar/Calendar';
 import Profile from './app/Profile/Profile';
 import './App.css';
 import Login from './app/Login/login';
-import ThemeToggle from './darkMode';
+import ThemeToggle from './darkMode/darkMode';
 import ArchiveInbox from './app/Consultation/ArchiveInbox';
 
 function App() {
