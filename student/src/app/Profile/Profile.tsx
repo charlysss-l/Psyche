@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import style from "./page.module.scss";
+import { set } from "mongoose";
 
 const Profile: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [username, setUsername] = useState<string>("");
   const [studentNumber, setStudentNumber] = useState<string>("");
   const [password, setPassword] = useState<string>(""); // New password input
+  const [confirmPassword, setConfirmPassword] = useState<string>(""); // Confirm password input
   const [currentEmail, setCurrentEmail] = useState<string>(""); // For displaying current email
   const [currentStudentNumber, setCurrentStudentNumber] = useState<string>(""); // For displaying current student number
   const [message, setMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -41,7 +42,7 @@ const Profile: React.FC = () => {
         setMessage("An error occurred while loading the profile.");
       }
     };
-
+useEffect(() => {
     fetchProfile();
   }, []);
 
@@ -52,6 +53,11 @@ const Profile: React.FC = () => {
 
     if (!username && !studentNumber && !password) {
       setErrorMessage("Please enter at least one new value to update.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match.");
       return;
     }
 
@@ -78,6 +84,11 @@ const Profile: React.FC = () => {
 
       if (updateResponse.ok) {
         setMessage("Profile updated successfully.");
+        await fetchProfile();
+        setUsername("");
+        setStudentNumber("");
+        setPassword("");  
+        setConfirmPassword(""); // Clear password fields
       } else {
         setErrorMessage(updateResult.message || "Failed to update profile.");
       }
@@ -104,7 +115,7 @@ const Profile: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <label className={style.pr_label}>New Username</label>
           <input
-            type="text"
+            type="username"
             placeholder="Enter new username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -112,7 +123,7 @@ const Profile: React.FC = () => {
           />
           <label className={style.pr_label}>New Student Number</label>
           <input
-            type="text"
+            type="userstudentnum"
             placeholder="Enter new student number"
             value={studentNumber}
             onChange={(e) => setStudentNumber(e.target.value)}
@@ -124,6 +135,14 @@ const Profile: React.FC = () => {
             placeholder="Enter new password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className={style.pr_input}
+          />
+           <label className={style.pr_label}>Confirm Password</label>
+          <input
+            type="password"
+            placeholder="Confirm new password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             className={style.pr_input}
           />
           <div className={style.buttonContainer}>
