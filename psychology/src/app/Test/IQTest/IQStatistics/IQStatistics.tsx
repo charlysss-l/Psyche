@@ -215,7 +215,7 @@ const IQStatistics: React.FC = () => {
           <option value="Male">Male</option>
         </select>
         <select name="course" value={filters.course} onChange={handleFilterChange} >
-        <option value="" disabled>Select Course</option>
+        <option value="" >Select Course</option>
         <option value="Educ">Bachelor of Secondary Education</option>
         <option value="BM">BS Business Management</option>
         <option value="CS">BS Computer Science</option>
@@ -225,14 +225,14 @@ const IQStatistics: React.FC = () => {
         <option value="psych">BS Psychology</option>
         </select>
         <select name="year" value={filters.year} onChange={handleFilterChange} >
-        <option value="" disabled>Select Year</option>
+        <option value="" >Select Year</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
         </select>
         <select name="section" value={filters.section} onChange={handleFilterChange} >
-        <option value="" disabled>Select Section</option>
+        <option value="" >Select Section</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
