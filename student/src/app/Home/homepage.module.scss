@@ -1,6 +1,6 @@
 .homepagestudent {
   position: relative;
-  background: url('../../images/home.jpg');  /* Background color */
+  background: url('../../images/home.jpg');  
   background-size: cover;
   color: white;
   height: 100vh;
@@ -18,7 +18,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    background-color: rgba(0, 0, 0, 0.5); 
     z-index: 1;
   }
 
@@ -36,16 +36,16 @@
     padding: 20px;
     width: 70%;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 22px;
     color: white;
     animation: textSlideUp 1.5s ease-in-out;
   }
   .homeLink{
     text-decoration: none;
-    color: #f3a847; 
+    color: #ffa8ec; 
   }
   .homeLink:hover{
-    color: #df9b42; 
+    color: #ff77e4; 
     transform: translateY(-3px); 
   }
   .header {
@@ -70,7 +70,7 @@
     padding: 1rem 2rem;
     font-size: 1.1rem;
     color: white;
-    background-color: #f3a847;  
+    background-color: #cc63b5e1;  
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -81,7 +81,7 @@
     animation: buttonFadeIn 2s ease-in-out;
 
     &:hover {
-      background-color: #d48b30;  
+      background-color: #994a88e1;  
     }
   }
 }
