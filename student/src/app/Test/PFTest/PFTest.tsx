@@ -129,11 +129,14 @@ const PFTest: React.FC = () => {
             <h1>{test?.nameofTest}</h1>
             <h2>Instructions:</h2>
             <p>
-                <span className={styles.highlight}>*</span> This 16 PF personality test contains <span className={styles.highlight}>{test?.question.length}</span> statements. There is no time limit. Please allow yourself plenty of time. <br />
+                <em>
+                <span className={styles.highlight}>*</span> This 16 PF personality test contains <span className={styles.highlight}>{test?.question.length}</span> statements. <br />
+                <span className={styles.highlight}>*</span> There is no time limit. Please allow yourself plenty of time. <br />
                 <span className={styles.highlight}>*</span> Please respond to all of the statements and answer in sequence. <br />
                 <span className={styles.highlight}>*</span> Double-check that you have made the right choice. If you need to change an answer, simply select the new response and the incorrect response will disappear. <br />
                 <span className={styles.highlight}>*</span> Try not to use the 'Neutral' option too often. <br />
                 <span className={styles.highlight}>*</span> Describe yourself as you honestly see yourself now, not as you wish to be in the future.
+                </em>
             </p>
     
             {/* Demographic Form Fields - Only on the First Page */}
