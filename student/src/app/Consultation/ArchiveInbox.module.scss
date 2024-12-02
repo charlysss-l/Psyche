@@ -121,18 +121,18 @@ select {
 
 .tableContainer {
   display: flex;
-  position: fixed;
+  position: fixed; /* Keep the fixed positioning */
   flex-direction: column;
-
   width: 60%;
   right: 10%;
-  bottom: 50%;
+  bottom: 50%; /* Positioned vertically in the middle */
   margin: 20px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
 }
+
 
 h2 {
   text-align: center;
@@ -216,21 +216,19 @@ h2 {
     }
   }
 }
-
 .closeButton {
-    background-color: #ff4d4f;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 14px;
-  }
-  
-  .closeButton:hover {
-    background-color: #ff7875;
-  }
-  
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 14px;
+}
+
+.closeButton:hover {
+  background-color: #ff7875;
+}
