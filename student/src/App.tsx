@@ -18,7 +18,7 @@ import "./App.css";
 import Login from "./app/Login/login";
 import SignupForm from "./app/Signup/Signup";
 import LandingPage from './app/Home/LandingPage';
-import ThemeToggle from "./darkMode";
+import DarkMode from "./darkMode/darkMode";
 import OMRCamera from "./app/OMR/OMRCamera/PfOMR/PfOMR";
 import OMRResult from "./app/OMR/OMRCamera/IqOMR/OMRResult";
 import IQResultList from "./app/Result/IQResult/IQOnlineList/IQResultList";
@@ -88,7 +88,7 @@ function App() {
                     </Routes>
                   </div>
                 </div>
-                <ThemeToggle /> {/* Add the ThemeToggle component here */}
+                <DarkMode /> {/* Add the ThemeToggle component here */}
 
               </>
             }

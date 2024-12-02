@@ -199,7 +199,7 @@ h2 {
 
   &.cancel {
     background-color: #0C3C78; // Yellow for cancel
-    color: black;
+    color: rgb(255, 255, 255);
 
     &:hover {
       background-color: #A8C8FF; // Darker yellow
@@ -208,7 +208,7 @@ h2 {
 
   &.archive {
     background-color: #837a06; // Yellow for cancel
-    color: black;
+    color: rgb(255, 255, 255);
 
     &:hover {
       background-color: #837a06; // Darker yellow

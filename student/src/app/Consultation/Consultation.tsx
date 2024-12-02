@@ -239,7 +239,7 @@ const ConsultationRequestForm: React.FC = () => {
     <div className={styles.consulForm}>
       <div className={styles.consultContainer}>
         <form className={styles.formCon} onSubmit={handleSubmit}>
-          <p className={styles.conText}>Double Check The Test ID in the Results Page to Check for your Result that you want to be consulted.</p>
+          <h2 className={styles.conText}>Double Check The Test ID in the Results Page to Check for your Result that you want to be consulted.</h2>
           <label className={styles.conLabel}>
             User ID
             <input

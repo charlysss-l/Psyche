@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 $sidebar-width: 250px;
-$sidebar-bg-color: #ffffff;
-$sidebar-hover-bg-color: #d2d2d2;
 $sidebar-link-color: #000000;
 $sidebar-hover-color: #000000;
 $sidebar-active-bg-color: #d2d2d2;
@@ -40,8 +38,7 @@ $transition-duration: 0.3s;
     left: -$sidebar-width; // Hidden by default
     width: $sidebar-width;
     height: 100vh;
-    background-color: $sidebar-bg-color;
-    color: $sidebar-link-color;
+    background-color: white;
     transition: left $transition-duration ease;
     box-shadow: 2px 0 5px $box-shadow-color;
     z-index: 1000;
@@ -81,12 +78,12 @@ $transition-duration: 0.3s;
           border-radius: 10px;
 
           &:hover {
-            background-color: $sidebar-hover-bg-color;
+            background-color: white;
             color: $sidebar-hover-color;
           }
 
           &.active {
-            background-color: $sidebar-active-bg-color;
+            background-color: white;
             font-weight: bold;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
           }
@@ -111,3 +108,4 @@ $transition-duration: 0.3s;
   height: 30px;
   margin-right: 10px;
 }
+
