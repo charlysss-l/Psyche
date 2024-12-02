@@ -3,7 +3,8 @@ import Calendar from "react-calendar";
 import Modal from "react-modal";
 import { fetchConsultationRequests } from "../services/consultationservice";
 import axios from "axios";
-import styles from "./Calendar.scss";
+import styles from "./Calendar.scss" ;
+import style from "./Modal.module.scss";
 
 const API_URL = "http://localhost:5000/api/consult/";
 
@@ -115,8 +116,8 @@ const SchedulingCalendar: React.FC = () => {
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         contentLabel="Consultation Details"
-        className={styles.modalContent}
-        overlayClassName={styles.modalOverlay}
+        className={style.modalContent}
+        overlayClassName={style.modalOverlay}
         ariaHideApp={false} // Only use false if your app doesn't use `#root` as its main element
       >
         {selectedDate && (
@@ -153,7 +154,7 @@ const SchedulingCalendar: React.FC = () => {
 
             {/* Form to Add New Schedule */}
             <h3>Add New Schedule</h3>
-            {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+            {errorMessage && <p className={style.errorMessage}>{errorMessage}</p>}
             <form onSubmit={handleSubmit}>
               <div>
                 <label>User ID:</label>
@@ -169,7 +170,7 @@ const SchedulingCalendar: React.FC = () => {
               </div>
               <button type="submit">Add Schedule</button>
             </form>
-            <button onClick={closeModal} className={styles.closeButton}>
+            <button onClick={closeModal} className={style.closeButton}>
               Close
             </button>
           </>
