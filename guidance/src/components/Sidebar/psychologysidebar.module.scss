@@ -20,13 +20,13 @@ $transition-duration: 0.3s;
   .toggleButton {
     position: absolute;
     top: 1rem;
-    left: 1rem;
+    left: 3rem;
     background-color: $toggle-btn-bg-color;
     color: $sidebar-link-color;
     border: none;
     padding: 0.5rem 1rem;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 1000;
     font-size: $font-size-base;
     font-weight: bold;
 
@@ -45,7 +45,6 @@ $transition-duration: 0.3s;
     color: $sidebar-link-color;
     transition: left $transition-duration ease;
     box-shadow: 2px 0 5px $box-shadow-color;
-    z-index: 1000;
     padding: 2rem 0;
     display: flex;
     flex-direction: column;
@@ -71,7 +70,7 @@ $transition-duration: 0.3s;
           align-items: center;
           text-decoration: none;
           color: $sidebar-link-color;
-          font-weight: normal;
+          font-weight: 400;
           font-size: $sidebar-font-size;
           transition: all $transition-duration ease;
           width: 100%;
@@ -88,7 +87,7 @@ $transition-duration: 0.3s;
 
           &.active {
             background-color: $sidebar-active-bg-color;
-            color: $sidebar-hover-color;
+            color: $sidebar-link-color;
             font-weight: bold;
             box-shadow: 0 4px 8px $box-shadow-color;
           }
@@ -112,4 +111,52 @@ $transition-duration: 0.3s;
   width: 30px;
   height: 30px;
   margin-right: 10px;
+}
+
+// Media Queries
+@media (max-width: 768px) {
+  $sidebar-width: 200px;
+
+  .sidebarContainer {
+    .toggleButton {
+      top: 0.5rem;
+      left: 1rem;
+      font-size: 90%;
+    }
+
+    .sidebar {
+      width: $sidebar-width;
+      ul li .link {
+        font-size: 90%; // Adjust font size for smaller screens
+        height: 45px;
+        .icon {
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  $sidebar-width: 150px;
+
+  .sidebarContainer {
+    .toggleButton {
+      font-size: 80%;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .sidebar {
+      width: $sidebar-width;
+      ul li .link {
+        font-size: 80%; // Further reduce font size
+        height: 40px;
+        .icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
 }

@@ -1,81 +1,86 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-
-$bg-light: #ffffff;
-$font-dark: #646464;
+/* Define color variables */
+$bg-light: #ffffff; 
+$font-dark: #646464; 
 $link-hover: #f592e0; 
 
-$accent-dark: #f592e0;
-$secondary-bg: #f592e0; 
+$accent-light: #f2a9a9; 
+$accent-dark: #f592e0; 
+$secondary-bg: #dbe2e7; 
 $button-bg: #e9e9e9; 
 $button-hover: #d2d2d2; 
 
-
+/* Navbar Styles */
 .studentNavbar {
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif; 
+  flex-direction: column;
   margin-left: 1%;
   width: 100%;
 }
 
-
+/* Logo Section */
 .logoSection {
   color: $font-dark;
-  text-align: center;
-
-  h1 {
-    font-size: 24px;
-    margin: 0;
-    color: #f592e0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    display: inline-block;
-  }
-
-  p {
-    font-size: 14px;
-    color: #777;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.logoSection h1 {
+  font-size: 24px;
+  margin: 0;
+  color: #f592e0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: inline-block;
+}
 
+.logoSection p {
+  font-size: 14px;
+  color: #777; 
+}
+
+/* Navigation Section */
 .navigationSection {
   display: flex;
+  align-items: center;
 }
 
 .navList {
-  display: flex;
-  list-style: none;
+  list-style-type: none;
   padding: 0;
   margin: 0;
+  display: flex;
 }
 
 .navItem {
   margin-left: 30px;
   border-radius: 0;
-
-  &:hover {
-    border-bottom: 1px solid #f592e0;
-  }
 }
 
+.navItem:hover {
+  border-bottom: 1px solid #f592e0; 
+}
+
+/* Navigation Links */
 .navLink {
   color: $font-dark;
   text-decoration: none;
   font-size: 16px;
-  font-weight: 700;
-  transition: color 0.3s ease;
+  font-weight: 700; 
+  transition: color 0.3s ease; 
 
   &:hover {
-    color: rgb(94, 93, 93);
+    color: rgb(94, 93, 93); 
   }
+}
 
-  &.active {
-    color: $accent-dark;
-    font-weight: bold;
-    border-bottom: 2px solid $accent-dark;
-  }
+.navLink.active {
+  color: $accent-dark; 
+  font-weight: bold;
+  border-bottom: 2px solid $accent-dark; 
 }

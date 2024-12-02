@@ -1,5 +1,5 @@
 $background-color: #ffffff;
-$font-color: #45474B;
+$font-color: #000000;
 $button-bg-color: #000000;
 $button-hover-bg-color: #cc63b5e1;
 $error-color: red;
@@ -75,7 +75,9 @@ $error-color: red;
   margin: 10px 0 5px;
   color: $font-color;
   font-size: 1rem;
+  font-weight: normal; // Ensures the text is not bold
 }
+
 
 .logInput {
   width: 100%;
