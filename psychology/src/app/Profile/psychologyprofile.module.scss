@@ -1,8 +1,8 @@
 $primary-color: #333;
-$button-color: #0C3C78;
-$button-hover-color: #A8C8FF;
-$message-success: #B30000;
-$message-error: #dc3545;
+$button-color: #000000;
+$button-hover-color: #cc63b5e1;
+$message-success: #28a745;
+$message-error: #B30000;
 
 .container {
   display: flex;
@@ -10,12 +10,11 @@ $message-error: #dc3545;
   align-items: center;
   justify-content: center;
   height: 50vh;
- // directly using the color here
   padding: 20px;
 }
 
 .userinfo_pr {
-  font-size: 2rem;
+  font-size: 1.7rem;
   color: $primary-color;
   margin-bottom: 20px;
 }
@@ -53,6 +52,12 @@ $message-error: #dc3545;
   box-sizing: border-box;
 }
 
+p {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
+
 .pr_input {
   width: 100%;
   padding: 10px;
@@ -64,7 +69,7 @@ $message-error: #dc3545;
 }
 
 .pr_input:focus {
-  border-color: $button-color;
+  box-shadow: 0 0 8px $button-hover-color;
   outline: none;
 }
 
@@ -76,6 +81,7 @@ $message-error: #dc3545;
 
 .submitButton {
   background-color: $button-color;
+  align-self: center ;
   color: white;
   padding: 12px 20px;
   border: none;
