@@ -2,7 +2,7 @@
 
 $sidebar-width: 250px;
 $sidebar-bg-color: #ffffff;
-$sidebar-hover-bg-color: #d2d2d2;
+$sidebar-hover-bg-color: #f592e0;
 $sidebar-link-color: #000000;
 $sidebar-hover-color: #000000;
 $sidebar-active-bg-color: #d2d2d2;
@@ -17,15 +17,15 @@ $transition-duration: 0.3s;
   position: relative;
 
   .toggleButton {
-    position: absolute;
+    position: fixed;
     top: 1rem;
-    left: 3rem;
+    left: 1rem;
     background-color: $toggle-btn-bg-color;
     color: $sidebar-link-color;
     border: none;
     padding: 0.5rem 1rem;
     cursor: pointer;
-    z-index: 1000;
+    z-index: 1001;
     font-size: $font-size-base;
     font-weight: bold;
 
@@ -39,12 +39,13 @@ $transition-duration: 0.3s;
     top: 0;
     left: -$sidebar-width; // Hidden by default
     width: $sidebar-width;
-    height: 100vh;
+    height: 100%;
     background-color: $sidebar-bg-color;
     color: $sidebar-link-color;
     transition: left $transition-duration ease;
     box-shadow: 2px 0 5px $box-shadow-color;
-    padding: 2rem 0;
+    z-index: 1000;
+    padding: 4rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,6 +55,7 @@ $transition-duration: 0.3s;
       list-style: none;
       padding: 0;
       width: 100%;
+      margin-top: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -72,7 +74,7 @@ $transition-duration: 0.3s;
           font-weight: 400;
           font-size: $sidebar-font-size;
           transition: all $transition-duration ease;
-          width: 100%;
+          width: 80%;
           height: 50px;
           text-align: center;
           justify-content: center;
