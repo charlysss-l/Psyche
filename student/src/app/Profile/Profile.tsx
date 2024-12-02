@@ -113,10 +113,10 @@ useEffect(() => {
           <strong>Current Password:</strong> ****** 
         </p>
         <form onSubmit={handleSubmit}>
-          <label className={style.pr_label}>New Username</label>
+          <label className={style.pr_label}>New Email</label>
           <input
             type="username"
-            placeholder="Enter new username"
+            placeholder="Enter new email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className={style.pr_input}
