@@ -1,36 +1,35 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px); /* Slight slide up effect */
+    transform: translateY(20px); 
   }
   to {
     opacity: 1;
-    transform: translateY(0); /* Final position */
+    transform: translateY(0); 
   }
 }
 
 .homeContainer {
   padding: 20px;
-  background-color: #f9f9f9; /* Light background for the page */
+  background-color: #f9f9f9; 
 }
 
-/* Header Section */
 .headerSection {
-  position: relative; /* Ensures pseudo-element aligns correctly */
+  position: relative; 
   text-align: center;
   margin-bottom: 30px;
   background-image: url('../../app/Images/guidanceimg.jpg');
-  background-size: cover; /* Ensures the image covers the entire div */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-  padding: 40px 20px; /* Increased padding for a larger section */
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  padding: 40px 20px; 
   border-radius: 8px;
   color: white;
   transition: transform 0.2s, box-shadow 0.3s;
-  min-height: 300px; /* Ensures the div has a consistent height */
+  min-height: 300px; 
   animation: fadeIn 1s ease-in-out;
 
-  /* Pseudo-element for dark overlay */
+
   &::before {
     content: "";
     position: absolute;
@@ -38,12 +37,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-    border-radius: 8px; /* Match parent border-radius */
-    z-index: 1; /* Layer it below the content but above the background */
+    background-color: rgba(0, 0, 0, 0.5); 
+    border-radius: 8px; 
+    z-index: 1; 
   }
 
-  /* Ensures content is above the overlay */
+  
   * {
     position: relative;
     z-index: 2;
@@ -51,8 +50,8 @@
 }
 
 .headerSection:hover {
-  transform: scale(1.02); /* Slight zoom on hover */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  transform: scale(1.02); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
 
@@ -61,7 +60,7 @@
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);  
-  color: #ffffff;
+  color: #f592e0;
 }
 
 .welcomeMessage {
@@ -77,7 +76,7 @@
 .viewCalendar {
   padding: 10px 30px;
   border-radius: 8px;
-  background-color: #a8a5a5d7; 
+  background-color: #f592e0b4; 
   color: rgb(255, 255, 255); 
   font-size: 20px;
   cursor: pointer;
@@ -86,7 +85,7 @@
 }
 
 .viewCalendar:hover {
-  background-color: #949292d7;
+  background-color: #cc63b5e1;
   color: rgb(255, 255, 255);
   transform: scale(1.05); /* Slight zoom */
 }
@@ -104,7 +103,7 @@
   margin-top: 20px;
 }
 
-/* Table Box */
+
 .tableBox {
   margin-top: 20px;
   border: 1px solid #ddd;
@@ -113,10 +112,10 @@
   background-color: white;
   transition: transform 0.3s, box-shadow 0.3s;
   animation: fadeIn 1s ease-in-out;
-  animation-delay: 0.3s; /* Optional delay for staggered animations */
-  opacity: 0; /* Hidden initially */
-  animation-fill-mode: forwards; /* Ensures the final state persists */ 
-}
+  animation-delay: 0.3s; 
+  opacity: 0; 
+    animation-fill-mode: forwards; 
+  }
 
 .tableBox h2 {
   font-size: 25px;
@@ -149,10 +148,10 @@ td {
 }
 
 tr:hover td {
-  background-color: #eaf4ff; /* Light blue on row hover */
+  background-color: #eaf4ff; 
 }
 
-/* Status Button */
+
 .statusButton {
   padding: 5px 10px;
   border-radius: 5px;
@@ -163,7 +162,7 @@ tr:hover td {
   color: white;
 }
 
-/* View Consultation Button */
+
 .viewConsultationContainer {
   text-align: center;
   margin-top: 20px;
@@ -182,7 +181,7 @@ tr:hover td {
 }
 
 .viewConsultationButton:hover {
-  background-color: #1d1d1de8; /* Blue background on hover */
-  color: white; /* White text on hover */
-  transform: scale(1.05); /* Slight zoom */
+  background-color: #cc63b5e1; 
+  color: white; 
+  transform: scale(1.05); 
 }
