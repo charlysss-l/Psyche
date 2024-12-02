@@ -13,7 +13,7 @@
     }
   
     .resultsTable th {
-      color: #333;
+      color: #525252;
       padding: 10px;
       text-align: center;
       font-size: 13px;
@@ -23,6 +23,7 @@
     
   
     .resultsTable td {
+      color:#363636;
       text-align: center; /* Center-aligns text horizontally */
     vertical-align: middle; /* Center-aligns text vertically */
       padding: 5px;
@@ -48,13 +49,13 @@
     }
   
     .leftMeaning {
-      color: green;
+      color: rgb(218, 185, 0);
       font-weight: bold;
       font-size: 13px;
   }
   
   .rightMeaning {
-      color: red;
+      color: green;
       font-weight: bold;
       font-size: 13px;
   }

@@ -28,6 +28,7 @@
       padding: 5px;
       font-size: 13px;
       border-bottom: 1px solid #9e979791; 
+      color:#333;
     }
     
   
@@ -85,13 +86,13 @@
     }
   
     .leftMeaning {
-      color: green;
+      color: rgb(218, 185, 0);
       font-weight: bold;
       font-size: 13px;
   }
   
   .rightMeaning {
-      color: red;
+      color: green;
       font-weight: bold;
       font-size: 13px;
   }
