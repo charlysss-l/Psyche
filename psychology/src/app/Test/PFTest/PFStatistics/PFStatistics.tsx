@@ -96,10 +96,9 @@ const PFStatistics: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Filter userIDs based on the selected filter and factor
     const filterUserIDs = () => {
       let filteredData = results;
-
+  
       // Apply the additional filters (age, sex, course, year, section)
       filteredData = filteredData.filter((result) => {
         const ageFilter = filters.age ? result.age === filters.age : true;
@@ -107,28 +106,36 @@ const PFStatistics: React.FC = () => {
         const courseFilter = filters.course ? result.course === filters.course : true;
         const yearFilter = filters.year ? result.year === parseInt(filters.year) : true;
         const sectionFilter = filters.section ? result.section === parseInt(filters.section) : true;
-
+  
         return ageFilter && sexFilter && courseFilter && yearFilter && sectionFilter;
       });
-
+  
+      // Apply factor filter (based on selectedFactor)
+      filteredData = filteredData.filter((result) => {
+        const factorScore = result.scoring.scores.find(
+          (score) => score.factorLetter === selectedFactor
+        );
+        return factorScore !== undefined;
+      });
+  
       // Filter based on factor and left/average/right meaning
       const filteredResults = factorOrder.map((factorLetter) => {
         const countLeftMeaning = filteredData.filter((result) => {
           const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
           return score && score.stenScore <= 3; // Left meaning based on sten score 1-3
         }).length;
-
+  
         const countAverage = filteredData.filter((result) => {
           const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
           const stenScore = score?.stenScore || 0;
           return stenScore >= 4 && stenScore <= 7; // Average range based on sten score 4-7
         }).length;
-
+  
         const countRightMeaning = filteredData.filter((result) => {
           const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
           return score && score.stenScore >= 8; // Right meaning based on sten score 8-10
         }).length;
-
+  
         return {
           factorLetter,
           left: filter === 'left' || filter === 'all' ? countLeftMeaning : 0,
@@ -136,16 +143,17 @@ const PFStatistics: React.FC = () => {
           right: filter === 'right' || filter === 'all' ? countRightMeaning : 0,
         };
       });
-
+  
       setFilteredResults(filteredResults); // Update filtered results
-
+  
       // Extract filtered user IDs based on applied filters
       const filteredUserIDs = filteredData.map(result => result.userID);
       setFilteredUserIDs(filteredUserIDs); // Update filtered user IDs
     };
-
+  
     filterUserIDs(); // Trigger filtering whenever the filter or factor changes
   }, [filter, selectedFactor, filters, results]);
+  
 
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
@@ -207,13 +215,13 @@ const PFStatistics: React.FC = () => {
             x: {
               title: {
                 display: true,
-                text: 'Factors', // X-axis title
+                text: 'FACTOR', // X-axis title
               },
             },
             y: {
               title: {
                 display: true,
-                text: 'Number of Data', // Y-axis title
+                text: 'NUMBER OF DATA', // Y-axis title
               },
             },
           },
