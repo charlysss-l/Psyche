@@ -2,11 +2,11 @@
 
 /* Define color variables */
 $bg-light: #ffffff; 
-$font-dark: #727272; 
-$link-hover: #e2dfd2; 
+$font-dark: #646464; 
+$link-hover: #f592e0; 
 
 $accent-light: #f2a9a9; 
-$accent-dark: #d2d2d2; 
+$accent-dark: #f592e0; 
 $secondary-bg: #dbe2e7; 
 $button-bg: #e9e9e9; 
 $button-hover: #d2d2d2; 
@@ -33,6 +33,10 @@ $button-hover: #d2d2d2;
 .logoSection h1 {
   font-size: 24px;
   margin: 0;
+  color: #f592e0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: inline-block;
 }
 
 .logoSection p {
@@ -59,7 +63,7 @@ $button-hover: #d2d2d2;
 }
 
 .navItem:hover {
-  border-bottom: 1px solid #777; 
+  border-bottom: 1px solid #f592e0; 
 }
 
 /* Navigation Links */
