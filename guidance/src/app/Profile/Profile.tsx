@@ -4,11 +4,18 @@ import style from './Guidanceprofile.module.scss';
 const Profile: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
+  const [confirmPassword, setConfirmPassword] = useState<string>(''); // State for confirm password
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
 
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match.');
+      return;
+    }
+    
     // Retrieve the token from localStorage
     const token = localStorage.getItem('token');
 
@@ -48,11 +55,20 @@ const Profile: React.FC = () => {
         {/* Display username as text, not editable */}
         <p className={style.pr_input}>{'cvsu.guidance@gmail.com'}</p>
 
-        <label className={style.pr_label}>Password</label>
+        <label className={style.passWord}>* Change Password</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className={style.pr_input}
+          required
+        />
+
+<label className={style.passWord}>* Confirm Password</label>
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           className={style.pr_input}
           required
         />

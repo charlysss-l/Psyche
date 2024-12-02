@@ -10,7 +10,7 @@ $message-error: #B30000;
   align-items: center;
   justify-content: center;
   height: 50vh;
-  background-color: #FFFFFF; // directly using the color here
+  background-color: #ffffff00; // directly using the color here
   padding: 20px;
 }
 
@@ -122,4 +122,8 @@ $message-error: #B30000;
   &:hover {
     background-color: $button-hover-color;
   }
+}
+
+.passWord {
+  color: red;
 }
