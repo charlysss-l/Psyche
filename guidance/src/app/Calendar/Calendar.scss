@@ -41,13 +41,13 @@ table th, table td {
 }
 
 table th {
-  background-color: #d3d3d3;
+  background-color: #bd2b2b;
   color: #000000;
   
 }
 
 .submitAddSched {
-  background-color: #000000;
+  background-color: #cf22a4;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   color: #ffffff;
   padding: 8px 12px;
@@ -59,7 +59,7 @@ table th {
   display: block;
 
   &:hover {
-    background-color: rgb(164, 155, 155);
+    background-color: #830b65;
   }
 }
 
@@ -126,6 +126,8 @@ p {
 }
 
 .react-calendar {
+  height: 80%;
+  width: 85%;
   background-color: rgb(229, 226, 226);
   border-radius: $border-radius;
   padding: 10px;
@@ -143,13 +145,14 @@ p {
 }
 
 .react-calendar__tile {
+  height: 130px;
   background-color: rgb(191, 188, 188);
   border-bottom: 1px solid rgba(0, 0, 0, 0.126);
   position: relative;
 }
 
 .react-calendar__tile--active {
-  background-color: #AF1740;
+  background-color: #df476f;
 }
 
 .react-calendar__tile--hover {
