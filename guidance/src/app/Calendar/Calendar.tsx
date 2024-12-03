@@ -149,7 +149,7 @@ const SchedulingCalendar: React.FC = () => {
                 </tbody>
               </table>
             ) : (
-              <p>No accepted requests for this date.</p>
+              <p className={styles.noAccepted}>No accepted requests for this date.</p>
             )}
 
             {/* Form to Add New Schedule */}
@@ -157,16 +157,16 @@ const SchedulingCalendar: React.FC = () => {
             {errorMessage && <p className={style.errorMessage}>{errorMessage}</p>}
             <form onSubmit={handleSubmit}>
               <div>
-                <label>User ID:</label>
-                <input type="text" name="userId" required />
+                <label className={styles.newSchedlabel}>User ID:</label>
+                <input type="text" name="userId" className="newSchedinput" required />
               </div>
               <div>
-                <label>Time for Consultation:</label>
-                <input type="time" name="timeForConsultation" required />
+                <label className={styles.newSchedlabel}>Time for Consultation:</label>
+                <input type="time" name="timeForConsultation" className="newSchedinput" required />
               </div>
               <div>
-                <label>Note:</label>
-                <textarea name="note" required />
+                <label className={styles.newSchedlabel}>Note:</label>
+                <textarea name="note" className="newSchedinput" required />
               </div>
               <button type="submit">Add Schedule</button>
             </form>
