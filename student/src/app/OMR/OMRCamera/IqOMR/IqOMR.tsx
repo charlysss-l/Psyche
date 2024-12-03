@@ -6,6 +6,7 @@ import styles from './IqOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
 
 
+
 // Initialize Firebase with your configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBWj1L7qdsRH4sFpE7q0CaoyL55KWMGRZI",
@@ -44,27 +45,124 @@ const IqOMR: React.FC = () => {
       reader.readAsDataURL(file); // Read the file as a data URL
     }
   };
+  
 
+  const validateImageOrientation = (file: File): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        img.onload = () => {
+          const isPortrait = img.width < img.height; // Check if image is portrait
+          resolve(isPortrait);
+        };
+        img.onerror = reject;
+        img.src = e.target?.result as string;
+      };
+      
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const validateImageBorder = (file: File): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+  
+      reader.onload = (e) => {
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          if (!context) {
+            reject('Canvas context not available');
+            return;
+          }
+  
+          // Set canvas size to match the image
+          canvas.width = img.width;
+          canvas.height = img.height;
+  
+          // Draw the image on the canvas
+          context.drawImage(img, 0, 0, img.width, img.height);
+  
+          // Get image data for border check
+          const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+          const { data, width, height } = imageData;
+  
+          const isBorderValid = (line: number[]) =>
+            line.every((pixelValue) => pixelValue < 20 || pixelValue > 235); // Assuming border is black or white
+  
+          // Check top and bottom borders
+          const topBorder = Array.from(data.slice(0, width * 4)); // Top row
+          const bottomBorder = Array.from(data.slice((height - 1) * width * 4, height * width * 4)); // Bottom row
+  
+          // Check left and right borders
+          const leftBorder = [];
+          const rightBorder = [];
+          for (let i = 0; i < height; i++) {
+            leftBorder.push(data[i * width * 4]);
+            rightBorder.push(data[(i * width + (width - 1)) * 4]);
+          }
+  
+          if (isBorderValid(topBorder) && isBorderValid(bottomBorder) && isBorderValid(leftBorder) && isBorderValid(rightBorder)) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        };
+  
+        img.onerror = () => reject('Failed to load image');
+        img.src = e.target?.result as string;
+      };
+  
+      reader.onerror = () => reject('Failed to read file');
+      reader.readAsDataURL(file);
+    });
+  };
+  
   const handleUpload = async () => {
     if (!selectedFile) return;
-
+  
     try {
       const fileName = `uploads/OMR/${uuidv4()}_${selectedFile.name}`;
       const storageRef = ref(storage, fileName);
+  
+      // Check if the file is a valid image format
+      if (!selectedFile.type.startsWith('image/')) {
+        alert('Please upload a valid image file.');
+        return;
+      }
+  
+      // Validate image orientation (portrait)
+      const isPortrait = await validateImageOrientation(selectedFile);
+      if (!isPortrait) {
+        alert('Please upload a portrait-oriented IQ answer sheet.');
+        return;
+      }
 
+      
+  
       // Upload the file to Firebase
       await uploadBytes(storageRef, selectedFile);
-
+  
       // Get the download URL
       const downloadURL = await getDownloadURL(storageRef);
-      setUploadURL(downloadURL); // This URL will be used by the Python backend
-
+      setUploadURL(downloadURL);
+  
       console.log("File uploaded successfully:", downloadURL);
-      setImagePreview(downloadURL); // Display the uploaded image here
+      setImagePreview(downloadURL);
     } catch (error) {
       console.error("Error uploading file:", error);
+  
+      if ((error as { code: string }).code === 'storage/unauthorized') {
+        alert('CORS error: Please upload a valid answer sheet in the correct format.');
+      } else {
+        alert('Error uploading image. Please try again.');
+      }
     }
   };
+  
 
   const handleOMRProcessing = async () => {
     if (!uploadURL) return;
@@ -131,15 +229,34 @@ const IqOMR: React.FC = () => {
       if (context) {
         canvasRef.current.width = videoRef.current.videoWidth;
         canvasRef.current.height = videoRef.current.videoHeight;
+  
+        // Get the video dimensions
+        const videoWidth = videoRef.current.videoWidth;
+        const videoHeight = videoRef.current.videoHeight;
+  
+        // If the video is in landscape mode (width > height), rotate the canvas
+        if (videoWidth > videoHeight) {
+          context.translate(canvasRef.current.width / 4, canvasRef.current.height / 2);
+          context.rotate(Math.PI / -2);  // Rotate 90 degrees
+          context.translate(-canvasRef.current.height / 2, -canvasRef.current.width / 2);
+        }
+  
+        // Draw the image on the canvas
         context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
+  
+        // Convert the canvas content to a base64 image URL
         const imageUrl = canvasRef.current.toDataURL('image/png');
+  
+        // Set the image preview and selected file
         setImagePreview(imageUrl);
         setSelectedFile(dataURLtoFile(imageUrl, 'captured-image.png'));
+  
+        // Deactivate the camera after capturing
         setIsCameraActive(false);
       }
     }
   };
-
+  
   const handleCancelCamera = () => {
     setIsCameraActive(false);
   };
@@ -223,10 +340,10 @@ const IqOMR: React.FC = () => {
   
       {/* Instruction Container */}
       <div className={styles.instructionContainer}>
-        <h2>Instructions</h2>
+        <h1>Instructions</h1>
         <p>1. Choose an image of your OMR sheet using the "Choose Image" button.</p>
         <p>2. Alternatively, capture an image using your camera.</p>
-        <p>3. Upload the image to the system by clicking the "Upload Image" button.</p>
+        <p>3. Upload a clear image of the IQ Test Answer Sheet to the system by clicking the "Upload Image" button.</p>
         <p>4. Process the uploaded image to calculate your OMR score.</p>
         <p>5. Save and interpret your score to view detailed results.</p>
       </div>
