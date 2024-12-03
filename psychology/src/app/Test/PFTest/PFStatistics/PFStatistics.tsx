@@ -296,12 +296,26 @@ const PFStatistics: React.FC = () => {
         </select>
       </div>
 
+      {/* Display Number of Results */}
+  <div className={styles.resultCount}>
+    <p>
+      Number of Results: <strong>{filteredResults.length}</strong>
+    </p>
+  </div>
+  
+      <table className={styles.userListContaIner}>
       <h3 className={styles.heading}>Filtered User IDs</h3>
+      <div className={styles.responsesWrapper}>
+
       <ul className={styles.filteredUserIDs}>
         {filteredUserIDs.map((userID, index) => (
-          <li key={index}>{userID}</li>
+          <tr   className={styles.userList} >
+          <td key={index} className={styles.idIqlist}>{userID}</td>
+          </tr>
         ))}
       </ul>
+      </div>
+      </table>
     </div>
   );
 };

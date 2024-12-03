@@ -68,4 +68,50 @@
       margin: 0 auto;
     }
   }
+  .userListContaIner{
+    
+    width: 100%;
+    margin-top: 20px;
+    color: #333;
+
+  }
+  .userList{
+    list-style: none;
+    padding: 0;
+  }
+  
+  .idIqlist{
+    font-size: 1rem;
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px 25px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .responsesWrapper {
+    max-height: 250px;  // Adjust the height as per your design needs
+    overflow-y: auto;   // Enable vertical scrolling when content overflows
+    margin-top: 10px;   // Optional, for some space between elements
+  }
+  
+  .responsesTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .responsesTable th, .responsesTable td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+
+  .resultCount {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
   

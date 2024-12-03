@@ -173,7 +173,7 @@ const IQStatistics: React.FC = () => {
 
   return (
     <div>
-      <h2>IQ Analytics</h2>
+      <h2 className={styles.heading}>IQ Analytics</h2>
 
       <div className={styles.chartContainer}>
         <Bar
@@ -253,6 +253,13 @@ const IQStatistics: React.FC = () => {
         </select>*/}
       </div>
 
+       {/* Display Number of Results */}
+  <div className={styles.resultCount}>
+    <p>
+      Number of Results: <strong>{filteredResults.length}</strong>
+    </p>
+  </div>
+
       {/* You can display the filtered results as a table or in any other format here */}
       {/* Example: */}
       <table className={styles.userListContaIner}>
@@ -261,13 +268,16 @@ const IQStatistics: React.FC = () => {
             <th>List of Filtered User</th>
           </tr>
         </thead>
+        <div className={styles.responsesWrapper}>
+          
         <tbody>
           {filteredResults.map((result) => (
-            <tr key={result.userID}  className={styles.userList} >
+            <tr   className={styles.userList} >
               <td className={styles.idIqlist}>{result.userID}</td>
             </tr>
           ))}
         </tbody>
+        </div>
       </table>
     </div>
   );
