@@ -275,13 +275,13 @@ const OmrIQResultsList: React.FC = () => {
                         onChange={(e) => setUpdatedData({ ...updatedData, year: Number(e.target.value) })}
                       >
                         <option value="" disabled>Select</option>
-                        <option value="Educ">Bachelor of Secondary Education</option>
-                        <option value="BM">BS Business Management</option>
-                        <option value="CS">BS Computer Science</option>
-                        <option value="Crim">BS Criminology</option>
-                        <option value="HM">BS Hospitality Management</option>
-                        <option value="IT">BS Information Technology</option>
-                        <option value="psych">BS Psychology</option>
+                        <option value="BSEduc">Bachelor of Secondary Education</option>
+                <option value="BSBM">BS Business Management</option>
+                <option value="BSCS">BS Computer Science</option>
+                <option value="BSCrim">BS Criminology</option>
+                <option value="BSHM">BS Hospitality Management</option>                    
+                <option value="BSIT">BS Information Technology</option>
+                <option value="BSP">BS Psychology</option>
                       </select>
                     ) : (
                       result.year
