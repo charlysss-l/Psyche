@@ -8,6 +8,7 @@ import Tesseract from 'tesseract.js';
 
 
 
+
 // Initialize Firebase with your configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBWj1L7qdsRH4sFpE7q0CaoyL55KWMGRZI",
@@ -49,6 +50,8 @@ const PfOMR: React.FC = () => {
     }
   };
 
+ 
+
   const validateImageOrientation = (file: File): Promise<boolean> => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -67,14 +70,43 @@ const PfOMR: React.FC = () => {
     });
   };
 
-  const validateTextInImage = async (file: File): Promise<boolean> => {
-    const text = await extractTextFromImage(file);
-    return text.includes("16PF Test Answer Sheet");
+  const detectHexagon = async (file: File): Promise<boolean> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      const reader = new FileReader();
+  
+      reader.onload = (e) => {
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(false);
+            return;
+          }
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+  
+          // Get image data for shape detection
+          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const { data, width, height } = imgData;
+  
+          // Process the image for hexagon detection
+          const hexagonDetected = detectHexagonShape(data, width, height);
+          resolve(hexagonDetected);
+        };
+        img.src = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    });
   };
   
-  const extractTextFromImage = async (file: File): Promise<string> => {
-    const result = await Tesseract.recognize(file, 'eng');
-    return result.data.text;
+  // Mock function for hexagon detection (replace with actual detection logic)
+  const detectHexagonShape = (data: Uint8ClampedArray, width: number, height: number): boolean => {
+    // Placeholder: Implement an algorithm to detect hexagonal shapes.
+    // This could involve edge detection, contour analysis, and shape matching.
+    console.log('Analyzing for hexagon in image...');
+    return true; // Return true if hexagon is detected, otherwise false.
   };
   
   const validateBackgroundColor = async (file: File): Promise<boolean> => {
@@ -140,14 +172,15 @@ const PfOMR: React.FC = () => {
         return;
       }
 
-       // Validate text in the image
-    const hasValidText = await validateTextInImage(selectedFile);
-    if (!hasValidText) {
-      alert('Invalid image: Missing "16PF Test Answer Sheet" text.');
-      setLoading(false);  // Hide loading spinner on failure
-
+      // Validate hexagon presence in the image
+    const hasHexagon = await detectHexagon(selectedFile);
+    if (!hasHexagon) {
+      alert('Invalid image: Hexagon symbol is missing.');
+      setLoading(false);
       return;
     }
+
+
 
     // Validate background color
     const isValidBackground = await validateBackgroundColor(selectedFile);
