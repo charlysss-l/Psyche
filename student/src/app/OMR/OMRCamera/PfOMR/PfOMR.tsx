@@ -45,12 +45,43 @@ const PfOMR: React.FC = () => {
     }
   };
 
+  const validateImageOrientation = (file: File): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        img.onload = () => {
+          const isPortrait = img.width < img.height; // Check if image is portrait
+          resolve(isPortrait);
+        };
+        img.onerror = reject;
+        img.src = e.target?.result as string;
+      };
+      
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleUpload = async () => {
     if (!selectedFile) return;
 
     try {
       const fileName = `uploads/OMR/${uuidv4()}_${selectedFile.name}`;
       const storageRef = ref(storage, fileName);
+
+      // Check if the file is a valid image format
+      if (!selectedFile.type.startsWith('image/')) {
+        alert('Please upload a valid image file.');
+        return;
+      }
+
+      // Validate image orientation (portrait)
+      const isPortrait = await validateImageOrientation(selectedFile);
+      if (!isPortrait) {
+        alert('Please upload a portrait-oriented PF answer sheet.');
+        return;
+      }
 
       // Upload the file to Firebase
       await uploadBytes(storageRef, selectedFile);

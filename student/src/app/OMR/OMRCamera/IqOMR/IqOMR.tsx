@@ -4,6 +4,8 @@ import { initializeApp } from 'firebase/app';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './IqOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
+import Tesseract from 'tesseract.js';
+
 
 
 
@@ -65,61 +67,52 @@ const IqOMR: React.FC = () => {
     });
   };
 
-  const validateImageBorder = (file: File): Promise<boolean> => {
-    return new Promise((resolve, reject) => {
+  const validateTextInImage = async (file: File): Promise<boolean> => {
+    const text = await extractTextFromImage(file);
+    return text.includes("IQ Test Answer Sheet");
+  };
+  
+  const extractTextFromImage = async (file: File): Promise<string> => {
+    const result = await Tesseract.recognize(file, 'eng');
+    return result.data.text;
+  };
+  
+  const validateBackgroundColor = async (file: File): Promise<boolean> => {
+    return new Promise((resolve) => {
       const img = new Image();
       const reader = new FileReader();
-  
       reader.onload = (e) => {
         img.onload = () => {
           const canvas = document.createElement('canvas');
-          const context = canvas.getContext('2d');
-          if (!context) {
-            reject('Canvas context not available');
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(false);
             return;
           }
-  
-          // Set canvas size to match the image
           canvas.width = img.width;
           canvas.height = img.height;
-  
-          // Draw the image on the canvas
-          context.drawImage(img, 0, 0, img.width, img.height);
-  
-          // Get image data for border check
-          const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-          const { data, width, height } = imageData;
-  
-          const isBorderValid = (line: number[]) =>
-            line.every((pixelValue) => pixelValue < 20 || pixelValue > 235); // Assuming border is black or white
-  
-          // Check top and bottom borders
-          const topBorder = Array.from(data.slice(0, width * 4)); // Top row
-          const bottomBorder = Array.from(data.slice((height - 1) * width * 4, height * width * 4)); // Bottom row
-  
-          // Check left and right borders
-          const leftBorder = [];
-          const rightBorder = [];
-          for (let i = 0; i < height; i++) {
-            leftBorder.push(data[i * width * 4]);
-            rightBorder.push(data[(i * width + (width - 1)) * 4]);
+          ctx.drawImage(img, 0, 0);
+          
+          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const pixels = imgData.data;
+          let totalLuminance = 0;
+          for (let i = 0; i < pixels.length; i += 4) {
+            const r = pixels[i];
+            const g = pixels[i + 1];
+            const b = pixels[i + 2];
+            const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+            totalLuminance += luminance;
           }
-  
-          if (isBorderValid(topBorder) && isBorderValid(bottomBorder) && isBorderValid(leftBorder) && isBorderValid(rightBorder)) {
-            resolve(true);
-          } else {
-            resolve(false);
-          }
+          const avgLuminance = totalLuminance / (pixels.length / 4);
+          resolve(avgLuminance > 200); // Higher value ensures the background is light
         };
-  
-        img.onerror = () => reject('Failed to load image');
         img.src = e.target?.result as string;
       };
-  
-      reader.onerror = () => reject('Failed to read file');
       reader.readAsDataURL(file);
     });
   };
+
+  
   
   const handleUpload = async () => {
     if (!selectedFile) return;
@@ -140,6 +133,20 @@ const IqOMR: React.FC = () => {
         alert('Please upload a portrait-oriented IQ answer sheet.');
         return;
       }
+
+      // Validate text in the image
+    const hasValidText = await validateTextInImage(selectedFile);
+    if (!hasValidText) {
+      alert('Invalid image: Missing "IQ Test Answer Sheet" text.');
+      return;
+    }
+
+    // Validate background color
+    const isValidBackground = await validateBackgroundColor(selectedFile);
+    if (!isValidBackground) {
+      alert('Invalid image: Background is not predominantly white.');
+      return;
+    }
 
       
   
