@@ -44,7 +44,15 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    
+    &:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+      transform: translateY(-1px); 
+      transition: background-color 0.3s, transform 0.2s;
+    }
   }
+
+  
   
   // Question text style
   .question p {
@@ -71,7 +79,7 @@
   .submitButton {
     display: inline-block;
     padding: 12px 20px;
-    background-color: #AF1740;
+    background-color: #000000e1 ;
     color: white;
     font-size: 1.1rem;
     font-weight: bold;
@@ -81,7 +89,7 @@
     transition: background-color 0.3s ease;
   
     &:hover {
-      background-color: #A8C8FF;
+      background-color: #cc63b5e1 ;
     }
   
     &:disabled {
