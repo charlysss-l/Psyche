@@ -292,7 +292,7 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
         <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
           <h2>16PF Fifth Edition Individual Record Form for {data.firstName} {data.lastName}</h2>
           <Line data={chartData} options={chartOptions} />
-          <button onClick={onClose}>Close</button>
+          <button className={styles.closebutton} onClick={onClose}>Close</button>
         </div>
       </div>
     );

@@ -42,7 +42,7 @@
     .deleteButtonIQLIST{
       width: 70px;
       margin: 10px;
-      background-color: red;
+      background-color: #b62e2e;
       color: white;
       border: none;
       padding: 5px 10px;
@@ -51,14 +51,15 @@
     }
   
     .deleteButtonIQLIST:hover{
-      background-color: rgb(230, 3, 3);
+      background-color: #B94d4dce;
     }
 
     .updateButtonIQLIST{
       width: 70px;
       
       margin: 10px;
-      background-color: rgb(11, 53, 240);
+      background-color: #585858d3;
+      ;
       color: white;
       border: none;
       padding: 5px 10px;
@@ -67,13 +68,13 @@
     }
   
     .updateButtonIQLIST:hover{
-      background-color: rgb(10, 39, 165);
+      background-color: #585858a6;
     }
 
     .saveButtonIQLIST{
       width: 70px;
       margin: 10px;
-      background-color: rgb(235, 219, 4);
+      background-color: #41865e;
       color: white;
       border: none;
       padding: 5px 10px;
@@ -82,7 +83,7 @@
     }
   
     .saveButtonIQLIST:hover{
-      background-color: rgb(129, 121, 3);
+      background-color: #06a147b6;
     }
   
     .leftMeaning {
@@ -149,11 +150,11 @@
     }
 
     .deleteButtonIQLIST{
-      background-color: red;
+      background-color: #b62e2e;
       padding: 8px;
     }
     .deleteButtonIQLIST:hover{
-      background-color: rgb(230, 3, 3);
+      background-color: #B94d4dce;
     }
 
     .modal {
@@ -178,18 +179,17 @@
       
     }
     
-    button {
+    .graphButton {
       margin: 10px;
-
-      background-color: #007bff;
+      background-color: #000000;
       color: white;
       border: none;
-      padding: 5px 10px;
+      padding: 10px 15px;
       border-radius: 5px;
       cursor: pointer;
     }
     
     button:hover {
-      background-color: #0056b3;
+      background-color: #cc63b5e1 ;
     }
     

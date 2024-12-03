@@ -111,15 +111,6 @@
       text-align: left;
     }
 
-    .deleteButton {
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
     .modal {
       position: fixed;
       top: 0;
@@ -142,18 +133,46 @@
       
     }
     
-    button {
+    .graphButton {
       margin: 10px;
-
-      background-color: #007bff;
+      background-color: #000000;
       color: white;
       border: none;
-      padding: 5px 10px;
+      padding: 10px 15px;
       border-radius: 5px;
       cursor: pointer;
     }
     
-    button:hover {
-      background-color: #0056b3;
+    .graphButton:hover {
+      background-color: #cc63b5e1 ;
     }
     
+    .closebutton {
+      margin: 10px;
+      background-color: #585858;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .closebutton:hover{
+      background-color: #585858c9 ;
+
+    }
+
+    .deleteButton {
+      margin: 10px;
+      background-color: #b62e2e ;
+      ;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .deleteButton:hover{
+      background-color: #B94d4dce;
+    }
