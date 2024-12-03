@@ -1,139 +1,116 @@
-/* Variables */
-$bg-dark: #ffffff; /* Dark form background */
-$bg-light: #e9E9E9; /* Light submit button background */
-$font-light: #000000; /* Light font color for labels */
-$font-dark: #444444; /* Dark font color */
-$hover-bg: #D2D2D2; /* Hover background for submit button */
-$hover-font: black; /* Hover font color for submit button */
-$border-dark: #2c2c2c; /* Dark border color */
+$bg-dark: #ffffff; 
+$bg-light: #e9E9E9; 
+$font-light: #000000; 
+$font-dark: #444444; 
+$hover-bg: #D2D2D2;
+$hover-font: black; 
+$border-dark: #2c2c2c; 
 
-/* Form Styles */
-.consulForm {
+.consultMain{ 
   display: flex;
-  position:absolute;
-  left: 20%;
-  top: 17%; 
-  flex-direction: column;
-  justify-content: center;
-  background: linear-gradient(135deg, #ffffff, #ffffff);
-  border: 1px solid #e0e0e0; // Subtle border
-  border-radius: 8px; // Rounded corners
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding: 20px;
-  width: 20%;
-  margin: 0 auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+  gap: 20px;
 
   @media (max-width: 768px) {
-    max-width: 100%; // Allow form to take full width on smaller screens
-    padding: 15px;
+    flex-direction: column;
+    }
+}
+
+.consulForm {
+  flex: 1;
+  margin-right: 20px;
+  background: linear-gradient(135deg, #ffffff, #ffffff);
+  border: 1px solid #e0e0e0; 
+  padding: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-bottom: 20px;
   }
 }
 
 .formCon {
   display: flex;
   flex-direction: column;
-  gap: 15px; // Space between fields
+  gap: 15px; 
 }
 
 .conLabel {
   font-size: 14px;
   font-weight: 600;
-  color: #000000; // Dark gray for text
   margin-bottom: 5px;
 }
 
 .conInput,
 select {
-  width: 95%; /* Ensure full width */
+  width: 98%; 
   padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #fff; // White input background
-  color: #333; // Dark text
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
   &:focus {
-    border-color: #0C4C78; // Blue focus border
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); // Blue focus shadow
+    border-color: #0C4C78; 
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
     outline: none;
   }
 }
 
-.conLabelCheck {
-  margin-left: 10px; // Space from label
-  transform: scale(1.2); // Slightly larger checkbox
-}
-
 .conSubmit {
-  align-self: center;
-  padding: 10px 15px;
-  font-size: 16px;
-  font-weight: bold;
-  width: 30%;
-  color: #fff; // White text
-  background-color: #AF1740; // Blue background
+  background: rgb(0, 0, 0);
+  color: #ffffff;
   border: none;
-  border-radius: 15%;
+  padding: 10px;
+  border-radius: 10px;
+  align-self: center;
+  font-size: 16px;
+  width: 20%;
+  border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: #AF1740; // Darker blue on hover
-    transform: translateY(-2px); // Lift effect
+    background-color: #cc63b5e1; 
+    transform: translateY(-2px); 
   }
 
   &:active {
-    background-color: #969696; // Even darker on click
-    transform: translateY(0); // Reset lift
+    background-color: #969696; 
+    transform: translateY(0); 
   }
 
   @media (max-width: 768px) {
-    width: 100%; /* Full width button on smaller screens */
+    width: 100%; 
   }
 }
 
-.consulTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 2rem; /* Add space between form and table */
-}
-
-.consulTable th, .consulTable td {
-  padding: 12px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-.consulTable th {
-  background-color: #f4f4f4;
-}
-
-.consulTable tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.consulTable tr:hover {
-  background-color: #f1f1f1;
-}
 
 // for the table of consultations
-
 .tableContainer {
-  display: flex;
-  position: absolute;
-  flex-direction: column;
-
-  width: 50%;
-  right: 5%;
-  margin: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  flex: 2;
   background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 600px;
+  overflow-y: auto;
+  transition: max-height 0.3s ease;
+
+  @media (max-width: 768px) {
+    flex: 1;
+    margin-top: 30px;
+    max-height: 400px;
+  }
 }
 
-h2 {
+
+.consultationlabel{
   text-align: center;
   margin-bottom: 15px;
   color: #4e4e4e;
@@ -153,7 +130,7 @@ h2 {
 }
 
 .table th {
-  background-color: #AF1740;
+  background-color: #cc63b5e1;
   color: white;
 }
 
@@ -162,13 +139,13 @@ h2 {
 }
 
 .table tr:hover {
-  background-color: #ddd;
+  background-color: #b9b9b9e1;
 }
 
 .responsesWrapper {
-  max-height: 385px;  // Adjust the height as per your design needs
-  overflow-y: auto;   // Enable vertical scrolling when content overflows
-  margin-top: 10px;   // Optional, for some space between elements
+  max-height: 385px;  
+  overflow-y: auto;   
+  margin-top: 10px;   
 }
 
 // Define a base style for all buttons
@@ -189,71 +166,64 @@ h2 {
   }
 
   &.delete {
-    background-color: #AF1740; // Red for delete
+    background-color: #b62e2e;
     color: white;
 
     &:hover {
-      background-color: #FFB3B3; // Darker red
+      background-color: #B94d4dce; 
     }
   }
 
   &.cancel {
-    background-color: #0C3C78; // Yellow for cancel
+    background-color: #4e4e4e; 
     color: rgb(255, 255, 255);
 
     &:hover {
-      background-color: #A8C8FF; // Darker yellow
+      background-color: #616161cb; 
     }
   }
 
   &.archive {
-    background-color: #837a06; // Yellow for cancel
+    background-color: #afa43d; 
     color: rgb(255, 255, 255);
 
     &:hover {
-      background-color: #837a06; // Darker yellow
+      background-color: #837b06b7; 
     }
   }
 }
 
 .archiveButton {
-  display: flex;
-  position: absolute;
-  right:2%;
-  top:4%;
-  background-color: #0C3C78; /* Blue like a mailbox */
-  color: white; /* Text color */
-  border: 2px solid #2d4373; /* Slightly darker border */
-  border-radius: 12px; /* Rounded edges */
-  padding: 10px 20px; /* Adjust padding for size */
-  font-size: 16px; /* Slightly larger text */
-  font-weight: bold; /* Make text stand out */
-  cursor: pointer; /* Pointer cursor */
-  transition: all 0.3s ease; /* Smooth hover animation */
-  display: flex;
-  align-items: center; /* Center content vertically */
-  justify-content: center; /* Center content horizontally */
+  margin-left: 20px;
+  background-color: rgb(131, 131, 131);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px; 
+  cursor: pointer;
+  transition: all 0.3s ease; 
 }
 
 .archiveButton:hover {
-  background-color: #0C3C78;/* Lighter blue on hover */
-  border-color: #A8C8FF; /* Adjust border color */
+  background-color: #cc63b5e1;
+  border-color: #A8C8FF;
 }
 
 .archiveButton:active {
-  background-color: #AF1740; /* Darker blue when clicked */
-  transform: scale(0.98); /* Slight click animation */
+  background-color: #cc63b5e1;
+
+  transform: scale(0.98); 
 }
 
-/* Add a mail icon */
 .archiveButton::before {
-  content: "✉️"; /* Unicode envelope icon */
-  font-size: 18px; /* Adjust icon size */
+  content: "✉️"; 
+  font-size: 18px;
 }
 
-/* Optional: Add mailbox-specific animations */
 .archiveButton::after {
-  content: ""; /* Empty content for styling */
+  content: ""; 
   display: block;
   width: 0;
   height: 4px;
@@ -264,11 +234,10 @@ h2 {
 }
 
 .archiveButton:hover::after {
-  width: 80%; /* Expand underline on hover */
+  width: 80%; 
 }
 
 .conText {
   font-size: 20px;
-  font-weight: bold;
   text-align: center;
 }

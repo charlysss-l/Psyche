@@ -368,7 +368,6 @@ const ConsultationRequestForm: React.FC = () => {
                   onChange={(e) => setAge(parseInt(e.target.value) )} // Parse the input as an integer or set to 0 if empty
                   required
                   disabled={note !== "Others"}
-
                 />
               </label>
 
@@ -476,7 +475,7 @@ const ConsultationRequestForm: React.FC = () => {
     </div>
 
     <div className={styles.tableContainer}>
-  <h2>
+  <h2 className={styles.consultationlabel}>
     Consultation Records
     <button
       className={styles.archiveButton}
