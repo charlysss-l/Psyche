@@ -4,6 +4,8 @@ import { initializeApp } from 'firebase/app';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './PfOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
+import Tesseract from 'tesseract.js';
+
 
 
 // Initialize Firebase with your configuration
@@ -29,6 +31,8 @@ const PfOMR: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [omrScore, setOmrScore] = useState<number | null>(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);  // Loading state for spinner
+
 
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,8 +67,56 @@ const PfOMR: React.FC = () => {
     });
   };
 
+  const validateTextInImage = async (file: File): Promise<boolean> => {
+    const text = await extractTextFromImage(file);
+    return text.includes("16PF Test Answer Sheet");
+  };
+  
+  const extractTextFromImage = async (file: File): Promise<string> => {
+    const result = await Tesseract.recognize(file, 'eng');
+    return result.data.text;
+  };
+  
+  const validateBackgroundColor = async (file: File): Promise<boolean> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(false);
+            return;
+          }
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+          
+          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const pixels = imgData.data;
+          let totalLuminance = 0;
+          for (let i = 0; i < pixels.length; i += 4) {
+            const r = pixels[i];
+            const g = pixels[i + 1];
+            const b = pixels[i + 2];
+            const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+            totalLuminance += luminance;
+          }
+          const avgLuminance = totalLuminance / (pixels.length / 4);
+          resolve(avgLuminance > 200); // Higher value ensures the background is light
+        };
+        img.src = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleUpload = async () => {
     if (!selectedFile) return;
+
+    setLoading(true);  // Show loading spinner when upload starts
+
 
     try {
       const fileName = `uploads/OMR/${uuidv4()}_${selectedFile.name}`;
@@ -73,15 +125,38 @@ const PfOMR: React.FC = () => {
       // Check if the file is a valid image format
       if (!selectedFile.type.startsWith('image/')) {
         alert('Please upload a valid image file.');
+        setLoading(false);  // Hide loading spinner on failure
+
         return;
+
       }
 
       // Validate image orientation (portrait)
       const isPortrait = await validateImageOrientation(selectedFile);
       if (!isPortrait) {
         alert('Please upload a portrait-oriented PF answer sheet.');
+        setLoading(false);  // Hide loading spinner on failure
+
         return;
       }
+
+       // Validate text in the image
+    const hasValidText = await validateTextInImage(selectedFile);
+    if (!hasValidText) {
+      alert('Invalid image: Missing "16PF Test Answer Sheet" text.');
+      setLoading(false);  // Hide loading spinner on failure
+
+      return;
+    }
+
+    // Validate background color
+    const isValidBackground = await validateBackgroundColor(selectedFile);
+    if (!isValidBackground) {
+      alert('Invalid image: Background is not predominantly white.');
+      setLoading(false);  // Hide loading spinner on failure
+
+      return;
+    }
 
       // Upload the file to Firebase
       await uploadBytes(storageRef, selectedFile);
@@ -94,11 +169,16 @@ const PfOMR: React.FC = () => {
       setImagePreview(downloadURL); // Display the uploaded image here
     } catch (error) {
       console.error("Error uploading file:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleOMRProcessing = async () => {
     if (!uploadURL) return;
+
+    setLoading(true);  // Hide loading spinner on failure
+
   
     try {
       const response = await fetch('http://127.0.0.1:5001/process_omr_PF', {
@@ -120,6 +200,8 @@ const PfOMR: React.FC = () => {
       setOmrScore(data.score); // Assuming data.score is a number
     } catch (error) {
       console.error("Error processing OMR:", error);
+    } finally {
+      setLoading(false);
     }
   };
   
@@ -206,6 +288,16 @@ const PfOMR: React.FC = () => {
         </div>
       )}
 
+      {/* Show loading spinner while uploading or processing */}
+      {loading && (
+  <div className={styles.spinnerContainer}>
+    <div className={styles.spinner}>
+      <div className={styles.spinnerCircle}></div>
+    </div>
+    <p className={styles.loadingText}>Please wait a moment...</p>
+  </div>
+)}
+
       <div className={styles.cameraWrapper}>
         {isCameraActive ? (
           <div>
@@ -265,7 +357,7 @@ const PfOMR: React.FC = () => {
 
     {/* Instruction Container */}
     <div className={styles.instructionContainer}>
-    <h2>Instructions</h2>
+    <h1>Instructions</h1>
     <p>1. Choose an image of your OMR sheet using the "Choose Image" button.</p>
     <p>2. Alternatively, capture an image using your camera.</p>
     <p>3. Upload the image to the system by clicking the "Upload Image" button.</p>

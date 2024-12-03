@@ -148,6 +148,8 @@ const IqOMR: React.FC = () => {
     const hasValidText = await validateTextInImage(selectedFile);
     if (!hasValidText) {
       alert('Invalid image: Missing "IQ Test Answer Sheet" text.');
+      setLoading(false);  // Hide loading spinner on failure
+
       return;
     }
 
@@ -155,6 +157,8 @@ const IqOMR: React.FC = () => {
     const isValidBackground = await validateBackgroundColor(selectedFile);
     if (!isValidBackground) {
       alert('Invalid image: Background is not predominantly white.');
+      setLoading(false);  // Hide loading spinner on failure
+
       return;
     }
 
