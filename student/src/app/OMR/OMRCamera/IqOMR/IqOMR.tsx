@@ -318,10 +318,14 @@ const IqOMR: React.FC = () => {
 
         {/* Show loading spinner while uploading or processing */}
         {loading && (
-          <div className={styles.spinner}>
-            <div className={styles.spinnerCircle}></div>
-          </div>
-        )}
+  <div className={styles.spinnerContainer}>
+    <div className={styles.spinner}>
+      <div className={styles.spinnerCircle}></div>
+    </div>
+    <p className={styles.loadingText}>Please wait a moment...</p>
+  </div>
+)}
+
   
         <div className={styles.cameraWrapper}>
           {isCameraActive ? (
