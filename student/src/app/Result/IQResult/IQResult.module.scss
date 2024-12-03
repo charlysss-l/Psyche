@@ -59,11 +59,15 @@
     margin-top: 30px;
     text-align: center;
 }
+.scoreSection h3 {
+    color: #b83e9de1;
+    margin-bottom: 15px;
+}
 
 /* Score styling */
 .score {
     font-weight: bold;
-    color: #333;
+    color: #cc63b5e1;
     font-size: 20px;
 }
 
@@ -105,27 +109,29 @@
 }
 
 .buttonYes {
-    background-color: #0056B3;
+    background-color: #41865e;
     color: white;
     margin-right: 10px;
 }
 
 .buttonYes:hover {
-    background-color: #A8C8FF;
+    background-color: #06a147b6;
+;
 }
 
 .buttonCancel {
-    background-color: #B30000;
+    background-color: #b62e2e;
     color: white;
 }
 
 .buttonCancel:hover {
-    background-color: #FFB3B3;
+    background-color: #b94d4dce;
+    
 }
 
 .pdfButton {
     margin-top: 10px;
-    background-color: #007bff; /* Blue background */
+    background-color: #000000e1; /* Blue background */
     color: white; /* White text */
     padding: 10px 20px; /* Space inside the button */
     border: none; /* No border */
@@ -135,7 +141,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions for hover effect */
     
     &:hover {
-      background-color: #0056b3; /* Darker blue on hover */
+      background-color: #cc63b5e1; /* Darker blue on hover */
       transform: scale(1.05); /* Slight zoom effect */
     }
     

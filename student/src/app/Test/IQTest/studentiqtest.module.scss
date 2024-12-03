@@ -1,6 +1,6 @@
 // SCSS Variables for consistency
 $form-bg-color: #F6F5F5;         // Set form background to #F6F5F5
-$primary-color: #003366;         // Primary color for buttons and focus
+$primary-color: #000000e1 ;         // Primary color for buttons and focus
 $border-radius: 5px;
 $input-border-color: #45474B;    // Darker border for the input fields
 $input-focus-border-color: $primary-color; // Focus color for inputs
@@ -199,7 +199,7 @@ li {
 }
 
 .pagination button:hover {
-  background-color: darken($primary-color, 10%); /* Darker shade on hover */
+  background-color: #cc63b5e1 ; 
 }
 
 .pagination button:disabled {
@@ -225,7 +225,7 @@ li {
 }
 
 .start:hover {
-  background-color: darken($primary-color, 10%); /* Darker shade on hover */
+  background-color: #cc63b5e1 ; /* Darker shade on hover */
 }
 
 button {
@@ -243,7 +243,7 @@ button {
 
 .submitButton {
   padding: 10px 15px;
-  background-color: #67b2da;
+  background-color: $primary-color;
   color: white;
   border: none;
   border-radius: 10px;
@@ -255,5 +255,5 @@ button {
 }
 
 .submitButton:hover {
-  background-color: #1d3a46; /* Darker shade on hover */
+  background-color: #cc63b5e1; /* Darker shade on hover */
 }
