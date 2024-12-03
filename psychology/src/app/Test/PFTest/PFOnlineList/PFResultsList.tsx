@@ -3,6 +3,7 @@ import styles from './PFResultList.module.scss';
 import { useNavigate } from 'react-router-dom';
 import PFOnlineArchivedList from './PFOnlineArchivedList';
 import * as XLSX from 'xlsx';
+import { table } from 'console';
 
 
 // Define the interface for the user results
@@ -179,7 +180,7 @@ const PFResultsList: React.FC = () => {
       testType: result.testType,
       testDate: result.testDate,
       responses: result.responses.map(response => 
-        `(Question Number: ${response.questionID}: (Selected Choice: ${response.selectedChoice}) (Score: ${response.equivalentScore}) (Factor Letter: ${response.factorLetter})`
+        `(${response.questionID}: ${response.selectedChoice} = ${response.equivalentScore} "${response.factorLetter}")`
       ).join(', '),
       scores: result.scoring.scores.map(score => {
         const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
@@ -195,7 +196,7 @@ const PFResultsList: React.FC = () => {
           interpretation = rightMeaning;
         }
   
-        return `(Factor: ${factorDescriptions[score.factorLetter]}) (Raw: ${score.rawScore}, Sten: ${score.stenScore}, Interpretation: ${interpretation})`;
+        return `(Factor: ${factorDescriptions[score.factorLetter]} - Sten: ${score.stenScore} - "Interpretation: ${interpretation}")`;
       }).join(', '),
     })));
   
