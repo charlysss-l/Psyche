@@ -48,7 +48,7 @@
 .deleteButtonIQLIST{
   width: 70px;
       margin: 10px;
-      background-color: red;
+      background-color: #b62e2e ;
       color: white;
       border: none;
       padding: 5px 10px;
@@ -56,14 +56,13 @@
       cursor: pointer;
 }
 .deleteButtonIQLIST:hover{
-  background-color: rgb(230, 3, 3);
+  background-color: #B94d4dce ;
 }
 
 .updateButtonIQLIST{
   width: 70px;
-  
   margin: 10px;
-  background-color: rgb(11, 53, 240);
+  background-color: #585858;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -72,13 +71,13 @@
 }
 
 .updateButtonIQLIST:hover{
-  background-color: rgb(10, 39, 165);
+  background-color: #585858c9;
 }
 
 .saveButtonIQLIST{
   width: 70px;
   margin: 10px;
-  background-color: rgb(235, 219, 4);
+  background-color: #41865e ;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -87,7 +86,7 @@
 }
 
 .saveButtonIQLIST:hover{
-  background-color: rgb(129, 121, 3);
+  background-color: #06a147b6  ;
 }
 
 .pagination {
