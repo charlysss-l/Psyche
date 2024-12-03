@@ -24,7 +24,9 @@
     text-align: left;
     line-height: 1.8;
   }
-  
+  .termsnumiq{
+    color: #cc63b5e1 ;
+  }
   .pfButton {
     display: inline-block;
     padding: 10px 20px;
@@ -39,7 +41,8 @@
   }
   
   .pfButton:hover {
-    background-color: #ff77e4;
+    background-color: #cc63b5e1 ;
+    ;
   }
   
   .checkboxContainer {
@@ -51,4 +54,7 @@
   .checkbox {
     
     margin-left: 33%;
+  }
+  .confirm {
+    text-align: center;
   }

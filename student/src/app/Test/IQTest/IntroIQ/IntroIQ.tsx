@@ -39,14 +39,14 @@ const IntroPF: React.FC = () => {
         If you do not agree with any of these terms, you should not access or use the test. 
       </p>
       <p className={styles.termsinfo}>
-        <strong>1. General Terms </strong>
+        <strong className={styles.termsnumiq}>1. General Terms </strong>
         The Test is designed for individuals interested in gaining insights into their personality traits. The Test is 
         based on the Sixteen Personality Factor Questionnaire (16PF) developed through years of research and analysis. 
         Your participation in the Test is voluntary and you may choose to discontinue at any time. By participating, 
         you consent to the collection of responses provided during the Test.
       </p>
       <p className={styles.termsinfo}>
-        <strong>2. Privacy and Data Collection </strong>
+        <strong className={styles.termsnumiq}>2. Privacy and Data Collection </strong>
         We respect your privacy and are committed to protecting your personal data. By using the Test, you agree that 
         we may collect, process, and store information you provide during the assessment for the purpose of analyzing 
         your results and improving the service. However, we will never share your data with third parties without your 
@@ -55,7 +55,7 @@ const IntroPF: React.FC = () => {
         to the Test. 
       </p>
       <p className={styles.termsinfo}>
-        <strong>3. Test Results </strong>
+        <strong className={styles.termsnumiq}>3. Test Results </strong>
         The results you receive from the Test are based on the information you provide and the responses you select. 
         While the Test is designed to provide useful insights into your personality, the results should not be regarded 
         as definitive or absolute. Personality traits can evolve over time and the results of the Test reflect your 
@@ -63,7 +63,7 @@ const IntroPF: React.FC = () => {
         not be used as the sole basis for important life decisions.
       </p>
       <p className={styles.termsinfo}>
-        <strong>4. Limitation of Liability </strong>
+        <strong className={styles.termsnumiq}>4. Limitation of Liability </strong>
         The Test and any related content are provided "as is" and we do not make any representations or warranties, 
         express or implied, about the accuracy, reliability, or completeness of the Test or the results provided. 
         In no event will we be liable for any loss, damage, or harm arising from your use of the Test, including, 
@@ -71,19 +71,19 @@ const IntroPF: React.FC = () => {
         own risk.
       </p>
       <p className={styles.termsinfo}>
-        <strong>5. Changes to Terms </strong>
+        <strong className={styles.termsnumiq}>5. Changes to Terms </strong>
         We reserve the right to modify or update these Terms at any time without prior notice. Any changes to these 
         Terms will be reflected on this page. It is your responsibility to check this page regularly for updates. Your 
         continued use of the Test after any modifications to the Terms constitutes your acceptance of those changes.
       </p>
       <p className={styles.termsinfo}>
-        <strong>6. Governing Law </strong>
+        <strong className={styles.termsnumiq}>6. Governing Law </strong>
         These Terms are governed by and construed in accordance with the laws of the jurisdiction in which we operate. 
         Any disputes arising from the use of the Test will be subject to the exclusive jurisdiction of the courts in 
         that jurisdiction.
       </p>
 
-      <p className={styles.termsinfo}>
+      <p className={styles.confirm}>
         By proceeding with the test, you acknowledge that you have read, understood, and agree to these terms and conditions.
       </p>
 
