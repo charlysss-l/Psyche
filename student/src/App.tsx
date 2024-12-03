@@ -88,12 +88,13 @@ function App() {
                     </Routes>
                   </div>
                 </div>
-                <DarkMode /> {/* Add the ThemeToggle component here */}
 
               </>
             }
           />
-        </Routes>
+        </Routes>                
+        <DarkMode /> 
+
       </div>
     </Router>
   );

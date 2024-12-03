@@ -38,11 +38,12 @@ function App() {
                     </Routes>
                   </div>
                 </div>
-                <ThemeToggle />
               </>
             }
           />
         </Routes>
+        <ThemeToggle />
+
       </div>
     </Router>
   );

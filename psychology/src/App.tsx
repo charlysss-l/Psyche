@@ -16,7 +16,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSideBar';
 import PFResultsList from './app/Test/PFTest/PFOnlineList/PFResultsList';
 import IQResultsList from './app/Test/IQTest/IQOnlineList/IQResultsList';
-import ThemeToggle from "./darkMode/darkMode";
+import DarkMode from "./darkMode/darkMode";
 import IQInterpretation from './app/Test/IQTest/IQInterpretationEdit/IQInterpretation';
 import OmrIQResultsList from './app/Test/IQTest/IQOmrList/Omr_IQResultList';
 import IQResultListBoth from './app/Test/IQTest/IQTestDashboard/IQtestListBoth';
@@ -171,7 +171,7 @@ function App() {
             </Routes>
           </div>
         </div>
-        <ThemeToggle />
+        <DarkMode />
       </div>
     </Router>
   );
