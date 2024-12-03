@@ -32,6 +32,9 @@ const IqOMR: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [omrScore, setOmrScore] = useState<number | null>(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);  // Loading state for spinner
+
+  
 
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,6 +119,9 @@ const IqOMR: React.FC = () => {
   
   const handleUpload = async () => {
     if (!selectedFile) return;
+
+    setLoading(true);  // Show loading spinner when upload starts
+
   
     try {
       const fileName = `uploads/OMR/${uuidv4()}_${selectedFile.name}`;
@@ -124,6 +130,8 @@ const IqOMR: React.FC = () => {
       // Check if the file is a valid image format
       if (!selectedFile.type.startsWith('image/')) {
         alert('Please upload a valid image file.');
+        setLoading(false);  // Hide loading spinner on failure
+
         return;
       }
   
@@ -131,6 +139,8 @@ const IqOMR: React.FC = () => {
       const isPortrait = await validateImageOrientation(selectedFile);
       if (!isPortrait) {
         alert('Please upload a portrait-oriented IQ answer sheet.');
+        setLoading(false);  // Hide loading spinner on failure
+
         return;
       }
 
@@ -167,12 +177,17 @@ const IqOMR: React.FC = () => {
       } else {
         alert('Error uploading image. Please try again.');
       }
+    } finally {
+      setLoading(false);  // Hide loading spinner regardless of success or failure
     }
   };
   
 
   const handleOMRProcessing = async () => {
     if (!uploadURL) return;
+
+    setLoading(true);  // Show loading spinner while processing OMR
+
   
     try {
       const response = await fetch('http://127.0.0.1:5000/process_omr_IQ', {
@@ -193,6 +208,9 @@ const IqOMR: React.FC = () => {
       setOmrScore(data.score); // Assuming data.score is a number
     } catch (error) {
       console.error("Error processing OMR:", error);
+    } finally {
+      setLoading(false);  // Hide loading spinner after processing is done
+
     }
   };
   
@@ -295,6 +313,13 @@ const IqOMR: React.FC = () => {
         {imagePreview && (
           <div className={styles.imagePreview}>
             <img src={imagePreview} alt="Image Preview" className={styles.previewImage} />
+          </div>
+        )}
+
+        {/* Show loading spinner while uploading or processing */}
+        {loading && (
+          <div className={styles.spinner}>
+            <div className={styles.spinnerCircle}></div>
           </div>
         )}
   
