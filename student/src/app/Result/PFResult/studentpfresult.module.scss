@@ -92,6 +92,7 @@
   font-size: 18px;
   color: #444;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 /* Buttons for sharing result */
@@ -148,4 +149,37 @@
     outline: none; /* Remove default focus outline */
     box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.6); /* Add a custom focus ring */
   }
+}
+
+.resultPage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.container {
+  flex: 2; // Larger section for results
+  min-width: 50%; // Minimum width to ensure good readability
+  margin-left: 10%;
+}
+
+.privacySection {
+  flex: 1; // Smaller section for privacy
+  min-width: 10%; // Minimum width for text clarity
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 50%;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+}
+
+p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-size: 0.95rem;
 }

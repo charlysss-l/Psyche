@@ -135,6 +135,8 @@ const IQResult: React.FC = () => {
     
 
     return (
+    <div className={styles.resultPage}>
+
         <div className={styles.container} id="result-container">
             {result ? (
                 <div>
@@ -200,6 +202,27 @@ const IQResult: React.FC = () => {
                 <p className={styles.noResults}>No results available. Please complete the test.</p>
             )}
         </div>
+
+        {/* Data Privacy Section */}
+        <div className={styles.privacySection}>
+    <h1>Data Privacy Act</h1>
+    <p>
+        Your personal information and test results are protected under the Data Privacy Act of 2012 (Republic Act No. 10173). 
+        This ensures that all data collected through this personality test is handled with the utmost confidentiality and care. 
+        The information provided will be used exclusively for assessment and consultation purposes within the psychology department.
+    </p>
+    <p>
+        The results of your test are securely stored on the psychology department’s servers, accessible only to authorized personnel. 
+        You have full control over how your results are shared. If you decide to consult with our guidance counselor, your results 
+        can be accessed by them to provide personalized advice and assistance. Rest assured, no data will be shared with third parties 
+        without your explicit consent.
+    </p>
+    <p>
+        We prioritize your privacy and comply with all applicable laws and regulations regarding data protection. If you have any concerns 
+        or require further information on how we handle your data, you may reach out to our psychology department or refer to our privacy policy.
+    </p>
+</div>
+</div>
     );
 };
 

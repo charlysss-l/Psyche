@@ -33,6 +33,8 @@ import PfOMR from "./app/OMR/OMRCamera/PfOMR/PfOMR";
 import OmrResult from "./app/OMR/OMRCamera/PfOMR/OmrResult";
 import SurveyDetails from "./app/Survey/surveyDetails";
 import ArchiveInbox from "./app/Consultation/ArchiveInbox";
+import IntroPF from "./app/Test/PFTest/IntroPF/IntroPF";
+import IntroIQ from "./app/Test/IQTest/IntroIQ/IntroIQ";
 
 function App() {
   return (
@@ -78,6 +80,8 @@ function App() {
                       <Route path="/pfbothlist" element={<PFBothList />} />
                       <Route path="/pfomrlist" element={<PFOMRList />} />
                       <Route path="/pfonlinelist" element={<PFOnlineList />} />
+                      <Route path="/intro-pf" element={<IntroPF />} />
+                      <Route path="/intro-iq" element={<IntroIQ />} />
 
                       <Route path="/allomr" element={<AllOMR />} />
                       <Route path="/iqomr" element={<IqOMR />} />

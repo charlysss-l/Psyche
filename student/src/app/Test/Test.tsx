@@ -8,12 +8,12 @@ const Test = () => {
       <h1>List of Standardized Test</h1>
       <div className={style.ListTest}>
         <div className={style.TestPF}>
-          <Link to="/pftest" className={style.pfLink}>
+          <Link to="/intro-pf" className={style.pfLink}>
             Catell's 16 Personality Factor Questionnaire
           </Link>
         </div>
         <div className={style.iqLinkContainer}>
-          <Link to="/iqtestuserform" className={style.iqLink}>
+          <Link to="/intro-iq" className={style.iqLink}>
             IQ Test
           </Link>
         </div>
