@@ -216,7 +216,7 @@ const exportToExcel = () => {
 
             <tbody>
               {currentResults.map((result) => (
-                <tr key={result.userID} className={styles.eachResultIQ}>
+                <tr className={styles.eachResultIQ}>
                   <td>{result.userID}</td>
                   <td>{result.firstName} {result.lastName}</td>
                   <td>{result.age}</td>

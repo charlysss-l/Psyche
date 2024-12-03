@@ -219,7 +219,7 @@ const PFOmrArchivedList: React.FC = () => {
             </thead>
             <tbody>
               {currentResults.map((result) => (
-                <tr key={result.testID} className={styles.eachResultIQ}>
+                <tr  className={styles.eachResultIQ}>
                 <td>{result.userID}</td>
                 <td>{result.firstName} {result.lastName}</td>
                 <td>

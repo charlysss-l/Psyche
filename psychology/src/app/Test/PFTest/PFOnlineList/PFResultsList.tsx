@@ -248,7 +248,7 @@ const PFResultsList: React.FC = () => {
             </thead>
             <tbody>
               {currentResults.map((result) => (
-                <tr key={result.userID} className={styles.eachResultPF}>
+                <tr className={styles.eachResultPF}>
                   <td>{result.userID}</td>
                   <td>{result.firstName} {result.lastName}</td>
                   <td>{result.age}</td>
