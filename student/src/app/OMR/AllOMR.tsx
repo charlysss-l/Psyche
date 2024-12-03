@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const AllOMR = () => {
   return (
     <div className={styles.OMRDiv}>
-      <h1 className={styles.OMRTITLE}>Select Your Test To Upload </h1>
+      <h1 className={styles.OMRTITLEnext}>Select Your Test To Upload </h1>
       <h3></h3>
       
 
