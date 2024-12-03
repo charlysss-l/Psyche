@@ -11,19 +11,13 @@
     text-align: center;
   }
   
-  h1 {
+  .pfintro, .termsandconditionpf {
     font-size: 24px;
     color: #333;
     margin-bottom: 16px;
   }
   
-  h2 {
-    font-size: 20px;
-    color: #333;
-    margin-top: 30px;
-  }
-  
-  p {
+  .pfintroinfo{
     font-size: 16px;
     color: #555;
     margin-bottom: 12px;
@@ -34,7 +28,7 @@
   .pfButton {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: black;
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
@@ -45,7 +39,7 @@
   }
   
   .pfButton:hover {
-    background-color: #0056b3;
+    background-color: #ff77e4;
   }
   
   .checkboxContainer {
