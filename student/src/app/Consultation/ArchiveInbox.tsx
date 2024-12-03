@@ -17,16 +17,16 @@ const API_URL = "http://localhost:5000/api/consult/";
 const ArchiveInbox = () => {
   const [archivedConsultations, setArchivedConsultations] = useState<Consultation[]>([]);
   const [userId, setUserID] = useState("");
-  const [isVisible, setIsVisible] = useState(true); // State to control visibility
+  const [isVisible, setIsVisible] = useState(true);
+  const [isHighlighted, setIsHighlighted] = useState(false);
 
   useEffect(() => {
-    // Fetch userId from localStorage
     const storedUserId = localStorage.getItem("userId");
     if (storedUserId) {
       setUserID(storedUserId);
-      fetchConsultations(storedUserId); // Call fetchConsultations when userId is set
+      fetchConsultations(storedUserId); 
     }
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []); 
 
   const fetchConsultations = async (userId: string) => {
     try {
@@ -40,10 +40,13 @@ const ArchiveInbox = () => {
   };
 
   const handleClose = () => {
-    setIsVisible(false); // Hide the component when the close button is clicked
+    setIsVisible(false); 
+  };
+  const handleArchiveClick = () => {
+    setIsHighlighted(true); 
   };
 
-  if (!isVisible) return null; // If isVisible is false, render nothing
+  if (!isVisible) return null;
 
   const deleteConsultation = async (testID: string) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this consultation?");
@@ -62,13 +65,13 @@ const ArchiveInbox = () => {
   };
 
   return (
+    <div className={`${styles.overlay} ${isHighlighted ? styles.darkOverlay : ""}`} onClick={() => setIsHighlighted(false)}>
     <div className={styles.tableContainer}>
-      <h2>Archived Consultation Records</h2>
-      <button className={styles.closeButton} onClick={handleClose}>Close</button> {/* Close button */}
-
-
+      <h2 className = {styles.archivetitle}>Archived Consultation Records</h2>
+      <button className={styles.closeButton} onClick={handleClose}>Close</button>
+      
       <div className={styles.responsesWrapper}>
-        <table className={styles.table}>
+        <table className={styles.tableArchive}>
           <thead>
             <tr>
               <th>User ID</th>
@@ -96,13 +99,14 @@ const ArchiveInbox = () => {
                   <td>{consultation.testID}</td>
                   <td>{consultation.note}</td>
                   <td>{consultation.status}</td>
-                  <td><button
+                  <td>
+                    <button
                       className={`${styles.actionButton} ${styles.delete}`}
                       onClick={() => deleteConsultation(consultation.testID)}
                     >
                       Delete
-                    </button></td>
-                  
+                    </button>
+                    </td>
                 </tr>
               ))
             ) : (
@@ -112,6 +116,7 @@ const ArchiveInbox = () => {
             )}
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );

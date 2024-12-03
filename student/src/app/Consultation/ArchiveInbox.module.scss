@@ -1,234 +1,163 @@
-/* Variables */
-$bg-dark: #ffffff; /* Dark form background */
-$bg-light: #e9E9E9; /* Light submit button background */
-$font-light: #000000; /* Light font color for labels */
-$font-dark: #444444; /* Dark font color */
-$hover-bg: #D2D2D2; /* Hover background for submit button */
-$hover-font: black; /* Hover font color for submit button */
-$border-dark: #2c2c2c; /* Dark border color */
-
-/* Form Styles */
-.consulForm {
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  position:absolute;
-  left: 20%;
-  top: 17%; 
-  flex-direction: column;
   justify-content: center;
-  background: linear-gradient(135deg, #ffffff, #ffffff);
-  border: 1px solid #e0e0e0; // Subtle border
-  border-radius: 8px; // Rounded corners
-  padding: 20px;
-  width: 20%;
-  margin: 0 auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3); 
+  transition: background-color 0.3s ease-in-out;
+  z-index: 999;
 
-  @media (max-width: 768px) {
-    max-width: 100%; // Allow form to take full width on smaller screens
-    padding: 15px;
-  }
-}
-
-.formCon {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; // Space between fields
-}
-
-.conLabel {
-  font-size: 14px;
-  font-weight: 600;
-  color: #000000; // Dark gray for text
-  margin-bottom: 5px;
-}
-
-.conInput,
-select {
-  width: 95%; /* Ensure full width */
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff; // White input background
-  color: #333; // Dark text
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-
-  &:focus {
-    border-color: #0C3C78; // Blue focus border
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); // Blue focus shadow
-    outline: none;
-  }
-}
-
-.conLabelCheck {
-  margin-left: 10px; // Space from label
-  transform: scale(1.2); // Slightly larger checkbox
-}
-
-.conSubmit {
-  align-self: center;
-  padding: 10px 15px;
-  font-size: 16px;
-  font-weight: bold;
-  width: 30%;
-  color: #fff; // White text
-  background-color: #AF1740; // Blue background
-  border: none;
-  border-radius: 15%;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-
-  &:hover {
-    background-color: #AF1740; // Darker blue on hover
-    transform: translateY(-2px); // Lift effect
-  }
-
-  &:active {
-    background-color: #969696; // Even darker on click
-    transform: translateY(0); // Reset lift
+  &.darkOverlay {
+    background-color: rgba(0, 0, 0, 0.7); 
   }
 
   @media (max-width: 768px) {
-    width: 100%; /* Full width button on smaller screens */
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: flex-start; 
   }
 }
-
-.consulTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 2rem; /* Add space between form and table */
-}
-
-.consulTable th, .consulTable td {
-  padding: 12px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-.consulTable th {
-  background-color: #f4f4f4;
-}
-
-.consulTable tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.consulTable tr:hover {
-  background-color: #f1f1f1;
-}
-
-// for the table of consultations
 
 .tableContainer {
-  display: flex;
-  position: fixed; /* Keep the fixed positioning */
-  flex-direction: column;
-  width: 60%;
-  right: 10%;
-  bottom: 50%; /* Positioned vertically in the middle */
-  margin: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
+  background-color: #fff;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  padding: 20px;
+  width: 80%;
+  max-width: 900px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000; 
+  position: relative;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 20%;
+    padding: 15px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    margin: 20%;
+    padding: 10px;
 }
 
-
-h2 {
+.archivetitle {
   text-align: center;
-  margin-bottom: 15px;
-  color: #4e4e4e;
-}
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table th,
-.table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-  color:#4e4e4e;
-}
-
-.table th {
-  background-color: #AF1740;
-  color: white;
-}
-
-.table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.table tr:hover {
-  background-color: #ddd;
-}
-
-.responsesWrapper {
-  max-height: 385px;  // Adjust the height as per your design needs
-  overflow-y: auto;   // Enable vertical scrolling when content overflows
-  margin-top: 10px;   // Optional, for some space between elements
-}
-
-// Define a base style for all buttons
-.actionButton {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-
-  &:hover {
-    transform: scale(1.05);
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
   }
 
-  &:active {
-    transform: scale(0.95);
-  }
-
-  &.delete {
-    background-color: #AF1740; // Red for delete
-    color: white;
-
-    &:hover {
-      background-color: #FFB3B3; // Darker red
-    }
-  }
-
-  &.cancel {
-    background-color: #0C3C78; // Yellow for cancel
-    color: black;
-
-    &:hover {
-      background-color: #A8C8FF; // Darker yellow
-    }
-  }
-
-  &.archive {
-    background-color: #1E5128; // Yellow for cancel
-    color: black;
-
-    &:hover {
-      background-color: #837a06; // Darker yellow
-    }
+  @media (max-width: 480px) {
+    font-size: 1rem;
   }
 }
+
 .closeButton {
-  background-color: #AF1740;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 14px;
+  background: #4d4d4d ;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #4d4d4db6 ;
+  }
+  @media (max-width: 768px) {
+    top: 5px;
+    right: 5px;
+    padding: 4px 8px;
+  }
+
+  @media (max-width: 480px) {
+    top: 5px;
+    right: 5px;
+    padding: 3px 6px;
+  }
 }
 
-.closeButton:hover {
-  background-color: #FFB3B3;
+.responsesWrapper {
+  max-height: 500px;
+  overflow-y: auto;
 }
+
+.tableArchive {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  color:#4e4e4e;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
+}
+
+}
+
+.tableArchive th,
+.tableArchive td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+    
+  }
+
+ .tableArchive th {
+    background-color: #cc63b5e1 ;
+    color: white;
+  }
+
+  .tableArchive tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .tableArchive tr:hover {
+    background-color: #b9b9b9e1;
+  }
+ 
+  .actionButton {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &.delete {
+      background-color: #b62e2e;
+      color: #fff;
+
+      &:hover {
+        background-color: #B94d4dce ;
+      }
+    }
+    @media (max-width: 768px) {
+      padding: 4px 8px;
+      font-size: 0.8rem;
+    }
+  
+    @media (max-width: 480px) {
+      padding: 3px 6px;
+      font-size: 0.75rem;
+    }
+  }
