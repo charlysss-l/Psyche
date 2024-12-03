@@ -70,15 +70,18 @@ const IqOMR: React.FC = () => {
     });
   };
 
-  const validateTextInImage = async (file: File): Promise<boolean> => {
-    const text = await extractTextFromImage(file);
-    return text.includes("IQ Test Answer Sheet");
+  const validateImageContainsStar = async (file: File): Promise<boolean> => {
+    try {
+      const result = await Tesseract.recognize(file, 'eng');
+      const extractedText = result.data.text;
+      console.log("Extracted Text:", extractedText); // Debugging: Log extracted text
+      return extractedText.includes('*'); // Check for the star symbol
+    } catch (error) {
+      console.error("Error extracting text from image:", error);
+      return false; // Return false if text extraction fails
+    }
   };
   
-  const extractTextFromImage = async (file: File): Promise<string> => {
-    const result = await Tesseract.recognize(file, 'eng');
-    return result.data.text;
-  };
   
   const validateBackgroundColor = async (file: File): Promise<boolean> => {
     return new Promise((resolve) => {
@@ -144,14 +147,15 @@ const IqOMR: React.FC = () => {
         return;
       }
 
-      // Validate text in the image
-    const hasValidText = await validateTextInImage(selectedFile);
-    if (!hasValidText) {
-      alert('Invalid image: Missing "IQ Test Answer Sheet" text.');
-      setLoading(false);  // Hide loading spinner on failure
-
+      // Validate image contains a star
+    const containsStar = await validateImageContainsStar(selectedFile);
+    if (!containsStar) {
+      alert('Invalid image: Missing a star symbol (*) in the answer sheet.');
+      setLoading(false); // Hide loading spinner on failure
       return;
     }
+
+     
 
     // Validate background color
     const isValidBackground = await validateBackgroundColor(selectedFile);
