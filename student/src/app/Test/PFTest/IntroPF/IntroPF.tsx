@@ -21,18 +21,18 @@ const IntroPF: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1>What is 16 Personality Profile?</h1>
-      <p>
+      <h1 className={styles.pfintro}>What is 16 Personality Profile?</h1>
+      <p className= {styles.pfintroinfo}> 
         The Sixteen Personality Factor Questionnaire (16PF) is a comprehensive measure of normal range 
         personality found to be effective in a variety of settings where an in-depth assessment of the 
         whole person is needed.
       </p>
-      <p>
+      <p className= {styles.pfintroinfo}> 
         The 16PF Questionnaire is rooted in a well-established theory of individual differences and has a 
         lengthy history of empirical research. The majority of studies indicate that the 16PF is among 
         the top five normal-range instruments used in research and practice.
       </p>
-      <p>
+      <p className= {styles.pfintroinfo}> 
         The Personality Traits Test has been utilized in numerous Philippine research in a variety of settings, 
         such as education and human resource management. The degree to which these Western conceptions of 
         personality fit the Filipino environment is still being investigated. Personality psychology in the 
@@ -40,8 +40,8 @@ const IntroPF: React.FC = () => {
       </p>
 
       {/* Terms and Conditions Section */}
-      <h1>Terms and Conditions</h1>
-      <p>
+      <h1 className={styles.termsandcontionpf}>Terms and Conditions</h1>
+      <p className= {styles.pfintroinfo}> 
         By using this test, you agree to the following terms and conditions. Please read these terms carefully before proceeding with the test. 
         If you do not agree with any of these terms, you should not access or use the test. 
       </p>
