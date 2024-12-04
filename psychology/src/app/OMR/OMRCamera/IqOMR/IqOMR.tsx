@@ -381,8 +381,8 @@ const IqOMR: React.FC = () => {
         {/* Display image preview if available */}
         {imagePreview && (
           <div className={styles.imagePreview}>
-            {/* <img src={imagePreview} alt="Image Preview" className={styles.previewImage} /> */}
-            <img src={imagePreview} alt="Rotating Image" />
+            <img src={imagePreview} alt="Image Preview" className={styles.previewImage} />
+            {/* <img src={imagePreview} alt="Rotating Image" /> */}
 
           </div>
         )}
