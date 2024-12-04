@@ -4,6 +4,9 @@ import { initializeApp } from 'firebase/app';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './IqOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
+import Tesseract from 'tesseract.js';
+
+
 
 
 // Initialize Firebase with your configuration
@@ -29,6 +32,9 @@ const IqOMR: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [omrScore, setOmrScore] = useState<number | null>(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);  // Loading state for spinner
+
+  
 
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,30 +50,229 @@ const IqOMR: React.FC = () => {
       reader.readAsDataURL(file); // Read the file as a data URL
     }
   };
+  
 
+  const validateImageOrientation = (file: File): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        img.onload = () => {
+          const isPortrait = img.width < img.height; // Check if image is portrait
+          resolve(isPortrait);
+        };
+        img.onerror = reject;
+        img.src = e.target?.result as string;
+      };
+      
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const validateTextInImage = async (file: File): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = async () => {
+          let angle = 0;
+          const maxRotation = 360;  // Max rotation in degrees
+          const rotationStep = 5;   // Rotation step in degrees (you can adjust for faster/slower rotation)
+          const maxAttempts = maxRotation / rotationStep;
+          const maxTime = 180 * 1000; // 90 seconds in milliseconds
+          let timeoutReached = false;
+
+          // Set a timeout to stop after 90 seconds
+        const timeout = setTimeout(() => {
+          timeoutReached = true;
+          resolve(false); // Stop and resolve with false if time exceeded
+        }, maxTime);
+
+  
+          // Create a canvas to rotate and process the image
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            reject('Canvas context not available');
+            return;
+          }
+  
+          // Set canvas size to image size
+          canvas.width = img.width;
+          canvas.height = img.height;
+
+          // Function to render the rotated image
+        const renderImage = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.save();
+          ctx.translate(canvas.width / 2, canvas.height / 2);
+          ctx.rotate((angle * Math.PI) / 180); // Convert angle to radians
+          ctx.drawImage(img, -img.width / 2, -img.height / 2);
+          ctx.restore();
+
+          // Update image preview state to show rotated image
+          setImagePreview(canvas.toDataURL()); // Display the rotated image in your component
+        };
+
+          while (angle < maxRotation) {
+            if (timeoutReached) {
+              clearTimeout(timeout);  // Clear the timeout if stopped early
+              return;  // Exit if timeout was reached
+            }
+            
+  
+            // Perform OCR using Tesseract.js
+            try {
+              renderImage(); // Render the rotated image at the current angle
+
+              const { data: { text } } = await Tesseract.recognize(canvas.toDataURL(), 'eng');
+              console.log(`OCR Text at ${angle} degrees:`, text);
+  
+              // Check if the text includes the word "PF"
+              if (text.toLowerCase().includes('iq')) {
+                clearTimeout(timeout);  // Clear the timeout if text is found
+                console.log('Text found!');
+                resolve(true); // Text found, stop and resolve
+                return;
+              }
+            } catch (err) {
+              reject(err);
+              return;
+            }
+  
+            // Increment the angle by the rotation step
+            angle += rotationStep;
+  
+          }
+
+          // If we have checked all rotations and didn't find the text, reject
+          clearTimeout(timeout);  // Clear the timeout if finished within time limit
+          resolve(false);
+        };
+        img.onerror = reject;
+        img.src = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+  
+  
+  
+  
+  const validateBackgroundColor = async (file: File): Promise<boolean> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(false);
+            return;
+          }
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+          
+          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const pixels = imgData.data;
+          let totalLuminance = 0;
+          for (let i = 0; i < pixels.length; i += 4) {
+            const r = pixels[i];
+            const g = pixels[i + 1];
+            const b = pixels[i + 2];
+            const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+            totalLuminance += luminance;
+          }
+          const avgLuminance = totalLuminance / (pixels.length / 4);
+          resolve(avgLuminance > 200); // Higher value ensures the background is light
+        };
+        img.src = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  
+  
   const handleUpload = async () => {
     if (!selectedFile) return;
 
+    setLoading(true);  // Show loading spinner when upload starts
+
+  
     try {
       const fileName = `uploads/OMR/${uuidv4()}_${selectedFile.name}`;
       const storageRef = ref(storage, fileName);
+  
+      // Check if the file is a valid image format
+      if (!selectedFile.type.startsWith('image/')) {
+        alert('Please upload a valid image file.');
+        setLoading(false);  // Hide loading spinner on failure
 
+        return;
+      }
+  
+      // Validate image orientation (portrait)
+      const isPortrait = await validateImageOrientation(selectedFile);
+      if (!isPortrait) {
+        alert('Please upload a portrait-oriented IQ answer sheet.');
+        setLoading(false);  // Hide loading spinner on failure
+
+        return;
+      }
+
+      // Validate if the image contains "Name"
+    const isValidText = await validateTextInImage(selectedFile);
+    if (!isValidText) {
+      alert('Invalid image: The word "IQ" is not found in the image.');
+      setLoading(false);
+      return;
+    }
+
+     
+
+    // Validate background color
+    const isValidBackground = await validateBackgroundColor(selectedFile);
+    if (!isValidBackground) {
+      alert('Invalid image: Background is not predominantly white.');
+      setLoading(false);  // Hide loading spinner on failure
+
+      return;
+    }
+
+      
+  
       // Upload the file to Firebase
       await uploadBytes(storageRef, selectedFile);
-
+  
       // Get the download URL
       const downloadURL = await getDownloadURL(storageRef);
-      setUploadURL(downloadURL); // This URL will be used by the Python backend
-
+      setUploadURL(downloadURL);
+  
       console.log("File uploaded successfully:", downloadURL);
-      setImagePreview(downloadURL); // Display the uploaded image here
+      setImagePreview(downloadURL);
     } catch (error) {
       console.error("Error uploading file:", error);
+  
+      if ((error as { code: string }).code === 'storage/unauthorized') {
+        alert('CORS error: Please upload a valid answer sheet in the correct format.');
+      } else {
+        alert('Error uploading image. Please try again.');
+      }
+    } finally {
+      setLoading(false);  // Hide loading spinner regardless of success or failure
     }
   };
+  
 
   const handleOMRProcessing = async () => {
     if (!uploadURL) return;
+
+    setLoading(true);  // Show loading spinner while processing OMR
+
   
     try {
       const response = await fetch('http://127.0.0.1:5000/process_omr_IQ', {
@@ -88,6 +293,9 @@ const IqOMR: React.FC = () => {
       setOmrScore(data.score); // Assuming data.score is a number
     } catch (error) {
       console.error("Error processing OMR:", error);
+    } finally {
+      setLoading(false);  // Hide loading spinner after processing is done
+
     }
   };
   
@@ -131,15 +339,34 @@ const IqOMR: React.FC = () => {
       if (context) {
         canvasRef.current.width = videoRef.current.videoWidth;
         canvasRef.current.height = videoRef.current.videoHeight;
+  
+        // Get the video dimensions
+        const videoWidth = videoRef.current.videoWidth;
+        const videoHeight = videoRef.current.videoHeight;
+  
+        // If the video is in landscape mode (width > height), rotate the canvas
+        if (videoWidth > videoHeight) {
+          context.translate(canvasRef.current.width / 4, canvasRef.current.height / 2);
+          context.rotate(Math.PI / -2);  // Rotate 90 degrees
+          context.translate(-canvasRef.current.height / 2, -canvasRef.current.width / 2);
+        }
+  
+        // Draw the image on the canvas
         context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
+  
+        // Convert the canvas content to a base64 image URL
         const imageUrl = canvasRef.current.toDataURL('image/png');
+  
+        // Set the image preview and selected file
         setImagePreview(imageUrl);
         setSelectedFile(dataURLtoFile(imageUrl, 'captured-image.png'));
+  
+        // Deactivate the camera after capturing
         setIsCameraActive(false);
       }
     }
   };
-
+  
   const handleCancelCamera = () => {
     setIsCameraActive(false);
   };
@@ -170,9 +397,22 @@ const IqOMR: React.FC = () => {
         {/* Display image preview if available */}
         {imagePreview && (
           <div className={styles.imagePreview}>
-            <img src={imagePreview} alt="Image Preview" className={styles.previewImage} />
+            {/* <img src={imagePreview} alt="Image Preview" className={styles.previewImage} /> */}
+            <img src={imagePreview} alt="Rotating Image" />
+
           </div>
         )}
+
+        {/* Show loading spinner while uploading or processing */}
+        {loading && (
+  <div className={styles.spinnerContainer}>
+    <div className={styles.spinner}>
+      <div className={styles.spinnerCircle}></div>
+    </div>
+    <p className={styles.loadingText}>Please wait a moment...</p>
+  </div>
+)}
+
   
         <div className={styles.cameraWrapper}>
           {isCameraActive ? (
@@ -223,10 +463,10 @@ const IqOMR: React.FC = () => {
   
       {/* Instruction Container */}
       <div className={styles.instructionContainer}>
-        <h2>Instructions</h2>
+        <h1>Instructions</h1>
         <p>1. Choose an image of your OMR sheet using the "Choose Image" button.</p>
         <p>2. Alternatively, capture an image using your camera.</p>
-        <p>3. Upload the image to the system by clicking the "Upload Image" button.</p>
+        <p>3. Upload a clear image of the IQ Test Answer Sheet to the system by clicking the "Upload Image" button.</p>
         <p>4. Process the uploaded image to calculate your OMR score.</p>
         <p>5. Save and interpret your score to view detailed results.</p>
       </div>

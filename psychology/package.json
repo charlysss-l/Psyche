@@ -22,6 +22,7 @@
     "react-webcam": "^7.2.0",
     "run": "^1.5.0",
     "sass": "^1.80.3",
+    "tesseract.js": "^5.1.1",
     "uuid": "^11.0.3",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"

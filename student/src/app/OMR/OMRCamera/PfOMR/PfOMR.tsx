@@ -65,6 +65,15 @@ const PfOMR: React.FC = () => {
           const maxRotation = 360;  // Max rotation in degrees
           const rotationStep = 5;   // Rotation step in degrees (you can adjust for faster/slower rotation)
           const maxAttempts = maxRotation / rotationStep;
+          const maxTime = 180 * 1000; // 90 seconds in milliseconds
+          let timeoutReached = false;
+
+          // Set a timeout to stop after 90 seconds
+        const timeout = setTimeout(() => {
+          timeoutReached = true;
+          resolve(false); // Stop and resolve with false if time exceeded
+        }, maxTime);
+
   
           // Create a canvas to rotate and process the image
           const canvas = document.createElement('canvas');
@@ -77,23 +86,38 @@ const PfOMR: React.FC = () => {
           // Set canvas size to image size
           canvas.width = img.width;
           canvas.height = img.height;
-  
+
+          // Function to render the rotated image
+        const renderImage = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.save();
+          ctx.translate(canvas.width / 2, canvas.height / 2);
+          ctx.rotate((angle * Math.PI) / 180); // Convert angle to radians
+          ctx.drawImage(img, -img.width / 2, -img.height / 2);
+          ctx.restore();
+
+          // Update image preview state to show rotated image
+          setImagePreview(canvas.toDataURL()); // Display the rotated image in your component
+        };
+
           while (angle < maxRotation) {
-            // Clear the canvas and rotate the image
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.save();
-            ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.rotate((angle * Math.PI) / 180); // Convert angle to radians
-            ctx.drawImage(img, -img.width / 2, -img.height / 2);
-            ctx.restore();
+            if (timeoutReached) {
+              clearTimeout(timeout);  // Clear the timeout if stopped early
+              return;  // Exit if timeout was reached
+            }
+            
   
             // Perform OCR using Tesseract.js
             try {
+              renderImage(); // Render the rotated image at the current angle
+
               const { data: { text } } = await Tesseract.recognize(canvas.toDataURL(), 'eng');
               console.log(`OCR Text at ${angle} degrees:`, text);
   
               // Check if the text includes the word "PF"
               if (text.toLowerCase().includes('pf')) {
+                clearTimeout(timeout);  // Clear the timeout if text is found
+                console.log('Text found!');
                 resolve(true); // Text found, stop and resolve
                 return;
               }
@@ -105,11 +129,11 @@ const PfOMR: React.FC = () => {
             // Increment the angle by the rotation step
             angle += rotationStep;
   
-            // If we have checked all rotations and didn't find the text, reject
-            if (angle >= maxRotation) {
-              resolve(false);
-            }
           }
+
+          // If we have checked all rotations and didn't find the text, reject
+          clearTimeout(timeout);  // Clear the timeout if finished within time limit
+          resolve(false);
         };
         img.onerror = reject;
         img.src = e.target?.result as string;
@@ -355,7 +379,9 @@ const PfOMR: React.FC = () => {
       {/* Display image preview if available */}
       {imagePreview && (
         <div className={styles.imagePreview}>
-          <img src={imagePreview} alt="Image Preview" className={styles.previewImage} />
+          {/* <img src={imagePreview} alt="Image Preview" className={styles.previewImage} /> */}
+          <img src={imagePreview} alt="Rotating Image" />
+
         </div>
       )}
 
