@@ -1,0 +1,35 @@
+.darkModeButton {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.darkModeButton:hover {
+  background-color: rgba(255, 255, 255, 0);
+  opacity: 0.5;
+}
+
+:global body.dark-mode {
+  background-color: #121212; /* Dark background */
+  color: #ffffff; /* Light font color for dark mode */
+}
+:global body {
+  background-color: #ffffff; /* Light background */
+  color: #000000; /* Dark font color for light mode */
+}
+
+:global body.dark-mode p {
+  color: #949393;
+}
+:global body.dark-mode h1 {
+  color: #f592e0;
+}
+:global body.dark-mode a, :global body.dark-mode h2 {
+  color: #b4b4b4;
+}
+:global body.dark-mode .navItem:hover {
+  border-bottom: 1px solid #0f9af7;
+}/*# sourceMappingURL=darkMode.module.css.map */

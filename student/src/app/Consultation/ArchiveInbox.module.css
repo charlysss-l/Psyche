@@ -1,0 +1,167 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease-in-out;
+  z-index: 999;
+}
+.overlay.darkOverlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+@media (max-width: 768px) {
+  .overlay {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 480px) {
+  .overlay {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+.tableContainer {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 80%;
+  max-width: 900px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  position: relative;
+}
+@media (max-width: 768px) {
+  .tableContainer {
+    width: 100%;
+    margin: 20%;
+    padding: 15px;
+  }
+}
+@media (max-width: 480px) {
+  .tableContainer {
+    width: 100%;
+    margin: 20%;
+    padding: 10px;
+  }
+}
+.tableContainer .archivetitle {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  .tableContainer .archivetitle {
+    font-size: 1.25rem;
+  }
+}
+@media (max-width: 480px) {
+  .tableContainer .archivetitle {
+    font-size: 1rem;
+  }
+}
+.tableContainer .closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #4d4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.tableContainer .closeButton:hover {
+  background-color: rgba(77, 77, 77, 0.7137254902);
+}
+@media (max-width: 768px) {
+  .tableContainer .closeButton {
+    top: 5px;
+    right: 5px;
+    padding: 4px 8px;
+  }
+}
+@media (max-width: 480px) {
+  .tableContainer .closeButton {
+    top: 5px;
+    right: 5px;
+    padding: 3px 6px;
+  }
+}
+.tableContainer .responsesWrapper {
+  max-height: 500px;
+  overflow-y: auto;
+}
+.tableContainer .tableArchive {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  color: #4e4e4e;
+}
+@media (max-width: 768px) {
+  .tableContainer .tableArchive {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 480px) {
+  .tableContainer .tableArchive {
+    font-size: 0.8rem;
+  }
+}
+
+.tableArchive th,
+.tableArchive td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.tableArchive th {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+  color: white;
+}
+
+.tableArchive tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tableArchive tr:hover {
+  background-color: rgba(185, 185, 185, 0.8823529412);
+}
+
+.actionButton {
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.actionButton.delete {
+  background-color: #b62e2e;
+  color: #fff;
+}
+.actionButton.delete:hover {
+  background-color: rgba(185, 77, 77, 0.8078431373);
+}
+@media (max-width: 768px) {
+  .actionButton {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 480px) {
+  .actionButton {
+    padding: 3px 6px;
+    font-size: 0.75rem;
+  }
+}/*# sourceMappingURL=ArchiveInbox.module.css.map */

@@ -1,0 +1,150 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.userinfo_pr {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  color: #555;
+  padding: 0 15px;
+}
+
+.userIDDisplay {
+  font-weight: bold;
+  color: rgba(204, 99, 181, 0.8823529412);
+}
+
+.pr_label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.pr_input {
+  width: 97%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.pr_input:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(204, 99, 181, 0.8823529412);
+}
+
+.buttonContainer {
+  text-align: center;
+}
+
+.submitButton {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+}
+
+.updateMessageError,
+.updateMessageSuccess {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  z-index: 1000;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  padding: 15px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1rem;
+  animation: slideDown 0.5s ease, fadeOut 2s ease 2s forwards;
+}
+
+.updateMessageSuccess {
+  background-color: green;
+  color: white;
+  border: 1px solid green;
+}
+
+.updateMessageError {
+  background-color: red;
+  color: white;
+  border: 1px solid red;
+}
+
+@keyframes slideDown {
+  from {
+    top: -50px;
+    opacity: 0;
+  }
+  to {
+    top: 10px;
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  .userinfo_pr {
+    font-size: 1.3rem;
+  }
+  .infoContainer {
+    padding: 0 10px;
+  }
+  .pr_input {
+    font-size: 0.9rem;
+  }
+  .submitButton {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
+@media (max-width: 480px) {
+  .userinfo_pr {
+    font-size: 1.1rem;
+  }
+  .pr_input {
+    font-size: 0.85rem;
+  }
+  .submitButton {
+    font-size: 1rem;
+    padding: 8px 18px;
+  }
+}/*# sourceMappingURL=page.module.css.map */

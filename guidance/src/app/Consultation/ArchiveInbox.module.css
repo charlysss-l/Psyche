@@ -1,0 +1,222 @@
+/* Variables */
+/* Dark form background */
+/* Light submit button background */
+/* Light font color for labels */
+/* Dark font color */
+/* Hover background for submit button */
+/* Hover font color for submit button */
+/* Dark border color */
+/* Form Styles */
+.consulForm {
+  display: flex;
+  position: absolute;
+  left: 20%;
+  top: 17%;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffffff, #ffffff);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  width: 20%;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 768px) {
+  .consulForm {
+    max-width: 100%;
+    padding: 15px;
+  }
+}
+
+.formCon {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.conLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 5px;
+}
+
+.conInput,
+select {
+  width: 95%; /* Ensure full width */
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.conInput:focus,
+select:focus {
+  border-color: #0C3C78;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+.conLabelCheck {
+  margin-left: 10px;
+  transform: scale(1.2);
+}
+
+.conSubmit {
+  align-self: center;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 30%;
+  color: #fff;
+  background-color: #AF1740;
+  border: none;
+  border-radius: 15%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.conSubmit:hover {
+  background-color: #AF1740;
+  transform: translateY(-2px);
+}
+.conSubmit:active {
+  background-color: #969696;
+  transform: translateY(0);
+}
+@media (max-width: 768px) {
+  .conSubmit {
+    width: 100%; /* Full width button on smaller screens */
+  }
+}
+
+.consulTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem; /* Add space between form and table */
+}
+
+.consulTable th, .consulTable td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.consulTable th {
+  background-color: #f4f4f4;
+}
+
+.consulTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.consulTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.tableContainer {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  top: 40%;
+  width: 60%;
+  right: 20%;
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #4e4e4e;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  color: #4e4e4e;
+}
+
+.table th {
+  background-color: #AF1740F;
+  color: white;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tr:hover {
+  background-color: #ddd;
+}
+
+.responsesWrapper {
+  max-height: 385px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.actionButton {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.actionButton:hover {
+  transform: scale(1.05);
+}
+.actionButton:active {
+  transform: scale(0.95);
+}
+.actionButton.restore {
+  background-color: #2bc552;
+  color: white;
+}
+.actionButton.restore:hover {
+  background-color: #08912a;
+}
+.actionButton.cancel {
+  background-color: #2881b4;
+  color: black;
+}
+.actionButton.cancel:hover {
+  background-color: #034a74;
+}
+.actionButton.archive {
+  background-color: #b4ab28;
+  color: black;
+}
+.actionButton.archive:hover {
+  background-color: #837a06;
+}
+
+.closeButton {
+  background-color: #AF1740;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 14px;
+}
+
+.closeButton:hover {
+  background-color: #ff7875;
+}/*# sourceMappingURL=ArchiveInbox.module.css.map */

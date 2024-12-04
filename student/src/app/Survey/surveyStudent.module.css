@@ -1,0 +1,149 @@
+:root {
+  font-family: Arial, sans-serif;
+}
+
+.surveyListContainer {
+  padding: 20px;
+  background-color: #d2D2D2;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.surveyListContainer h2 {
+  font-size: 1.8rem;
+  color: #000000;
+  margin-bottom: 20px;
+}
+.surveyListContainer h2 .surveyCount {
+  font-size: 1.2rem;
+  color: rgba(204, 99, 181, 0.8823529412);
+  margin-left: 10px;
+}
+
+.surveyCard {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.surveyCard:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+  transition: background-color 0.3s, transform 0.2s;
+}
+.surveyCard h3 {
+  font-size: 1.5rem;
+  color: #000000;
+  margin-bottom: 10px;
+}
+.surveyCard p {
+  font-size: 1rem;
+  color: #555;
+  margin: 5px 0;
+}
+.surveyCard .filters {
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #E9E9E9;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.surveyCard .filters h4 {
+  font-size: 1.2rem;
+  color: rgba(204, 99, 181, 0.8823529412);
+  margin-bottom: 10px;
+}
+.surveyCard .filters table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  text-align: left;
+}
+.surveyCard .filters table th,
+.surveyCard .filters table td {
+  padding: 12px 15px;
+  border: 1px solid #E9E9E9;
+  font-size: 1rem;
+}
+.surveyCard .filters table th {
+  background-color: #ccc;
+  color: #000000;
+  font-weight: bold;
+}
+.surveyCard .filters table td {
+  background-color: #fff;
+  color: #555;
+}
+.surveyCard .filters table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+.surveyCard .filters table tr:hover {
+  background-color: #e9f5ff;
+}
+.surveyCard .surveyActions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+.surveyCard .surveyActions .viewDetailsButton {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  background-color: #000000;
+  text-align: center;
+}
+.surveyCard .surveyActions .viewDetailsButton:hover {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+  border: none;
+  color: white;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.pagination button {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+.pagination button:hover {
+  background-color: rgba(190, 62, 162, 0.8823529412);
+}
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.doneButton {
+  background-color: #1E5128;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.doneButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}/*# sourceMappingURL=surveyStudent.module.css.map */

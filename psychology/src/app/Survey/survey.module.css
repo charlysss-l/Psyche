@@ -1,0 +1,117 @@
+.formContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #e9e9e9;
+  border-radius: 8px;
+}
+
+.survTitleh2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #000000;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+.formGroup label {
+  font-weight: bold;
+}
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #e9e9e9;
+  border-radius: 4px;
+}
+.formGroup textarea {
+  min-height: 100px;
+}
+
+.filters {
+  margin-bottom: 2rem;
+}
+.filters h3 {
+  color: #000000;
+}
+.filters .filterGroup {
+  display: flex;
+  gap: 1rem;
+}
+.filters .filterGroup input {
+  flex: 1;
+}
+.filters .filterGroup .removeFilterBtn {
+  background-color: #AF1740;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.filters .addFilterBtn {
+  margin-top: 1rem;
+  background-color: #0C3C78;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sections {
+  margin-bottom: 2rem;
+}
+.sections h3 {
+  color: #000000;
+}
+.sections .section {
+  margin-bottom: 1.5rem;
+}
+.sections .section .question {
+  margin-bottom: 1rem;
+}
+.sections .section .choices {
+  margin-top: 1rem;
+}
+.sections .section .choices .choice {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.sections .section .addQuestionBtn,
+.sections .section .removeQuestionBtn,
+.sections .section .addChoiceBtn,
+.sections .section .addSectionBtn,
+.sections .section .removeChoiceBtn,
+.sections .section .removeSectionBtn {
+  background-color: #0C3C78;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.sections .section .removeQuestionBtn {
+  background-color: #AF1740;
+}
+.sections .section .removeChoiceBtn {
+  background-color: #AF1740;
+}
+.sections .section .removeSectionBtn {
+  background-color: #AF1740;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #0C3C78;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}/*# sourceMappingURL=survey.module.css.map */

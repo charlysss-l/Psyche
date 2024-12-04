@@ -1,0 +1,65 @@
+.userTitle {
+  font-size: 1.8rem;
+  color: black;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.tableUser {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgb(255, 252, 252);
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064);
+  border: 2px solid #e9e9e9;
+  font-family: "Roboto", sans-serif;
+}
+
+.tableUser th {
+  color: #000000;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  background-color: #f2f2f2;
+  border-bottom: 2px solid #e9e9e9;
+}
+
+.tableUser td {
+  color: #333;
+  padding: 5px;
+  font-size: 13px;
+  border-bottom: 2px solid #e9e9e9;
+}
+
+.button-action {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+.button-action:hover {
+  opacity: 0.9;
+}
+
+.edit {
+  background-color: #AF1740;
+  color: white;
+  margin: 10px;
+  width: 25%;
+}
+.edit:hover {
+  background-color: #ffa3a3;
+}
+
+.delete {
+  background-color: #0C3C78;
+  width: 25%;
+  margin: 10px;
+}
+.delete:hover {
+  background-color: #d0e2ff;
+}/*# sourceMappingURL=psychologyuser.module.css.map */

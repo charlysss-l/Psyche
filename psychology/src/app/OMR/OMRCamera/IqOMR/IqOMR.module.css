@@ -1,0 +1,213 @@
+.omrCameraContainer {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 18%;
+  top: 25%;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 30%;
+  margin: auto;
+  text-align: center;
+}
+.omrCameraContainer h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.fileInputWrapper {
+  margin-bottom: 15px;
+}
+.fileInputWrapper label {
+  font-size: 16px;
+  color: #ccc;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+.fileInputWrapper input[type=file] {
+  display: none;
+}
+
+.uploadLabel {
+  background-color: #333;
+  padding: 8px 16px;
+  border-radius: 5px;
+  color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.uploadLabel:hover {
+  background-color: #555;
+}
+
+.imagePreview {
+  margin-top: 20px;
+  max-width: 100%;
+}
+.imagePreview img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.cameraWrapper {
+  margin-top: 20px;
+}
+.cameraWrapper .video {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.cameraWrapper .cameraControls {
+  margin-top: 10px;
+}
+.cameraWrapper .cameraControls .captureButton, .cameraWrapper .cameraControls .cancelButton {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 10px;
+}
+.cameraWrapper .cameraControls .captureButton:hover, .cameraWrapper .cameraControls .cancelButton:hover {
+  background-color: #777;
+}
+.cameraWrapper .cameraControls .cancelButton {
+  background-color: #cc0000;
+}
+.cameraWrapper .openCameraButton {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+.cameraWrapper .openCameraButton:hover {
+  background-color: #666;
+}
+.cameraWrapper .fileInput {
+  margin-top: 20px;
+  display: block;
+  background-color: #444;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.cameraWrapper .fileInput:hover {
+  background-color: #666;
+}
+
+.uploadButton {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+.uploadButton:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+.uploadButton:hover {
+  background-color: #0056b3;
+}
+
+.uploadedImage {
+  margin-top: 20px;
+  text-align: left;
+}
+.uploadedImage p {
+  color: #ccc;
+  font-size: 14px;
+}
+.uploadedImage img {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.omrProcessButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+}
+.omrProcessButton:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+.omrProcessButton:hover {
+  background-color: #218838;
+}
+
+canvas {
+  display: none;
+}
+
+.saveScoreButton {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+.saveScoreButton:hover {
+  background-color: #0056b3;
+}
+
+.instructionContainer {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background-color: #303030; /* Light background for clarity */
+  padding: 20px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  width: 25%;
+  position: absolute;
+  right: 18%;
+  top: 25%;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.instructionContainer p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  color: #e0e0e0;
+}
+
+.instructionContainer h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}/*# sourceMappingURL=IqOMR.module.css.map */

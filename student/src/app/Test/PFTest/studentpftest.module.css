@@ -1,0 +1,147 @@
+.form {
+  background-color: #ffffff;
+  padding: 20px;
+  padding-bottom: 120px; /* Increase padding for pagination */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px auto;
+  position: relative;
+}
+
+/* Title and other text */
+p {
+  color: #45474B; /* Dark gray for general text */
+}
+
+/* Input Fields */
+input[type=text],
+input[type=number],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #ffffff; /* White background for inputs */
+  color: #45474B; /* Dark gray text */
+  box-sizing: border-box;
+}
+
+input[type=text]:focus,
+input[type=number]:focus,
+select:focus {
+  border-color: #2E5266; /* Focus border color */
+  box-shadow: 0 0 5px rgba(46, 82, 102, 0.5); /* Light glow effect on focus */
+}
+
+/* Select dropdown styling */
+select {
+  background-color: #ffffff;
+  color: #45474B;
+}
+
+/* Labels */
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #45474B;
+}
+
+/* Question section styling */
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+
+.questionBox {
+  background-color: #ffffff; /* White background for each question box */
+  border: 1px solid #2E5266; /* Dark blue border */
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+/* Question box hover effect */
+.questionBox:hover {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Radio button and label styles */
+input[type=radio] {
+  margin-right: 10px;
+}
+
+/* Submit button styling */
+.submitPFbutton {
+  background-color: black;
+  color: white;
+}
+
+.submitPFbutton:hover {
+  background-color: #e8e6e2;
+  color: black;
+}
+
+/* Pagination styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  color: #333;
+  font-weight: bold;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: rgba(204, 99, 181, 0.8823529412); /* Darker shade on hover */
+}
+
+.pagination button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* Active page button */
+.pagination .active {
+  background-color: #1d3a46;
+  font-weight: bold;
+}
+
+.submitButton {
+  padding: 10px 15px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 40px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+}
+
+.highlight {
+  color: red;
+  font-weight: bold;
+}/*# sourceMappingURL=studentpftest.module.css.map */

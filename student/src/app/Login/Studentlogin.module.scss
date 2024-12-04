@@ -1,7 +1,7 @@
 $background-color: #ffffff00;
-$font-color: #000000;
-$button-bg-color: #000000;
-$button-hover-bg-color: #cc63b5e1;
+$font-color: #95A581;
+$button-bg-color: #334553; // Updated login button color
+$button-hover-bg-color: #f4a258;
 $error-color: red;
 
 @keyframes slideInFromLeft {
@@ -67,17 +67,16 @@ $error-color: red;
 .loginForm_h2 {
   font-size: 1.2rem;
   margin-top: 10px;
-  color: $font-color;
+  color: #000000;
 }
 
 .logLabel {
   display: block;
   margin: 10px 0 5px;
-  color: $font-color;
+  color: #000000; // Updated email and password label color
   font-size: 1rem;
   font-weight: normal; // Ensures the text is not bold
 }
-
 
 .logInput {
   width: 100%;
@@ -95,7 +94,7 @@ $error-color: red;
 }
 
 .submitButtonLog {
-  background-color: $button-bg-color;
+  background-color: $button-bg-color; // Updated button color
   color: white;
   padding: 12px 20px;
   border: none;
@@ -126,11 +125,11 @@ $error-color: red;
 
 .Signuplink {
   font-size: 17px;
-  color:  #cc63b5e1;
+  color:  #334553;
   cursor: pointer;
 }
 
 .Signuplink:hover {
-  border-bottom: 1px solid #cc63b5e1;
-  color: #cc63b5e1;
+  border-bottom: 1px solid #EFB836;
+  color: #EFB836;
 }

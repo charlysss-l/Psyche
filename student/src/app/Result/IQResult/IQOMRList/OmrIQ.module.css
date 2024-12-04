@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+.resultsTableIQ {
+  border-collapse: collapse;
+  font-size: 15px;
+  background-color: rgb(255, 252, 252);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064);
+  border: 1px solid rgba(158, 151, 151, 0.568627451);
+  width: 100%;
+}
+
+.resultsTableIQ th {
+  color: #333;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  background-color: rgb(245, 242, 242);
+  border-bottom: 1px solid rgba(158, 151, 151, 0.568627451);
+}
+
+.resultsTableIQ td {
+  text-align: center; /* Center-aligns text horizontally */
+  vertical-align: middle; /* Center-aligns text vertically */
+  padding: 5px;
+  color: #333;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(158, 151, 151, 0.568627451);
+}
+
+.eachResultIQ:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+  cursor: pointer;
+  background-color: rgb(245, 244, 244);
+  border: 1px solid rgba(158, 151, 151, 0.568627451);
+}
+
+.selected-choice-img {
+  width: 60px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.deleteButtonIQLIST {
+  width: 70px;
+  margin: 10px;
+  background-color: #b62e2e;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deleteButtonIQLIST:hover {
+  background-color: rgba(185, 77, 77, 0.8078431373);
+}
+
+.updateButtonIQLIST {
+  width: 70px;
+  margin: 10px;
+  background-color: #585858;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.updateButtonIQLIST:hover {
+  background-color: rgba(88, 88, 88, 0.7882352941);
+}
+
+.saveButtonIQLIST {
+  width: 70px;
+  margin: 10px;
+  background-color: #41865e;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.saveButtonIQLIST:hover {
+  background-color: rgba(6, 161, 71, 0.7137254902);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  background-color: #5a5a5a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+}
+
+.ageWarning {
+  color: red;
+  font-size: 60%;
+}/*# sourceMappingURL=OmrIQ.module.css.map */

@@ -1,0 +1,182 @@
+/* Main container for the section */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading for the section */
+.heading {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.subheading {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: rgb(1, 59, 1);
+  font-size: 25px;
+}
+
+/* Chart container styling */
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.resultTable table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.resultTable th,
+.resultTable td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.resultTable th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.resultTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.resultTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.leftMeaning {
+  color: rgb(218, 185, 0);
+  font-weight: bold;
+}
+
+.rightMeaning {
+  color: rgb(7, 160, 2);
+  font-weight: bold;
+}
+
+.average {
+  color: gray;
+  font-style: italic;
+}
+
+/* Share prompt section */
+.sharePrompt {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* Prompt text */
+.sharePrompt p {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Buttons for sharing result */
+.buttonYes,
+.buttonCancel {
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.buttonYes {
+  background-color: #41865e;
+  color: white;
+  margin-right: 10px;
+}
+
+.buttonYes:hover {
+  background-color: rgba(6, 161, 71, 0.7137254902);
+}
+
+.buttonCancel {
+  background-color: #b62e2e;
+  color: white;
+}
+
+.buttonCancel:hover {
+  background-color: rgba(185, 77, 77, 0.8078431373);
+}
+
+.pdfButton {
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.8823529412);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.pdfButton:hover {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+  transform: scale(1.05);
+}
+.pdfButton:active {
+  background-color: rgba(144, 38, 121, 0.8823529412);
+}
+.pdfButton:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.6); /* Add a custom focus ring */
+}
+
+.resultPage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.container {
+  flex: 2;
+  min-width: 50%;
+  margin-left: 10%;
+}
+
+.privacySection {
+  flex: 1;
+  min-width: 10%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 50%;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+}
+
+p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}/*# sourceMappingURL=studentpfresult.module.css.map */

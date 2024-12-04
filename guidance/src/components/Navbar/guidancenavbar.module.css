@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+/* Define color variables */
+/* Navbar Styles */
+.studentNavbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  flex-direction: column;
+  margin-left: 1%;
+  width: 100%;
+}
+
+/* Logo Section */
+.logoSection {
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logoSection h1 {
+  font-size: 24px;
+  margin: 0;
+  color: #f592e0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: inline-block;
+}
+
+.logoSection p {
+  font-size: 14px;
+  color: #000000;
+}
+
+/* Navigation Section */
+.navigationSection {
+  display: flex;
+  align-items: center;
+}
+
+.navList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.navItem {
+  margin-left: 30px;
+  border-radius: 0;
+}
+
+.navItem:hover {
+  border-bottom: 1px solid #f592e0;
+}
+
+/* Navigation Links */
+.navLink {
+  color: #000000;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+.navLink:hover {
+  color: rgb(94, 93, 93);
+}
+
+.navLink.active {
+  color: #f592e0;
+  font-weight: bold;
+  border-bottom: 2px solid #f592e0;
+}/*# sourceMappingURL=guidancenavbar.module.css.map */

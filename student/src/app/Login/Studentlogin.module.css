@@ -1,0 +1,127 @@
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0);
+  gap: 20px;
+  padding: 20px;
+}
+
+.imageContainer {
+  background-image: url("https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVzdCUyMHRha2luZ3xlbnwwfHwwfHx8MA%3D%3D");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 70vw;
+  border-radius: 10px;
+  animation: slideInFromLeft 1.5s ease-out;
+}
+
+.loginForm {
+  background-color: white;
+  padding: 40px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  animation: fadeIn 1.5s ease-out 0.5s;
+  animation-fill-mode: both;
+}
+
+.loginForm_h1 {
+  font-size: 2rem;
+  color: #95A581;
+}
+
+.loginForm_h2 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #000000;
+}
+
+.logLabel {
+  display: block;
+  margin: 10px 0 5px;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.logInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.logInput:focus {
+  border-color: #f2f2f2;
+  outline: none;
+}
+
+.submitButtonLog {
+  background-color: #334553;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.submitButtonLog:hover {
+  background-color: #f4a258;
+  color: rgb(255, 255, 255);
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.Signuplink_info {
+  color: black;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.Signuplink {
+  font-size: 17px;
+  color: #334553;
+  cursor: pointer;
+}
+
+.Signuplink:hover {
+  border-bottom: 1px solid #EFB836;
+  color: #EFB836;
+}/*# sourceMappingURL=Studentlogin.module.css.map */

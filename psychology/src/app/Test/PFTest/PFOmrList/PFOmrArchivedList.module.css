@@ -1,0 +1,140 @@
+.barContainerPF {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.resultsTable {
+  border-collapse: collapse;
+  font-size: 15px;
+  background-color: rgb(255, 252, 252);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064);
+  border: 1px solid rgba(158, 151, 151, 0.568627451);
+  width: 100%;
+}
+
+.resultsTable th {
+  color: #333;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  background-color: rgb(245, 242, 242);
+  border-bottom: 1px solid rgba(158, 151, 151, 0.568627451);
+}
+
+.resultsTable td {
+  text-align: center; /* Center-aligns text horizontally */
+  vertical-align: middle; /* Center-aligns text vertically */
+  padding: 5px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(158, 151, 151, 0.568627451);
+  color: #333;
+}
+
+.eachResultPF:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+  cursor: pointer;
+  background-color: rgb(245, 244, 244);
+  border: 1px solid rgba(158, 151, 151, 0.568627451);
+}
+
+.deleteButton {
+  background-color: red;
+  padding: 8px;
+}
+
+.deleteButton:hover {
+  background-color: rgb(230, 3, 3);
+}
+
+.leftMeaning {
+  color: rgb(218, 185, 0);
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.rightMeaning {
+  color: green;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.average {
+  color: gray;
+  font-style: italic;
+  font-size: 13px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  background-color: #5a5a5a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+}
+
+.responsesWrapper {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.responsesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsesTable th, .responsesTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.scoresTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.scoresTable th, .scoresTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.floatingContainer {
+  position: fixed; /* Positions it fixed relative to the viewport */
+  top: 50%; /* You can adjust the positioning */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers the container */
+  background-color: rgb(255, 255, 255); /* Optional: semi-transparent background */
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Ensures it appears on top of other content */
+  height: 70%;
+  width: 60%; /* Adjust as needed */
+  overflow: auto; /* Allows scrolling if content exceeds height */
+}
+
+.floatingContainer .resultsTableIQ {
+  width: 100%; /* Ensure the table takes full width */
+}/*# sourceMappingURL=PFOmrArchivedList.module.css.map */

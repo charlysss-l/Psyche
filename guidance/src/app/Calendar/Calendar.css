@@ -1,0 +1,182 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Slight slide effect */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Final position */
+  }
+}
+.requestList {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+h2, h3 {
+  text-align: center;
+  color: #000000;
+  margin-top: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  border: 1px solid #E9E9E9;
+  padding: 8px;
+}
+
+table th {
+  background-color: #bd2b2b;
+  color: #ffffff;
+}
+
+.submitAddSched {
+  background-color: #cf22a4;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 auto;
+  display: block;
+}
+.submitAddSched:hover {
+  background-color: #830b65;
+}
+
+.newSchedForm {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.newSchedlabel {
+  font-size: 17px;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.newSchedinput {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.newSchedinput:focus {
+  border-color: #000000;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.noAccepted {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
+
+.react-calendar {
+  height: 80%;
+  width: 85%;
+  color: white;
+  background-color: rgb(88, 88, 88);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-left: 220px;
+  animation: fadeIn 1s ease-in-out;
+  opacity: 0; /* Hidden initially */
+  animation-fill-mode: forwards; /* Retain final state after animation */
+  animation-delay: 0.2s; /* Optional delay for staggered effect */
+}
+
+.react-calendar__navigation {
+  background-color: rgba(133, 17, 17, 0);
+}
+
+.react-calendar__navigation button {
+  background-color: #f592e0;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin: 0 5px;
+  font-weight: bold;
+}
+
+.react-calendar__navigation button:hover {
+  background-color: #ac3893;
+}
+
+.react-calendar__tile {
+  height: 120px;
+  background-color: rgb(88, 88, 88);
+  border: 1px solid rgba(0, 0, 0, 0.126);
+  position: relative;
+  border-radius: 15px;
+}
+
+.react-calendar__tile:hover {
+  background-color: #dd8ba1;
+}
+
+.react-calendar__tile--active {
+  background-color: #92324b;
+}
+
+.react-calendar__month-view__days__day {
+  color: rgb(255, 255, 255);
+}
+
+.scheduledDate {
+  background-color: #AF1740 !important;
+  color: white;
+}
+
+.schedule-count {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: #AF1740;
+  color: white;
+  font-size: 15px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-weight: bold;
+}/*# sourceMappingURL=Calendar.css.map */

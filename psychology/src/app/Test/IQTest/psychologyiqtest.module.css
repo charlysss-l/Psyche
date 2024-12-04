@@ -1,0 +1,92 @@
+.linkIQliinks {
+  display: flex;
+  justify-content: space-around;
+}
+
+.table {
+  background-color: rgb(255, 252, 252);
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+  color: #333;
+}
+.table th:nth-child(even), .table td:nth-child(even) {
+  background-color: #f2f2f2;
+  color: black;
+}
+.table th {
+  background-color: rgb(245, 242, 242);
+  color: black;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+}
+
+.choice img {
+  width: 150px;
+  height: 130px;
+  margin: 20px;
+}
+
+.answer img {
+  width: 170px;
+  height: 130px;
+  margin: 15px;
+}
+
+.question img {
+  width: 400px;
+  height: 350px;
+  margin: 15px;
+}
+
+.testResultsLink {
+  display: flex;
+  width: 8%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #DC143C;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.testResultsLink:hover {
+  background-color: #01458d;
+}
+.testResultsLink:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.75);
+}/*# sourceMappingURL=psychologyiqtest.module.css.map */

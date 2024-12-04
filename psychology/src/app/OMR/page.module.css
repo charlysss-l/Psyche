@@ -1,0 +1,48 @@
+.OMRDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  max-width: 100%;
+  height: 50vh;
+}
+
+.OMRTITLE {
+  color: #0C3C78;
+  font-size: 50px;
+  margin: 0;
+}
+
+.OMRTITLE:hover {
+  color: #A8C8FF;
+}
+
+.OMRDesc {
+  font-size: 18px;
+  font-weight: 100;
+}
+
+.OMRbutton {
+  display: flex;
+  justify-content: space-between;
+}
+
+.OMRlinkOnline, .OMRLinkUpload {
+  text-decoration: none;
+  margin-right: 50px;
+  width: 200px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: #AF1740;
+  color: white;
+}
+
+.OMRlinkOnline:hover, .OMRLinkUpload:hover {
+  background-color: white;
+  border: 1px solid black;
+  color: #FFB3B3;
+}/*# sourceMappingURL=page.module.css.map */

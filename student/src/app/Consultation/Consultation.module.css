@@ -1,0 +1,225 @@
+@charset "UTF-8";
+.consultMain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .consultMain {
+    flex-direction: column;
+  }
+}
+
+.consulForm {
+  flex: 1;
+  margin-right: 20px;
+  background: linear-gradient(135deg, #ffffff, #ffffff);
+  border: 1px solid #e0e0e0;
+  padding: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .consulForm {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+}
+
+.formCon {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.conLabel {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.conInput,
+select {
+  width: 98%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.conInput:focus,
+select:focus {
+  border-color: #0C4C78;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+.conSubmit {
+  background: rgb(0, 0, 0);
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  align-self: center;
+  font-size: 16px;
+  width: 20%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.conSubmit:hover {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+  transform: translateY(-2px);
+}
+.conSubmit:active {
+  background-color: #969696;
+  transform: translateY(0);
+}
+@media (max-width: 768px) {
+  .conSubmit {
+    width: 100%;
+  }
+}
+
+.tableContainer {
+  flex: 2;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 600px;
+  overflow-y: auto;
+  transition: max-height 0.3s ease;
+}
+@media (max-width: 768px) {
+  .tableContainer {
+    flex: 1;
+    margin-top: 30px;
+    max-height: 400px;
+  }
+}
+
+.consultationlabel {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #4e4e4e;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  color: #4e4e4e;
+}
+
+.table th {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+  color: white;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tr:hover {
+  background-color: rgba(185, 185, 185, 0.8823529412);
+}
+
+.responsesWrapper {
+  max-height: 385px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.actionButton {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.actionButton:hover {
+  transform: scale(1.05);
+}
+.actionButton:active {
+  transform: scale(0.95);
+}
+.actionButton.delete {
+  background-color: #b62e2e;
+  color: white;
+}
+.actionButton.delete:hover {
+  background-color: rgba(185, 77, 77, 0.8078431373);
+}
+.actionButton.cancel {
+  background-color: #4e4e4e;
+  color: rgb(255, 255, 255);
+}
+.actionButton.cancel:hover {
+  background-color: rgba(97, 97, 97, 0.7960784314);
+}
+.actionButton.archive {
+  background-color: #afa43d;
+  color: rgb(255, 255, 255);
+}
+.actionButton.archive:hover {
+  background-color: rgba(131, 123, 6, 0.7176470588);
+}
+
+.archiveButton {
+  margin-left: 20px;
+  background-color: rgb(131, 131, 131);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.archiveButton:hover {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+  border-color: #A8C8FF;
+}
+
+.archiveButton:active {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+  transform: scale(0.98);
+}
+
+.archiveButton::before {
+  content: "✉️";
+  font-size: 18px;
+}
+
+.archiveButton::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 4px;
+  background-color: #AF1740;
+  margin: 0 auto;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.archiveButton:hover::after {
+  width: 80%;
+}
+
+.conText {
+  font-size: 20px;
+  text-align: center;
+}/*# sourceMappingURL=Consultation.module.css.map */

@@ -1,0 +1,130 @@
+:root {
+  font-family: "Arial", sans-serif;
+}
+
+.surveyDetailsContainer {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.surveyDetailsContainer .surveyh1Title {
+  font-size: 1.5rem;
+  color: black;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+.surveyDetailsContainer p {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.sectionContainer {
+  background-color: white;
+  padding: 30px;
+  margin-bottom: 45px;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  transition: all 0.3s ease;
+}
+.sectionContainer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+.sectionContainer h3 {
+  font-size: 20px;
+  color: black;
+  margin-bottom: 15px;
+  font-weight: 400;
+  border-bottom: 2px solid #0C3C78;
+  padding-bottom: 10px;
+}
+
+.questionList {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 15px;
+}
+.questionList .questionItem {
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+}
+.questionList .questionItem strong {
+  color: #333;
+  font-weight: bold;
+}
+
+.choicesTable {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+}
+.choicesTable th,
+.choicesTable td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 1rem;
+}
+.choicesTable th {
+  background-color: #0C3C78;
+  color: white;
+  font-weight: bold;
+}
+.choicesTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.choicesTable tr:hover {
+  background-color: #f1f1f1;
+  transition: all 0.3s ease;
+}
+.choicesTable td {
+  font-size: 1rem;
+  color: #333;
+}
+
+.choiceList {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 30px;
+}
+
+.choiceItem {
+  font-size: 1rem;
+  color: #333;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  margin: 15px;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+.choiceItem:hover {
+  background-color: #0C3C78;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .surveyDetailsContainer {
+    padding: 15px;
+  }
+  .sectionContainer {
+    padding: 15px;
+  }
+  .questionItem {
+    font-size: 1rem;
+  }
+  .choicesTable th,
+  .choicesTable td {
+    padding: 8px;
+  }
+}/*# sourceMappingURL=surveyDetails.module.css.map */

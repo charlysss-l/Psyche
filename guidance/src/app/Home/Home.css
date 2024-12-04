@@ -1,0 +1,76 @@
+.homeContainer {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.headerSection {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.welcomeTitle {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+}
+
+.welcomeMessage {
+  font-size: 18px;
+  color: #666;
+}
+
+.newConsultationSection {
+  margin-top: 20px;
+}
+
+.newConsultationSection h1 {
+  font-size: 28px;
+  color: #333;
+}
+
+.tableBox {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  padding: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+.statusButton {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.acceptedStatus {
+  background-color: #28a745;
+  color: white;
+}
+
+.viewConsultationButton {
+  padding: 10px 20px;
+  border: 2px solid black;
+  border-radius: 2px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.viewConsultationButton:hover {
+  background-color: #f0f0f0;
+}/*# sourceMappingURL=Home.css.map */

@@ -1,0 +1,104 @@
+.reportContainer {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+.reportContainer .heading {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+.reportContainer .filterContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+.reportContainer .filterContainer .label {
+  font-size: 1rem;
+  color: #555;
+}
+.reportContainer .filterContainer .select {
+  padding: 5px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.reportContainer .filterContainer .select:focus {
+  border-color: #007bff;
+}
+.reportContainer .subHeading {
+  font-size: 1.4rem;
+  margin-top: 20px;
+  color: #333;
+}
+.reportContainer .userListContainer {
+  margin-top: 10px;
+}
+.reportContainer .userListContainer .userList {
+  list-style: none;
+  padding: 0;
+}
+.reportContainer .userListContainer .userList .userListItem {
+  font-size: 1rem;
+  margin: 5px 0;
+  padding: 8px 12px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.reportContainer .userListContainer .userList .noUsers {
+  font-size: 1rem;
+  color: #777;
+}
+.reportContainer .chartContainerPF {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.userListContaIner {
+  width: 100%;
+  margin-top: 20px;
+  color: #333;
+}
+
+.userList {
+  list-style: none;
+  padding: 0;
+}
+
+.idIqlist {
+  font-size: 1rem;
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px 25px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.responsesWrapper {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.responsesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsesTable th, .responsesTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.resultCount {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}/*# sourceMappingURL=page.module.css.map */

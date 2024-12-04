@@ -1,0 +1,177 @@
+:root {
+  font-family: Arial, sans-serif;
+}
+
+.surveyListContainer {
+  padding: 20px;
+  background-color: #e9e9e9;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px #e9e9e9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.linkSurveyChoices {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.createsurveyButton {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 6px 12px;
+  background-color: #0C3C78;
+  border-radius: 10px;
+}
+.createsurveyButton:hover {
+  background-color: #a8c8ff;
+  color: #000000;
+}
+
+.viewDetailsButton {
+  text-decoration: none;
+  color: #AF1740;
+  font-size: 16px;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: 1px solid #AF1740;
+  background-color: white;
+  text-align: center;
+}
+.viewDetailsButton:hover {
+  background-color: #AF1740;
+  color: white;
+}
+
+.surveyCard {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 6px 12px #e9e9e9;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.surveyCard div:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2.title, h3.title, p.title {
+  font-weight: bold;
+  color: #f2f2f2;
+}
+h2.highlight, h3.highlight, p.highlight {
+  color: #AF1740;
+}
+
+.surveyCount {
+  font-size: 1rem;
+  color: #AF1740;
+  margin-left: 10px;
+}
+
+.sectionContainer {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+  width: 80%;
+}
+.sectionContainer h4 {
+  font-weight: bold;
+  color: #000;
+}
+
+.questionList {
+  list-style: none;
+  padding-left: 0;
+}
+.questionList .questionItem {
+  margin-bottom: 10px;
+}
+.questionList .questionItem strong {
+  color: rgb(33, 199, 3);
+}
+
+.choiceList {
+  list-style: none;
+  padding-left: 20px;
+}
+.choiceList .choiceItem {
+  font-size: 1rem;
+  color: #444;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.pagination button {
+  background-color: #AF1740;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.pagination button:hover {
+  background-color: #821130;
+}
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.filters {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #d2d2d2;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.filters h4 {
+  font-size: 1.2rem;
+  color: #AF1740;
+  margin-bottom: 10px;
+}
+.filters table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  text-align: left;
+}
+.filters table th, .filters table td {
+  padding: 12px 15px;
+  border: 1px solid #d2d2d2;
+  font-size: 1rem;
+}
+.filters table th {
+  background-color: #e9e9e9;
+  color: #f2f2f2;
+  font-weight: bold;
+}
+.filters table td {
+  background-color: #fff;
+  color: #555;
+}
+.filters table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+.filters table tr:hover {
+  background-color: #e9f5ff;
+}/*# sourceMappingURL=surveyList.module.css.map */

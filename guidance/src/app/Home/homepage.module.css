@@ -1,0 +1,179 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.homeContainer {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.headerSection {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+  background-image: url("../../app/Images/guidanceimg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 40px 20px;
+  border-radius: 8px;
+  color: white;
+  transition: transform 0.2s, box-shadow 0.3s;
+  min-height: 300px;
+  animation: fadeIn 1s ease-in-out;
+}
+.headerSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  z-index: 1;
+}
+.headerSection * {
+  position: relative;
+  z-index: 2;
+}
+
+.headerSection:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.welcomeTitle {
+  font-size: 45px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  color: #f592e0;
+}
+
+.welcomeMessage {
+  font-size: 25px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+}
+
+.viewCalendar {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.viewCalendar {
+  padding: 10px 30px;
+  border-radius: 8px;
+  background-color: rgba(245, 146, 224, 0.7058823529);
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.viewCalendar:hover {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+  color: rgb(255, 255, 255);
+  transform: scale(1.05); /* Slight zoom */
+}
+
+/* New Consultation Section */
+.newConsultationSection {
+  margin-top: 20px;
+}
+
+.newConsultationSection h1 {
+  font-size: 30px;
+  color: #000000;
+  margin-bottom: 15px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.tableBox {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: white;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeIn 1s ease-in-out;
+  animation-delay: 0.3s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.tableBox h2 {
+  font-size: 25px;
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+.tableBox:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+td {
+  background-color: #fff;
+}
+
+tr:hover td {
+  background-color: #eaf4ff;
+}
+
+.statusButton {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.acceptedStatus {
+  background-color: #28a745;
+  color: white;
+}
+
+.viewConsultationContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.viewConsultationButton {
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #000000;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.viewConsultationButton:hover {
+  background-color: rgba(204, 99, 181, 0.8823529412);
+  color: white;
+  transform: scale(1.05);
+}/*# sourceMappingURL=homepage.module.css.map */

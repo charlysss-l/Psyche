@@ -1,0 +1,68 @@
+.container {
+  background-color: #F2F2F2;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  color: #000000;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.userIDDisplay {
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+label {
+  font-size: 16px;
+  color: #000000;
+}
+
+input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+input:focus {
+  border-color: #a0a0a0;
+  outline: none;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.submitButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #45474B;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.submitButton:hover {
+  background-color: black;
+}
+.submitButton:focus {
+  outline: none;
+}/*# sourceMappingURL=studentprofile.module.css.map */

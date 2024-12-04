@@ -1,0 +1,117 @@
+.chartContainer {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.resultsTableIQ {
+  border-collapse: collapse;
+  font-size: 15px;
+  background-color: rgb(255, 252, 252);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064);
+  border: 1px solid rgba(158, 151, 151, 0.568627451);
+  width: 100%;
+}
+
+.resultsTableIQ th {
+  color: #333;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  background-color: rgb(245, 242, 242);
+  border-bottom: 1px solid rgba(158, 151, 151, 0.568627451);
+}
+
+.resultsTableIQ td {
+  text-align: center; /* Center-aligns text horizontally */
+  vertical-align: middle; /* Center-aligns text vertically */
+  padding: 5px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(158, 151, 151, 0.568627451);
+  color: #333;
+}
+
+.eachResultIQ:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+  cursor: pointer;
+  background-color: rgb(245, 244, 244);
+  border: 1px solid rgba(158, 151, 151, 0.568627451);
+}
+
+.selected-choice-img {
+  width: 60px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.deleteButtonIQLIST {
+  background-color: red;
+  padding: 8px;
+}
+
+.deleteButtonIQLIST:hover {
+  background-color: rgb(230, 3, 3);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  background-color: #5a5a5a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+}
+
+.responsesWrapper {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.responsesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsesTable th, .responsesTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.floatingContainer {
+  position: fixed; /* Positions it fixed relative to the viewport */
+  top: 50%; /* You can adjust the positioning */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers the container */
+  background-color: rgb(255, 255, 255); /* Optional: semi-transparent background */
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Ensures it appears on top of other content */
+  height: 70%;
+  width: 60%; /* Adjust as needed */
+  overflow: auto; /* Allows scrolling if content exceeds height */
+}
+
+.floatingContainer .resultsTableIQ {
+  width: 100%; /* Ensure the table takes full width */
+}/*# sourceMappingURL=IQOnlineArchiveList.module.css.map */

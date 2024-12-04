@@ -1,0 +1,190 @@
+/* Main container for the section */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header for the section */
+.header {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.subheading {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: rgb(1, 59, 1);
+  font-size: 25px;
+}
+
+/* Styling for each information section (User ID, Age, etc.) */
+.section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  color: #555;
+  margin: 12px 0;
+  line-height: 1.5;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Styling for the labels */
+.label {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Styling for the values */
+.value {
+  color: #666;
+  text-align: right;
+}
+
+/* Score section styling */
+.scoreSection {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.scoreSection h3 {
+  color: rgba(8, 8, 8, 0.8823529412);
+  margin-bottom: 15px;
+}
+
+.interpretation {
+  color: rgba(204, 99, 181, 0.8823529412);
+}
+
+/* Score styling */
+.score {
+  font-weight: bold;
+  color: rgba(204, 99, 181, 0.8823529412);
+  font-size: 20px;
+}
+
+/* Interpretation section styling */
+.interpretationSection {
+  margin-top: 30px;
+}
+
+/* Interpretation heading */
+.interpretationSection h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Share prompt section */
+.sharePrompt {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* Prompt text */
+.sharePrompt p {
+  text-align: center;
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+/* Buttons for sharing result */
+.buttonYes,
+.buttonCancel {
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.buttonYes {
+  background-color: #41865e;
+  color: white;
+  margin-right: 10px;
+}
+
+.buttonYes:hover {
+  background-color: rgba(6, 161, 71, 0.7137254902);
+}
+
+.buttonCancel {
+  background-color: #b62e2e;
+  color: white;
+}
+
+.buttonCancel:hover {
+  background-color: rgba(185, 77, 77, 0.8078431373);
+}
+
+.pdfButton {
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.8823529412); /* Blue background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Space inside the button */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer on hover */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions for hover effect */
+}
+.pdfButton:hover {
+  background-color: rgba(204, 99, 181, 0.8823529412); /* Darker blue on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+.pdfButton:active {
+  background-color: rgba(144, 38, 121, 0.8823529412); /* Darker blue on hover */
+}
+.pdfButton:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.6); /* Add a custom focus ring */
+}
+
+.resultPage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.container {
+  flex: 2;
+  min-width: 50%;
+  margin-left: 10%;
+}
+
+.privacySection {
+  flex: 1;
+  min-width: 10%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 50%;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+}
+
+p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}/*# sourceMappingURL=IQResult.module.css.map */

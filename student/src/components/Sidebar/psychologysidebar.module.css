@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+.sidebarContainer {
+  position: relative;
+}
+.sidebarContainer .toggleButton {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background-color: #EFB836;
+  color: #000000;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 1001;
+  font-size: 100%;
+  font-weight: bold;
+}
+.sidebarContainer .toggleButton:hover {
+  background-color: #EFB836;
+}
+.sidebarContainer .sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: white;
+  transition: left 0.3s ease;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  padding: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+.sidebarContainer .sidebar ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  margin-top: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.sidebarContainer .sidebar ul li {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sidebarContainer .sidebar ul li .link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 400;
+  font-size: 112.5%;
+  transition: all 0.3s ease;
+  width: 80%;
+  height: 50px;
+  text-align: center;
+  justify-content: center;
+  padding: 0 1rem;
+  border-radius: 10px;
+}
+.sidebarContainer .sidebar ul li .link:hover {
+  background-color: #EFB836;
+  color: rgb(0, 0, 0);
+}
+.sidebarContainer .sidebar ul li .link.active {
+  background-color: #EFB836;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+.sidebarContainer .sidebar ul li .link .icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+.sidebarContainer .open {
+  left: 0;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .sidebarContainer .toggleButton {
+    top: 0.5rem;
+    left: 1rem;
+    font-size: 90%;
+  }
+  .sidebarContainer .sidebar {
+    width: 200px;
+  }
+  .sidebarContainer .sidebar ul li .link {
+    font-size: 90%;
+    height: 45px;
+  }
+  .sidebarContainer .sidebar ul li .link .icon {
+    width: 25px;
+    height: 25px;
+  }
+}
+@media (max-width: 480px) {
+  .sidebarContainer .toggleButton {
+    font-size: 80%;
+    padding: 0.25rem 0.5rem;
+  }
+  .sidebarContainer .sidebar {
+    width: 150px;
+  }
+  .sidebarContainer .sidebar ul li .link {
+    font-size: 80%;
+    height: 40px;
+  }
+  .sidebarContainer .sidebar ul li .link .icon {
+    width: 20px;
+    height: 20px;
+  }
+}/*# sourceMappingURL=psychologysidebar.module.css.map */

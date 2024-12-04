@@ -63,14 +63,14 @@
   padding: 1rem;
   font-size: 1rem;
   color: #fff;
-  background-color: #000000;
+  background-color: #334553;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 
   &:hover {
-    background-color: #cc63b5e1;
+    background-color: #efb836;
     transform: scale(1.02);
   }
 
@@ -86,14 +86,14 @@
   margin-top: 1rem;
 
   .loginLink {
-    color: #cc63b5e1;
+    color: #334553;
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s;
 
     &:hover {
-      color: #cc63b5e1;
-      border-bottom: 1px solid #cc63b5e1;
+      color: #efb836;
+      border-bottom: 1px solid #efb836;
     }
   }
 }
