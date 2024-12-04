@@ -288,13 +288,13 @@ const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
       labels: factorOrder.map(factorLetter => factorDescriptions[factorLetter] || factorLetter), // Use factor descriptions
       datasets: [
         {
-          label: 'Sten Score',
+          label: '                           Low (1, 2, 3)                            Average (4, 5, 6, 7)                       High (8, 9, 10)', 
           data: factorOrder.map(factorLetter => {
             const score = data.scoring.scores.find((score: { factorLetter: string; }) => score.factorLetter === factorLetter);
             return score ? score.stenScore : 0; // Default to 0 if no score is found
           }),
           borderColor: 'rgba(75, 192, 192, 1)',
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          backgroundColor: 'violet',
           fill: true,
           tension: 0.4,
         },
@@ -318,7 +318,7 @@ const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
         x: {
           title: {
             display: true,
-            text: 'Standard Ten Score (STEN)',
+            text: 'Score',
           },
           min: 1,
           max: 10,
@@ -352,7 +352,7 @@ const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
     return (
       <div className={styles.modal} onClick={onClose}>
         <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-          <h2>Factor Scores for {data.firstName} {data.lastName}</h2>
+          <h2>16PF Fifth Edition Individual Record Form for {data.firstName} {data.lastName}</h2>
           <Line data={chartData} options={chartOptions} />
           <button onClick={onClose}>Close</button>
         </div>
