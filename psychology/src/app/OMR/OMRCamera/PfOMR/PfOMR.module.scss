@@ -236,3 +236,49 @@
     color: #fff;
     margin-bottom: 20px;
   }
+
+
+  .spinnerContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+  }
+  
+  .spinner {
+    margin-bottom: 10px; /* Add some space between the spinner and the text */
+  }
+  
+  .spinnerCircle {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #bf34db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .loadingText {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #ee4ad8;
+  }
+  
+  
+  
