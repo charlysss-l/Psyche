@@ -70,17 +70,70 @@ const IqOMR: React.FC = () => {
     });
   };
 
-  const validateImageContainsStar = async (file: File): Promise<boolean> => {
-    try {
-      const result = await Tesseract.recognize(file, 'eng');
-      const extractedText = result.data.text;
-      console.log("Extracted Text:", extractedText); // Debugging: Log extracted text
-      return extractedText.includes('*'); // Check for the star symbol
-    } catch (error) {
-      console.error("Error extracting text from image:", error);
-      return false; // Return false if text extraction fails
-    }
+  const validateTextInImage = async (file: File): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = async () => {
+          let angle = 0;
+          const maxRotation = 360;  // Max rotation in degrees
+          const rotationStep = 5;   // Rotation step in degrees (you can adjust for faster/slower rotation)
+          const maxAttempts = maxRotation / rotationStep;
+  
+          // Create a canvas to rotate and process the image
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            reject('Canvas context not available');
+            return;
+          }
+  
+          // Set canvas size to image size
+          canvas.width = img.width;
+          canvas.height = img.height;
+  
+          while (angle < maxRotation) {
+            // Clear the canvas and rotate the image
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate((angle * Math.PI) / 180); // Convert angle to radians
+            ctx.drawImage(img, -img.width / 2, -img.height / 2);
+            ctx.restore();
+  
+            // Perform OCR using Tesseract.js
+            try {
+              const { data: { text } } = await Tesseract.recognize(canvas.toDataURL(), 'eng');
+              console.log(`OCR Text at ${angle} degrees:`, text);
+  
+              // Check if the text includes the word "PF"
+              if (text.toLowerCase().includes('iq')) {
+                resolve(true); // Text found, stop and resolve
+                return;
+              }
+            } catch (err) {
+              reject(err);
+              return;
+            }
+  
+            // Increment the angle by the rotation step
+            angle += rotationStep;
+  
+            // If we have checked all rotations and didn't find the text, reject
+            if (angle >= maxRotation) {
+              resolve(false);
+            }
+          }
+        };
+        img.onerror = reject;
+        img.src = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    });
   };
+  
+  
   
   
   const validateBackgroundColor = async (file: File): Promise<boolean> => {
@@ -147,11 +200,11 @@ const IqOMR: React.FC = () => {
         return;
       }
 
-      // Validate image contains a star
-    const containsStar = await validateImageContainsStar(selectedFile);
-    if (!containsStar) {
-      alert('Invalid image: Missing a star symbol (*) in the answer sheet.');
-      setLoading(false); // Hide loading spinner on failure
+      // Validate if the image contains "Name"
+    const isValidText = await validateTextInImage(selectedFile);
+    if (!isValidText) {
+      alert('Invalid image: The word "IQ" is not found in the image.');
+      setLoading(false);
       return;
     }
 

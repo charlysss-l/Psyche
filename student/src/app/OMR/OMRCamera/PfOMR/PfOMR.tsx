@@ -9,6 +9,9 @@ import Tesseract from 'tesseract.js';
 
 
 
+
+
+
 // Initialize Firebase with your configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBWj1L7qdsRH4sFpE7q0CaoyL55KWMGRZI",
@@ -50,6 +53,72 @@ const PfOMR: React.FC = () => {
     }
   };
 
+  
+
+  const validateTextInImage = async (file: File): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = async () => {
+          let angle = 0;
+          const maxRotation = 360;  // Max rotation in degrees
+          const rotationStep = 5;   // Rotation step in degrees (you can adjust for faster/slower rotation)
+          const maxAttempts = maxRotation / rotationStep;
+  
+          // Create a canvas to rotate and process the image
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            reject('Canvas context not available');
+            return;
+          }
+  
+          // Set canvas size to image size
+          canvas.width = img.width;
+          canvas.height = img.height;
+  
+          while (angle < maxRotation) {
+            // Clear the canvas and rotate the image
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate((angle * Math.PI) / 180); // Convert angle to radians
+            ctx.drawImage(img, -img.width / 2, -img.height / 2);
+            ctx.restore();
+  
+            // Perform OCR using Tesseract.js
+            try {
+              const { data: { text } } = await Tesseract.recognize(canvas.toDataURL(), 'eng');
+              console.log(`OCR Text at ${angle} degrees:`, text);
+  
+              // Check if the text includes the word "PF"
+              if (text.toLowerCase().includes('pf')) {
+                resolve(true); // Text found, stop and resolve
+                return;
+              }
+            } catch (err) {
+              reject(err);
+              return;
+            }
+  
+            // Increment the angle by the rotation step
+            angle += rotationStep;
+  
+            // If we have checked all rotations and didn't find the text, reject
+            if (angle >= maxRotation) {
+              resolve(false);
+            }
+          }
+        };
+        img.onerror = reject;
+        img.src = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+  
+  
  
 
   const validateImageOrientation = (file: File): Promise<boolean> => {
@@ -70,44 +139,10 @@ const PfOMR: React.FC = () => {
     });
   };
 
-  const detectHexagon = async (file: File): Promise<boolean> => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      const reader = new FileReader();
   
-      reader.onload = (e) => {
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            resolve(false);
-            return;
-          }
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
   
-          // Get image data for shape detection
-          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const { data, width, height } = imgData;
   
-          // Process the image for hexagon detection
-          const hexagonDetected = detectHexagonShape(data, width, height);
-          resolve(hexagonDetected);
-        };
-        img.src = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
-    });
-  };
   
-  // Mock function for hexagon detection (replace with actual detection logic)
-  const detectHexagonShape = (data: Uint8ClampedArray, width: number, height: number): boolean => {
-    // Placeholder: Implement an algorithm to detect hexagonal shapes.
-    // This could involve edge detection, contour analysis, and shape matching.
-    console.log('Analyzing for hexagon in image...');
-    return true; // Return true if hexagon is detected, otherwise false.
-  };
   
   const validateBackgroundColor = async (file: File): Promise<boolean> => {
     return new Promise((resolve) => {
@@ -163,6 +198,17 @@ const PfOMR: React.FC = () => {
 
       }
 
+     // Validate if the image contains "Name"
+    const isValidText = await validateTextInImage(selectedFile);
+    if (!isValidText) {
+      alert('Invalid image: The word "PF" is not found in the image.');
+      setLoading(false);
+      return;
+    }
+
+     
+
+
       // Validate image orientation (portrait)
       const isPortrait = await validateImageOrientation(selectedFile);
       if (!isPortrait) {
@@ -172,15 +218,7 @@ const PfOMR: React.FC = () => {
         return;
       }
 
-      // Validate hexagon presence in the image
-    const hasHexagon = await detectHexagon(selectedFile);
-    if (!hasHexagon) {
-      alert('Invalid image: Hexagon symbol is missing.');
-      setLoading(false);
-      return;
-    }
-
-
+    
 
     // Validate background color
     const isValidBackground = await validateBackgroundColor(selectedFile);
