@@ -69,7 +69,7 @@
 }
 
 .submitButton:hover {
-  background-color: #EFB836;
+  background-color: #d7a52f;
 }
 
 .updateMessageError,
@@ -88,9 +88,9 @@
   animation: slideDown 0.5s ease, fadeOut 2s ease 2s forwards;
 }
 .updateMessageSuccess {
-  background-color: green;
+  background-color:#849670;
   color: white;
-  border: 1px solid green;
+  border: 1px solid #95a581;
 }
 
 .updateMessageError {

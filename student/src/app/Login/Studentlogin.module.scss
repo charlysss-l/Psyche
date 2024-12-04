@@ -1,7 +1,7 @@
 $background-color: #ffffff00;
-$font-color: #95A581;
-$button-bg-color: #334553; // Updated login button color
-$button-hover-bg-color: #f4a258;
+$font-color: #849670;
+$button-bg-color: #2a3744; // Updated login button color
+$button-hover-bg-color: #d7a52f;
 $error-color: red;
 
 @keyframes slideInFromLeft {
@@ -130,6 +130,6 @@ $error-color: red;
 }
 
 .Signuplink:hover {
-  border-bottom: 1px solid #EFB836;
-  color: #EFB836;
+  border-bottom: 1px solid #d7a52f;
+  color: #efb836;
 }

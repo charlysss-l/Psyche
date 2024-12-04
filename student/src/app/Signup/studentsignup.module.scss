@@ -52,7 +52,7 @@
   transition: border-color 0.3s;
 
   &:focus {
-    border-color: #4caf50;
+    border-color: #849670;
     outline: none;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
   }
@@ -63,14 +63,14 @@
   padding: 1rem;
   font-size: 1rem;
   color: #fff;
-  background-color: #334553;
+  background-color: #2a3744;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 
   &:hover {
-    background-color: #efb836;
+    background-color: #d7a52f;
     transform: scale(1.02);
   }
 
@@ -86,13 +86,13 @@
   margin-top: 1rem;
 
   .loginLink {
-    color: #334553;
+    color: #2a3744;
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s;
 
     &:hover {
-      color: #efb836;
+      color: #d7a52f;
       border-bottom: 1px solid #efb836;
     }
   }

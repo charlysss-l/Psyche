@@ -184,11 +184,11 @@ select {
   }
 
   &.archive {
-    background-color: #afa43d; 
+    background-color: #849670; 
     color: rgb(255, 255, 255);
 
     &:hover {
-      background-color: #837b06b7; 
+      background-color: #95a581; 
     }
   }
 }
@@ -212,7 +212,7 @@ select {
 }
 
 .archiveButton:active {
-  background-color: #cc63b5e1;
+  background-color: #d7a52f;
 
   transform: scale(0.98); 
 }
