@@ -34,7 +34,7 @@ router.get('/test/:testID', getOmrResultsByTestID);
 router.put('/test/:testID', updateOmrResult);
 
 // Route to delete an IQ test result by test ID
-router.delete('/:id', deleteOmrResult);
+router.delete('/test/:id', deleteOmrResult);
 
 
 // Route to archive an IQ test result 

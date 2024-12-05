@@ -183,6 +183,8 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
   
       // Remove the deleted test from the state
       setResults(results.filter((result) => result.testID !== testID));
+      alert("Test Result deleted successfully.");
+
       window.location.reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');

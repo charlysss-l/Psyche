@@ -126,6 +126,8 @@ const IQResultsList: React.FC = () => {
   
       // Remove the deleted test from the state
       setResults(results.filter((result) => result.testID !== testID));
+      alert("Test Result deleted successfully.");
+
       window.location.reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');

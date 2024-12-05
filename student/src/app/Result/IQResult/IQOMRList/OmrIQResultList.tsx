@@ -99,20 +99,24 @@ const OmrIQResultsList: React.FC = () => {
 
   
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (testID: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this test?");
+    if (!confirmDelete) return;
+  
     try {
-      const response = await fetch(`http://localhost:5000/api/omr/${id}`, {
+      const response = await fetch(`http://localhost:5000/api/omr/test/${testID}`, {
         method: 'DELETE',
       });
-
+  
       if (!response.ok) {
         throw new Error(`Error deleting the test: ${response.statusText}`);
       }
+  
+      // Remove the deleted test from the state
+      setResults(results.filter((result) => result.testID !== testID));
+      alert("Test Result deleted successfully.");
 
-      setResults(results.filter((result) => result.userID !== id));
       window.location.reload();
-
-      navigate('/iqresultlistboth');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error deleting test:', err);
@@ -319,7 +323,7 @@ const OmrIQResultsList: React.FC = () => {
                   <td>
                     <button
                       className={styles.deleteButtonIQLIST}
-                      onClick={() => handleDelete(result.userID)}
+                      onClick={() => handleDelete(result.testID)}
                     >
                       Delete
                     </button>

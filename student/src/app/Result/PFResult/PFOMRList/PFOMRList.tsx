@@ -202,18 +202,24 @@ const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
 
 
 
-  const handleDelete = async (userID: string) => {
+  const handleDelete = async (testID: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this test?");
+    if (!confirmDelete) return;
+  
     try {
-      const response = await fetch(`http://localhost:5000/api/user16pf/${userID}`, {
+      const response = await fetch(`http://localhost:5000/api/omr16pf/test/${testID}`, {
         method: 'DELETE',
       });
-      
+  
       if (!response.ok) {
         throw new Error(`Error deleting the test: ${response.statusText}`);
       }
+  
+      // Remove the deleted test from the state
+      setResults(results.filter((result) => result.testID !== testID));
+      alert("Test Result deleted successfully.");
 
-      setResults(results.filter((result) => result.userID !== userID)); // Remove deleted user
-      navigate('/pfresults_list');
+      window.location.reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error deleting test:', err);
@@ -551,7 +557,7 @@ const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
                   <td>
                     <button
                       className={styles.deleteButtonIQLIST}
-                      onClick={() => handleDelete(result.userID)}
+                      onClick={() => handleDelete(result.testID)}
                     >
                       Delete
                     </button>

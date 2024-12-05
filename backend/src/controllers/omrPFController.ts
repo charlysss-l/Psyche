@@ -337,22 +337,23 @@ export const updateOmrResult = async (req: Request, res: Response) => {
 
 
 // Controller to delete an IQ test result
+
 export const deleteOmrResult = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { id } = req.params; // `id` here is the testID
     try {
-        const deletedIQTestResult = await  OmrPFSchema.findOneAndDelete({userID : id});
-        if (!deletedIQTestResult) {
-            res.status(404).json({ message: 'Test result not found' });
-            return;
-        }
-        res.status(200).json({ message: 'IQ test result deleted successfully' });
+      const deletedIQTestResult = await OmrPFSchema.findOneAndDelete({ testID: id });
+      if (!deletedIQTestResult) {
+        res.status(404).json({ message: 'Test result not found' });
+        return;
+      }
+      res.status(200).json({ message: 'IQ test result deleted successfully' });
     } catch (error) {
-        res.status(500).json({
-            message: 'Error deleting IQ test result',
-            error: error instanceof Error ? error.message : 'An unknown error occurred'
-        });
+      res.status(500).json({
+        message: 'Error deleting IQ test result',
+        error: error instanceof Error ? error.message : 'An unknown error occurred',
+      });
     }
-};
+  };
 
 
 // Archive Controller to archive an IQ test result
