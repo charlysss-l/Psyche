@@ -33,16 +33,22 @@ const OMRResult: React.FC = () => {
     // Handle the form submission
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+    
         // Check if the user is 20 years or older
         if (parseInt(age) < 20) {
-            alert("You must be 20 years or older to take this test.");
+            alert("You must be 20 years or older to submit this form.");
             return;
         }
-
+    
+        // Check if the score is zero
+        if (omrScore === 0) {
+            alert("Zero Score cannot be interpreted");
+            return;
+        }
+    
         // Convert omrScore to totalScore (assuming a conversion factor or logic here)
         const totalScore = omrScore ? omrScore * 1 : 0;  // Example conversion logic
-
+    
         // Prepare the user data to be submitted, matching the schema
         const dataToSubmit = {
             userID,
@@ -72,6 +78,7 @@ const OMRResult: React.FC = () => {
             alert('An error occurred while submitting the test.');
         }
     };
+    
 
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>

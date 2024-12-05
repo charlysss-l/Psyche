@@ -71,6 +71,12 @@ const OMRResult: React.FC = () => {
         const finalYear = year || 1;
         const finalSection = section || 1;
 
+        // Check if the score is zero
+        if (omrScore === 0) {
+            alert("Zero Score cannot be interpreted");
+            return;
+        }
+
         // Convert omrScore to totalScore
         const totalScore = omrScore ? omrScore * 1 : 0;  
 
