@@ -34,7 +34,8 @@ const UserForm: React.FC = () => {
             <h1>IQ Test</h1>
             <p className={style.ageWarning}>
                 "You Must Be 20 Years Old and Above To Take This Test" <br/> 
-                "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up"
+                "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up" <br/>
+                You can only answer this test once a day, if any error occurs and need to retake the test, please direct to the administrator (Psychology Department).
             </p>
             <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
             <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />

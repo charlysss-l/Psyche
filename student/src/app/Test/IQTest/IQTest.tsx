@@ -162,10 +162,14 @@ const IQTest: React.FC = () => {
             alert('Test submitted successfully!');
             localStorage.setItem('iqTestResults', JSON.stringify(dataToSubmit));
             navigate('/iq-results');
-        } catch (error) {
+        } catch (error: any) {
+        if (error.response && error.response.status === 400) {
+            alert(error.response.data.message); // Display the error message from the server
+        } else {
             console.error('Error submitting answers:', error);
             alert('An error occurred while submitting the test.');
         }
+    }
     };
 
     const handleNextPage = () => {
@@ -190,7 +194,8 @@ const IQTest: React.FC = () => {
             <h1>{iqTest?.nameOfTest}</h1>
             <p>Number of Questions: {iqTest?.numOfQuestions}</p>
             <p className={style.ageWarning}> 
-                "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up"
+                "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up" <br/>
+                You can only answer this test once a day, if any error occurs and need to retake the test, please direct to the administrator (Psychology Department).
             </p>
             <p>Time Remaining: {Math.floor(timer / 60)}:{timer % 60}</p>
 

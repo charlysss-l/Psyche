@@ -441,6 +441,26 @@ export const createUser16PFTest = async (req: Request, res: Response): Promise<R
             return res.status(400).json({ message: 'Missing required fields' });
         }
 
+         // Get the start and end of the current day
+         const startOfDay = new Date();
+         startOfDay.setHours(0, 0, 0, 0);
+ 
+         const endOfDay = new Date();
+         endOfDay.setHours(23, 59, 59, 999);
+ 
+         // Check if a test exists for this user on the same day
+         const existingPfTest = await User16PFTest.findOne({
+             userID,
+             testDate: { $gte: startOfDay, $lte: endOfDay },
+         });
+ 
+         if (existingPfTest) {
+             return res.status(400).json({
+                 message: 'You have already taken the test today. Please try again tomorrow.',
+             });
+         }
+ 
+
         // Check that responses array is not empty and contains the required structure
         if (!Array.isArray(responses) || responses.length === 0) {
             return res.status(400).json({ message: 'Responses must be a non-empty array' });
@@ -637,18 +657,21 @@ export const updateUser16PFTest = async (req: Request, res: Response) => {
 
 // Controller to delete a User16PFTest by ID
 export const deleteUser16PFTest = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { id } = req.params; // `id` here is the testID
     try {
-        const deletedUserPFTest = await User16PFTest.findOneAndDelete({userID : id});
-        if (!deletedUserPFTest) {
-            res.status(404).json({ message: 'Test not found' });
-            return;
-        }
-        res.status(200).json({ message: 'User 16PF Test deleted successfully' });
+      const deletedIQTestResult = await User16PFTest.findOneAndDelete({ testID: id });
+      if (!deletedIQTestResult) {
+        res.status(404).json({ message: 'Test result not found' });
+        return;
+      }
+      res.status(200).json({ message: 'PF test result deleted successfully' });
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting user test', error: (error as Error).message });
+      res.status(500).json({
+        message: 'Error deleting PF test result',
+        error: error instanceof Error ? error.message : 'An unknown error occurred',
+      });
     }
-};
+  };
 
 
 

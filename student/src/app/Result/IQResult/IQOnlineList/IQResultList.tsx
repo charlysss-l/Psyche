@@ -111,24 +111,28 @@ const IQResultsList: React.FC = () => {
     }
   }, [userID]); // Trigger fetchData when userID changes
 
-  const handleDelete = async (userID: string) => {
+  const handleDelete = async (testID: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this test?");
+    if (!confirmDelete) return;
+  
     try {
-      const response = await fetch(`http://localhost:5000/api/useriq/${userID}`, {
+      const response = await fetch(`http://localhost:5000/api/useriq/test/${testID}`, {
         method: 'DELETE',
       });
-      
+  
       if (!response.ok) {
         throw new Error(`Error deleting the test: ${response.statusText}`);
       }
-
-      // Remove the deleted user from the state
-      setResults(results.filter((result) => result.userID !== userID));
-      navigate('/iqresultlistboth'); 
+  
+      // Remove the deleted test from the state
+      setResults(results.filter((result) => result.testID !== testID));
+      window.location.reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error deleting test:', err);
     }
   };
+  
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
@@ -184,7 +188,7 @@ const IQResultsList: React.FC = () => {
                   <td>
                     <button 
                       className={styles.deleteButtonIQLIST} 
-                      onClick={() => handleDelete(result.userID)}
+                      onClick={() => handleDelete(result.testID)}
                     >
                       Delete
                     </button>

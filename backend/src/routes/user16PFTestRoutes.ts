@@ -42,7 +42,7 @@ router.get('/test/:testID', async (req: Request, res: Response) => {
 router.get('/', getUser16PFTests);
 router.get('/:id', getUser16PFTestById);
 router.put('/:id', updateUser16PFTest);
-router.delete('/:id', deleteUser16PFTest); 
+router.delete('/test/:id', deleteUser16PFTest); 
 
 
 // Route to archive an IQ test result 

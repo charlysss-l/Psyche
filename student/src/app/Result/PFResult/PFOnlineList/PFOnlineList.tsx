@@ -168,17 +168,22 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
     }
   }, [userID]);
 
-  const handleDelete = async (userID: string) => {
+  const handleDelete = async (testID: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this test?");
+    if (!confirmDelete) return;
+  
     try {
-      const response = await fetch(`http://localhost:5000/api/user16pf/${userID}`, {
+      const response = await fetch(`http://localhost:5000/api/user16pf/test/${testID}`, {
         method: 'DELETE',
       });
-      
+  
       if (!response.ok) {
         throw new Error(`Error deleting the test: ${response.statusText}`);
       }
-
-      setResults(results.filter((result) => result.userID !== userID)); // Remove deleted user
+  
+      // Remove the deleted test from the state
+      setResults(results.filter((result) => result.testID !== testID));
+      window.location.reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error deleting test:', err);
@@ -418,7 +423,7 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
                   </td>
 
                   <td>
-                    <button className={styles.deleteButton} onClick={() => handleDelete(result.userID)}>Delete</button>
+                    <button className={styles.deleteButton} onClick={() => handleDelete(result.testID)}>Delete</button>
                     <button 
                 className={styles.graphButton} 
                 onClick={() => { 

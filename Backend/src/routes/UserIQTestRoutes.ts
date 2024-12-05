@@ -19,7 +19,13 @@ import {
 const router = Router();
 
 // Route to create a new IQ test result
-router.post('/', createIQTestResult);
+router.post('/', async (req: Request, res: Response) => {
+  try {
+    await createIQTestResult(req, res);  // Use the testID for deletion
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting consultation by testID', error });
+  }
+});
 
 // Route to retrieve all IQ test results for a specific user
 router.get('/:userID', getIQTestResultsByUserID);
@@ -35,7 +41,7 @@ router.get('/:id', getIQTestResultById);
 router.put('/:id', updateIQTestResult);
 
 // Route to delete an IQ test result by test ID
-router.delete('/:id', deleteIQTestResult);
+router.delete('/test/:id', deleteIQTestResult);
 
 
 

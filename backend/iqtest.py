@@ -222,12 +222,11 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app, origins="http://localhost:3000")  # Allow only requests from localhost:3000
+CORS(app)
 
-@app.route('/process_omr_IQ', methods=['POST', 'OPTIONS'])
+@app.route('/process_omr_IQ', methods=['POST'])
 def process_omr():
-    if request.method == 'OPTIONS':  # CORS preflight request
-        return '', 200
+    
     
     # Get the image URL from the incoming request
     image_url = request.json.get('image_url')

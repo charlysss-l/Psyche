@@ -1,20 +1,36 @@
 import { Request, Response } from 'express';
 import UserIQTest from '../models/UserIQTestSchema';
-import { Interpretation, Response as IQResponse } from '../models/UserIQTestSchema';
+import { Interpretation } from '../models/UserIQTestSchema';
 
-// Controller to handle creating a new IQ test result
 export const createIQTestResult = async (req: Request, res: Response) => {
-    const { userID, firstName, lastName, age, sex, course, year, section, responses,  interpretation, testType, testDate } = req.body;
+    const { userID, firstName, lastName, age, sex, course, year, section, responses, interpretation, testType, testDate } = req.body;
 
     try {
-        // Validate required fields
-        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section  || !responses || !interpretation || !testType || !testDate) {
+        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section || !responses || !interpretation || !testType || !testDate) {
             res.status(400).json({ message: 'Missing required fields' });
             return;
         }
 
-        const testID = `${userID}-${Date.now()}`;
+        // Get the start and end of the current day
+        const startOfDay = new Date();
+        startOfDay.setHours(0, 0, 0, 0);
 
+        const endOfDay = new Date();
+        endOfDay.setHours(23, 59, 59, 999);
+
+        // Check if a test exists for this user on the same day
+        const existingTest = await UserIQTest.findOne({
+            userID,
+            testDate: { $gte: startOfDay, $lte: endOfDay },
+        });
+
+        if (existingTest) {
+            return res.status(400).json({
+                message: 'You have already taken the test today. Please try again tomorrow.',
+            });
+        }
+
+        const testID = `${userID}-${Date.now()}`;
 
         // Process responses and calculate total score
         let totalScore = 0;
@@ -24,7 +40,7 @@ export const createIQTestResult = async (req: Request, res: Response) => {
             }
 
             const isCorrect = response.isCorrect;
-            if (isCorrect) totalScore += 1; // Increment score for each correct answer
+            if (isCorrect) totalScore += 1;
 
             return {
                 questionID: response.questionID,
@@ -33,35 +49,28 @@ export const createIQTestResult = async (req: Request, res: Response) => {
             };
         });
 
-        
-
         // Prepare interpretation object
         const testInterpretation: Interpretation = {
-
-            
             resultInterpretation: interpretation.resultInterpretation,
         };
 
-// Create and save the test document
-const testDocument = new UserIQTest({
-    userID,
-    firstName,
-    lastName,
-    age,
-    sex,
-    course,
-    year,
-    section,
-    testID,
-    responses: mappedResponses,
-    interpretation: testInterpretation,
-    totalScore,  // Pass totalScore directly
-    testType,
-    testDate,
-});
-
-
-
+        // Create and save the test document
+        const testDocument = new UserIQTest({
+            userID,
+            firstName,
+            lastName,
+            age,
+            sex,
+            course,
+            year,
+            section,
+            testID,
+            responses: mappedResponses,
+            interpretation: testInterpretation,
+            totalScore,
+            testType,
+            testDate,
+        });
 
         await testDocument.save();
         res.status(201).json({ message: 'IQ Test result saved successfully', data: testDocument });
@@ -74,6 +83,7 @@ const testDocument = new UserIQTest({
         });
     }
 };
+
 
 // Controller to retrieve all IQ test results for a user
 export const getIQTestResultsByAll = async (req: Request, res: Response) => {
@@ -161,23 +171,24 @@ export const updateIQTestResult = async (req: Request, res: Response) => {
     }
 };
 
-// Controller to delete an IQ test result
+// Controller to delete an IQ test result by testID
 export const deleteIQTestResult = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { id } = req.params; // `id` here is the testID
     try {
-        const deletedIQTestResult = await UserIQTest.findOneAndDelete({userID : id});
-        if (!deletedIQTestResult) {
-            res.status(404).json({ message: 'Test result not found' });
-            return;
-        }
-        res.status(200).json({ message: 'IQ test result deleted successfully' });
+      const deletedIQTestResult = await UserIQTest.findOneAndDelete({ testID: id });
+      if (!deletedIQTestResult) {
+        res.status(404).json({ message: 'Test result not found' });
+        return;
+      }
+      res.status(200).json({ message: 'IQ test result deleted successfully' });
     } catch (error) {
-        res.status(500).json({
-            message: 'Error deleting IQ test result',
-            error: error instanceof Error ? error.message : 'An unknown error occurred'
-        });
+      res.status(500).json({
+        message: 'Error deleting IQ test result',
+        error: error instanceof Error ? error.message : 'An unknown error occurred',
+      });
     }
-};
+  };
+  
 
 
 
