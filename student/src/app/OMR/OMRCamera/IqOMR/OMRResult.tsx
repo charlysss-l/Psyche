@@ -52,7 +52,7 @@ const OMRResult: React.FC = () => {
             sex,
             course,
             year: parseInt(year),  // Ensure year is a number
-            section: parseInt(section),  // Ensure section is a number
+            section,  // Ensure section is a number
             testID: 'unique-test-id',  // Generate a unique testID or let the backend handle it
             totalScore,
             interpretation: {

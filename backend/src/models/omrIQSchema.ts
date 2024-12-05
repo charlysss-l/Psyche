@@ -21,7 +21,7 @@ interface OMR extends Document {
     sex: string;
     course: string;
     year: number;
-    section: number;
+    section: string;
     testID: string;
     totalScore: number; // Include totalScore here
     interpretation: Interpretation;
@@ -46,7 +46,7 @@ const OmrSchema = new Schema<OMR>({
     sex: { type: String, required: true },
     course: { type: String, required: true },
     year: { type: Number, required: true },
-    section: { type: Number, required: true },
+    section: { type: String, required: true },
     testID: { type: String, required: true, unique: true },
     totalScore: { type: Number, required: true },  // Direct totalScore as a number
     interpretation: InterpretationSchema, 
