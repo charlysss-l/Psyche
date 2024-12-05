@@ -21,7 +21,7 @@ interface OMRpf extends Document {
     sex: string;
     course: string;
     year: number;
-    section: number;
+    section: string;
     testID: string;
     scoring: Scoring[]; // Store an array of factorLetter and rawScore pairs
     testType: string;
@@ -50,7 +50,7 @@ const OmrPFSchema = new Schema<OMRpf>({
     sex: { type: String, required: true },
     course: { type: String, required: true },
     year: { type: Number, required: true },
-    section: { type: Number, required: true },
+    section: { type: String, required: true },
     testID: { type: String, required: true, unique: true },
     scoring: ScoringSchema, // This now refers to a Scoring object
     testType: { type: String, required: true },

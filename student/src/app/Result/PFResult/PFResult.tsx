@@ -447,12 +447,12 @@ const PFResult: React.FC = () => {
         labels: sortedScoring.map((score) => factorDescriptions[score.factorLetter]), // Use descriptions for y-axis
         datasets: [
             {
-                label: 'Standard Ten Score (STEN)',
+                label: '                           Low (1, 2, 3)                            Average (4, 5, 6, 7)                       High (8, 9, 10)', 
                 data: sortedScoring.map((score) =>
                     calculateStenScore(score.rawScore, score.factorLetter)
                 ), // Calculate sten scores dynamically
                 borderColor: 'rgba(75, 192, 192, 1)', // Line color
-                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Fill color
+                backgroundColor: 'violet', // Fill color
                 tension: 0.4, // Smooth curve
                 borderWidth: 2,
             },
@@ -476,7 +476,7 @@ const PFResult: React.FC = () => {
             x: {
                 title: {
                     display: true,
-                    text: 'Standard Ten Score (STEN)',
+                    text: 'Score',
                 },
                 min: 1,
                 max: 10,
@@ -502,20 +502,32 @@ const PFResult: React.FC = () => {
     };
     
     const generatePDF = async () => {
-        // Get the result container element
-        const resultContainer = document.getElementById("result-container");
-        if (!resultContainer) return;
+        // Get the entire result page container
+        const resultPage = document.getElementById("result-container");
+        if (!resultPage) return;
     
-        // Temporarily hide unwanted elements
-        const elementsToHide = resultContainer.querySelectorAll("button, input[type='checkbox'], label, p");
-        elementsToHide.forEach(element => {
+        // Temporarily hide unwanted interactive elements
+        const elementsToHide = resultPage.querySelectorAll(
+            "button, input[type='checkbox'], label, p"
+        );
+        elementsToHide.forEach((element) => {
             if (element instanceof HTMLElement) {
-                element.style.display = "none"; // Explicitly hide the element
+                element.style.display = "none"; // Hide interactive elements
+            }
+        });
+    
+        // Temporarily adjust layout if needed
+        const originalStyles: Record<string, string> = {};
+        const adjustElements = resultPage.querySelectorAll(".outro, .privacySection");
+        adjustElements.forEach((element) => {
+            if (element instanceof HTMLElement) {
+                originalStyles[element.className] = element.style.margin || ""; // Save original styles
+                element.style.margin = "10px 0"; // Adjust margins for PDF layout
             }
         });
     
         // Generate canvas from the container
-        const canvas = await html2canvas(resultContainer);
+        const canvas = await html2canvas(resultPage, { scale: 2 }); // Scale for better quality
         const imgData = canvas.toDataURL("image/png");
     
         // Create PDF document
@@ -523,28 +535,45 @@ const PFResult: React.FC = () => {
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
     
-        // Scaling factor to zoom out (e.g., 0.85 for 85% zoom)
-        const scaleFactor = 0.85;
-    
-        // Apply scaling to width and height
+        // Scaling factor (adjust to fit content on one page or scale it)
+        const scaleFactor = 0.90;
         const scaledWidth = pdfWidth * scaleFactor;
         const scaledHeight = pdfHeight * scaleFactor;
     
-        // Calculate the X position to center the image
+        // Center the content in the PDF
         const xPos = (pdfWidth - scaledWidth) / 2;
     
-        // Add image to PDF with scaling and centered
-        pdf.addImage(imgData, "PNG", xPos, 0, scaledWidth, scaledHeight);
+        // Add the image to the PDF
+        pdf.addImage(imgData, "PNG", xPos, 10, scaledWidth, scaledHeight);
+    
+        // Add the footer message
+        const footerText = "This result is refracted from the website DiscoverU";
+        const footerFontSize = 10; // Adjust font size as needed
+        pdf.setFontSize(footerFontSize);
+    
+        // Set text color to gray
+        pdf.setTextColor(128, 128, 128); // RGB values for gray
+    
+        const footerYPos = pdf.internal.pageSize.getHeight() - 10; // Position 10mm from the bottom
+        pdf.text(footerText, pdfWidth / 2, footerYPos, { align: "center" });
+    
+        // Save the PDF
         pdf.save("PFResult.pdf");
     
-        // Restore the hidden elements
-        elementsToHide.forEach(element => {
+        // Restore hidden elements
+        elementsToHide.forEach((element) => {
             if (element instanceof HTMLElement) {
-                element.style.display = ""; // Restore the element
+                element.style.display = ""; // Restore the display property
+            }
+        });
+    
+        // Restore adjusted styles
+        adjustElements.forEach((element) => {
+            if (element instanceof HTMLElement) {
+                element.style.margin = originalStyles[element.className]; // Restore original margins
             }
         });
     };
-    
     
     
     
@@ -556,7 +585,7 @@ const PFResult: React.FC = () => {
                 {results.firstName} {results.lastName}
             </h2>
     
-            <h3 className={styles.subheading}>Personality Test Result</h3>
+            <h3 className={styles.subheading}>16PF Fifth Edition Individual Record Form</h3>
             <div className={styles.chartContainer}>
                 <Line data={chartData} options={chartOptions} />
             </div>
@@ -629,7 +658,7 @@ const PFResult: React.FC = () => {
 
             </div>
         </div>
-
+<div className={styles.messageContainer}>
         {/* Data Privacy Section */}
         <div className={styles.privacySection}>
     <h1>Data Privacy Act</h1>
@@ -648,6 +677,34 @@ const PFResult: React.FC = () => {
         We prioritize your privacy and comply with all applicable laws and regulations regarding data protection. If you have any concerns 
         or require further information on how we handle your data, you may reach out to our psychology department or refer to our privacy policy.
     </p>
+</div>
+<div className={styles.outro}>
+    <h1>Is the 16 Personality Test valid and reliable when completed online?</h1>
+    <p>
+    Test-retest reliability for the 16PF major scales averages 0.80 over a two-week 
+    period and 0.70 over a two-month period. Even greater test-retest reliability is 
+    demonstrated by the five main sub-scales of the 16PF Questionnaire, which average 
+    0.87 at two-week intervals and 0.78 at two-month intervals. These data sets, 
+    fortunately, come from web-based administration. As a result, any further assumptions 
+    or explanations regarding your results from any source should be verified by a professional 
+    conducting a thorough evaluation.
+    </p>
+    <p>
+    For broad, general insights on how you might approach relationships, work, or life, 
+    it can be a helpful tool. However, it should not be used as a diagnostic or 
+    decision-making tool in key areas of life, such as mental health or career.
+    </p>
+    <p>
+    No test, no matter how advanced, can reveal more than what you provide. 
+    If you require any extra counseling or professional education regarding your results, 
+    don't hesitate to seek assistance.
+    </p>
+    <p>
+        References: <a href="https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf" target="_blank" rel="noopener noreferrer">
+            https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf
+        </a>
+    </p>
+</div>
 </div>
 
 

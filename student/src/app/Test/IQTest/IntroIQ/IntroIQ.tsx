@@ -76,12 +76,6 @@ const IntroPF: React.FC = () => {
         Terms will be reflected on this page. It is your responsibility to check this page regularly for updates. Your 
         continued use of the Test after any modifications to the Terms constitutes your acceptance of those changes.
       </p>
-      <p className={styles.termsinfo}>
-        <strong className={styles.termsnumiq}>6. Governing Law </strong>
-        These Terms are governed by and construed in accordance with the laws of the jurisdiction in which we operate. 
-        Any disputes arising from the use of the Test will be subject to the exclusive jurisdiction of the courts in 
-        that jurisdiction.
-      </p>
 
       <p className={styles.confirm}>
         By proceeding with the test, you acknowledge that you have read, understood, and agree to these terms and conditions.

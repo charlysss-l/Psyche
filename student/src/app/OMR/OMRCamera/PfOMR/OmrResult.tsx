@@ -49,7 +49,7 @@ const OmrResult: React.FC = () => {
             sex,
             course,
             year: parseInt(year), // Ensure year is a number
-            section: parseInt(section), // Ensure section is a number
+            section, // Ensure section is a number
             testID: `test-${Date.now()}`,  // Generate a unique testID or let the backend handle it
             scoring: Scoring, // Submit the scoring data
             testType,
@@ -117,19 +117,7 @@ const OmrResult: React.FC = () => {
                 <option value="Physical">Physical</option>
             </select>
 
-            {/* Display Section Scores */}
-            {Object.keys(sectionScores).length > 0 && (
-                <div>
-                    <h3>Section Scores:</h3>
-                    <ul>
-                        {Object.entries(sectionScores).map(([section, score]) => (
-                            <li key={section}>
-                                <strong>{section}:</strong> {score}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+           
 
             <button className={style.start} type="submit">Submit and View Interpretation</button>
         </form>

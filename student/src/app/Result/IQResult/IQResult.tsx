@@ -81,52 +81,81 @@ const IQResult: React.FC = () => {
         navigate('/home');
     };
 
-    const generatePDF = async () => {
-        // Get the result container element
-        const resultContainer = document.getElementById("result-container");
-        if (!resultContainer) return;
     
-        // Temporarily hide unwanted elements
-        const elementsToHide = resultContainer.querySelectorAll("button, input[type='checkbox'], label, p");
-        elementsToHide.forEach(element => {
+
+    const generatePDF = async () => {
+        // Get the entire result page container
+        const resultPage = document.getElementById("result-container");
+        if (!resultPage) return;
+    
+        // Temporarily hide unwanted interactive elements
+        const elementsToHide = resultPage.querySelectorAll(
+            "button, input[type='checkbox'], label, p"
+        );
+        elementsToHide.forEach((element) => {
             if (element instanceof HTMLElement) {
-                element.style.display = "none"; // Explicitly hide the element
+                element.style.display = "none"; // Hide interactive elements
+            }
+        });
+    
+        // Temporarily adjust layout if needed
+        const originalStyles: Record<string, string> = {};
+        const adjustElements = resultPage.querySelectorAll(".outro, .privacySection");
+        adjustElements.forEach((element) => {
+            if (element instanceof HTMLElement) {
+                originalStyles[element.className] = element.style.margin || ""; // Save original styles
+                element.style.margin = "10px 0"; // Adjust margins for PDF layout
             }
         });
     
         // Generate canvas from the container
-        const canvas = await html2canvas(resultContainer);
+        const canvas = await html2canvas(resultPage, { scale: 2 }); // Scale for better quality
         const imgData = canvas.toDataURL("image/png");
     
         // Create PDF document
         const pdf = new jsPDF("p", "mm", "a4");
         const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
     
-        // Define scaling factors
-        const scaleFactor = 0.9; // Control zoom level (adjust for width scaling)
-        const stretchFactor = 0.8; // Control vertical stretching (adjust this to control vertical size)
-    
-        // Calculate the scaled width based on the scale factor
+        // Scaling factor (adjust to fit content on one page or scale it)
+        const scaleFactor = 0.90;
+        const stretchFactor = 1.5; // Control vertical stretching (adjust this to control vertical size)
+
         const scaledWidth = pdfWidth * scaleFactor;
-    
-        // Calculate the scaled height based on the stretch factor
         const scaledHeight = pdfHeight * stretchFactor;
+
     
-        // Calculate the X position to center the image
+        // Center the content in the PDF
         const xPos = (pdfWidth - scaledWidth) / 2;
     
-        // Add a margin (for example, 10 mm from the top)
-        const marginTop = 20;  // Adjust the margin value as needed
+        // Add the image to the PDF
+        pdf.addImage(imgData, "PNG", xPos, 10, scaledWidth, scaledHeight);
     
-        // Add image to PDF with scaling, centered, and a top margin
-        pdf.addImage(imgData, "PNG", xPos, marginTop, scaledWidth, scaledHeight);
-        pdf.save("IQResult.pdf");
+        // Add the footer message
+        const footerText = "This result is refracted from the website DiscoverU";
+        const footerFontSize = 10; // Adjust font size as needed
+        pdf.setFontSize(footerFontSize);
     
-        // Restore the hidden elements
-        elementsToHide.forEach(element => {
+        // Set text color to gray
+        pdf.setTextColor(128, 128, 128); // RGB values for gray
+    
+        const footerYPos = pdf.internal.pageSize.getHeight() - 10; // Position 10mm from the bottom
+        pdf.text(footerText, pdfWidth / 2, footerYPos, { align: "center" });
+    
+        // Save the PDF
+        pdf.save("PFResult.pdf");
+    
+        // Restore hidden elements
+        elementsToHide.forEach((element) => {
             if (element instanceof HTMLElement) {
-                element.style.display = ""; // Restore the element
+                element.style.display = ""; // Restore the display property
+            }
+        });
+    
+        // Restore adjusted styles
+        adjustElements.forEach((element) => {
+            if (element instanceof HTMLElement) {
+                element.style.margin = originalStyles[element.className]; // Restore original margins
             }
         });
     };
@@ -202,13 +231,13 @@ const IQResult: React.FC = () => {
                 <p className={styles.noResults}>No results available. Please complete the test.</p>
             )}
         </div>
-
+        <div className={styles.messageContainer}>
         {/* Data Privacy Section */}
         <div className={styles.privacySection}>
     <h1>Data Privacy Act</h1>
     <p>
         Your personal information and test results are protected under the Data Privacy Act of 2012 (Republic Act No. 10173). 
-        This ensures that all data collected through this personality test is handled with the utmost confidentiality and care. 
+        This ensures that all data collected through this IQ test is handled with the utmost confidentiality and care. 
         The information provided will be used exclusively for assessment and consultation purposes within the psychology department.
     </p>
     <p>
@@ -222,6 +251,35 @@ const IQResult: React.FC = () => {
         or require further information on how we handle your data, you may reach out to our psychology department or refer to our privacy policy.
     </p>
 </div>
+<div className={styles.outro}>
+    <h1>Is the 16 Personality Test valid and reliable when completed online?</h1>
+    <p>
+    Test-retest reliability for the 16PF major scales averages 0.80 over a two-week 
+    period and 0.70 over a two-month period. Even greater test-retest reliability is 
+    demonstrated by the five main sub-scales of the 16PF Questionnaire, which average 
+    0.87 at two-week intervals and 0.78 at two-month intervals. These data sets, 
+    fortunately, come from web-based administration. As a result, any further assumptions 
+    or explanations regarding your results from any source should be verified by a professional 
+    conducting a thorough evaluation.
+    </p>
+    <p>
+    For broad, general insights on how you might approach relationships, work, or life, 
+    it can be a helpful tool. However, it should not be used as a diagnostic or 
+    decision-making tool in key areas of life, such as mental health or career.
+    </p>
+    <p>
+    No test, no matter how advanced, can reveal more than what you provide. 
+    If you require any extra counseling or professional education regarding your results, 
+    don't hesitate to seek assistance.
+    </p>
+    <p>
+        References: <a href="https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf" target="_blank" rel="noopener noreferrer">
+            https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf
+        </a>
+    </p>
+</div>
+</div>
+
 </div>
     );
 };
