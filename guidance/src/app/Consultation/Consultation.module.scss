@@ -7,7 +7,7 @@ $font-size-large: 24px;
 $bg-color-light-green: #6C946F;
 $bg-color-light-yellow: #FFD35A;
 $bg-color-light-gray: #f4f4f4;
-$bg-color-gray: #f8f9fa;
+$bg-color-gray: #ebebeb;
 $bg-color-dark-gray: #343a40;
 $bg-color-light-gray-2: #ffffff;
 $bg-color-green: #6C946F;
@@ -27,7 +27,7 @@ $box-shadow-color: rgba(0, 0, 0, 0.1); /* Box shadow color */
 $border-radius: 5px;
 $padding-small: 5px 10px;
 $padding-medium: 8px 16px;
-$padding-large: 12px;
+$padding-large: 8px;
 
 body {
   font-family: $font-family;
@@ -37,14 +37,12 @@ body {
 }
 
 h3 {
-  margin: 0;
+  margin-top: 30px;
   font-size: $font-size-medium;
+  text-align: center;
+  color: #4e4e4e;
 }
 
-h2 {
-  margin-bottom: 20px;
-  font-size: $font-size-large;
-}
 
 /* Status Box Container */
 .statusBoxContainer {
@@ -60,14 +58,25 @@ h2 {
     width: 45%;
     text-align: center;
   }
-
   .acceptedBox {
-    background-color: $bg-color-light-green; /* Light green for accepted */
+    background-color: #97b3e7d3;
+
+    &:hover {
+      transform: scale(1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
   }
 
   .pendingBox {
-    background-color: $bg-color-light-yellow; /* Light yellow for pending */
+    background-color: #97b3e7d3; 
+
+    &:hover {
+      transform: scale(1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
   }
+
+  
 }
 
 /* Table Container */
@@ -76,15 +85,16 @@ h2 {
   padding: 15px;
   border-radius: $border-radius;
   background-color: $bg-color-gray;
+
 }
 
 table {
-  width:50%;
+  width: 100%;
   border-collapse: collapse;
   background-color: $bg-color-light-gray-2;
   text-align: center;
   border-radius: $border-radius;
-  overflow: hidden;
+  overflow: hidden; 
 
   th,
   td {
@@ -93,7 +103,7 @@ table {
   }
 
   th {
-    background-color: $bg-color-dark-gray;
+  background-color: #8099c7 ;
     color: white;
   }
 
@@ -125,24 +135,62 @@ button {
   border: none;
   border-radius: $border-radius;
   cursor: pointer;
-  font-size: $font-size-small;
+  font-size: $font-size-small;;
+
+  &.delete{
+    background-color: #292929 ;
+    
+    &:hover{
+      background-color: #616161 ;
+    }
+  }
 
   &.accept {
-    background-color: $bg-color-green; /* Green for accept */
-    color: black;
+    background-color: #4a976af8 ; 
+    color: #ffffff;
+
+    &:hover{
+      background-color: #41865e ;
+    }
   }
 
   &.decline {
-    background-color: $bg-color-red; /* Red for decline */
-    color: black;
+    background-color: #db4d4d;; /* Red for decline */
+    color: #ffffff;
     margin-left: 10px;
+
+    &:hover{
+      background-color: #b62e2e ;
+    }
   }
 
   &.viewInfo {
-    background-color: $bg-color-dark-gray-2; /* Gray for view info */
-    color: black;
+    background-color: #567fd6; 
+    color: #fcfcfc;
+    margin-right: 10px;
+    
+    &:hover{
+    background-color: #567fd6b7 ; 
+    }
   }
 
+  &.archive{
+    background-color: #8b8b8b ;
+    color: #fcfcfc;
+
+    &:hover{
+      background-color: #969696bb ; 
+      }
+  }
+&.markDone{
+    background-color: #2c2c2c ;
+     
+    color: #ffffff;
+
+    &:hover{
+      background-color: #1b1b1bad ;
+    }
+}
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
@@ -228,7 +276,7 @@ button {
 }
 
 .testInfoTable th {
-  background-color: #f4f4f4;
+  background-color: #8099c7;
   font-weight: bold;
 }
 
@@ -265,7 +313,6 @@ button {
 button:hover {
   background-color: #0C3C78;
 }
-
 
 .scoring-label {
   font-weight: bold;
@@ -312,9 +359,8 @@ button:hover {
   position: absolute;
   right: 2.2%;
   top:10%;
-  background-color: #3b5998; /* Blue like a mailbox */
+  background-color: #969696  ;
   color: white; /* Text color */
-  border: 2px solid #2d4373; /* Slightly darker border */
   border-radius: 12px; /* Rounded edges */
   padding: 10px 20px; /* Adjust padding for size */
   font-size: 16px; /* Slightly larger text */
@@ -327,7 +373,7 @@ button:hover {
 }
 
 .archiveButton:hover {
-  background-color: #0C3C78; /* Lighter blue on hover */
+  background-color: #646464 ; /* Lighter blue on hover */
 }
 
 .archiveButton:active {
