@@ -277,6 +277,7 @@ const PfOMR: React.FC = () => {
       const data = await response.json();
       console.log('OMR response:', data); // Log the response to check its structure
       setOmrScore(data.score); // Assuming data.score is a number
+      alert('OMR processed successfully!');
     } catch (error) {
       console.error("Error processing OMR:", error);
     } finally {
@@ -411,19 +412,12 @@ const PfOMR: React.FC = () => {
       )}
 
       <button onClick={handleOMRProcessing} className={styles.omrProcessButton} disabled={!uploadURL}>
-        Process OMR and Score
+        Start Processing Your Test Paper
       </button>
 
       {omrScore && (
   <div>
-    <h3>OMR Score:</h3>
-    <pre>
-      {Object.entries(omrScore).map(([section, score]) => (
-        <div key={section}>
-          <strong>{section}:</strong> {score}
-        </div>
-      ))}
-    </pre>
+    
     <button onClick={handleSaveScore} className={styles.saveScoreButton}>
       Save and Interpret Your Score
     </button>

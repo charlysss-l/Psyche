@@ -136,7 +136,7 @@ const OMRResult: React.FC = () => {
             {/* Display OMR Score */}
             {omrScore !== null && (
                 <div>
-                    <h3>Your OMR Score: {omrScore}</h3>
+                    <h3>Your Test Score: {omrScore}</h3>
                 </div>
             )}
 
