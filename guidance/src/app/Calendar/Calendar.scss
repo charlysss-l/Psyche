@@ -14,70 +14,6 @@ $border-radius: 10px;
   }
 }
 
-.requestList {
-  width: 100%;
-  max-width: 700px;
-  margin-top: 20px;
-  background-color: $container-bg;
-  border-radius: $border-radius;
-  padding: 15px;
-}
-
-h2, h3 {
-  text-align: center;
-  color: $main-text;
-  margin-top:30px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-table th, table td {
-  border: 1px solid #E9E9E9;
-  padding: 8px;
-}
-
-table th {
-  background-color: #bd2b2b;
-  color: #ffffff;
-  
-}
-
-.submitAddSched {
-  background-color: #cf22a4;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  color: #ffffff;
-  padding: 8px 12px;
-  margin-bottom: 8px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin: 0 auto;
-  display: block;
-
-  &:hover {
-    background-color: #830b65;
-  }
-}
-
-.newSchedForm {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  background-color: #FFFFFF;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 form div {
   display: flex;
   flex-direction: column;
@@ -88,6 +24,7 @@ form div {
   margin-bottom: 6px;
   color: #555;
 }
+
 
 .newSchedinput {
   padding: 5px;
@@ -122,14 +59,15 @@ textarea {
 }
 
 .react-calendar {
-  height: 80%;
-  width: 85%;
+  height: 70%;
+  width: 70%;
   color: white;
-  background-color: rgb(88, 88, 88);
+  background-color: #ffffff ;
   border-radius: $border-radius;
-  padding: 10px;
+  border: 2px solid #b3b3b3;
+  padding: 1%;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-left: 220px;
+  margin-left: 15%;
   animation: fadeIn 1s ease-in-out;
   opacity: 0; /* Hidden initially */
   animation-fill-mode: forwards; /* Retain final state after animation */
@@ -139,10 +77,11 @@ textarea {
 
 .react-calendar__navigation {
   background-color: rgba(133, 17, 17, 0);
+  margin-bottom: 25px;
 }
 
 .react-calendar__navigation button {
-  background-color: #f592e0;
+  background-color: #8099c7 ;
   color: rgb(255, 255, 255);
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
@@ -151,25 +90,26 @@ textarea {
 }
 
 .react-calendar__navigation button:hover {
-  background-color: #ac3893;
+  background-color: #5f749b;
 }
 
 .react-calendar__tile {
-  height: 120px;
-  background-color: rgb(88, 88, 88);
-  border: 1px solid rgba(0, 0, 0, 0.126);
+  height: 80px;
+  margin: 0.5% 0.5% 0.5% 2%;
+  background-color: #c4c4c4 ;
+
   position: relative;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .react-calendar__tile:hover {
-  background-color: #dd8ba1;
+  background-color: #637eac ;
 }
 
 
 
 .react-calendar__tile--active {
-  background-color: #92324b;
+  background-color: #8099c7;
 }
 
 .react-calendar__month-view__days__day {
@@ -185,9 +125,9 @@ textarea {
   position: absolute;
   top: 5px;
   left: 5px;
-  background-color: #AF1740;
+  background-color: #bb2727;
   color: white;
-  font-size: 15px;
+  font-size: 12px;
   padding: 2px 6px;
   border-radius: 50%;
   font-weight: bold;
