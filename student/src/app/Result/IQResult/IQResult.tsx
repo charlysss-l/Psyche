@@ -132,7 +132,7 @@ const IQResult: React.FC = () => {
         pdf.addImage(imgData, "PNG", xPos, 10, scaledWidth, scaledHeight);
     
         // Add the footer message
-        const footerText = "This result is refracted from the website DiscoverU";
+        const footerText = "This result is extracted from our website DiscoverU";
         const footerFontSize = 10; // Adjust font size as needed
         pdf.setFontSize(footerFontSize);
     
