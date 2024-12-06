@@ -33,6 +33,8 @@ const IqOMR: React.FC = () => {
   const [omrScore, setOmrScore] = useState<number | null>(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);  // Loading state for spinner
+  const [uploadCount, setUploadCount] = useState(0);
+  
 
   
 
@@ -144,48 +146,42 @@ const IqOMR: React.FC = () => {
   
   
   
-  const validateBackgroundColor = async (file: File): Promise<boolean> => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            resolve(false);
-            return;
-          }
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-          
-          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const pixels = imgData.data;
-          let totalLuminance = 0;
-          for (let i = 0; i < pixels.length; i += 4) {
-            const r = pixels[i];
-            const g = pixels[i + 1];
-            const b = pixels[i + 2];
-            const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
-            totalLuminance += luminance;
-          }
-          const avgLuminance = totalLuminance / (pixels.length / 4);
-          resolve(avgLuminance > 200); // Higher value ensures the background is light
-        };
-        img.src = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
-    });
+ 
+
+  const resetUploadCount = () => {
+    localStorage.removeItem('uploadCount');
+    localStorage.removeItem('uploadDate');
+    setUploadCount(0);  // Reset the state variable to 0
+    alert('Upload count has been reset for the day.');
   };
+  
 
   
   
   const handleUpload = async () => {
     if (!selectedFile) return;
-
+  
+    // Get the current date in YYYY-MM-DD format
+    const currentDate = new Date().toISOString().split('T')[0];
+  
+    // Get stored date and upload count from localStorage
+    const storedDate = localStorage.getItem('uploadDate');
+    let uploadCount = parseInt(localStorage.getItem('uploadCount') || '0', 10);
+  
+    // Check if the date has changed (new day)
+    if (storedDate !== currentDate) {
+      // If it's a new day, reset the upload count
+      uploadCount = 0;
+      localStorage.setItem('uploadDate', currentDate); // Store the current date
+    }
+  
+    // Check if the upload limit has been reached
+    if (uploadCount >= 3) {
+      alert('You have reached the maximum upload limit for today. Please try again tomorrow.');
+      return;
+    }
+  
     setLoading(true);  // Show loading spinner when upload starts
-
   
     try {
       const fileName = `uploads/OMR/${uuidv4()}_${selectedFile.name}`;
@@ -195,7 +191,6 @@ const IqOMR: React.FC = () => {
       if (!selectedFile.type.startsWith('image/')) {
         alert('Please upload a valid image file.');
         setLoading(false);  // Hide loading spinner on failure
-
         return;
       }
   
@@ -204,29 +199,17 @@ const IqOMR: React.FC = () => {
       if (!isPortrait) {
         alert('Please upload a portrait-oriented IQ answer sheet.');
         setLoading(false);  // Hide loading spinner on failure
-
         return;
       }
-
-      // Validate if the image contains "Name"
-    const isValidText = await validateTextInImage(selectedFile);
-    if (!isValidText) {
-      alert('Invalid image: The word "IQ" is not found in the image.');
-      setLoading(false);
-      return;
-    }
-
-     
-
-    // Validate background color
-    const isValidBackground = await validateBackgroundColor(selectedFile);
-    if (!isValidBackground) {
-      alert('Invalid image: Background is not predominantly white.');
-      setLoading(false);  // Hide loading spinner on failure
-
-      return;
-    }
-
+  
+      // Validate if the image contains "IQ"
+      const isValidText = await validateTextInImage(selectedFile);
+      if (!isValidText) {
+        alert('Invalid image: The word "IQ" is not found in the image.');
+        setLoading(false);
+        return;
+      }
+  
       
   
       // Upload the file to Firebase
@@ -238,9 +221,13 @@ const IqOMR: React.FC = () => {
   
       console.log("File uploaded successfully:", downloadURL);
       setImagePreview(downloadURL);
+  
+      // Increment the upload count and update in localStorage
+      uploadCount += 1;
+      localStorage.setItem('uploadCount', uploadCount.toString());
+  
     } catch (error) {
       console.error("Error uploading file:", error);
-  
       if ((error as { code: string }).code === 'storage/unauthorized') {
         alert('CORS error: Please upload a valid answer sheet in the correct format.');
       } else {
@@ -250,6 +237,7 @@ const IqOMR: React.FC = () => {
       setLoading(false);  // Hide loading spinner regardless of success or failure
     }
   };
+  
   
 
   const handleOMRProcessing = async () => {
@@ -372,6 +360,8 @@ const IqOMR: React.FC = () => {
       {/* OMR Container */}
       <div className={styles.omrCameraContainer}>
         <h2>IQ Test Upload</h2>
+        <button onClick={resetUploadCount}>Reset Upload Count</button>
+
         <div className={styles.fileInputWrapper}>
           <label htmlFor="fileInput" className={styles.uploadLabel}>Choose Image</label>
           <input id="fileInput" type="file" onChange={handleFileChange} />
