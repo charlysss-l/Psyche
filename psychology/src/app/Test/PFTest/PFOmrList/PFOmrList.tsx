@@ -247,7 +247,7 @@ const PFOmrList: React.FC = () => {
 
   return (
     <div>
-      <h2 className={styles.title}>PF Results List (for Pyhsical)
+      <h2 className={styles.title}>PF Results List (Pyhsical)
 
       <div className={styles.buttonsWrapper}>
     <button onClick={exportToExcel} className={styles.exportButton}>

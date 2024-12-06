@@ -213,7 +213,7 @@ const PFResultsList: React.FC = () => {
   return (
     <div>
       <h2 className={styles.title}>
-  PF Results List
+  PF Results List (Online)
   <div className={styles.buttonsWrapper}>
     <button onClick={exportToExcel} className={styles.exportButton}>
       Export to Excel

@@ -49,11 +49,24 @@ const IQOnlineArchiveList: React.FC = () => {
 const fetchData = async () => {
   try {
     const response = await fetch('http://localhost:5000/api/useriq/isTrue/archived/all');
+
+    if (response.status === 404) {
+      // Handle 404 as no archived results
+      setError(null);
+      setArchivedResults([]);
+      setLoading(false);
+      return;
+    }
+
     if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.statusText}`);
     }
     const data = await response.json();
 
+    if (data.data.length === 0) {
+      setError('No archived results yet.');
+      setArchivedResults([]);
+    } else {
     // Fetch IQ test interpretation data
     const iqTestResponse = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
     if (!iqTestResponse.ok) {
@@ -84,6 +97,8 @@ const fetchData = async () => {
     });
 
     setArchivedResults(resultsWithInterpretation);
+    setError(null);
+      }
   } catch (err) {
     setError(err instanceof Error ? err.message : 'An unknown error occurred');
   } finally {
@@ -135,7 +150,11 @@ useEffect(() => {
 
   return (
     <div className={styles.floatingContainer}>
-      <h2>Archive IQ Results List</h2>
+      <h2>Archive IQ Results List (Online)
+      <p className={styles.resultCount}>
+  Total Archived Results: {archivedResults.length}
+</p>
+      </h2>
   
       {archivedResults.length > 0 ? (
         <div>

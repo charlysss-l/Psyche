@@ -104,14 +104,29 @@ const PFOnlineArchivedList: React.FC = () => {
   const fetchData = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/user16pf/isTrue/archived/all');
-      
+       
+      if (response.status === 404) {
+        // Handle 404 as no archived results
+        setError(null);
+        setResults([]);
+        setLoading(false);
+        return;
+      }
+
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
 
       const data = await response.json();
+
+      if (data.data.length === 0) {
+        setError('No archived results yet.');
+        setResults([]);
+      } else {
       console.log('Fetched Data:', data);
       setResults(data.data); // Update results to use the correct data field
+      setError(null);
+    }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error fetching data:', err);
@@ -153,7 +168,11 @@ const PFOnlineArchivedList: React.FC = () => {
 
   return (
     <div className={styles.floatingContainer}>
-      <h2>PF Results List</h2>
+      <h2>PF Results List (Online)
+      <p className={styles.resultCount}>
+  Total Archived Results: {results.length}
+</p>
+      </h2>
      
       {results.length > 0 ? (
         <div>

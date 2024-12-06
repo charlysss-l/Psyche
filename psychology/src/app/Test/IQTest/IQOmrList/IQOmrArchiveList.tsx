@@ -48,11 +48,18 @@ const IQOmrArchivedList: React.FC = () => {
 
  
 
-  // Fetch data based on userID
   const fetchData = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/omr/isTrue/archived/all');
       
+      if (response.status === 404) {
+        // Handle 404 as no archived results
+        setError(null);
+        setResults([]);
+        setLoading(false);
+        return;
+      }
+  
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
@@ -60,11 +67,9 @@ const IQOmrArchivedList: React.FC = () => {
       const data = await response.json();
   
       if (data.data.length === 0) {
-        // If results are empty, set a message
         setError('No archived results yet.');
-        setResults([]); // Ensure results is empty when there are no archived results
+        setResults([]);
       } else {
-        // Fetch IQ test interpretation data
         const iqTestResponse = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
         if (!iqTestResponse.ok) {
           throw new Error(`Failed to fetch IQ test: ${iqTestResponse.statusText}`);
@@ -72,7 +77,6 @@ const IQOmrArchivedList: React.FC = () => {
         const iqTestData = await iqTestResponse.json();
         const interpretations: Interpretation[] = iqTestData.interpretation;
   
-        // Add interpretation to the user's result
         const resultWithInterpretation = data.data.map((result: OMR) => {
           const interpretation = interpretations.find(
             (interp) =>
@@ -93,7 +97,7 @@ const IQOmrArchivedList: React.FC = () => {
         });
   
         setResults(resultWithInterpretation);
-        setError(null); // Clear any previous error
+        setError(null);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
@@ -101,6 +105,7 @@ const IQOmrArchivedList: React.FC = () => {
       setLoading(false);
     }
   };
+  
   
 
   useEffect(() => {
@@ -139,7 +144,11 @@ const currentResults = results.slice(
 
     return (
         <div className={styles.floatingContainer}>
-          <h2>IQ Results List (by Physical) </h2>
+          <h2>IQ Results List (Physical)
+          <p className={styles.resultCount}>
+  Total Archived Results: {results.length}
+</p>
+             </h2>
       
           {results.length > 0 ? (
             <div>
