@@ -1,6 +1,6 @@
 // SCSS Variables for consistency
 $form-bg-color: #F6F5F5;         // Set form background to #F6F5F5
-$primary-color: #7EA0B7;         // Primary color for buttons and focus
+$primary-color: #2A3744;         // Primary color for buttons and focus
 $border-radius: 5px;
 $input-border-color: #45474B;    // Darker border for the input fields
 $input-focus-border-color: $primary-color; // Focus color for inputs
@@ -36,7 +36,7 @@ $font-family: Arial, sans-serif;
 
 // Header for the form (SAMPLE IQ TEST)
 h1 {
-  color: $header-text-color;     // Color for the header text (SAMPLE IQ TEST)
+  color: #FFFFFF;     // Color for the header text (SAMPLE IQ TEST)
   font-size: 2rem;
   margin-bottom: 20px;
   justify-self: center;
