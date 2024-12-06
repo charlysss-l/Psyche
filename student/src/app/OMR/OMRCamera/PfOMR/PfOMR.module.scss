@@ -1,7 +1,7 @@
 // OMRCamera.module.scss
 
 .omrCameraContainer {
-  background-color: #1e1e1e;
+  background-color: #2A3744;
     color: #e0e0e0;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,7 @@
 }
 
 .uploadLabel {
-  background-color: #333;
+  background-color: #849670;
   padding: 8px 16px;
   border-radius: 5px;
   color: #ccc;
@@ -46,7 +46,7 @@
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #555;
+    background-color: #95A581;
   }
 }
 
@@ -94,7 +94,7 @@
   }
 
   .openCameraButton {
-    background-color: #444;
+    background-color: #849670;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -105,8 +105,9 @@
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #666;
+      background-color: #95A581;
     }
+
   }
 
   .fileInput {
@@ -126,7 +127,7 @@
 }
 
 .uploadButton {
-  background-color: #007BFF;
+  background-color: #849670;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -138,12 +139,12 @@
   margin-top: 20px;
 
   &:disabled {
-    background-color: #666;
+    background-color: #849670;
     cursor: not-allowed;
   }
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #95A581;
   }
 }
 
@@ -165,7 +166,7 @@
 }
 
 .omrProcessButton {
-  background-color: #28a745;
+  background-color: #849670;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -181,7 +182,7 @@
   }
 
   &:hover {
-    background-color: #218838;
+    background-color: #95A581;
   }
 }
 
@@ -192,7 +193,7 @@ canvas {
 
 
 .saveScoreButton {
-  background-color: #007BFF;
+  background-color: #2A3744;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -205,7 +206,7 @@ canvas {
 
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #334553;
   }
 }
 
@@ -213,7 +214,7 @@ canvas {
   display: flex;
   flex-direction: column;
   color : white;
-  background-color: #303030; /* Light background for clarity */
+  background-color: #2A3744; /* Light background for clarity */
   padding: 20px;
   border: 1px solid #000000;
   border-radius: 8px;
@@ -229,7 +230,7 @@ canvas {
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 10px;
-  color: #e0e0e0;
+  color: #D7A52F;
 }
 
 
@@ -251,7 +252,7 @@ canvas {
 
 .spinnerCircle {
   border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid #bf34db;
+  border-top: 4px solid #DC87A5;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -272,7 +273,7 @@ canvas {
   text-align: center;
   margin-top: 10px;
   font-weight: 600;
-  color: #ee4ad8;
+  color: #DC87A5;
 }
 
 
