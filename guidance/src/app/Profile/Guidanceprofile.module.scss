@@ -15,7 +15,7 @@ $message-error: #B30000;
 
 .userinfo_pr {
   font-size: 1.7rem;
-  color: $primary-color;
+  color: $button-hover-color;
   margin-bottom: 20px;
 }
 
@@ -54,7 +54,7 @@ $message-error: #B30000;
 }
 
 .pr_input:focus {
-  box-shadow: 0 0 8px $button-hover-color;
+  box-shadow: 0 0 8px #749ef8;
   outline: none;
 }
 
