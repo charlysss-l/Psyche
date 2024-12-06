@@ -12,14 +12,14 @@
   .surveyDetailsContainer h2 {
     font-size: 2rem;
     font-weight: bold;
-    color: #333;
+    color: #2a3744;
     margin-bottom: 10px;
   }
   
   // Description of the survey
   .surveyDetailsContainer p {
     font-size: 1.2rem;
-    color: #555;
+    color: #000000;
     margin-bottom: 20px;
   }
   
@@ -32,7 +32,7 @@
   .section h4 {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
+    color: #000000;
     margin-bottom: 10px;
   }
   
@@ -57,7 +57,7 @@
   // Question text style
   .question p {
     font-size: 1.1rem;
-    color: #444;
+    color: #000000;
     margin-bottom: 10px;
   }
   
@@ -65,7 +65,7 @@
   .question label {
     display: block;
     font-size: 1rem;
-    color: #333;
+    color: #000000;
     margin-bottom: 5px;
     cursor: pointer;
   }
@@ -89,7 +89,7 @@
     transition: background-color 0.3s ease;
   
     &:hover {
-      background-color: #efb836 ;
+      background-color: #d7a52f ;
     }
   
     &:disabled {
