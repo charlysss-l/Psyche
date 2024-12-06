@@ -134,6 +134,29 @@ const IQResultsList: React.FC = () => {
       console.error('Error deleting test:', err);
     }
   };
+
+  const handleArchive = async (testID: string) => {
+    try {
+        console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
+
+        // Use the testID in the API request
+        const response = await fetch(`http://localhost:5000/api/useriq/archive/${testID}`, {
+            method: 'PUT', // Use PUT to match backend
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
+        }
+
+        // Update the UI state to reflect the archived status
+        setResults(results.filter((result) => result.testID !== testID)); // Ensure you filter by testID
+        alert('Test deleted successfully.');
+    } catch (err) {
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        console.error('Error archiving test:', err);
+    }
+};
   
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
@@ -190,7 +213,7 @@ const IQResultsList: React.FC = () => {
                   <td>
                     <button 
                       className={styles.deleteButtonIQLIST} 
-                      onClick={() => handleDelete(result.testID)}
+                      onClick={() => handleArchive(result.testID)}
                     >
                       Delete
                     </button>

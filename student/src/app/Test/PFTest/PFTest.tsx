@@ -140,7 +140,6 @@ const PFTest: React.FC = () => {
                 <span className={styles.highlight}>*</span> Double-check that you have made the right choice. If you need to change an answer, simply select the new response and the incorrect response will disappear. <br />
                 <span className={styles.highlight}>*</span> Try not to use the 'Neutral' option too often. <br />
                 <span className={styles.highlight}>*</span> Describe yourself as you honestly see yourself now, not as you wish to be in the future. <br />
-                <span className={styles.highlight}>*</span> You can only answer this test once a day, if any error occurs and need to retake the test, please direct to the administrator (Psychology Department).
                 </em>
             </p>
     
