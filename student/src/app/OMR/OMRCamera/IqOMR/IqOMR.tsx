@@ -287,7 +287,6 @@ const IqOMR: React.FC = () => {
   const handleSaveScore = () => {
     if (omrScore !== null) {
       localStorage.setItem('omrScore', omrScore.toString());
-      alert('Score saved successfully!');
       navigate('/iqomrresult');
     }
   };
@@ -428,14 +427,14 @@ const IqOMR: React.FC = () => {
         )}
   
         <button onClick={handleOMRProcessing} className={styles.omrProcessButton} disabled={!uploadURL}>
-          Process OMR and Score
+          Start Processing Your Test Paper
         </button>
   
         {omrScore !== null && (
           <div>
-            <h3>OMR Score: {omrScore}</h3>
+            <h3>Processing Completed</h3>
             <button onClick={handleSaveScore} className={styles.saveScoreButton}>
-              Save and Interpret Your Score
+              Fill the Form and See Interpretation
             </button>
           </div>
         )}

@@ -277,7 +277,6 @@ const PfOMR: React.FC = () => {
       const data = await response.json();
       console.log('OMR response:', data); // Log the response to check its structure
       setOmrScore(data.score); // Assuming data.score is a number
-      alert('OMR processed successfully!');
     } catch (error) {
       console.error("Error processing OMR:", error);
     } finally {
@@ -289,7 +288,6 @@ const PfOMR: React.FC = () => {
   const handleSaveScore = () => {
     if (omrScore !== null) {
       localStorage.setItem('omrScore', JSON.stringify(omrScore));
-      alert('Score saved successfully!');
       navigate('/pfomrresult');
     }
   };
@@ -417,10 +415,10 @@ const PfOMR: React.FC = () => {
 
       {omrScore && (
   <div>
-    
-    <button onClick={handleSaveScore} className={styles.saveScoreButton}>
-      Save and Interpret Your Score
-    </button>
+            <h3>Processing Completed</h3>
+            <button onClick={handleSaveScore} className={styles.saveScoreButton}>
+            Fill the Form and See Interpretation
+            </button>
   </div>
 )}
 

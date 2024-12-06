@@ -133,12 +133,7 @@ const OMRResult: React.FC = () => {
                 <option value="Physical">Physical</option>
             </select>
 
-            {/* Display OMR Score */}
-            {omrScore !== null && (
-                <div>
-                    <h3>Your Test Score: {omrScore}</h3>
-                </div>
-            )}
+            
 
             <button className={style.start} type="submit">Submit and View Interpretation</button>
         </form>
