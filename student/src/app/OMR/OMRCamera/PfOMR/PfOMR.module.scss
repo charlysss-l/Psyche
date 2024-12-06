@@ -127,7 +127,7 @@
 }
 
 .uploadButton {
-  background-color: #2A3744;
+  background-color: #849670;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -139,7 +139,7 @@
   margin-top: 20px;
 
   &:disabled {
-    background-color: #666;
+    background-color: #849670;
     cursor: not-allowed;
   }
 
@@ -252,7 +252,7 @@ canvas {
 
 .spinnerCircle {
   border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid #bf34db;
+  border-top: 4px solid #DC87A5;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -273,7 +273,7 @@ canvas {
   text-align: center;
   margin-top: 10px;
   font-weight: 600;
-  color: #ee4ad8;
+  color: #DC87A5;
 }
 
 
