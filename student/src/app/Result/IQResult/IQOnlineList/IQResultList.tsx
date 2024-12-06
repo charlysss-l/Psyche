@@ -167,7 +167,11 @@ const IQResultsList: React.FC = () => {
 
   return (
     <div>
-      <h2>IQ Results List</h2>
+      <h2>IQ Results List
+      <p className={styles.resultCount}>
+  Total Results: {results.length}
+</p>
+      </h2>
 
       {results.length > 0 ? (
         <div>

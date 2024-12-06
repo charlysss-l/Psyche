@@ -179,7 +179,15 @@ const OmrIQResultsList: React.FC = () => {
 
   return (
     <div>
-      <h2>IQ Results List (by Physical) <p className={styles.ageWarning}>*Your Age Must Be 20 years old and Above to see the Interpretation.</p></h2>
+      <h2>IQ Results List (Physical) 
+        <p className={styles.ageWarning}>*Your Age Must Be 20 years old and Above to see the Interpretation.
+
+        <p className={styles.resultCount}>
+  Total Results: {results.length}
+</p>
+        </p>
+      
+      </h2>
 
       {results.length > 0 ? (
         <div>

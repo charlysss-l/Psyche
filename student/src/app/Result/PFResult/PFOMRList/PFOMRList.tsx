@@ -368,7 +368,11 @@ const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
 
   return (
     <div>
-      <h2>PF Results List</h2>
+      <h2>PF Results List (Physical) 
+         <p className={styles.resultCount}>
+  Total Results: {results.length}
+</p>
+      </h2>
      
       {results.length > 0 ? (
         <div>

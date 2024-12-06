@@ -261,6 +261,11 @@ const PFOmrList: React.FC = () => {
     </button>
   </div>
 </h2>
+
+<p className={styles.resultCount}>
+  Total Results: {results.length}
+</p>
+
   {isArchivedListVisible && <PFOmrArchivedList />}
 
       {results.length > 0 ? (

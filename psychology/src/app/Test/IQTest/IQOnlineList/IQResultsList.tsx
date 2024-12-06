@@ -172,7 +172,7 @@ const exportToExcel = () => {
     
     <div>
       
-      <h2 className={styles.title}>IQ Results List (Online)
+      <h2 className={styles.title}>IQ Results List (Online) 
       <div className={styles.buttonsWrapper}>
     <button onClick={exportToExcel} className={styles.exportButton}>
       Export to Excel
@@ -185,6 +185,11 @@ const exportToExcel = () => {
     </button>
       </div>
   </h2>
+
+  <p className={styles.resultCount}>
+  Total Results: {results.length}
+</p>
+
   {isArchivedListVisible && <IQOnlineArchiveList />}
 
       

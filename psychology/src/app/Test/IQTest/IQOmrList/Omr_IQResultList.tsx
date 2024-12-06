@@ -179,6 +179,10 @@ const exportToExcel = () => {
     </button>
       </div>
   </h2>
+
+  <p className={styles.resultCount}>
+  Total Results: {results.length}
+</p>
   {isArchivedListVisible && <IQOmrArchivedList />}
 
       {results.length > 0 ? (
