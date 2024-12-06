@@ -184,8 +184,9 @@ const IqOMR: React.FC = () => {
     setLoading(true);  // Show loading spinner when upload starts
   
     try {
-      const fileName = `uploads/OMR/${uuidv4()}_${selectedFile.name}`;
-      const storageRef = ref(storage, fileName);
+      
+
+      
   
       // Check if the file is a valid image format
       if (!selectedFile.type.startsWith('image/')) {
@@ -209,22 +210,77 @@ const IqOMR: React.FC = () => {
         setLoading(false);
         return;
       }
-  
-      
-  
-      // Upload the file to Firebase
-      await uploadBytes(storageRef, selectedFile);
-  
-      // Get the download URL
-      const downloadURL = await getDownloadURL(storageRef);
-      setUploadURL(downloadURL);
-  
-      console.log("File uploaded successfully:", downloadURL);
-      setImagePreview(downloadURL);
-  
-      // Increment the upload count and update in localStorage
-      uploadCount += 1;
-      localStorage.setItem('uploadCount', uploadCount.toString());
+
+       // Create an image element to load the selected file
+    const img = new Image();
+    const reader = new FileReader();
+    
+    reader.onload = () => {
+      img.onload = async () => {
+        // Create a canvas to manipulate the image
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          alert('Canvas context is not available');
+          setLoading(false);
+          return;
+        }
+
+        // Set the canvas dimensions to the image's size
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        // Draw the image on the canvas
+        ctx.drawImage(img, 0, 0);
+
+        // Apply black-and-white filter (grayscale)
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const pixels = imageData.data;
+        
+        const brightnessFactor = 1.2; // Brightness factor (adjust as needed)
+
+        for (let i = 0; i < pixels.length; i += 4) {
+          const avg = (pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3;
+
+          // Apply brightness adjustment by multiplying with the factor
+          let newPixelValue = avg * brightnessFactor;
+          
+          // Ensure the pixel value does not exceed 255 (max RGB value)
+          newPixelValue = Math.min(newPixelValue, 255);
+
+          // Set RGB values to the adjusted grayscale value
+          pixels[i] = pixels[i + 1] = pixels[i + 2] = newPixelValue;
+        }
+
+        // Put the modified image data back to the canvas
+        ctx.putImageData(imageData, 0, 0);
+
+        // Get the data URL of the brightened grayscale image
+        const bwImageUrl = canvas.toDataURL('image/png');
+
+        // Convert the grayscale image URL to a File object
+        const bwFile = dataURLtoFile(bwImageUrl, 'grayscale_image.png');
+
+        // Upload the grayscale file to Firebase
+        const fileName = `uploads/OMR/${uuidv4()}_${bwFile.name}`;
+        const storageRef = ref(storage, fileName);
+
+        // Upload the file to Firebase Storage
+        await uploadBytes(storageRef, bwFile);
+
+        // Get the download URL of the uploaded image
+        const downloadURL = await getDownloadURL(storageRef);
+        setUploadURL(downloadURL);
+
+        console.log('File uploaded successfully:', downloadURL);
+
+        // Increment the upload count and update in localStorage
+        uploadCount += 1;
+        localStorage.setItem('uploadCount', uploadCount.toString());
+      };
+      img.src = reader.result as string;
+    };
+    reader.readAsDataURL(selectedFile); // Read the selected file as data URL
   
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -412,7 +468,9 @@ const IqOMR: React.FC = () => {
         {uploadURL && (
           <div className={styles.uploadedImage}>
             <p className={styles.uploadedImageText}>Image uploaded successfully:</p>
-            <img src={uploadURL} alt="Uploaded Image" className={styles.uploadedImagePreview} />
+            <img src={uploadURL} alt="Uploaded Image" className={styles.uploadedImagePreview}
+           
+ />
           </div>
         )}
   
@@ -438,8 +496,9 @@ const IqOMR: React.FC = () => {
         <p>1. Choose an image of your OMR sheet using the "Choose Image" button.</p>
         <p>2. Alternatively, capture an image using your camera.</p>
         <p>3. Upload a clear image of the IQ Test Answer Sheet to the system by clicking the "Upload Image" button.</p>
-        <p>4. Process the uploaded image to calculate your OMR score.</p>
-        <p>5. Save and interpret your score to view detailed results.</p>
+        <p>4. You only have 3 attempts per day to upload an image.</p>
+        <p>5. Process the uploaded image to calculate your OMR score.</p>
+        <p>6. Save and interpret your score to view detailed results.</p>
       </div>
     </div>
   );
