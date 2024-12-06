@@ -237,7 +237,7 @@ const IqOMR: React.FC = () => {
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const pixels = imageData.data;
         
-        const brightnessFactor = 1.2; // Brightness factor (adjust as needed)
+        const brightnessFactor = 1.5; // Brightness factor (adjust as needed)
 
         for (let i = 0; i < pixels.length; i += 4) {
           const avg = (pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3;

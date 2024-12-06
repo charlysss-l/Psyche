@@ -152,40 +152,7 @@ const PfOMR: React.FC = () => {
   
   
   
-  const validateBackgroundColor = async (file: File): Promise<boolean> => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            resolve(false);
-            return;
-          }
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-          
-          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const pixels = imgData.data;
-          let totalLuminance = 0;
-          for (let i = 0; i < pixels.length; i += 4) {
-            const r = pixels[i];
-            const g = pixels[i + 1];
-            const b = pixels[i + 2];
-            const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
-            totalLuminance += luminance;
-          }
-          const avgLuminance = totalLuminance / (pixels.length / 4);
-          resolve(avgLuminance > 200); // Higher value ensures the background is light
-        };
-        img.src = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
-    });
-  };
+ 
 
   const handleUpload = async () => {
     if (!selectedFile) return;
@@ -194,8 +161,7 @@ const PfOMR: React.FC = () => {
 
 
     try {
-      const fileName = `uploads/OMR/${uuidv4()}_${selectedFile.name}`;
-      const storageRef = ref(storage, fileName);
+   
 
       // Check if the file is a valid image format
       if (!selectedFile.type.startsWith('image/')) {
@@ -227,25 +193,75 @@ const PfOMR: React.FC = () => {
       }
 
     
+ // Create an image element to load the selected file
+ const img = new Image();
+ const reader = new FileReader();
+ 
+ reader.onload = () => {
+   img.onload = async () => {
+     // Create a canvas to manipulate the image
+     const canvas = document.createElement('canvas');
+     const ctx = canvas.getContext('2d');
+     if (!ctx) {
+       alert('Canvas context is not available');
+       setLoading(false);
+       return;
+     }
 
-    // Validate background color
-    const isValidBackground = await validateBackgroundColor(selectedFile);
-    if (!isValidBackground) {
-      alert('Invalid image: Background is not predominantly white.');
-      setLoading(false);  // Hide loading spinner on failure
+     // Set the canvas dimensions to the image's size
+     canvas.width = img.width;
+     canvas.height = img.height;
 
-      return;
-    }
+     // Draw the image on the canvas
+     ctx.drawImage(img, 0, 0);
 
-      // Upload the file to Firebase
-      await uploadBytes(storageRef, selectedFile);
+     // Apply black-and-white filter (grayscale)
+     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+     const pixels = imageData.data;
+     
+     const brightnessFactor = 1.5; // Brightness factor (adjust as needed)
 
-      // Get the download URL
-      const downloadURL = await getDownloadURL(storageRef);
-      setUploadURL(downloadURL); // This URL will be used by the Python backend
+     for (let i = 0; i < pixels.length; i += 4) {
+       const avg = (pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3;
 
-      console.log("File uploaded successfully:", downloadURL);
-      setImagePreview(downloadURL); // Display the uploaded image here
+       // Apply brightness adjustment by multiplying with the factor
+       let newPixelValue = avg * brightnessFactor;
+       
+       // Ensure the pixel value does not exceed 255 (max RGB value)
+       newPixelValue = Math.min(newPixelValue, 255);
+
+       // Set RGB values to the adjusted grayscale value
+       pixels[i] = pixels[i + 1] = pixels[i + 2] = newPixelValue;
+     }
+
+     // Put the modified image data back to the canvas
+     ctx.putImageData(imageData, 0, 0);
+
+     // Get the data URL of the brightened grayscale image
+     const bwImageUrl = canvas.toDataURL('image/png');
+
+     // Convert the grayscale image URL to a File object
+     const bwFile = dataURLtoFile(bwImageUrl, 'grayscale_image.png');
+
+     // Upload the grayscale file to Firebase
+     const fileName = `uploads/OMR/${uuidv4()}_${bwFile.name}`;
+     const storageRef = ref(storage, fileName);
+
+     // Upload the file to Firebase Storage
+     await uploadBytes(storageRef, bwFile);
+
+     // Get the download URL of the uploaded image
+     const downloadURL = await getDownloadURL(storageRef);
+     setUploadURL(downloadURL);
+
+     console.log('File uploaded successfully:', downloadURL);
+
+    
+   };
+   img.src = reader.result as string;
+ };
+ reader.readAsDataURL(selectedFile); // Read the selected file as data URL
+
     } catch (error) {
       console.error("Error uploading file:", error);
     } finally {
