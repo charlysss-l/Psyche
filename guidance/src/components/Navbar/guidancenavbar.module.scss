@@ -26,6 +26,8 @@ $button-hover: #d2d2d2;
 .logoSection {
   color: $font-dark;
   display: flex;
+  margin-right: 40px;
+  padding-top: 15px;
   flex-direction: column;
   align-items: center;
 }
@@ -40,8 +42,11 @@ $button-hover: #d2d2d2;
 }
 
 .logoSection p {
-  font-size: 14px;
-  color: #000000; 
+  font-size: 15px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif  ;
+  color: #749ef8;
+  font-weight: bold;
+  padding-bottom: 15px
 }
 
 /* Navigation Section */
@@ -55,6 +60,7 @@ $button-hover: #d2d2d2;
   padding: 0;
   margin: 0;
   display: flex;
+  margin-right: 50px;
 }
 
 .navItem {
