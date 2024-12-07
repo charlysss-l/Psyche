@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
 $sidebar-width: 250px;
-$sidebar-bg-color: #ffffff;
+$sidebar-bg-color: #bfcff1;
 $sidebar-hover-bg-color: #749ef8;
 $sidebar-link-color: #000000;
 $sidebar-hover-color: #000000;
@@ -25,12 +25,14 @@ $transition-duration: 0.3s;
     color: $sidebar-link-color;
     border: none;
     padding: 0.7rem 1.5rem;
+    border: 2px solid #5e5e5eda;
     cursor: pointer;
     z-index: 1001;
     font-size: $font-size-base;
     font-weight: bold;
 
     &:hover {
+      color: white;
       background-color: $toggle-btn-hover-bg-color;
     }
   }
@@ -77,6 +79,7 @@ $transition-duration: 0.3s;
           transition: all $transition-duration ease;
           width: 80%;
           height: 50px;
+          border: 2px solid #5e5e5eda;
           text-align: center;
           justify-content: center;
           padding: 0 1rem;
