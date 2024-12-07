@@ -53,11 +53,24 @@ $test-size: 400px;
   background: linear-gradient(135deg, $bg-gradient-start, $bg-gradient-end);
 }
 
-// Dark mode styles
+// Add keyframes for spinning animation
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Apply the spinning animation globally
 :global(body.dark-mode) {
   .TestPF, .iqLinkContainer {
     background: linear-gradient(135deg, #98d172, #000000);
-   
+    margin: 100px;
+    width: 600px;
+    height: 600px;
+    animation: spin 3s linear infinite; // Spinning animation
   }
 }
 
