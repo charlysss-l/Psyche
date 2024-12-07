@@ -22,11 +22,15 @@
   
   .closeButton {
     margin-top: 20px;
-    background: #ff4d4f;
+    background: #b62e2e ;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+
+    &:hover {
+      background: #e64747be ;
+    }
   }
   

@@ -18,6 +18,7 @@ const ArchiveInbox = () => {
   const [archivedConsultations, setArchivedConsultations] = useState<Consultation[]>([]);
   const [userId, setUserID] = useState("");
   const [isVisible, setIsVisible] = useState(true); // State to control visibility
+  const [isHighlighted, setIsHighlighted] = useState(false);
 
   
   const fetchConsultations = async () => {
@@ -40,6 +41,10 @@ const ArchiveInbox = () => {
   const handleClose = () => {
     setIsVisible(false); // Hide the component when the close button is clicked
   };
+  const handleArchiveClick = () => {
+    setIsHighlighted(true); 
+  };
+
 
   if (!isVisible) return null; // If isVisible is false, render nothing
 
@@ -62,6 +67,7 @@ const ArchiveInbox = () => {
   };
 
   return (
+    <div className={`${styles.overlay} ${isHighlighted ? styles.darkOverlay : ""}`} onClick={() => setIsHighlighted(false)}>
     <div className={styles.tableContainer}>
       <h2>Archived Consultation Records</h2>
       <button className={styles.closeButton} onClick={handleClose}>Close</button> {/* Close button */}
@@ -113,6 +119,7 @@ const ArchiveInbox = () => {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 };
