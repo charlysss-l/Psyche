@@ -499,6 +499,7 @@ const IqOMR: React.FC = () => {
         <p>4. You only have 3 attempts per day to upload an image.</p>
         <p>5. Process the uploaded image to calculate your OMR score.</p>
         <p>6. Save and interpret your score to view detailed results.</p>
+        <p>7. The image must be clear and bright for better interpretation</p>
       </div>
     </div>
   );

@@ -460,6 +460,7 @@ const PfOMR: React.FC = () => {
     <p>3. Upload the image to the system by clicking the "Upload Image" button.</p>
     <p>4. Process the uploaded image to calculate your OMR score.</p>
     <p>5. Save and interpret your score to view detailed results.</p>
+    <p>6. The image must be clear and bright for better interpretation</p>
   </div>
 </div>
   );
