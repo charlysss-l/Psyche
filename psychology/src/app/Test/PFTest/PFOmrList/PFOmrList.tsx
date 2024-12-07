@@ -31,6 +31,7 @@ interface OMRpf  {
   scoring: Scoring[]; // Store an array of factorLetter and rawScore pairs
   testType: string;
   testDate: Date;
+  uploadURL: string;
 }
 
 const factorDescriptions: Record<string, string> = {
@@ -104,15 +105,17 @@ const PFOmrList: React.FC = () => {
   const [userID, setUserID] = useState<string | null>(null);
   const [editingTestID, setEditingTestID] = useState<string | null>(null); // Track the testID of the item being edited
   const [updatedData, setUpdatedData] = useState<Partial<OMRpf>>({}); // Store updated data for the current test
-
   const resultsPerPage = 5;
   const navigate = useNavigate();
-
   const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
-
   const toggleArchivedList = () => {
     setIsArchivedListVisible(!isArchivedListVisible);
   };
+  // image modal
+const [isModalOpenImage, setIsModalOpenImage] = useState(false); // State to control modal visibility
+const [modalImageURL, setModalImageURL] = useState<string | null>(null); // State for modal image URL
+
+  
 
 
   
@@ -174,7 +177,15 @@ const PFOmrList: React.FC = () => {
   }, [userID]);
 
   
+  const handleViewImage = (uploadURL: string) => {
+    setModalImageURL(uploadURL);
+    setIsModalOpenImage(true); // Open modal when image view button is clicked
+  };
 
+  const closeModal = () => {
+    setIsModalOpenImage(false); // Close modal
+    setModalImageURL(null);
+  };
 
 
   const handleArchive = async (testID: string) => {
@@ -428,7 +439,14 @@ const PFOmrList: React.FC = () => {
                   </div>
                   </td>
 
-                  <td><button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
+                  <td> 
+                    <button
+                      className={styles.viewImageButton}
+                      onClick={() => handleViewImage(result.uploadURL)}
+                    >
+                      View Image
+                    </button>
+                    <button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
                       Archive
                     </button>
                     
@@ -438,6 +456,18 @@ const PFOmrList: React.FC = () => {
               ))}
             </tbody>
           </table>
+
+          {/* Modal for displaying image */}
+          {isModalOpenImage && modalImageURL && (
+            <div className={styles.modalImageView}>
+              <div className={styles.modalContentImage}>
+                <button className={styles.closeButtonImage} onClick={closeModal}>
+                  X
+                </button>
+                <img src={modalImageURL} alt="Uploaded Image" className={styles.modalImage} />
+              </div>
+            </div>
+          )}
 
           <div>
             <button

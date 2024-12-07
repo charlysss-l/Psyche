@@ -536,37 +536,37 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
                         </tr>
                       </thead>
                       <tbody>
-  {sortedScoring(result.scoring).map((score) => {
-    if (score) {
-      const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
-      const stenScore = score.stenScore;
+                        {sortedScoring(result.scoring).map((score) => {
+                          if (score) {
+                            const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+                            const stenScore = score.stenScore;
 
-      let interpretation: React.ReactNode = ""; // Initialize as an empty string
+                            let interpretation: React.ReactNode = ""; // Initialize as an empty string
 
-      if (stenScore >= 1 && stenScore <= 3) {
-        interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
-      } else if (stenScore >= 4 && stenScore <= 7) {
-        interpretation = (
-          <>
-            <span className={styles.average}> (Average) </span> <br/>
-            <span className={styles.leftMeaning}>{leftMeaning}</span> <br/>
-            <span className={styles.rightMeaning}>{rightMeaning}</span>
-          </>
-        );
-      } else if (stenScore >= 8 && stenScore <= 10) {
-        interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
-      }
+                            if (stenScore >= 1 && stenScore <= 3) {
+                              interpretation = <span className={styles.leftMeaning}>{leftMeaning}</span>;
+                            } else if (stenScore >= 4 && stenScore <= 7) {
+                              interpretation = (
+                                <>
+                                  <span className={styles.average}> (Average) </span> <br/>
+                                  <span className={styles.leftMeaning}>{leftMeaning}</span> <br/>
+                                  <span className={styles.rightMeaning}>{rightMeaning}</span>
+                                </>
+                              );
+                            } else if (stenScore >= 8 && stenScore <= 10) {
+                              interpretation = <span className={styles.rightMeaning}>{rightMeaning}</span>;
+                            }
 
-      return (
-        <tr key={score.factorLetter}>
-          <td>{factorDescriptions[score.factorLetter]}</td>
-          <td>{interpretation}</td> {/* Updated to render interpretation */}
-        </tr>
-      );
-    }
-    return null;
-  })}
-</tbody>
+                            return (
+                              <tr key={score.factorLetter}>
+                                <td>{factorDescriptions[score.factorLetter]}</td>
+                                <td>{interpretation}</td> {/* Updated to render interpretation */}
+                              </tr>
+                            );
+                          }
+                          return null;
+                        })}
+                      </tbody>
 
 
                     </table>

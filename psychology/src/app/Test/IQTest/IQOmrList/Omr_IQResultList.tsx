@@ -33,6 +33,7 @@ interface OMR {
     interpretation: Interpretation;
     testType: 'Online' | 'Physical';
     testDate: Date;
+    uploadURL: string;
 }
 
 const OmrIQResultsList: React.FC = () => {
@@ -41,15 +42,17 @@ const OmrIQResultsList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [userID, setUserID] = useState<string | null>(null);
   const navigate = useNavigate();
-
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
-
   const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
-
   const toggleArchivedList = () => {
     setIsArchivedListVisible(!isArchivedListVisible);
   };
+   // image modal
+const [isModalOpenImage, setIsModalOpenImage] = useState(false); // State to control modal visibility
+const [modalImageURL, setModalImageURL] = useState<string | null>(null); // State for modal image URL
+
+  
 
 
  
@@ -104,6 +107,17 @@ const OmrIQResultsList: React.FC = () => {
       fetchData();
     
   }, []); 
+
+  const handleViewImage = (uploadURL: string) => {
+    setModalImageURL(uploadURL);
+    setIsModalOpenImage(true); // Open modal when image view button is clicked
+  };
+
+  const closeModal = () => {
+    setIsModalOpenImage(false); // Close modal
+    setModalImageURL(null);
+  };
+
 
 
   const handleArchive = async (testID: string) => {
@@ -222,7 +236,14 @@ const exportToExcel = () => {
                   <td>
                       <li>Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}</li>
                   </td>
-                  <td><button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
+                  <td>
+                  <button
+                      className={styles.viewImageButton}
+                      onClick={() => handleViewImage(result.uploadURL)}
+                    >
+                      View Image
+                    </button>
+                    <button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
                       Archive
                     </button></td>
                   
@@ -230,6 +251,20 @@ const exportToExcel = () => {
               ))}
             </tbody>
           </table>
+
+          
+          {/* Modal for displaying image */}
+          {isModalOpenImage && modalImageURL && (
+            <div className={styles.modalImageView}>
+              <div className={styles.modalContentImage}>
+                <button className={styles.closeButtonImage} onClick={closeModal}>
+                  X
+                </button>
+                <img src={modalImageURL} alt="Uploaded Image" className={styles.modalImage} />
+              </div>
+            </div>
+          )}
+
 
             {/* Pagination Controls */}
           <div className={styles.pagination}>
