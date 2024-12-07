@@ -27,10 +27,13 @@ form div {
 
 
 .newSchedinput {
+  margin-top: 10px;
+  margin-bottom: 15px;
   padding: 5px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px #97b3e7d3;
   outline: none;
   transition: border-color 0.3s ease;
 }
@@ -38,6 +41,7 @@ form div {
 .newSchedinput:focus {
   border-color: $main-text;
 }
+
 
 textarea {
   resize: vertical;
@@ -96,10 +100,11 @@ textarea {
 .react-calendar__tile {
   height: 80px;
   margin: 0.5% 0.5% 0.5% 2%;
-  background-color: #c4c4c4 ;
-
+  background-color: #c4c4c4;
+  font-size: 18px ;
   position: relative;
   border-radius: 10px;
+  border: 1px solid #858585;
 }
 
 .react-calendar__tile:hover {
@@ -133,4 +138,62 @@ textarea {
   font-weight: bold;
 }
 
+@media (max-width: 1024px) {
+  .react-calendar {
+    width: 90%;
+    height: auto;
+    margin-left: 5%;
+    padding: 2%;
+  }
 
+  .react-calendar__tile {
+    height: 60px;
+    font-size: 16px;
+  }
+
+  .react-calendar__navigation button {
+    margin: 0 3px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .react-calendar {
+    width: 90%;
+    height: auto;
+    margin-left: 0;
+    padding: 5%;
+  }
+
+  .react-calendar__tile {
+    height: 50px;
+    font-size: 14px;
+    margin: 2%;
+  }
+
+  .react-calendar__navigation button {
+    margin: 0 2px;
+    padding: 6px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .react-calendar {
+    width: 90%;
+    height: auto;
+    padding: 4%;
+  }
+
+  .react-calendar__tile {
+    height: 40px;
+    font-size: 12px;
+    margin: 2%;
+  }
+
+  .react-calendar__navigation button {
+    margin: 0 1px;
+    padding: 4px;
+    font-size: 12px;
+  }
+}
