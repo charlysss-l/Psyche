@@ -183,3 +183,48 @@ tr:hover td {
   color: white; 
   transform: scale(1.05); 
 }
+
+:global(body.dark-mode){
+
+  .homeContainer {
+    background-color: #0f0f0f00;
+  }
+  .welcomeTitle{
+    color: #749ef8;
+  }
+  .welcomeMessage{
+    color: #ffffff;
+  }
+  .viewCalendar{
+    background-color: #6b8edb;
+    color: rgb(255, 255, 255);
+
+    &:hover{
+      background-color: #858585;
+      color: #ffffff;
+    }
+  }
+  .newConsultationSection h1{
+    color: #6b8edb ;
+  }
+  .newConsultationSection p{
+    color: #ffffff;
+  }
+  .tableBox{
+    background-color: #222222;
+    border: none;
+  }
+  .viewConsultationButton{
+    background-color: #6b8edb; 
+    color: white; 
+
+    &:hover{
+      background-color: #969696;
+      color: white;
+    }
+  }
+  th{
+    background-color: #969696;
+    color: white;
+  }
+}

@@ -262,3 +262,16 @@ h2 {
     background-color: #494949;
   }
   
+  :global(body.dark-mode){
+    .tableContainer{
+      background-color: #222222f3;
+      border: none;
+    }
+    .closeButton{
+      background-color: #7293d1;
+
+      &:hover {
+        background-color: #494949;
+      }
+    }
+  }

@@ -5,6 +5,7 @@
     background-color: rgba(255, 255, 255, 0);
     cursor: pointer;
     font-size: 30px;
+    transition: opacity 0.3s ease;
 }
 
 .darkModeButton:hover {
@@ -14,12 +15,14 @@
 }
 
 :global {
+  
     body.dark-mode {
       background-color: #121212 ; /* Dark background */
       color: #ffffff ; /* Light font color for dark mode */
     }
   
     body {
+      transition: background-color 0.3s ease, color 0.3s ease; 
       background-color: #ffffff; /* Light background */
       color: #000000; /* Dark font color for light mode */
     }

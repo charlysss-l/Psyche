@@ -451,3 +451,56 @@ button {
   width: 80%; /* Expand underline on hover */
 }
 
+:global(body.dark-mode) {
+  .acceptedBox, .pendingBox {
+    background-color: #222222;
+    border: none;
+    h3{
+      color: #8facec;
+    }
+    p{
+      color: #8facec;
+    }
+  }
+  .tableBox{
+    background-color: #222222;
+
+    h2{
+      color: #8facec;
+    }
+
+    th{
+      background-color: #969696;
+    }
+  }
+  .testInfoModalContent{
+    background-color: #222222;
+    color: #8facec;
+
+    h3{
+      color: #8facec;
+    }
+
+    th{
+      background-color: #969696;
+    }
+  }
+
+  .archiveButton{
+    background-color: #8facec;
+    color: #333333;
+
+    &:hover{
+      background-color: #a1a1a1;
+    }
+  }
+ 
+  .closeInfo{
+    background-color: #8facec;
+    color: #333333;
+
+    &:hover{
+      background-color: #a1a1a1;
+    }
+  }
+}

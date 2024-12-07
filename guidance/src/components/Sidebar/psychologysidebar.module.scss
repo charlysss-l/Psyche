@@ -165,3 +165,35 @@ $transition-duration: 0.3s;
     }
   }
 }
+
+:global(body.dark-mode){
+  .sidebar{
+    background: linear-gradient(150deg,  #8facec, #b9b9b9);
+  }
+
+      .link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: $sidebar-link-color;
+        font-weight: 400;
+        font-size: $sidebar-font-size;
+        transition: all $transition-duration ease;
+        width: 80%;
+        height: 50px;
+        border: 2px solid #5e5e5eda;
+        text-align: center;
+        justify-content: center;
+        padding: 0 1rem;
+        border-radius: 10px;
+
+        &.active {
+          background-color: $sidebar-active-bg-color;
+          color: $sidebar-link-color;
+          font-weight: bold;
+          box-shadow: 0 4px 8px $box-shadow-color;
+        }
+      }
+    }
+  
+

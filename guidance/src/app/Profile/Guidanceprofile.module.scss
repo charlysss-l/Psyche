@@ -27,6 +27,10 @@ $message-error: #B30000;
   max-width: 400px;
   width: 100%;
   text-align: left;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 }
 
 .userIDDisplay {
@@ -116,4 +120,17 @@ $message-error: #B30000;
 
 .passWord {
   color: red;
+}
+
+:global(body.dark-mode){
+  .userinfo_pr {
+    color: #749ef8;
+  }
+  .submitButton {
+    background-color: #969696;
+
+    &:hover {
+      background-color: #749ef8;
+    }
+  }
 }
