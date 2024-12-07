@@ -15,11 +15,13 @@ const OMRResult: React.FC = () => {
     const [sex, setSex] = useState<'Male' | 'Female' | ''>('');
     const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');
     const [omrScore, setOmrScore] = useState<number | null>(null); // Score state
+    const [uploadURL, setUploadURL] = useState<string>('');
 
     useEffect(() => {
         // Fetch userID and score from localStorage
         const storedUserID = localStorage.getItem('userId');
         const storedOmrScore = localStorage.getItem('omrScore'); // Assuming the score is stored with key 'omrScore'
+        const storedUploadURL = localStorage.getItem('uploadedImageURL'); // Assuming the URL is stored with key 'uploadURL'
 
         if (storedUserID) {
             setUserID(storedUserID);
@@ -28,6 +30,11 @@ const OMRResult: React.FC = () => {
         if (storedOmrScore) {
             setOmrScore(Number(storedOmrScore)); // Ensure it's converted to a number
         }
+
+        if (storedUploadURL) {
+            setUploadURL(storedUploadURL);
+        }
+
     }, []);
 
     // Handle the form submission
@@ -66,6 +73,7 @@ const OMRResult: React.FC = () => {
             },
             testType,
             testDate: new Date(),  // Current date and time
+            uploadURL
         };
     
         try {
@@ -134,9 +142,11 @@ const OMRResult: React.FC = () => {
             </select>
 
             
-
             <button className={style.start} type="submit">Submit and View Interpretation</button>
+
+           
         </form>
+        
     );
 };
 

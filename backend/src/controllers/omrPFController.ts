@@ -186,11 +186,11 @@ const calculateStenScore = (rawScore: number, factorLetter: string): number => {
 
 // Controller to handle creating a new OMR result
 export const createOmrResult = async (req: Request, res: Response) => {
-    const { userID, firstName, lastName, age, sex, course, year, section, scoring, testType, testDate } = req.body;
+    const { userID, firstName, lastName, age, sex, course, year, section, scoring, testType, testDate, uploadURL } = req.body;
 
     try {
         // Validate required fields
-        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section || !testType || !testDate) {
+        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section || !testType || !testDate || !uploadURL) {
             res.status(400).json({ message: 'Missing required fields' });
             return;
         }
@@ -223,6 +223,7 @@ export const createOmrResult = async (req: Request, res: Response) => {
             scoring: { scores: scoringArray },  // Use the transformed scoring data
             testType,
             testDate,
+            uploadURL
         });
 
         await testDocument.save();

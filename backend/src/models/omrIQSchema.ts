@@ -28,6 +28,8 @@ interface OMR extends Document {
     testType: string;
     testDate: Date;
     isArchived: boolean
+    uploadURL: string; // Added uploadURL field
+
 }
 
 
@@ -53,6 +55,7 @@ const OmrSchema = new Schema<OMR>({
     testType: { type: String, required: true },
     testDate: { type: Date, required: true, default: Date.now },
     isArchived: { type: Boolean, default: false }, // Default is not archived
+    uploadURL: { type: String, required: true },
 });
 
 // Create and export the model

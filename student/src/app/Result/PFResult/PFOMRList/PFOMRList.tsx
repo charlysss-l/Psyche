@@ -39,6 +39,7 @@ interface OMRpf  {
   scoring: Scoring[]; // Store an array of factorLetter and rawScore pairs
   testType: string;
   testDate: Date;
+  uploadURL: string;
 }
 
 ChartJS.register(
@@ -121,11 +122,15 @@ const PFOMRList: React.FC = () => {
   const [editingTestID, setEditingTestID] = useState<string | null>(null); // Track the testID of the item being edited
   const [updatedData, setUpdatedData] = useState<Partial<OMRpf>>({}); // Store updated data for the current test
 
-  const resultsPerPage = 8;
+  const resultsPerPage = 5;
   const navigate = useNavigate();
-  
+  // graph modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
+// image modal
+const [isModalOpenImage, setIsModalOpenImage] = useState(false); // State to control modal visibility
+const [modalImageURL, setModalImageURL] = useState<string | null>(null); // State for modal image URL
+
   
 
   // Define the factor order
@@ -183,6 +188,16 @@ const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
       fetchData();
     }
   }, [userID]);
+
+  const handleViewImage = (uploadURL: string) => {
+    setModalImageURL(uploadURL);
+    setIsModalOpenImage(true); // Open modal when image view button is clicked
+  };
+
+  const closeModal = () => {
+    setIsModalOpenImage(false); // Close modal
+    setModalImageURL(null);
+  };
 
   const handleEditClick = (testID: string) => {
     setEditingTestID(testID);
@@ -559,6 +574,12 @@ const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
                   </div>
                   </td>
                   <td>
+                  <button
+                      className={styles.viewImageButton}
+                      onClick={() => handleViewImage(result.uploadURL)}
+                    >
+                      View Image
+                    </button>
                     <button
                       className={styles.deleteButtonIQLIST}
                       onClick={() => handleDelete(result.testID)}
@@ -592,6 +613,18 @@ const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
               ))}
             </tbody>
           </table>
+
+          {/* Modal for displaying image */}
+          {isModalOpenImage && modalImageURL && (
+            <div className={styles.modalImageView}>
+              <div className={styles.modalContentImage}>
+                <button className={styles.closeButtonImage} onClick={closeModal}>
+                  X
+                </button>
+                <img src={modalImageURL} alt="Uploaded Image" className={styles.modalImage} />
+              </div>
+            </div>
+          )}
 
           <div>
             <button

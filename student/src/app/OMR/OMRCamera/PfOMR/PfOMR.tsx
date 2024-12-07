@@ -304,6 +304,10 @@ const PfOMR: React.FC = () => {
   const handleSaveScore = () => {
     if (omrScore !== null) {
       localStorage.setItem('omrScore', JSON.stringify(omrScore));
+
+      if (uploadURL) {
+        localStorage.setItem('uploadedImageURL', uploadURL);
+      }
       navigate('/pfomrresult');
     }
   };

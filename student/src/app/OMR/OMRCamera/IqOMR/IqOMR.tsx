@@ -331,6 +331,10 @@ const IqOMR: React.FC = () => {
   const handleSaveScore = () => {
     if (omrScore !== null) {
       localStorage.setItem('omrScore', omrScore.toString());
+      
+      if (uploadURL) {
+        localStorage.setItem('uploadedImageURL', uploadURL);
+      }
       navigate('/iqomrresult');
     }
   };

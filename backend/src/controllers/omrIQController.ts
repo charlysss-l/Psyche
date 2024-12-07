@@ -4,11 +4,11 @@ import { Interpretation } from '../models/omrIQSchema';
 
 // Controller to handle creating a new IQ test result
 export const createOmrResult = async (req: Request, res: Response) => {
-    const { userID, firstName, lastName, age, sex, course, year, section, totalScore, interpretation, testType, testDate } = req.body;
+    const { userID, firstName, lastName, age, sex, course, year, section, totalScore, interpretation, testType, testDate, uploadURL } = req.body;
 
     try {
         // Validate required fields
-        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section  || !totalScore || !interpretation || !testType || !testDate) {
+        if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section  || !totalScore || !interpretation || !testType || !testDate || !uploadURL) {
             res.status(400).json({ message: 'Missing required fields' });
             return;
         }
@@ -40,6 +40,7 @@ const testDocument = new OmrSchema({
     totalScore,  // Pass totalScore directly
     testType,
     testDate,
+    uploadURL
 });
 
 

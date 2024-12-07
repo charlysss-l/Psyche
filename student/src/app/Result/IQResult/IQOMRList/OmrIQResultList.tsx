@@ -24,6 +24,7 @@ interface OMR {
   interpretation: Interpretation;
   testType: 'Online' | 'Physical';
   testDate: Date;
+  uploadURL: string;
 }
 
 const OmrIQResultsList: React.FC = () => {
@@ -33,10 +34,10 @@ const OmrIQResultsList: React.FC = () => {
   const [userID, setUserID] = useState<string | null>(null);
   const [editingTestID, setEditingTestID] = useState<string | null>(null); // Track the testID of the item being edited
   const [updatedData, setUpdatedData] = useState<Partial<OMR>>({}); // Store updated data for the current test
-  const navigate = useNavigate();
-
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
+  const [modalImageURL, setModalImageURL] = useState<string | null>(null); // State for modal image URL
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
 
   useEffect(() => {
     const storedUserID = localStorage.getItem('userId');
@@ -97,6 +98,15 @@ const OmrIQResultsList: React.FC = () => {
     }
   }, [userID]);
 
+  const handleViewImage = (uploadURL: string) => {
+    setModalImageURL(uploadURL);
+    setIsModalOpen(true); // Open modal when image view button is clicked
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Close modal
+    setModalImageURL(null);
+  };
   
 
   const handleDelete = async (testID: string) => {
@@ -329,6 +339,12 @@ const OmrIQResultsList: React.FC = () => {
                   <td>{result.totalScore}</td>
                   <td>{result.interpretation.resultInterpretation ?? 'N/A'}</td>
                   <td>
+                  <button
+                      className={styles.viewImageButton}
+                      onClick={() => handleViewImage(result.uploadURL)}
+                    >
+                      View Image
+                    </button>
                     <button
                       className={styles.deleteButtonIQLIST}
                       onClick={() => handleDelete(result.testID)}
@@ -341,6 +357,7 @@ const OmrIQResultsList: React.FC = () => {
                     >
                       Edit
                     </button>
+                    
                     {editingTestID === result.testID && (
                       <button
                         className={styles.saveButtonIQLIST}
@@ -348,12 +365,25 @@ const OmrIQResultsList: React.FC = () => {
                       >
                         Save
                       </button>
+                      
                     )}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+
+           {/* Modal for displaying image */}
+           {isModalOpen && modalImageURL && (
+            <div className={styles.modal}>
+              <div className={styles.modalContent}>
+                <button className={styles.closeButton} onClick={closeModal}>
+                  X
+                </button>
+                <img src={modalImageURL} alt="Uploaded Image" className={styles.modalImage} />
+              </div>
+            </div>
+          )}
 
           <div>
             <button

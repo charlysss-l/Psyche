@@ -27,6 +27,7 @@ interface OMRpf extends Document {
     testType: string;
     testDate: Date;
     isArchived: boolean;
+    uploadURL: string;
 }
 
 // ScoreEntry Schema
@@ -56,6 +57,7 @@ const OmrPFSchema = new Schema<OMRpf>({
     testType: { type: String, required: true },
     testDate: { type: Date, required: true, default: Date.now },
     isArchived: { type: Boolean, default: false },
+    uploadURL: { type: String, required: true },
 });
 
 // Create and export the model
