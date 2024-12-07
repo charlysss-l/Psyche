@@ -37,6 +37,11 @@ const UserForm: React.FC = () => {
                 "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up" <br/>
                 You can only answer this test once a day, if any error occurs and need to retake the test, please direct to the administrator (Psychology Department).
             </p>
+            <h1>Rules:</h1>
+            <p className={style.rules}>
+            <span className={style.highlight}>*</span> Please do not take screenshots or share the content of this test. It is confidential and for your use only. <br />
+                <span className={style.highlight}>*</span> Those who do will be penalized and as your student record will be tracked by the Administrators. <br />
+            </p>
             <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
             <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
             <input type="number" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required />

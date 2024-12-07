@@ -6,7 +6,7 @@ interface UserIQTest {
   testDate: Date;
 }
 
-const IntroPF: React.FC = () => {
+const IntroIQ: React.FC = () => {
   const [isChecked, setIsChecked] = useState(false); // State for checkbox
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -163,4 +163,4 @@ const IntroPF: React.FC = () => {
   );
 };
 
-export default IntroPF;
+export default IntroIQ;

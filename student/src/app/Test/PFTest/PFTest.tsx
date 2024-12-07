@@ -33,6 +33,8 @@ const PFTest: React.FC = () => {
         fetchTest();
     }, []);
 
+   
+
     const fetchTest = async () => {
         try {
             const response = await axios.get<User16PFTest>('http://localhost:5000/api/16pf/67282807d9bdba831a7e9063');
@@ -142,6 +144,16 @@ const PFTest: React.FC = () => {
                 <span className={styles.highlight}>*</span> Describe yourself as you honestly see yourself now, not as you wish to be in the future. <br />
                 </em>
             </p>
+            <h2>Rules:</h2>
+            <p className={styles.warning}>
+            <em>
+
+            <span className={styles.highlight}>*</span> Please do not take screenshots or share the content of this test. It is confidential and for your use only. <br />
+
+                <span className={styles.highlight}>*</span> Those who do will be penalized and as your student record will be tracked by the Administrators. <br />
+                </em>
+            </p>
+
     
             {/* Demographic Form Fields - Only on the First Page */}
             {currentPage === 1 && (
