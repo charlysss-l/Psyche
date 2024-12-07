@@ -37,7 +37,13 @@ export const submitSurveyResponses = async (req: Request, res: Response) => {
       responses: formattedResponses,  
     });
 
+     // Mark the survey as archived
+     await Survey.findByIdAndUpdate(surveyId, { isArchived: true });
+
     await newResponse.save();
+
+    
+
     res.status(201).json({ message: 'Survey responses submitted successfully' });
   } catch (error) {
     console.error(error);
@@ -76,5 +82,24 @@ export const getAllStudentsSurveyResponses = async (req: Request, res: Response)
   } catch (err) {
     console.error('Error fetching survey responses:', err);
     res.status(500).json({ error: 'Failed to fetch survey responses' });
+  }
+};
+
+
+export const getArchivedSurveysByUserId = async (req: Request, res: Response) => {
+  const { userId } = req.params; // Extract userId from request parameters
+
+  try {
+    // Fetch surveys with the specified userId and isArchived set to true
+    const archivedSurveys = await SurveyResponse.find({
+      userId: userId, // Match the userId
+      isArchived: true, // Ensure isArchived is true
+    });
+
+    // Return the archived surveys
+    res.status(200).json(archivedSurveys);
+  } catch (error) {
+    console.error("Error fetching archived surveys:", error);
+    res.status(500).json({ message: "Error fetching archived surveys" });
   }
 };

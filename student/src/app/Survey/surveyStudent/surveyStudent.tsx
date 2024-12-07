@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./surveyStudent.module.scss"; // Assuming you're using a CSS module for styling
+import ArchivedSurveys from "../archivedSurveys/ArchivedSurveys";
 
 interface Survey {
   _id: string;
@@ -18,6 +19,10 @@ const SurveyAnswerForm: React.FC = () => {
   const [categories, setCategories] = useState<string[]>(["All"]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const surveysPerPage = 5;
+  const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
+  const toggleArchivedList = () => {
+    setIsArchivedListVisible(!isArchivedListVisible);
+  };
 
   useEffect(() => {
     const fetchSurveys = async () => {
@@ -100,6 +105,15 @@ const SurveyAnswerForm: React.FC = () => {
         Available Surveys{" "}
         <span className={styles.surveyCount}>({filteredSurveys.length} surveys)</span>
       </h2>
+      <button
+      className={isArchivedListVisible ? styles.closeButton : styles.archiveButton}
+      onClick={toggleArchivedList}
+    >
+      {isArchivedListVisible ? 'Close' : 'Archive List'}
+    </button>
+
+    {isArchivedListVisible && <ArchivedSurveys />}
+
 
       <div className={styles.filterContainer}>
         {/* Filter by Category */}

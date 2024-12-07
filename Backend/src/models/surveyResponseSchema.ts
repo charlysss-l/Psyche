@@ -14,6 +14,7 @@ const surveyResponseSchema = new mongoose.Schema({
     },
   ],
   submittedAt: { type: Date, default: Date.now },
+  isArchived: { type: Boolean, default: true },
 });
 
 

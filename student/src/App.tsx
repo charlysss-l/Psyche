@@ -31,7 +31,7 @@ import AllOMR from "./app/OMR/AllOMR";
 import IqOMR from "./app/OMR/OMRCamera/IqOMR/IqOMR";
 import PfOMR from "./app/OMR/OMRCamera/PfOMR/PfOMR";
 import OmrResult from "./app/OMR/OMRCamera/PfOMR/OmrResult";
-import SurveyDetails from "./app/Survey/surveyDetails";
+import SurveyDetails from "./app/Survey/surveryDetails/surveyDetails";
 import ArchiveInbox from "./app/Consultation/ArchiveInbox";
 import IntroPF from "./app/Test/PFTest/IntroPF/IntroPF";
 import IntroIQ from "./app/Test/IQTest/IntroIQ/IntroIQ";

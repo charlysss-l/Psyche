@@ -1,6 +1,6 @@
 import React from 'react';
-import SurveyForm from './survey';
-import SurveyList from './surveyList';
+import SurveyForm from '../survey/survey';
+import SurveyList from '../surveyList/surveyList';
 import styles from './surveyDashboard.module.scss'
 const SurveyDashboard: React.FC = () => {
   return (
