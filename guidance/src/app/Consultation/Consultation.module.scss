@@ -40,6 +40,7 @@ h3 {
   margin-top: 30px;
   font-size: $font-size-medium;
   text-align: center;
+  font-size: 20px;
   color: #4e4e4e;
 }
 
@@ -55,11 +56,12 @@ h3 {
     background-color: $bg-color-light-gray;
     padding: 10px;
     border-radius: $border-radius;
+    border: 1px solid #858585;
     width: 45%;
     text-align: center;
   }
   .acceptedBox {
-    background-color: #97b3e7d3;
+    background-color: #97b3e7;
 
     &:hover {
       transform: scale(1);
@@ -68,7 +70,7 @@ h3 {
   }
 
   .pendingBox {
-    background-color: #97b3e7d3; 
+    background-color: #97b3e7; 
 
     &:hover {
       transform: scale(1);
@@ -85,8 +87,7 @@ h3 {
   padding: 15px;
   border-radius: $border-radius;
   background-color: $bg-color-gray;
-
-}
+  }
 
 table {
   width: 100%;
@@ -99,7 +100,7 @@ table {
   th,
   td {
     padding: $padding-large;
-    border: 1px solid #ddd;
+    border: 1px solid #858585;
   }
 
   th {
@@ -117,6 +118,8 @@ table {
   padding: $padding-small;
   border-radius: 3px;
   font-size: $font-size-small;
+  background-color: #888888;
+  color: white;
 
   &.acceptedStatus {
     background-color: $bg-color-green; /* Green background for accepted status */
@@ -126,6 +129,13 @@ table {
   &.pendingStatus {
     background-color: $bg-color-yellow; /* Yellow background for pending */
     color: black;
+  }
+  @media (max-width: 768px) {
+    width: 48%;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%; /* Stack boxes on smaller screens */
   }
 }
 
@@ -148,6 +158,7 @@ button {
   &.accept {
     background-color: #4a976af8 ; 
     color: #ffffff;
+    margin-left: 10px;
 
     &:hover{
       background-color: #41865e ;
@@ -174,6 +185,17 @@ button {
     }
   }
 
+  &.closeInfo{
+    background-color: #8b8b8b;
+    color: white;
+    width: 10%;
+    margin-left: 45%;   
+    padding: 1%;
+    &:hover{
+      background-color: #969696bb;
+    }
+  }
+
   &.archive{
     background-color: #8b8b8b ;
     color: #fcfcfc;
@@ -184,7 +206,6 @@ button {
   }
 &.markDone{
     background-color: #2c2c2c ;
-     
     color: #ffffff;
 
     &:hover{
@@ -195,6 +216,12 @@ button {
     cursor: not-allowed;
     opacity: 0.5;
   }
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+    padding: 3px 4px;
+  }
+
 }
 
 /* Decline Modal */
@@ -214,33 +241,51 @@ button {
     background-color: white;
     padding: 20px;
     border-radius: $border-radius;
-    width: 400px;
+    width: 30%;
     text-align: center;
 
+    @media (max-width: 768px) {
+      width: 50%;
+    }
+  
+    @media (max-width: 576px) {
+      width: 80%;
+    }
+
     textarea {
-      width: 100%;
-      height: 100px;
+      width: 80%;
+      height: 10%;
       margin-bottom: 15px;
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: $border-radius;
+
+      
+    }
     }
 
     button {
       margin: 5px;
 
       &:first-child {
-        background-color: $bg-color-dark-gray-2;
+        background-color:#535353;
         color: white;
+
+        &:hover {
+          background-color: #838383;
+        }
       }
 
       &:last-child {
-        background-color: $bg-color-red;
+        background-color:#41865e ;
         color: white;
+
+        &:hover {
+          background-color: #65ca8f;
+        }
       }
     }
   }
-}
 
 /* Warning Box */
 .warning {
@@ -254,6 +299,8 @@ button {
 
 /* Table Styling for Test Information Modal */
 .testInfoModalContent {
+  border-radius: $border-radius;
+  background-color: $bg-color-light-gray;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -272,7 +319,7 @@ button {
 .testInfoTable td {
   padding: 12px;
   text-align: left;
-  border: 1px solid #ddd;
+  border: 1px solid #858585;
 }
 
 .testInfoTable th {
@@ -300,19 +347,7 @@ button {
   margin-top: 5px;
 }
 
-button {
-  background-color: #0C3C78;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  align-self: flex-end;
-}
 
-button:hover {
-  background-color: #0C3C78;
-}
 
 .scoring-label {
   font-weight: bold;
@@ -343,6 +378,13 @@ button:hover {
   tr:hover {
     background-color: #f1f1f1;
   }
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 10px;
+  }
 }
 
 .leftMeaning{
@@ -355,29 +397,35 @@ button:hover {
 
 
 .archiveButton {
-  display: flex;
-  position: absolute;
-  right: 2.2%;
-  top:10%;
-  background-color: #969696  ;
-  color: white; /* Text color */
-  border-radius: 12px; /* Rounded edges */
-  padding: 10px 20px; /* Adjust padding for size */
-  font-size: 16px; /* Slightly larger text */
-  font-weight: bold; /* Make text stand out */
-  cursor: pointer; /* Pointer cursor */
-  transition: all 0.3s ease; /* Smooth hover animation */
-  display: flex;
-  align-items: center; /* Center content vertically */
-  justify-content: center; /* Center content horizontally */
+  margin-left: 20px;
+  background-color: rgb(131, 131, 131);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px; 
+  cursor: pointer;
+  transition: all 0.3s ease; 
+
+  @media (max-width: 768px) {
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 10px;
+    padding: 6px 10px;
+    margin-left: 5px;
+  }
 }
 
 .archiveButton:hover {
-  background-color: #646464 ; /* Lighter blue on hover */
+  background-color: #8099c7 ; /* Lighter blue on hover */
 }
 
 .archiveButton:active {
-  background-color: #5f2a2a; /* Darker blue when clicked */
+  background-color: #9c9c9c; /* Darker blue when clicked */
   transform: scale(0.98); /* Slight click animation */
 }
 
