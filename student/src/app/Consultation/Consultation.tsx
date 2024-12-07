@@ -399,12 +399,13 @@ const ConsultationRequestForm: React.FC = () => {
 
                 >
                   <option value="" disabled>Select Course</option>
-                  <option value="BSCS">BSCS</option>
-                  <option value="BSIT">BSIT</option>
-                  <option value="BSCrim">BSCrim</option>
-                  <option value="BSHRM">BSHRM</option>
-                  <option value="BSEDUC">BSEDUC</option>
-                  <option value="BSP">BSP</option>
+                  <option value="BSEduc">Bachelor of Secondary Education</option>
+                <option value="BSBM">BS Business Management</option>
+                <option value="BSCS">BS Computer Science</option>
+                <option value="BSCrim">BS Criminology</option>
+                <option value="BSHM">BS Hospitality Management</option>                    
+                <option value="BSIT">BS Information Technology</option>
+                <option value="BSP">BS Psychology</option>
                 </select>
               </label>
 
