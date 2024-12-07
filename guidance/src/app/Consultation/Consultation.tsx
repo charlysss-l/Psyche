@@ -322,12 +322,6 @@ function getDynamicInterpretation(age: number, score: number): string {
     {/* Pending Requests Table */}
 <div className={styles.tableBox}>
   <h2>Pending Consultation Requests
-  <button
-      className={styles.archiveButton}
-      onClick={toggleArchivedList}
-    >
-      Archive List
-    </button>
   </h2>
   {showArchived && <ArchiveInbox />}
   <table>
@@ -342,7 +336,10 @@ function getDynamicInterpretation(age: number, score: number): string {
       </tr>
     </thead>
     <tbody>
-      {pendingRequests.map((request) => (
+    {pendingRequests
+        .slice() 
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) 
+        .map((request) => (
         <tr key={request._id}>
           <td>{request.userId}</td>
           <td>
@@ -358,6 +355,7 @@ function getDynamicInterpretation(age: number, score: number): string {
             <span className={`${styles.statusButton}`}>
               {request.status}
             </span>
+            
           </td>
           <td>
             {request.status === "cancelled" ? (
@@ -396,7 +394,14 @@ function getDynamicInterpretation(age: number, score: number): string {
 
 {/* Accepted Requests Table */}
 <div className={styles.tableBox}>
-  <h2>Accepted Consultation Requests</h2>
+  <h2>Accepted Consultation Requests
+  <button
+      className={styles.archiveButton}
+      onClick={toggleArchivedList}
+    >
+      Archive List
+    </button>
+  </h2>
   <table>
     <thead>
       <tr>
@@ -409,7 +414,16 @@ function getDynamicInterpretation(age: number, score: number): string {
       </tr>
     </thead>
     <tbody>
-      {acceptedRequests.map((request) => (
+    {acceptedRequests
+        .slice() 
+        .sort((a, b) => {
+          if (a.status === "accepted" && b.status !== "accepted") return -1;
+          if (a.status !== "accepted" && b.status === "accepted") return 1;
+          if (a.status === "completed" && b.status !== "completed") return 1;
+          if (a.status !== "completed" && b.status === "completed") return -1;
+          return 0; 
+        })
+        .map((request) => (
         <tr key={request._id}>
           <td>{request.userId}</td>
           <td>
@@ -483,7 +497,7 @@ function getDynamicInterpretation(age: number, score: number): string {
 {showTestInfo && (
   <div className={`${styles.testInfoModal} ${styles.show}`}>
     <div className={styles.testInfoModalContent}>
-      <h3>Test Information</h3>
+      <h3 className={styles.testInfoName}>Test Information</h3>
       <table className={styles.testInfoTable}>
         <thead>
           <tr>
@@ -635,7 +649,7 @@ function getDynamicInterpretation(age: number, score: number): string {
           ))}
         </tbody>
       </table>
-      <button onClick={() => setShowTestInfo(false)}>Close</button>
+      <button className={styles.closeInfo} onClick={() => setShowTestInfo(false)}>Close</button>
     </div>
   </div>
 )}
