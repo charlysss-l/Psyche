@@ -447,14 +447,14 @@ const IqOMR: React.FC = () => {
         )}
   
         <button onClick={handleOMRProcessing} className={styles.omrProcessButton} disabled={!uploadURL}>
-          Process OMR and Score
+          Start Processing the Test Paper
         </button>
   
         {omrScore !== null && (
           <div>
             <h3>OMR Score: {omrScore}</h3>
             <button onClick={handleSaveScore} className={styles.saveScoreButton}>
-              Save and Interpret Your Score
+            Send To The User
             </button>
           </div>
         )}

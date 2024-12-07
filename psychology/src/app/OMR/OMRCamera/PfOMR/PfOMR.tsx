@@ -431,12 +431,12 @@ const PfOMR: React.FC = () => {
       )}
 
       <button onClick={handleOMRProcessing} className={styles.omrProcessButton} disabled={!uploadURL}>
-        Process OMR and Score
+        Start Processing the Test Paper
       </button>
 
       {omrScore && (
   <div>
-    <h3>OMR Score:</h3>
+    <h3>Test Rawscore:</h3>
     <pre>
       {Object.entries(omrScore).map(([section, score]) => (
         <div key={section}>
@@ -445,7 +445,7 @@ const PfOMR: React.FC = () => {
       ))}
     </pre>
     <button onClick={handleSaveScore} className={styles.saveScoreButton}>
-      Save and Interpret Your Score
+      Send To The User
     </button>
   </div>
 )}

@@ -199,19 +199,7 @@ const OmrResult: React.FC = () => {
                 />
             </div>
 
-            {/* Display Section Scores */}
-            {Object.keys(sectionScores).length > 0 && (
-                <div>
-                    <h3>Section Scores:</h3>
-                    <ul>
-                        {Object.entries(sectionScores).map(([section, score]) => (
-                            <li key={section}>
-                                <strong>{section}:</strong> {score}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+           
 
 <button type="submit">Submit</button>
 </form>
