@@ -49,40 +49,49 @@ const ArchivedSurveys: React.FC = () => {
     return <p className={styles.error}>{error}</p>;
   }
 
-  if (archivedSurveys.length === 0) {
-    return <p>No archived surveys found.</p>;
-  }
-
   return (
     <div className={styles.floatingContainer}>
-
-    <div className={styles.archivedSurveysContainer}>
-      <h2>Archived Surveys</h2>
-      <table className={styles.surveyTable}>
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>Survey ID</th>
-            <th>Submitted At</th>
-            <th>Responses</th>
-          </tr>
-        </thead>
-        <tbody>
-          {archivedSurveys.map((survey) => (
-            <tr key={survey._id}>
-              <td>{survey.userId}</td>
-              <td>{survey.surveyId}</td>
-              <td>{new Date(survey.submittedAt).toLocaleString()}</td>
-              <td> {survey.responses.map((response) => (
-<td>                      <strong>Answer:</strong> {response.choice}
-                    </td>
-                  ))}
-              </td>
+      <div className={styles.archivedSurveysContainer}>
+        <h2>Archived Surveys</h2>
+        <table className={styles.surveyTable}>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Survey ID</th>
+              <th>Submitted At</th>
+              <th>Responses</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {archivedSurveys.length === 0 ? (
+              <tr>
+                <td colSpan={4} className={styles.noResponses}>
+                  No Responses Yet
+                </td>
+              </tr>
+            ) : (
+              archivedSurveys.map((survey) => (
+                <tr key={survey._id}>
+                  <td>{survey.userId}</td>
+                  <td>{survey.surveyId}</td>
+                  <td>{new Date(survey.submittedAt).toLocaleString()}</td>
+                  <td>
+                    {survey.responses.length > 0 ? (
+                      survey.responses.map((response, index) => (
+                        <div key={index}>
+                          <strong>Answer:</strong> {response.choice}
+                        </div>
+                      ))
+                    ) : (
+                      <p>No responses</p>
+                    )}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

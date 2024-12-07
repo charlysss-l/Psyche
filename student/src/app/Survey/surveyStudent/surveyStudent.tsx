@@ -16,6 +16,7 @@ interface Survey {
 const SurveyAnswerForm: React.FC = () => {
   const [surveys, setSurveys] = useState<Survey[]>([]); // Current filtered surveys
   const [allSurveys, setAllSurveys] = useState<Survey[]>([]); // Full list of surveys (without filtering)
+  const [answeredSurveys, setAnsweredSurveys] = useState<string[]>([]); // List of answered survey IDs
   const [categories, setCategories] = useState<string[]>(["All"]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const surveysPerPage = 5;
@@ -47,7 +48,22 @@ const SurveyAnswerForm: React.FC = () => {
         console.error("Error fetching surveys", error);
       }
     };
+
+    const fetchAnsweredSurveys = async () => {
+      const userId = localStorage.getItem("userId"); // Get user ID (you might use a different method)
+      if (!userId) return;
+
+      try {
+        const response = await axios.get(`http://localhost:5000/api/response/archived-surveys/${userId}`);
+        const answeredSurveyIds = response.data.map((survey: any) => survey.surveyId);
+        setAnsweredSurveys(answeredSurveyIds);
+      } catch (error) {
+        console.error("Error fetching answered surveys", error);
+      }
+    };
+
     fetchSurveys();
+    fetchAnsweredSurveys();
   }, []);
 
   // Get today's date in YYYY-MM-DD format (ignoring time)
@@ -65,10 +81,10 @@ const SurveyAnswerForm: React.FC = () => {
     (survey) => getDateWithoutTime(survey.releaseDate) <= todayString
   );
 
-  // Get answered surveys from localStorage (IDs of surveys that the user has answered)
-  const answeredSurveys = JSON.parse(localStorage.getItem("answeredSurveys") || "[]");
-
-  console.log("Answered Surveys from localStorage:", answeredSurveys); // Debugging answered surveys
+  // Remove answered surveys from the list
+  const unansweredSurveys = filteredSurveys.filter(
+    (survey) => !answeredSurveys.includes(survey._id)
+  );
 
   // Format release date to a more readable format (e.g., "November 26, 2024")
   const formatReleaseDate = (date: string) => {
@@ -83,7 +99,7 @@ const SurveyAnswerForm: React.FC = () => {
   // Pagination Logic
   const indexOfLastSurvey = currentPage * surveysPerPage;
   const indexOfFirstSurvey = indexOfLastSurvey - surveysPerPage;
-  const currentSurveys = filteredSurveys.slice(indexOfFirstSurvey, indexOfLastSurvey);
+  const currentSurveys = unansweredSurveys.slice(indexOfFirstSurvey, indexOfLastSurvey);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -103,17 +119,16 @@ const SurveyAnswerForm: React.FC = () => {
     <div className={styles.surveyListContainer}>
       <h2>
         Available Surveys{" "}
-        <span className={styles.surveyCount}>({filteredSurveys.length} surveys)</span>
+        <span className={styles.surveyCount}>({unansweredSurveys.length} surveys)</span>
       </h2>
       <button
-      className={isArchivedListVisible ? styles.closeButton : styles.archiveButton}
-      onClick={toggleArchivedList}
-    >
-      {isArchivedListVisible ? 'Close' : 'Archive List'}
-    </button>
+        className={isArchivedListVisible ? styles.closeButton : styles.archiveButton}
+        onClick={toggleArchivedList}
+      >
+        {isArchivedListVisible ? 'Close' : 'Archive List'}
+      </button>
 
-    {isArchivedListVisible && <ArchivedSurveys />}
-
+      {isArchivedListVisible && <ArchivedSurveys />}
 
       <div className={styles.filterContainer}>
         {/* Filter by Category */}
@@ -131,9 +146,6 @@ const SurveyAnswerForm: React.FC = () => {
         <p>No surveys available</p>
       ) : (
         currentSurveys.map((survey) => {
-          // Check if the survey has been answered by comparing _id
-          const isAnswered = answeredSurveys.includes(survey._id);
-
           return (
             <div key={survey._id} className={styles.surveyCard}>
               <h3>{survey.title}</h3>
@@ -175,7 +187,7 @@ const SurveyAnswerForm: React.FC = () => {
         </button>
         <button
           onClick={() => paginate(currentPage + 1)}
-          disabled={indexOfLastSurvey >= filteredSurveys.length}
+          disabled={indexOfLastSurvey >= unansweredSurveys.length}
         >
           Next
         </button>
