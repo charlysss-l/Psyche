@@ -17,14 +17,22 @@ const OMRResult: React.FC = () => {
     const [omrScore, setOmrScore] = useState<number | null>(null);
     const [userExists, setUserExists] = useState<boolean>(false);
     const [userFoundMessage, setUserFoundMessage] = useState<string>('');
+    const [uploadURL, setUploadURL] = useState<string>('');
 
     // Reset userID when the page is refreshed
     useEffect(() => {
         setUserID('');
         const storedOmrScore = localStorage.getItem('omrScore');
+        const storedUploadURL = localStorage.getItem('uploadedImageURL'); // Assuming the URL is stored with key 'uploadURL'
+
         if (storedOmrScore) {
             setOmrScore(Number(storedOmrScore));
         }
+
+        if (storedUploadURL) {
+            setUploadURL(storedUploadURL);
+        }
+
     }, []);
 
     // Check if the user exists by userID
@@ -97,6 +105,7 @@ const OMRResult: React.FC = () => {
             },
             testType,
             testDate: new Date(),
+            uploadURL
         };
 
         try {

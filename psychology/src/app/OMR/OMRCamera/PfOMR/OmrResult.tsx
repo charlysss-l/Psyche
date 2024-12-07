@@ -17,11 +17,13 @@ const OmrResult: React.FC = () => {
     const [sectionScores, setSectionScores] = useState<{ [key: string]: number }>({}); // Section scores state
     const [userExists, setUserExists] = useState<boolean>(false);
     const [userFoundMessage, setUserFoundMessage] = useState<string>('');
+    const [uploadURL, setUploadURL] = useState<string>('');
 
 
     useEffect(() => {
         // Fetch userID and scores from localStorage
         const storedScores = localStorage.getItem('omrScore'); // Assuming scores are stored in JSON format
+        const storedUploadURL = localStorage.getItem('uploadedImageURL'); // Assuming the URL is stored with key 'uploadURL'
 
         
         setUserID('');
@@ -29,6 +31,9 @@ const OmrResult: React.FC = () => {
 
         if (storedScores) {
             setSectionScores(JSON.parse(storedScores)); // Parse the stored scores into an object
+        }
+        if (storedUploadURL) {
+            setUploadURL(storedUploadURL);
         }
     }, []);
 
@@ -96,6 +101,7 @@ const OmrResult: React.FC = () => {
             scoring: Scoring, // Submit the scoring data
             testType,
             testDate: new Date(), // Current date and time
+            uploadURL
         };
 
         try {
