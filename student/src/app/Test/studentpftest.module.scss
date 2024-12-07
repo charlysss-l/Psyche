@@ -3,8 +3,8 @@
 
 $primary-color: #d7a52f  ;
 $bg-color: #ffffff;
-$bg-gradient-start: #E9E9E9;
-$bg-gradient-end: #e9E9E9;
+$bg-gradient-start: #98d172;
+$bg-gradient-end: #ffffff;
 $hover-bg-color: #efb836;
 $shadow-light: rgba(0, 0, 0, 0.1);
 $shadow-dark: rgba(0, 0, 0, 0.2);
@@ -51,6 +51,13 @@ $test-size: 400px;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, $bg-gradient-start, $bg-gradient-end);
+}
+
+// Dark mode styles
+:global(body.dark-mode) {
+  .TestPF, .iqLinkContainer {
+    background: linear-gradient(135deg, #98d172, #000000);
+  }
 }
 
 // Hover effects for test containers

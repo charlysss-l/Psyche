@@ -29,7 +29,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #D2D2D2, #e9E9E9);
+  background: linear-gradient(135deg, #98d172, #e9E9E9);
+}
+
+:global(body.dark-mode) {
+  .TestPF_res, .iqLinkContainer_res {
+    background: linear-gradient(135deg, #98d172, #000000);
+    box-shadow: 0 6px 12px #000000;
+
+  }
 }
 
 .TestPF_res:hover, .iqLinkContainer_res:hover {
