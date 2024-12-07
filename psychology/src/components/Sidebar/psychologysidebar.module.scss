@@ -2,13 +2,13 @@
 
 $sidebar-width: 250px;
 $sidebar-bg-color: #ffffff;
-$sidebar-hover-bg-color: #cd97ff;
+$sidebar-hover-bg-color: #c187f8;
 $sidebar-link-color: #000000;
 $sidebar-hover-color: #000000;
 $sidebar-active-bg-color: #d2d2d2;
 $sidebar-font-size: 112.5%; // 16px to percentage based on default 16px
 $toggle-btn-bg-color: #d2d2d2;
-$toggle-btn-hover-bg-color: #cd97ff;
+$toggle-btn-hover-bg-color: #ad6ce9;
 $font-size-base: 100%; // 16px to 100%
 $box-shadow-color: rgba(0, 0, 0, 0.5);
 $transition-duration: 0.3s;
@@ -22,7 +22,7 @@ $transition-duration: 0.3s;
     left: 1rem;
     background-color: $toggle-btn-bg-color;
     color: $sidebar-link-color;
-    border: none;
+    border: 2px solid #5e5e5eda;
     padding: 0.7rem 1.5rem;
     cursor: pointer;
     z-index: 1001;
@@ -31,6 +31,7 @@ $transition-duration: 0.3s;
     font-weight: bold;
 
     &:hover {
+      color: $sidebar-bg-color;
       background-color: $toggle-btn-hover-bg-color;
     }
   }
@@ -40,8 +41,8 @@ $transition-duration: 0.3s;
     top: 0;
     left: -$sidebar-width; // Hidden by default
     width: $sidebar-width;
-    height: 100%;
-    background-color: $sidebar-bg-color;
+    height: 100%; 
+    background-color: #d5bdebf5;
     color: $sidebar-link-color;
     transition: left $transition-duration ease;
     box-shadow: 2px 0 5px $box-shadow-color;
@@ -77,13 +78,14 @@ $transition-duration: 0.3s;
           transition: all $transition-duration ease;
           width: 80%;
           height: 50px;
+          border: 2px solid #5e5e5eda;
           text-align: center;
           justify-content: center;
           padding: 0 1rem;
           border-radius: 10px;
 
           &:hover {
-            background-color: $sidebar-hover-bg-color;
+            background-color: $toggle-btn-hover-bg-color;
             color: $sidebar-hover-color;
           }
 
