@@ -518,3 +518,17 @@ button {
     }
   }
 }
+
+.removeButton {
+  background-color: #db4d4d;
+  color: white;
+  border: none;
+  padding: 8px 13px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.removeButton:hover {
+  background-color: transparent;
+  color: black;
+  border: 1px solid red;
+}

@@ -711,8 +711,7 @@ const handleRemove = async (id: string) => {
               ) : (
                 <span className={styles.statusMessage}>
                   {schedule.status === "accepted"
-                    ? "Accepted"
-                    : "Declined"}
+                 }
                 </span>
               )}
               {/* Remove button appears after accepting or declining */}

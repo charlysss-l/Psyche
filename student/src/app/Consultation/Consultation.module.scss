@@ -248,14 +248,48 @@ select {
   text-align: center;
 }
 
-.removeButton {
-  background-color: red;
+.acceptButton {
+  background-color: #849670;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 9px 16px;
+  cursor: pointer;
+}
+
+.acceptButton:hover {
+  transform: scale(1.05);
+  color: white;
+  background-color: #9eb386;
+  border:1px solid #849670;
+}
+
+.declineButton {
+  background-color: #db4d4d;
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.declineButton:hover {
+  transform: scale(1.05);
+  background-color: transparent;
+  color: black;
+  border: 1px solid #db4d4d;
+}
+
+.removeButton {
+  background-color: #2A3744;
+  color: white;
+  border: none;
+  padding: 9px 16px;
   cursor: pointer;
   margin-left: 10px;
 }
 .removeButton:hover {
-  background-color: darkred;
+  transform: scale(1.05);
+  background-color: transparent;
+  color: black;
+  border: 1px solid #2A3744;
+
 }
