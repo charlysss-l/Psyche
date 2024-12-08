@@ -14,6 +14,7 @@ const ArchivedSurveys: React.FC = () => {
   const [archivedSurveys, setArchivedSurveys] = useState<ArchivedSurvey[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  
 
   const userId = localStorage.getItem("userId"); // Replace this with your logic to get the logged-in user's ID
 
@@ -50,6 +51,8 @@ const ArchivedSurveys: React.FC = () => {
   }
 
   return (
+    
+    <div className={styles.overlay}>
     <div className={styles.floatingContainer}>
       <div className={styles.archivedSurveysContainer}>
         <h2>Archived Surveys</h2>
@@ -92,6 +95,7 @@ const ArchivedSurveys: React.FC = () => {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 };

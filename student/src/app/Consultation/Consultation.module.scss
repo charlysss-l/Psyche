@@ -26,6 +26,7 @@ $border-dark: #2c2c2c;
   padding: 40px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   justify-content: center;
+  border-radius: 10px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -38,7 +39,11 @@ $border-dark: #2c2c2c;
   flex-direction: column;
   gap: 15px; 
 }
-
+.conTitle{
+  font-size: 24px;
+  text-align: center;
+  margin: 0;
+}
 .conLabel {
   font-size: 14px;
   font-weight: 600;
@@ -62,7 +67,7 @@ select {
 }
 
 .conSubmit {
-  background: rgb(0, 0, 0);
+  background: #849670;
   color: #ffffff;
   border: none;
   padding: 10px;
@@ -77,7 +82,7 @@ select {
   &:hover {
      background-color: transparent;
       color:black;
-      border:1px solid #d7a52f; 
+      border:1px solid #849670; 
     transform: translateY(-2px); 
   }
 
@@ -116,12 +121,13 @@ select {
 .consultationlabel{
   text-align: center;
   margin-bottom: 15px;
-  color: #4e4e4e;
+  color: #d7a52f;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 14px;
 }
 
 .table th,
@@ -193,14 +199,16 @@ select {
     color: rgb(255, 255, 255);
 
     &:hover {
-      background-color: #95a581; 
+      background-color: transparent;
+      color:black;
+      border:1px solid #849670; 
     }
   }
 }
 
 .archiveButton {
   margin-left: 20px;
-  background-color: rgb(131, 131, 131);
+  background-color: #d7a52f;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -244,8 +252,10 @@ select {
 }
 
 .conText {
-  font-size: 20px;
+  font-size: 15px;
   text-align: center;
+  margin: 0;
+  color: #666666;
 }
 
 .acceptButton {
@@ -258,8 +268,8 @@ select {
 
 .acceptButton:hover {
   transform: scale(1.05);
-  color: white;
-  background-color: #9eb386;
+  color: #050505;
+  background-color: transparent;
   border:1px solid #849670;
 }
 
@@ -293,3 +303,79 @@ select {
   border: 1px solid #2A3744;
 
 }
+
+:global(body.dark-mode){
+  .consulForm {
+    background: linear-gradient(135deg, #2a3744ef, #2a3744ef);
+    border: none;
+   }
+   .conTitle{
+    color: #849670;
+   }
+   .conText{
+    color: #a0a0a0;
+   }
+   .conLabel{
+    color: #a0a0a0;
+   }
+   .conSubmit{
+    background: #d7a52f;
+
+    &:hover {
+      background-color: transparent;
+       color:rgb(207, 207, 207);
+       border:1px solid #d7a52f; 
+     transform: translateY(-2px); 
+   }
+   }
+
+   .tableContainer{
+    background-color: #2a3744;
+    border: none;
+
+    h2{
+      color: #849670;
+    }
+    .table th,
+    .table td {
+      padding: 8px;
+      text-align: center;
+      color:#4e4e4e;
+}
+
+.table th {
+     border: #2A3744;
+      background-color: #be9940;
+      color: white;
+}
+
+.table tr:nth-child(even) {
+      background-color: #f2f2f2;
+}
+.table tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.table tr:hover {
+      background-color: #b9b9b9e1;
+}
+   }
+   .archiveButton {
+    margin-left: 20px;
+    background-color: #849670;
+    color: white; 
+  }
+  
+  .archiveButton:hover {
+    background-color: transparent;
+    color:#b3b3b3;
+    border:1px solid #849670;
+  }
+  
+  .archiveButton:active {
+    background-color: #849670;
+  
+    transform: scale(0.98); 
+  }
+  
+  }

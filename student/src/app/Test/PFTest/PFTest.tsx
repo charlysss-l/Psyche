@@ -133,7 +133,7 @@ const PFTest: React.FC = () => {
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
             <h1>{test?.nameofTest}</h1>
-            <h2>Instructions:</h2>
+            <h2 className={styles.instruction}>Instructions:</h2>
             <p>
                 <em>
                 <span className={styles.highlight}>*</span> This 16 PF personality test contains <span className={styles.highlight}>{test?.question.length}</span> statements. <br />
@@ -144,7 +144,7 @@ const PFTest: React.FC = () => {
                 <span className={styles.highlight}>*</span> Describe yourself as you honestly see yourself now, not as you wish to be in the future. <br />
                 </em>
             </p>
-            <h2>Rules:</h2>
+            <h2 className={styles.rules}>Rules:</h2>
             <p className={styles.warning}>
             <em>
 

@@ -16,6 +16,10 @@ p {
   
 }
 
+.instruction, .rules{
+  color: #95a581;
+  font-weight: bold;
+}
 
 /* Input Fields */
 input[type="text"],
@@ -81,15 +85,15 @@ input[type="radio"] {
 
 /* Submit button styling */
 .submitPFbutton {
-  background-color: black;
+  background-color: #d7a52f;
   color: white;
 }
 
 .submitPFbutton:hover {
-  background-color: #e8e6e2;
+  background-color: transparent ; 
+  border: 1px solid #d7a52f ; 
   color: black;
 }
-
 /* Pagination styling */
 .pagination {
   display: flex;
@@ -102,7 +106,7 @@ input[type="radio"] {
 
 .pagination button {
   padding: 10px 15px;
-  background-color: #000000;
+  background-color: #95a581;
   color: white;
   border: none;
   border-radius: 10px;
@@ -112,7 +116,7 @@ input[type="radio"] {
 
 .pagination button:hover {
   background-color: transparent ; 
-  border: 1px solid #cc63b5e1 ; 
+  border: 1px solid #95a581 ; 
   color: black;
 }
 
@@ -129,7 +133,7 @@ input[type="radio"] {
 
 .submitButton{
   padding: 10px 15px;
-  background-color: #000000;
+  background-color: #d7a52f;
   color: white;
   border: none;
   border-radius: 10px;
@@ -144,11 +148,46 @@ input[type="radio"] {
 
 .submitButton:hover {
   background-color: transparent ;
-  border: 1px solid  #cc63b5e1 ;
+  border: 1px solid  #d7a52f ;
   color: black;
 }
 
 .highlight {
   color: red;
   font-weight: bold;
+}
+:global(body.dark-mode){
+  .instruction, .rules{
+    color: #d7a52f;
+    font-weight: bold;
+  }
+  .pagination button {
+    background-color: #d7a52f;
+
+    &:hover {
+      background-color: transparent ; 
+       border: 1px solid #d7a52f ; 
+      color: black;
+    }
+    
+  }
+  .pagination button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  .form{
+    box-shadow: #ddd  0 4px 8px;
+  }
+  p {
+    color: #45474B; /* Dark gray for general text */
+    
+  }
+  .submitButton{
+    background-color: #95a581;
+  }
+  .submitButton:hover {
+    background-color: transparent ;
+    border: 1px solid  #95a581 ;
+    color: black;
+  }
 }

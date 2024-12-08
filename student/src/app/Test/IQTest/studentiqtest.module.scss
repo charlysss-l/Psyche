@@ -36,16 +36,19 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
 
 // Header for the form (SAMPLE IQ TEST)
 h1 {
-  color: $header-text-color;     // Color for the header text (SAMPLE IQ TEST)
+  color: #d7a52f;     // Color for the header text (SAMPLE IQ TEST)
   font-size: 2rem;
   margin-bottom: 20px;
   justify-self: center;
-
-
+}
+.rules{
+  color: #353535;
+  font-size: 16px;
+  margin-right: 40px;
 }
 
 .ageWarning {
-  color: #ff0000;
+  color: #962f2f;
   font-weight: bold;
   margin-top: 1px;
   margin-bottom: 10px;
@@ -61,7 +64,9 @@ label {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
   // Label text color set to $input-border-color
 }
-
+.rulesTitle{
+  color: #849670;
+}
 // Input fields and select elements
 input[type="text"],
 select,
@@ -190,7 +195,7 @@ li {
 
 .pagination button {
   padding: 10px 15px;
-  background-color: $primary-color;
+  background-color: #d7a52f;
   color: white;
   border: none;
   border-radius: $border-radius;
@@ -199,7 +204,9 @@ li {
 }
 
 .pagination button:hover {
-  background-color: #cc63b5e1 ; 
+  background-color: transparent;
+  color:black;
+  border:1px solid #efb836 ; 
 }
 
 .pagination button:disabled {
@@ -216,7 +223,7 @@ li {
 .start {
   margin-top: -20px;
   padding: 10px 15px;
-  background-color: $primary-color;
+  background-color: #d7a52f;
   color: white;
   border: none;
   border-radius: $border-radius;
@@ -229,7 +236,11 @@ li {
   color:black;
   border:1px solid #efb836 ; 
 }
-
+.note{
+  color: #849670;
+  font-size: 16px;
+  margin-right: 40px;
+}
 button {
   padding: 10px 20px;
   font-size: 16px;
@@ -245,7 +256,7 @@ button {
 
 .submitButton {
   padding: 10px 15px;
-  background-color: $primary-color;
+  background-color: #849670;
   color: white;
   border: none;
   border-radius: 10px;
@@ -257,7 +268,10 @@ button {
 }
 
 .submitButton:hover {
-  background-color: #efb836; /* Darker shade on hover */
+  background-color: transparent;
+  color:black;
+  border:1px solid #849670;
+  ; 
 }
 
 
@@ -269,4 +283,47 @@ button {
 
 .highlight {
   color: red;
+}
+
+:global(body.dark-mode){
+  .ageWarning{
+    color: #962f2f;
+  }
+  .rulesTitle{
+    color: #efb836;
+  }
+  .rules{
+    color: #2c2c2c;
+  }
+  .start{
+    background-color: #849670;
+
+    &:hover {
+    background-color: transparent;
+    color:black;
+    border:1px solid #849670 ; 
+    }
+  }
+  .pagination button {
+    background-color: #849670 ;
+
+    &:hover{
+    background-color: transparent;
+    color:black;
+    border:1px solid #849670 ; 
+  }
+}
+.pagination button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+.submitButton {
+  background-color: #efb836;
+
+  &:hover {
+    background-color: transparent;
+    color:black;
+    border:1px solid #efb836 ; 
+  }
+}
 }

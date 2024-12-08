@@ -1,7 +1,7 @@
 $font-family: Arial, sans-serif;
 $primary-color: #2a3744;
 $secondary-color: #334553;
-$bg-light: #d2D2D2;
+$bg-light: #f1f1f1;
 $box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 $border-radius: 8px;
 $table-header-bg: #ccc ;
@@ -17,6 +17,8 @@ $table-border-color: #E9E9E9;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
   display: flex;
+  width: 90%;
+  margin-left: 4%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -30,6 +32,7 @@ $table-border-color: #E9E9E9;
       font-size: 1.2rem;
       color: $primary-color;
       margin-left: 10px;
+      color: #849670;
     }
   }
   
@@ -53,7 +56,7 @@ $table-border-color: #E9E9E9;
 
   h3 {
     font-size: 1.5rem;
-    color: $secondary-color;
+    color: #d7a52f;
     margin-bottom: 10px;
   }
 
@@ -69,7 +72,7 @@ $table-border-color: #E9E9E9;
     border: 1px solid $table-border-color;
     border-radius: $border-radius;
     background-color: #f9f9f9;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 
     h4 {
       font-size: 1.2rem;
@@ -91,8 +94,8 @@ $table-border-color: #E9E9E9;
       }
 
       th {
-        background-color: $table-header-bg;
-        color: $secondary-color;
+        background-color: #849670;
+        color: white;
         font-weight: bold;
       }
 
@@ -124,14 +127,13 @@ $table-border-color: #E9E9E9;
       display: inline-block;
       padding: 8px 16px;
       border-radius: $border-radius;
-      border: 1px solid $secondary-color;
-      background-color: $secondary-color;
+      background-color: #d7a52f;
       text-align: center;
 
       &:hover {
         background-color: transparent;
         color: black;
-        border: 1px solid  $primary-color;
+        border: 1px solid  #d7a52f;
       }
     }
   }
@@ -144,7 +146,7 @@ $table-border-color: #E9E9E9;
   margin-top: 20px;
 
   button {
-    background-color: $primary-color;
+    background-color: #d7a52f;
     color: white;
     padding: 10px;
     border-radius: $border-radius;
@@ -152,7 +154,7 @@ $table-border-color: #E9E9E9;
     border: none;
 
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: #d7a52f ;
     }
 
     &:disabled {
@@ -181,9 +183,8 @@ $table-border-color: #E9E9E9;
 
 .archiveButton {
   
-  background-color: #3b5998; /* Blue like a mailbox */
+  background-color: #d7a52f; /* Blue like a mailbox */
   color: white; /* Text color */
-  border: 2px solid #2d4373; /* Slightly darker border */
   border-radius: 12px; /* Rounded edges */
   padding: 10px 20px; /* Adjust padding for size */
   font-size: 16px; /* Slightly larger text */
@@ -198,12 +199,12 @@ $table-border-color: #E9E9E9;
 .archiveButton:hover {
   background-color: transparent;
   color:black;
-  border:1px solid #4b70b5; 
+  border:1px solid #d7a52f; 
   
 }
 
 .archiveButton:active {
-  background-color: #5f2a2a; /* Darker blue when clicked */
+  background-color: #d7a52f; /* Darker blue when clicked */
   transform: scale(0.98); /* Slight click animation */
 }
 
@@ -219,7 +220,7 @@ $table-border-color: #E9E9E9;
   display: block;
   width: 0;
   height: 4px;
-  background-color: #dd1e1e;
+  background-color: #d7a52f; /* Blue underline */
   margin: 0 auto;
   border-radius: 2px;
   transition: width 0.3s ease;
@@ -236,8 +237,7 @@ $table-border-color: #E9E9E9;
   z-index: 1100;  /* Ensures it appears on top of other content */
   right: 21%;
   top: 16%;
-  background-color: #ff4d4d; /* Red background for close button */
-  border-color: #d43f3f; /* Darker red border */
+  background-color: #8a8a8a; /* Red background for close button */
   color: white;
   font-size: 18px;
   padding: 8px 16px;
@@ -248,7 +248,7 @@ $table-border-color: #E9E9E9;
 }
 
 .closeButton:hover {
-  background-color: #d43f3f;
+  background-color: transparent;
   border-color: #c13232;
 }
 
@@ -261,4 +261,67 @@ $table-border-color: #E9E9E9;
   content: "❌"; /* Unicode close icon */
   font-size: 20px; /* Adjust icon size */
   margin-right: 8px;
+}
+
+:global(body.dark-mode){
+    .surveyListContainer {
+        background-color: #2a3744ef;
+
+        h2{
+            color: #e4e4e4;
+        }
+        .surveyCount{
+            color: #d7a52f;
+        }
+    }
+    .archiveButton{
+        background-color: #849670;
+    }
+    .archiveButton:hover {
+      background-color: transparent;
+      color:#f0f0f0;
+      border:1px solid #849670; 
+      
+    }
+    
+    .archiveButton:active {
+      background-color: #849670; 
+      transform: scale(0.98); 
+    }
+    .filters{
+        background-color: #697c8f;
+        border: none;
+    } 
+    .filters h4{
+        color: #f7f7f7;
+    }
+    .filterContainer label{
+        color: #e4e4e4;
+    }
+    .surveyCard{
+        background-color: #47596b;
+    }
+    .surveyCard p{
+        color: #e4e4e4;
+    }
+    .surveyCard h3{
+        color: #849670;
+    }
+    .filters th{
+        background-color: #caa44a;
+        color: white;
+    }
+    .viewDetailsButton {
+      background-color: #849670;
+     
+
+      &:hover {
+        background-color: transparent;
+        color: black;
+        border: 1px solid  #849670;
+      }
+}
+.pagination button{
+    background-color: #797979;
+}
 }

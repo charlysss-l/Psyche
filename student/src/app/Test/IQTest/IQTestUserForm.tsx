@@ -33,11 +33,11 @@ const UserForm: React.FC = () => {
         <form onSubmit={handleSubmit} className={style.formTest}>
             <h1>IQ Test</h1>
             <p className={style.ageWarning}>
-                "You Must Be 20 Years Old and Above To Take This Test" <br/> 
-                "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up" <br/>
-                You can only answer this test once a day, if any error occurs and need to retake the test, please direct to the administrator (Psychology Department).
+               <span className ={style.highlight}>*</span> You Must Be 20 Years Old and Above To Take This Test <br/> 
+               <span className ={style.highlight}>*</span>  You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up" <br/>
+               <span className ={style.highlight}>*</span> You can only answer this test once a day, if any error occurs and need to retake the test, please direct to the administrator (Psychology Department).
             </p>
-            <h1>Rules:</h1>
+            <h1 className={style.rulesTitle}>Rules:</h1>
             <p className={style.rules}>
             <span className={style.highlight}>*</span> Please do not take screenshots or share the content of this test. It is confidential and for your use only. <br />
                 <span className={style.highlight}>*</span> Those who do will be penalized and as your student record will be tracked by the Administrators. <br />
@@ -85,7 +85,7 @@ const UserForm: React.FC = () => {
                 <option value="" disabled>Select Exam Type</option>
                 <option value="Online">Online</option>
             </select>
-            <p>Note: Timer Will Start Once You Click The Start Button</p>
+            <p className={style.note}>Note: Timer Will Start Once You Click The Start Button</p>
             <button className={style.start} type="submit">Start Test</button>
         </form>
     );
