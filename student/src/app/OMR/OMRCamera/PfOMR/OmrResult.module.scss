@@ -38,7 +38,7 @@ $font-family: Arial, sans-serif;
 
 // Header for the form (SAMPLE IQ TEST)
 h1 {
-  color: #5a5a5a;     // Color for the header text (SAMPLE IQ TEST)
+  color: #d7a52f;     // Color for the header text (SAMPLE IQ TEST)
   font-size: 2rem;
   margin-bottom: 20px;
   justify-self: center;
@@ -192,6 +192,7 @@ li {
 .pagination button {
   padding: 10px 15px;
   background-color: $primary-color;
+  margin-top: 30px;
   color: white;
   border: none;
   border-radius: $border-radius;
@@ -236,7 +237,9 @@ li {
 button {
   padding: 10px 20px;
   font-size: 16px;
+  margin-top: 5px;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 

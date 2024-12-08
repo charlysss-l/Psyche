@@ -6,6 +6,10 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+
+  h1{
+    color: #d7a52f;
+  }
 }
 
 .ListResult {
@@ -29,10 +33,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #98d172, #e9E9E9);
+  background: linear-gradient(120deg, #849670, #e0f1cd);
 }
 
 :global(body.dark-mode) {
+  .ResultContent h1{
+    color: #d7a52f;
+  }
   .TestPF_res, .iqLinkContainer_res {
     background: linear-gradient(135deg, #98d172, #000000);
     box-shadow: 0 6px 12px #000000;

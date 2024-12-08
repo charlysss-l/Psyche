@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
+
 .resultsTableIQ {
     border-collapse: collapse; 
     font-size: 15px;
@@ -11,11 +12,11 @@
   
 
   .resultsTableIQ th {
-    color: #333;
+    color: #ececec;
     padding: 10px;
     text-align: center;
     font-size: 13px;
-    background-color: rgb(245, 242, 242);
+    background-color: #849670;
     border-bottom: 1px solid #9e979791; 
   }
   
@@ -134,7 +135,7 @@
   font-size: 1.2rem;
   margin-bottom: .5rem;
   margin-top: -1.5rem;
-  color: #333;
+  color: #d7a52f;
 }
 
 .viewImageButton {
@@ -190,3 +191,16 @@
   padding: 5px;
   cursor: pointer;
 }
+:global(body.dark-mode){
+  .resultCount {
+    color: #849670;
+  }
+  .resultsTableIQ th {
+    background-color: #c09227;
+    color: #2e2e2e;
+  }
+  .ageWarning {
+    color: rgb(192, 65, 65);
+  }
+  
+} 

@@ -26,6 +26,10 @@ $test-size: 400px;
   flex-direction: column;
   align-items: center;
   padding: $padding-size;
+
+  h1{
+    color: #d7a52f;
+  }
 }
 
 // List of tests
@@ -36,6 +40,8 @@ $test-size: 400px;
   flex-wrap: wrap;
   justify-content: center;
 }
+
+
 
 // Test containers with common styles
 .TestPF, .iqLinkContainer {
@@ -50,11 +56,18 @@ $test-size: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, $bg-gradient-start, $bg-gradient-end);
+  background: linear-gradient(135deg, #849670, #e0f1cd);
+}
+
+.pfresultDashboard h1{
+  color: #d7a52f;
 }
 
 // Apply the spinning animation globally
 :global(body.dark-mode) {
+  .TestContent h1{
+    color: #d7a52f;
+  }
   .TestPF, .iqLinkContainer {
     background: linear-gradient(135deg, #98d172, #000000);
  
@@ -96,7 +109,7 @@ $test-size: 400px;
 .pfLink span, .iqLink span {
   position: relative;
   z-index: 1;
-  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); 
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); 
 }
 
 // Reapply common styles for box-shadow and transition

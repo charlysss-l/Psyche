@@ -10,12 +10,12 @@
     line-height: 1.6;
     text-align: center;
   }
-  
-  .termsandconditioniq {
+  .introiq, .termsandconditioniq{
     font-size: 24px;
-    color: #334553;
+    color: #d7a52f;
     margin-bottom: 16px;
   }
+  
    
   .termsinfo {
     font-size: 16px;
@@ -30,7 +30,7 @@
   .pfButton {
     display: inline-block;
     padding: 10px 20px;
-    background-color: black;
+    background-color: #d7a52f;
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
@@ -51,6 +51,10 @@
     margin: 20px 0;
     display: flex;
     align-items: center;
+
+    label{
+      color:#d7a52f;
+    }
   }
   
   .checkbox {
@@ -60,3 +64,42 @@
   .confirm {
     text-align: center;
   }
+
+  :global(body.dark-mode) {
+    .container{
+      background-color: #2a3744ef;
+    }
+    .introiq, .termsandconditioniq{
+      color: #849670;
+    }
+    .termsnumiq{
+      color: #d7a52f ;
+    }
+    .termsinfo {
+      color: #e6e6e6;
+    }
+    .pfButton {
+      background-color: #d7a52f;
+    }
+    .pfButton:hover {
+      background-color: transparent;
+      border: 1px solid #d7a52f;
+      color: black;
+    }
+    .confirm{
+      color: #e6e6e6;
+    }
+    .checkboxContainer label{
+        color:#849670;
+      }
+      .pfButton{
+        background-color: #849670;
+  
+       &:hover {
+          background-color: transparent ;
+          border: 1px solid #849670;
+          color: rgb(255, 255, 255);
+        }
+      }
+    }
+  
