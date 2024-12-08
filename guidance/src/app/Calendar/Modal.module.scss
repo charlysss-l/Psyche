@@ -33,6 +33,19 @@
       background: #e64747be ;
     }
   }
+
+  .responsesWrapper {
+    max-height: 150px;  // Adjust the height as per your design needs
+    overflow-y: auto;   // Enable vertical scrolling when content overflows
+  }
+
+  .flowerConsult {
+    color: #ff5100;
+  }
+
+  .flowerFollowup {
+    color: #28a796;
+  }
   
   :global(body.dark-mode){
     .modalContent {
@@ -50,3 +63,5 @@
       }
     }
   }
+
+  

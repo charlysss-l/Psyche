@@ -532,3 +532,8 @@ button {
   color: black;
   border: 1px solid red;
 }
+
+.responsesWrapper {
+  max-height: 400px;  // Adjust the height as per your design needs
+  overflow-y: auto;   // Enable vertical scrolling when content overflows
+}

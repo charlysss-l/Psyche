@@ -7,7 +7,6 @@ import e from "express";
 import ArchiveInbox from "./ArchiveInbox";
 
 const API_URL = "http://localhost:5000/api/consult/";
-const FOLLOWUP_URL = "http://localhost:5000/api/followup/";
 const USERIQ_URL = "http://localhost:5000/api/useriq/test/";
 const USERPF_URL = "http://localhost:5000/api/user16pf/test/";
 const USERIQOMRE_URL = "http://localhost:5000/api/omr/test/";
@@ -366,6 +365,8 @@ const handleRemove = async (id: string) => {
   <h2>Pending Consultation Requests
   </h2>
   {showArchived && <ArchiveInbox />}
+  <div className={styles.responsesWrapper}>
+
   <table>
     <thead>
       <tr>
@@ -431,11 +432,14 @@ const handleRemove = async (id: string) => {
       ))}
     </tbody>
   </table>
+  </div>
 </div>
 
  {/* Follow Up Requests Table */}
 <div className={styles.tableBox}>
   <h2>Pending Follow-Up Consultation Requests</h2>
+  <div className={styles.responsesWrapper}>
+
   <table>
     <thead>
       <tr>
@@ -478,6 +482,7 @@ const handleRemove = async (id: string) => {
       )}
     </tbody>
   </table>
+  </div>
 </div>
 
 
@@ -492,6 +497,8 @@ const handleRemove = async (id: string) => {
       Archive List
     </button>
   </h2>
+  <div className={styles.responsesWrapper}>
+
   <table>
     <thead>
       <tr>
@@ -562,6 +569,7 @@ const handleRemove = async (id: string) => {
       ))}
     </tbody>
   </table>
+  </div>
 </div>
 
 

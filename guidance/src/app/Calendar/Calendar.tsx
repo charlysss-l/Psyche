@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import Modal from "react-modal";
 import { fetchConsultationRequests } from "../services/consultationservice";
+import { fetchFollowUpSchedules } from "../services/followupservice";
 import axios from "axios";
 import styles from "./Calendar.scss" ;
 import style from "./Modal.module.scss";
@@ -17,8 +18,19 @@ interface ConsultationRequest {
   status: string;
 }
 
+interface FollowUpSchedule {
+  _id: string;
+  userId: string;
+  followUpDate: string;
+  timeForConsultation: string;
+  note: string;
+  status: string;
+  message: string;
+}
+
 const SchedulingCalendar: React.FC = () => {
   const [consultationRequests, setConsultationRequests] = useState<ConsultationRequest[]>([]);
+  const [followUpSchedules, setFollowUpSchedules] = useState<FollowUpSchedule[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -33,6 +45,18 @@ const SchedulingCalendar: React.FC = () => {
       }
     };
     loadConsultationRequests();
+  }, []);
+
+  useEffect(() => {
+    const loadFollowUpSchedules = async () => {
+      try {
+        const schedules = await fetchFollowUpSchedules();
+        setFollowUpSchedules(schedules);
+      } catch (error) {
+        console.error("Error loading follow-up schedules:", error);
+      }
+    };
+    loadFollowUpSchedules();
   }, []);
 
   const handleMarkAsDone = async (id: string) => {
@@ -86,13 +110,32 @@ const SchedulingCalendar: React.FC = () => {
 
   const isScheduledDate = (date: Date) => {
     return consultationRequests.some(
-      (request) => new Date(request.date).toDateString() === date.toDateString() && request.status === "accepted"
+      (request) => new Date(request.date).toDateString() === date.toDateString() && request.status === "accepted",
+      followUpSchedules.some((schedule) => schedule.followUpDate === date.toDateString() && schedule.status === "accepted")
     );
   };
 
   const filteredRequests = consultationRequests.filter(
     (request) => new Date(request.date).toDateString() === selectedDate?.toDateString() && request.status === "accepted"
   );
+
+  const filteredSchedules = followUpSchedules.filter(
+    (schedule) => schedule.followUpDate === selectedDate?.toDateString() && schedule.status === "accepted"
+  );
+
+  const handleRemove = async (id: string) => {
+    try {
+      // Call the backend to remove the follow-up schedule
+      await axios.delete(`http://localhost:5000/api/followup/${id}`);
+  
+      // Update the state to remove the schedule
+      setFollowUpSchedules((prev) => prev.filter((schedule) => schedule._id !== id));
+  
+      alert("Follow-up schedule removed.");
+    } catch (error) {
+      console.error("Error removing follow-up schedule:", error);
+    }
+  };
 
   return (
     <div className={styles.calendarContainer}>
@@ -103,11 +146,26 @@ const SchedulingCalendar: React.FC = () => {
         }}
         tileContent={({ date, view }) => {
           if (view === "month") {
-            const count = consultationRequests.filter(
+            const consultationCount = consultationRequests.filter(
               (request) => new Date(request.date).toDateString() === date.toDateString() && request.status === "accepted"
             ).length;
-            return count ? <div className="schedule-count">{count}</div> : null;
+
+            const followUpCount = followUpSchedules.filter(
+              (schedule) => schedule.followUpDate === date.toDateString() && schedule.status === "accepted"
+            ).length;
+            
+            return (
+              <div className="schedule-count">
+                {consultationCount > 0 && (
+                  <div className="consult-count">{consultationCount}</div>
+                )}
+                {followUpCount > 0 && (
+                  <div className="followup-count">{followUpCount}</div>
+                )}
+              </div>
+            );
           }
+          
           return null;
         }}
       />
@@ -121,10 +179,14 @@ const SchedulingCalendar: React.FC = () => {
         overlayClassName={style.modalOverlay}
         ariaHideApp={false} // Only use false if your app doesn't use `#root` as its main element
       >
+        
         {selectedDate && (
           <>
-            <h2>Requests for {selectedDate.toDateString()}</h2>
+            <h2><span className={style.flowerConsult}>❀</span> Requests for {selectedDate.toDateString()}</h2>
+            <div className={style.responsesWrapper}>
+
             {filteredRequests.length > 0 ? (
+              
               <table>
                 <thead>
                   <tr>
@@ -149,9 +211,44 @@ const SchedulingCalendar: React.FC = () => {
                   ))}
                 </tbody>
               </table>
+              
             ) : (
               <p className={styles.noAccepted}>No accepted requests for this date.</p>
             )}
+            </div>
+
+            <h2><span className={style.flowerFollowup}>❀</span> Follow Up Schedules for {selectedDate.toDateString()}</h2>
+            <div className={style.responsesWrapper}>
+
+            {filteredSchedules.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Time</th>
+                    <th>Note</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredSchedules.map((schedule) => (
+                    <tr key={schedule._id}>
+                      <td>{schedule.userId}</td>
+                      <td>{schedule.timeForConsultation}</td>
+                      <td>{schedule.note}</td>
+                      <td>{schedule.status}</td>
+                      <td>
+                        <button onClick={() => handleRemove(schedule._id)}>Remove</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p className={styles.noAccepted}>No accepted schedules for this date.</p>
+            )}
+            </div>
 
             {/* Form to Add New Schedule */}
             <h3 className = {styles.newschedadd}>Add Follow Up Schedule</h3>
