@@ -12,7 +12,7 @@
   .surveyDetailsContainer h2 {
     font-size: 2rem;
     font-weight: bold;
-    color: #2a3744;
+    color: #d7a52f;
     margin-bottom: 10px;
   }
   
@@ -79,12 +79,13 @@
   .submitButton {
     display: inline-block;
     padding: 12px 20px;
-    background-color: #000000e1 ;
+    background-color: #d7a52f ;
     color: white;
     font-size: 1.1rem;
     font-weight: bold;
     border: none;
     border-radius: 4px;
+    margin-left: 40%;
     cursor: pointer;
     transition: background-color 0.3s ease;
   
@@ -123,3 +124,38 @@
     }
   }
   
+  :global(body.dark-mode){
+    .surveyDetailsContainer {
+      background-color: #2a3744ef;
+
+      h2{
+        color: #849670;
+      }
+
+      p{
+        color: #fafafa;
+      }
+    }
+    .question {
+      background-color: #47596b;
+      border: none;
+
+      label{
+        color: #cecece;
+      }
+    }
+    .submitButton {
+      background-color: #849670 ;
+      
+      &:hover {
+        background-color: transparent;
+        color: #d3d3d3;
+        border: 1px solid #849670 ;
+      }
+    
+      &:disabled {
+        background-color: #849670;
+        cursor: not-allowed;
+      }
+  }
+}
