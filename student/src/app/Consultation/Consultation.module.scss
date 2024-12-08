@@ -92,6 +92,7 @@ select {
 }
 
 
+
 // for the table of consultations
 .tableContainer {
   flex: 2;
@@ -145,7 +146,7 @@ select {
 }
 
 .responsesWrapper {
-  max-height: 385px;  
+  max-height: 250px;  
   overflow-y: auto;   
   margin-top: 10px;   
 }
@@ -245,4 +246,16 @@ select {
 .conText {
   font-size: 20px;
   text-align: center;
+}
+
+.removeButton {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.removeButton:hover {
+  background-color: darkred;
 }

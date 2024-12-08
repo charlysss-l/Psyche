@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { fetchConsultationRequests } from "../services/consultationservice";
+import { fetchFollowUpSchedules } from "../services/followupservice";
 import axios from "axios";
 import styles from "./Consultation.module.scss";
 import e from "express";
 import ArchiveInbox from "./ArchiveInbox";
 
 const API_URL = "http://localhost:5000/api/consult/";
+const FOLLOWUP_URL = "http://localhost:5000/api/followup/";
 const USERIQ_URL = "http://localhost:5000/api/useriq/test/";
 const USERPF_URL = "http://localhost:5000/api/user16pf/test/";
 const USERIQOMRE_URL = "http://localhost:5000/api/omr/test/";
@@ -18,6 +20,16 @@ interface ConsultationRequest {
   note: string;
   testID: string;
   date: string;
+  status: string;
+  message: string;
+}
+
+interface FollowUpSchedule {
+  _id: string;
+  userId: string;
+  followUpDate: string;
+  timeForConsultation: string;
+  note: string;
   status: string;
   message: string;
 }
@@ -43,6 +55,7 @@ const factorDescriptions: Record<string, string> = {
 
 const GuidanceConsultation: React.FC = () => {
   const [consultationRequests, setConsultationRequests] = useState<ConsultationRequest[]>([]);
+  const [followUpSchedules, setFollowUpSchedules] = useState<FollowUpSchedule[]>([]);
   const [testDetails, setTestDetails] = useState<any>(null);  // For storing test results
   const [showTestInfo, setShowTestInfo] = useState<boolean>(false);  // To control modal visibility
   const [declineNote, setDeclineNote] = useState<string>("");
@@ -65,6 +78,18 @@ const GuidanceConsultation: React.FC = () => {
       }
     };
     loadConsultationRequests();
+  }, []);
+
+  useEffect(() => {
+    const loadFollowUpSchedules = async () => {
+      try {
+        const schedules = await fetchFollowUpSchedules();
+        setFollowUpSchedules(schedules);
+      } catch (error) {
+        console.error("Error loading follow-up schedules:", error);
+      }
+    };
+    loadFollowUpSchedules();
   }, []);
 
   // Fetch test details based on testID
@@ -100,6 +125,7 @@ const GuidanceConsultation: React.FC = () => {
 
   const pendingRequests = consultationRequests.filter((request) => request.status === "pending" || request.status === "cancelled");
   const acceptedRequests = consultationRequests.filter((request) => request.status === "accepted" || request.status === "completed");
+ 
 
   // Accept a consultation request
   const acceptRequest = async (id: string) => {
@@ -304,7 +330,23 @@ function getDynamicInterpretation(age: number, score: number): string {
           score <= item.maxTestScore
   );
   return match ? match.resultInterpretation : "No interpretation available";
+
+  
 }
+
+const handleRemove = async (id: string) => {
+  try {
+    // Call the backend to remove the follow-up schedule
+    await axios.delete(`http://localhost:5000/api/followup/${id}`);
+
+    // Update the state to remove the schedule
+    setFollowUpSchedules((prev) => prev.filter((schedule) => schedule._id !== id));
+
+    alert("Follow-up schedule removed.");
+  } catch (error) {
+    console.error("Error removing follow-up schedule:", error);
+  }
+};
 
   return (
     <div>
@@ -390,6 +432,54 @@ function getDynamicInterpretation(age: number, score: number): string {
     </tbody>
   </table>
 </div>
+
+ {/* Follow Up Requests Table */}
+<div className={styles.tableBox}>
+  <h2>Pending Follow-Up Consultation Requests</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Note</th>
+        <th>Status</th>
+        <th>Action</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      {followUpSchedules.length > 0 ? (
+        followUpSchedules
+          .map((schedule) => (
+            <tr key={schedule._id}>
+              <td>{schedule.userId}</td>
+              <td>{new Date(schedule.followUpDate).toLocaleDateString()}</td>
+              <td>{schedule.timeForConsultation}</td>
+              <td>{schedule.note}</td>
+              <td>{schedule.status}</td>
+              <td>
+              <button
+                  onClick={() => handleRemove(schedule._id)}
+                  className={styles.removeButton}
+                >
+                  Remove
+                </button>
+              </td>
+              <td>{schedule.message}</td>
+            </tr>
+          ))
+      ) : (
+        <tr>
+          <td colSpan={6} className={styles.noData}>
+            No pending follow-up consultation requests.
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>
+
 
 
 {/* Accepted Requests Table */}

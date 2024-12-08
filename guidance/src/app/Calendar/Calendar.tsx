@@ -54,25 +54,26 @@ const SchedulingCalendar: React.FC = () => {
     const userId = (form.elements.namedItem("userId") as HTMLInputElement).value;
     const timeForConsultation = (form.elements.namedItem("timeForConsultation") as HTMLInputElement).value;
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
-
+  
     try {
-      const response = await axios.post("http://localhost:5000/api/consultationRequests", {
+      const response = await axios.post("http://localhost:5000/api/followup", {
         userId,
+        followUpDate: selectedDate?.toDateString(),
         timeForConsultation,
         note,
-        date: selectedDate?.toDateString(),
-        status: "accepted",
       });
       if (response.status === 201) {
         setErrorMessage("");
-        const newRequest = response.data as ConsultationRequest;
-        setConsultationRequests([...consultationRequests, newRequest]);
+        setConsultationRequests([...consultationRequests, response.data]);
       }
+      alert("Follow Up Scheduled successfully.");
+
     } catch (error) {
-      console.error("Error adding consultation request:", error);
-      setErrorMessage("Error adding consultation request. Please try again.");
+      console.error("Error adding follow-up schedule:", error);
+      setErrorMessage("Error adding follow-up schedule. Please try again.");
     }
   };
+  
 
   const handleDateClick = (date: Date) => {
     setSelectedDate(date);
@@ -153,7 +154,7 @@ const SchedulingCalendar: React.FC = () => {
             )}
 
             {/* Form to Add New Schedule */}
-            <h3 className = {styles.newschedadd}>Add New Schedule</h3>
+            <h3 className = {styles.newschedadd}>Add Follow Up Schedule</h3>
             {errorMessage && <p className={style.errorMessage}>{errorMessage}</p>}
             <form onSubmit={handleSubmit}>
               <div>

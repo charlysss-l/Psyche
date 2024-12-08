@@ -14,8 +14,19 @@ interface Consultation {
   message: string;
 }
 
+interface FollowUpSchedule {
+  _id: string;
+  userId: string;
+  followUpDate: string;
+  timeForConsultation: string;
+  note: string;
+  status: string;
+  message: string;
+}
+
 
 const API_URL = "http://localhost:5000/api/consult/";
+const FOLLOWUP_URL = "http://localhost:5000/api/followup/user/";
 const USERIQ_URL = "http://localhost:5000/api/useriq/";
 const USERPF_URL = "http://localhost:5000/api/user16pf/user/";
 const USERIQOMRE_URL = "http://localhost:5000/api/omr/"
@@ -29,6 +40,9 @@ const ConsultationRequestForm: React.FC = () => {
   const [selectedTestID, setSelectedTestID] = useState<string>(""); // For selected test ID
   const [date, setDate] = useState("");
   const [consultations, setConsultation] = useState<Consultation[]>([]);
+  const [followUpSchedules, setFollowUpSchedules] = useState<FollowUpSchedule[]>([]);
+  const [decliningSchedule, setDecliningSchedule] = useState<string | null>(null);
+  const [declineMessage, setDeclineMessage] = useState<string>("");
 
   const [showArchived, setShowArchived] = useState(false);  // State to toggle the archive list visibility
   const toggleArchivedList = () => {
@@ -78,6 +92,24 @@ const ConsultationRequestForm: React.FC = () => {
       setUserID(storedUserID);
     }
   }, []);
+
+  useEffect(() => {
+    // Fetch the follow-up schedules when userId is available
+    if (userId) {
+      const fetchFollowUpSchedules = async () => {
+        try {
+          const schedules = await axios.get(`${FOLLOWUP_URL}${userId}`);
+            setFollowUpSchedules(schedules.data);
+          
+        } catch (error) {
+          console.error("Error fetching follow-up schedules:", error);
+        }
+      };
+
+      fetchFollowUpSchedules();
+    }
+  }, [userId]);
+
 
   useEffect(() => {
     // Reset test IDs and selectedTestID when note changes
@@ -146,15 +178,13 @@ const ConsultationRequestForm: React.FC = () => {
       };
       console.log("Request data:", consultationRequest);
 
-      
-  
       await axios.post(API_URL, consultationRequest);
       alert("Consultation request submitted successfully. Your Result has been shared with the guidance counselor.");
 
       window.location.reload();
     } catch (error) {
       console.error("Error submitting consultation request:", error);
-      alert("Failed to submit consultation request.");
+      alert("You have already scheduled this test.");
    }
   };
 
@@ -177,6 +207,8 @@ const ConsultationRequestForm: React.FC = () => {
       console.error("Error fetching consultations:", error);
     }
   };
+
+ 
 
   const deleteConsultation = async (testID: string) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this consultation?");
@@ -232,8 +264,73 @@ const ConsultationRequestForm: React.FC = () => {
       alert("Failed to archive consultation.");
     }
   };
-  
 
+  const handleAccept = async (id: string) => {
+    try {
+      await axios.put(`http://localhost:5000/api/followup/${id}`, {
+        status: "accepted",
+      });
+      setFollowUpSchedules((prev) =>
+        prev.map((schedule) =>
+          schedule._id === id ? { ...schedule, status: "accepted" } : schedule
+        )
+      );
+    } catch (error) {
+      console.error("Error accepting follow-up schedule:", error);
+    }
+  };
+  
+const handleDecline = (id: string) => {
+  // Set the schedule to be declined
+  setDecliningSchedule(id);
+};
+
+const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setDeclineMessage(event.target.value);
+};
+
+const handleSubmitDecline = async (id: string) => {
+  if (!declineMessage) {
+    alert("You need to provide a message before declining.");
+    return;
+  }
+
+  try {
+    // Send the declined status and message to the backend
+    await axios.put(`http://localhost:5000/api/followup/${id}`, {
+      status: "declined",
+      message: declineMessage,
+    });
+
+    // Update the follow-up schedule state to reflect the declined status and message
+    setFollowUpSchedules((prev) =>
+      prev.map((schedule) =>
+        schedule._id === id ? { ...schedule, status: "declined", message: declineMessage } : schedule
+      )
+    );
+
+    alert("Follow-up request declined and message sent.");
+    setDecliningSchedule(null); // Reset declining state
+    setDeclineMessage(""); // Reset message input
+  } catch (error) {
+    console.error("Error declining follow-up schedule:", error);
+  }
+};
+
+const handleRemove = async (id: string) => {
+  try {
+    // Call the backend to remove the follow-up schedule
+    await axios.delete(`http://localhost:5000/api/followup/${id}`);
+
+    // Update the state to remove the schedule
+    setFollowUpSchedules((prev) => prev.filter((schedule) => schedule._id !== id));
+
+    alert("Follow-up schedule removed.");
+  } catch (error) {
+    console.error("Error removing follow-up schedule:", error);
+  }
+};
+  
   return (
     <div className={styles.consultMain}>
     <div className={styles.consulForm}>
@@ -288,9 +385,6 @@ const ConsultationRequestForm: React.FC = () => {
         max="17:00"
     />
 </label>
-
-
-
           <label className={styles.conLabel}>
             Note
             <select
@@ -330,7 +424,6 @@ const ConsultationRequestForm: React.FC = () => {
               </select>
             </label>
           )}
-
           {note === "Others" && (
             <>
               <label className={styles.conLabel}>
@@ -370,10 +463,6 @@ const ConsultationRequestForm: React.FC = () => {
                   disabled={note !== "Others"}
                 />
               </label>
-
-              
-
-
               <label className={styles.conLabel}>
                 Sex
                 <select
@@ -381,7 +470,6 @@ const ConsultationRequestForm: React.FC = () => {
                   onChange={(e) => setSex(e.target.value as "Male" | "Female")}
                   required
                   disabled={note !== "Others"}
-
                 >
                   <option value="" disabled>Select Sex</option>
                   <option value="Male">Male</option>
@@ -466,18 +554,14 @@ const ConsultationRequestForm: React.FC = () => {
           <button type="submit" className={styles.conSubmit}>
             Submit
           </button>
-        </form>
-
-        
-
-        
+        </form> 
       </div>
-      
     </div>
 
+    {/* consultation schedules */}
     <div className={styles.tableContainer}>
   <h2 className={styles.consultationlabel}>
-    Consultation Records
+    Consultation Schedules
     <button
       className={styles.archiveButton}
       onClick={toggleArchivedList}
@@ -564,13 +648,99 @@ const ConsultationRequestForm: React.FC = () => {
       </tbody>
     </table>
   </div>
+
+  {/* follow up schedules */}
+
+  <h2 className={styles.consultationlabel}>
+  Follow Up Schedules
+</h2>
+
+<div className={styles.responsesWrapper}>
+  <table className={styles.table}>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Date</th>
+        <th>Time for Consultation</th>
+        <th>Note</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {followUpSchedules.length > 0 ? (
+        followUpSchedules.map((schedule) => (
+          <tr key={schedule._id}>
+            <td>{schedule.userId}</td>
+            <td>{new Date(schedule.followUpDate).toLocaleDateString()}</td>
+            <td>{schedule.timeForConsultation}</td>
+            <td>{schedule.note}</td>
+            <td>{schedule.status}</td>
+            <td>
+              {schedule.status === "pending" ? (
+                <>
+                  <button
+                    onClick={() => handleAccept(schedule._id)}
+                    className={styles.acceptButton}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => handleDecline(schedule._id)}
+                    className={styles.declineButton}
+                  >
+                    Decline
+                  </button>
+                  {decliningSchedule === schedule._id && (
+                    <div>
+                      <input
+                        type="text"
+                        value={declineMessage}
+                        onChange={handleMessageChange}
+                        placeholder="Enter message for decline"
+                      />
+                      <button
+                        onClick={() => handleSubmitDecline(schedule._id)}
+                        className={styles.submitDeclineButton}
+                      >
+                        Submit Decline
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <span className={styles.statusMessage}>
+                  {schedule.status === "accepted"
+                    ? "Accepted"
+                    : "Declined"}
+                </span>
+              )}
+              {/* Remove button appears after accepting or declining */}
+              {(schedule.status === "accepted" || schedule.status === "declined") && (
+                <button
+                  onClick={() => handleRemove(schedule._id)}
+                  className={styles.removeButton}
+                >
+                  Remove
+                </button>
+              )}
+            </td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan={6} className={styles.noData}>
+            No follow-up schedules found.
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
 </div>
-
-<div>  </div>
-
-
+</div>
+<div>  
+</div>
   </div>
-    
   );
 };
 

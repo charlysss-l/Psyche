@@ -8,6 +8,7 @@ import Test16PFRoutes from './routes/Test16PFRoutes';
 import IQTestRoutes from './routes/IQTestRoutes';
 import uploadRoutes from './controllers/uploadController';
 import consultationsRoutes from './routes/consultationroutes';
+import followUpRoutes from './routes/followUpRoutes';
 import authPsychRoutes from './authRoutes/authPsychRoutes';
 
 import authGuidanceRoutes from './authRoutes/authGuidanceRoutes';
@@ -40,6 +41,7 @@ app.use('/api/16pf', Test16PFRoutes);
 app.use('/api/IQtest', IQTestRoutes);
 app.use('/api', uploadRoutes);
 app.use('/api/consult', consultationsRoutes);
+app.use('/api/followup', followUpRoutes);
 app.put('/api/IQtest/:id/interpretation/:interpretationId', updateInterpretationBySpecificId);
 
 app.use('/api/omr', omrIQRoutes); // iq
