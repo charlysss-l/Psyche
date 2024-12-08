@@ -35,7 +35,8 @@ const IqOMR: React.FC = () => {
   const [loading, setLoading] = useState(false);  // Loading state for spinner
   const [uploadCount, setUploadCount] = useState(0);
   
-
+  // Simulating user ID (replace this with actual user authentication logic)
+  const userId = localStorage.getItem('userId'); // Assuming the userId is stored in localStorage
   
 
 
@@ -149,8 +150,8 @@ const IqOMR: React.FC = () => {
  
 
   const resetUploadCount = () => {
-    localStorage.removeItem('uploadCount');
-    localStorage.removeItem('uploadDate');
+    localStorage.removeItem(`${userId}_uploadCount`);
+    localStorage.removeItem(`${userId}_uploadDate`);
     setUploadCount(0);  // Reset the state variable to 0
     alert('Upload count has been reset for the day.');
   };
@@ -161,25 +162,22 @@ const IqOMR: React.FC = () => {
   const handleUpload = async () => {
     if (!selectedFile) return;
   
-    // Get the current date in YYYY-MM-DD format
-    const currentDate = new Date().toISOString().split('T')[0];
-  
-    // Get stored date and upload count from localStorage
-    const storedDate = localStorage.getItem('uploadDate');
-    let uploadCount = parseInt(localStorage.getItem('uploadCount') || '0', 10);
-  
-    // Check if the date has changed (new day)
-    if (storedDate !== currentDate) {
-      // If it's a new day, reset the upload count
-      uploadCount = 0;
-      localStorage.setItem('uploadDate', currentDate); // Store the current date
-    }
-  
-    // Check if the upload limit has been reached
-    if (uploadCount >= 3) {
-      alert('You have reached the maximum upload limit for today. Please try again tomorrow.');
-      return;
-    }
+   // Get the current date in YYYY-MM-DD format
+   const currentDate = new Date().toISOString().split('T')[0];
+   const storedDate = localStorage.getItem(`${userId}_uploadDate`);
+   let uploadCount = parseInt(localStorage.getItem(`${userId}_uploadCount`) || '0', 10);
+
+   // Check if the date has changed (new day)
+   if (storedDate !== currentDate) {
+     uploadCount = 0;
+     localStorage.setItem(`${userId}_uploadDate`, currentDate); // Store the current date
+   }
+
+   // Check if the upload limit has been reached
+   if (uploadCount >= 3) {
+     alert('You have reached the maximum upload limit for today. Please try again tomorrow.');
+     return;
+   }
   
     setLoading(true);  // Show loading spinner when upload starts
   
@@ -275,8 +273,8 @@ const IqOMR: React.FC = () => {
         console.log('File uploaded successfully:', downloadURL);
 
         // Increment the upload count and update in localStorage
-        uploadCount += 1;
-        localStorage.setItem('uploadCount', uploadCount.toString());
+      uploadCount += 1;
+      localStorage.setItem(`${userId}_uploadCount`, uploadCount.toString());
       };
       img.src = reader.result as string;
     };
