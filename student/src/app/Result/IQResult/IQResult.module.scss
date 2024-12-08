@@ -16,7 +16,7 @@
   font-size: 28px;
   font-weight: 700;
   text-align: center;
-  color: #333;
+  color: #d7a52f;
   margin-bottom: 30px;
 }
 
@@ -65,14 +65,14 @@
 }
 
 .interpretation {
-  color: #849670;
+  color: #d7a52f;
 
 }
 
 /* Score styling */
 .score {
   font-weight: bold;
-  color: #2a3744;
+  color: #d7a52f;
   font-size: 20px;
 }
 
@@ -122,7 +122,9 @@
 }
 
 .buttonYes:hover {
-  background-color: #95a581;
+  background-color: transparent;
+  color: black;
+  border: 1px solid #95a581;
 }
 
 .buttonCancel {
@@ -131,7 +133,9 @@
 }
 
 .buttonCancel:hover {
-  background-color: #b94d4dce;
+  background-color: transparent;
+  color: black;
+  border: 1px solid #b94d4dce;
 }
 
 .pdfButton {
@@ -146,9 +150,12 @@
   transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions for hover effect */
 
   &:hover {
-    background-color: #cc63b5e1; /* Darker blue on hover */
-    transform: scale(1.05); /* Slight zoom effect */
+    background-color: transparent;
+    color: black;
+    border: 1px solid #000000e1;
+    transform: scale(1.05);
   }
+
 
   &:active {
     background-color: #902679e1; /* Darker blue on hover */
@@ -180,6 +187,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   height: 50%;
+  margin-bottom: 5%;
 }
 
 h1 {
@@ -201,14 +209,77 @@ p {
   border: 1px solid #ddd;
   border-radius: 8px;
   height: 50%;
+
+  a{
+    color: #d7a52f;
+    font-size: 11px;
+  }
 }
 
 .messageContainer {
   flex: 1; // Smaller section for privacy
   min-width: 10%; // Minimum width for text clarity
   padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: #ffffff;
   border-radius: 8px;
   height: 50%;
+
+  h1 {
+    color: #d7a52f;
+  }
+}
+
+:global(body.dark-mode){
+  .container{
+    background-color: #2a3744ef;
+
+    .subheading {
+      color: #d1d1d1;
+    }
+    .header {
+      color: #849670;
+    }
+  }
+  .section, .label, .value {
+    color: #d1d1d1;
+  }
+  .scoreSection h3 {
+    color: #d1d1d1;
+  }
+  .interpretation, .score {
+    color: #849670;
+  }
+  .sharePrompt p {
+    color: #bbbbbbef;
+  }
+  .sharePrompt label{
+    color: #bbbbbbef;
+  }
+  :hover.buttonYes {
+      color: rgb(255, 255, 255);
+  }
+  :hover.buttonCancel {
+    color: rgb(255, 255, 255);
+}
+  :hover.pdfButton {
+    color: rgb(255, 255, 255);
+}
+.messageContainer{
+  background-color: transparent;
+  color: #d1d1d1;
+
+  .outro, .privacySection {
+    background-color: #2a3744ef;
+    color: #d1d1d1;
+    border: none;
+
+    h1{
+      color: #849670;
+    }
+
+    a{
+      color: #849670;
+    }
+  }
+}
 }

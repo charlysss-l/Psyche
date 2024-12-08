@@ -90,7 +90,7 @@ const OMRResult: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>
-            <h1>OMR Result</h1>
+            <h1 className={style.FormTitle}>OMR Result</h1>
             <p className={style.ageWarning}>
                 "You Must Be 20 Years Old and Above To Submit This Form"
             </p>

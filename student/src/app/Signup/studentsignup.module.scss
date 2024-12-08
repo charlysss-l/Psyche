@@ -17,7 +17,7 @@
 
 .signup_h2 {
   font-size: 2rem;
-  color: #265a3c;
+  color: #d7a52f;
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -65,7 +65,7 @@
   margin-left: 15px;
   font-size: 1rem;
   color: #fff;
-  background-color: #d7a52f;
+  background-color: #849670;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -83,7 +83,7 @@
 
 .loginLink_info {
   font-size: 0.9rem;
-  color: #666;
+  color: #849670;
   text-align: center;
   margin-top: 1rem;
 
@@ -157,7 +157,7 @@
     border: none;
 
     h2{
-      color: #d7a52f;
+      color: #849670;
     }
     .signuplabel{
       color: #a5a5a5;
@@ -165,14 +165,14 @@
     .signupSubmit{
       background-color: #d7a52f;
       &:hover {
-        background-color: #265a3c;
+        background-color: #849670;
       }
     }
     .loginLink_info{
-      color: #a5a5a5;
+      color: #d7a52f;
 
       .loginLink{
-        color: #265a3c;
+        color: #849670;
         &:hover{
         border-bottom: 1px solid #ccc;
         color: #ccc;

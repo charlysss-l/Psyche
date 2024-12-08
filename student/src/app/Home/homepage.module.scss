@@ -42,17 +42,17 @@
   }
   .homeLink{
     text-decoration: none;
-    color: #ffa8ec; 
+    color: #d7a52f; 
   }
   .homeLink:hover{
-    color: #ff77e4; 
+    color: #59703d; 
     transform: translateY(-3px); 
   }
   .header {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    color: #ffffff; 
+    color: #d7a52f; 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
     animation: textFadeIn 2s ease-in-out; 
@@ -70,7 +70,7 @@
     padding: 1rem 2rem;
     font-size: 1.1rem;
     color: white;
-    background-color: #cc63b5e1;  
+    background-color: #d7a52f;  
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -81,7 +81,7 @@
     animation: buttonFadeIn 2s ease-in-out;
 
     &:hover {
-      border: 1px solid #cc63b5e1;  
+      border: 1px solid #d7a52f;  
       background-color: transparent;  
     }
   }
@@ -199,4 +199,30 @@
   position: absolute;
   top: 18%;
   animation: fallAnimation 3s ease-out forwards, floatAnimation 2s ease-in-out 3.8s infinite; /* Slightly delayed */
+}
+
+:global(body.dark-mode) {
+  .topHeader{
+    background-color: #6b6b6bc4;
+    
+    .homeLink{
+      text-decoration: none;
+      color: #849670; 
+    }
+    .homeLink:hover{
+      color: #d7a52f; 
+      transform: translateY(-3px); 
+    }
+  }
+  .header {
+    color: #849670; 
+  }
+  .getStartedBtn {
+    background-color: #849670;  
+
+    &:hover {
+      border: 1px solid #849670;  
+      background-color: transparent; 
+    }
+  }
 }

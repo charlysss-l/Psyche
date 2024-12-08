@@ -78,7 +78,7 @@ const OmrResult: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>
-            <h1>OMR Personality Test Result</h1>
+            <h1 className= {style.FormTitle}>OMR Personality Test Result</h1>
             
             <input type="text" placeholder="User ID" value={userID} onChange={(e) => setUserID(e.target.value)} required readOnly />
             <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />

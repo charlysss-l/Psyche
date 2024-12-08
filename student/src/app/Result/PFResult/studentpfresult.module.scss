@@ -14,7 +14,7 @@
   font-size: 28px;
   font-weight: 700;
   text-align: center;
-  color: #333;
+  color: #d7a52f;
   margin-bottom: 30px;
 }
 
@@ -54,8 +54,9 @@
 }
 
 .resultTable th {
-  background-color: #f4f4f4;
+  background-color: #d7a52f;
   font-weight: bold;
+  color: white;
 }
 
 .resultTable tr:nth-child(even) {
@@ -144,7 +145,7 @@
   &:hover {
     background-color: transparent;
     color: black;
-    border: 1px solid #cc63b5e1;
+    border: 1px solid #000000e1;
     transform: scale(1.05);
   }
 
@@ -176,6 +177,7 @@
   padding: 20px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   height: 50%;
   margin-bottom: 5%;
@@ -198,16 +200,85 @@ p {
   padding: 20px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   height: 50%;
+
+  a{
+    font-size: 11px;
+    color: #d7a52f;
+  }
 }
 
 .messageContainer {
   flex: 1; // Smaller section for privacy
   min-width: 10%; // Minimum width for text clarity
   padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: #ffffff;
   border-radius: 8px;
   height: 50%;
+
+  h1 {
+    color: #d7a52f;
+  }
+}
+
+:global(body.dark-mode){
+  .container{
+    background-color: #2a3744ef;
+
+    .subheading {
+      color: #d1d1d1;
+    }
+    .heading {
+      color: #849670;
+    }
+    .resultTable th,
+    .resultTable td {
+       border: 1px solid #a0a0a0;
+    }
+    .resultTable th{
+      background-color: #849670;
+    }
+    .resultTable tr:nth-child(even) {
+      background-color: #2a3744ef;
+    }
+    
+    .resultTable tr:hover {
+      background-color: #92878794;
+    }
+  }
+    .sharePrompt p {
+      color: #bbbbbbef;
+    }
+    .sharePrompt label{
+      color: #bbbbbbef;
+    }
+    :hover.buttonYes {
+        color: rgb(255, 255, 255);
+    }
+    :hover.buttonCancel {
+      color: rgb(255, 255, 255);
+  }
+    :hover.pdfButton {
+      color: rgb(255, 255, 255);
+}
+.messageContainer{
+  background-color: transparent;
+  color: #d1d1d1;
+
+  .outro, .privacySection {
+    background-color: #2a3744ef;
+    color: #d1d1d1;
+    border: none;
+
+    h1{
+      color: #849670;
+    }
+
+    a{
+      color: #849670;
+    }
+  }
+}
 }

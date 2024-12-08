@@ -13,7 +13,7 @@
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: #d7a52f;
   margin-bottom: 20px;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .submitButton {
-  background-color: #000000;
+  background-color: #849670;
   color: white;
   border: none;
   padding: 12px 25px;
@@ -71,7 +71,7 @@
 .submitButton:hover {
   background-color: transparent;
   color: black;
-  border: 1px solid #d7a52f;
+  border: 1px solid #849670;
 }
 
 .updateMessageError,
@@ -156,4 +156,36 @@
     font-size: 1rem;
     padding: 8px 18px;
   }
+}
+
+:global(body.dark-mode){
+  .container {
+    background-color: #2a3744ef;
+
+    h2{
+      color: #849670;
+    }
+    .userIDDisplay {
+      color: #849670;
+    }
+    p{
+      color: #ccc;
+    }
+    .pr_label {
+      color: #ccc;
+    }
+    .submitButton {
+      background-color: #d7a52f;
+
+      &:hover {
+        background-color: transparent;
+        color: rgb(255, 255, 255);
+        border: 1px solid #d7a52f;
+      }
+    }
+  }
+  .updateMessageError, .updateMessageSuccess {
+    color: white;
+  }
+
 }

@@ -19,10 +19,12 @@ $font-family: Arial, sans-serif;
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 55%;
+  left: 50%;
   transform: translate(-50%, 0%);
 }
-
+.FormTitle{
+    color: #d7a52f;
+}
 // Container for the form
 .te_container {
   background-color: $form-bg-color;
@@ -215,17 +217,21 @@ li {
 .start {
   margin-top: 20px;
   padding: 10px 15px;
-  background-color: $primary-color;
+  background-color: #849670;
   color: white;
   border: none;
   border-radius: $border-radius;
   cursor: pointer;
   transition: background-color 0.3s ease;
+
+  &:hover {
+  background-color: transparent;
+  color: black;
+  border: 1px solid #95a581;
+}
 }
 
-.start:hover {
-  background-color: darken($primary-color, 10%); /* Darker shade on hover */
-}
+
 
 button {
   padding: 10px 20px;
@@ -255,4 +261,21 @@ button {
 
 .submitButton:hover {
   background-color: #1d3a46; /* Darker shade on hover */
+}
+
+:global(body.dark-mode){
+  .FormTitle{
+      color: #849670;
+  }
+  .start{
+      background-color: #d7a52f;
+      
+        &:hover {
+          background-color: transparent;
+          color: black;
+          border: 1px solid #d7a52f;
+        }
+      
+  }
+
 }

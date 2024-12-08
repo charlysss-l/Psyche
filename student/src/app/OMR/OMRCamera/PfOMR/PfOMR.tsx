@@ -435,7 +435,7 @@ const PfOMR: React.FC = () => {
 
       {omrScore && (
   <div>
-            <h3>Processing Completed</h3>
+            <h3 className ={styles.processcompleted}>Processing Completed</h3>
             <button onClick={handleSaveScore} className={styles.saveScoreButton}>
             Fill the Form and See Interpretation
             </button>
