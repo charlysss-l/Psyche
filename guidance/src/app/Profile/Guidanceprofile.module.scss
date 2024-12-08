@@ -116,8 +116,10 @@ $message-error: #B30000;
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: $button-hover-color;
-  }
+    background-color: transparent;
+      color: black;
+      border: 1px solid  #749ef8;
+    }
 }
 
 .passWord {

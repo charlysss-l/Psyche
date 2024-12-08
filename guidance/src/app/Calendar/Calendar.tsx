@@ -266,7 +266,7 @@ const SchedulingCalendar: React.FC = () => {
                 <label className={styles.newSchedlabel}>Note:</label>
                 <textarea name="note" className="newSchedinput" required />
               </div>
-              <button type="submit">Add Schedule</button>
+              <button className ={styles.addnewSchedButton} type="submit">Add Schedule</button>
             </form>
             <button onClick={closeModal} className={style.closeButton}>
               Close

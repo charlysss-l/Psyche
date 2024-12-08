@@ -145,7 +145,8 @@ button {
   border: none;
   border-radius: $border-radius;
   cursor: pointer;
-  font-size: $font-size-small;;
+  font-size: $font-size-small;
+  
 
   &.delete{
     background-color: #292929 ;
@@ -156,6 +157,7 @@ button {
       border: 1px solid  #616161 ;
     }
   }
+  
 
   &.accept {
     background-color: #4a976af8 ; 
@@ -163,7 +165,9 @@ button {
     margin-left: 10px;
 
     &:hover{
-      background-color: #41865e ;
+      background-color: transparent;
+      color: black;
+      border: 1px solid  #4a976af8 ;
     }
   }
 
@@ -505,7 +509,9 @@ button {
     color: #333333;
 
     &:hover{
-      background-color: #a1a1a1;
+      background-color: transparent;
+      color: rgb(221, 221, 221);
+      border: 1px solid  #8099c7 ;
     }
   }
  
@@ -514,7 +520,9 @@ button {
     color: #333333;
 
     &:hover{
-      background-color: #a1a1a1;
+      background-color: transparent;
+      color: rgb(216, 215, 215);
+       border: 1px solid  #8facec ;
     }
   }
 }
