@@ -86,7 +86,7 @@ const IQTest: React.FC = () => {
                 <tbody>
                     {iqTests.map(test => (
                         <tr key={test._id}>
-                            <td className={style.td}>{test.nameOfTest}</td>
+                            <td className={style.td}> Raven's Standard Progressive Matrices</td>
                             <td className={style.td}>{test.numOfQuestions}</td>
                         </tr>
                     ))}
