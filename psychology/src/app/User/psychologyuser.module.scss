@@ -71,3 +71,34 @@
     border: 1px solid  #2e78ee;
   }
 }
+
+.userCount {
+  font-size: 18px;
+  color: #c097d8; // Adjust the color to fit your design
+  margin-bottom: -30px;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.responsesWrapper {
+  max-height: 600px;  // Adjust the height as per your design needs
+  overflow-y: auto;   // Enable vertical scrolling when content overflows
+}
+
+.responsesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsesTable th, .responsesTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}

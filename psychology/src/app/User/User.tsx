@@ -11,6 +11,7 @@ interface User {
 const User = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [editUserId, setEditUserId] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -69,9 +70,26 @@ const User = () => {
     }
   };
 
+  const filteredUsers = users.filter((user) =>
+    [user.userId, user.studentNumber, user.email]
+      .join(" ")
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <h2 className={style.userTitle}>LIST OF USERS</h2>
+      <p className={style.userCount}>Total Users: {filteredUsers.length}</p>
+      <input
+        type="text"
+        placeholder="Search by User ID, Student Number, or Email"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={style.searchInput}
+      />
+      <div className={style.responsesWrapper}>
+
       <table className={style.tableUser}>
         <thead>
           <tr>
@@ -83,8 +101,8 @@ const User = () => {
           </tr>
         </thead>
         <tbody>
-          {users.length > 0 ? (
-            users.map((user) => (
+          {filteredUsers.length > 0 ? (
+            filteredUsers.map((user) => (
               <tr key={user.userId}>
                 <td className={style.td}>{user.userId}</td>
                 <td className={style.td}>{user.studentNumber}</td>
@@ -110,13 +128,14 @@ const User = () => {
             ))
           ) : (
             <tr>
-              <td colSpan={4} className={style.td}>
+              <td colSpan={5} className={style.td}>
                 No users found
               </td>
             </tr>
           )}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };
