@@ -26,4 +26,16 @@
     font-size: 1.5em;
     margin-bottom: 10px;
   }
-  
+  :global(body.dark-mode){
+    .resultSection{
+      background-color: #2a3744ef;
+
+      h1 {
+        color: #849670;
+      }
+      h2{
+        color: #849670;
+      }
+    }
+    
+  }

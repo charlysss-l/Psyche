@@ -79,7 +79,7 @@ const IntroIQ: React.FC = () => {
     <div className={styles.container}>
      
 
-     <h1>What is Raven IQ Test?</h1>
+     <h1 className={styles.introiq}>What is Raven IQ Test?</h1>
       <p>
         lksaldhaslhda
       </p>

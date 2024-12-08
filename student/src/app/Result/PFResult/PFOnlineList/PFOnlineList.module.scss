@@ -13,11 +13,11 @@
     }
   
     .resultsTable th {
-      color: #525252;
+      color: #ececec;
       padding: 10px;
       text-align: center;
       font-size: 13px;
-      background-color: rgb(245, 242, 242);
+      background-color: #849670;
       border-bottom: 1px solid #9e979791; 
     }
     
@@ -130,6 +130,11 @@
       width: 80%;
       max-width: 600px;
       
+      h2{
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 20px;
+      }
       
     }
     
@@ -160,8 +165,9 @@
     }
 
     .closebutton:hover{
-      background-color: #585858c9 ;
-
+      background-color: transparent;
+      color: black;
+      border: 1px solid #585858;
     }
 
     .deleteButton {
@@ -186,6 +192,32 @@
       font-size: 1.2rem;
       margin-bottom: .5rem;
       margin-top: -1.5rem;
-      color: #333;
+      color: #d7a52f;
+    }
+
+    :global(body.dark-mode){
+      .resultCount{
+        color: #849670;
+      }
+
+      .resultsTable th{
+        background-color: #c09227 ;
+        color: #2e2e2e;
+      }
+      
+      .modalContent{
+        background-color: #3a4c5ef5;
+        color: white;
+
+        .closebutton{
+          background-color: #849670;
+
+          &:hover{
+            background-color: transparent;
+            color: rgb(253, 253, 253);
+            border: 1px solid #849670;
+          }
+        }
+      }
     }
     

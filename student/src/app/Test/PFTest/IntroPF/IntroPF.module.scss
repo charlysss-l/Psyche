@@ -13,7 +13,7 @@
   
   .pfintro, .termsandconditionpf {
     font-size: 24px;
-    color: #334553;
+    color: #d7a52f;
     margin-bottom: 16px;
   }
   .termsnum{
@@ -30,7 +30,7 @@
   .pfButton {
     display: inline-block;
     padding: 10px 20px;
-    background-color: black;
+    background-color: #d7a52f;
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
@@ -42,18 +42,52 @@
   
   .pfButton:hover {
     background-color: transparent ;
-    border: 1px solid black;
+    border: 1px solid #d7a52f;
     color: black;
-
   }
   
   .checkboxContainer {
     margin: 20px 0;
     display: flex;
     align-items: center;
+
+    label{
+      color:#d7a52f;
+    }
   }
   
   .checkbox {
     
     margin-left: 33%;
+  }
+
+  :global(body.dark-mode) {
+    .container{
+      background-color: #2a3744ef;
+    .pfintro, .termsandconditionpf {
+      color: #849670;
+    }
+    .pfintroinfo{
+      color: #e6e6e6;
+    }
+    .termsnum{
+      color: #d7a52f ;
+    }
+    .checkboxContainer label{
+      color: #849670;
+    }
+    .pfButton{
+      background-color: #849670;
+
+     &:hover {
+        background-color: transparent ;
+        border: 1px solid #849670;
+        color: rgb(255, 255, 255);
+      }
+    }
+    .confirm{
+      color: #e6e6e6;
+    }
+    
+  } 
   }

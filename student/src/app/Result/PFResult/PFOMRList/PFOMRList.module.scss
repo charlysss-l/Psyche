@@ -13,11 +13,11 @@
     }
   
     .resultsTable th {
-      color: #333;
+      color: #ececec;
       padding: 10px;
       text-align: center;
       font-size: 13px;
-      background-color: rgb(245, 242, 242);
+      background-color: #849670;
       border-bottom: 1px solid #9e979791; 
     }
     
@@ -189,7 +189,7 @@
     
     .graphButton {
       margin: 10px;
-      background-color: #000000;
+      background-color: #849670;
       color: white;
       border: none;
       padding: 10px 15px;
@@ -200,7 +200,7 @@
     button:hover {
       background-color: transparent;
       color:black;
-      border:1px solid #efb836 ;
+      border:1px solid #849670 ;
     }
     
     .resultCount {
@@ -208,14 +208,14 @@
       font-size: 1.2rem;
       margin-bottom: .5rem;
       margin-top: -1.5rem;
-      color: #333;
+      color: #d7a52f;
     }
     
 
     .viewImageButton {
       width: 130px;
       margin: 10px;
-      background-color: #bbae3c;
+      background-color: #d7a52f;
       color: white;
       border: none;
       padding: 5px 10px;
@@ -227,7 +227,7 @@
     .viewImageButton:hover{
       background-color: transparent;
       color:black;
-      border:1px solid #948929;
+      border:1px solid #d7a52f;
     }
     
     .modalImageView {
@@ -266,3 +266,17 @@
       cursor: pointer;
     }
     
+    
+  :global(body.dark-mode){
+    .resultCount {
+      color: #849670;
+    }
+    .resultsTable th {
+      background-color: #c09227;
+      color: #2e2e2e;
+    }
+    .modalContent{
+      background-color: #3a4c5ef5;
+      color: white;
+    }
+  }

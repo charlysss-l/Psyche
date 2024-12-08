@@ -375,7 +375,7 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
         <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
           <h2>16PF Fifth Edition Individual Record Form for {data.firstName} {data.lastName}</h2>
           <Line data={chartData} options={chartOptions} />
-          <button onClick={onClose}>Close</button>
+          <button className={styles.closeButton}onClick={onClose}>Close</button>
         </div>
       </div>
     );
