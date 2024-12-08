@@ -254,5 +254,7 @@ button {
 }
 
 .submitButton:hover {
-  background-color: #1d3a46; /* Darker shade on hover */
+  background-color: transparent;
+  color: white;
+  border: 1px solid #1d3a46;
 }

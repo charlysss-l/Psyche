@@ -89,7 +89,9 @@
     transition: background-color 0.3s ease;
   
     &:hover {
-      background-color: #d7a52f ;
+      background-color: transparent;
+      color: black;
+      border: 1px solid #d7a52f ;
     }
   
     &:disabled {

@@ -14,7 +14,7 @@ const Test = () => {
         </div>
         <div className={style.iqLinkContainer}>
           <Link to="/iqtest" className={style.iqLink}>
-            IQ Test
+          Raven’s Standard Progressive Matrices
           </Link>
         </div>
       </div>

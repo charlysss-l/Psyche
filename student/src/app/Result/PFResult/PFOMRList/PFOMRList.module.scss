@@ -51,7 +51,9 @@
     }
   
     .deleteButtonIQLIST:hover{
-      background-color: #B94d4dce;
+      background-color: transparent;
+      color: black;
+      border:1px solid #B94d4dce;
     }
 
     .updateButtonIQLIST{
@@ -68,7 +70,9 @@
     }
   
     .updateButtonIQLIST:hover{
-      background-color: #585858a6;
+      background-color: transparent;
+      color: black;
+      border: 1px solid #585858a6;
     }
 
     .saveButtonIQLIST{
@@ -83,7 +87,9 @@
     }
   
     .saveButtonIQLIST:hover{
-      background-color: #95a581;
+      background-color: transparent;
+      color: black;
+      border: 1px solid #95a581;
     }
   
     .leftMeaning {
@@ -154,7 +160,9 @@
       padding: 8px;
     }
     .deleteButtonIQLIST:hover{
-      background-color: #B94d4dce;
+      background-color: transparent;
+      color: black;
+      border:1px solid #B94d4dce;
     }
 
     .modal {
@@ -190,7 +198,9 @@
     }
     
     button:hover {
-      background-color: #efb836 ;
+      background-color: transparent;
+      color:black;
+      border:1px solid #efb836 ;
     }
     
     .resultCount {
@@ -215,7 +225,9 @@
     }
     
     .viewImageButton:hover{
-      background-color: #948929;
+      background-color: transparent;
+      color:black;
+      border:1px solid #948929;
     }
     
     .modalImageView {

@@ -225,7 +225,9 @@ li {
 }
 
 .start:hover {
-  background-color: #efb836 ; /* Darker shade on hover */
+  background-color: transparent;
+  color:black;
+  border:1px solid #efb836 ; 
 }
 
 button {

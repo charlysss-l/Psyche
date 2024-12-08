@@ -144,7 +144,9 @@
     }
     
     .graphButton:hover {
-      background-color: #95a581 ;
+      background-color: transparent;
+      color: black;
+      border:1px solid #95a581 ;
     }
     
     .closebutton {
@@ -174,7 +176,9 @@
     }
 
     .deleteButton:hover{
-      background-color: #B94d4dce;
+      background-color: transparent;
+      color: black;
+      border:1px solid #B94d4dce;
     }
 
     .resultCount {

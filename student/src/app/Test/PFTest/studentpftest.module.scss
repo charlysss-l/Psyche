@@ -10,8 +10,6 @@
   position: relative;
 }
 
-/* Title and other text */
-
 
 p {
   color: #45474B; /* Dark gray for general text */
@@ -113,7 +111,9 @@ input[type="radio"] {
 }
 
 .pagination button:hover {
-  background-color: #cc63b5e1 ; /* Darker shade on hover */
+  background-color: transparent ; 
+  border: 1px solid #cc63b5e1 ; 
+  color: black;
 }
 
 .pagination button:disabled {
@@ -143,7 +143,9 @@ input[type="radio"] {
 }
 
 .submitButton:hover {
-  background-color: #cc63b5e1 ; 
+  background-color: transparent ;
+  border: 1px solid  #cc63b5e1 ;
+  color: black;
 }
 
 .highlight {

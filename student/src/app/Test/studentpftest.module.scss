@@ -87,8 +87,9 @@ $test-size: 400px;
 
 // Hover effect for links
 .pfLink:hover, .iqLink:hover {
-  color: $primary-color;
+  color: #ca9a2a;
   transition: color $transition-duration ease;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); 
 }
 
 // Span inside links for text shadow effect

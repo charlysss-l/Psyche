@@ -41,8 +41,10 @@
   }
   
   .pfButton:hover {
-    background-color: #d7a52f ;
-    ;
+    background-color: transparent;
+    color:black;
+    border:1px solid #d7a52f ;
+  
   }
   
   .checkboxContainer {

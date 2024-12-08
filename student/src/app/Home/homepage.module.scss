@@ -81,7 +81,8 @@
     animation: buttonFadeIn 2s ease-in-out;
 
     &:hover {
-      background-color: #994a88e1;  
+      border: 1px solid #cc63b5e1;  
+      background-color: transparent;  
     }
   }
 }

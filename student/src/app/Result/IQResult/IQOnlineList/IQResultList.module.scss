@@ -56,7 +56,9 @@
       cursor: pointer;
 }
 .deleteButtonIQLIST:hover{
-  background-color: #B94d4dce;
+  background-color: transparent;
+  color:black;
+  border:1px solid #B94d4dce;
 }
 .pagination {
   display: flex;
