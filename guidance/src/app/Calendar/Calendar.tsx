@@ -182,7 +182,7 @@ const SchedulingCalendar: React.FC = () => {
         
         {selectedDate && (
           <>
-            <h2><span className={style.flowerConsult}>❀</span> Requests for {selectedDate.toDateString()} <span className={style.flowerConsult}>❀</span> </h2>
+            <h2 className={style.titleConsult}><span className={style.flowerConsult}>❀</span> Requests for {selectedDate.toDateString()} <span className={style.flowerConsult}>❀</span> </h2>
             <div className={style.responsesWrapper}>
 
             {filteredRequests.length > 0 ? (
@@ -251,7 +251,7 @@ const SchedulingCalendar: React.FC = () => {
             </div>
 
             {/* Form to Add New Schedule */}
-            <h3 className = {styles.newschedadd}>Add Follow Up Schedule</h3>
+            <h3 className = {style.newschedadd}>Add Follow Up Schedule</h3>
             {errorMessage && <p className={style.errorMessage}>{errorMessage}</p>}
             <form onSubmit={handleSubmit}>
               <div>
