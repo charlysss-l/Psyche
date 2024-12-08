@@ -44,7 +44,9 @@
   }
 
   .deleteButton:hover{
-    background-color: rgb(230, 3, 3);
+    background-color: transparent;
+    color:black;
+    border:1px solid rgb(230, 3, 3);
   }
 
   .leftMeaning {
@@ -127,7 +129,9 @@
   }
   
   .archiveButtons:hover {
-    background-color: #6d560d;
+    background-color: transparent;
+      color:black;
+      border:1px solid #6d560d;
   }
 
   .title {
@@ -158,8 +162,10 @@
   }
   
   .archiveButton:hover {
-    background-color: #4b70b5; /* Lighter blue on hover */
-    border-color: #5a86d5; /* Adjust border color */
+    background-color: transparent;
+    color:black;
+    border:1px solid #4b70b5; /* Lighter blue on hover */
+   
   }
   
   .archiveButton:active {
@@ -208,8 +214,9 @@
   }
   
   .closeButton:hover {
-    background-color: #d43f3f;
-    border-color: #c13232;
+    background-color: transparent;
+    color:black;
+    border:1px solid #d43f3f;
   }
   
   .closeButton:active {
@@ -240,7 +247,9 @@
   }
   
   .exportButton:hover {
-    background-color: #45a049;
+    background-color: transparent;
+      color:black;
+      border:1px solid #45a049;
   }
   
   
@@ -265,7 +274,9 @@
 }
 
 .viewImageButton:hover{
-  background-color: #948929;
+  background-color: transparent;
+  color:black;
+  border:1px solid #948929;
 }
 
 .modalImageView {

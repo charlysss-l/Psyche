@@ -33,10 +33,11 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    background-color: #949494;
-    color: white;
+    background-color: #b072e2;
+    color: rgb(0, 0, 0);
 }
 .OMRlinkOnline:hover, .OMRLinkUpload:hover{
-    background-color: #b072e2;
-    color: #ffffff;
+    background-color: transparent;
+    color: black;
+    border: 1px solid  #b072e2;
 }

@@ -55,7 +55,9 @@
   width: 25%;
 
   &:hover {
-    background-color: darken(#ffd6d6, 10%);
+    background-color: transparent;
+    color: black;
+    border: 1px solid darken(#ffd6d6, 10%);
   }
 }
 
@@ -64,6 +66,8 @@
   width: 25%;
   margin: 10px;
   &:hover {
-    background-color: #d0e2ff;
+    background-color: transparent;
+    color: black;
+    border: 1px solid  #2e78ee;
   }
 }

@@ -92,7 +92,9 @@ p {
 }
 
 .submitButton:hover {
-  background-color: $button-hover-color;
+  background-color: transparent;
+  color: black;
+  border: 1px solid  $button-hover-color;
 }
 
 .updateMessage {

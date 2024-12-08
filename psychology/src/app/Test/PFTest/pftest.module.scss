@@ -85,7 +85,9 @@ h2 {
     transition: background-color 0.3s ease;
 
     &:hover {
-        background-color: #4169E1;
+        background-color: transparent;
+        color:black;
+        border:1px solid #4169E1;
     }
 
     &:focus {

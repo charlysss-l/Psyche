@@ -42,17 +42,22 @@
       flex: 1;
     }
     .removeFilterBtn {
-      background-color:  #AF1740;
+      background-color: #AF1740;
       color: white;
       padding: 0.3rem 0.6rem;
       border: none;
       border-radius: 4px;
       cursor: pointer;
     }
+    .removeFilterBtn:hover {
+      background-color: transparent;
+      color: black;
+      border: 1px solid #AF1740;
+    }
   }
   .addFilterBtn {
     margin-top: 1rem;
-    background-color:#0C3C78;
+    background-color: #0C3C78;
     color: white;
     padding: 0.5rem 1rem;
     border: none;
@@ -83,6 +88,7 @@
     .removeQuestionBtn,
     .addChoiceBtn,
     .addSectionBtn,
+    .addFilterBtn,
     .removeChoiceBtn,
     .removeSectionBtn {
       background-color: #0C3C78;
@@ -93,14 +99,32 @@
       cursor: pointer;
       margin-top: 1rem;
     }
+    .addQuestionBtn:hover,
+    .removeQuestionBtn:hover,
+    .addChoiceBtn:hover,
+    .addSectionBtn:hover,
+    .removeChoiceBtn:hover,
+    .removeSectionBtn:hover,
+    .addFilterBtn:hover {
+      background-color: transparent;
+      color: black;
+      border: 1px solid #0C3C78;
+    }
     .removeQuestionBtn {
       background-color: #AF1740;
     }
     .removeChoiceBtn {
-      background-color:#AF1740;
+      background-color: #AF1740;
     }
     .removeSectionBtn {
-      background-color:#AF1740;
+      background-color: #AF1740;
+    }
+    .removeQuestionBtn:hover,
+    .removeChoiceBtn:hover,
+    .removeSectionBtn:hover {
+      background-color: transparent;
+      color: black;
+      border: 1px solid #AF1740;
     }
   }
 }
@@ -114,4 +138,9 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 1.1rem;
+}
+.submitBtn:hover {
+  background-color: transparent;
+  color: black;
+  border: 1px solid #0C3C78;
 }

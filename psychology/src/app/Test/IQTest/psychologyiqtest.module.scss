@@ -74,7 +74,7 @@
 
 .testResultsLink {
   display:flex;
-  width: 8%;
+  width: 10%;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
@@ -87,7 +87,9 @@
   transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #01458d;
+      background-color: transparent;
+      color:black;
+      border:1px solid #01458d;
     }
 
     &:focus {

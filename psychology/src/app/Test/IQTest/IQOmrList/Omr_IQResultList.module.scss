@@ -49,7 +49,9 @@
   padding: 8px;
 }
 .deleteButtonIQLIST:hover{
-  background-color: rgb(230, 3, 3);
+  background-color: transparent;
+  color:black;
+  border:1px solid rgb(230, 3, 3);
 }
 .pagination {
   display: flex;
@@ -83,7 +85,9 @@
 }
 
 .archiveButtons:hover {
-  background-color: #6d560d;
+  background-color: transparent;
+  color:black;
+  border:1px solid #6d560d;
 }
 
 .title {
@@ -114,8 +118,10 @@
 }
 
 .archiveButton:hover {
-  background-color: #4b70b5; /* Lighter blue on hover */
-  border-color: #5a86d5; /* Adjust border color */
+  background-color: transparent;
+  color:black;
+  border:1px solid #4b70b5; /* Lighter blue on hover */
+ 
 }
 
 .archiveButton:active {
@@ -196,7 +202,9 @@
 }
 
 .exportButton:hover {
-  background-color: #45a049;
+  background-color: transparent;
+      color:black;
+      border:1px solid #45a049;
 }
 
 .resultCount {
@@ -220,7 +228,9 @@
 }
 
 .viewImageButton:hover{
-  background-color: #948929;
+  background-color: transparent;
+  color:black;
+  border:1px solid #948929;
 }
 
 .modalImageView {

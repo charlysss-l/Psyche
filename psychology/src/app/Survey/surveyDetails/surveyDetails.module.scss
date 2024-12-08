@@ -142,8 +142,10 @@ $font-size-sm: 1rem;
   transition: background-color 0.3s, color 0.3s;
 
   &:hover {
-    background-color: $primary-color;
-    color: white;
+    background-color: transparent;
+      color:black;
+      border:1px solid $primary-color;
+    
   }
 }
 
