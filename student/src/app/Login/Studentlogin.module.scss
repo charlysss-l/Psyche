@@ -1,7 +1,7 @@
 $background-color: #ffffff00;
-$font-color: #849670;
-$button-bg-color: #2a3744; // Updated login button color
-$button-hover-bg-color: #d7a52f;
+$font-color: #265a3c;
+$button-bg-color: #d7a52f;// Updated login button color
+$button-hover-bg-color: #2a3744;
 $error-color: red;
 
 @keyframes slideInFromLeft {
@@ -116,20 +116,67 @@ $error-color: red;
   font-size: 0.9rem;
   margin-top: 10px;
 }
+.successMessage {
+  color: #079107;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
 
 .Signuplink_info {
-  color: black;
+  color: 265a3c;
   font-size: 20px;
   margin-top: 20px;
 }
 
 .Signuplink {
   font-size: 17px;
-  color:  #334553;
+  color:  #d7a52f;
   cursor: pointer;
 }
 
 .Signuplink:hover {
-  border-bottom: 1px solid #d7a52f;
-  color: #efb836;
+  border-bottom: 1px solid #265a3c;
+  color: #265a3c;
+}
+
+:global(body.dark-mode){
+  .loginForm {
+    background-color: #2a3744ef;
+    color: white;
+
+    h1{
+      color: #d7a52f;
+    }
+    h2{
+      color: #cc63b5e1 ;
+    }
+    label{
+      color: #ccc;
+    }
+    .submitButtonLog{
+      background-color: #d7a52f;
+
+      &:hover{
+        background-color: #225e3b;
+      }
+    }
+    .Signuplink{
+      color: #357751;
+      
+      &:hover{
+        border-bottom: 1px solid #ccc;
+        color: #ccc;
+      }
+    }
+  }
+  .errorMessage {
+    color: rgb(189, 45, 45);
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+  .successMessage {
+    color: #079107;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
 }

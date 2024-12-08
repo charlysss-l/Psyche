@@ -141,34 +141,40 @@ const Login: React.FC = () => {
         </button>
       </div>
       {forgotPasswordModal && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <h3>Forgot Password</h3>
-            {resetError && <p className={styles.errorMessage}>{resetError}</p>}
-            {resetSuccessMessage && (
-              <p className={styles.successMessage}>{resetSuccessMessage}</p>
-            )}
-            <label>Enter Your Old Username:</label>
-            <input
-              type="text"
-              value={resetUsername}
-              onChange={(e) => setResetUsername(e.target.value)}
-              placeholder="Enter your username"
-            />
-            <label>New Password:</label>
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="Enter your new password"
-            />
-            <button onClick={handleForgotPassword}>Submit</button>
-            <button onClick={() => setForgotPasswordModal(false)}>Cancel</button>
+  <>
+    <div
+      className={styles.modalOverlay}
+      onClick={() => setForgotPasswordModal(false)}
+    ></div>
+    <div className={styles.modal}>
+      <div className={styles.modalContent}>
+        <h3>Forgot Password</h3>
+        {resetError && <p className={styles.errorMessage}>{resetError}</p>}
+        {resetSuccessMessage && (
+          <p className={styles.successMessage}>{resetSuccessMessage}</p>
+        )}
+        <label>Enter Your Old Username:</label>
+        <input
+          type="text"
+          value={resetUsername}
+          onChange={(e) => setResetUsername(e.target.value)}
+          placeholder="Enter your username"
+        />
+        <label>New Password:</label>
+        <input
+          type="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          placeholder="Enter your new password"
+        />
+        <button onClick={handleForgotPassword}>Submit</button>
+        <button onClick={() => setForgotPasswordModal(false)}>Cancel</button>
           </div>
         </div>
-      )}
-    </div>
+      </>
+    )}
+    </div>  
   );
-};
+}
 
 export default Login;
