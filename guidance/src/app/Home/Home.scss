@@ -72,7 +72,9 @@
   }
   
   .viewConsultationButton:hover {
-    background-color: #f0f0f0;        
+    background-color: transparent;
+    color: black;
+    border: 1px solid  #f0f0f0;        
   }
   
   

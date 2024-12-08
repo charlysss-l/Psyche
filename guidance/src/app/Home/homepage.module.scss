@@ -85,7 +85,8 @@
 }
 
 .viewCalendar:hover {
-  background-color: #4d76cf;
+  background-color: transparent;
+  border: 1px solid  #4d76cf;
   color: rgb(255, 255, 255);
   transform: scale(1.05); /* Slight zoom */
 }
@@ -179,8 +180,9 @@ tr:hover td {
 }
 
 .viewConsultationButton:hover {
-  background-color: #4d76cf; 
-  color: white; 
+  background-color: transparent;
+  border: 1px solid  #4d76cf; 
+  color: rgb(0, 0, 0); 
   transform: scale(1.05); 
 }
 

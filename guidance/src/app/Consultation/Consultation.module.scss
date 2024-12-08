@@ -151,7 +151,9 @@ button {
     background-color: #292929 ;
     
     &:hover{
-      background-color: #616161 ;
+      background-color: transparent;
+      color: black;
+      border: 1px solid  #616161 ;
     }
   }
 
@@ -171,7 +173,9 @@ button {
     margin-left: 10px;
 
     &:hover{
-      background-color: #b62e2e ;
+      background-color: transparent;
+      color: black;
+      border: 1px solid  #b62e2e ;
     }
   }
 
@@ -181,7 +185,9 @@ button {
     margin-right: 10px;
     
     &:hover{
-    background-color: #567fd6b7 ; 
+      background-color: transparent;
+      color: black;
+      border: 1px solid  #567fd6b7 ; 
     }
   }
 
@@ -192,7 +198,9 @@ button {
     margin-left: 45%;   
     padding: 1%;
     &:hover{
-      background-color: #969696bb;
+      background-color: transparent;
+      color: black;
+      border: 1px solid  #969696bb;
     }
   }
 
@@ -201,7 +209,9 @@ button {
     color: #fcfcfc;
 
     &:hover{
-      background-color: #969696bb ; 
+      background-color: transparent;
+      color: black;
+      border: 1px solid  #969696bb ; 
       }
   }
 &.markDone{
@@ -209,7 +219,9 @@ button {
     color: #ffffff;
 
     &:hover{
-      background-color: #1b1b1bad ;
+      background-color: transparent;
+      color: black;
+      border: 1px solid  #1b1b1bad ;
     }
 }
   &:disabled {
@@ -421,7 +433,9 @@ button {
 }
 
 .archiveButton:hover {
-  background-color: #8099c7 ; /* Lighter blue on hover */
+  background-color: transparent;
+  color: black;
+  border: 1px solid  #8099c7 ; /* Lighter blue on hover */
 }
 
 .archiveButton:active {
