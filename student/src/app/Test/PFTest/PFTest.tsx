@@ -35,16 +35,30 @@ const PFTest: React.FC = () => {
 
    
 
+    const shuffleQuestions = (questions: Question[]): Question[] => {
+        // Use the Fisher-Yates algorithm for shuffling
+        const shuffled = [...questions];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    };
+    
+    
     const fetchTest = async () => {
         try {
             const response = await axios.get<User16PFTest>('http://localhost:5000/api/16pf/67282807d9bdba831a7e9063');
-            setTest(response.data);
+            const randomizedQuestions = shuffleQuestions(response.data.question);
+            setTest({ ...response.data, question: randomizedQuestions });
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred');
         } finally {
             setLoading(false);
         }
     };
+    
+    
 
     const handleChange = (questionID: string, value: string) => {
         setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));
