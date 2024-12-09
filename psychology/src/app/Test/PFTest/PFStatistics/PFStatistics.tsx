@@ -28,8 +28,8 @@ const PFStatistics: React.FC = () => {
   const [results, setResults] = useState<User16PFTest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [filter, setFilter] = useState<'left' | 'average' | 'right' | 'all'>('all'); // Filter state
-  const [selectedFactor, setSelectedFactor] = useState<string>('A'); // Factor Letter state
+  const [meaning, setFilter] = useState<'left' | 'average' | 'right' | 'all'>('all'); // Filter state
+  const [selectedFactor, setSelectedFactor] = useState<string>(""); // Factor Letter state
   const [filters, setFilters] = useState({
     age: '',
     sex: '',
@@ -110,49 +110,77 @@ const PFStatistics: React.FC = () => {
         return ageFilter && sexFilter && courseFilter && yearFilter && sectionFilter;
       });
   
-      // Apply factor filter (based on selectedFactor)
-      filteredData = filteredData.filter((result) => {
-        const factorScore = result.scoring.scores.find(
-          (score) => score.factorLetter === selectedFactor
+      // Apply selectedFactor filter
+      if (selectedFactor && selectedFactor !== 'all') {
+        filteredData = filteredData.filter((result) =>
+          result.scoring.scores.some((score) => score.factorLetter === selectedFactor)
         );
-        return factorScore !== undefined;
-      });
+      }
   
-      // Filter based on factor and left/average/right meaning
+      // Filter based on factor interpretation and update the filtered results
       const filteredResults = factorOrder.map((factorLetter) => {
+        // Skip this factor if the user hasn't selected it
+        if (selectedFactor && selectedFactor !== 'all' && selectedFactor !== factorLetter) {
+          return null;
+        }
+  
         const countLeftMeaning = filteredData.filter((result) => {
-          const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
+          const score = result.scoring.scores.find((score) => score.factorLetter === factorLetter);
           return score && score.stenScore <= 3; // Left meaning based on sten score 1-3
-        }).length;
+        }).map(result => result.userID); // Track user IDs for left meaning
   
         const countAverage = filteredData.filter((result) => {
-          const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
+          const score = result.scoring.scores.find((score) => score.factorLetter === factorLetter);
           const stenScore = score?.stenScore || 0;
           return stenScore >= 4 && stenScore <= 7; // Average range based on sten score 4-7
-        }).length;
+        }).map(result => result.userID); // Track user IDs for average meaning
   
         const countRightMeaning = filteredData.filter((result) => {
-          const score = result.scoring.scores.find(score => score.factorLetter === factorLetter);
+          const score = result.scoring.scores.find((score) => score.factorLetter === factorLetter);
           return score && score.stenScore >= 8; // Right meaning based on sten score 8-10
-        }).length;
+        }).map(result => result.userID); // Track user IDs for right meaning
   
         return {
           factorLetter,
-          left: filter === 'left' || filter === 'all' ? countLeftMeaning : 0,
-          average: filter === 'average' || filter === 'all' ? countAverage : 0,
-          right: filter === 'right' || filter === 'all' ? countRightMeaning : 0,
+          left: meaning === 'left' || meaning === 'all' ? countLeftMeaning.length : 0,
+          average: meaning === 'average' || meaning === 'all' ? countAverage.length : 0,
+          right: meaning === 'right' || meaning === 'all' ? countRightMeaning.length : 0,
+          leftUserIDs: meaning === 'left' || meaning === 'all' ? countLeftMeaning : [], // Only include if selected 'left'
+          averageUserIDs: meaning === 'average' || meaning === 'all' ? countAverage : [], // Only include if selected 'average'
+          rightUserIDs: meaning === 'right' || meaning === 'all' ? countRightMeaning : [], // Only include if selected 'right'
         };
-      });
+      }).filter(Boolean); // Remove null results if the factor was not selected
   
-      setFilteredResults(filteredResults); // Update filtered results
+      setFilteredResults(filteredResults);
   
-      // Extract filtered user IDs based on applied filters
-      const filteredUserIDs = filteredData.map(result => result.userID);
-      setFilteredUserIDs(filteredUserIDs); // Update filtered user IDs
+      // Update filteredUserIDs based on the selected factor and meaning
+      let filteredUserIDs: any[] | ((prevState: string[]) => string[]) = [];
+      if (meaning === 'left' || meaning === 'all') {
+        filteredUserIDs = filteredData.filter((result) =>
+          result.scoring.scores.some((score) => score.stenScore <= 3 && score.factorLetter === selectedFactor)
+        ).map(result => result.userID);
+      }
+      if (meaning === 'average' || meaning === 'all') {
+        filteredUserIDs = filteredUserIDs.concat(filteredData.filter((result) =>
+          result.scoring.scores.some((score) => score.stenScore >= 4 && score.stenScore <= 7 && score.factorLetter === selectedFactor)
+        ).map(result => result.userID));
+      }
+      if (meaning === 'right' || meaning === 'all') {
+        filteredUserIDs = filteredUserIDs.concat(filteredData.filter((result) =>
+          result.scoring.scores.some((score) => score.stenScore >= 8 && score.factorLetter === selectedFactor)
+        ).map(result => result.userID));
+      }
+  
+      setFilteredUserIDs(filteredUserIDs);
     };
   
     filterUserIDs(); // Trigger filtering whenever the filter or factor changes
-  }, [filter, selectedFactor, filters, results]);
+  }, [meaning, selectedFactor, filters, results]);
+  
+  
+  
+  
+  
   
 
   // Conditional rendering based on loading or error
@@ -161,25 +189,36 @@ const PFStatistics: React.FC = () => {
 
   // Prepare data for the stacked bar chart with filter applied
   const chartData = {
-    labels: factorOrder.map(factor => factorDescriptions[factor] || factor), // Use description instead of letter
+    labels: selectedFactor === 'all' || selectedFactor === ''
+      ? factorOrder.map((factor) => factorDescriptions[factor] || factor)
+      : [factorDescriptions[selectedFactor] || selectedFactor],
     datasets: [
       {
         label: 'Left Meaning',
-        data: filteredResults.map(result => result.left),
+        data: selectedFactor === 'all' || selectedFactor === ''
+          ? filteredResults.map((result) => result.left)
+          : [filteredResults.find((res) => res.factorLetter === selectedFactor)?.left || 0],
         backgroundColor: 'gold',
       },
       {
         label: 'Average',
-        data: filteredResults.map(result => result.average),
+        data: selectedFactor === 'all' || selectedFactor === ''
+          ? filteredResults.map((result) => result.average)
+          : [filteredResults.find((res) => res.factorLetter === selectedFactor)?.average || 0],
         backgroundColor: 'gray',
       },
       {
         label: 'Right Meaning',
-        data: filteredResults.map(result => result.right),
+        data: selectedFactor === 'all' || selectedFactor === ''
+          ? filteredResults.map((result) => result.right)
+          : [filteredResults.find((res) => res.factorLetter === selectedFactor)?.right || 0],
         backgroundColor: 'green',
       },
     ],
   };
+  
+  
+  
 
   // Filter widget components
   const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -234,8 +273,8 @@ const PFStatistics: React.FC = () => {
 
       {/* Filter Widget */}
       <div className={styles.filterContainer}>
-        <label htmlFor="filter" className={styles.label}>Filter by factor interpretation:</label>
-        <select id="filter" value={filter} onChange={handleFilterChange} className={styles.select}>
+        <label htmlFor="Meaning" className={styles.label}>Filter by factor interpretation:</label>
+        <select id="Meaning" value={meaning} onChange={handleFilterChange} className={styles.select}>
           <option value="all">All</option>
           <option value="left">Left Meaning</option>
           <option value="average">Average</option>
@@ -243,9 +282,10 @@ const PFStatistics: React.FC = () => {
         </select>
 
         <label htmlFor="factor" className={styles.label}>Factor:</label>
-        <select id="factor" value={selectedFactor} onChange={handleFactorChange}>
+        <select id="factor" value={selectedFactor} onChange={handleFactorChange} className={styles.select}>
+          <option value="">Select by Factor</option>
           {factorOrder.map((factor, index) => (
-            <option key={index} value={factor}>{factorDescriptions[factor]}</option> // Use description
+            <option key={index} value={factor}>{factorDescriptions[factor]}</option>
           ))}
         </select>
 
@@ -257,7 +297,6 @@ const PFStatistics: React.FC = () => {
           value={filters.age}
           onChange={handleFilterInputChange}
         />
-
         <select name="sex" value={filters.sex} onChange={handleFilterInputChange}>
           <option value="">Filter by Sex</option>
           <option value="Female">Female</option>
@@ -266,12 +305,12 @@ const PFStatistics: React.FC = () => {
         <select name="course" value={filters.course} onChange={handleFilterInputChange} >
         <option value="" >Select Course</option>
         <option value="BSEduc">Bachelor of Secondary Education</option>
-                <option value="BSBM">BS Business Management</option>
-                <option value="BSCS">BS Computer Science</option>
-                <option value="BSCrim">BS Criminology</option>
-                <option value="BSHM">BS Hospitality Management</option>                    
-                <option value="BSIT">BS Information Technology</option>
-                <option value="BSP">BS Psychology</option>
+        <option value="BSBM">BS Business Management</option>
+        <option value="BSCS">BS Computer Science</option>
+        <option value="BSCrim">BS Criminology</option>
+        <option value="BSHM">BS Hospitality Management</option>                    
+        <option value="BSIT">BS Information Technology</option>
+        <option value="BSP">BS Psychology</option>
         </select>
         <select name="year" value={filters.year} onChange={handleFilterInputChange} >
         <option value="" >Select Year</option>
@@ -296,11 +335,9 @@ const PFStatistics: React.FC = () => {
         </select>
       </div>
 
-      {/* Display Number of Results */}
+     {/* Display number of results */}
   <div className={styles.resultCount}>
-    <p>
-      Number of Results: <strong>{filteredResults.length}</strong>
-    </p>
+    <p>Total UserID Results: {filteredUserIDs.length}</p>
   </div>
   
       <table className={styles.userListContaIner}>
