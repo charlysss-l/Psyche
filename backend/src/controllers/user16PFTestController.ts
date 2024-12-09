@@ -440,25 +440,6 @@ export const createUser16PFTest = async (req: Request, res: Response): Promise<R
         if (!userID || !firstName || !lastName || !age || !sex || !course || !year || !section  || !responses || !testType || !testDate) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
-
-         // Get the start and end of the current day
-         const startOfDay = new Date();
-         startOfDay.setHours(0, 0, 0, 0);
- 
-         const endOfDay = new Date();
-         endOfDay.setHours(23, 59, 59, 999);
- 
-         // Check if a test exists for this user on the same day
-         const existingPfTest = await User16PFTest.findOne({
-             userID,
-             testDate: { $gte: startOfDay, $lte: endOfDay },
-         });
- 
-         if (existingPfTest) {
-             return res.status(400).json({
-                 message: 'You have already taken the test today. Please try again tomorrow.',
-             });
-         }
  
 
         // Check that responses array is not empty and contains the required structure

@@ -5,9 +5,11 @@ import styles from "./studentsignup.module.scss";
 const SignupForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [studentNumber, setStudentNumber] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [passwordStrength, setPasswordStrength] = useState<string>("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,18 +50,58 @@ const SignupForm: React.FC = () => {
     setUserId(uniqueId);
   };
 
+  const validatePassword = (password: string) => {
+     // Use a broader regex that explicitly includes _ as a special character
+     const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>_\-]).{8,}$/;
+     return regex.test(password);
+   };
+
+  const evaluatePasswordStrength = (password: string) => {
+    // Regex includes \W (non-word characters) or _ (explicitly checking for underscore)
+    const hasSpecialChar = /[\W_]/;
+    const hasUpperCase = /[A-Z]/;
+  
+    if (password.length >= 8 && hasUpperCase.test(password) && hasSpecialChar.test(password)) {
+      return "Strong";
+    } else if (password.length >= 6 && hasUpperCase.test(password)) {
+      return "Medium";
+    } else {
+      return "Weak";
+    }
+  };
+
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
+    setPasswordStrength(evaluatePasswordStrength(value));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      setError("Email and Password are required.");
+    if (!email || !password || !confirmPassword) {
+      setError("All fields are required.");
       return;
     }
+
+    if (!validatePassword(password)) {
+      setError(
+        "Password must be at least 8 characters, include one uppercase letter, and one special character."
+      );
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setError(null);
 
     try {
       const response = await signupUser(email, password, studentNumber, userId);
 
       if (response.message === "Student created successfully") {
+        window.alert("Sign up successful! You can now log in.");
         navigate("/login", {
           state: { message: "Signup successful! Please log in." },
         });
@@ -71,7 +113,7 @@ const SignupForm: React.FC = () => {
         setError("User ID already exists. Please refresh the page.");
       }
     } catch (error) {
-      setError("Email already exists. Please log in or use a different email.");
+      setError("Sign up failed. Please try again later.");
       console.error(error);
     }
   };
@@ -103,7 +145,6 @@ const SignupForm: React.FC = () => {
   return (
     <div className={styles.signup_container}>
       <h2 className={styles.signup_h2}>Sign Up</h2>
-      {error && <p className={styles.errorMessage}>{error}</p>}
       <form onSubmit={handleSubmit} className={styles.signup_form}>
         <div>
           <label className={styles.signuplabel}>
@@ -118,7 +159,7 @@ const SignupForm: React.FC = () => {
           />
         </div>
         <div>
-          <label className={styles.signuplabel}>Student Number:</label>
+          <label className={styles.signuplabel}>Student Number: *</label>
           <input
             className={styles.signupInput}
             type="studentNumber"
@@ -128,6 +169,14 @@ const SignupForm: React.FC = () => {
           />
         </div>
         <div>
+        <div className={styles.passwordRules}>
+            <p>Password must:</p>
+            <ul>
+              <p>* Be at least 8 characters long</p>
+              <p>* Contain at least one uppercase letter</p>
+              <p>* Contain at least one special character</p>
+            </ul>
+          </div>
           <label className={styles.signuplabel}>
             Password: <span className={styles.required}>*</span>
           </label>
@@ -135,10 +184,37 @@ const SignupForm: React.FC = () => {
             className={styles.signupInput}
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => handlePasswordChange(e.target.value)}
             required
           />
+          <div className={styles.passwordStrengthContainer}> <p>Password Strength: </p><div className={`${styles.passwordStrength} ${styles[passwordStrength.toLowerCase()]}`}>
+   <strong> {passwordStrength}</strong>
+</div></div>
+          
+
         </div>
+        <div>
+          <label className={styles.signuplabel}>
+            Confirm Password: <span className={styles.required}>*</span>
+          </label>
+          <input
+            className={styles.signupInput}
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            style={{
+              borderColor:
+                confirmPassword === ""
+                  ? ""
+                  : confirmPassword === password
+                  ? "green"
+                  : "red",
+            }}
+          />
+        </div>
+        {error && <p className={styles.errorMessage}>{error}</p>}
+
         <div>
           <input
             className={styles.hidden}
