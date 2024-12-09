@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./pagelogin.module.scss";
-
-
+//Provides login functionality with error/success feedback and a "Forgot Password" feature.
+// Functional component for the Login page
 const Login: React.FC = () => {
+    // State variables for user input, error/success messages, and modal visibility
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -15,10 +17,10 @@ const Login: React.FC = () => {
   const [resetSuccessMessage, setResetSuccessMessage] = useState<string | null>(null);
 
   const navigate = useNavigate();
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Function to handle login form submission
+  const handleSubmit = async (e: React.FormEvent) => {  
     e.preventDefault();
-
+    // Validation to check if both email and password are filled
     if (!email || !password) {
       setError("Please fill in both fields.");
       return;
@@ -43,6 +45,8 @@ const Login: React.FC = () => {
         setError("Invalid username or password.");
       }
     } catch (error) {
+            // Handle errors and set appropriate error messages
+
       const err = error as any; // type assertion
       if (err?.message === "Invalid username") {
         setError("Invalid username.");
@@ -57,6 +61,7 @@ const Login: React.FC = () => {
 
   // Function to call the backend API
   const loginUser = async (email: string, password: string) => {
+        // Sends a POST request to the API with email and password as JSON payload
     const response = await fetch("http://localhost:5000/api/authGuidance", {
       method: "POST",
       headers: {
@@ -73,6 +78,7 @@ const Login: React.FC = () => {
   };
 
   const handleForgotPassword = async () => {
+        // Validate if the username is correct and if the new password is provided
     if (resetUsername !== "cvsu.guidance@gmail.com") {
       setResetError("Invalid username.");
       return;
