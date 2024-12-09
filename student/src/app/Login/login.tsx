@@ -2,14 +2,19 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Studentlogin.module.scss";
 
+//  Handles user input (email, password), error, and success messages.
+//  Sends user credentials to the server, processes the response, and stores important data in localStorage.
+
+
 const Login: React.FC = () => {
+     // State variables for email, password, error messages, and success messages
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useNavigate();  // Used to navigate to different routes
+  const location = useLocation();  // Provides access to the current location object
 
   // Show success message if coming from the signup page
   useEffect(() => {

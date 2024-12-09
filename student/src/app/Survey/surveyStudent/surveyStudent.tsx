@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./surveyStudent.module.scss"; // Assuming you're using a CSS module for styling
 import ArchivedSurveys from "../archivedSurveys/ArchivedSurveys";
+//handles the survey listing and submission process for the students.
 
 interface Survey {
   _id: string;

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './homepage.module.scss';
 import { Link } from 'react-router-dom'; // To navigate to other pages
 
+// Importing image assets for the homepage visuals
 const fallGuy = require('../../images/fallGuy.png');
 const fallGirl = require('../../images/fallGirl.png');
 const lappy = require('../../images/lappy.png');
