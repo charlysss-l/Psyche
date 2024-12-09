@@ -140,7 +140,8 @@ const PFTest: React.FC = () => {
                 <span className={styles.highlight}>*</span> There is no time limit. Please allow yourself plenty of time. <br />
                 <span className={styles.highlight}>*</span> Please respond to all of the statements and answer in sequence. <br />
                 <span className={styles.highlight}>*</span> Double-check that you have made the right choice. If you need to change an answer, simply select the new response and the incorrect response will disappear. <br />
-                <span className={styles.highlight}>*</span> Try not to use the 'Neutral' option too often. <br />
+                <span className={styles.highlight}>*</span> The '? / Neutral' option is for those who do not know or not sure about the answer. <br />
+                <span className={styles.highlight}>*</span> Try not to use the '? / Neutral' option too often. <br />
                 <span className={styles.highlight}>*</span> Describe yourself as you honestly see yourself now, not as you wish to be in the future. <br />
                 </em>
             </p>
