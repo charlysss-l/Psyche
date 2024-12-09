@@ -280,7 +280,7 @@ const PFStatistics: React.FC = () => {
 
       {/* Filter Widget */}
       <div className={styles.filterContainer}>
-        <label htmlFor="Meaning" className={styles.label}>Filter by factor interpretation:</label>
+        <label htmlFor="Meaning" className={styles.label}>Interpretation:</label>
         <select id="Meaning" value={meaning} onChange={handleFilterChange} className={styles.select}>
           <option value="all">All</option>
           <option value="left">Left Meaning</option>
