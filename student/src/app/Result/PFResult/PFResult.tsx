@@ -536,7 +536,7 @@ const PFResult: React.FC = () => {
         const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
     
         // Scaling factor (adjust to fit content on one page or scale it)
-        const scaleFactor = 0.6;
+        const scaleFactor = 0.62;
         const stretchedWidth = .9;
         const scaledWidth = pdfWidth * stretchedWidth;
         const scaledHeight = pdfHeight * scaleFactor;
