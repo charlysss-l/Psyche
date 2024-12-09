@@ -107,7 +107,7 @@ const SurveyList: React.FC = () => {
       {/* Display Surveys with Title, Description, Field, and Options */}
       {currentSurveys.map((survey) => (
         <div key={survey._id} className={styles.surveyCard}>
-          <h3>{survey.title}</h3>
+          <h3 className ={styles.surveytitle}>{survey.title}</h3>
           <p>Description: {survey.description}</p>
           <p>Category: {survey.category}</p>
           <p>Release Date: {formatDate(survey.releaseDate)}</p>

@@ -34,7 +34,7 @@ $font-size-sm: 1rem;
 
   .surveyh1Title {
     font-size: $font-size-lg;
-    color: black;
+    color: #b072e2;
     margin-bottom: $spacing-unit;
     font-weight: 600;
   }
@@ -46,6 +46,7 @@ $font-size-sm: 1rem;
     line-height: 1.6;
   }
 }
+
 
 // Style for each section containing questions
 .sectionContainer {
@@ -67,7 +68,7 @@ $font-size-sm: 1rem;
     color: black;
     margin-bottom: $spacing-unit;
     font-weight: 400;
-    border-bottom: 2px solid $primary-color;
+    border-bottom: 2px solid #b072e2;
     padding-bottom: 10px;
   }
 }
@@ -104,7 +105,7 @@ $font-size-sm: 1rem;
   }
 
   th {
-    background-color: $primary-color;
+    background-color: #8a8a8a;
     color: white;
     font-weight: bold;
   }
@@ -167,4 +168,37 @@ $font-size-sm: 1rem;
   .choicesTable td {
     padding: 8px;
   }
+}
+
+:global(body.dark-mode) {
+  .surveyDetailsContainer {
+    background-color: #302f30;
+    color: white;
+  }
+  .sectionContainer{
+    background-color: #302f30;
+
+    h3{
+      color: white;
+    }
+  }
+  .questionItem strong {
+    color: #b072e2;
+  }
+  .choicesTable th {
+    background-color: #8a8a8a;
+    color: white;
+  }
+  .sectionContainer h3 {
+    border-bottom: 2px solid #bebebe;
+  }
+  .choicesTable td:nth-child(even) {
+    background-color: #f9f9f9;
+    color: black;
+  }
+  .choicesTable td:nth-child(odd) {
+    background-color: #f9f9f9;
+    color: black;
+  }
+  
 }

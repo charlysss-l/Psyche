@@ -21,6 +21,8 @@ $table-border-color: #d2d2d2;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 80%;
+  margin-left: 9%;
 }
 
 .linkSurveyChoices {
@@ -38,39 +40,50 @@ $table-border-color: #d2d2d2;
   align-items: center;
   width: auto;
   padding: 6px 12px;
-  background-color: #0C3C78;
+  background-color: #8d8d8d;
   border-radius: 10px;
 
   &:hover {
     background-color: transparent;
     color:black;
-    border:1px solid #a8c8ff;
-    color: #000000;
+    border:1px solid #8d8d8d;
+    color: #8d8d8d;
   }
 }
 
 .viewDetailsButton {
   text-decoration: none;
-  color: $primary-color;
+  color: #ffffff;
   font-size: 16px;
   display: inline-block;
   padding: 8px 16px;
+  margin-left: 20px;
+  margin-right: 20px;
   border-radius: 5px;
-  border: 1px solid $primary-color;
-  background-color: white;
+  background-color: #b072e2;
   text-align: center;
 
-  &:hover {
-    background-color: $primary-color;
-    color: white;
+  &:hover{
+    background-color: transparent;
+    border: 1px solid #b072e2;
+    color: #b072e2;
   }
 }
+.surveyActions button{
+  background-color: #b32323;
 
+  &:hover{
+    background-color: transparent;
+    border: 1px solid #b32323;
+    color: #b32323;
+  }
+}
 .surveyCard {
+  margin-top: 20px;
   margin-bottom: 20px;
   padding: 15px;
   background-color: #ffffff;
-  border-radius: 5px;
+  border-radius: 7px;
   box-shadow: $box-shadow;
   width: 80%;
   display: flex;
@@ -78,7 +91,7 @@ $table-border-color: #d2d2d2;
   justify-content: center;
   align-items: center;
 
-  div:hover {
+  &:hover {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   }
 }
@@ -94,9 +107,14 @@ h2, h3, p {
   }
 }
 
+.surveytitle{
+  font-size: 1.5rem;
+  color: #b072e2;
+}
+
 .surveyCount {
   font-size: 1rem;
-  color: $primary-color;
+  color: #b32323;
   margin-left: 10px;
 }
 
@@ -162,8 +180,9 @@ h2, h3, p {
 
 // New styles for the participant filters table
 .filters {
-  width: 100%;
-  margin-top: 15px;
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 10px;
   border: 1px solid $table-border-color;
   border-radius: 8px;
@@ -172,7 +191,7 @@ h2, h3, p {
 
   h4 {
     font-size: 1.2rem;
-    color: $primary-color;
+    color: #b072e2;
     margin-bottom: 10px;
   }
 
@@ -189,9 +208,9 @@ h2, h3, p {
     }
 
     th {
-      background-color: $table-header-bg;
-      color: $secondary-color;
-      font-weight: bold;
+      background-color: #b072e2;
+      color: #fff;
+      border: none;
     }
 
     td {
@@ -207,4 +226,57 @@ h2, h3, p {
       background-color: #e9f5ff;
     }
   }
+}
+
+:global(body.dark-mode){
+  .createsurveyButton {
+    background-color: #b072e2;
+
+    &:hover {
+      background-color: transparent;
+      border:1px solid #b072e2;
+      color: #b072e2;
+  }
+}
+.surveyListContainer {
+  background-color: #302f30;
+  box-shadow: none;
+}
+.surveyCard{
+  background-color: #5c5c5c;
+  box-shadow: none;
+}
+.surveytitle{
+  color: #b072e2;
+}
+.filterContainer label{
+  color: #f8f1f1;
+  
+}
+.surveyCount {
+  color: $primary-color;
+}
+.filters {
+  border: none ;
+  background-color: #302f30;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  h4{
+    color: #c4c4c4;
+  }
+
+  table th{
+    background-color: #8a8a8a;
+    color: #fff;
+  }
+}
+.viewDetailsButton{
+  background-color: #8a8a8a;
+  &:hover{
+    background-color: transparent;
+    border: 1px solid #8a8a8a;
+    color: #8a8a8a;
+  }
+
+}
 }
