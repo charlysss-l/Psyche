@@ -176,7 +176,7 @@ const IqOMR: React.FC = () => {
       // Validate if the image contains "Name"
     const isValidText = await validateTextInImage(selectedFile);
     if (!isValidText) {
-      alert('Invalid image: The word "IQ" is not found in the image.');
+      alert('Invalid image');
       setLoading(false);
       return;
     }
