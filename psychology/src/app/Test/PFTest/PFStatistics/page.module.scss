@@ -114,6 +114,20 @@
     font-weight: bold;
     color: #b072e2;
   }
+
+.leftMeaning {
+  color: gold;
+}
+
+.rightMeaning {
+  color: green;
+}
+
+.average {
+  color: gray;
+  font-style: italic;
+  font-size: 18px;
+}
   
 :global(body.dark-mode){
   .heading {

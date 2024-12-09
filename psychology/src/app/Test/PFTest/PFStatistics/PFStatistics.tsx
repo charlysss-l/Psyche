@@ -64,6 +64,52 @@ const PFStatistics: React.FC = () => {
   // Factor order
   const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
 
+  // Function to get factor descriptions
+  const getFactorMeanings = (factorLetter: string) => {
+    switch (factorLetter) {
+      case 'A':
+        return { leftMeaning: 'Reserved, Impersonal, Distant', rightMeaning: 'Warm, Outgoing, Attentive to Others' };
+      case 'B':
+        return { leftMeaning: 'Concrete', rightMeaning: 'Abstract' };
+      case 'C':
+        return { leftMeaning: 'Reactive, Emotionally Changeable', rightMeaning: 'Emotionally Stable, Adaptive, Mature' };
+      case 'E':
+        return { leftMeaning: 'Deferential, Cooperative, Avoids Conflict', rightMeaning: 'Dominant, Forceful, Assertive' };
+      case 'F':
+        return { leftMeaning: 'Serious, Restrained, Careful', rightMeaning: 'Lively, Animated, Spontaneous' };
+      case 'G':
+        return { leftMeaning: 'Expedient, Nonconforming', rightMeaning: 'Rule-conscious, Dutiful' };
+      case 'H':
+        return { leftMeaning: 'Shy, Threat-Sensitive, Timid', rightMeaning: 'Socially Bold, Venturesome, Thick Skinned' };
+      case 'I':
+        return { leftMeaning: 'Utilitarian, Objective, Unsentimental', rightMeaning: 'Sensitive, Aesthetic, Sentimental' };
+      case 'L':
+        return { leftMeaning: 'Trusting, Unsuspecting, Accepting', rightMeaning: 'Vigilant, Suspicious, Skeptical, Wary' };
+      case 'M':
+        return { leftMeaning: 'Grounded, Practical, Solution-Oriented', rightMeaning: 'Abstracted, Imaginative, Idea-Oriented' };
+      case 'N':
+        return { leftMeaning: 'Forthright, Genuine, Artless', rightMeaning: 'Private, Discreet, Non-Disclosing' };
+      case 'O':
+        return { leftMeaning: 'Self-Assured, Unworried, Complacent', rightMeaning: 'Apprehensive, Self-Doubting, Worried' };
+      case 'Q1':
+        return { leftMeaning: 'Traditional, Attached to Familiar', rightMeaning: 'Open to Change, Experimenting' };
+      case 'Q2':
+        return { leftMeaning: 'Group-Oriented, Affiliative', rightMeaning: 'Self-reliant, Solitary, Individualistic' };
+      case 'Q3':
+        return { leftMeaning: 'Tolerates Disorder, Unexciting, Flexible', rightMeaning: 'Perfectionistic, Organized, Self-Disciplined' };
+      case 'Q4':
+        return { leftMeaning: 'Relaxed, Placid, Patient', rightMeaning: 'Tense, High Energy, Impatient, Driven' };
+      default:
+        return { leftMeaning: '', rightMeaning: '' };
+    }
+  };
+
+  const handleFactorSelect = (factorLetter: string) => {
+    setSelectedFactor(factorLetter);
+  };
+
+  const selectedFactorMeanings = getFactorMeanings(selectedFactor);
+  
   // Fetch data function
   const fetchData = async () => {
     try {
@@ -188,6 +234,7 @@ const PFStatistics: React.FC = () => {
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
+  
 
   // Prepare data for the stacked bar chart with filter applied
   const chartData = {
@@ -268,6 +315,44 @@ const PFStatistics: React.FC = () => {
           },
         }}
       />
+
+      {/* Display Factor Meanings if a factor is selected */}
+{selectedFactor && (
+  <div className={styles.factorMeaning}>
+    {meaning === 'left' && selectedFactorMeanings.leftMeaning && (
+      <p><strong className={styles.leftMeaning}>Left Meaning:</strong> {selectedFactorMeanings.leftMeaning}</p>
+    )}
+
+    {meaning === 'right' && selectedFactorMeanings.rightMeaning && (
+      <p><strong className={styles.rightMeaning}>Right Meaning:</strong> {selectedFactorMeanings.rightMeaning}</p>
+    )}
+
+    {meaning === 'average' && (
+      <>
+      {selectedFactorMeanings.leftMeaning && (
+          <p><strong className={styles.average}>(Average)</strong></p>
+        )}
+        {selectedFactorMeanings.leftMeaning && (
+          <p><strong className={styles.leftMeaning}>Left Meaning:</strong> {selectedFactorMeanings.leftMeaning}</p>
+        )}
+        {selectedFactorMeanings.rightMeaning && (
+          <p><strong className={styles.rightMeaning}>Right Meaning:</strong> {selectedFactorMeanings.rightMeaning}</p>
+        )}
+      </>
+    )}
+
+    {meaning === 'all' && (
+      <>
+        {selectedFactorMeanings.leftMeaning && (
+          <p><strong className={styles.leftMeaning}>Left Meaning:</strong> {selectedFactorMeanings.leftMeaning}</p>
+        )}
+        {selectedFactorMeanings.rightMeaning && (
+          <p><strong className={styles.rightMeaning}>Right Meaning:</strong> {selectedFactorMeanings.rightMeaning}</p>
+        )}
+      </>
+    )}
+  </div>
+)}
 
       </div>
 
