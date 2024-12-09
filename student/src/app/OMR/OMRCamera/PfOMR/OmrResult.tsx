@@ -1,3 +1,10 @@
+/*The OmrResult initializes and manages various user details such as name, age, etc..., while also retrieving stored
+ OMR scores and an uploaded image URL from localStorage. Users input their details, and the component formats the 
+ data—including the scores and uploaded image URL—into a structure suitable for backend submission. On form submission,
+it sends this data to a backend API endpoint (/api/omr16pf) via a POST request using Axios. The component also handles 
+error states, stores the results locally for later use, and navigates to a results page upon successful submission. 
+It ensures a streamlined process for capturing and transmitting test data while providing user feedback. */
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './OmrResult.module.scss';

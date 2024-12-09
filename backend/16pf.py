@@ -1,10 +1,17 @@
+#The 16pf.py script processes an image of a completed OMR (Optical Mark Recognition) sheet. 
+# The procedure starts by receiving an image URL from the frontend. 
+# The backend downloads the image and processes it using OpenCV, detecting marked answer bubbles on the OMR sheet. 
+# Each bubble's position is analyzed to determine whether it is marked or not, and based on the marked answers, the script assigns points according to a predefined answer key. 
+# The script then calculates scores for factorLetter of the test (labeled as A, B, C, etc.) by grouping questions into specific sections and summing the corresponding points. 
+# After processing,the backend returns the calculated scores as a JSON response, which the frontend then displays to the user. 
+# The image is also saved with marked bubbles visualized for debugging purposes.
+
 # step 1: user will upload an image and store it in firebase with a URL file name (OMRCamera.tsx)
 # step 2: user will send a request to the backend to process the image (OMRCamera.tsx)
-# step 3: backend will download the URL image and process it (app.py)
+# step 3: backend will download the URL image and process it (16pf.py)
 # step 4: backend will return the score to the localhost named http://127.0.0.1:5000/process_omr (app.py)
 # step 5: frontend will fetch the score from the same localhost (OMRCamera.tsx)
 # step 6: frontend will display the score (OMRCamera.tsx)
-
 
 
 from io import BytesIO
@@ -319,7 +326,7 @@ def omr_processing(image):
     177: {'A':0, 'B':1, 'C':0}, 178: {'A':0, 'B':0, 'C':1}, 179: {'A':0, 'B':0, 'C':1}, 180: {'A':0, 'B':0, 'C':1}, 181: {'A':0, 'B':1, 'C':0}, 182: {'A':0, 'B':1, 'C':0}, 183: {'A':0, 'B':1, 'C':0}, 184: {'A':0, 'B':1, 'C':0},
     185: {'A':0, 'B':1, 'C':0}}
 
-    # Initialize the scores for each section
+    # Initialize the scores for each factorLetter
     section_scores = {
         'A': 0,
         'B': 0,
@@ -428,6 +435,8 @@ def omr_processing(image):
     
     return section_scores
 
+# This endpoint is designed to process a remotely stored OMR sheet image, calculate scores based on the marked answers, 
+# and return the results to the frontend in real-time.
 @app.route('/process_omr_PF', methods=['POST'])
 def process_omr():
     # Get the image URL from the incoming request

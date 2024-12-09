@@ -1,18 +1,20 @@
+/* The PfOMR component in this React code handles uploading, validating, and processing an image file for Optical Mark Recognition (OMR) tasks. 
+It integrates with Firebase for image storage, using the firebase/storage API to upload and retrieve image URLs. It also utilizes Tesseract.js 
+for Optical Character Recognition (OCR) to check for specific text (like "PF") in the image and ensure it's portrait-oriented. Once a valid image 
+is selected and processed, it undergoes a black-and-white filter and brightness adjustment before being uploaded to Firebase. The component uses
+video capture functionality for camera input, where the image is captured, previewed, and processed before being stored. After uploading, the image
+is sent to a backend server for OMR processing, with the result (OMR score) displayed and saved locally. The user is then navigated to a results page.*/
+
 import React, { useState, useRef, useEffect } from 'react';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './PfOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
-import Tesseract from 'tesseract.js';
+import Tesseract from 'tesseract.js'; //For OCR
 
 
-
-
-
-
-
-// Initialize Firebase with your configuration
+// Initialize firebase setup for uploading image in Firebase storage
 const firebaseConfig = {
   apiKey: "AIzaSyBWj1L7qdsRH4sFpE7q0CaoyL55KWMGRZI",
   authDomain: "iqtestupload.firebaseapp.com",
@@ -35,12 +37,14 @@ const PfOMR: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [omrScore, setOmrScore] = useState<number | null>(null);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);  // Loading state for spinner
+  const [loading, setLoading] = useState(false);  
 
-
-
+  // Process selecting and previewing image file. 
+  //Event Handler (handleFileChange) triggered when change in the file input
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //checks if files were selected (e.target.files) and retrieves first file. if no file = null
     const file = e.target.files ? e.target.files[0] : null;
+    //updates component state by calling setSelectedFile
     setSelectedFile(file);
 
     // If a file is selected, create a preview
@@ -49,17 +53,21 @@ const PfOMR: React.FC = () => {
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
       };
-      reader.readAsDataURL(file); // Read the file as a data URL
+      reader.readAsDataURL(file); 
     }
   };
 
   
-
+  // function validateTextInImage attempts to detect specific text (PF) in image by rotating image using OCR via Tesseract.js
   const validateTextInImage = async (file: File): Promise<boolean> => {
     return new Promise((resolve, reject) => {
+      //FileReader an instance to read image file as data URL
       const reader = new FileReader();
+      //once image loaded, .onload, a new Image img is created in file memory
       reader.onload = (e) => {
         const img = new Image();
+
+        //Image will be rotated
         img.onload = async () => {
           let angle = 0;
           const maxRotation = 360;  // Max rotation in degrees
@@ -80,12 +88,12 @@ const PfOMR: React.FC = () => {
 
           // Function to render the rotated image
         const renderImage = () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.save();
-          ctx.translate(canvas.width / 2, canvas.height / 2);
-          ctx.rotate((angle * Math.PI) / 180); // Convert angle to radians
-          ctx.drawImage(img, -img.width / 2, -img.height / 2);
-          ctx.restore();
+          ctx.clearRect(0, 0, canvas.width, canvas.height); // Clears canvass before drawing new fame
+          ctx.save(); // Saves current drawing
+          ctx.translate(canvas.width / 2, canvas.height / 2); //Translate canvas to its center so image can rotate around center
+          ctx.rotate((angle * Math.PI) / 180); // Convert angle to radians. Rotate immage by angle
+          ctx.drawImage(img, -img.width / 2, -img.height / 2); // draws image at new position
+          ctx.restore(); // to avoid affecting other canvas operations
 
           // Update image preview state to show rotated image
           setImagePreview(canvas.toDataURL()); // Display the rotated image in your component
@@ -97,10 +105,13 @@ const PfOMR: React.FC = () => {
             try {
               renderImage(); // Render the rotated image at the current angle
 
+              //Performing OCR on Rotated Image
+              //Tesseract.recognize called to perform OCR on current rotated image
               const { data: { text } } = await Tesseract.recognize(canvas.toDataURL(), 'eng');
               console.log(`OCR Text at ${angle} degrees:`, text);
   
-              // Check if the text includes the word "PF"
+
+              // if OCR recognize text "PF" function resolves true indicating desired text found
               if (text.toLowerCase().includes('pf')) {
                 resolve(true); // Text found, stop and resolve
                 return;
@@ -110,7 +121,7 @@ const PfOMR: React.FC = () => {
               return;
             }
   
-            // Increment the angle by the rotation step
+            // Increment Rotation Angle. If desired text hasn't found.
             angle += rotationStep;
   
             // If we have checked all rotations and didn't find the text, reject
@@ -128,9 +139,10 @@ const PfOMR: React.FC = () => {
   
   
  
-
+  //Function checks whether orientation of image is portrait 
   const validateImageOrientation = (file: File): Promise<boolean> => {
     return new Promise((resolve, reject) => {
+      //Create load to display image
       const img = new Image();
       const reader = new FileReader();
       
@@ -147,13 +159,7 @@ const PfOMR: React.FC = () => {
     });
   };
 
-  
-  
-  
-  
-  
- 
-
+  //handleUpload function to handle process of uploading image file
   const handleUpload = async () => {
     if (!selectedFile) return;
 
@@ -162,7 +168,6 @@ const PfOMR: React.FC = () => {
 
     try {
    
-
       // Check if the file is a valid image format
       if (!selectedFile.type.startsWith('image/')) {
         alert('Please upload a valid image file.');
@@ -179,8 +184,6 @@ const PfOMR: React.FC = () => {
       setLoading(false);
       return;
     }
-
-     
 
 
       // Validate image orientation (portrait)
