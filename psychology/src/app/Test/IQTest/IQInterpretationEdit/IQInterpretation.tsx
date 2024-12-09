@@ -99,7 +99,7 @@ const IQInterpretation: React.FC = () => {
       <h2>Edit IQ Test Interpretation</h2>
       {iqTest && (
         <div>
-          <h3>{iqTest.nameOfTest}</h3>
+          <h3>Raven's Standard Progressive Matrices</h3>
 
           {/* Show success message if any */}
           {successMessage && <div className={styles.successMessage}>{successMessage}</div>}
