@@ -9,6 +9,7 @@ const lappy = require('../../images/lappy.png');
 const testPaper = require('../../images/testPaper.png');
 const pen = require('../../images/pen.png');
 
+
 const Home = () => {
   return (
     <div className={styles.homepagestudent}>

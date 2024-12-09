@@ -16,6 +16,9 @@ import {
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
+const DiscoverUlogo = require('../../../images/DiscoverUlogo.png');
+
+
 
 interface TestResultData {
     userID: string;
@@ -556,7 +559,17 @@ const PFResult: React.FC = () => {
         pdf.setTextColor(128, 128, 128); // RGB values for gray
     
         const footerYPos = pdf.internal.pageSize.getHeight() - 10; // Position 10mm from the bottom
-        pdf.text(footerText, pdfWidth / 2, footerYPos, { align: "center" });
+
+        const footerLogoXPos = (pdfWidth / 2) + 32; // Adjust horizontal position for logo
+        const footerLogoYPos = footerYPos - 2;
+        const footerTextXPos = (pdfWidth / 2) - 10; // Position text slightly to the right of the logo
+
+         // Add the logo
+        const logo = await fetch(DiscoverUlogo).then((res) => res.blob());
+        const logoUrl = URL.createObjectURL(logo);
+        pdf.addImage(logoUrl, "PNG", footerLogoXPos, footerLogoYPos - 5, 10, 10); // Add logo (10mm size)
+
+        pdf.text(footerText, footerTextXPos, footerYPos, { align: "center" });
     
         // Save the PDF
         pdf.save("PFResult.pdf");
