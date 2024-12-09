@@ -4,7 +4,7 @@
     margin:auto;
 }
 .table {
-    background-color: rgb(255, 252, 252);
+    background-color: #fffcfc;
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
@@ -23,8 +23,13 @@
     }
 
     & th {
-        background-color: rgb(245, 242, 242);
-        color: black;
+        background-color: #815aa5;
+        color: #f1f1f1;
+        
+        &:nth-child(even) {
+            background-color: #815aa5;
+            color: #f1f1f1;
+        }
     }
 }
 
@@ -55,7 +60,7 @@ h2 {
   .pagination button {
     padding: 10px 15px;
     margin: 0 10px;
-    background-color: #DC143C;
+    background-color:#815aa5;
     color: white;
     border: none;
     border-radius: 5px;
@@ -63,7 +68,8 @@ h2 {
   }
   
   .pagination button:disabled {
-    background-color: #4169E1;
+    background-color: #815aa5;
+    color: #ffffff;
     cursor: not-allowed;
   }
   
@@ -77,8 +83,8 @@ h2 {
     justify-content: center;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #DC143C;
-    color: white;
+    background-color: #d2d2d2;
+    color: #4e4e4e;
     text-decoration: none;
     font-weight: bold;
     border-radius: 5px;
@@ -87,11 +93,35 @@ h2 {
     &:hover {
         background-color: transparent;
         color:black;
-        border:1px solid #4169E1;
+        border:1px solid #d2d2d2;
     }
 
     &:focus {
         outline: none;
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.75);
+    }
+}
+
+:global(body.dark-mode){
+    .table{
+        & th {
+            background-color: #acacac;
+            color: #272727;
+            border: #222222;
+            
+            &:nth-child(even) {
+                background-color: #acacac;
+                color: #222222;
+            }
+        }
+    }
+    .testResultsLink {
+        background-color: #815aa5;
+        color: #e6e6e6;
+        &:hover {
+            background-color: transparent;
+            color: #e6e6e6;
+            border:1px solid #815aa5;
+        }
     }
 }

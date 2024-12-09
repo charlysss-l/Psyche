@@ -112,6 +112,7 @@ const OMRResult: React.FC = () => {
             await axios.post('http://localhost:5000/api/omr', dataToSubmit);
             alert('Test submitted successfully!');
             localStorage.setItem('iqTestResults', JSON.stringify(dataToSubmit));
+            navigate('/iqresults_list_both');
         } catch (error) {
             console.error('Error submitting answers:', error);
             alert('An error occurred while submitting the test.');
@@ -126,9 +127,9 @@ const OMRResult: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>
-            <h1>OMR IQ Test Result</h1>
+            <h1 className={style.omriqtitle}>OMR IQ Test Result</h1>
             <p className={style.ageWarning}>
-                "Find UserID and submit it to that User if found"
+                Find UserID and submit it to that User if found
             </p>
 
             <input

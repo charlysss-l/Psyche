@@ -436,7 +436,7 @@ const PfOMR: React.FC = () => {
 
       {omrScore && (
   <div>
-    <h3>Test Rawscore:</h3>
+    <h3 className={styles.testrawscore}>Test Rawscore:</h3>
     <pre>
       {Object.entries(omrScore).map(([section, score]) => (
         <div key={section}>

@@ -191,7 +191,7 @@ const IQStatistics: React.FC = () => {
         />
       </div>
       
-      <h2>Filter Result</h2>
+      <h2 className={styles.filterres}>Filter Result</h2>
       <div className={styles.filters}>
         {/* Filter Inputs */}
         <input
