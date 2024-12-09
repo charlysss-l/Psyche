@@ -52,19 +52,26 @@ const SignupForm: React.FC = () => {
   };
 
   const validatePassword = (password: string) => {
-    const regex = /^(?=.*[A-Z])(?=.*\W).{8,}$/;
+    // Use a broader regex that explicitly includes _ as a special character
+    const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>_\-]).{8,}$/;
     return regex.test(password);
   };
+  
 
   const evaluatePasswordStrength = (password: string) => {
-    if (password.length >= 8 && /[A-Z]/.test(password) && /\W/.test(password)) {
+    // Regex includes \W (non-word characters) or _ (explicitly checking for underscore)
+    const hasSpecialChar = /[\W_]/;
+    const hasUpperCase = /[A-Z]/;
+  
+    if (password.length >= 8 && hasUpperCase.test(password) && hasSpecialChar.test(password)) {
       return "Strong";
-    } else if (password.length >= 6 && /[A-Z]/.test(password)) {
+    } else if (password.length >= 6 && hasUpperCase.test(password)) {
       return "Medium";
     } else {
       return "Weak";
     }
   };
+  
 
   const handlePasswordChange = (value: string) => {
     setPassword(value);
@@ -97,6 +104,7 @@ const SignupForm: React.FC = () => {
       const response = await signupUser(email, password, studentNumber, userId);
 
       if (response.message === "Student created successfully") {
+        window.alert("Sign up successful! You can now log in.");
         navigate("/login", {
           state: { message: "Signup successful! Please log in." },
         });
@@ -140,7 +148,6 @@ const SignupForm: React.FC = () => {
   return (
     <div className={styles.signup_container}>
       <h2 className={styles.signup_h2}>Sign Up</h2>
-      {error && <p className={styles.errorMessage}>{error}</p>}
       <form onSubmit={handleSubmit} className={styles.signup_form}>
         <div>
           <label className={styles.signuplabel}>
@@ -199,8 +206,20 @@ const SignupForm: React.FC = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            style={{
+              borderColor:
+                confirmPassword === ""
+                  ? ""
+                  : confirmPassword === password
+                  ? "green"
+                  : "red",
+            }}
           />
         </div>
+
+        {error && <p className={styles.errorMessage}>{error}</p>}
+
+
         <div>
           <input
             className={styles.hidden}
