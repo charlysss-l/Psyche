@@ -4,6 +4,10 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+
+  h1{
+    color: #4d4d4d;
+  }
 }
 
 .ListTest {
@@ -30,8 +34,11 @@
 }
 
 :global(body.dark-mode) {
+  .TestContent h1{
+    color: #b072e2;
+  }
 .TestPF, .iqLinkContainer {
-  background: linear-gradient(135deg, #b072e2, #000000);
+  background: linear-gradient(135deg, #b072e2, #383838);
 }
 }
 
@@ -59,9 +66,9 @@
 }
 
 .pfLink:hover, .iqLink:hover {
-  color: black ;
+  color: #4d4d4d ;
   transition: color 0.3s ease;
-  text-shadow: 0 3px 6px rgba(212, 9, 182, 0.821); 
+  text-shadow: 0 3px 6px rgba(156, 156, 156, 0.821); 
 }
 
 .pfLink span, .iqLink span {

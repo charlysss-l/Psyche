@@ -85,7 +85,7 @@
     width: 100%;
     margin: 5px 0;
     padding: 8px 25px;
-    background-color: #f9f9f9;
+    background-color: #caa1ec;
     border: 1px solid #ddd;
     border-radius: 4px;
   }
@@ -108,10 +108,26 @@
   }
 
 
-  .resultCount {
+  .resultCount p {
     margin-top: 1rem;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #333;
+    color: #b072e2;
   }
   
+:global(body.dark-mode){
+  .heading {
+    color: #b072e2;
+  }
+  .idIqlist{
+    background-color: #dfdfdf;
+  }
+  .filterContainer {
+  .label{
+    color: #c092e6; 
+  }
+}
+  .resultCount p{
+    color: #dfdfdf;
+  }
+}

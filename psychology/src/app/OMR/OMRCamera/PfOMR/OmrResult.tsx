@@ -108,7 +108,7 @@ const OmrResult: React.FC = () => {
             await axios.post('http://localhost:5000/api/omr16pf', dataToSubmit);
             alert('Test submitted successfully!');
             localStorage.setItem('pfTestResults', JSON.stringify(dataToSubmit));
-            // navigate('/pf-results');
+            navigate('/all-pf-test-list');  
         } catch (error) {
             console.error('Error submitting answers:', error);
             alert('An error occurred while submitting the test.');
@@ -125,7 +125,7 @@ const OmrResult: React.FC = () => {
         <form onSubmit={handleSubmit} className={style.formTest}>
             <h1>OMR Personality Test Result</h1>
             <p className={style.ageWarning}>
-                "Find UserID and submit it to that User if found"
+                Find UserID and submit it to that User if found
             </p>
 
             <input

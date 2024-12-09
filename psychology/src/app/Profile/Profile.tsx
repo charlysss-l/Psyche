@@ -50,7 +50,7 @@ const Profile: React.FC = () => {
     <div className={style.container}>
       <h2 className={style.userinfo_pr}>Admin Profile</h2>
       <form onSubmit={handleSubmit} className={style.infoContainer}>
-        <label className={style.pr_label}>Username</label>
+        <label className={style.pr_label}>Email:</label>
         {/* Display username as text, not editable */}
         <p className={style.pr_input}>{'cvsu.psychologydepartment@gmail.com'}</p>
 

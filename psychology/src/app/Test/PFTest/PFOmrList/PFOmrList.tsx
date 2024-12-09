@@ -258,7 +258,7 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
 
   return (
     <div>
-      <h2 className={styles.title}>PF Results List (Pyhsical)
+      <h2 className={styles.title}>PF Results List ((Physical))
 
       <div className={styles.buttonsWrapper}>
     <button onClick={exportToExcel} className={styles.exportButton}>

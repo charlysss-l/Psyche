@@ -268,3 +268,47 @@
   padding: 5px;
   cursor: pointer;
 }
+:global(body.dark-mode){
+  .title {
+    color: #8a59b8;
+  }
+  .exportButton{
+    background-color: #38b43d;
+    color: #ffffff;
+
+    &:hover {
+      background-color: transparent;
+      color: #38b43d;
+      border: 1px solid #38b43d;
+    }
+  }
+  .archiveButton {
+    background-color: #dad8d8;
+    color: #000000;
+    border: 2px solid #dad8d8;
+
+    &:hover {
+      background-color: transparent;
+      color: #dad8d8;
+      border: 1px solid #dad8d8 ;
+    }
+
+    &:active {
+      background-color: #5f2a2a;
+    }
+  }
+  .resultsTableIQ th{
+    background-color: #9e979791;
+    color: #000000;
+  }
+  .archiveButtons {
+    background-color: #8a59b8;
+    color: #ffffff;
+
+    &:hover {
+      background-color: transparent;
+      color: #8a59b8;
+      border: 1px solid #8a59b8;
+    }
+  }
+}

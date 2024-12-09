@@ -47,7 +47,7 @@
 
   &:hover {
     background-color: transparent;
-    color: black;
+    color: #8049b4c0;
     border: 1px solid  #8049b4c0;
   }
 }
@@ -132,7 +132,7 @@
 }
 
 .uploadButton {
-  background-color: #666;
+  background-color: #5e2792;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -144,14 +144,14 @@
   margin-top: 20px;
 
   &:disabled {
-    background-color: #666;
+    background-color: #5e2792;
     cursor: not-allowed;
   }
 
   &:hover {
     background-color: transparent;
-    color: black;
-    border: 1px solid  #8049b4c0;
+    color: #5e2792;
+    border: 1px solid  #5e2792;
   }
 }
 
@@ -191,7 +191,7 @@
   &:hover {
     background-color: transparent;
     color: black;
-    border: 1px solid  #8049b4c0;
+    border: 1px solid  #666;
   }
 }
 
@@ -202,7 +202,7 @@ canvas {
 
 
 .saveScoreButton {
-  background-color: #8049b4c0;
+  background-color: #5e2792;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -216,8 +216,8 @@ canvas {
 
   &:hover {
     background-color: transparent;
-    color: black;
-    border: 1px solid  #666;
+    color: #5e2792;
+    border: 1px solid  #5e2792;
   }
 }
 
@@ -237,15 +237,17 @@ canvas {
 }
 
 .instructionContainer p {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.5;
   margin-bottom: 10px;
   color: #555555c0;
+  text-align: left;
 }
 
 .instructionContainer h1 {
   color: #815aa5;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .spinnerContainer {
@@ -288,6 +290,81 @@ canvas {
   margin-top: 10px;
   font-weight: 600;
   color: #815aa5;
+}
+.uploadedImage p{
+  color: #5e2792;
+}
+
+:global(body.dark-mode){
+  .omrCameraContainer {
+    background-color: #302f30;
+
+    h2{
+      color: #dad8d8;
+    }
+  }
+  .uploadLabel {
+    background-color: #8d8d8d;
+    color: #fafafa;
+
+    &:hover {
+      background-color: transparent;
+      color: #8d8d8d;
+      border: 1px solid  #8d8d8d;
+    }
+  }
+  .uploadButton {
+    background-color: #8d8d8d;
+    color: #fafafa;
+
+    &:hover {
+      background-color: transparent;
+      color: #8d8d8d;
+      border: 1px solid  #8d8d8d;
+    }
+  }
+  .openCameraButton {
+    background-color: #5e2792;
+    color: #fafafa;
+
+    &:hover {
+      background-color: transparent;
+      color: #5e2792;
+      border: 1px solid  #5e2792;
+    }
+  }
+  .omrProcessButton {
+    background-color: #5e2792;
+    color: #fafafa;
+
+    &:hover {
+      background-color: transparent;
+      color: #5e2792;
+      border: 1px solid  #5e2792;
+    }
+  }
+  .loadingText  {
+    color: #5e2792;
+  }
+  .saveScoreButton {
+    background-color: #4d4d4d;
+    color: #fafafa;
+
+    &:hover {
+      background-color: transparent;
+      color: #4d4d4d;
+      border: 1px solid  #4d4d4d;
+    }
+  }
+  .instructionContainer {
+    background-color: #302f30;
+    h1{
+      color: #dad8d8;
+    }
+    p{
+      color: #b072e2;
+    }
+  }
 }
 
 

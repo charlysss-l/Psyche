@@ -10,10 +10,12 @@
   }
   
 .filters{
-  width: 100%;
-  display: flex;
-  
+  width: 80%;
+  margin: auto;
+  gap: 20px;
+  display: flex;  
 }
+  
   .userListContaIner{
     width: 100%;
     margin-top: 20px;
@@ -29,7 +31,7 @@
     width: 100%;
     margin: 5px 0;
     padding: 8px 25px;
-    background-color: #f9f9f9;
+    background-color: #caa1ec;
     border: 1px solid #ddd;
     border-radius: 4px;
   }
@@ -51,10 +53,31 @@
     text-align: left;
   }
 
-  .resultCount {
+  .resultCount p{
     margin-top: 1rem;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #333;
+    color: #b072e2;
+  }
+  .filterres{
+    color: #b072e2;
+    text-align: center;
+  }
+  :global(body.dark-mode){
+    .heading {
+      color: #b072e2;
+    }
+    .filterres{
+      color: #b072e2;
+    }
+    .userListContaIner th{
+      color: #b072e2;
+    }
+    .idIqlist{
+      background-color: #dfdfdf;
+    }
+    .resultCount p{
+      color: #dfdfdf;
+    }
   }
   

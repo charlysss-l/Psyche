@@ -33,11 +33,29 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    background-color: #b072e2;
-    color: rgb(0, 0, 0);
+    background-color: #949494;
+    color: #fafafa;
 }
 .OMRlinkOnline:hover, .OMRLinkUpload:hover{
     background-color: transparent;
-    color: black;
-    border: 1px solid  #b072e2;
+    color: #949494;
+    border: 1px solid  #949494;
+}
+:global(body.dark-mode){
+    .OMRTITLE{
+        color: #949494;
+        
+    }
+    .OMRTITLE:hover{
+        color: #b072e2;
+    }    
+    .OMRlinkOnline, .OMRLinkUpload{
+        background-color: #b072e2;
+        color: #fafafa;
+    }
+    .OMRlinkOnline:hover, .OMRLinkUpload:hover{
+        background-color: transparent;
+        color: #b072e2;
+        border: 1px solid  #b072e2;
+    }
 }

@@ -18,23 +18,26 @@
     body.dark-mode {
       background-color: #121212 ; /* Dark background */
       color: #ffffff ; /* Light font color for dark mode */
+      transition: background-color 0.5s ease, color 0.5s ease; 
+
     }
   
     body {
       background-color: #ffffff; /* Light background */
       color: #000000; /* Dark font color for light mode */
+      transition: background-color 0.5s ease, color 0.5s ease; 
     }
   }
   :global {
     body.dark-mode {
       p {
-        color: #949393;
+        color: #ffffff;
       }
       h1 {
         color: #f592e0;
       }
       a, h2 {
-        color: #b4b4b4;
+        color: #ffffff;
       }
       .navItem:hover {
         border-bottom: 1px solid #0f9af7; 

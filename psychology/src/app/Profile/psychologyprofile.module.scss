@@ -94,7 +94,7 @@ p {
 .submitButton:hover {
   background-color: transparent;
   color: black;
-  border: 1px solid  $button-hover-color;
+  border: 1px solid  $button-color;
 }
 
 .updateMessage {
@@ -112,5 +112,29 @@ p {
 }
 
 .passWord {
-  color: red;
+  color: #e23f3f;
+}
+:global(body.dark-mode){
+  .userinfo_pr {
+    color: #b072e2;
+  }
+  .infoContainer {
+    background-color: #302f30;
+  }
+  .pr_input {
+    background-color: #e2e2e2;
+    color: #b072e2;
+  }
+  .pr_label {
+    color: #b072e2;
+  }
+  .submitButton{ 
+    background-color: #8d8d8d;
+
+    &:hover {
+      background-color: transparent;
+      color: #8d8d8d;
+      border: 1px solid  #8d8d8d;
+    }
+  } 
 }

@@ -7,3 +7,8 @@
 .resultSectionIQ{
     border-top: 1px solid black;
 }
+:global(body.dark-mode){
+    .repTitle{
+        color: #cccccc;
+    }
+}

@@ -24,4 +24,12 @@
     font-size: 1.5em;
     margin-bottom: 10px;
   }
-  
+  :global(body.dark-mode){
+  .resultSection{
+    background-color: #302f30;
+    color: #dad8d8;
+  }
+  .dashboardContainer h1{
+      color: #dad8d8; 
+  }
+}

@@ -124,20 +124,21 @@
   }
 
   .archiveButtons {
-    background-color: #e0ca7f;
+    background-color: #847096;
     transition: all 0.3s ease;
   }
   
   .archiveButtons:hover {
     background-color: transparent;
-      color:black;
-      border:1px solid #6d560d;
+    color: #847096;
+    border:1px solid #847096;
   }
 
   .title {
     display: flex; /* Make the title a flex container */
     justify-content: space-between; /* Distribute the content: title on the left, buttons on the right */
     align-items: center; /* Vertically align the title and buttons */
+    color: #815aa5;
   }
   
   .buttonsWrapper {
@@ -147,9 +148,9 @@
   
   .archiveButton {
     
-    background-color: #3b5998; /* Blue like a mailbox */
+    background-color: #847096; /* Blue like a mailbox */
     color: white; /* Text color */
-    border: 2px solid #2d4373; /* Slightly darker border */
+    border: 2px solid #847096; /* Slightly darker border */
     border-radius: 12px; /* Rounded edges */
     padding: 10px 20px; /* Adjust padding for size */
     font-size: 16px; /* Slightly larger text */
@@ -164,7 +165,7 @@
   .archiveButton:hover {
     background-color: transparent;
     color:black;
-    border:1px solid #4b70b5; /* Lighter blue on hover */
+    border:1px solid #847096; /* Lighter blue on hover */
    
   }
   
@@ -238,7 +239,7 @@
 
   .exportButton {
     
-    background-color: #4CAF50;
+    background-color: #529154;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -248,8 +249,8 @@
   
   .exportButton:hover {
     background-color: transparent;
-      color:black;
-      border:1px solid #45a049;
+    color: #529154;
+    border:1px solid #529154;
   }
   
   
@@ -264,7 +265,7 @@
 .viewImageButton {
   width: 130px;
   margin: 10px;
-  background-color: #bbae3c;
+  background-color: #333;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -275,8 +276,8 @@
 
 .viewImageButton:hover{
   background-color: transparent;
-  color:black;
-  border:1px solid #948929;
+  color: #333;
+  border:1px solid #333;
 }
 
 .modalImageView {
@@ -313,4 +314,48 @@
   border: none;
   padding: 5px;
   cursor: pointer;
+}
+:global(body.dark-mode){
+  .title{
+    color: #815aa5;
+  }
+  .exportButton{
+    background-color: #38b43d;
+    color: #ffffff;
+
+    &:hover {
+      background-color: transparent;
+      color: #38b43d;
+      border: 1px solid #38b43d;
+    }
+  }
+  .archiveButton {
+    background-color: #dad8d8;
+    color: #000000;
+    border: 2px solid #dad8d8;
+
+    &:hover {
+      background-color: transparent;
+      color: #dad8d8;
+      border: 1px solid #dad8d8 ;
+    }
+
+    &:active {
+      background-color: #5f2a2a;
+    }
+  }
+  .resultsTable th{
+    background-color: #9e979791;
+    color: #000000;
+  }
+  .archiveButtons {
+    background-color: #8a59b8;
+    color: #ffffff;
+
+    &:hover {
+      background-color: transparent;
+      color: #8a59b8;
+      border: 1px solid #8a59b8;
+    }
+  }
 }
