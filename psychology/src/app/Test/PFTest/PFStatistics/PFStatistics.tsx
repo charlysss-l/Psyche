@@ -357,7 +357,7 @@ const PFStatistics: React.FC = () => {
       </div>
 
        {/* Display Total Results */}
-  <div className={styles.totalResultsContainer}>
+  <div className={styles.resultCount}>
     <p>Total Online & Physical Data Results: {totalResults}</p>
   </div>
 
