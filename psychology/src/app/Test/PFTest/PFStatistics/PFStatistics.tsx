@@ -30,6 +30,7 @@ const PFStatistics: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [meaning, setFilter] = useState<'left' | 'average' | 'right' | 'all'>('all'); // Filter state
   const [selectedFactor, setSelectedFactor] = useState<string>(""); // Factor Letter state
+  const [totalResults, setTotalResults] = useState<number>(0); // State to store total results count
   const [filters, setFilters] = useState({
     age: '',
     sex: '',
@@ -70,26 +71,27 @@ const PFStatistics: React.FC = () => {
       if (!onlineResponse.ok) {
         throw new Error(`Network response was not ok: ${onlineResponse.statusText}`);
       }
-
+  
       const onlineData = await onlineResponse.json();
-
+  
       const physicalResponse = await fetch('http://localhost:5000/api/omr16pf');
       if (!physicalResponse.ok) {
         throw new Error(`Network response was not ok: ${physicalResponse.statusText}`);
       }
-
+  
       const physicalData = await physicalResponse.json();
-
+  
       // Combine data from both sources
-      onlineData.data = [...onlineData.data, ...physicalData.data];
-
-      setResults(onlineData.data); // Set fetched data
+      const combinedData = [...onlineData.data, ...physicalData.data];
+      setResults(combinedData); // Set the combined data
+      setTotalResults(combinedData.length); // Store total results count
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     fetchData();
@@ -269,6 +271,11 @@ const PFStatistics: React.FC = () => {
 
       </div>
 
+       {/* Display Total Results */}
+  <div className={styles.totalResultsContainer}>
+    <p>Total Online & Physical Data Results: {totalResults}</p>
+  </div>
+
       <h2 className={styles.heading}>Filter Results</h2>
 
       {/* Filter Widget */}
@@ -334,14 +341,17 @@ const PFStatistics: React.FC = () => {
         <option value="Irregular">Irregular</option>
         </select>
       </div>
-
-     {/* Display number of results */}
-  <div className={styles.resultCount}>
-    <p>Total UserID Results: {filteredUserIDs.length}</p>
-  </div>
   
       <table className={styles.userListContaIner}>
-      <h3 className={styles.heading}>Filtered User IDs</h3>
+{/* Display heading and number of results */}
+{filteredUserIDs.length > 0 && (
+  <>
+    <h3 className={styles.heading}>Filtered User IDs</h3>
+    <div className={styles.resultCount}>
+      <p>Total UserID Results: {filteredUserIDs.length}</p>
+    </div>
+  </>
+)}
       <div className={styles.responsesWrapper}>
 
       <ul className={styles.filteredUserIDs}>
