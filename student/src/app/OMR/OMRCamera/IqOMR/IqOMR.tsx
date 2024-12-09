@@ -418,7 +418,7 @@ const IqOMR: React.FC = () => {
       {/* OMR Container */}
       <div className={styles.omrCameraContainer}>
         <h2>IQ Test Upload</h2>
-        <button onClick={resetUploadCount}>Reset Upload Count</button>
+        {/* <button onClick={resetUploadCount}>Reset Upload Count</button> */}
 
         <div className={styles.fileInputWrapper}>
           <label htmlFor="fileInput" className={styles.uploadLabel}>Choose Image</label>
@@ -428,6 +428,7 @@ const IqOMR: React.FC = () => {
         {/* Display image preview if available */}
         {imagePreview && (
           <div className={styles.imagePreview}>
+            {/* <img src={imagePreview} alt="Image Preview" className={styles.previewImage} /> */}
             <img src={imagePreview} alt="Rotating Image" />
           </div>
         )}
