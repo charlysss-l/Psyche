@@ -158,6 +158,33 @@
   }
 }
 
+.passwordStrengthContainer {
+  display: flex;
+  font-weight: bold;
+
+    p {
+      margin: -.1rem 0 0.5rem;
+      font-weight: bold;
+    }
+}
+
+.passwordStrength {
+  font-size: 0.9rem;
+  margin-left: .5rem;
+
+  &.weak {
+    color: #dc3545; // Red for Weak
+  }
+
+  &.medium {
+    color: #ffc107; // Yellow for Medium
+  }
+
+  &.strong {
+    color: #28a745; // Green for Strong
+  }
+}
+
 :global(body.dark-mode){
   .container {
     background-color: #2a3744ef;
