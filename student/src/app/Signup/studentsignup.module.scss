@@ -11,7 +11,7 @@
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   background-color: #f9f9f9;
-  margin-top: 10%;
+  margin-top: 5%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -25,8 +25,9 @@
 .errorMessage {
   color: #ff4d4d;
   font-size: 0.9rem;
-  margin-bottom: 1rem;
   text-align: center;
+  margin-bottom: -1rem;
+  margin-top: -1rem;
 }
 
 .signup_form {
@@ -98,6 +99,58 @@
       color: #265a3c;
       border-bottom: 1px solid #265a3c;
     }
+  }
+}
+
+.passwordRules {
+  margin-bottom: -1rem;
+  font-size: 0.9rem;
+
+  p {
+    margin: 0 0 0.5rem;
+    font-weight: bold;
+    color: #265a3c;
+
+
+  }
+
+  ul {
+    margin-top: -.5rem;
+    list-style-type: disc;
+
+    p {
+      margin-bottom: 0.3rem;
+      color: #d7a52f;
+      font-size: .7rem;
+    }
+  }
+}
+
+.passwordStrengthContainer {
+  display: flex;
+  font-weight: bold;
+
+    p {
+      margin: -.1rem 0 0.5rem;
+      font-weight: bold;
+      color: #265a3c;
+    }
+}
+
+.passwordStrength {
+  font-size: 0.9rem;
+  margin-left: .5rem;
+
+  &.weak {
+    color: #dc3545; // Red for Weak
+  }
+
+  &.medium {
+    color: #ffc107; // Yellow for Medium
+  }
+
+  &.strong {
+    color: #28a745; // Green for Strong
   }
 }
 
