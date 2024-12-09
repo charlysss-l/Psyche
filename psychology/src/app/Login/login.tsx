@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./pagelogin.module.scss";
+//login for users and handling password reset.
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");

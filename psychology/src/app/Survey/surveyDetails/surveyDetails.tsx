@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./surveyDetails.module.scss";
-
+// SurveyDetails component to fetch and display survey details
 const SurveyDetails: React.FC = () => {
+    // Extract survey id from URL params using useParams hook
   const { id } = useParams<{ id: string }>();
+    // Define state to hold survey details
   const [survey, setSurvey] = useState<any>(null);
-
+  // useEffect hook to fetch survey details when component mounts or id changes
   useEffect(() => {
     const fetchSurveyDetails = async () => {
-      try {
+      try {         // Fetch survey details from API using axios
         const response = await axios.get(`http://localhost:5000/api/surveys/${id}`);
         setSurvey(response.data);
       } catch (error) {

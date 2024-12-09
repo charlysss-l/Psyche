@@ -3,18 +3,24 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styles from './surveyResponse.module.scss'; // Import your SCSS module for styling
 
-const SurveyResponse: React.FC = () => {
+// SurveyResponse component to display responses to a specific survey
+const SurveyResponse: React.FC = () => { 
+    // Extract surveyId from the URL using useParams hook
   const { surveyId } = useParams<{ surveyId: string }>(); // Extract the surveyId from the URL
+
+    // State variables for storing survey responses and any error messages
   const [responses, setResponses] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  //  // useEffect hook to fetch survey responses when the component mounts or surveyId changes
   useEffect(() => {
     // Ensure surveyId is available before making the request
     if (!surveyId) {
       setError('Survey ID is missing');
       return;
     }
-
+    
+    // Function to fetch survey responses from the API
     const fetchSurveyResponses = async () => {
       try {
         const response = await axios.get(

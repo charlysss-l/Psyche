@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styles from './survey.module.scss'; // Assuming this file contains your SCSS styles
 
-const SurveyForm = () => {
-  const navigate = useNavigate(); // Initialize useNavigate hook
+const SurveyForm = () => {   // Initialize state variables for form data.
+  const navigate = useNavigate(); // Initialize useNavigate hook to redirect after form submission
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -15,43 +15,42 @@ const SurveyForm = () => {
       questions: [{ questionText: '', choices: [''] }],
     },
   ]);
-
+  // Handle section title changes
   const handleChangeSectionTitle = (sIndex: number, value: string) => {
     const newSections = [...sections];
     newSections[sIndex].sectionTitle = value;
     setSections(newSections);
   };
-
+  // Handle question text changes
   const handleChangeQuestionText = (sIndex: number, qIndex: number, value: string) => {
     const newSections = [...sections];
     newSections[sIndex].questions[qIndex].questionText = value;
     setSections(newSections);
   };
-
   const handleChangeChoices = (sIndex: number, qIndex: number, cIndex: number, value: string) => {
     const newSections = [...sections];
     newSections[sIndex].questions[qIndex].choices[cIndex] = value;
     setSections(newSections);
   };
-
+    // Add a new choice to a question
   const handleAddChoice = (sIndex: number, qIndex: number) => {
     const newSections = [...sections];
     newSections[sIndex].questions[qIndex].choices.push('');
     setSections(newSections);
   };
-
+    // Delete a choice from a question
   const handleDeleteChoice = (sIndex: number, qIndex: number, cIndex: number) => {
     const newSections = [...sections];
     newSections[sIndex].questions[qIndex].choices.splice(cIndex, 1);
     setSections(newSections);
   };
-
+  // Add a new question to a section
   const handleAddQuestion = (sIndex: number) => {
     const newSections = [...sections];
     newSections[sIndex].questions.push({ questionText: '', choices: [''] });
     setSections(newSections);
   };
-
+  // Delete a question from a section
   const handleDeleteQuestion = (sIndex: number, qIndex: number) => {
     const newSections = [...sections];
     newSections[sIndex].questions.splice(qIndex, 1);
@@ -65,7 +64,7 @@ const SurveyForm = () => {
     ];
     setSections(newSections);
   };
-
+  // Delete a section from the survey
   const handleDeleteSection = (sIndex: number) => {
     const newSections = [...sections];
     newSections.splice(sIndex, 1);
