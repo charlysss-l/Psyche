@@ -11,7 +11,7 @@
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   background-color: #f9f9f9;
-  margin-top: 10%;
+  margin-top: 5%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -101,6 +101,58 @@
   }
 }
 
+.passwordRules {
+  margin-bottom: -1rem;
+  font-size: 0.9rem;
+
+  p {
+    margin: 0 0 0.5rem;
+    font-weight: bold;
+    color: #265a3c;
+
+
+  }
+
+  ul {
+    margin-top: -.5rem;
+    list-style-type: disc;
+
+    p {
+      margin-bottom: 0.3rem;
+      color: #d7a52f;
+    }
+  }
+}
+
+.passwordStrengthContainer {
+  display: flex;
+  font-weight: bold;
+
+    p {
+      margin: -.1rem 0 0.5rem;
+      font-weight: bold;
+      color: #265a3c;
+    }
+}
+
+.passwordStrength {
+  font-size: 0.9rem;
+  margin-left: .5rem;
+
+  &.weak {
+    color: #dc3545; // Red for Weak
+  }
+
+  &.medium {
+    color: #ffc107; // Yellow for Medium
+  }
+
+  &.strong {
+    color: #28a745; // Green for Strong
+  }
+}
+
+
 @media (max-width: 768px) {
   .signup_container {
     padding: 1.5rem;
@@ -151,6 +203,7 @@
 .hidden {
   display: none;
 }
+
 
 :global(body.dark-mode) {
   .signup_container{
