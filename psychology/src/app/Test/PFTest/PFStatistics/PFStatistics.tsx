@@ -316,6 +316,8 @@ const PFStatistics: React.FC = () => {
         }}
       />
 
+
+
       {/* Display Factor Meanings if a factor is selected */}
 {selectedFactor && (
   <div className={styles.factorMeaning}>
@@ -327,27 +329,31 @@ const PFStatistics: React.FC = () => {
       <p><strong className={styles.rightMeaning}>Right Meaning:</strong> {selectedFactorMeanings.rightMeaning}</p>
     )}
 
+<div className={styles.averageContainer}>
     {meaning === 'average' && (
       <>
-      {selectedFactorMeanings.leftMeaning && (
-          <p><strong className={styles.average}>(Average)</strong></p>
+        {selectedFactorMeanings.leftMeaning && (
+          <p><strong className={styles.averageMeaning}>(Average)</strong></p>
         )}
         {selectedFactorMeanings.leftMeaning && (
-          <p><strong className={styles.leftMeaning}>Left Meaning:</strong> {selectedFactorMeanings.leftMeaning}</p>
+          <p><strong className={styles.averageLeftMeaning}>Left Meaning:</strong> {selectedFactorMeanings.leftMeaning}</p>
         )}
         {selectedFactorMeanings.rightMeaning && (
-          <p><strong className={styles.rightMeaning}>Right Meaning:</strong> {selectedFactorMeanings.rightMeaning}</p>
+          <p><strong className={styles.averageRightMeaning}>Right Meaning:</strong> {selectedFactorMeanings.rightMeaning}</p>
         )}
       </>
     )}
-
+</div>
     {meaning === 'all' && (
       <>
         {selectedFactorMeanings.leftMeaning && (
-          <p><strong className={styles.leftMeaning}>Left Meaning:</strong> {selectedFactorMeanings.leftMeaning}</p>
+          <p><strong className={styles.allLeftMeaning}>Left Meaning:</strong> {selectedFactorMeanings.leftMeaning}</p>
+        )}
+        {selectedFactorMeanings.leftMeaning && (
+          <p><strong className={styles.allAverage}>(Average)</strong></p>
         )}
         {selectedFactorMeanings.rightMeaning && (
-          <p><strong className={styles.rightMeaning}>Right Meaning:</strong> {selectedFactorMeanings.rightMeaning}</p>
+          <p><strong className={styles.allRightMeaning}>Right Meaning:</strong> {selectedFactorMeanings.rightMeaning}</p>
         )}
       </>
     )}

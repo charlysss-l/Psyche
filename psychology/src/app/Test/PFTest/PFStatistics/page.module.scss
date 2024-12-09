@@ -115,19 +115,90 @@
     color: #b072e2;
   }
 
-.leftMeaning {
-  color: gold;
-}
+  .factorMeaning {
+    margin-left: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .leftMeaning, .rightMeaning, .average {
+    margin: 0 15px; /* Optional: Adds spacing between the elements */
+  }
+  
+  .leftMeaning {
+    margin-left: -350px;
+    color: gold;
+    font-weight: bold;
+    font-style: italic;
+    flex-grow: 2; /* Increases the space taken by left meaning */
+  }
+  
+  .rightMeaning {
+    margin-left: 650px;
+    color: green;
+    font-weight: bold;
+    font-style: italic;
+    flex-grow: 2; /* Increases the space taken by right meaning */
+  }
+  
+  .average {
+    color: gray;
+    font-style: italic;
+    font-size: 18px;
+  }
 
-.rightMeaning {
-  color: green;
-}
+  .allAverage {
+    color: gray;
+    font-style: italic;
+    font-size: 18px;
+  }
 
-.average {
-  color: gray;
-  font-style: italic;
-  font-size: 18px;
-}
+  .allLeftMeaning {
+    margin-left: -50px;
+    color: gold;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .allRightMeaning {
+    color: green;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .averageContainer {
+    margin-left: -80px;
+    display: flex;
+    flex-direction: column; /* Aligns items vertically (in a column) */
+    align-items: center; /* Centers the items horizontally within the column */
+    margin-bottom: 30px;
+  }
+  
+  .averageMeaning {
+    color: gray;
+    font-style: italic;
+    font-size: 18px;
+    margin-bottom: 10px; /* Adds space below the average meaning */
+  }
+  
+  .averageLeftMeaning {
+    color: gold;
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 10px; /* Adds space below the left meaning */
+  }
+  
+  .averageRightMeaning {
+    color: green;
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  
+  
+  
   
 :global(body.dark-mode){
   .heading {
