@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import style from './psychologyprofile.module.scss';
-
+//Username field is for displaying the user’s email, non-editable.
 const Profile: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>(''); // State for confirm password

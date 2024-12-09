@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import style from "./psychologyuser.module.scss";
-
-interface User {
+//Handles fetching, editing, deleting, and searching for users.
+interface User {  
   userId: string;
   studentNumber: string;
   email: string;
   role: string;
 }
 
-const User = () => {
+const User = () => {  //Holds the list of all users fetched from the server.
   const [users, setUsers] = useState<User[]>([]);
   const [editUserId, setEditUserId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");

@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./surveyList.module.scss"; // SCSS module for styling
 import { Link } from "react-router-dom";
-
+// SurveyList component to display a list of available surveys
 const SurveyList: React.FC = () => {
   const [surveys, setSurveys] = useState<any[]>([]);
   const [filteredSurveys, setFilteredSurveys] = useState<any[]>([]);
   const [categories, setCategories] = useState<string[]>(["All"]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const surveysPerPage = 5;
-
+  // useEffect hook to fetch surveys and categories on component mount
   useEffect(() => {
     const fetchSurveys = async () => {
-      try {
+      try {          // Fetch surveys from the API
         const response = await axios.get("http://localhost:5000/api/surveys");
         setSurveys(response.data);
         setFilteredSurveys(response.data);
 
-        // Get unique categories for filter
+        // Extract unique categories from surveys for filter options
         const uniqueCategories = [
           "All", 
           ...response.data.reduce((acc: string[], survey: any) => {
@@ -27,14 +27,14 @@ const SurveyList: React.FC = () => {
             return acc;
           }, []),
         ];
-        setCategories(uniqueCategories);
+        setCategories(uniqueCategories); // Set the unique categories for the dropdown
       } catch (error) {
         console.error("Error fetching surveys", error);
       }
     };
     fetchSurveys();
   }, []);
-
+  // Calculate the indexes for pagination based on current page
   const indexOfLastSurvey = currentPage * surveysPerPage;
   const indexOfFirstSurvey = indexOfLastSurvey - surveysPerPage;
   const currentSurveys = filteredSurveys.slice(indexOfFirstSurvey, indexOfLastSurvey);

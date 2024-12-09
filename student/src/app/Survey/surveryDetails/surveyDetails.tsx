@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./surveyDetails.module.scss";
 import { useParams, useNavigate } from "react-router-dom";
-
+//allows user's to answer questions and submit the responses.
+//
 interface Survey {
   _id: string;
   title: string;
@@ -17,7 +18,7 @@ interface Survey {
 }
 
 interface SelectedAnswers {
-  [questionId: string]: string; // Selected choice
+  [questionId: string]: string; // Map question IDs to the selected choice
 }
 
 const SurveyDetails: React.FC = () => {
@@ -30,7 +31,7 @@ const SurveyDetails: React.FC = () => {
 
   const userId = localStorage.getItem("userId");
 
-  // Fetch survey details
+  // Fetch survey details and check if already answered when component mounts or surveyId changes.
   useEffect(() => {
     const fetchSurveyDetails = async () => {
       try {
@@ -58,7 +59,7 @@ const SurveyDetails: React.FC = () => {
       }
     };
 
-    if (surveyId) {
+    if (surveyId) { // Fetch details and check status only if surveyId is available
       fetchSurveyDetails();
       checkIfSurveyAnswered();
     }
@@ -74,7 +75,7 @@ const SurveyDetails: React.FC = () => {
 
   // Submit the survey
   const handleSubmit = async () => {
-    if (!survey || surveyAlreadyAnswered) return;
+    if (!survey || surveyAlreadyAnswered) return;  // Prevent submission if survey is missing or already answered.
 
     if (!userId) {
       alert("User is not logged in.");
@@ -151,4 +152,4 @@ const SurveyDetails: React.FC = () => {
   );
 };
 
-export default SurveyDetails;
+export default SurveyDetails;   // Export component for use in routing or other modules.

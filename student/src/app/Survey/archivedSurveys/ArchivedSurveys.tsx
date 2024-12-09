@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./ArchivedSurveys.module.scss";
 
+//Uses axios to fetch survey data from an API endpoint.
+//Manages survey data, loading status, and error messages using React's useState.
+//
 interface ArchivedSurvey {
   _id: string;
   surveyId: string;
@@ -15,9 +18,10 @@ const ArchivedSurveys: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   
-
+  // Retrieve the user ID from localStorage. Replace with your own logic if needed.
   const userId = localStorage.getItem("userId"); // Replace this with your logic to get the logged-in user's ID
-
+  
+  // Fetch archived surveys when the component mounts or when the userId changes.
   useEffect(() => {
     const fetchArchivedSurveys = async () => {
       if (!userId) {

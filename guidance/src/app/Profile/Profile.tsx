@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import style from './Guidanceprofile.module.scss';
-
+//This component enables the "Guidance" user to update their password securely.
+ //This component handles the profile management of the "Guidance" user. 
+ //allow user to update their password 
+ //has validation - token based authorization
 const Profile: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string>(''); // State for confirm password
-
-
+ 
+//Handles the form submission for updating the password.
+//Validates if the passwords match, retrieves the authorization token, and sends a request to the backend API to update the password.
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);

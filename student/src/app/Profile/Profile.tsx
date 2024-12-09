@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import style from "./page.module.scss";
 import { set } from "mongoose";
 
+//Retrieves user details from a backend server. 
+//Ensures all inputs are valid before submission.
+//Token based authentication
+
 const Profile: React.FC = () => {
+    // State variables for managing form data and messages
   const [userId, setUserId] = useState<string | null>(null);
   const [username, setUsername] = useState<string>("");
   const [studentNumber, setStudentNumber] = useState<string>("");
@@ -13,10 +18,11 @@ const Profile: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+    // Function to fetch the user's profile information from the backend
     const fetchProfile = async () => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token"); // Retrieve the authentication token
       if (!token) {
-        setMessage("Authorization token is missing.");
+        setMessage("Authorization token is missing."); // Handle missing token
         return;
       }
 

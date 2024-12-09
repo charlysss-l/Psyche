@@ -48,7 +48,7 @@
 .OMRlinkOnline:hover, .OMRLinkUpload:hover{
     background-color: transparent;
     border: 1px solid #95a581b5;
-    color: rgb(95, 91, 91);
+    color: #95a581b5;
 }
 :global(body.dark-mode){
     .OMRTITLE{
@@ -65,7 +65,7 @@
     }
     .OMRlinkOnline:hover, .OMRLinkUpload:hover{
         background-color: transparent;
-        color: #e7e7e7;
+        color: #d7a52f;
         border: 1px solid #d7a52f;
     }
     .OMRTITLEnext{
