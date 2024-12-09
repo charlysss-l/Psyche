@@ -89,3 +89,9 @@ $button-hover: #d2d2d2;
   font-weight: bold;
   border-bottom: 2px solid $accent-dark; 
 }
+
+:global(body.dark-mode){
+  .logoSection p{
+    color: #b072e2;
+  }
+}

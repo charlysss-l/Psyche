@@ -8,7 +8,7 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
 $font-family: Arial, sans-serif;
 
 .formTest {
-  background-color: #ffffff;
+  background-color: #dad8d8;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -42,12 +42,12 @@ h1 {
   margin-bottom: 20px;
   justify-self: center;
   font-family: $font-family; 
-
+  color:#5e2792;
 
 }
 
 .ageWarning {
-  color: #815aa5;
+  color: #e62f2f;
   font-weight: bold;
   margin-top: 1px;
   margin-bottom: 10px;
@@ -233,8 +233,14 @@ button {
   font-size: 16px;
   border: none;
   cursor: pointer;
+  background-color: #5e2792;
   transition: background-color 0.3s ease, transform 0.2s ease;
 
+  &:hover {
+    background-color: transparent; 
+    color: #5e2792;
+    border: 1px solid #5e2792;
+  }
   &:disabled {
       background-color: #ccc;
       cursor: not-allowed;
@@ -260,4 +266,28 @@ button {
 
 .hidden {
     display: none;
+}
+:global(body.dark-mode){
+  .formTest {
+    background-color: #847096;
+    h1{
+      color: #dad8d8;
+    }
+    p{
+      color: #af1c1c;
+    }
+    h3{
+      color: #5e2792;
+    }
+    button{
+      background-color: #4d4d4d;
+      color: #dad8d8;
+
+      &:hover {
+        background-color: transparent;
+        color: #4d4d4d;
+        border: 1px solid  #4d4d4d;
+      }
+    }
+  }
 }

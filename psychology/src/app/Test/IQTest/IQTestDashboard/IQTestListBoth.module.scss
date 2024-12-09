@@ -3,6 +3,10 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+
+    h1{
+      color: #4d4d4d;
+  }
   }
   
   .resultSection {
@@ -24,4 +28,12 @@
     font-size: 1.5em;
     margin-bottom: 10px;
   }
-  
+  :global(body.dark-mode){
+  .resultSection{
+    background-color: #847096;
+    color: #dad8d8;
+  }
+  .dashboardContainer h1{
+      color: #dad8d8; 
+  }
+}

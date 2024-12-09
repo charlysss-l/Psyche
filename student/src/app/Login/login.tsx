@@ -86,7 +86,7 @@ const Login: React.FC = () => {
     <div className={styles.loginContainer}>
       <div className={styles.imageContainer}></div>
       <div className={styles.loginForm}>
-        <h1 className={styles.loginForm_h1}>Welcome to Discover U!</h1>
+        <h1 className={styles.loginForm_h1}>Welcome to DiscoverU!</h1>
         <h2 className={styles.loginForm_h2}>Login</h2>
 
         {error && <p className={styles.errorMessage}>{error}</p>}
