@@ -33,6 +33,7 @@ interface OMR {
     interpretation: Interpretation;
     testType: 'Online' | 'Physical';
     testDate: Date;
+    isArchived: boolean;
     uploadURL: string;
 }
 
@@ -95,13 +96,16 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
         };
       });
 
-      setResults(resultWithInterpretation);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
-    } finally {
-      setLoading(false);
-    }
-  };
+       // Filter out archived results
+       const filteredResults = data.data.filter((result: OMR) => !result.isArchived);
+       setResults(filteredResults); // Update results to show only non-archived results
+     } catch (err) {
+       setError(err instanceof Error ? err.message : 'An unknown error occurred');
+       console.error('Error fetching data:', err);
+     } finally {
+       setLoading(false); // Stop loading when done
+     }
+   };
 
   useEffect(() => {
       fetchData();

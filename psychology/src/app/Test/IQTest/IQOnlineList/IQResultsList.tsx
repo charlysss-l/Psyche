@@ -38,6 +38,7 @@ interface UserIQTest {
     percentilePoints: number;
     resultInterpretation: string;
   };
+  isArchived: boolean;
 }
 
 const IQResultsList: React.FC = () => {
@@ -92,14 +93,16 @@ const IQResultsList: React.FC = () => {
         };
       });
   
-      // Replace state directly
-      setResults(resultsWithInterpretation);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
-    } finally {
-      setLoading(false);
-    }
-  };
+       // Filter out archived results
+    const filteredResults = data.data.filter((result: UserIQTest) => !result.isArchived);
+    setResults(filteredResults); // Update results to show only non-archived results
+  } catch (err) {
+    setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    console.error('Error fetching data:', err);
+  } finally {
+    setLoading(false); // Stop loading when done
+  }
+};
   
   
 
