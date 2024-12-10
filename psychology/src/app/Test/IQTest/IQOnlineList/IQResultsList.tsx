@@ -72,8 +72,11 @@ const IQResultsList: React.FC = () => {
       }
       const iqTestData = await iqTestResponse.json();
       const interpretations: Interpretation[] = iqTestData.interpretation;
+
+          // Filter out archived results
+    const filteredResults = data.data.filter((result: UserIQTest) => !result.isArchived);
   
-      const resultsWithInterpretation = data.data.map((result: UserIQTest) => {
+      const resultsWithInterpretation = filteredResults.map((result: UserIQTest) => {
         const interpretation = interpretations.find(
           (interp) =>
             result.age >= interp.minAge &&
@@ -93,9 +96,8 @@ const IQResultsList: React.FC = () => {
         };
       });
   
-       // Filter out archived results
-    const filteredResults = data.data.filter((result: UserIQTest) => !result.isArchived);
-    setResults(filteredResults); // Update results to show only non-archived results
+   
+    setResults(resultsWithInterpretation); // Update results to show only non-archived results
   } catch (err) {
     setError(err instanceof Error ? err.message : 'An unknown error occurred');
     console.error('Error fetching data:', err);

@@ -76,8 +76,11 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
       const iqTestData = await iqTestResponse.json();
       const interpretations: Interpretation[] = iqTestData.interpretation;
 
+      // Filter out archived results
+      const filteredResults = data.data.filter((result: OMR) => !result.isArchived);
+
       // Add interpretation to the user's result
-      const resultWithInterpretation = data.data.map((result: OMR) => {
+      const resultWithInterpretation = filteredResults.map((result: OMR) => {
         const interpretation = interpretations.find(
           (interp) =>
             result.age >= interp.minAge &&
@@ -96,9 +99,8 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
         };
       });
 
-       // Filter out archived results
-       const filteredResults = data.data.filter((result: OMR) => !result.isArchived);
-       setResults(filteredResults); // Update results to show only non-archived results
+       
+       setResults(resultWithInterpretation); // Update results to show only non-archived results
      } catch (err) {
        setError(err instanceof Error ? err.message : 'An unknown error occurred');
        console.error('Error fetching data:', err);
