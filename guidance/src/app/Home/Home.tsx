@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { fetchConsultationRequests } from "../services/consultationservice";
 import styles from "./homepage.module.scss";
-
-const GuidanceHome: React.FC = () => {
+//serves as home of guidance user.
+//It displays new consultation requests and today's scheduled consultations, 
+//while providing a link to navigate to the calendar and consultation table.
+const GuidanceHome: React.FC = () => {  // State to store all consultation requests
   const [consultationRequests, setConsultationRequests] = useState<any[]>([]);
+    // State to store consultations scheduled for today
   const [todayConsultations, setTodayConsultations] = useState<any[]>([]);
 
   useEffect(() => {
