@@ -279,12 +279,13 @@ const OmrIQResultsList: React.FC = () => {
                         onChange={(e) => setUpdatedData({ ...updatedData, course: e.target.value })}
                       >
                         <option value="" disabled>Select</option>
-                        <option value="BSCS">BSCS</option>
-                        <option value="BSIT">BSIT</option>
-                        <option value="BSBA">BSBA</option>
-                        <option value="BSECE">BSECE</option>
-                        <option value="BSCE">BSCE</option>
-                        <option value="BSED">BSED</option>
+                        <option value="BSEduc">Bachelor of Secondary Education</option>
+                <option value="BSBM">BS Business Management</option>
+                <option value="BSCS">BS Computer Science</option>
+                <option value="BSCrim">BS Criminology</option>
+                <option value="BSHM">BS Hospitality Management</option>                    
+                <option value="BSIT">BS Information Technology</option>
+                <option value="BSP">BS Psychology</option>
                       </select>
                     ) : (
                       result.course
@@ -297,13 +298,10 @@ const OmrIQResultsList: React.FC = () => {
                         onChange={(e) => setUpdatedData({ ...updatedData, year: Number(e.target.value) })}
                       >
                         <option value="" disabled>Select</option>
-                        <option value="BSEduc">Bachelor of Secondary Education</option>
-                <option value="BSBM">BS Business Management</option>
-                <option value="BSCS">BS Computer Science</option>
-                <option value="BSCrim">BS Criminology</option>
-                <option value="BSHM">BS Hospitality Management</option>                    
-                <option value="BSIT">BS Information Technology</option>
-                <option value="BSP">BS Psychology</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
                       </select>
                     ) : (
                       result.year
