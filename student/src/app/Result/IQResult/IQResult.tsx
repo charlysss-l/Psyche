@@ -270,30 +270,29 @@ const IQResult: React.FC = () => {
     </p>
 </div>
 <div className={styles.outro}>
-    <h1>Is the 16 Personality Test valid and reliable when completed online?</h1>
+    <h1>Is the Raven IQ Test valid and reliable when completed online?</h1>
     <p>
-    Test-retest reliability for the 16PF major scales averages 0.80 over a two-week 
-    period and 0.70 over a two-month period. Even greater test-retest reliability is 
-    demonstrated by the five main sub-scales of the 16PF Questionnaire, which average 
-    0.87 at two-week intervals and 0.78 at two-month intervals. These data sets, 
-    fortunately, come from web-based administration. As a result, any further assumptions 
-    or explanations regarding your results from any source should be verified by a professional 
-    conducting a thorough evaluation.
+    The reliability of the test can be maintained when taken online if proper measures 
+    are taken to ensure a consistent and standardized testing environment. 
+    This includes minimizing distractions, ensuring proper time limits, and providing 
+    clear instructions. However, when the test is administered in less controlled settings 
+    (e.g., from home or in a non-supervised environment), variability in how test-takers 
+    interact with the test can introduce measurement errors, potentially affecting reliability. 
+    Additionally, the lack of a proctor may allow for cheating or the use of external resources, 
+    which could undermine the consistency of results.
     </p>
     <p>
-    For broad, general insights on how you might approach relationships, work, or life, 
-    it can be a helpful tool. However, it should not be used as a diagnostic or 
-    decision-making tool in key areas of life, such as mental health or career.
+    The validity of the SPM, in terms of accurately measuring fluid intelligence, can still be 
+    preserved when administered online if the test interface is designed to replicate the physical 
+    version as closely as possible. Issues such as screen size, resolution, or technical problems 
+    (e.g., slow loading times) could introduce errors or distract the test-taker, potentially 
+    compromising the test's ability to measure the intended cognitive skills.
     </p>
+    
     <p>
-    No test, no matter how advanced, can reveal more than what you provide. 
-    If you require any extra counseling or professional education regarding your results, 
-    don't hesitate to seek assistance.
-    </p>
-    <p>
-        References: <a href="https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf" target="_blank" rel="noopener noreferrer">
+        {/* References: <a href="https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf" target="_blank" rel="noopener noreferrer">
             https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf
-        </a>
+        </a> */}
     </p>
 </div>
 </div>

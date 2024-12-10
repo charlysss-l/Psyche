@@ -79,15 +79,23 @@ const IntroIQ: React.FC = () => {
     <div className={styles.container}>
      
 
-     <h1 className={styles.introiq}>What is Raven IQ Test?</h1>
+     <h1 className={styles.introiq}>What is Raven's Standard Progressive Matrices?</h1>
       <p>
-        lksaldhaslhda
+      Raven's Standard Progressive Matrices (SPM) is a widely recognized nonverbal 
+      intelligence test designed to assess abstract reasoning and problem-solving abilities. 
+      Developed by John C. Raven in 1936, the test presents a series of visual puzzles, each 
+      consisting of a matrix of patterns with one piece missing.       </p>
+      <p>
+      The test-taker's task is to identify the correct piece from a set of options to 
+      complete the matrix. Since it relies on pattern recognition and logical thinking 
+      rather than language or cultural knowledge, the SPM is often considered a "culture-fair" 
+      test of intelligence, making it suitable for individuals from diverse backgrounds.
       </p>
       <p>
-        lfljhdlshfls
-      </p>
-      <p>
-        knvlksnls
+      The SPM is used in various settings, including educational assessments, psychological 
+      evaluations, and occupational selection processes. It is particularly effective for measuring 
+      fluid intelligence, which involves the ability to think logically and solve new problems 
+      independently of acquired knowledge.
       </p>
 
       {/* Terms and Conditions Section */}
