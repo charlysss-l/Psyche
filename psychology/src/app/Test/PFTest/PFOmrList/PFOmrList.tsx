@@ -31,6 +31,7 @@ interface OMRpf  {
   scoring: Scoring[]; // Store an array of factorLetter and rawScore pairs
   testType: string;
   testDate: Date;
+  isArchived: boolean;
   uploadURL: string;
 }
 
@@ -161,14 +162,17 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
 
       const data = await response.json();
       console.log('Fetched Data:', data);
-      setResults(data.data); // Update results to use the correct data field
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
-      console.error('Error fetching data:', err);
-    } finally {
-      setLoading(false); // Stop loading when done
-    }
-  };
+
+      // Filter out archived results
+    const filteredResults = data.data.filter((result: OMRpf) => !result.isArchived);
+    setResults(filteredResults); // Update results to show only non-archived results
+  } catch (err) {
+    setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    console.error('Error fetching data:', err);
+  } finally {
+    setLoading(false); // Stop loading when done
+  }
+};
 
   useEffect(() => {
     if (userID) {
