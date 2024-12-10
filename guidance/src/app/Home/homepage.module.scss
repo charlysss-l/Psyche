@@ -185,6 +185,11 @@ tr:hover td {
   transform: scale(1.05); 
 }
 
+.responsesWrapper {
+  max-height: 400px;  // Adjust the height as per your design needs
+  overflow-y: auto;   // Enable vertical scrolling when content overflows
+}
+
 :global(body.dark-mode){
 
   .homeContainer {

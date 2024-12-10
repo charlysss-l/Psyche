@@ -60,6 +60,8 @@ const GuidanceHome: React.FC = () => {  // State to store all consultation reque
         <div className={styles.tableBox}>
         <h1>New Consultation Request</h1>
         <p>{newConsultations.length} pending consultation request(s)</p>
+        <div className={styles.responsesWrapper}>
+
           <table>
             <thead>
               <tr>
@@ -97,6 +99,7 @@ const GuidanceHome: React.FC = () => {  // State to store all consultation reque
               ))}
             </tbody>
           </table>
+        </div>
           {/* Below the table, add the link button */}
      <div className={styles.viewConsultationContainer}>
       <p>to Update the status of Request view consultation table</p>
