@@ -69,10 +69,10 @@ app.use('/api/allusers', userRoutes);
 
 
 // Example of calling the Python service
-app.post('/api/16pfPyOmr', async (req, res) => {
+app.post('/process_omr_PF', async (req, res) => {
   try {
     const image_url = req.body.image_url;
-    const response = await axios.post('https://backend-l209db9nk-discoveru.vercel.app/process_omr_PF', { image_url });
+    const response = await axios.post('https://backend-6wtti7yho-discoveru.vercel.app/process_omr_PF', { image_url });
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Error calling Python API', details: error });
@@ -80,10 +80,10 @@ app.post('/api/16pfPyOmr', async (req, res) => {
 });
 
 // Example of calling the Python service
-app.post('/api/iqTestPyOmr', async (req, res) => {
+app.post('/process_omr_IQ', async (req, res) => {
   try {
     const image_url = req.body.image_url;
-    const response = await axios.post('https://backend-l209db9nk-discoveru.vercel.app/process_omr_IQ', { image_url });
+    const response = await axios.post('https://backend-6wtti7yho-discoveru.vercel.app/process_omr_IQ', { image_url });
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Error calling Python API', details: error });
