@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './PfOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
 import Tesseract from 'tesseract.js';
+import pftestUrl from '../../../../config';
 
 
 
@@ -276,7 +277,7 @@ const PfOMR: React.FC = () => {
 
   
     try {
-      const response = await fetch('http://127.0.0.1:5001/process_omr_PF', {
+      const response = await fetch(`${pftestUrl}/process_omr_PF`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

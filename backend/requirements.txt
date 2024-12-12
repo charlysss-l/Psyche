@@ -1,0 +1,5 @@
+requests==2.31.0
+opencv-python==4.10.0.84
+numpy==1.26.3
+Flask==3.0.3
+Flask-Cors==5.0.0

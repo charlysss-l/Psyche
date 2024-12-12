@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './PfOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
 import Tesseract from 'tesseract.js'; //For OCR
-import pythonUrl from '../../../../config';
+import pftestUrl from '../../../../config';
 
 
 // Initialize firebase setup for uploading image in Firebase storage
@@ -278,9 +278,11 @@ const PfOMR: React.FC = () => {
 
     setLoading(true);  // Hide loading spinner on failure
 
-  
+  // Log pythonUrl to check its value
+  console.log("Fetching URL:", pftestUrl);
+
     try {
-      const response = await fetch(`${pythonUrl}`, {
+      const response = await fetch(`${pftestUrl}/process_omr_PF`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

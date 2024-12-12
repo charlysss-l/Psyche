@@ -72,18 +72,24 @@ app.use('/api/allusers', userRoutes);
 app.post('/process_omr_PF', async (req, res) => {
   try {
     const image_url = req.body.image_url;
-    const response = await axios.post('https://backend-6wtti7yho-discoveru.vercel.app/process_omr_PF', { image_url });
+    
+    // Updated URL to the Python service on PythonAnywhere
+    const response = await axios.post('https://pftest.pythonanywhere.com/process_omr_PF', { image_url });
+    
+    // Send back the data from Python service to the client
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Error calling Python API', details: error });
   }
 });
 
+
+
 // Example of calling the Python service
 app.post('/process_omr_IQ', async (req, res) => {
   try {
     const image_url = req.body.image_url;
-    const response = await axios.post('https://backend-6wtti7yho-discoveru.vercel.app/process_omr_IQ', { image_url });
+    const response = await axios.post('https://iqtestOmr.pythonanywhere.com/process_omr_IQ', { image_url });
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Error calling Python API', details: error });

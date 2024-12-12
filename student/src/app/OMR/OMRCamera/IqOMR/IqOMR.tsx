@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './IqOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
 import Tesseract from 'tesseract.js';
-
+import iqtestUrl from '../../../../config';
 
 
 
@@ -299,9 +299,11 @@ const IqOMR: React.FC = () => {
 
     setLoading(true);  // Show loading spinner while processing OMR
 
-  
+  // Log pythonUrl to check its value
+  console.log("Fetching URL:", iqtestUrl);
+
     try {
-      const response = await fetch('http://127.0.0.1:5000/process_omr_IQ', {
+      const response = await fetch(`${iqtestUrl}/process_omr_IQ`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

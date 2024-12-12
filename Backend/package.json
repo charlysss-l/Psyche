@@ -8,7 +8,7 @@
     "build": "tsc",
     "vercel-build": "npm run build",
     "dev": "nodemon --watch src --exec ts-node src/server.ts",
-    "python1": "python 16pf.py",
+    "python1": "python pftest.py",
     "python2": "python iqtest.py",
     "all": "concurrently \"npm run dev\" \"npm run python1\" \"npm run python2\""
   },
