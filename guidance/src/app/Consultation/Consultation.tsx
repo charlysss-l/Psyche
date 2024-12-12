@@ -5,12 +5,13 @@ import axios from "axios";
 import styles from "./Consultation.module.scss";
 import e from "express";
 import ArchiveInbox from "./ArchiveInbox";
+import backendUrl from "../../config";
 
-const API_URL = "http://localhost:5000/api/consult/";
-const USERIQ_URL = "http://localhost:5000/api/useriq/test/";
-const USERPF_URL = "http://localhost:5000/api/user16pf/test/";
-const USERIQOMRE_URL = "http://localhost:5000/api/omr/test/";
-const USERPFOMRE_URL = "http://localhost:5000/api/omr16pf/test/";
+const API_URL = `${backendUrl}/api/consult/`;
+const USERIQ_URL = `${backendUrl}/api/useriq/test/`;
+const USERPF_URL = `${backendUrl}/api/user16pf/test/`;
+const USERIQOMRE_URL = `${backendUrl}/api/omr/test/`;
+const USERPFOMRE_URL = `${backendUrl}/api/omr16pf/test/`;
 
 interface ConsultationRequest {
   _id: string;
@@ -336,7 +337,7 @@ function getDynamicInterpretation(age: number, score: number): string {
 const handleRemove = async (id: string) => {
   try {
     // Call the backend to remove the follow-up schedule
-    await axios.delete(`http://localhost:5000/api/followup/${id}`);
+    await axios.delete(`${backendUrl}/api/followup/${id}`);
 
     // Update the state to remove the schedule
     setFollowUpSchedules((prev) => prev.filter((schedule) => schedule._id !== id));

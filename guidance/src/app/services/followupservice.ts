@@ -1,6 +1,7 @@
 import axios from "axios";
+import backendUrl from "../../config";
 
-const API_URL = "http://localhost:5000/api/followup";
+const API_URL = `${backendUrl}/api/followup`;
 
 export const fetchFollowUpSchedules = async () => {
   try {

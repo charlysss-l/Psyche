@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import style from './Guidanceprofile.module.scss';
+import backendUrl from "../../config";
 //This component enables the "Guidance" user to update their password securely.
  //This component handles the profile management of the "Guidance" user. 
  //allow user to update their password 
@@ -29,7 +30,7 @@ const Profile: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/authGuidance/update', {
+      const response = await fetch(`${backendUrl}/api/authGuidance/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -6,8 +6,9 @@ import { fetchFollowUpSchedules } from "../services/followupservice";
 import axios from "axios";
 import styles from "./Calendar.scss" ;
 import style from "./Modal.module.scss";
+import backendUrl from "../../config";
 
-const API_URL = "http://localhost:5000/api/consult/";
+const API_URL = `${backendUrl}/api/consult/`;
 
 interface ConsultationRequest {
   _id: string;
@@ -80,7 +81,7 @@ const SchedulingCalendar: React.FC = () => {
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
   
     try {
-      const response = await axios.post("http://localhost:5000/api/followup", {
+      const response = await axios.post(`${backendUrl}/api/followup`, {
         userId,
         followUpDate: selectedDate?.toDateString(),
         timeForConsultation,
@@ -126,7 +127,7 @@ const SchedulingCalendar: React.FC = () => {
   const handleRemove = async (id: string) => {
     try {
       // Call the backend to remove the follow-up schedule
-      await axios.delete(`http://localhost:5000/api/followup/${id}`);
+      await axios.delete(`${backendUrl}/api/followup/${id}`);
   
       // Update the state to remove the schedule
       setFollowUpSchedules((prev) => prev.filter((schedule) => schedule._id !== id));

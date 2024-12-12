@@ -1,6 +1,7 @@
 import axios from 'axios';
+import backendUrl from '../../config';
 
-const API_URL = 'http://localhost:5000/api/consult/';
+const API_URL = `${backendUrl}/api/consult/`;
 
 // Fetch consultation requests (for guidance view)
 export const fetchConsultationRequests = async () => {

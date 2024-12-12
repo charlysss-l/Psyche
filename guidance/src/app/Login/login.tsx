@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import backendURL from "../../config";
 import styles from "./pagelogin.module.scss";
 //Provides login functionality with error/success feedback and a "Forgot Password" feature.
 // Functional component for the Login page
@@ -62,7 +63,7 @@ const Login: React.FC = () => {
   // Function to call the backend API
   const loginUser = async (email: string, password: string) => {
         // Sends a POST request to the API with email and password as JSON payload
-    const response = await fetch("http://localhost:5000/api/authGuidance", {
+    const response = await fetch(`${backendURL}/api/authGuidance`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +91,7 @@ const Login: React.FC = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/authGuidance/forgot-password", {
+      const response = await fetch(`${backendURL}api/authGuidance/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: resetUsername, newPassword }),
