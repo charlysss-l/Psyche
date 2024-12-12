@@ -10,7 +10,6 @@ import uploadRoutes from './controllers/uploadController';
 import consultationsRoutes from './routes/consultationroutes';
 import followUpRoutes from './routes/followUpRoutes';
 import authPsychRoutes from './authRoutes/authPsychRoutes';
-
 import authGuidanceRoutes from './authRoutes/authGuidanceRoutes';
 import authStudentsRoutes from './authRoutes/authStudentsRoutes';
 import userRoutes from './authRoutes/userRoutes';
@@ -19,6 +18,7 @@ import surveyResponseRoutes from './routes/surveyResponseRoutes';
 import { updateInterpretationBySpecificId } from './controllers/IQTestController';
 import omrIQRoutes from './routes/omrIQRoutes';
 import omrPFRoutes from './routes/omrPFRoutes';
+import axios from 'axios';
 
 
 
@@ -66,6 +66,30 @@ app.use('/api/authGuidance', authGuidanceRoutes);
 app.use('/api/authStudents', authStudentsRoutes);
 
 app.use('/api/allusers', userRoutes);
+
+
+// Example of calling the Python service
+app.post('/api/16pfPyOmr', async (req, res) => {
+  try {
+    const image_url = req.body.image_url;
+    const response = await axios.post('https://backend-rbmcs4alj-discoveru.vercel.app/api/16pf', { image_url });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error calling Python API', details: error });
+  }
+});
+
+// Example of calling the Python service
+app.post('/api/iqTestPyOmr', async (req, res) => {
+  try {
+    const image_url = req.body.image_url;
+    const response = await axios.post('https://backend-rbmcs4alj-discoveru.vercel.app/api/iqtest', { image_url });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error calling Python API', details: error });
+  }
+});
+
 
 
 const PORT = process.env.PORT || 5000;

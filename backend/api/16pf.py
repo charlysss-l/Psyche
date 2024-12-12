@@ -453,5 +453,5 @@ def process_omr():
     # Return the score as a JSON response
     return jsonify({'score': score})
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+# if __name__ == '__main__':
+#     app.run(debug=True, port=5001)

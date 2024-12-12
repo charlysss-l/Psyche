@@ -1,16 +1,31 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "dist/server.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "dist/server.js"
-      }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/16pf.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/iqtest.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/server.js"
+    },
+    {
+      "src": "/api/16pf",
+      "dest": "api/16pf.py"
+    },
+    {
+      "src": "/api/iqtest",
+      "dest": "api/iqtest.py"
+    }
+  ]
+}

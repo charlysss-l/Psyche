@@ -23,10 +23,14 @@ const surveyResponseRoutes_1 = __importDefault(require("./routes/surveyResponseR
 const IQTestController_1 = require("./controllers/IQTestController");
 const omrIQRoutes_1 = __importDefault(require("./routes/omrIQRoutes"));
 const omrPFRoutes_1 = __importDefault(require("./routes/omrPFRoutes"));
+const axios_1 = __importDefault(require("axios"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 // Connect to the database
 (0, db_1.default)();
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 // Middleware configuration
 app.use((0, cors_1.default)());
 app.use(express_1.default.json({ limit: '50mb' }));
@@ -51,6 +55,28 @@ app.use('/api/auth', authPsychRoutes_1.default);
 app.use('/api/authGuidance', authGuidanceRoutes_1.default);
 app.use('/api/authStudents', authStudentsRoutes_1.default);
 app.use('/api/allusers', userRoutes_1.default);
+// Example of calling the Python service
+app.post('/api/16pfPyOmr', async (req, res) => {
+    try {
+        const image_url = req.body.image_url;
+        const response = await axios_1.default.post('https://backend-hrrlsvr08-discoveru.vercel.app/api/16pf', { image_url });
+        res.json(response.data);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error calling Python API', details: error });
+    }
+});
+// Example of calling the Python service
+app.post('/api/iqTestPyOmr', async (req, res) => {
+    try {
+        const image_url = req.body.image_url;
+        const response = await axios_1.default.post('https://backend-hrrlsvr08-discoveru.vercel.app/api/iqtest', { image_url });
+        res.json(response.data);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error calling Python API', details: error });
+    }
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
