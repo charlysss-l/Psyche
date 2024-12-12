@@ -72,7 +72,7 @@ app.use('/api/allusers', userRoutes);
 app.post('/api/16pfPyOmr', async (req, res) => {
   try {
     const image_url = req.body.image_url;
-    const response = await axios.post('https://backend-rbmcs4alj-discoveru.vercel.app/api/16pf', { image_url });
+    const response = await axios.post('https://backend-l209db9nk-discoveru.vercel.app/process_omr_PF', { image_url });
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Error calling Python API', details: error });
@@ -83,7 +83,7 @@ app.post('/api/16pfPyOmr', async (req, res) => {
 app.post('/api/iqTestPyOmr', async (req, res) => {
   try {
     const image_url = req.body.image_url;
-    const response = await axios.post('https://backend-rbmcs4alj-discoveru.vercel.app/api/iqtest', { image_url });
+    const response = await axios.post('https://backend-l209db9nk-discoveru.vercel.app/process_omr_IQ', { image_url });
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Error calling Python API', details: error });
