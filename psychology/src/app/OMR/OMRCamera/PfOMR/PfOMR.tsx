@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './PfOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
 import Tesseract from 'tesseract.js';
-import pftestUrl from '../../../../config';
+import pftestUrl from '../../../../pftestConfig';
 
 
 

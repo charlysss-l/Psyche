@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './IqOMR.module.scss'; // Import SCSS styles
 import { useNavigate } from 'react-router-dom';
 import Tesseract from 'tesseract.js';
-import iqtestUrl from '../../../../config';
+import iqtestUrl from '../../../../iqtestConfig';
 
 
 
