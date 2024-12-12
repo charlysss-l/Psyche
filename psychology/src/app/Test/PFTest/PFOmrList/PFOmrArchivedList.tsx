@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './PFOmrArchivedList.module.scss';  
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import backendUrl from '../../../../config';
 
 // Define structure for a single score entry
 export interface ScoreEntry {
@@ -141,7 +142,7 @@ const PFOmrArchivedList: React.FC = () => {
   // Fetch data function
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/omr16pf/isTrue/archived/all`);
+      const response = await fetch(`${backendUrl}/api/omr16pf/isTrue/archived/all`);
 
       if (response.status === 404) {
         // Handle 404 as no archived results
@@ -187,7 +188,7 @@ const PFOmrArchivedList: React.FC = () => {
     if (!confirmDelete) return;
   
     try {
-      await axios.delete(`http://localhost:5000/api/omr16pf/test/delete/${testID}`);
+      await axios.delete(`${backendUrl}/api/omr16pf/test/delete/${testID}`);
       setResults((prevConsultations) =>
         prevConsultations.filter((consultation) => consultation.testID !== testID)
       );

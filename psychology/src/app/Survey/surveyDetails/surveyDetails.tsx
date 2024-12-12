@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./surveyDetails.module.scss";
+import backendUrl from "../../../config";
+
 // SurveyDetails component to fetch and display survey details
 const SurveyDetails: React.FC = () => {
     // Extract survey id from URL params using useParams hook
@@ -12,7 +14,7 @@ const SurveyDetails: React.FC = () => {
   useEffect(() => {
     const fetchSurveyDetails = async () => {
       try {         // Fetch survey details from API using axios
-        const response = await axios.get(`http://localhost:5000/api/surveys/${id}`);
+        const response = await axios.get(`${backendUrl}/api/surveys/${id}`);
         setSurvey(response.data);
       } catch (error) {
         console.error("Error fetching survey details", error);

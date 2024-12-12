@@ -25,10 +25,16 @@ const User16PFTestSchema = new mongoose_1.Schema({
     lastName: { type: String, required: true },
     age: { type: String, required: true },
     sex: { type: String, enum: ['Female', 'Male'], required: true },
-    courseSection: { type: String, required: true },
+    course: { type: String, required: true },
+    year: { type: Number, required: true },
+    section: { type: String, required: true },
+    testID: { type: String, required: true, unique: true },
     responses: [ResponseSchema],
     scoring: ScoringSchema, // This now refers to a Scoring object
     testType: { type: String, enum: ['Online', 'Physical'], required: true },
+    testDate: { type: Date, required: true, default: Date.now },
+    isArchived: { type: Boolean, required: true, default: false },
 });
+User16PFTestSchema.index({ userID: 1 }); // Remove unique index if you want to allow duplicates
 // Export the model and interfaces
 exports.default = (0, mongoose_1.model)('User16PFTest', User16PFTestSchema);

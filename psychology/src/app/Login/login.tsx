@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./pagelogin.module.scss";
+import backendUrl from "../../config"; // Adjust the path if `config.ts` is in a different location
 //login for users and handling password reset.
 
 const Login: React.FC = () => {
@@ -57,7 +58,7 @@ const Login: React.FC = () => {
 
   // Function to call the backend API
   const loginUser = async (email: string, password: string) => {
-    const response = await fetch("http://localhost:5000/api/auth", {
+    const response = await fetch(`${backendUrl}/api/auth`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,8 +84,9 @@ const Login: React.FC = () => {
       return;
     }
 
+
     try {
-      const response = await fetch("http://localhost:5000/api/auth/forgot-password", {
+      const response = await fetch(`${backendUrl}/api/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: resetUsername, newPassword }),

@@ -29,20 +29,18 @@ const ConsultationRequestSchema = new mongoose_1.Schema({
     userId: {
         type: String,
         required: true,
-        match: /^[0-9]{8}$/, // Validate that userId is 8 digits
     },
     timeForConsultation: {
         type: String,
         required: true,
-        match: /^(?:[01]\d|2[0-3]):(?:[0-5]\d)$/, // Validate time format (HH:mm)
+    },
+    testID: {
+        type: String,
+        required: true,
     },
     note: {
         type: String,
-        enum: ['IQ Test', 'Personality Test', 'Others'], // Only allow these three options
-        required: true,
-    },
-    permissionForTestResults: {
-        type: Boolean,
+        enum: ['IQ Test (Online)', 'IQ Test (Physical)', 'Personality Test (Online)', 'Personality Test (Physical)', 'Others'], // Only allow these options
         required: true,
     },
     date: {
@@ -52,7 +50,35 @@ const ConsultationRequestSchema = new mongoose_1.Schema({
     status: {
         type: String,
         default: 'pending',
-        enum: ['pending', 'accepted', 'declined'], // Status can only be one of these
-    }
+        enum: ['pending', 'accepted', 'declined', 'cancelled', 'completed', 'deleted', 'removed', 'archived'], // Status can only be one of these
+    },
+    message: {
+        type: String,
+        required: true,
+    },
+    firstName: {
+        type: String, // Optional field
+    },
+    lastName: {
+        type: String, // Optional field
+    },
+    age: {
+        type: Number, // Optional field
+    },
+    sex: {
+        type: String,
+    },
+    course: {
+        type: String, // Optional field
+    },
+    year: {
+        type: Number,
+    },
+    section: {
+        type: Number,
+    },
+    reasonForConsultation: {
+        type: String, // Optional field
+    },
 });
 exports.ConsultationRequest = mongoose_1.default.model('ConsultationRequest', ConsultationRequestSchema);

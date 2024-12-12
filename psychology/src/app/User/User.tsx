@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./psychologyuser.module.scss";
+import backendUrl from "../../config";
+
 //Handles fetching, editing, deleting, and searching for users.
 interface User {  
   userId: string;
@@ -16,7 +18,7 @@ const User = () => {  //Holds the list of all users fetched from the server.
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/allusers/users");
+        const response = await fetch(`${backendUrl}/api/allusers/users`);
         const data = await response.json();
         setUsers(data);
       } catch (error) {
@@ -30,7 +32,7 @@ const User = () => {  //Holds the list of all users fetched from the server.
   const handleDelete = async (userId: string, role: string) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/allusers/users/${userId}`,
+        `${backendUrl}/api/allusers/users/${userId}`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
@@ -50,7 +52,7 @@ const User = () => {  //Holds the list of all users fetched from the server.
     if (newEmail && newEmail !== email) {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/allusers/users/${userId}`,
+          `${backendUrl}/api/allusers/users/${userId}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },

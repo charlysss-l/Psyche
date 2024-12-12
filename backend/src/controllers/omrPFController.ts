@@ -241,7 +241,6 @@ export const createOmrResult = async (req: Request, res: Response) => {
 
 // Controller to retrieve all IQ test results for a user
 export const getIQTestResultsByAll = async (req: Request, res: Response) => {
-    
     try {
         const allUserIQTests = await OmrPFSchema.find();
         res.status(200).json({ data: allUserIQTests });

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import style from './psychologyprofile.module.scss';
+import backendUrl from '../../config';
 //Username field is for displaying the user’s email, non-editable.
 const Profile: React.FC = () => {
   const [password, setPassword] = useState<string>('');
@@ -24,7 +25,7 @@ const Profile: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/update', {
+      const response = await fetch(`${backendUrl}/api/auth/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

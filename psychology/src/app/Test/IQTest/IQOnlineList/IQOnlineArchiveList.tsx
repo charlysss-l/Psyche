@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './IQOnlineArchiveList.module.scss'; // Import your CSS module
 import axios from 'axios';
+import backendUrl from '../../../../config';
 
 interface Response {
   questionID: string;
@@ -48,7 +49,7 @@ const IQOnlineArchiveList: React.FC = () => {
 
 const fetchData = async () => {
   try {
-    const response = await fetch('http://localhost:5000/api/useriq/isTrue/archived/all');
+    const response = await fetch(`${backendUrl}/api/useriq/isTrue/archived/all`);
 
     if (response.status === 404) {
       // Handle 404 as no archived results
@@ -68,7 +69,7 @@ const fetchData = async () => {
       setArchivedResults([]);
     } else {
     // Fetch IQ test interpretation data
-    const iqTestResponse = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
+    const iqTestResponse = await fetch(`${backendUrl}/api/IQtest/67277ea7aacfc314004dca20`);
     if (!iqTestResponse.ok) {
       throw new Error(`Failed to fetch IQ test: ${iqTestResponse.statusText}`);
     }
@@ -119,7 +120,7 @@ useEffect(() => {
     if (!confirmDelete) return;
   
     try {
-      await axios.delete(`http://localhost:5000/api/useriq/test/delete/${testID}`);
+      await axios.delete(`${backendUrl}/api/useriq/test/delete/${testID}`);
       setArchivedResults((prevConsultations) =>
         prevConsultations.filter((consultation) => consultation.testID !== testID)
       );

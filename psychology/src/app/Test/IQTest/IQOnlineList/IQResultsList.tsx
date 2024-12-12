@@ -3,6 +3,7 @@ import styles from './IQResultsList.module.scss'; // Import your CSS module
 import { useNavigate } from 'react-router-dom';
 import IQOnlineArchiveList from './IQOnlineArchiveList';
 import * as XLSX from 'xlsx';
+import backendUrl from '../../../../config';
 
 
 interface Response {
@@ -60,13 +61,13 @@ const IQResultsList: React.FC = () => {
   const fetchData = async () => {
     try {
       setLoading(true); // Ensure loading is displayed while fetching
-      const response = await fetch('http://localhost:5000/api/useriq');
+      const response = await fetch(`${backendUrl}/api/useriq`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const data = await response.json();
   
-      const iqTestResponse = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
+      const iqTestResponse = await fetch(`${backendUrl}/api/IQtest/67277ea7aacfc314004dca20`);
       if (!iqTestResponse.ok) {
         throw new Error(`Failed to fetch IQ test: ${iqTestResponse.statusText}`);
       }
@@ -117,7 +118,7 @@ const IQResultsList: React.FC = () => {
         console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
 
         // Use the testID in the API request
-        const response = await fetch(`http://localhost:5000/api/useriq/archive/${testID}`, {
+        const response = await fetch(`${backendUrl}/api/useriq/archive/${testID}`, {
             method: 'PUT', // Use PUT to match backend
         });
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './PFOnlineArchivedList.module.scss';  
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import backendUrl from '../../../../config';
 
 // Define the interface for the user results
 interface User16PFTest {
@@ -103,7 +104,7 @@ const PFOnlineArchivedList: React.FC = () => {
   // Fetch data function
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/user16pf/isTrue/archived/all');
+      const response = await fetch(`${backendUrl}/api/user16pf/isTrue/archived/all`);
        
       if (response.status === 404) {
         // Handle 404 as no archived results
@@ -145,7 +146,7 @@ const PFOnlineArchivedList: React.FC = () => {
     if (!confirmDelete) return;
   
     try {
-      await axios.delete(`http://localhost:5000/api/user16pf/test/delete/${testID}`);
+      await axios.delete(`${backendUrl}/api/user16pf/test/delete/${testID}`);
       setResults((prevConsultations) =>
         prevConsultations.filter((consultation) => consultation.testID !== testID)
       );

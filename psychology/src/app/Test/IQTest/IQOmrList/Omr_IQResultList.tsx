@@ -3,6 +3,7 @@ import styles from './Omr_IQResultList.module.scss';
 import { useNavigate } from 'react-router-dom';
 import IQOmrArchivedList from './IQOmrArchiveList';
 import * as XLSX from 'xlsx';
+import backendUrl from '../../../../config';
 
 
 
@@ -60,16 +61,15 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
 
   // Fetch data based on userID
   const fetchData = async () => {
-
     try {
-      const response = await fetch(`http://localhost:5000/api/omr`);
+      const response = await fetch(`${backendUrl}/api/omr`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const data = await response.json();
 
       // Fetch IQ test interpretation data
-      const iqTestResponse = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
+      const iqTestResponse = await fetch(`${backendUrl}/api/IQtest/67277ea7aacfc314004dca20`);
       if (!iqTestResponse.ok) {
         throw new Error(`Failed to fetch IQ test: ${iqTestResponse.statusText}`);
       }
@@ -131,7 +131,7 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
         console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
 
         // Use the testID in the API request
-        const response = await fetch(`http://localhost:5000/api/omr/archive/${testID}`, {
+        const response = await fetch(`${backendUrl}/api/omr/archive/${testID}`, {
             method: 'PUT', // Use PUT to match backend
         });
 

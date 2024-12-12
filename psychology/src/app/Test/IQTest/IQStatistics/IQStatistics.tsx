@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './IQStatistics.module.scss'; // Import your CSS module
 import { useNavigate } from 'react-router-dom';
-
+import backendUrl from '../../../../config';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -67,19 +67,19 @@ const IQStatistics: React.FC = () => {
   // Fetch data from the server
   const fetchData = async () => {
     try {
-      const onlineResponse = await fetch('http://localhost:5000/api/useriq');
+      const onlineResponse = await fetch(`${backendUrl}/api/useriq`);
       if (!onlineResponse.ok) {
         throw new Error(`Network response was not ok: ${onlineResponse.statusText}`);
       }
       const onlineData = await onlineResponse.json();
   
-      const physicalResponse = await fetch('http://localhost:5000/api/omr');
+      const physicalResponse = await fetch(`${backendUrl}/api/omr`);
       if (!physicalResponse.ok) {
         throw new Error(`Network response was not ok: ${physicalResponse.statusText}`);
       }
       const physicalData = await physicalResponse.json();
   
-      const iqTestResponse = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
+      const iqTestResponse = await fetch(`${backendUrl}/api/IQtest/67277ea7aacfc314004dca20`);
       if (!iqTestResponse.ok) {
         throw new Error(`Failed to fetch IQ test: ${iqTestResponse.statusText}`);
       }

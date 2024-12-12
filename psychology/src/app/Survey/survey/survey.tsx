@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styles from './survey.module.scss'; // Assuming this file contains your SCSS styles
+import backendUrl from '../../../config';
 
 const SurveyForm = () => {   // Initialize state variables for form data.
   const navigate = useNavigate(); // Initialize useNavigate hook to redirect after form submission
@@ -90,7 +91,7 @@ const SurveyForm = () => {   // Initialize state variables for form data.
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/surveys/create', {
+      const response = await fetch(`${backendUrl}/api/surveys/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(surveyData),

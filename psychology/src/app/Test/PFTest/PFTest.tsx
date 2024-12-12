@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './pftest.module.scss';
 import { Link } from 'react-router-dom';
+import backendUrl from '../../../config';
 
 interface Choice {
     a: string;
@@ -40,7 +41,7 @@ const PFTest: React.FC = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/16pf');
+            const response = await fetch(`${backendUrl}/api/16pf`);
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }

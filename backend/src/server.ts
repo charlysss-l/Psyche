@@ -29,6 +29,10 @@ const app: Application = express();
 // Connect to the database
 connectDB();
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+})
+
 // Middleware configuration
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));

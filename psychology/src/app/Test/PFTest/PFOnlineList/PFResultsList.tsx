@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import PFOnlineArchivedList from './PFOnlineArchivedList';
 import * as XLSX from 'xlsx';
 import { table } from 'console';
+import backendUrl from '../../../../config';
 
 
 // Define the interface for the user results
@@ -116,7 +117,7 @@ const PFResultsList: React.FC = () => {
   // Fetch data function
 const fetchData = async () => {
   try {
-    const response = await fetch('http://localhost:5000/api/user16pf');
+    const response = await fetch(`${backendUrl}/api/user16pf`);
     if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.statusText}`);
     }
@@ -145,7 +146,7 @@ const fetchData = async () => {
         console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
 
         // Use the testID in the API request
-        const response = await fetch(`http://localhost:5000/api/user16pf/archive/${testID}`, {
+        const response = await fetch(`${backendUrl}/api/user16pf/archive/${testID}`, {
             method: 'PUT', // Use PUT to match backend
         });
 

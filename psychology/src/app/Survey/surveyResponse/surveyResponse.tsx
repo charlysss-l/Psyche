@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styles from './surveyResponse.module.scss'; // Import your SCSS module for styling
+import backendUrl from '../../../config';
 
 // SurveyResponse component to display responses to a specific survey
 const SurveyResponse: React.FC = () => { 
@@ -24,7 +25,7 @@ const SurveyResponse: React.FC = () => {
     const fetchSurveyResponses = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/survey-responses?surveyId=${surveyId}`
+          `${backendUrl}/api/survey-responses?surveyId=${surveyId}`
         );
         setResponses(response.data);
       } catch (err) {

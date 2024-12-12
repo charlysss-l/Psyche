@@ -3,6 +3,7 @@ import styles from './PFOmrList.module.scss';
 import { useNavigate } from 'react-router-dom';
 import PFOmrArchivedList from './PFOmrArchivedList';
 import * as XLSX from 'xlsx';
+import backendUrl from '../../../../config';
 
 
 // Define structure for a single score entry
@@ -139,23 +140,10 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
     });
   };
 
- 
-
-  // Fetch userID from localStorage and set it in state
-  useEffect(() => {
-    const storedUserID = localStorage.getItem('userId');
-    if (storedUserID) {
-      setUserID(storedUserID);
-    } else {
-      setError('User ID not found. Please log in again.');
-    }
-  }, []);
-
   // Fetch data function
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/omr16pf`);
-      
+      const response = await fetch(`${backendUrl}/api/omr16pf`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
@@ -174,11 +162,10 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
   }
 };
 
-  useEffect(() => {
-    if (userID) {
-      fetchData();
-    }
-  }, [userID]);
+useEffect(() => {
+  fetchData();
+
+}, []); 
 
   
   const handleViewImage = (uploadURL: string) => {
@@ -197,7 +184,7 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
         console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
 
         // Use the testID in the API request
-        const response = await fetch(`http://localhost:5000/api/omr16pf/archive/${testID}`, {
+        const response = await fetch(`${backendUrl}/api/omr16pf/archive/${testID}`, {
             method: 'PUT', // Use PUT to match backend
         });
 
@@ -262,7 +249,7 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
 
   return (
     <div>
-      <h2 className={styles.title}>PF Results List ((Physical))
+      <h2 className={styles.title}>PF Results List (Physical)
 
       <div className={styles.buttonsWrapper}>
     <button onClick={exportToExcel} className={styles.exportButton}>

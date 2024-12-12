@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './OmrResult.module.scss';
 import axios from 'axios';
+import backendUrl from '../../../../config';
 
 const OmrResult: React.FC = () => {
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ const OmrResult: React.FC = () => {
     // Check if the user exists by userID
     const checkUserID = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/authStudents/students/${userID}`);
+            const response = await axios.get(`${backendUrl}/api/authStudents/students/${userID}`);
             if (response.data) {
                 setUserExists(true);
                 setUserFoundMessage('User ID found!');
@@ -105,7 +106,7 @@ const OmrResult: React.FC = () => {
         };
 
         try {
-            await axios.post('http://localhost:5000/api/omr16pf', dataToSubmit);
+            await axios.post(`${backendUrl}/api/omr16pf`, dataToSubmit);
             alert('Test submitted successfully!');
             localStorage.setItem('pfTestResults', JSON.stringify(dataToSubmit));
             navigate('/all-pf-test-list');  

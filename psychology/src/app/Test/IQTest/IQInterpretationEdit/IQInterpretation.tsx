@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './IQInterpretation.module.scss';
 import { useNavigate } from 'react-router-dom';
+import backendUrl from '../../../../config';
 
 interface Interpretation {
   byId: string;
@@ -32,7 +33,7 @@ const IQInterpretation: React.FC = () => {
   // Fetch the IQTest data
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
+      const response = await fetch(`${backendUrl}/api/IQtest/67277ea7aacfc314004dca20`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
@@ -64,7 +65,7 @@ const IQInterpretation: React.FC = () => {
     const updatedInterpretation = iqTest.interpretation[index];
     
     try {
-      const response = await fetch(`http://localhost:5000/api/IQtest/${iqTest._id}/interpretation/${updatedInterpretation.byId}`, {
+      const response = await fetch(`${backendUrl}/api/IQtest/${iqTest._id}/interpretation/${updatedInterpretation.byId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

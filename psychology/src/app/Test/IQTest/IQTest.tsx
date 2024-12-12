@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './psychologyiqtest.module.scss'; // Importing custom SCSS styles
 import { Link } from 'react-router-dom';
+import backendUrl from '../../../config';
 
 // Interface definitions for the question and interpretation structures
 interface Question {
@@ -39,7 +40,7 @@ const IQTest: React.FC = () => {
     // Fetch data from the server
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/IQtest');
+            const response = await fetch(`${backendUrl}/api/IQtest`);
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }

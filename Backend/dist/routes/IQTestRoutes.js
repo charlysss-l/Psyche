@@ -7,5 +7,6 @@ router.post('/', IQTestController_1.createIQTest); // Create a new IQ Test
 router.get('/', IQTestController_1.getAllIQTests); // Get all IQ Tests
 router.get('/:id', IQTestController_1.getIQTestById); // Get a specific IQ Test by ID
 router.put('/:id', IQTestController_1.updateIQTestById); // Update a specific IQ Test by ID
+router.put('/api/IQtest/:id/interpretation/:interpretationId', IQTestController_1.updateInterpretationBySpecificId);
 router.delete('/:id', IQTestController_1.deleteIQTestById); // Delete a specific IQ Test by ID
 exports.default = router;

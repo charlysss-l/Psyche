@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./surveyList.module.scss"; // SCSS module for styling
 import { Link } from "react-router-dom";
+import backendUrl from "../../../config";
+
 // SurveyList component to display a list of available surveys
 const SurveyList: React.FC = () => {
   const [surveys, setSurveys] = useState<any[]>([]);
@@ -13,7 +15,7 @@ const SurveyList: React.FC = () => {
   useEffect(() => {
     const fetchSurveys = async () => {
       try {          // Fetch surveys from the API
-        const response = await axios.get("http://localhost:5000/api/surveys");
+        const response = await axios.get(`${backendUrl}/api/surveys`);
         setSurveys(response.data);
         setFilteredSurveys(response.data);
 
@@ -55,7 +57,7 @@ const SurveyList: React.FC = () => {
   const handleRemoveSurvey = async (surveyId: string) => {
     if (window.confirm("Are you sure you want to delete this survey?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/surveys/${surveyId}`);
+        await axios.delete(`${backendUrl}/api/surveys/${surveyId}`);
         // Update the state to remove the deleted survey
         setSurveys((prevSurveys) => prevSurveys.filter((s) => s._id !== surveyId));
         setFilteredSurveys((prevSurveys) => prevSurveys.filter((s) => s._id !== surveyId)); // Update filtered surveys

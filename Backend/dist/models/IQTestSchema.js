@@ -38,13 +38,16 @@ const IQTestSchema = new mongoose_1.Schema({
             },
         }],
     interpretation: [{
-            ageRange: {
+            byId: {
                 type: String,
                 required: true,
             },
-            sex: {
-                type: String,
-                enum: ['Female', 'Male'],
+            minAge: {
+                type: Number,
+                required: true,
+            },
+            maxAge: {
+                type: Number,
                 required: true,
             },
             minTestScore: {

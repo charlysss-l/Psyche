@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './page.module.scss';
+import backendUrl from '../../../../config';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -113,14 +114,14 @@ const PFStatistics: React.FC = () => {
   // Fetch data function
   const fetchData = async () => {
     try {
-      const onlineResponse = await fetch('http://localhost:5000/api/user16pf');
+      const onlineResponse = await fetch(`${backendUrl}/api/user16pf`);
       if (!onlineResponse.ok) {
         throw new Error(`Network response was not ok: ${onlineResponse.statusText}`);
       }
   
       const onlineData = await onlineResponse.json();
   
-      const physicalResponse = await fetch('http://localhost:5000/api/omr16pf');
+      const physicalResponse = await fetch(`${backendUrl}/api/omr16pf`);
       if (!physicalResponse.ok) {
         throw new Error(`Network response was not ok: ${physicalResponse.statusText}`);
       }

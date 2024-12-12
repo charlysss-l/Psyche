@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './OMRResult.module.scss';
 import axios from 'axios';
+import backendUrl from "../../../../config"; // Adjust the path if `config.ts` is in a different location
+
 
 const OMRResult: React.FC = () => {
     const navigate = useNavigate();
@@ -38,7 +40,7 @@ const OMRResult: React.FC = () => {
     // Check if the user exists by userID
     const checkUserID = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/authStudents/students/${userID}`);
+            const response = await axios.get(`${backendUrl}/api/authStudents/students/${userID}`);
             if (response.data) {
                 setUserExists(true);
                 setUserFoundMessage('User ID found!');
@@ -109,7 +111,7 @@ const OMRResult: React.FC = () => {
         };
 
         try {
-            await axios.post('http://localhost:5000/api/omr', dataToSubmit);
+            await axios.post(`${backendUrl}/api/omr`, dataToSubmit);
             alert('Test submitted successfully!');
             localStorage.setItem('iqTestResults', JSON.stringify(dataToSubmit));
             navigate('/iqresults_list_both');
