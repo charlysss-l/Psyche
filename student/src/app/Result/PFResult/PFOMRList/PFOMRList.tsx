@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PFOMRList.module.scss';  
 import { useNavigate } from 'react-router-dom';
+import backendUrl from '../../../../config';
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -166,7 +167,7 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
   // Fetch data function
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/omr16pf/${userID}`);
+      const response = await fetch(`${backendUrl}/api/omr16pf/${userID}`);
       
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -222,7 +223,7 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch(`http://localhost:5000/api/omr16pf/test/${testID}`, {
+      const response = await fetch(`${backendUrl}/api/omr16pf/test/${testID}`, {
         method: 'DELETE',
       });
   
@@ -243,7 +244,7 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
 
   const handleUpdate = async (testID: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/omr16pf/test/${testID}`, {
+      const response = await fetch(`${backendUrl}/api/omr16pf/test/${testID}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

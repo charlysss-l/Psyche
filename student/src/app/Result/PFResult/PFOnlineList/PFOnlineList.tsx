@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PFOnlineList.module.scss';  
 import { useNavigate } from 'react-router-dom';
+import backendUrl from '../../../../config';
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -143,7 +144,7 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
   // Fetch data function
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/user16pf/user/${userID}`);
+      const response = await fetch(`${backendUrl}/api/user16pf/user/${userID}`);
       
       
 
@@ -173,7 +174,7 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch(`http://localhost:5000/api/user16pf/test/${testID}`, {
+      const response = await fetch(`${backendUrl}/api/user16pf/test/${testID}`, {
         method: 'DELETE',
       });
   

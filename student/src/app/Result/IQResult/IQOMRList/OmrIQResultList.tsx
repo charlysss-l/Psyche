@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './OmrIQ.module.scss'; // Import your CSS module
-import { useNavigate } from 'react-router-dom';
+import backendUrl from '../../../../config';
 
 interface Interpretation {
   minAge: number;
@@ -52,13 +52,13 @@ const OmrIQResultsList: React.FC = () => {
     if (!userID) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/omr/${userID}`);
+      const response = await fetch(`${backendUrl}/api/omr/${userID}`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const data = await response.json();
 
-      const iqTestResponse = await fetch('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
+      const iqTestResponse = await fetch(`${backendUrl}/api/IQtest/67277ea7aacfc314004dca20`);
       if (!iqTestResponse.ok) {
         throw new Error(`Failed to fetch IQ test: ${iqTestResponse.statusText}`);
       }
@@ -114,7 +114,7 @@ const OmrIQResultsList: React.FC = () => {
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch(`http://localhost:5000/api/omr/test/${testID}`, {
+      const response = await fetch(`${backendUrl}/api/omr/test/${testID}`, {
         method: 'DELETE',
       });
   
@@ -153,7 +153,7 @@ const OmrIQResultsList: React.FC = () => {
 
     
     try {
-      const response = await fetch(`http://localhost:5000/api/omr/test/${testID}`, {
+      const response = await fetch(`${backendUrl}/api/omr/test/${testID}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

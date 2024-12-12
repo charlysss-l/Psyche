@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./surveyStudent.module.scss"; // Assuming you're using a CSS module for styling
 import ArchivedSurveys from "../archivedSurveys/ArchivedSurveys";
+import backendUrl from "../../../config";
 //handles the survey listing and submission process for the students.
 
 interface Survey {
@@ -29,7 +30,7 @@ const SurveyAnswerForm: React.FC = () => {
   useEffect(() => {
     const fetchSurveys = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/surveys");
+        const response = await axios.get(`${backendUrl}/api/surveys`);
         console.log("All Surveys:", response.data);
         setAllSurveys(response.data); // Set all surveys
         setSurveys(response.data); // Set surveys to all surveys initially
@@ -55,7 +56,7 @@ const SurveyAnswerForm: React.FC = () => {
       if (!userId) return;
 
       try {
-        const response = await axios.get(`http://localhost:5000/api/response/archived-surveys/${userId}`);
+        const response = await axios.get(`${backendUrl}/api/response/archived-surveys/${userId}`);
         const answeredSurveyIds = response.data.map((survey: any) => survey.surveyId);
         setAnsweredSurveys(answeredSurveyIds);
       } catch (error) {

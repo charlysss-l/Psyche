@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./studentsignup.module.scss";
+import backendUrl from "../../config";
 
 const SignupForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -28,7 +29,7 @@ const SignupForm: React.FC = () => {
   const checkUserIdExists = async (id: string) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/authStudents/students/${id}`
+        `${backendUrl}/api/authStudents/students/${id}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -125,7 +126,7 @@ const SignupForm: React.FC = () => {
     userId: string
   ) => {
     const response = await fetch(
-      "http://localhost:5000/api/authStudents/signup",
+      `${backendUrl}/api/authStudents/signup`,
       {
         method: "POST",
         headers: {

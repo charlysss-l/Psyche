@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './IntroIQ.module.scss'; // Import SCSS file for styling
+import backendUrl from '../../../../config';
 
 interface UserIQTest {
   testDate: Date;
@@ -29,7 +30,7 @@ const IntroIQ: React.FC = () => {
     if (!userID) return; // Don't fetch if userID is not available
 
     try {
-      const response = await fetch(`http://localhost:5000/api/useriq/${userID}`);
+      const response = await fetch(`${backendUrl}/api/useriq/${userID}`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }

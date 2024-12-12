@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import style from './studentiqtest.module.scss';
 import { useNavigate } from 'react-router-dom';
+import backendUrl from '../../../config';
 
 interface Question {
     questionID: string;
@@ -52,7 +53,7 @@ const IQTest: React.FC = () => {
 
     const fetchTest = async () => {
         try {
-            const response = await axios.get<IQTests>('http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20');
+            const response = await axios.get<IQTests>(`${backendUrl}/api/IQtest/67277ea7aacfc314004dca20`);
             setIqTest(response.data);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred');
@@ -160,7 +161,7 @@ const IQTest: React.FC = () => {
         };
 
         try {
-            await axios.post('http://localhost:5000/api/useriq', dataToSubmit);
+            await axios.post(`${backendUrl}/api/useriq`, dataToSubmit);
             alert('Test submitted successfully!');
             localStorage.setItem('iqTestResults', JSON.stringify(dataToSubmit));
             navigate('/iq-results');

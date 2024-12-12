@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './OMRResult.module.scss';
 import axios from 'axios';
+import backendUrl from '../../../../config';
 
 const OMRResult: React.FC = () => {
     const navigate = useNavigate();
@@ -77,7 +78,7 @@ const OMRResult: React.FC = () => {
         };
     
         try {
-            await axios.post('http://localhost:5000/api/omr', dataToSubmit);
+            await axios.post(`${backendUrl}/api/omr`, dataToSubmit);
             alert('Test submitted successfully!');
             localStorage.setItem('iqTestResults', JSON.stringify(dataToSubmit));
             navigate('/iq-results');

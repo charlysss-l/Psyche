@@ -3,6 +3,7 @@ import styles from './IQResult.module.scss';
 import { useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import backendUrl from '../../../config';
 
 const DiscoverUlogo = require('../../../images/DiscoverUlogo.png');
 
@@ -47,7 +48,7 @@ const IQResult: React.FC = () => {
             setResult(parsedResults);
 
             // Fetch the IQ test data based on the test ID to retrieve interpretations
-            fetch(`http://localhost:5000/api/IQtest/67277ea7aacfc314004dca20`)
+            fetch(`${backendUrl}/api/IQtest/67277ea7aacfc314004dca20`)
                 .then(response => response.json())
                 .then(data => {
                     const matchedInterpretation = data.interpretation.find((interp: Interpretation) => 

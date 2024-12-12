@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Studentlogin.module.scss";
+import backendUrl from "../../config";
 
 //  Handles user input (email, password), error, and success messages.
 //  Sends user credentials to the server, processes the response, and stores important data in localStorage.
@@ -55,7 +56,7 @@ const Login: React.FC = () => {
   
 
   const loginUser = async (email: string, password: string) => {
-    const response = await fetch("http://localhost:5000/api/authStudents/login", {
+    const response = await fetch(`${backendUrl}/api/authStudents/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

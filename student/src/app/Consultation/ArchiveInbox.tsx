@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./ArchiveInbox.module.scss";
+import backendUrl from "../../config";
 
 interface Consultation {
   userId: string;
@@ -12,7 +13,7 @@ interface Consultation {
   message: string;
 }
 
-const API_URL = "http://localhost:5000/api/consult/";
+const API_URL = `${backendUrl}/api/consult/`;
 
 const ArchiveInbox = () => {
   const [archivedConsultations, setArchivedConsultations] = useState<Consultation[]>([]);

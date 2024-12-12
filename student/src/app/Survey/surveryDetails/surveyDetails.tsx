@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./surveyDetails.module.scss";
 import { useParams, useNavigate } from "react-router-dom";
+import backendUrl from "../../../config";
+
 //allows user's to answer questions and submit the responses.
 //
 interface Survey {
@@ -35,7 +37,7 @@ const SurveyDetails: React.FC = () => {
   useEffect(() => {
     const fetchSurveyDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/surveys/${surveyId}`);
+        const response = await axios.get(`${backendUrl}/api/surveys/${surveyId}`);
         setSurvey(response.data);
       } catch (error) {
         console.error("Error fetching survey details:", error);
@@ -50,7 +52,7 @@ const SurveyDetails: React.FC = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/response/archived-surveys/${userId}`
+          `${backendUrl}/api/response/archived-surveys/${userId}`
         );
         const answeredSurvey = response.data.find((survey: any) => survey.surveyId === surveyId);
         setSurveyAlreadyAnswered(!!answeredSurvey); // Check if survey is already answered
@@ -88,7 +90,7 @@ const SurveyDetails: React.FC = () => {
     }));
 
     try {
-      await axios.post("http://localhost:5000/api/response/surveys/submit", {
+      await axios.post(`${backendUrl}/api/response/surveys/submit`, {
         surveyId: survey._id,
         responses,
         userId,

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './studentpfresult.module.scss';
 import { useNavigate } from 'react-router-dom';
+import backendUrl from '../../../config';
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -399,7 +400,7 @@ const PFResult: React.FC = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:5000/api/user16pf', {
+            const response = await fetch(`${backendUrl}/api/user16pf`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

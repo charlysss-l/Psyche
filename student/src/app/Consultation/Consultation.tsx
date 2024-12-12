@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./Consultation.module.scss";
 import { v4 as uuidv4 } from 'uuid'; // Install with `npm install uuid`
 import ArchiveInbox from "./ArchiveInbox";
+import backendUrl from "../../config";
 
 interface Consultation {
   userId: string;
@@ -25,12 +26,12 @@ interface FollowUpSchedule {
 }
 
 
-const API_URL = "http://localhost:5000/api/consult/";
-const FOLLOWUP_URL = "http://localhost:5000/api/followup/user/";
-const USERIQ_URL = "http://localhost:5000/api/useriq/";
-const USERPF_URL = "http://localhost:5000/api/user16pf/user/";
-const USERIQOMRE_URL = "http://localhost:5000/api/omr/"
-const USERPFOMRE_URL = "http://localhost:5000/api/omr16pf/"
+const API_URL = `${backendUrl}/api/consult/`;
+const FOLLOWUP_URL = `${backendUrl}/api/followup/user/`;
+const USERIQ_URL = `${backendUrl}/api/useriq/`;
+const USERPF_URL = `${backendUrl}/api/user16pf/user/`;
+const USERIQOMRE_URL = `${backendUrl}/api/omr/`
+const USERPFOMRE_URL = `${backendUrl}/api/omr16pf/`
 
 const ConsultationRequestForm: React.FC = () => {
   const [userId, setUserID] = useState("");
@@ -199,7 +200,7 @@ const ConsultationRequestForm: React.FC = () => {
 
   const fetchConsultations = async (id: string) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/consult/user/${id}`);
+      const response = await axios.get(`${backendUrl}/api/consult/user/${id}`);
       if (response?.data?.data) {
         setConsultation(response.data.data);
       }
@@ -267,7 +268,7 @@ const ConsultationRequestForm: React.FC = () => {
 
   const handleAccept = async (id: string) => {
     try {
-      await axios.put(`http://localhost:5000/api/followup/${id}`, {
+      await axios.put(`${backendUrl}/api/followup/${id}`, {
         status: "accepted",
       });
       setFollowUpSchedules((prev) =>
@@ -297,7 +298,7 @@ const handleSubmitDecline = async (id: string) => {
 
   try {
     // Send the declined status and message to the backend
-    await axios.put(`http://localhost:5000/api/followup/${id}`, {
+    await axios.put(`${backendUrl}/api/followup/${id}`, {
       status: "declined",
       message: declineMessage,
     });
@@ -320,7 +321,7 @@ const handleSubmitDecline = async (id: string) => {
 const handleRemove = async (id: string) => {
   try {
     // Call the backend to remove the follow-up schedule
-    await axios.delete(`http://localhost:5000/api/followup/${id}`);
+    await axios.delete(`${backendUrl}/api/followup/${id}`);
 
     // Update the state to remove the schedule
     setFollowUpSchedules((prev) => prev.filter((schedule) => schedule._id !== id));

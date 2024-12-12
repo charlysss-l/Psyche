@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "./page.module.scss";
-import { set } from "mongoose";
-
+import backendUrl from "../../config";
 //Retrieves user details from a backend server. 
 //Ensures all inputs are valid before submission.
 //Token based authentication
@@ -30,7 +29,7 @@ const Profile: React.FC = () => {
 
       try {
         const response = await fetch(
-          "http://localhost:5000/api/authStudents/profile",
+         `${backendUrl}/api/authStudents/profile`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -110,7 +109,7 @@ useEffect(() => {
 
     try {
       const updateResponse = await fetch(
-        "http://localhost:5000/api/authStudents/update",
+        `${backendUrl}/api/authStudents/update`,
         {
           method: "PUT",
           headers: {

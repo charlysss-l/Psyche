@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./ArchivedSurveys.module.scss";
+import backendUrl from "../../../config";
 
 //Uses axios to fetch survey data from an API endpoint.
 //Manages survey data, loading status, and error messages using React's useState.
@@ -32,7 +33,7 @@ const ArchivedSurveys: React.FC = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/response/archived-surveys/${userId}`
+          `${backendUrl}/api/response/archived-surveys/${userId}`
         );
         setArchivedSurveys(response.data);
       } catch (err) {

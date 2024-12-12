@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from './studentpftest.module.scss';
 import { User16PFTest, Question } from '../../../types/pfTestTypes';
 import { useNavigate } from 'react-router-dom';
+import backendUrl from '../../../config';
 
 const PFTest: React.FC = () => {
     const [test, setTest] = useState<User16PFTest | null>(null);
@@ -48,7 +49,7 @@ const PFTest: React.FC = () => {
     
     const fetchTest = async () => {
         try {
-            const response = await axios.get<User16PFTest>('http://localhost:5000/api/16pf/67282807d9bdba831a7e9063');
+            const response = await axios.get<User16PFTest>(`${backendUrl}/api/16pf/67282807d9bdba831a7e9063`);
             const randomizedQuestions = shuffleQuestions(response.data.question);
             setTest({ ...response.data, question: randomizedQuestions });
         } catch (err) {
@@ -111,7 +112,7 @@ const PFTest: React.FC = () => {
         };
 
         try {
-            await axios.post('http://localhost:5000/api/user16pf', dataToSubmit);
+            await axios.post(`${backendUrl}/api/user16pf`, dataToSubmit);
             alert('Test submitted successfully!');
             localStorage.setItem('pfTestResults', JSON.stringify(dataToSubmit));
             navigate('/pf-results');
