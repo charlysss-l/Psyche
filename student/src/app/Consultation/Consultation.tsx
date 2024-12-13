@@ -4,9 +4,11 @@ import styles from "./Consultation.module.scss";
 import { v4 as uuidv4 } from 'uuid'; // Install with `npm install uuid`
 import ArchiveInbox from "./ArchiveInbox";
 import backendUrl from "../../config";
+import { set } from "mongoose";
 
 interface Consultation {
   userId: string;
+  studentName: string;
   date: string;
   testID: string;
   timeForConsultation: string;
@@ -18,6 +20,7 @@ interface Consultation {
 interface FollowUpSchedule {
   _id: string;
   userId: string;
+  studentName: string;
   followUpDate: string;
   timeForConsultation: string;
   note: string;
@@ -40,6 +43,7 @@ const ConsultationRequestForm: React.FC = () => {
   const [testIDs, setTestIDs] = useState<string[]>([]); // To store fetched test IDs
   const [selectedTestID, setSelectedTestID] = useState<string>(""); // For selected test ID
   const [date, setDate] = useState("");
+  const [studentName, setStudentName] = useState("");
   const [consultations, setConsultation] = useState<Consultation[]>([]);
   const [followUpSchedules, setFollowUpSchedules] = useState<FollowUpSchedule[]>([]);
   const [decliningSchedule, setDecliningSchedule] = useState<string | null>(null);
@@ -52,8 +56,7 @@ const ConsultationRequestForm: React.FC = () => {
 
   
   // Fields for "Others"
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  
   const [age, setAge] = useState<number | "">("");
   const [sex, setSex] = useState<"Male" | "Female" | "">("");
   const [course, setCourse] = useState<"BSCS" | "BSIT" | "BSCrim" | "BSHRM" | "BSEDUC" | "BSP" | "">("");
@@ -64,8 +67,7 @@ const ConsultationRequestForm: React.FC = () => {
   useEffect(() => {
     if (note !== "Others") {
       // Reset fields to default values
-      setFirstName("N/A");
-      setLastName("N/A");
+ 
       setAge(1);
       setSex("");
       setCourse("");
@@ -74,8 +76,7 @@ const ConsultationRequestForm: React.FC = () => {
       setReasonForConsultation("N/A");
     } else {
       // Clear fields for user input
-      setFirstName("");
-      setLastName("");
+    
       setAge("");
       setSex("");
       setCourse("");
@@ -163,13 +164,12 @@ const ConsultationRequestForm: React.FC = () => {
     try {
       const consultationRequest = {
         userId,
+        studentName,
         timeForConsultation,
         note,
         testID: selectedTestID,
         date,
         message: "No Message Yet",
-        firstName: firstName || "N/A",
-        lastName: lastName || "N/A",
         age: age || 1,
         sex: sex || "N/A",
         course: course || "N/A",
@@ -352,6 +352,17 @@ const handleRemove = async (id: string) => {
           </label>
 
           <label className={styles.conLabel}>
+            Full Name 
+            <input
+              className={styles.conInput}
+              type="text"
+              value={studentName}
+              onChange={(e) => setStudentName(e.target.value)}
+              required
+            />
+          </label>
+
+          <label className={styles.conLabel}>
             Date
             <input
               className={styles.conInput}
@@ -428,31 +439,6 @@ const handleRemove = async (id: string) => {
           )}
           {note === "Others" && (
             <>
-              <label className={styles.conLabel}>
-                First Name
-                <input
-                  className={styles.conInput}
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                  disabled={note !== "Others"}
-
-                />
-              </label>
-
-              <label className={styles.conLabel}>
-                Last Name
-                <input
-                  className={styles.conInput}
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                  disabled={note !== "Others"}
-
-                />
-              </label>
 
               <label className={styles.conLabel}>
                 Age
@@ -578,6 +564,7 @@ const handleRemove = async (id: string) => {
       <thead>
         <tr>
           <th>User ID</th>
+          <th>Name</th>
           <th>Date</th>
           <th>Time for Consultation</th>
           <th>Test ID</th>
@@ -601,6 +588,7 @@ const handleRemove = async (id: string) => {
                 }
               >
                 <td>{consultation.userId}</td>
+                <td>{consultation.studentName}</td>
                 <td>
                   {new Date(consultation.date).toLocaleDateString("en-US", {
                     month: "2-digit",

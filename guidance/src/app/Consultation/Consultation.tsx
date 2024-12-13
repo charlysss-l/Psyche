@@ -3,7 +3,6 @@ import { fetchConsultationRequests } from "../services/consultationservice";
 import { fetchFollowUpSchedules } from "../services/followupservice";
 import axios from "axios";
 import styles from "./Consultation.module.scss";
-import e from "express";
 import ArchiveInbox from "./ArchiveInbox";
 import backendUrl from "../../config";
 
@@ -16,6 +15,7 @@ const USERPFOMRE_URL = `${backendUrl}/api/omr16pf/test/`;
 interface ConsultationRequest {
   _id: string;
   userId: string;
+  studentName: string;
   timeForConsultation: string;
   note: string;
   testID: string;
@@ -27,6 +27,7 @@ interface ConsultationRequest {
 interface FollowUpSchedule {
   _id: string;
   userId: string;
+  studentName: string;
   followUpDate: string;
   timeForConsultation: string;
   note: string;
@@ -59,10 +60,11 @@ const GuidanceConsultation: React.FC = () => {
   const [testDetails, setTestDetails] = useState<any>(null);  // For storing test results
   const [showTestInfo, setShowTestInfo] = useState<boolean>(false);  // To control modal visibility
   const [declineNote, setDeclineNote] = useState<string>("");
+  const [pendingSearchTerm, setPendingSearchTerm] = useState<string>("");
+  const [acceptedSearchTerm, setAcceptedSearchTerm] = useState<string>("");
+  const [followUpSearchTerm, setFollowUpSearchTerm] = useState<string>("");
   const [showDeclineModal, setShowDeclineModal] = useState<boolean>(false);
   const [decliningRequestId, setDecliningRequestId] = useState<string>("");
-  const [showTestModal, setShowTestModal] = useState<boolean>(false);
-
   const [showArchived, setShowArchived] = useState(false);  // State to toggle the archive list visibility
   const toggleArchivedList = () => {
     setShowArchived(prevState => !prevState);  // Toggle the state
@@ -123,8 +125,70 @@ const GuidanceConsultation: React.FC = () => {
     fetchTestDetails( testID, note);
   };
 
-  const pendingRequests = consultationRequests.filter((request) => request.status === "pending" || request.status === "cancelled");
-  const acceptedRequests = consultationRequests.filter((request) => request.status === "accepted" || request.status === "completed");
+  const filteredPendingUsers = consultationRequests.filter((request) => {
+    const normalizedDate = normalizeDate(request.date); // Normalize the date for comparison
+    const normalizedSearchTerm = normalizeSearchTerm(pendingSearchTerm); // Normalize the search term
+    return [
+      request.userId,
+      request.studentName,
+      request.note,
+      request.timeForConsultation,
+      normalizedDate,
+    ]
+    .join(" ")
+    .toLowerCase()
+    .includes(normalizedSearchTerm.toLowerCase());
+  });
+
+  const filteredAcceptedUsers = consultationRequests.filter((request) => {
+    const normalizedDate = normalizeDate(request.date); // Normalize the date for comparison
+    const normalizedSearchTerm = normalizeSearchTerm(acceptedSearchTerm); // Normalize the search term
+    return [
+      request.userId,
+      request.studentName,
+      request.note,
+      request.timeForConsultation,
+      normalizedDate,
+    ]
+    .join(" ")
+    .toLowerCase()
+    .includes(normalizedSearchTerm.toLowerCase());
+  });
+
+  const filteredFollowUpUsers = followUpSchedules.filter((schedule) => {
+    const normalizedDate = normalizeDate(schedule.followUpDate); // Normalize the date for comparison
+    const normalizedSearchTerm = normalizeSearchTerm(followUpSearchTerm); // Normalize the search term
+    return [
+      schedule.userId,
+      schedule.studentName,
+      schedule.note,
+      schedule.timeForConsultation,
+      normalizedDate,
+    ]
+    .join(" ")
+    .toLowerCase()
+    .includes(normalizedSearchTerm.toLowerCase());
+  });
+  
+  // Utility function to normalize the date
+  function normalizeDate(date: Date | string): string {
+    if (!date) return ""; // Handle empty dates
+    const parsedDate = new Date(date); // Parse the date
+    if (isNaN(parsedDate.getTime())) return ""; // Check for invalid dates
+    const month = parsedDate.getMonth() + 1; // Months are 0-based
+    const day = parsedDate.getDate();
+    const year = parsedDate.getFullYear();
+    return `${month}/${day}/${year}`; // Use single digits for month/day
+  }
+  
+  // Utility function to normalize the search term
+  function normalizeSearchTerm(term: string): string {
+  return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
+  }
+  
+
+  const pendingRequests = filteredPendingUsers.filter((request) => request.status === "pending" || request.status === "cancelled");
+  const acceptedRequests = filteredAcceptedUsers.filter((request) => request.status === "accepted" || request.status === "completed");
  
 
   // Accept a consultation request
@@ -348,6 +412,7 @@ const handleRemove = async (id: string) => {
   }
 };
 
+
   return (
     <div>
     <div className={styles.statusBoxContainer}>
@@ -363,8 +428,18 @@ const handleRemove = async (id: string) => {
 
     {/* Pending Requests Table */}
 <div className={styles.tableBox}>
-  <h2>Pending Consultation Requests
-  </h2>
+<h2 className={styles.title}>Pending Consultation Request
+      <div className={styles.smartWrapper}>
+      <input
+              type="text"
+              placeholder="Search by User ID, Name, Date, Time, Note"
+              value={pendingSearchTerm}
+              onChange={(e) => setPendingSearchTerm(e.target.value)}
+              className={styles.searchInput}
+            />
+            </div>
+            
+            </h2>
   {showArchived && <ArchiveInbox />}
   <div className={styles.responsesWrapper}>
 
@@ -372,6 +447,7 @@ const handleRemove = async (id: string) => {
     <thead>
       <tr>
         <th>User ID</th>
+        <th>Student Name</th>
         <th>Date</th>
         <th>Time</th>
         <th>Note</th>
@@ -386,6 +462,7 @@ const handleRemove = async (id: string) => {
         .map((request) => (
         <tr key={request._id}>
           <td>{request.userId}</td>
+          <td>{request.studentName}</td>
           <td>
             {new Date(request.date).toLocaleDateString("en-US", {
               month: "2-digit",
@@ -438,13 +515,24 @@ const handleRemove = async (id: string) => {
 
  {/* Follow Up Requests Table */}
 <div className={styles.tableBox}>
-  <h2>Pending Follow-Up Consultation Requests</h2>
-  <div className={styles.responsesWrapper}>
+<h2 className={styles.title}>Follow-Up Consultation Request
+      <div className={styles.smartWrapper}>
+      <input
+              type="text"
+              placeholder="Search by User ID, Name, Date, Time, Note"
+              value={followUpSearchTerm}
+              onChange={(e) => setFollowUpSearchTerm(e.target.value)}
+              className={styles.searchInput}
+            />
+            </div>
+            
+            </h2>  <div className={styles.responsesWrapper}>
 
   <table>
     <thead>
       <tr>
         <th>User ID</th>
+        <th>Student Name</th>
         <th>Date</th>
         <th>Time</th>
         <th>Note</th>
@@ -454,11 +542,12 @@ const handleRemove = async (id: string) => {
       </tr>
     </thead>
     <tbody>
-      {followUpSchedules.length > 0 ? (
-        followUpSchedules
+      {filteredFollowUpUsers.length > 0 ? (
+        filteredFollowUpUsers
           .map((schedule) => (
             <tr key={schedule._id}>
               <td>{schedule.userId}</td>
+              <td>{schedule.studentName}</td>
               <td>{new Date(schedule.followUpDate).toLocaleDateString()}</td>
               <td>{schedule.timeForConsultation}</td>
               <td>{schedule.note}</td>
@@ -490,20 +579,34 @@ const handleRemove = async (id: string) => {
 
 {/* Accepted Requests Table */}
 <div className={styles.tableBox}>
-  <h2>Accepted Consultation Requests
+  <h2 className={styles.title}>Accepted Consultation Request
   <button
       className={styles.archiveButton}
       onClick={toggleArchivedList}
     >
       Archive List
     </button>
-  </h2>
+      <div className={styles.smartWrapper}>
+        
+      <input
+              type="text"
+              placeholder="Search by User ID, Name, Date, Time, Note"
+              value={acceptedSearchTerm}
+              onChange={(e) => setAcceptedSearchTerm(e.target.value)}
+              className={styles.searchInput}
+            />
+            </div>
+            
+            </h2>
+ 
+  
   <div className={styles.responsesWrapper}>
 
   <table>
     <thead>
       <tr>
         <th>User ID</th>
+        <th>Student Name</th>
         <th>Date</th>
         <th>Time</th>
         <th>Note</th>
@@ -524,6 +627,7 @@ const handleRemove = async (id: string) => {
         .map((request) => (
         <tr key={request._id}>
           <td>{request.userId}</td>
+          <td>{request.studentName}</td>
           <td>
             {new Date(request.date).toLocaleDateString("en-US", {
               month: "2-digit",
@@ -606,11 +710,13 @@ const handleRemove = async (id: string) => {
         </thead>
         <tbody>
   {testDetails?.data?.map((testDetails: any) => (
+
+    
     <React.Fragment key={testDetails._id}>
       <tr>
-        <td>Name</td>
-        <td>{testDetails.firstName} {testDetails.lastName}</td>
-      </tr>
+        <td>Student Name</td>
+        <td>{testDetails.studentName}</td>
+        </tr>
       <tr>
         <td>Age</td>
         <td>{testDetails.age}</td>

@@ -2,14 +2,13 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 interface IConsultationRequest extends Document {
   userId: string;
+  studentName: string;
   timeForConsultation: string;
   testID: string;
   note: 'IQ Test (Online)' | 'IQ Test (Physical)' | 'Personality Test (Online)' | 'Personality Test (Physical)' | 'Others';
   date: Date;
   status: 'pending' | 'accepted' | 'declined' | 'cancelled' | 'completed' | 'deleted' | 'removed' | 'archived';
   message: string;
-  firstName?: string;
-  lastName?: string;
   sex?: string;
   age?: number;
   course?: string;
@@ -20,6 +19,10 @@ interface IConsultationRequest extends Document {
 
 const ConsultationRequestSchema: Schema = new Schema({
   userId: {
+    type: String,
+    required: true,
+  },
+  studentName: {
     type: String,
     required: true,
   },
@@ -48,12 +51,6 @@ const ConsultationRequestSchema: Schema = new Schema({
   message: {
     type: String,
     required: true,
-  },
-  firstName: {
-    type: String, // Optional field
-  },
-  lastName: {
-    type: String, // Optional field
   },
   age: {
     type: Number, // Optional field

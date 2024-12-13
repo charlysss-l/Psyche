@@ -2,6 +2,7 @@ import { Schema, model, Document } from "mongoose";
 
 interface IFollowUpSchedule extends Document {
   userId: string;
+  studentName: string;
   followUpDate: string;
   timeForConsultation: string;
   note: string;
@@ -11,6 +12,7 @@ interface IFollowUpSchedule extends Document {
 
 const FollowUpScheduleSchema = new Schema<IFollowUpSchedule>({
   userId: { type: String, required: true },
+  studentName: { type: String, required: true },
   followUpDate: { type: String, required: true },
   timeForConsultation: { type: String, required: true },
   note: { type: String, required: true },

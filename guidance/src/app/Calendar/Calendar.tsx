@@ -13,6 +13,7 @@ const API_URL = `${backendUrl}/api/consult/`;
 interface ConsultationRequest {
   _id: string;
   userId: string;
+  studentName: string;
   timeForConsultation: string;
   note: string;
   date: string;
@@ -22,6 +23,7 @@ interface ConsultationRequest {
 interface FollowUpSchedule {
   _id: string;
   userId: string;
+  studentName: string;
   followUpDate: string;
   timeForConsultation: string;
   note: string;
@@ -77,12 +79,14 @@ const SchedulingCalendar: React.FC = () => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const userId = (form.elements.namedItem("userId") as HTMLInputElement).value;
+    const studentName = (form.elements.namedItem("studentName") as HTMLInputElement).value;
     const timeForConsultation = (form.elements.namedItem("timeForConsultation") as HTMLInputElement).value;
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
   
     try {
       const response = await axios.post(`${backendUrl}/api/followup`, {
         userId,
+        studentName,
         followUpDate: selectedDate?.toDateString(),
         timeForConsultation,
         note,
@@ -192,6 +196,7 @@ const SchedulingCalendar: React.FC = () => {
                 <thead>
                   <tr>
                     <th>User ID</th>
+                    <th>Student Name</th>
                     <th>Time</th>
                     <th>Note</th>
                     <th>Status</th>
@@ -202,6 +207,7 @@ const SchedulingCalendar: React.FC = () => {
                   {filteredRequests.map((request) => (
                     <tr key={request._id}>
                       <td>{request.userId}</td>
+                      <td>{request.studentName}</td>
                       <td>{request.timeForConsultation}</td>
                       <td>{request.note}</td>
                       <td>{request.status}</td>
@@ -226,6 +232,7 @@ const SchedulingCalendar: React.FC = () => {
                 <thead>
                   <tr>
                     <th>User ID</th>
+                    <th>Student Name</th>
                     <th>Time</th>
                     <th>Note</th>
                     <th>Status</th>
@@ -236,6 +243,7 @@ const SchedulingCalendar: React.FC = () => {
                   {filteredSchedules.map((schedule) => (
                     <tr key={schedule._id}>
                       <td>{schedule.userId}</td>
+                      <td>{schedule.studentName}</td>
                       <td>{schedule.timeForConsultation}</td>
                       <td>{schedule.note}</td>
                       <td>{schedule.status}</td>
@@ -258,6 +266,10 @@ const SchedulingCalendar: React.FC = () => {
               <div>
                 <label className={styles.newSchedlabel}>User ID:</label>
                 <input type="text" name="userId" className="newSchedinput" required />
+              </div>
+              <div>
+                <label className={styles.newSchedlabel}>Name of the Student:</label>
+                <input type="text" name="studentName" className="newSchedinput" required />
               </div>
               <div>
                 <label className={styles.newSchedlabel}>Time for Consultation:</label>

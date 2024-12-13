@@ -469,6 +469,27 @@ button {
   width: 80%; /* Expand underline on hover */
 }
 
+.title {
+  display: flex; /* Make the title a flex container */
+  justify-content: space-between; /* Distribute the content: title on the left, buttons on the right */
+  align-items: center; /* Vertically align the title and buttons */
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 30px;
+}
+
+.smartWrapper {
+  display: flex; /* Arrange buttons in a row */
+  width: 320px;
+}
+
 :global(body.dark-mode) {
   .acceptedBox, .pendingBox {
     background-color: #222222;
