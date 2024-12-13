@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PFOnlineList.module.scss';  
-import { useNavigate } from 'react-router-dom';
 import backendUrl from '../../../../config';
 import { Line } from 'react-chartjs-2';
 import {
@@ -79,14 +78,12 @@ const PFOnlineList: React.FC = () => {
   const [results, setResults] = useState<User16PFTest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [userID, setUserID] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
-
 
   // Define the factor order
   const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
@@ -193,12 +190,41 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
     }
   };
 
+  const filteredUsers = results.filter((result) => {
+    const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
+    const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
+    return [
+      result.testID,
+      normalizedDate,
+    ]
+    .join(" ")
+    .toLowerCase()
+    .includes(normalizedSearchTerm.toLowerCase());
+  });
+  
+  // Utility function to normalize the date
+  function normalizeDate(date: Date | string): string {
+    if (!date) return ""; // Handle empty dates
+    const parsedDate = new Date(date); // Parse the date
+    if (isNaN(parsedDate.getTime())) return ""; // Check for invalid dates
+    const month = parsedDate.getMonth() + 1; // Months are 0-based
+    const day = parsedDate.getDate();
+    const year = parsedDate.getFullYear();
+    return `${month}/${day}/${year}`; // Use single digits for month/day
+  }
+
+  // Utility function to normalize the search term
+function normalizeSearchTerm(term: string): string {
+  return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
+}
+
+
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
-  const totalPages = Math.ceil(results.length / resultsPerPage);
-  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
+  const currentResults = filteredUsers.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
 
   // Prepare data for the stacked bar chart
 
@@ -306,22 +332,28 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
     );
   };
   
-  
-  
-  
-  
-
-
   return (
     <div>
-      <h2>PF Results List
-      <p className={styles.resultCount}>
-  Total Results: {results.length}
-</p>
+      <h2 className={styles.title}>16PF Results List (Online)
+      
+<div className={styles.smartWrapper}>
+
+<input
+        type="text"
+        placeholder="Search by Test ID or Date"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
+      </div>
       </h2>
+
+      <p className={styles.resultCount}>
+  Total Results: {filteredUsers.length}
+</p>
       
      
-      {results.length > 0 ? (
+      {filteredUsers.length > 0 ? (
         <div>
           <table className={styles.resultsTable}>
             <thead>

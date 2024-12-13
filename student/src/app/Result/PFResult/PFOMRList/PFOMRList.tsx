@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PFOMRList.module.scss';  
-import { useNavigate } from 'react-router-dom';
 import backendUrl from '../../../../config';
 import { Line } from 'react-chartjs-2';
 import {
@@ -119,18 +118,17 @@ const PFOMRList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [userID, setUserID] = useState<string | null>(null);
   const [editingTestID, setEditingTestID] = useState<string | null>(null); // Track the testID of the item being edited
   const [updatedData, setUpdatedData] = useState<Partial<OMRpf>>({}); // Store updated data for the current test
-
   const resultsPerPage = 5;
-  const navigate = useNavigate();
   // graph modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
-// image modal
-const [isModalOpenImage, setIsModalOpenImage] = useState(false); // State to control modal visibility
-const [modalImageURL, setModalImageURL] = useState<string | null>(null); // State for modal image URL
+  const [selectedUser, setSelectedUser] = useState<OMRpf | null>(null);
+  // image modal
+  const [isModalOpenImage, setIsModalOpenImage] = useState(false); // State to control modal visibility
+  const [modalImageURL, setModalImageURL] = useState<string | null>(null); // State for modal image URL
 
   
 
@@ -150,9 +148,6 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
       return indexA - indexB;
     });
   };
-
-
- 
 
   // Fetch userID from localStorage and set it in state
   useEffect(() => {
@@ -216,8 +211,6 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
     }
   };
 
-
-
   const handleDelete = async (testID: string) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this test?");
     if (!confirmDelete) return;
@@ -272,12 +265,40 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
     }
   };
 
+  const filteredUsers = results.filter((result) => {
+    const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
+    const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
+    return [
+      result.testID,
+      normalizedDate,
+    ]
+    .join(" ")
+    .toLowerCase()
+    .includes(normalizedSearchTerm.toLowerCase());
+  });
+  
+  // Utility function to normalize the date
+  function normalizeDate(date: Date | string): string {
+    if (!date) return ""; // Handle empty dates
+    const parsedDate = new Date(date); // Parse the date
+    if (isNaN(parsedDate.getTime())) return ""; // Check for invalid dates
+    const month = parsedDate.getMonth() + 1; // Months are 0-based
+    const day = parsedDate.getDate();
+    const year = parsedDate.getFullYear();
+    return `${month}/${day}/${year}`; // Use single digits for month/day
+  }
+
+  // Utility function to normalize the search term
+function normalizeSearchTerm(term: string): string {
+  return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
+}
+
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
-  const totalPages = Math.ceil(results.length / resultsPerPage);
-  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
+  const currentResults = filteredUsers.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
 
   // Prepare data for the stacked bar chart
   const Modal = ({ isOpen, onClose, data }: { isOpen: boolean, onClose: () => void, data: any }) => {
@@ -384,13 +405,25 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
 
   return (
     <div>
-      <h2>PF Results List (Physical) 
-         <p className={styles.resultCount}>
-  Total Results: {results.length}
+      <h2 className={styles.title}>16PF Results List (Physical)
+      
+      <div className={styles.smartWrapper}>
+      
+      <input
+              type="text"
+              placeholder="Search by Test ID or Date"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className={styles.searchInput}
+            />
+            </div>
+            </h2>
+
+      <p className={styles.resultCount}>
+  Total Results: {filteredUsers.length}
 </p>
-      </h2>
      
-      {results.length > 0 ? (
+      {filteredUsers.length > 0 ? (
         <div>
           <table className={styles.resultsTable}>
             <thead>

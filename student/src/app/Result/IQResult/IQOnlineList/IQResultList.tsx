@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from './IQResultList.module.scss'; // Import your CSS module
-import { useNavigate } from 'react-router-dom';
 import backendUrl from '../../../../config';
 
 interface Response {
@@ -43,8 +42,7 @@ const IQResultsList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [userID, setUserID] = useState<string | null>(null);
-  const navigate = useNavigate();
-
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
 
@@ -112,29 +110,29 @@ const IQResultsList: React.FC = () => {
     }
   }, [userID]); // Trigger fetchData when userID changes
 
-  const handleDelete = async (testID: string) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this test?");
-    if (!confirmDelete) return;
+  // const handleDelete = async (testID: string) => {
+  //   const confirmDelete = window.confirm("Are you sure you want to delete this test?");
+  //   if (!confirmDelete) return;
   
-    try {
-      const response = await fetch(`${backendUrl}/api/useriq/test/${testID}`, {
-        method: 'DELETE',
-      });
+  //   try {
+  //     const response = await fetch(`${backendUrl}/api/useriq/test/${testID}`, {
+  //       method: 'DELETE',
+  //     });
   
-      if (!response.ok) {
-        throw new Error(`Error deleting the test: ${response.statusText}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`Error deleting the test: ${response.statusText}`);
+  //     }
   
-      // Remove the deleted test from the state
-      setResults(results.filter((result) => result.testID !== testID));
-      alert("Test Result deleted successfully.");
+  //     // Remove the deleted test from the state
+  //     setResults(results.filter((result) => result.testID !== testID));
+  //     alert("Test Result deleted successfully.");
 
-      window.location.reload();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
-      console.error('Error deleting test:', err);
-    }
-  };
+  //     window.location.reload();
+  //   } catch (err) {
+  //     setError(err instanceof Error ? err.message : 'An unknown error occurred');
+  //     console.error('Error deleting test:', err);
+  //   }
+  // };
 
   const handleArchive = async (testID: string) => {
     try {
@@ -158,23 +156,61 @@ const IQResultsList: React.FC = () => {
         console.error('Error archiving test:', err);
     }
 };
+
+const filteredUsers = results.filter((result) => {
+  const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
+  const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
+  return [
+    result.testID,
+    normalizedDate,
+  ]
+  .join(" ")
+  .toLowerCase()
+  .includes(normalizedSearchTerm.toLowerCase());
+});
+
+// Utility function to normalize the date
+function normalizeDate(date: Date | string): string {
+  if (!date) return ""; // Handle empty dates
+  const parsedDate = new Date(date); // Parse the date
+  if (isNaN(parsedDate.getTime())) return ""; // Check for invalid dates
+  const month = parsedDate.getMonth() + 1; // Months are 0-based
+  const day = parsedDate.getDate();
+  const year = parsedDate.getFullYear();
+  return `${month}/${day}/${year}`; // Use single digits for month/day
+}
+
+// Utility function to normalize the search term
+function normalizeSearchTerm(term: string): string {
+return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
+}
   
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
-  const totalPages = Math.ceil(results.length / resultsPerPage);
-  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
+  const currentResults = filteredUsers.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
 
   return (
     <div>
-      <h2>IQ Results List
-      <p className={styles.resultCount}>
-  Total Results: {results.length}
-</p>
-      </h2>
+     <h2 className={styles.title}>IQ Results List (Online)
+      <div className={styles.smartWrapper}>
+      <input
+              type="text"
+              placeholder="Search by Test ID or Date"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className={styles.searchInput}
+            />
+            </div>
+            </h2>
 
-      {results.length > 0 ? (
+      <p className={styles.resultCount}>
+  Total Results: {filteredUsers.length}
+</p>
+
+      {filteredUsers.length > 0 ? (
         <div>
           <table className={styles.resultsTableIQ}>
             <thead>

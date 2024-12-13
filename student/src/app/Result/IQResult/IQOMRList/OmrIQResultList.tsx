@@ -38,6 +38,7 @@ const OmrIQResultsList: React.FC = () => {
   const resultsPerPage = 5;
   const [modalImageURL, setModalImageURL] = useState<string | null>(null); // State for modal image URL
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     const storedUserID = localStorage.getItem('userId');
@@ -181,25 +182,61 @@ const OmrIQResultsList: React.FC = () => {
     }
   };
 
+  const filteredUsers = results.filter((result) => {
+    const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
+    const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
+    return [
+      result.testID,
+      normalizedDate,
+    ]
+    .join(" ")
+    .toLowerCase()
+    .includes(normalizedSearchTerm.toLowerCase());
+  });
+  
+  // Utility function to normalize the date
+  function normalizeDate(date: Date | string): string {
+    if (!date) return ""; // Handle empty dates
+    const parsedDate = new Date(date); // Parse the date
+    if (isNaN(parsedDate.getTime())) return ""; // Check for invalid dates
+    const month = parsedDate.getMonth() + 1; // Months are 0-based
+    const day = parsedDate.getDate();
+    const year = parsedDate.getFullYear();
+    return `${month}/${day}/${year}`; // Use single digits for month/day
+  }
+  
+  // Utility function to normalize the search term
+  function normalizeSearchTerm(term: string): string {
+  return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
+  }
+
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
-  const totalPages = Math.ceil(results.length / resultsPerPage);
-  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
+  const currentResults = filteredUsers.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
 
   return (
     <div>
-      <h2 className={styles.iqresultitle}>IQ Results List (Physical) 
-        <p className={styles.ageWarning}>*Your Age Must Be 20 years old and Above to see the Interpretation.
-
-        <p className={styles.resultCount}>
-  Total Results: {results.length}
+      <h2 className={styles.title}>IQ Results List (Physical) <span className={styles.ageWarning}>*Your Age Must Be 20 years old and Above to see the Interpretation.
+      </span>
+      <div className={styles.smartWrapper}>
+      <input
+              type="text"
+              placeholder="Search by Test ID or Date"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className={styles.searchInput}
+            />
+            </div>
+            
+            </h2>
+    
+      <p className={styles.resultCount}>
+  Total Results: {filteredUsers.length}
 </p>
-        </p>
-      
-      </h2>
 
-      {results.length > 0 ? (
+      {filteredUsers.length > 0 ? (
         <div>
           <table className={styles.resultsTableIQ}>
             <thead>

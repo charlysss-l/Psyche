@@ -85,20 +85,39 @@
 .pagination span {
   font-size: 16px;
 }
+  
 
-.ageWarning {
-  color: red;
-  font-size: 60%;
+
+.title {
+  display: flex; /* Make the title a flex container */
+  justify-content: space-between; /* Distribute the content: title on the left, buttons on the right */
+  align-items: center; /* Vertically align the title and buttons */
 }
 
-  
 .resultCount {
-  text-align: right;
+  text-align: left;
   font-size: 1.2rem;
   margin-bottom: .5rem;
-  margin-top: -1.5rem;
-  color: #d7a52f;
+  margin-top: -.5rem;
+  color: #333;
 }
+
+.searchInput {
+  width: 100%;
+  max-width: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 35px;
+}
+
+.smartWrapper {
+  display: flex; /* Arrange buttons in a row */
+  width: 200px;
+  margin-bottom: -30px;
+}
+
 :global(body.dark-mode){
   .resultCount{
     color: #849670;
