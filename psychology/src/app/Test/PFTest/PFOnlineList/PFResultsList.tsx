@@ -207,12 +207,40 @@ const fetchData = async () => {
   };
   
   
-  const filteredUsers = results.filter((result) =>
-    [result.userID, result.firstName, result.lastName]
+  const filteredUsers = results.filter((result) => {
+    const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
+    const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
+    return [
+      result.userID,
+      result.firstName,
+      result.lastName,
+      result.sex,
+      result.course,
+      normalizedDate,
+    ]
       .join(" ")
       .toLowerCase()
-      .includes(searchTerm.toLowerCase())
-  );
+      .includes(normalizedSearchTerm.toLowerCase());
+  });
+  
+  // Utility function to normalize the date
+  function normalizeDate(date: Date | string): string {
+    if (!date) return ""; // Handle empty dates
+    const parsedDate = new Date(date); // Parse the date
+    if (isNaN(parsedDate.getTime())) return ""; // Check for invalid dates
+    const month = parsedDate.getMonth() + 1; // Months are 0-based
+    const day = parsedDate.getDate();
+    const year = parsedDate.getFullYear();
+    return `${month}/${day}/${year}`; // Use single digits for month/day
+  }
+  
+  // Utility function to normalize the search term
+  function normalizeSearchTerm(term: string): string {
+    return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
+  }
+  
+  
+  
 
   const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
   const currentResults = filteredUsers.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
@@ -225,7 +253,7 @@ const fetchData = async () => {
   <div className={styles.buttonsWrapper}>
     <input
         type="text"
-        placeholder="Search by User ID or Name"
+        placeholder="Search by User ID, Name, Sex, Course, Date"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className={styles.searchInput}
