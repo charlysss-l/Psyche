@@ -107,7 +107,7 @@ const IQTest: React.FC = () => {
                         <th className={style.th}>Question Set</th>
                         <th className={style.th}>Question Image</th>
                         <th className={style.th}>Choices Images</th>
-                        {/* <th className={style.th}>Correct Answer</th> */}
+                        <th className={style.th}>Correct Answer</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,9 +123,9 @@ const IQTest: React.FC = () => {
                                     <img key={index} src={choiceImage} alt={`Choice ${index + 1}`} />
                                 ))}
                             </td>
-                            {/* <td className={style.answer}>
+                            <td className={style.answer}>
                                 <img src={q.correctAnswer} alt="Correct Answer" />
-                            </td> */}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

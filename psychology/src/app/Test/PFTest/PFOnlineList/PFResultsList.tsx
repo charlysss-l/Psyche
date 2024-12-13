@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PFResultList.module.scss';  
-import { useNavigate } from 'react-router-dom';
 import PFOnlineArchivedList from './PFOnlineArchivedList';
 import * as XLSX from 'xlsx';
-import { table } from 'console';
 import backendUrl from '../../../../config';
 
 
@@ -61,10 +59,8 @@ const PFResultsList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
-  const navigate = useNavigate();
-
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
-
   const toggleArchivedList = () => {
     setIsArchivedListVisible(!isArchivedListVisible);
   };
@@ -163,19 +159,13 @@ const fetchData = async () => {
         console.error('Error archiving test:', err);
     }
 };
-
-// Filter results for display
-const filteredResults = results.filter((result) => !result.isArchived);
-
   
 
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
-  const totalPages = Math.ceil(results.length / resultsPerPage);
-  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
-
+  
   // Prepare data for the stacked bar chart
 
   const exportToExcel = () => {
@@ -217,6 +207,15 @@ const filteredResults = results.filter((result) => !result.isArchived);
   };
   
   
+  const filteredUsers = results.filter((result) =>
+    [result.userID, result.firstName, result.lastName]
+      .join(" ")
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
+  const currentResults = filteredUsers.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
 
 
   return (
@@ -224,6 +223,13 @@ const filteredResults = results.filter((result) => !result.isArchived);
       <h2 className={styles.title}>
   PF Results List (Online)
   <div className={styles.buttonsWrapper}>
+    <input
+        type="text"
+        placeholder="Search by User ID or Name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
     <button onClick={exportToExcel} className={styles.exportButton}>
       Export to Excel
     </button>
@@ -236,13 +242,13 @@ const filteredResults = results.filter((result) => !result.isArchived);
   </div>
 </h2>
 <p className={styles.resultCount}>
-  Total Results: {results.length}
+  Total Results: {filteredUsers.length}
 </p>
 
 
   {isArchivedListVisible && <PFOnlineArchivedList />}
      
-      {results.length > 0 ? (
+      {filteredUsers.length > 0 ? (
         <div>
           <table className={styles.resultsTable}>
             <thead>

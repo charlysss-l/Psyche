@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from './IQResultsList.module.scss'; // Import your CSS module
-import { useNavigate } from 'react-router-dom';
 import IQOnlineArchiveList from './IQOnlineArchiveList';
 import * as XLSX from 'xlsx';
 import backendUrl from '../../../../config';
@@ -48,10 +47,8 @@ const IQResultsList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 3;
-  const navigate = useNavigate();
-
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
-
   const toggleArchivedList = () => {
     setIsArchivedListVisible(!isArchivedListVisible);
   };
@@ -158,18 +155,21 @@ const exportToExcel = () => {
   XLSX.writeFile(workbook, 'IQResults (Online).xlsx');
 };
 
-
-
-
+const filteredUsers = results.filter((result) =>
+  [result.userID, result.firstName, result.lastName]
+    .join(" ")
+    .toLowerCase()
+    .includes(searchTerm.toLowerCase())
+);
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
   // Calculate the total number of pages
-  const totalPages = Math.ceil(results.length / resultsPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
 
   // Slice results based on the current page
-  const currentResults = results.slice(
+  const currentResults = filteredUsers.slice(
     (currentPage - 1) * resultsPerPage,
     currentPage * resultsPerPage
   );
@@ -180,6 +180,13 @@ const exportToExcel = () => {
       
       <h2 className={styles.title}>IQ Results List (Online) 
       <div className={styles.buttonsWrapper}>
+      <input
+        type="text"
+        placeholder="Search by User ID or Name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
     <button onClick={exportToExcel} className={styles.exportButton}>
       Export to Excel
     </button>
@@ -193,7 +200,7 @@ const exportToExcel = () => {
   </h2>
 
   <p className={styles.resultCount}>
-  Total Results: {results.length}
+  Total Results: {filteredUsers.length}
 </p>
 
   {isArchivedListVisible && <IQOnlineArchiveList />}
@@ -202,7 +209,7 @@ const exportToExcel = () => {
       
 
     
-      {results.length > 0 ? (
+      {filteredUsers.length > 0 ? (
         <div>
           
           <table className={styles.resultsTableIQ}>

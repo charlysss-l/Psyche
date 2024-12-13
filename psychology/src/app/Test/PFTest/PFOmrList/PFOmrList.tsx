@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PFOmrList.module.scss';  
-import { useNavigate } from 'react-router-dom';
 import PFOmrArchivedList from './PFOmrArchivedList';
 import * as XLSX from 'xlsx';
 import backendUrl from '../../../../config';
@@ -104,11 +103,10 @@ const PFOmrList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [userID, setUserID] = useState<string | null>(null);
   const [editingTestID, setEditingTestID] = useState<string | null>(null); // Track the testID of the item being edited
   const [updatedData, setUpdatedData] = useState<Partial<OMRpf>>({}); // Store updated data for the current test
   const resultsPerPage = 5;
-  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
   const toggleArchivedList = () => {
     setIsArchivedListVisible(!isArchivedListVisible);
@@ -116,11 +114,6 @@ const PFOmrList: React.FC = () => {
   // image modal
 const [isModalOpenImage, setIsModalOpenImage] = useState(false); // State to control modal visibility
 const [modalImageURL, setModalImageURL] = useState<string | null>(null); // State for modal image URL
-
-  
-
-
-  
 
   // Define the factor order
   const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
@@ -202,14 +195,19 @@ useEffect(() => {
     }
 };
 
-  
+const filteredUsers = results.filter((result) =>
+  [result.userID, result.firstName, result.lastName]
+    .join(" ")
+    .toLowerCase()
+    .includes(searchTerm.toLowerCase())
+);
 
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
-  const totalPages = Math.ceil(results.length / resultsPerPage);
-  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
+  const currentResults = filteredUsers.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
 
   // export as excel
   const exportToExcel = () => {
@@ -252,6 +250,13 @@ useEffect(() => {
       <h2 className={styles.title}>PF Results List (Physical)
 
       <div className={styles.buttonsWrapper}>
+      <input
+        type="text"
+        placeholder="Search by User ID or Name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
     <button onClick={exportToExcel} className={styles.exportButton}>
       Export to Excel
     </button>
@@ -265,12 +270,12 @@ useEffect(() => {
 </h2>
 
 <p className={styles.resultCount}>
-  Total Results: {results.length}
+  Total Results: {filteredUsers.length}
 </p>
 
   {isArchivedListVisible && <PFOmrArchivedList />}
 
-      {results.length > 0 ? (
+      {filteredUsers.length > 0 ? (
         <div>
           <table className={styles.resultsTable}>
             <thead>

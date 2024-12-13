@@ -104,7 +104,7 @@ const PFTest: React.FC = () => {
                         <th className={style.th}>Question Number</th>
                         <th className={style.th}>Question Text</th>
                         <th className={style.th}>Choices</th>
-                        {/* <th className={style.th}>Equivalent Score</th> */}
+                        <th className={style.th}>Equivalent Score</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,11 +118,11 @@ const PFTest: React.FC = () => {
                                 B: {q.choices.b}<br />
                                 C: {q.choices.c}
                             </td>
-                            {/* <td className={style.td}>
+                            <td className={style.td}>
                                 A: {q.choiceEquivalentScore.a}<br />
                                 B: {q.choiceEquivalentScore.b}<br />
                                 C: {q.choiceEquivalentScore.c}
-                            </td> */}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

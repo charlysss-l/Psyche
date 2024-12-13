@@ -1,24 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Omr_IQResultList.module.scss';
-import { useNavigate } from 'react-router-dom';
 import IQOmrArchivedList from './IQOmrArchiveList';
 import * as XLSX from 'xlsx';
 import backendUrl from '../../../../config';
 
-
-
-
 interface Interpretation {
-  
   minAge: number;
   maxAge: number;
   minTestScore: number;
   maxTestScore: number;
   resultInterpretation: string;
 }
-
-
-
 
 interface OMR {
     userID: string;
@@ -42,8 +34,7 @@ const OmrIQResultsList: React.FC = () => {
   const [results, setResults] = useState<OMR[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [userID, setUserID] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
   const [isArchivedListVisible, setIsArchivedListVisible] = useState(false);
@@ -53,11 +44,6 @@ const OmrIQResultsList: React.FC = () => {
    // image modal
 const [isModalOpenImage, setIsModalOpenImage] = useState(false); // State to control modal visibility
 const [modalImageURL, setModalImageURL] = useState<string | null>(null); // State for modal image URL
-
-  
-
-
- 
 
   // Fetch data based on userID
   const fetchData = async () => {
@@ -149,14 +135,21 @@ const [modalImageURL, setModalImageURL] = useState<string | null>(null); // Stat
     }
 };
 
+const filteredUsers = results.filter((result) =>
+  [result.userID, result.firstName, result.lastName]
+    .join(" ")
+    .toLowerCase()
+    .includes(searchTerm.toLowerCase())
+);
+
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
 // Calculate the total number of pages
-const totalPages = Math.ceil(results.length / resultsPerPage);
+const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
 
 // Slice results based on the current page
-const currentResults = results.slice(
+const currentResults = filteredUsers.slice(
   (currentPage - 1) * resultsPerPage,
   currentPage * resultsPerPage
 );
@@ -188,6 +181,13 @@ const exportToExcel = () => {
     <div>
       <h2 className={styles.title}>IQ Results List (Physical)
       <div className={styles.buttonsWrapper}>
+      <input
+        type="text"
+        placeholder="Search by User ID or Name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
     <button onClick={exportToExcel} className={styles.exportButton}>
       Export to Excel
     </button>
@@ -201,11 +201,11 @@ const exportToExcel = () => {
   </h2>
 
   <p className={styles.resultCount}>
-  Total Results: {results.length}
+  Total Results: {filteredUsers.length}
 </p>
   {isArchivedListVisible && <IQOmrArchivedList />}
 
-      {results.length > 0 ? (
+      {filteredUsers.length > 0 ? (
         <div>
           <table className={styles.resultsTableIQ}>
             <thead>
