@@ -34,6 +34,11 @@ const IqOMR: React.FC = () => {
   const [omrScore, setOmrScore] = useState<number | null>(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);  // Loading state for spinner
+  const [isBackCamera, setIsBackCamera] = useState(false);  // State to track camera type
+  const switchCamera = () => {
+    setIsBackCamera(prev => !prev);  // Toggle between front and back camera
+  }; 
+  const [isFlashOn, setIsFlashOn] = useState(false);
 
   
 
@@ -311,29 +316,54 @@ const IqOMR: React.FC = () => {
   };
   
 
+  const toggleFlash = async () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      const track = stream.getTracks()[0]; // Get the first video track
+  
+      // Type assertion to access 'torch' property
+      const capabilities = track.getCapabilities() as MediaTrackCapabilities & { torch?: boolean };
+  
+      if (capabilities.torch !== undefined) { // Check if torch capability exists
+        const videoTrack = track as MediaStreamTrack;
+  
+        // Apply constraints using MediaTrackConstraints type
+        await videoTrack.applyConstraints({
+          advanced: [{ torch: !isFlashOn }] as unknown as MediaTrackConstraints["advanced"]
+        });
+  
+        setIsFlashOn(!isFlashOn); // Toggle the flash state
+      }
+    }
+  };
+
   useEffect(() => {
-    // Start the camera when the component is mounted
     if (isCameraActive && videoRef.current) {
-      navigator.mediaDevices.getUserMedia({ video: true })
+      const videoConstraints = {
+        video: {
+          facingMode: isBackCamera ? 'environment' : 'user', // Use 'environment' for back camera and 'user' for front
+        },
+      };
+  
+      navigator.mediaDevices.getUserMedia(videoConstraints)
         .then((stream) => {
           if (videoRef.current) {
             videoRef.current.srcObject = stream;
           }
         })
         .catch((error) => {
-          console.error("Error accessing camera: ", error);
+          console.error('Error accessing camera:', error);
         });
     }
-
+  
     return () => {
-      // Stop the camera when the component is unmounted
-      if (videoRef.current) {
+      if (videoRef.current && videoRef.current.srcObject) {
         const stream = videoRef.current.srcObject as MediaStream;
-        const tracks = stream?.getTracks();
-        tracks?.forEach(track => track.stop());
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => track.stop());
       }
     };
-  }, [isCameraActive]);
+  }, [isCameraActive, isBackCamera]);
 
   const handleCapture = () => {
     if (canvasRef.current && videoRef.current) {
@@ -341,34 +371,18 @@ const IqOMR: React.FC = () => {
       if (context) {
         canvasRef.current.width = videoRef.current.videoWidth;
         canvasRef.current.height = videoRef.current.videoHeight;
-  
-        // Get the video dimensions
-        const videoWidth = videoRef.current.videoWidth;
-        const videoHeight = videoRef.current.videoHeight;
-  
-        // If the video is in landscape mode (width > height), rotate the canvas
-        if (videoWidth > videoHeight) {
-          context.translate(canvasRef.current.width / 4, canvasRef.current.height / 2);
-          context.rotate(Math.PI / -2);  // Rotate 90 degrees
-          context.translate(-canvasRef.current.height / 2, -canvasRef.current.width / 2);
-        }
-  
-        // Draw the image on the canvas
         context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
-  
-        // Convert the canvas content to a base64 image URL
         const imageUrl = canvasRef.current.toDataURL('image/png');
-  
-        // Set the image preview and selected file
         setImagePreview(imageUrl);
         setSelectedFile(dataURLtoFile(imageUrl, 'captured-image.png'));
   
-        // Deactivate the camera after capturing
-        setIsCameraActive(false);
+        // Close the camera after capturing the image
+        setIsCameraActive(false);  // This will stop the video stream and hide the camera
       }
     }
   };
   
+
   const handleCancelCamera = () => {
     setIsCameraActive(false);
   };
@@ -416,21 +430,30 @@ const IqOMR: React.FC = () => {
 )}
 
   
-        <div className={styles.cameraWrapper}>
-          {isCameraActive ? (
-            <div>
-              <video ref={videoRef} autoPlay playsInline className={styles.video} />
-              <div className={styles.cameraControls}>
-                <button onClick={handleCapture} className={styles.captureButton}>Capture</button>
-                <button onClick={handleCancelCamera} className={styles.cancelButton}>X</button>
-              </div>
+<div className={styles.cameraWrapper}>
+        {isCameraActive ? (
+          <div>
+            <video ref={videoRef} autoPlay playsInline className={styles.video} />
+            <div className={styles.cameraControls}>
+              <button onClick={handleCancelCamera} className={styles.cancelButton}>X</button>
+              <button onClick={handleCapture} className={styles.captureButton}>Capture</button>
+              <button onClick={switchCamera} className={styles.switchCameraButton}>
+                {isBackCamera ? 'Use Front Camera' : 'Use Back Camera'}
+              </button>
+              {isBackCamera && (
+                 <button onClick={toggleFlash}>
+                 {isFlashOn ? 'Turn Flash Off' : 'Turn Flash On'}
+               </button>
+              )}
+             
             </div>
-          ) : (
-            <div>
-              <button onClick={() => setIsCameraActive(true)} className={styles.openCameraButton}>Use Camera</button>
-            </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div>
+            <button onClick={() => setIsCameraActive(true)} className={styles.openCameraButton}>Use Camera</button>
+          </div>
+        )}
+      </div>
   
         <button
           onClick={handleUpload}
