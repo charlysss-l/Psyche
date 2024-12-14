@@ -452,7 +452,7 @@ const PfOMR: React.FC = () => {
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      </div>
+</div>
 
     {/* Instruction Container */}
     <div className={styles.instructionContainer}>

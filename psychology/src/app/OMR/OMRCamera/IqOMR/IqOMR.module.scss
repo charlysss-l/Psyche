@@ -1,25 +1,72 @@
 // OMRCamera.module.scss
 
+.mainContainer {
+  display: flex;
+  justify-content: center; /* Center the items horizontally */
+  flex-wrap: nowrap; /* Prevent wrapping on large screens */
+  width: 100%; /* Ensure it takes full width */
+  gap: 10px; /* Adjust the gap between the containers */
+  align-items: flex-start; /* Align items to the top, so they don't stretch */
+}
+
 .omrCameraContainer {
-  background-color: #dad8d8;
-  color: #464646;
+  background-color: #dad8da;
+  color: #e0e0e0;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  left: 18%;
-  top: 25%;
+  position: relative;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  width: 30%;
-  margin: auto;
+  width: 35%; /* Ensure it takes up about half of the screen */
   text-align: center;
 
+
   h2 {
-    color: #815aa5;
+    color: #2A3744;
     margin-bottom: 20px;
+    font-size: 28px;
   }
 }
+
+.instructionContainer {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background-color: #dad8da; /* Light background for clarity */
+  padding: 20px;
+  border-radius: 8px;
+  width: 30%; /* Ensure it takes up about half of the screen */
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 420px;
+
+  h1 {
+    color: #d7a52f;
+    text-align: center;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    color: #070707;
+  }
+}
+
+/* Adjust layout for smaller screens */
+@media (max-width: 768px) {
+  .mainContainer {
+    flex-direction: column; /* Stack the containers vertically */
+    align-items: center; /* Center them horizontally */
+  }
+
+  .omrCameraContainer, .instructionContainer {
+    width: 90%; /* Adjust width to take up most of the screen */
+    gap: 10px; /* Add a gap between stacked elements */
+  }
+}
+
 
 .fileInputWrapper {
   margin-bottom: 15px;
@@ -221,34 +268,6 @@ canvas {
   }
 }
 
-.instructionContainer {
-  display: flex;
-  flex-direction: column;
-  color : #8049b4c0;
-  background-color: #dad8d8; /* Light background for clarity */
-  padding: 20px;
-  border-radius: 8px;
-  width : 25%;
-  position: absolute;
-  right: 18%;
-  top: 25%;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.instructionContainer p {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 10px;
-  color: #555555c0;
-  text-align: left;
-}
-
-.instructionContainer h1 {
-  color: #815aa5;
-  margin-bottom: 20px;
-  text-align: center;
-}
 
 .spinnerContainer {
   display: flex;
