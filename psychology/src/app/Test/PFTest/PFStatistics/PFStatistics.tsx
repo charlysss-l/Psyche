@@ -16,7 +16,7 @@ interface User16PFTest {
   sex: 'Female' | 'Male' | '';
   course: string;
   year: number;
-  section: number;
+  section: string;
   scoring: {
     scores: {
       factorLetter: string;
@@ -147,16 +147,36 @@ const PFStatistics: React.FC = () => {
   useEffect(() => {
     const filterUserIDs = () => {
       let filteredData = results;
-  
+
+      // Parse the age filter input
+    const parseAgeFilter = (ageFilter: string) => {
+      if (!ageFilter) return null;
+
+      const rangeMatch = ageFilter.match(/^(\d+)\s*-\s*(\d+)$/); // Matches "20 - 25" format
+      if (rangeMatch) {
+        const [_, minAge, maxAge] = rangeMatch;
+        return { minAge: parseInt(minAge), maxAge: parseInt(maxAge) };
+      }
+
+      const singleAge = parseInt(ageFilter); // Single age input
+      return singleAge ? { minAge: singleAge, maxAge: singleAge } : null;
+    };
+
+    const ageFilter = parseAgeFilter(filters.age);
+
+   
       // Apply the additional filters (age, sex, course, year, section)
       filteredData = filteredData.filter((result) => {
-        const ageFilter = filters.age ? result.age === filters.age : true;
+        const age = parseInt(result.age);
+      const ageCondition = ageFilter
+        ? age >= ageFilter.minAge && age <= ageFilter.maxAge
+        : true;
         const sexFilter = filters.sex ? result.sex === filters.sex : true;
         const courseFilter = filters.course ? result.course === filters.course : true;
         const yearFilter = filters.year ? result.year === parseInt(filters.year) : true;
-        const sectionFilter = filters.section ? result.section === parseInt(filters.section) : true;
+        const sectionFilter = filters.section ? result.section === filters.section : true;
   
-        return ageFilter && sexFilter && courseFilter && yearFilter && sectionFilter;
+        return ageCondition && sexFilter && courseFilter && yearFilter && sectionFilter;
       });
   
       // Apply selectedFactor filter
@@ -392,7 +412,7 @@ const PFStatistics: React.FC = () => {
         <input
           type="text"
           name="age"
-          placeholder="Age"
+          placeholder="Filter by Age/Range (e.g., 20-25)"
           value={filters.age}
           onChange={handleFilterInputChange}
         />

@@ -115,18 +115,32 @@ const IQStatistics: React.FC = () => {
     }
   };
   
-
   useEffect(() => {
     fetchData();
   }, []);
 
   // Filter the results based on the filter criteria
   const filteredResults = results.filter((result) => {
+    const ageFilter = filters.age;
+    let ageMatch = true;
+
+    // Check if the age filter is a range (e.g., 20-25)
+    if (ageFilter) {
+      const ageRange = ageFilter.split('-').map(Number);
+      if (ageRange.length === 2) {
+        // Age is a range, check if the result's age falls within the range
+        ageMatch = result.age >= ageRange[0] && result.age <= ageRange[1];
+      } else {
+        // Age is a single number, check for exact match
+        ageMatch = result.age === Number(ageFilter);
+      }
+    }
+
     return (
       (filters.userID ? result.userID.includes(filters.userID) : true) &&
       (filters.firstName ? result.firstName.toLowerCase().includes(filters.firstName.toLowerCase()) : true) &&
       (filters.lastName ? result.lastName.toLowerCase().includes(filters.lastName.toLowerCase()) : true) &&
-      (filters.age ? result.age.toString() === filters.age : true) &&
+      ageMatch &&
       (filters.sex ? result.sex === filters.sex : true) &&
       (filters.course ? result.course.toLowerCase().includes(filters.course.toLowerCase()) : true) &&
       (filters.year ? result.year.toString() === filters.year : true) &&
@@ -203,11 +217,11 @@ const IQStatistics: React.FC = () => {
           className={styles.inputIQStat}
         />
         <input
-          type="number"
+          type="text"
           name="age"
           value={filters.age}
           onChange={handleFilterChange}
-          placeholder="Filter by Age"
+          placeholder="Filter by Age/Range (e.g., 20-25)"
         />
         <select name="sex" value={filters.sex} onChange={handleFilterChange}>
           <option value="">Filter by Sex</option>
@@ -217,12 +231,12 @@ const IQStatistics: React.FC = () => {
         <select name="course" value={filters.course} onChange={handleFilterChange} >
         <option value="" >Select Course</option>
         <option value="BSEduc">Bachelor of Secondary Education</option>
-                <option value="BSBM">BS Business Management</option>
-                <option value="BSCS">BS Computer Science</option>
-                <option value="BSCrim">BS Criminology</option>
-                <option value="BSHM">BS Hospitality Management</option>                    
-                <option value="BSIT">BS Information Technology</option>
-                <option value="BSP">BS Psychology</option>
+        <option value="BSBM">BS Business Management</option>
+        <option value="BSCS">BS Computer Science</option>
+        <option value="BSCrim">BS Criminology</option>
+        <option value="BSHM">BS Hospitality Management</option>                    
+        <option value="BSIT">BS Information Technology</option>
+        <option value="BSP">BS Psychology</option>
         </select>
         <select name="year" value={filters.year} onChange={handleFilterChange} >
         <option value="" >Select Year</option>
@@ -245,23 +259,16 @@ const IQStatistics: React.FC = () => {
         <option value="10">10</option>
         <option value="Irregular">Irregular</option>
         </select>
-
-        {/*<select name="testType" value={filters.testType} onChange={handleFilterChange}>
-          <option value="">Filter by Test Type</option>
-          <option value="Online">Online</option>
-          <option value="Physical">Physical</option>
-        </select>*/}
       </div>
 
-       {/* Display Number of Results */}
-  <div className={styles.resultCount}>
-    <p>
-      Number of Results: <strong>{filteredResults.length}</strong>
-    </p>
-  </div>
+      {/* Display Number of Results */}
+      <div className={styles.resultCount}>
+        <p>
+          Number of Results: <strong>{filteredResults.length}</strong>
+        </p>
+      </div>
 
-      {/* You can display the filtered results as a table or in any other format here */}
-      {/* Example: */}
+      {/* Display the filtered results */}
       <table className={styles.userListContaIner}>
         <thead>
           <tr>
@@ -269,14 +276,13 @@ const IQStatistics: React.FC = () => {
           </tr>
         </thead>
         <div className={styles.responsesWrapper}>
-          
-        <tbody>
-          {filteredResults.map((result) => (
-            <tr   className={styles.userList} >
-              <td className={styles.idIqlist}>{result.userID}</td>
-            </tr>
-          ))}
-        </tbody>
+          <tbody>
+            {filteredResults.map((result) => (
+              <tr className={styles.userList} key={result.userID}>
+                <td className={styles.idIqlist}>{result.userID}</td>
+              </tr>
+            ))}
+          </tbody>
         </div>
       </table>
     </div>
