@@ -369,7 +369,7 @@ const IqOMR: React.FC = () => {
       if (isCameraActive && videoRef.current) {
         const videoConstraints = {
           video: {
-            facingMode: isBackCamera ? 'environment' : 'user', // Use 'environment' for back camera and 'user' for front
+            facingMode: isBackCamera ? 'environment' : 'user', // Use 'environment' for back camera and 'user' for front camera
           },
         };
     
@@ -377,21 +377,23 @@ const IqOMR: React.FC = () => {
           .then((stream) => {
             if (videoRef.current) {
               videoRef.current.srcObject = stream;
+              if (!isBackCamera) {
+                videoRef.current.style.transform = 'scaleX(-1)';  // Mirror the front camera feed
+              } else {
+                videoRef.current.style.transform = ''; // No transformation for back camera
+              }
             }
           })
           .catch((error) => {
-            console.error('Error accessing camera:', error);
+            console.error('Error accessing camera: ', error);
           });
-      }
-    
-      return () => {
-        if (videoRef.current && videoRef.current.srcObject) {
-          const stream = videoRef.current.srcObject as MediaStream;
-          const tracks = stream.getTracks();
-          tracks.forEach((track) => track.stop());
+      } else {
+        if (videoRef.current) {
+          videoRef.current.srcObject = null;  // Stop the camera when not active
         }
-      };
+      }
     }, [isCameraActive, isBackCamera]);
+    
   
     const handleCapture = () => {
       if (canvasRef.current && videoRef.current) {
@@ -443,7 +445,7 @@ const IqOMR: React.FC = () => {
         <p>6. Save and interpret your score to view detailed results.</p>
         <p>7. The image must be clear and bright for better interpretation</p>
       </div>
-      
+
       {/* OMR Container */}
       <div className={styles.omrCameraContainer}>
         <h2>IQ Test Upload</h2>
