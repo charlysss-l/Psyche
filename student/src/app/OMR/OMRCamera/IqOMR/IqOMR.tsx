@@ -365,37 +365,37 @@ const IqOMR: React.FC = () => {
       }
     };
   
-    useEffect(() => {
-      if (isCameraActive && videoRef.current) {
-        const videoConstraints = {
-          video: {
-            facingMode: isBackCamera ? 'environment' : 'user', // Use 'environment' for back camera and 'user' for front camera
-          },
-        };
-    
-        navigator.mediaDevices.getUserMedia(videoConstraints)
-          .then((stream) => {
-            if (videoRef.current) {
-              videoRef.current.srcObject = stream;
-              if (!isBackCamera) {
-                videoRef.current.style.transform = 'scaleX(-1)';  // Mirror the front camera feed
-              } else {
-                videoRef.current.style.transform = ''; // No transformation for back camera
-              }
+      useEffect(() => {
+    if (isCameraActive && videoRef.current) {
+      const videoConstraints = {
+        video: {
+          facingMode: isBackCamera ? 'environment' : 'user', // Use 'environment' for back camera and 'user' for front camera
+        },
+      };
+
+      navigator.mediaDevices.getUserMedia(videoConstraints)
+        .then((stream) => {
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+            if (!isBackCamera) {
+              videoRef.current.style.transform = 'scaleX(-1)';  // Mirror the front camera feed
+            } else {
+              videoRef.current.style.transform = ''; // No transformation for back camera
             }
-          })
-          .catch((error) => {
-            console.error('Error accessing camera: ', error);
-          });
-      } else {
-        if (videoRef.current) {
-          videoRef.current.srcObject = null;  // Stop the camera when not active
-        }
+          }
+        })
+        .catch((error) => {
+          console.error('Error accessing camera: ', error);
+        });
+    } else {
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;  // Stop the camera when not active
       }
-    }, [isCameraActive, isBackCamera]);
-    
+    }
+  }, [isCameraActive, isBackCamera]);
+
   
-    const handleCapture = () => {
+    const handleCapture = async  () => {
       if (canvasRef.current && videoRef.current) {
         const context = canvasRef.current.getContext('2d');
         if (context) {
@@ -405,6 +405,12 @@ const IqOMR: React.FC = () => {
           const imageUrl = canvasRef.current.toDataURL('image/png');
           setImagePreview(imageUrl);
           setSelectedFile(dataURLtoFile(imageUrl, 'captured-image.png'));
+          
+
+          // Turn off the flash when the capture is done
+      if (isFlashOn) {
+        await toggleFlash(); // Turns off the flash
+      }
     
           // Close the camera after capturing the image
           setIsCameraActive(false);  // This will stop the video stream and hide the camera

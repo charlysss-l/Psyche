@@ -381,7 +381,7 @@ const PfOMR: React.FC = () => {
   }, [isCameraActive, isBackCamera]);
   
 
-  const handleCapture = () => {
+  const handleCapture = async  () => {
     if (canvasRef.current && videoRef.current) {
       const context = canvasRef.current.getContext('2d');
       if (context) {
@@ -391,12 +391,19 @@ const PfOMR: React.FC = () => {
         const imageUrl = canvasRef.current.toDataURL('image/png');
         setImagePreview(imageUrl);
         setSelectedFile(dataURLtoFile(imageUrl, 'captured-image.png'));
+        
+
+        // Turn off the flash when the capture is done
+    if (isFlashOn) {
+      await toggleFlash(); // Turns off the flash
+    }
   
         // Close the camera after capturing the image
         setIsCameraActive(false);  // This will stop the video stream and hide the camera
       }
     }
   };
+  
   
 
   const handleCancelCamera = () => {
