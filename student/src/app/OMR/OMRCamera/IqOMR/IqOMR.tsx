@@ -430,6 +430,20 @@ const IqOMR: React.FC = () => {
 
   return (
     <div className={styles.mainContainer}>
+
+      
+      {/* Instruction Container */}
+      <div className={styles.instructionContainer}>
+        <h1>Instructions</h1>
+        <p>1. Choose an image of your Answer sheet using the "Choose Image" button.</p>
+        <p>2. Alternatively, capture an image using your camera.</p>
+        <p>3. Upload a clear image of the IQ Test Answer Sheet to the system by clicking the "Upload Image" button.</p>
+        <p>4. You only have 3 attempts per day to upload an image.</p>
+        <p>5. Process the uploaded image to calculate your score.</p>
+        <p>6. Save and interpret your score to view detailed results.</p>
+        <p>7. The image must be clear and bright for better interpretation</p>
+      </div>
+      
       {/* OMR Container */}
       <div className={styles.omrCameraContainer}>
         <h2>IQ Test Upload</h2>
@@ -517,17 +531,6 @@ const IqOMR: React.FC = () => {
         <canvas ref={canvasRef} style={{ display: 'none' }} />
       </div>
   
-      {/* Instruction Container */}
-      <div className={styles.instructionContainer}>
-        <h1>Instructions</h1>
-        <p>1. Choose an image of your Answer sheet using the "Choose Image" button.</p>
-        <p>2. Alternatively, capture an image using your camera.</p>
-        <p>3. Upload a clear image of the IQ Test Answer Sheet to the system by clicking the "Upload Image" button.</p>
-        <p>4. You only have 3 attempts per day to upload an image.</p>
-        <p>5. Process the uploaded image to calculate your score.</p>
-        <p>6. Save and interpret your score to view detailed results.</p>
-        <p>7. The image must be clear and bright for better interpretation</p>
-      </div>
     </div>
   );
   
