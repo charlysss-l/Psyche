@@ -1,15 +1,75 @@
 /* Main container for the section */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
+.resultPage {
+  display: flex;
+  justify-content: center; /* Center the items horizontally */
+  flex-wrap: nowrap; /* Prevent wrapping on large screens */
+  width: 100%; /* Ensure it takes full width */
+  gap: 10px; /* Adjust the gap between the containers */
+  align-items: flex-start; /* Align items to the top, so they don't stretch */
+}
+
 .container {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;  min-width: 40%; /* Minimum width to ensure good readability */
+  width: 35%; /* Ensure it takes up about half of the screen */
+  text-align: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 50px;
+
+
+}
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;  min-width: 10%; /* Minimum width for text clarity */
   padding: 20px;
   background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 35%; /* Ensure it takes up about half of the screen */
+  position: relative;
+  margin-top: -1%;
 }
+
+.privacySection, .outro {
+  flex: 1;
+  min-width: 50%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 50%;
+  margin-bottom: 10px; /* Add spacing between sections */
+}
+
+/* Media query for smaller screens (below 768px) */
+@media (max-width: 768px) {
+  .resultPage {
+    flex-direction: column; /* Stack the items vertically */
+    align-items: center; /* Center the items horizontally */
+  }
+
+  .container {
+    min-width: 90%; /* Adjust to ensure better spacing on smaller screens */
+    margin-left: 0; /* Remove margin on small screens */
+    margin-right: 0; /* Remove margin on small screens */
+  }
+
+  .messageContainer {
+    min-width: 90%; /* Full width on small screens */
+    margin-top: 20px; /* Optional: margin to separate from result container */
+  }
+
+  .privacySection, .outro {
+    min-width: 90%; /* Full width on small screens */
+    margin-bottom: 15px; /* Space between sections */
+  }
+}
+
 
 /* Header for the section */
 .header {
@@ -167,67 +227,7 @@
   }
 }
 
-.resultPage {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
 
-.container {
-  flex: 2; // Larger section for results
-  min-width: 50%; // Minimum width to ensure good readability
-  margin-left: 10%;
-}
-
-.privacySection {
-  flex: 1; // Smaller section for privacy
-  min-width: 10%; // Minimum width for text clarity
-  padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  height: 50%;
-  margin-bottom: 5%;
-}
-
-h1 {
-  margin-bottom: 10px;
-  font-size: 1.25rem;
-}
-
-p {
-  margin-bottom: 15px;
-  line-height: 1.5;
-  font-size: 0.95rem;
-}
-
-.outro{
-  flex: 1; // Smaller section for privacy
-  min-width: 10%; // Minimum width for text clarity
-  padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  height: 50%;
-
-  a{
-    color: #d7a52f;
-    font-size: 11px;
-  }
-}
-
-.messageContainer {
-  flex: 1; // Smaller section for privacy
-  min-width: 10%; // Minimum width for text clarity
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  height: 50%;
-
-  h1 {
-    color: #d7a52f;
-  }
-}
 
 :global(body.dark-mode){
   .container{

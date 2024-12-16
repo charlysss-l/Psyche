@@ -170,7 +170,7 @@ const formatDate = (dateString: string) => {
     const footerY = pdf.internal.pageSize.getHeight() - 10;
 
     // Add the text
-    pdf.setFontSize(10);
+    pdf.setFontSize(12);
     pdf.setTextColor(128, 128, 128); // Gray color
     pdf.text(footerText, 105, footerY, { align: "center" });
 
@@ -266,7 +266,8 @@ const formatDate = (dateString: string) => {
                 <p className={styles.noResults}>No results available. Please complete the test.</p>
             )}
         </div>
-        <div className={styles.messageContainer}>
+
+ <div className={styles.messageContainer}>
         {/* Data Privacy Section */}
         <div className={styles.privacySection}>
     <h1>Data Privacy Act</h1>
