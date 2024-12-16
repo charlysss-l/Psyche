@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './IQResult.module.scss';
 import { useNavigate } from 'react-router-dom';
-import jsPDF from 'jspdf';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import html2canvas from 'html2canvas';
 import backendUrl from '../../../config';
+
 
 const DiscoverUlogo = require('../../../images/DiscoverUlogo.png');
 
@@ -19,6 +21,7 @@ interface IQTestResultData {
     section: number;
     testType: 'Online' | 'Physical';
     totalScore: number;
+    testDate: string;
 }
 
 interface Interpretation {
@@ -38,7 +41,12 @@ const IQResult: React.FC = () => {
     const [interpretation, setInterpretation] = useState<Interpretation | null>(null);
     const [isChecked, setIsChecked] = useState(false); // Track checkbox state
 
-
+// Format the testDate in the desired format (e.g., "December 16, 2024")
+const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', options);
+};
 
 
     useEffect(() => {
@@ -91,93 +99,96 @@ const IQResult: React.FC = () => {
 
     
 
-    const generatePDF = async () => {
-        // Get the entire result page container
-        const resultPage = document.getElementById("result-container");
-        if (!resultPage) return;
+    const generatePDF = () => {
+        if (!result || !interpretation) {
+            alert("No result data available to generate the PDF.");
+            return;
+        }
     
-        // Temporarily hide unwanted interactive elements
-        const elementsToHide = resultPage.querySelectorAll(
-            "button, input[type='checkbox'], label, p"
-        );
-        elementsToHide.forEach((element) => {
-            if (element instanceof HTMLElement) {
-                element.style.display = "none"; // Hide interactive elements
-            }
+        const pdf = new jsPDF();
+    
+        // Add a title
+        pdf.setFontSize(20);
+        pdf.setFont("helvetica", "bold"); // Make the title bold
+        pdf.text("Raven's Standard Progressive Matrices", 105, 20, { align: "center" });
+        pdf.text("( IQ Test Result )", 105, 30, { align: "center" });
+
+    
+        // Add user details in a table
+        const userDetails = [
+            ["Name", `${result.firstName} ${result.lastName}`],
+            ["User ID", result.userID],
+            ["Age", result.age],
+            ["Sex", result.sex],
+            ["Course", result.course],
+            ["Year and Section", `${result.year} - ${result.section}`],
+            ["Date", formatDate(result.testDate)],
+            ["Test Type", result.testType],
+        ];
+    
+        pdf.autoTable({
+            startY: 40,
+            head: [["Field", "Details"]],
+            body: userDetails,
+            headStyles: {
+                // fillColor: [0, 102, 204], // Blue color for header rows
+                // textColor: [255, 255, 255], // White text for headers
+                fontSize: 14,
+                fontStyle: "bold",
+            },
+            bodyStyles: {
+                // fillColor: [240, 240, 240], // Gray color for body rows
+                fontSize: 12,
+            },
         });
     
-        // Temporarily adjust layout if needed
-        const originalStyles: Record<string, string> = {};
-        const adjustElements = resultPage.querySelectorAll(".outro, .privacySection");
-        adjustElements.forEach((element) => {
-            if (element instanceof HTMLElement) {
-                originalStyles[element.className] = element.style.margin || ""; // Save original styles
-                element.style.margin = "10px 0"; // Adjust margins for PDF layout
-            }
+        // Add test results in a table
+        const testResults = [
+            ["Total Score", result.totalScore],
+            ["Interpretation", interpretation.resultInterpretation],
+        ];
+    
+        pdf.autoTable({
+            startY: pdf.lastAutoTable.finalY + 10, // Start below the previous table
+            head: [["Field", "Details"]],
+            body: testResults,
+            headStyles: {
+                // fillColor: [0, 102, 204], // Blue color for header rows
+                // textColor: [255, 255, 255], // White text for headers
+                fontSize: 14,
+                fontStyle: "bold",
+            },
+            bodyStyles: {
+                // fillColor: [240, 240, 240], // Gray color for body rows
+                fontSize: 12,
+            },
         });
     
-        // Generate canvas from the container
-        const canvas = await html2canvas(resultPage, { scale: 2 }); // Scale for better quality
-        const imgData = canvas.toDataURL("image/png");
-    
-        // Create PDF document
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    
-        // Scaling factor (adjust to fit content on one page or scale it)
-        const scaleFactor = 0.90;
-        const stretchFactor = 1.5; // Control vertical stretching (adjust this to control vertical size)
+         // Add a footer with logo
+    const footerText = "This result is extracted from our website DiscoverU.";
+    const footerY = pdf.internal.pageSize.getHeight() - 10;
 
-        const scaledWidth = pdfWidth * scaleFactor;
-        const scaledHeight = pdfHeight * stretchFactor;
+    // Add the text
+    pdf.setFontSize(10);
+    pdf.setTextColor(128, 128, 128); // Gray color
+    pdf.text(footerText, 105, footerY, { align: "center" });
 
-    
-        // Center the content in the PDF
-        const xPos = (pdfWidth - scaledWidth) / 2;
-    
-        // Add the image to the PDF
-        pdf.addImage(imgData, "PNG", xPos, 10, scaledWidth, scaledHeight);
-    
-        // Add the footer message
-        const footerText = "This result is extracted from our website DiscoverU";
-        <img src={DiscoverUlogo} alt="DiscoverU Logo" className={styles.DiscoverUlogo}/>
-        const footerFontSize = 10; // Adjust font size as needed
-        pdf.setFontSize(footerFontSize);
-    
-        // Set text color to gray
-        pdf.setTextColor(128, 128, 128); // RGB values for gray
-    
-        const footerYPos = pdf.internal.pageSize.getHeight() - 10; // Position 10mm from the bottom
+    // Add the logo image
+    const imgWidth = 15; // Width of the logo
+    const imgHeight = 15; // Height of the logo
+    const imgX = pdf.internal.pageSize.getWidth() - imgWidth - 45; // Position the logo on the right
+    const imgY = footerY - imgHeight / 1.6; // Vertically align with the footer text
 
-        const footerLogoXPos = (pdfWidth / 2) + 32; // Adjust horizontal position for logo
-        const footerLogoYPos = footerYPos - 2;
-        const footerTextXPos = (pdfWidth / 2) - 10; // Position text slightly to the right of the logo
-
-         // Add the logo
-        const logo = await fetch(DiscoverUlogo).then((res) => res.blob());
-        const logoUrl = URL.createObjectURL(logo);
-        pdf.addImage(logoUrl, "PNG", footerLogoXPos, footerLogoYPos - 5, 10, 10); // Add logo (10mm size)
-
-        pdf.text(footerText, footerTextXPos, footerYPos, { align: "center" });
-    
-        // Save the PDF
-        pdf.save("IQResult.pdf");
-    
-        // Restore hidden elements
-        elementsToHide.forEach((element) => {
-            if (element instanceof HTMLElement) {
-                element.style.display = ""; // Restore the display property
-            }
-        });
-    
-        // Restore adjusted styles
-        adjustElements.forEach((element) => {
-            if (element instanceof HTMLElement) {
-                element.style.margin = originalStyles[element.className]; // Restore original margins
-            }
-        });
+    const img = new Image();
+    img.src = DiscoverUlogo;
+    img.onload = () => {
+        pdf.addImage(img, "PNG", imgX, imgY, imgWidth, imgHeight);
+        pdf.save("IQResult.pdf"); // Save the PDF after the logo is loaded
     };
+};
+    
+    
+    
     
     
     
@@ -210,6 +221,10 @@ const IQResult: React.FC = () => {
                     <div className={styles.section}>
                         <span className={styles.label}>Year and Section:</span>
                         <span className={styles.value}>{result.year} - {result.section}</span>
+                    </div>
+                    <div className={styles.section}>
+                        <span className={styles.label}>Date:</span>
+                        <span className={styles.value}>{result.testDate ? formatDate(result.testDate) : "N/A"}</span>
                     </div>
                     <div className={styles.section}>
                         <span className={styles.label}>Test Type:</span>
