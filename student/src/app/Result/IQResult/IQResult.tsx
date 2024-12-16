@@ -108,10 +108,10 @@ const formatDate = (dateString: string) => {
         const pdf = new jsPDF();
     
         // Add a title
-        pdf.setFontSize(20);
-        pdf.setFont("helvetica", "bold"); // Make the title bold
+        pdf.setFontSize(23);
+        pdf.setFont( "bold"); // Make the title bold
         pdf.text("Raven's Standard Progressive Matrices", 105, 20, { align: "center" });
-        pdf.text("( IQ Test Result )", 105, 30, { align: "center" });
+        pdf.text("( IQ Test Result )", 105, 33, { align: "center" });
 
     
         // Add user details in a table
@@ -127,7 +127,7 @@ const formatDate = (dateString: string) => {
         ];
     
         pdf.autoTable({
-            startY: 40,
+            startY: 42,
             head: [["Field", "Details"]],
             body: userDetails,
             headStyles: {
@@ -139,6 +139,7 @@ const formatDate = (dateString: string) => {
             bodyStyles: {
                 // fillColor: [240, 240, 240], // Gray color for body rows
                 fontSize: 12,
+
             },
         });
     
