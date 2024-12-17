@@ -566,10 +566,10 @@ const PFResult: React.FC = () => {
         const imgData = canvas.toDataURL("image/png");
     
         // Set cropping margins (adjust these values as needed)
-        const cropTop = 400; // Crop 50px from the top
-        const cropBottom = 2520; // Crop 50px from the bottom
-        const cropLeft = 50; // Crop 50px from the left
-        const cropRight = 50; // Crop 50px from the right
+        const cropTop = 450; // Crop 50px from the top
+        const cropBottom = 2570; // Crop 50px from the bottom
+        const cropLeft = 120; // Crop 50px from the left
+        const cropRight = 120; // Crop 50px from the right
     
         // Create a new cropped canvas
         const croppedCanvas = document.createElement("canvas");
@@ -600,8 +600,8 @@ const PFResult: React.FC = () => {
         const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
     
         // Scaling factor for better fit
-        const scaleFactor = 0.17;
-        const stretchedWidth = .91;
+        const scaleFactor = 0.165;
+        const stretchedWidth = .90;
         const scaledWidth = pdfWidth * stretchedWidth;
         const scaledHeight = pdfHeight * scaleFactor;
     
