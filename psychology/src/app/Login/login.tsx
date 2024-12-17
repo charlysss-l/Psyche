@@ -19,59 +19,69 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (!email || !password) {
       setError("Please fill in both fields.");
       return;
     }
-
+  
     try {
       const response = await loginUser(email, password);
       setError("");
-      
+  
       if (response.token) {
-        // Store the token in localStorage or sessionStorage
+        // Store the token in localStorage
         localStorage.setItem("token", response.token);
-        setError("");
-        // Show success message
         setSuccessMessage("Login successful!");
-
-        // Redirect to the /report page after a delay (to allow the message to show)
+  
+        // Redirect to the /report page
         setTimeout(() => {
-          navigate("/report"); // Redirect to /report route
-        }, 1500); // 1.5 seconds delay
+          navigate("/report");
+        }, 1500);
       } else {
         setError("Invalid username or password.");
       }
     } catch (error) {
-      const err = error as any; // type assertion
-      if (err?.message === "Invalid username") {
+      const err = error as any;
+  
+      if (err.message === "Network Error" || err.message.includes("Failed to fetch")) {
+        setError("Login failed: Please check your internet connection.");
+        alert("No internet connection or the server is unreachable. Please try again later.");
+      } else if (err?.message === "Invalid username") {
         setError("Invalid username.");
       } else if (err?.message === "Invalid password") {
         setError("Invalid password.");
       } else {
-        setError("Invalid Credentials!");
+        setError("Login failed: Please check your internet connection.");
       }
       console.error(err);
     }
   };
-
+  
   // Function to call the backend API
   const loginUser = async (email: string, password: string) => {
-    const response = await fetch(`${backendUrl}/api/auth`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Login failed");
+    try {
+      const response = await fetch(`${backendUrl}/api/auth`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+  
+      return response.json();
+    } catch (error) {
+      if (error instanceof TypeError) {
+        throw new Error("Network Error");
+      }
+      throw error;
     }
-
-    return response.json();
   };
+  
 
   const handleForgotPassword = async () => {
     if (resetUsername !== "cvsu.psychologydepartment@gmail.com") {
