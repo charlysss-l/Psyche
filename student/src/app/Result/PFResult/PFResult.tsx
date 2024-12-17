@@ -14,7 +14,8 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import jsPDF from 'jspdf';
+import { jsPDF } from "jspdf";
+import "jspdf-autotable"; // Import the jsPDF autotable plugin
 import html2canvas from 'html2canvas';
 
 const DiscoverUlogo = require('../../../images/DiscoverUlogo.png');
@@ -31,6 +32,7 @@ interface TestResultData {
     year: number;
     section: number;
     testID: string;
+    testDate: string;
     testType: 'Online' | 'Physical';
     responses: {
         questionID: string;
@@ -353,10 +355,8 @@ ChartJS.register(
     
 const PFResult: React.FC = () => {
     const [isChecked, setIsChecked] = useState(false); // Track checkbox state
-
     const navigate = useNavigate();
     const [results, setResults] = useState<TestResultData | null>(null);
-
     const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
 
     useEffect(() => {
@@ -382,8 +382,6 @@ const PFResult: React.FC = () => {
     const indexB = factorOrder.indexOf(b.factorLetter);
     return indexA - indexB; // Sort based on factorOrder
   });
-
-
 
     // Submit results to the backend
     const submitResultsToBackend = async () => {
@@ -441,7 +439,6 @@ const PFResult: React.FC = () => {
         }
     };
     
-
     const handleCancel = () => {
         alert('Result sharing cancelled. Your Result has been saved to your Result Page.');
         navigate('/home');
@@ -505,15 +502,14 @@ const PFResult: React.FC = () => {
         },
     };
     
+
     const generatePDF = async () => {
         // Get the entire result page container
         const resultPage = document.getElementById("result-container");
         if (!resultPage) return;
     
         // Temporarily hide unwanted interactive elements
-        const elementsToHide = resultPage.querySelectorAll(
-            "button, input[type='checkbox'], label, p"
-        );
+        const elementsToHide = resultPage.querySelectorAll("button, input[type='checkbox'], label, p");
         elementsToHide.forEach((element) => {
             if (element instanceof HTMLElement) {
                 element.style.display = "none"; // Hide interactive elements
@@ -530,26 +526,114 @@ const PFResult: React.FC = () => {
             }
         });
     
-        // Generate canvas from the container
-        const canvas = await html2canvas(resultPage, { scale: 2 }); // Scale for better quality
+        // Prepare the user information text for the table
+        const userInfo = [
+            { label: "ID", value: `${results.userID}` },
+            { label: "Name", value: `${results.firstName} ${results.lastName}` },
+            { label: "Age", value: `${results.age}` },
+            { label: "Sex", value: `${results.sex}` },
+            { label: "Course", value: `${results.course}` },
+            { label: "Year & Section", value: `${results.year} - ${results.section}` },
+            { 
+                label: "Date Taken", 
+                value: new Date(results.testDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }) 
+            },
+        ];
+    
+        // Prepare the scoring interpretation text for the table
+        const scoringData = sortedScoring.map((score) => {
+            const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+            const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
+    
+            let interpretation = "";
+            if (stenScore >= 1 && stenScore <= 3) {
+                interpretation = `${leftMeaning}`;
+            } else if (stenScore >= 4 && stenScore <= 7) {
+                interpretation = `(Average) ${leftMeaning} / ${rightMeaning}`;
+            } else if (stenScore >= 8 && stenScore <= 10) {
+                interpretation = `${rightMeaning}`;
+            }
+    
+            return { factor: score.factorLetter, interpretation };
+        });
+    
+        // Generate canvas from the chart container
+        const canvas = await html2canvas(resultPage, { scale: 2 });
         const imgData = canvas.toDataURL("image/png");
+    
+        // Set cropping margins (adjust these values as needed)
+        const cropTop = 400; // Crop 50px from the top
+        const cropBottom = 2520; // Crop 50px from the bottom
+        const cropLeft = 50; // Crop 50px from the left
+        const cropRight = 50; // Crop 50px from the right
+    
+        // Create a new cropped canvas
+        const croppedCanvas = document.createElement("canvas");
+        const croppedContext = croppedCanvas.getContext("2d");
+    
+        if (croppedContext) {
+            // Set the new canvas width and height based on the cropped area
+            croppedCanvas.width = canvas.width - cropLeft - cropRight;
+            croppedCanvas.height = canvas.height - cropTop - cropBottom;
+    
+            // Draw the cropped portion of the original canvas onto the new canvas
+            croppedContext.drawImage(
+                canvas,
+                cropLeft, cropTop, // Starting point for cropping (from top-left)
+                canvas.width - cropLeft - cropRight, // Width to draw
+                canvas.height - cropTop - cropBottom, // Height to draw
+                0, 0, // Place the cropped image at the top-left corner of the new canvas
+                croppedCanvas.width, croppedCanvas.height // Width and height of the new canvas
+            );
+        }
+    
+        // Get the cropped image data URL
+        const croppedImgData = croppedCanvas.toDataURL("image/png");
     
         // Create PDF document
         const pdf = new jsPDF("p", "mm", "a4");
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
     
-        // Scaling factor (adjust to fit content on one page or scale it)
-        const scaleFactor = 0.62;
-        const stretchedWidth = .9;
+        // Scaling factor for better fit
+        const scaleFactor = 0.17;
+        const stretchedWidth = .91;
         const scaledWidth = pdfWidth * stretchedWidth;
         const scaledHeight = pdfHeight * scaleFactor;
     
-        // Center the content in the PDF
-        const xPos = (pdfWidth - scaledWidth) / 2;
+        // Add the title at the top center
+        pdf.setFontSize(16);
+        const title = "16PF Fifth Edition Individual Record Form";
+        const titleX = pdfWidth / 2 - pdf.getTextWidth(title) / 2;
+        pdf.text(title, titleX, 15); // 15mm from the top
     
-        // Add the image to the PDF
-        pdf.addImage(imgData, "PNG", xPos, 10, scaledWidth, scaledHeight);
+        // Add the user information as a table
+        pdf.autoTable({
+            head: [["Field", "Value"]],
+            body: userInfo.map(info => [info.label, info.value]),
+            startY: 20, // Adjust startY to accommodate the title
+            theme: 'grid',
+            margin: { top: 10, left: 10, right: 10 },
+            styles: { fontSize: 10 }
+        });
+    
+        // Add the chart image below the table
+        const xPos = (pdfWidth - scaledWidth) / 2;
+        pdf.addImage(croppedImgData, "PNG", xPos, pdf.lastAutoTable.finalY + 1, scaledWidth, scaledHeight);
+    
+        // Add the scoring interpretation as a table
+        pdf.autoTable({
+            head: [["Factor", "Interpretation"]],
+            body: scoringData.map(data => [factorDescriptions[data.factor], data.interpretation]),
+            startY: pdf.lastAutoTable.finalY + 75,
+            theme: 'grid',
+            margin: { top: 10, left: 10, right: 10 },
+            styles: { fontSize: 9 }
+        });
     
         // Add the footer message
         const footerText = "This result is extracted from our website DiscoverU";
@@ -558,18 +642,17 @@ const PFResult: React.FC = () => {
     
         // Set text color to gray
         pdf.setTextColor(128, 128, 128); // RGB values for gray
-    
         const footerYPos = pdf.internal.pageSize.getHeight() - 10; // Position 10mm from the bottom
-
+    
         const footerLogoXPos = (pdfWidth / 2) + 32; // Adjust horizontal position for logo
         const footerLogoYPos = footerYPos - 2;
         const footerTextXPos = (pdfWidth / 2) - 10; // Position text slightly to the right of the logo
-
-         // Add the logo
+    
+        // Add the logo
         const logo = await fetch(DiscoverUlogo).then((res) => res.blob());
         const logoUrl = URL.createObjectURL(logo);
         pdf.addImage(logoUrl, "PNG", footerLogoXPos, footerLogoYPos - 5, 10, 10); // Add logo (10mm size)
-
+    
         pdf.text(footerText, footerTextXPos, footerYPos, { align: "center" });
     
         // Save the PDF
@@ -589,8 +672,6 @@ const PFResult: React.FC = () => {
             }
         });
     };
-    
-    
     
     
     return (
@@ -645,8 +726,6 @@ const PFResult: React.FC = () => {
                 </table>
             </div>
 
-            
-    
             <div className={styles.sharePrompt}>
                 <p>Would you like to be consulted about your result with our guidance counselor?</p>
                 

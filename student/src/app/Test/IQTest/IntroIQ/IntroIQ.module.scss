@@ -51,16 +51,19 @@
     margin: 20px 0;
     display: flex;
     align-items: center;
-
-    label{
-      color:#d7a52f;
-    }
-  }
+    justify-content: center; /* Center the container horizontally */
   
-  .checkbox {
-    
-    margin-left: 33%;
-  }
+    label {
+        color: #d7a52f;
+    }
+}
+
+.checkbox {
+    display: flex; /* Ensure the checkbox itself uses flexbox */
+    justify-content: center; /* Center the checkbox horizontally */
+    align-items: center; /* Center the checkbox vertically */
+}
+
   .confirm {
     text-align: center;
   }

@@ -97,6 +97,7 @@ const IntroPF: React.FC = () => {
           checked={isChecked}
           onChange={handleCheckboxChange}
           className={styles.checkbox}
+          
         />
         <label htmlFor="agreeCheckbox">
           I agree to the terms and conditions

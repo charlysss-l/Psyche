@@ -109,7 +109,7 @@ const formatDate = (dateString: string) => {
     
         // Add a title
         pdf.setFontSize(23);
-        pdf.setFont( "bold"); // Make the title bold
+        pdf.setFont("arial", "bold"); // Make the title bold
         pdf.text("Raven's Standard Progressive Matrices", 105, 20, { align: "center" });
         pdf.text("( IQ Test Result )", 105, 33, { align: "center" });
 
@@ -123,7 +123,6 @@ const formatDate = (dateString: string) => {
             ["Course", result.course],
             ["Year and Section", `${result.year} - ${result.section}`],
             ["Date", formatDate(result.testDate)],
-            ["Test Type", result.testType],
         ];
     
         pdf.autoTable({
