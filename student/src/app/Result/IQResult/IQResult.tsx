@@ -166,15 +166,15 @@ const formatDate = (dateString: string) => {
         const footerY = pdf.internal.pageSize.getHeight() - 10;
     
         // Add the text
-        pdf.setFontSize(11);
+        pdf.setFontSize(10);
         pdf.setTextColor(128, 128, 128); // Gray color
-        pdf.text(footerText, 105, footerY, { align: "center" });
+        pdf.text(footerText, 95, footerY, { align: "center" });
     
         // Add the logo image
         const imgWidth = 10; // Width of the logo
         const imgHeight = 10; // Height of the logo
-        const imgX = pdf.internal.pageSize.getWidth() - imgWidth - 49; // Position the logo on the right
-        const imgY = footerY - imgHeight / 1.6; // Vertically align with the footer text
+        const imgX = pdf.internal.pageSize.getWidth() - imgWidth - 63; // Position the logo on the right
+        const imgY = footerY - imgHeight / 1.43; // Vertically align with the footer text
     
         const img = new Image();
         img.src = DiscoverUlogo;
