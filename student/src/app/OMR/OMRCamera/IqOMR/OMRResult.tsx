@@ -90,6 +90,7 @@ const OMRResult: React.FC = () => {
     
 
     return (
+        <div className={style.formContainer}>
         <form onSubmit={handleSubmit} className={style.formTest}>
             <h1 className={style.FormTitle}>OMR Result</h1>
             <p className={style.ageWarning}>
@@ -147,6 +148,7 @@ const OMRResult: React.FC = () => {
 
            
         </form>
+        </div>
         
     );
 };

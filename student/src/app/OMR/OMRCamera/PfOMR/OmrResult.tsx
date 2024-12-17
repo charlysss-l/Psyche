@@ -85,6 +85,7 @@ const OmrResult: React.FC = () => {
     };
 
     return (
+        <div className={style.formContainer}>
         <form onSubmit={handleSubmit} className={style.formTest}>
             <h1 className= {style.FormTitle}>OMR Personality Test Result</h1>
             
@@ -138,6 +139,7 @@ const OmrResult: React.FC = () => {
 
             <button className={style.start} type="submit">Submit and View Interpretation</button>
         </form>
+        </div>
     );
 };
 

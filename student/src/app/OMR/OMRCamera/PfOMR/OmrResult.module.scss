@@ -7,34 +7,36 @@ $input-focus-border-color: $primary-color; // Focus color for inputs
 $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
 $font-family: Arial, sans-serif;
 
+/* Parent container for centering */
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
+  width: 100%; /* Ensure it takes full width */
+}
+
 .formTest {
   background-color: #ffffff;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 60%;
+  width: 60%; /* Default width */
   display: flex;
   flex-direction: column;
   gap: 1rem;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0%);
 }
-.FormTitle{
-    color: #d7a52f;
+
+@media (max-width: 768px) {
+  .formTest {
+    width: 90%; /* Adjust for smaller screens */
+    padding: 1rem; /* Adjust padding */
+  }
 }
-// Container for the form
-.te_container {
-  background-color: $form-bg-color;
-  padding: 20px;
-  border-radius: $border-radius;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  color: $input-border-color;    // Text color set to $input-border-color
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  width: 1000px;
-}
+
+
 
 // Header for the form (SAMPLE IQ TEST)
 h1 {

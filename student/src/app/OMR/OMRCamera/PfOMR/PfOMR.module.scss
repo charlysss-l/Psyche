@@ -279,11 +279,12 @@ canvas {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;  /* Change to fixed positioning */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: #fff;
+  z-index: 9999; /* Ensure it's on top of other content */
 }
 
 .spinner {
@@ -291,6 +292,7 @@ canvas {
 }
 
 .spinnerCircle {
+  position: relative; /* Changed from fixed to relative */
   border: 4px solid rgba(255, 255, 255, 0.3);
   border-top: 4px solid #d7a52f;
   border-radius: 50%;
@@ -307,6 +309,7 @@ canvas {
     transform: rotate(360deg);
   }
 }
+
 
 
 
