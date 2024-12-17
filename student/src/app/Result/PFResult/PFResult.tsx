@@ -528,7 +528,7 @@ const PFResult: React.FC = () => {
     
         // Prepare the user information text for the table
         const userInfo = [
-            { label: "ID", value: `${results.userID}` },
+            { label: "User ID", value: `${results.userID}` },
             { label: "Name", value: `${results.firstName} ${results.lastName}` },
             { label: "Age", value: `${results.age}` },
             { label: "Sex", value: `${results.sex}` },

@@ -108,16 +108,17 @@ const formatDate = (dateString: string) => {
         const pdf = new jsPDF();
     
         // Add a title
-        pdf.setFontSize(23);
-        pdf.setFont("arial", "bold"); // Make the title bold
+        pdf.setFontSize(20);
+        pdf.setFont("helvetica"); // Make the title bold
         pdf.text("Raven's Standard Progressive Matrices", 105, 20, { align: "center" });
-        pdf.text("( IQ Test Result )", 105, 33, { align: "center" });
-
     
-        // Add user details in a table
+        pdf.setFontSize(16);
+        pdf.text("( IQ Test Individual Record Form )", 105, 30, { align: "center" });
+    
+        // Add user details in a table with grid lines
         const userDetails = [
-            ["Name", `${result.firstName} ${result.lastName}`],
             ["User ID", result.userID],
+            ["Name", `${result.firstName} ${result.lastName}`],
             ["Age", result.age],
             ["Sex", result.sex],
             ["Course", result.course],
@@ -126,23 +127,21 @@ const formatDate = (dateString: string) => {
         ];
     
         pdf.autoTable({
-            startY: 42,
+            startY: 40,
             head: [["Field", "Details"]],
             body: userDetails,
             headStyles: {
-                // fillColor: [0, 102, 204], // Blue color for header rows
-                // textColor: [255, 255, 255], // White text for headers
                 fontSize: 14,
                 fontStyle: "bold",
             },
             bodyStyles: {
-                // fillColor: [240, 240, 240], // Gray color for body rows
+                fillColor: [255, 255, 255], 
                 fontSize: 12,
-
             },
+            theme: "grid", // Add grid lines to the table
         });
     
-        // Add test results in a table
+        // Add test results in a table with grid lines
         const testResults = [
             ["Total Score", result.totalScore],
             ["Interpretation", interpretation.resultInterpretation],
@@ -153,46 +152,38 @@ const formatDate = (dateString: string) => {
             head: [["Field", "Details"]],
             body: testResults,
             headStyles: {
-                // fillColor: [0, 102, 204], // Blue color for header rows
-                // textColor: [255, 255, 255], // White text for headers
                 fontSize: 14,
                 fontStyle: "bold",
             },
             bodyStyles: {
-                // fillColor: [240, 240, 240], // Gray color for body rows
                 fontSize: 12,
             },
+            theme: "grid", // Add grid lines to the table
         });
     
-         // Add a footer with logo
-    const footerText = "This result is extracted from our website DiscoverU.";
-    const footerY = pdf.internal.pageSize.getHeight() - 10;
-
-    // Add the text
-    pdf.setFontSize(12);
-    pdf.setTextColor(128, 128, 128); // Gray color
-    pdf.text(footerText, 105, footerY, { align: "center" });
-
-    // Add the logo image
-    const imgWidth = 15; // Width of the logo
-    const imgHeight = 15; // Height of the logo
-    const imgX = pdf.internal.pageSize.getWidth() - imgWidth - 45; // Position the logo on the right
-    const imgY = footerY - imgHeight / 1.6; // Vertically align with the footer text
-
-    const img = new Image();
-    img.src = DiscoverUlogo;
-    img.onload = () => {
-        pdf.addImage(img, "PNG", imgX, imgY, imgWidth, imgHeight);
-        pdf.save("IQResult.pdf"); // Save the PDF after the logo is loaded
+        // Add a footer with logo
+        const footerText = "This result is extracted from our website DiscoverU";
+        const footerY = pdf.internal.pageSize.getHeight() - 10;
+    
+        // Add the text
+        pdf.setFontSize(11);
+        pdf.setTextColor(128, 128, 128); // Gray color
+        pdf.text(footerText, 105, footerY, { align: "center" });
+    
+        // Add the logo image
+        const imgWidth = 10; // Width of the logo
+        const imgHeight = 10; // Height of the logo
+        const imgX = pdf.internal.pageSize.getWidth() - imgWidth - 49; // Position the logo on the right
+        const imgY = footerY - imgHeight / 1.6; // Vertically align with the footer text
+    
+        const img = new Image();
+        img.src = DiscoverUlogo;
+        img.onload = () => {
+            pdf.addImage(img, "PNG", imgX, imgY, imgWidth, imgHeight);
+            pdf.save("IQResult.pdf"); // Save the PDF after the logo is loaded
+        };
     };
-};
     
-    
-    
-    
-    
-    
-
     return (
     <div className={styles.resultPage}>
 
