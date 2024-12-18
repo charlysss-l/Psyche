@@ -93,6 +93,7 @@ useEffect(() => {
   return (
     
     <div className={styles.mainContainer}>
+      <h1 className={styles.reportHeader}>Admin Dashboard</h1>
     <div className={styles.dashboardRow}>
       <div className={styles.allTest}>
                 <table className={styles.table}>
