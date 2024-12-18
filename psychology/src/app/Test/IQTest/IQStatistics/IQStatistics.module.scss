@@ -86,10 +86,12 @@ font-size: 3rem;
   background: white;
   padding: 20px;
   width: 90%;
-  height: 70%;
+  max-height: 90%; /* Limit the height to 90% of the viewport */
   border-radius: 8px;
-  overflow: auto;
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for better visibility */
 }
+
 
 .modalOverlay {
   position: fixed;
@@ -211,6 +213,11 @@ font-size: 3rem;
 
 /* Media Query for small screens */
 @media (max-width: 768px) {
+  .modal {
+    width: 95%; /* Slightly narrower for smaller screens */
+    max-height: 80%; /* Reduce height to fit mobile view better */
+  }
+  
   .contentRow {
     flex-direction: column; /* Stack items in a column on small screens */
     gap: 20px; /* Reduce the gap on smaller screens */
@@ -233,12 +240,6 @@ font-size: 3rem;
   }
   
 }
-
-
-
-
-
-
 
   :global(body.dark-mode){
     .heading {

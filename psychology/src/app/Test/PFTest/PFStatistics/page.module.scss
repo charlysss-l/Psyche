@@ -85,9 +85,10 @@ font-size: 3rem;
   background: white;
   padding: 20px;
   width: 90%;
-  height: 76%;
+  max-height: 90%; /* Limit the height to 90% of the viewport */
   border-radius: 8px;
-  overflow: auto;
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for better visibility */
 }
 
 .modalOverlay {
@@ -199,86 +200,7 @@ font-size: 3rem;
 
 
 
-  .factorMeaning {
-    margin-left: 40px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-  }
   
-  .leftMeaning, .rightMeaning, .average {
-    margin: 0 15px; /* Optional: Adds spacing between the elements */
-  }
-  
-  .leftMeaning {
-    margin-left: -350px;
-    color: gold;
-    font-weight: bold;
-    font-style: italic;
-    flex-grow: 2; /* Increases the space taken by left meaning */
-  }
-  
-  .rightMeaning {
-    margin-left: 650px;
-    color: green;
-    font-weight: bold;
-    font-style: italic;
-    flex-grow: 2; /* Increases the space taken by right meaning */
-  }
-  
-  .average {
-    color: gray;
-    font-style: italic;
-    font-size: 18px;
-  }
-
-  .allAverage {
-    color: gray;
-    font-style: italic;
-    font-size: 18px;
-  }
-
-  .allLeftMeaning {
-    margin-left: -50px;
-    color: gold;
-    font-weight: bold;
-    font-style: italic;
-  }
-
-  .allRightMeaning {
-    color: green;
-    font-weight: bold;
-    font-style: italic;
-  }
-
-  .averageContainer {
-    margin-left: -80px;
-    display: flex;
-    flex-direction: column; /* Aligns items vertically (in a column) */
-    align-items: center; /* Centers the items horizontally within the column */
-    margin-top: -10px;
-  }
-  
-  .averageMeaning {
-    color: gray;
-    font-style: italic;
-    font-size: 18px;
-    margin-top: -10px;
-  }
-  
-  .averageLeftMeaning {
-    color: gold;
-    font-weight: bold;
-    font-style: italic;
-    margin-top: -10px;
-  }
-  
-  .averageRightMeaning {
-    color: green;
-    font-weight: bold;
-    margin-top: -10px;
-  }
 
   .monthFilterRow {
     display: flex;
@@ -296,13 +218,18 @@ font-size: 3rem;
   
 /* Media Query for small screens */
 @media (max-width: 768px) {
+  .modal {
+    width: 95%; /* Slightly narrower for smaller screens */
+    max-height: 80%; /* Reduce height to fit mobile view better */
+  }
+
   .contentRow {
     flex-direction: column; /* Stack items in a column on small screens */
     gap: 20px; /* Reduce the gap on smaller screens */
   }
 
   .filterContainer,
-  .chartContainer {
+  .chartContainerPF {
     width: 100%; /* Make both containers take full width on small screens */
   }
 
@@ -318,7 +245,86 @@ font-size: 3rem;
   }
 }
 
-  
+.factorMeaning {
+  margin-left: 40px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.leftMeaning, .rightMeaning, .average {
+  margin: 0 15px; /* Optional: Adds spacing between the elements */
+}
+
+.leftMeaning {
+  margin-left: -350px;
+  color: gold;
+  font-weight: bold;
+  font-style: italic;
+  flex-grow: 2; /* Increases the space taken by left meaning */
+}
+
+.rightMeaning {
+  margin-left: 650px;
+  color: green;
+  font-weight: bold;
+  font-style: italic;
+  flex-grow: 2; /* Increases the space taken by right meaning */
+}
+
+.average {
+  color: gray;
+  font-style: italic;
+  font-size: 18px;
+}
+
+.allAverage {
+  color: gray;
+  font-style: italic;
+  font-size: 18px;
+}
+
+.allLeftMeaning {
+  margin-left: -50px;
+  color: gold;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.allRightMeaning {
+  color: green;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.averageContainer {
+  margin-left: -80px;
+  display: flex;
+  flex-direction: column; /* Aligns items vertically (in a column) */
+  align-items: center; /* Centers the items horizontally within the column */
+  margin-top: -10px;
+}
+
+.averageMeaning {
+  color: gray;
+  font-style: italic;
+  font-size: 18px;
+  margin-top: -10px;
+}
+
+.averageLeftMeaning {
+  color: gold;
+  font-weight: bold;
+  font-style: italic;
+  margin-top: -10px;
+}
+
+.averageRightMeaning {
+  color: green;
+  font-weight: bold;
+  margin-top: -10px;
+}
   
 :global(body.dark-mode){
   .heading {
