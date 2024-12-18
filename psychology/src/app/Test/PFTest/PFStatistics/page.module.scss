@@ -1,77 +1,177 @@
 .reportContainer {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  
-    .heading {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      text-align: center;
-      color: #333;
-    }
-  
-    .filterContainer {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-      gap: 10px;
-  
-      .label {
-        font-size: 1rem;
-        color: #555;
-      }
-  
-      .select {
-        padding: 5px 10px;
-        font-size: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        outline: none;
-        transition: border-color 0.3s ease;
-  
-        &:focus {
-          border-color: #007bff;
-        }
-      }
-    }
-  
-    .subHeading {
-      font-size: 1.4rem;
-      margin-top: 20px;
-      color: #333;
-    }
-  
-    .userListContainer {
-      margin-top: 10px;
-  
-      .userList {
-        list-style: none;
-        padding: 0;
-  
-        .userListItem {
-          font-size: 1rem;
-          margin: 5px 0;
-          padding: 8px 12px;
-          background-color: #f9f9f9;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-        }
-  
-        .noUsers {
-          font-size: 1rem;
-          color: #777;
-        }
-      }
-    }
-  
-    .chartContainerPF {
-      width:70%;
-      margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  border-radius: 50px;
+  border: 2px solid #a1a1a1;
+  width: 100%;
+}
+
+.heading {
+  font-size: 1.8rem;
+  margin-bottom: 0px;
+  text-align: center;
+  color: #333;
+}
+
+
+.subHeading {
+  font-size: 1.4rem;
+  margin-top: 20px;
+  color: #333;
+}
+
+.onlineResultCount,
+.physicalResultCount,
+.totalResultCount {
+  flex: 1; // Makes each div take equal width
+  padding: 40px;
+  margin: 0.5rem;
+  background-color: #f5f5f5; // Light background for a modern look
+  border-radius: 8px; // Rounded corners
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow
+  text-align: center; // Center-align text
+  font-family: 'Arial', sans-serif;
+  max-width: 250px;
+  margin-top: 40px;
+
+  p {
+    font-size: 1.2rem; // Adjust text size
+    font-weight: bold;
+    color: #333; // Darker color for readability
+    margin: 0; // Remove default margin
+  }
+}
+
+.dashboardRow {
+  display: flex; // Aligns the child elements in a row
+  align-items: center; // Aligns items vertically
+  justify-content: center; // Aligns items horizontally
+  gap: 20px; 
+}
+
+.count {
+font-weight: bold;
+font-size: 3rem;
+}
+
+.seeGraphButton {
+  display: block; /* Make it a block-level element */
+  margin: 20px auto; /* This will center the button horizontally */
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none; /* Remove the focus outline */
+
+  &:hover {
+    background-color: #9e9e9e;
+  }
+}
+
+.graphLogo {
+  height: 220px;
+  width: 490px;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  width: 90%;
+  height: 76%;
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+
+  &:hover {
+    background: #d32f2f;
+  }
+}
+
+.contentRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; /* Align items at the start of the row */
+  gap: 50px; /* Add spacing between the containers */
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%; /* Adjust width as needed */
+  gap: 10px;
+
+  .label {
+    font-size: 1rem;
+    color: #555;
+  }
+
+  .select {
+    margin-bottom: -10px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: #007bff;
     }
   }
+}
+
+.chartContainerPF {
+  width: 70%; /* Adjust width as needed */
+  margin: 0;
+  margin-bottom: -50px;
+}
+
+/* Media Query for small screens */
+@media (max-width: 768px) {
+  .contentRow {
+    flex-direction: column; /* Stack items in a column on small screens */
+    gap: 20px; /* Reduce the gap on smaller screens */
+  }
+
+  .filterContainer,
+  .chartContainerPF {
+    width: 100%; /* Make both containers take full width on small screens */
+  }
+}
+
+
   .userListContaIner{
     
     width: 100%;
-    margin-top: 20px;
     color: #333;
 
   }
@@ -82,16 +182,16 @@
   
   .idIqlist{
     font-size: 1rem;
-    width: 100%;
+    text-align: center;
+    width: 10%;
     margin: 5px 0;
     padding: 8px 25px;
-    background-color: #caa1ec;
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
     border-radius: 4px;
   }
 
   .responsesWrapper {
-    max-height: 250px;  // Adjust the height as per your design needs
+    max-height: 210px;  // Adjust the height as per your design needs
     overflow-y: auto;   // Enable vertical scrolling when content overflows
     margin-top: 10px;   // Optional, for some space between elements
   }
@@ -108,12 +208,7 @@
   }
 
 
-  .resultCount p {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #b072e2;
-  }
+
 
   .factorMeaning {
     margin-left: 40px;
@@ -173,27 +268,27 @@
     display: flex;
     flex-direction: column; /* Aligns items vertically (in a column) */
     align-items: center; /* Centers the items horizontally within the column */
-    margin-bottom: 30px;
+    margin-top: -10px;
   }
   
   .averageMeaning {
     color: gray;
     font-style: italic;
     font-size: 18px;
-    margin-bottom: 10px; /* Adds space below the average meaning */
+    margin-top: -10px;
   }
   
   .averageLeftMeaning {
     color: gold;
     font-weight: bold;
     font-style: italic;
-    margin-bottom: 10px; /* Adds space below the left meaning */
+    margin-top: -10px;
   }
   
   .averageRightMeaning {
     color: green;
     font-weight: bold;
-    font-style: italic;
+    margin-top: -10px;
   }
   
   

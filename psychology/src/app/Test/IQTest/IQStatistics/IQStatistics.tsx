@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from './IQStatistics.module.scss'; // Import your CSS module
 import { useNavigate } from 'react-router-dom';
+import Modal from 'react-modal'; // Install via `npm install react-modal`
 import backendUrl from '../../../../config';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
 // Register chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+const IQgraphLogo = '/IQgraphLogo.png';
 
 interface Response {
   questionID: string;
@@ -45,11 +48,17 @@ interface UserIQTest {
 
 const IQStatistics: React.FC = () => {
   const [results, setResults] = useState<UserIQTest[]>([]);
+  const [totalResults, setTotalResults] = useState<number>(0); // State to store total results count
+  const [onlineResults, setOnlineResults] = useState<number>(0); // State to store online results count
+  const [physicalResults, setPhysicalResults] = useState<number>(0); // State to store physical results count
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 8;
   const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
   // Filter state variables
   const [filters, setFilters] = useState({
@@ -85,6 +94,10 @@ const IQStatistics: React.FC = () => {
       }
       const iqTestData = await iqTestResponse.json();
       const interpretations: Interpretation[] = iqTestData.interpretation;
+
+      setOnlineResults(onlineData.data.length); // Store online results count
+      setPhysicalResults(physicalData.data.length); // Store physical results count
+  
   
       // Combine data from both sources
       const combinedData: UserIQTest[] = [...onlineData.data, ...physicalData.data].map((result) => {
@@ -108,6 +121,8 @@ const IQStatistics: React.FC = () => {
       });
   
       setResults(combinedData);
+      setTotalResults(combinedData.length); // Store total results count
+
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
@@ -186,8 +201,39 @@ const IQStatistics: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2 className={styles.heading}>IQ Analytics</h2>
+    <div className={styles.reportContainer}>
+
+      <h2 className={styles.heading}>IQ Test Data</h2>
+
+
+    <div className={styles.dashboardRow}>
+      <div className={styles.onlineResultCount}>
+        <p>Total Online Data: <br/> <span className={styles.count}>{onlineResults}</span></p>
+      </div>
+      <div className={styles.physicalResultCount}>
+        <p>Total Physical Data: <br/> <span className={styles.count}>{physicalResults}</span></p>
+      </div>
+      <div className={styles.totalResultCount}>
+        <p>Total Data: <br/> <span className={styles.count}>{totalResults}</span></p>
+      </div>
+ 
+    </div>
+    <button className={styles.seeGraphButton} onClick={openModal}>
+            Click To View Graph <br/> <img src={IQgraphLogo} alt="Graph Logo" className={styles.graphLogo}/>
+          </button>
+
+       {/* Modal */}
+       <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Graph Modal"
+        className={styles.modal}
+        overlayClassName={styles.modalOverlay}
+      >
+        <button className={styles.closeButton} onClick={closeModal}>Close</button>
+
+
+<div className={styles.contentRow}>
 
       <div className={styles.chartContainer}>
         <Bar
@@ -201,12 +247,27 @@ const IQStatistics: React.FC = () => {
                 text: 'Score Interpretations',
               },
             },
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'INTERPRETATION', // X-axis title
+                },
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'NUMBER OF DATA', // Y-axis title
+                },
+              },
+            },
           }}
         />
       </div>
       
+      <div className={styles.filterContainer}>
       <h2 className={styles.filterres}>Filter Result</h2>
-      <div className={styles.filters}>
+
         {/* Filter Inputs */}
         <input
           type="text"
@@ -214,21 +275,21 @@ const IQStatistics: React.FC = () => {
           value={filters.userID}
           onChange={handleFilterChange}
           placeholder="Filter by User ID"
-          className={styles.inputIQStat}
-        />
+          className={styles.select}        />
         <input
           type="text"
           name="age"
           value={filters.age}
           onChange={handleFilterChange}
           placeholder="Filter by Age/Range (e.g., 20-25)"
+          className={styles.select}
         />
-        <select name="sex" value={filters.sex} onChange={handleFilterChange}>
+        <select name="sex" value={filters.sex} onChange={handleFilterChange} className={styles.select}>
           <option value="">Filter by Sex</option>
           <option value="Female">Female</option>
           <option value="Male">Male</option>
         </select>
-        <select name="course" value={filters.course} onChange={handleFilterChange} >
+        <select name="course" value={filters.course} onChange={handleFilterChange} className={styles.select}>
         <option value="" >Select Course</option>
         <option value="BSEduc">Bachelor of Secondary Education</option>
         <option value="BSBM">BS Business Management</option>
@@ -238,14 +299,14 @@ const IQStatistics: React.FC = () => {
         <option value="BSIT">BS Information Technology</option>
         <option value="BSP">BS Psychology</option>
         </select>
-        <select name="year" value={filters.year} onChange={handleFilterChange} >
+        <select name="year" value={filters.year} onChange={handleFilterChange} className={styles.select}>
         <option value="" >Select Year</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
         </select>
-        <select name="section" value={filters.section} onChange={handleFilterChange} >
+        <select name="section" value={filters.section} onChange={handleFilterChange} className={styles.select}>
         <option value="" >Select Section</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -259,32 +320,34 @@ const IQStatistics: React.FC = () => {
         <option value="10">10</option>
         <option value="Irregular">Irregular</option>
         </select>
-      </div>
 
-      {/* Display Number of Results */}
-      <div className={styles.resultCount}>
-        <p>
-          Number of Results: <strong>{filteredResults.length}</strong>
-        </p>
-      </div>
-
-      {/* Display the filtered results */}
+        {/* Display the filtered results */}
       <table className={styles.userListContaIner}>
-        <thead>
-          <tr>
-            <th>List of Filtered User</th>
-          </tr>
-        </thead>
-        <div className={styles.responsesWrapper}>
-          <tbody>
-            {filteredResults.map((result) => (
-              <tr className={styles.userList} key={result.userID}>
-                <td className={styles.idIqlist}>{result.userID}</td>
-              </tr>
-            ))}
-          </tbody>
+
+        {/* Display Number of Results */}
+        <h3 className={styles.heading}>Filtered User IDs</h3>
+
+        <div className={styles.resultCount}>
+        <p>
+        Total UserID Results: <strong>{filteredResults.length}</strong>
+        </p>
         </div>
-      </table>
+
+        <div className={styles.responsesWrapper}>
+        <tbody>
+          {filteredResults.map((result) => (
+            <tr className={styles.userList} key={result.userID}>
+              <td className={styles.idIqlist}>{result.userID}</td>
+            </tr>
+          ))}
+        </tbody>
+        </div>
+        </table>
+      </div>
+
+  </div>
+  </Modal>
+      
     </div>
   );
 };

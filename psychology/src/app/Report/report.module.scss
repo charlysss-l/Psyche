@@ -1,14 +1,186 @@
-.repTitle{
+.mainContainer {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    margin-bottom: 0;
-    color: #815aa5;
+    width: 100%;
 }
-.resultSectionIQ{
-    border-top: 1px solid black;
+
+.reportContainer {
+    display: flex; // Aligns children (sections) in a row
+    flex-wrap: wrap; // Allows wrapping to a new line on small screens
+    width: 100%;
 }
-:global(body.dark-mode){
-    .repTitle{
+
+.resultSectionPF,
+.resultSectionIQ {
+    flex: 1;  // Ensures both sections take equal width
+    padding: 10px; // Optional, for spacing within sections
+}
+
+
+
+
+.surveyCount,
+.userCount {
+  flex: 1; // Makes each div take equal width
+  padding: 40px;
+  margin: 0.5rem;
+  background-color: #f5f5f5; // Light background for a modern look
+  border-radius: 8px; // Rounded corners
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow
+  text-align: center; // Center-align text
+  font-family: 'Arial', sans-serif;
+  max-width: 250px;
+  height: 100px;
+
+  p {
+    font-size: 1.2rem; // Adjust text size
+    font-weight: bold;
+    color: #333; // Darker color for readability
+    margin: 0; // Remove default margin
+  }
+}
+
+.allTest {
+  flex: 1; // Makes each div take equal width
+  font-family: 'Arial', sans-serif;
+  max-width: 40%;
+  
+}
+
+.dashboardRow {
+  display: flex; // Aligns the child elements in a row
+  align-items: center; // Aligns items vertically
+  justify-content: center; // Aligns items horizontally
+  gap: 130px; 
+  border: 2px solid #8f8f8f;
+  border-radius: 50px;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 96%;
+}
+
+.count {
+font-weight: bold;
+font-size: 3rem;
+}
+
+.table {
+    width: 100%;
+    height: 180px;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    background-color: white;
+    border-radius: 50px;
+  }
+  
+  .th, .td {
+    padding: 12px 15px;
+    text-align: left;
+    border-radius: 10px
+  }
+  
+  .th {
+    background-color: #5a2f6e;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .td {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  tr:nth-child(even) .td {
+    background-color: #f2f2f2;
+  }
+  
+  tbody {
+    &:last-child {
+      border-bottom: 2px solid #a7a7a7;
+    }
+  }
+
+  .seeButton {
+    background-color: #5a2f6e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .seeButton:hover {
+    background-color: transparent;
+  }
+
+
+
+  
+  // Media query for small screens (e.g., less than 768px)
+@media (max-width: 768px) {
+    .reportContainer {
+        flex-direction: column; // Stacks sections vertically on smaller screens
+    }
+    .dashboardRow {
+        width: 93%;
+        gap: 30px;
+    }
+    .table {
+        width: 100%;
+        height: 180px;
+        margin: 20px 0;
+        font-size: 16px;
+        text-align: left;
+        background-color: white;
+        border-radius: 50px;
+      }
+      
+      .th, .td {
+        padding: 5px 10px;
+        text-align: left;
+        border-radius: 10px
+      }
+      .th {
+        background-color: #5a2f6e;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+      }
+      
+      .td {
+        background-color: #ffffff;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+      }
+      
+      tr:nth-child(even) .td {
+        background-color: #f2f2f2;
+      }
+      
+      tbody {
+        &:last-child {
+          border-bottom: 2px solid #a7a7a7;
+        }
+      }
+      
+    .seeButton {
+        background-color: #5a2f6e;
+        color: white;
+        border: none;
+        padding: 5px 40px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;    }
+}
+
+:global(body.dark-mode) {
+    .repTitle {
         color: #cccccc;
     }
 }

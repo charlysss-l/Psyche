@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './page.module.scss';
 import backendUrl from '../../../../config';
+import Modal from 'react-modal'; // Install via `npm install react-modal`
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -25,6 +26,9 @@ interface User16PFTest {
   };
 }
 
+const PFgraphLogo = '/PFgraphLogo.png';
+
+
 const PFStatistics: React.FC = () => {
   const [results, setResults] = useState<User16PFTest[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,6 +36,8 @@ const PFStatistics: React.FC = () => {
   const [meaning, setFilter] = useState<'left' | 'average' | 'right' | 'all'>('all'); // Filter state
   const [selectedFactor, setSelectedFactor] = useState<string>(""); // Factor Letter state
   const [totalResults, setTotalResults] = useState<number>(0); // State to store total results count
+  const [onlineResults, setOnlineResults] = useState<number>(0); // State to store online results count
+  const [physicalResults, setPhysicalResults] = useState<number>(0); // State to store physical results count
   const [filters, setFilters] = useState({
     age: '',
     sex: '',
@@ -39,9 +45,11 @@ const PFStatistics: React.FC = () => {
     year: '',
     section: '',
   });
-
   const [filteredResults, setFilteredResults] = useState<any[]>([]); // Store the filtered results for the chart
   const [filteredUserIDs, setFilteredUserIDs] = useState<string[]>([]); // Store the filtered user IDs
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const factorDescriptions: Record<string, string> = {
     A: 'Warmth',
@@ -127,6 +135,9 @@ const PFStatistics: React.FC = () => {
       }
   
       const physicalData = await physicalResponse.json();
+
+      setOnlineResults(onlineData.data.length); // Store online results count
+      setPhysicalResults(physicalData.data.length); // Store physical results count
   
       // Combine data from both sources
       const combinedData = [...onlineData.data, ...physicalData.data];
@@ -311,7 +322,41 @@ const PFStatistics: React.FC = () => {
 
   return (
     <div className={styles.reportContainer}>
-      <h2 className={styles.heading}>16PF Analytics</h2>
+
+    <h2 className={styles.heading}>16Personality Factor Data</h2>
+
+
+    <div className={styles.dashboardRow}>
+      <div className={styles.onlineResultCount}>
+        <p>Total Online Data: <br/> <span className={styles.count}>{onlineResults}</span></p>
+      </div>
+      <div className={styles.physicalResultCount}>
+        <p>Total Physical Data: <br/> <span className={styles.count}>{physicalResults}</span></p>
+      </div>
+      <div className={styles.totalResultCount}>
+        <p>Total Data: <br/> <span className={styles.count}>{totalResults}</span></p>
+      </div>
+    
+    </div>
+    <button className={styles.seeGraphButton} onClick={openModal}>
+            Click To View Graph <br/> <img src={PFgraphLogo} alt="Graph Logo" className={styles.graphLogo}/>
+          </button>
+
+
+
+
+      {/* Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Graph Modal"
+        className={styles.modal}
+        overlayClassName={styles.modalOverlay}
+      >
+        <button className={styles.closeButton} onClick={closeModal}>Close</button>
+
+
+<div className={styles.contentRow}>
 
       {/* Bar chart */}
       <div className={styles.chartContainerPF}>
@@ -383,31 +428,21 @@ const PFStatistics: React.FC = () => {
 
       </div>
 
-       {/* Display Total Results */}
-  <div className={styles.resultCount}>
-    <p>Total Online & Physical Data Results: {totalResults}</p>
-  </div>
-
+       {/* Filter Widget */}
+  <div className={styles.filterContainer}>
       <h2 className={styles.heading}>Filter Results</h2>
-
-      {/* Filter Widget */}
-      <div className={styles.filterContainer}>
-        <label htmlFor="Meaning" className={styles.label}>Interpretation:</label>
         <select id="Meaning" value={meaning} onChange={handleFilterChange} className={styles.select}>
           <option value="all">All</option>
           <option value="left">Left Meaning</option>
           <option value="average">Average</option>
           <option value="right">Right Meaning</option>
         </select>
-
-        <label htmlFor="factor" className={styles.label}>Factor:</label>
         <select id="factor" value={selectedFactor} onChange={handleFactorChange} className={styles.select}>
           <option value="">Select by Factor</option>
           {factorOrder.map((factor, index) => (
             <option key={index} value={factor}>{factorDescriptions[factor]}</option>
           ))}
         </select>
-
         {/* Additional filters */}
         <input
           type="text"
@@ -415,13 +450,14 @@ const PFStatistics: React.FC = () => {
           placeholder="Filter by Age/Range (e.g., 20-25)"
           value={filters.age}
           onChange={handleFilterInputChange}
+          className={styles.select}
         />
-        <select name="sex" value={filters.sex} onChange={handleFilterInputChange}>
+        <select name="sex" value={filters.sex} onChange={handleFilterInputChange} className={styles.select}>
           <option value="">Filter by Sex</option>
           <option value="Female">Female</option>
           <option value="Male">Male</option>
         </select>
-        <select name="course" value={filters.course} onChange={handleFilterInputChange} >
+        <select name="course" value={filters.course} onChange={handleFilterInputChange} className={styles.select} >
         <option value="" >Select Course</option>
         <option value="BSEduc">Bachelor of Secondary Education</option>
         <option value="BSBM">BS Business Management</option>
@@ -431,14 +467,14 @@ const PFStatistics: React.FC = () => {
         <option value="BSIT">BS Information Technology</option>
         <option value="BSP">BS Psychology</option>
         </select>
-        <select name="year" value={filters.year} onChange={handleFilterInputChange} >
+        <select name="year" value={filters.year} onChange={handleFilterInputChange} className={styles.select}>
         <option value="" >Select Year</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
         </select>
-        <select name="section" value={filters.section} onChange={handleFilterInputChange} >
+        <select name="section" value={filters.section} onChange={handleFilterInputChange} className={styles.select}>
         <option value="" >Select Section</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -452,18 +488,17 @@ const PFStatistics: React.FC = () => {
         <option value="10">10</option>
         <option value="Irregular">Irregular</option>
         </select>
-      </div>
-  
-      <table className={styles.userListContaIner}>
-{/* Display heading and number of results */}
-{filteredUserIDs.length > 0 && (
-  <>
-    <h3 className={styles.heading}>Filtered User IDs</h3>
-    <div className={styles.resultCount}>
-      <p>Total UserID Results: {filteredUserIDs.length}</p>
-    </div>
-  </>
-)}
+
+        <table className={styles.userListContaIner}>
+        {/* Display heading and number of results */}
+       
+          
+            <h3 className={styles.heading}>Filtered User IDs</h3>
+            <div className={styles.resultCount}>
+              <p>Total UserID Results: {filteredUserIDs.length}</p>
+            </div>
+          
+        
       <div className={styles.responsesWrapper}>
 
       <ul className={styles.filteredUserIDs}>
@@ -475,6 +510,13 @@ const PFStatistics: React.FC = () => {
       </ul>
       </div>
       </table>
+      </div>
+
+     
+      </div>
+      </Modal>
+
+      
     </div>
   );
 };
