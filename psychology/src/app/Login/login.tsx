@@ -52,7 +52,7 @@ const Login: React.FC = () => {
       } else if (err?.message === "Invalid password") {
         setError("Invalid password.");
       } else {
-        setError("Login failed: Please check your internet connection.");
+        setError("Login failed: Invalid Credentials");
       }
       console.error(err);
     }
