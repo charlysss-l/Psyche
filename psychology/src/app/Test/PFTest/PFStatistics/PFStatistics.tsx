@@ -18,6 +18,7 @@ interface User16PFTest {
   course: string;
   year: number;
   section: string;
+  testDate: Date;
   scoring: {
     scores: {
       factorLetter: string;
@@ -44,7 +45,10 @@ const PFStatistics: React.FC = () => {
     course: '',
     year: '',
     section: '',
+    startMonth: '', // Start month filter
+    endMonth: '', // End month filter
   });
+
   const [filteredResults, setFilteredResults] = useState<any[]>([]); // Store the filtered results for the chart
   const [filteredUserIDs, setFilteredUserIDs] = useState<string[]>([]); // Store the filtered user IDs
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -154,34 +158,57 @@ const PFStatistics: React.FC = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  
 
   useEffect(() => {
     const filterUserIDs = () => {
       let filteredData = results;
-
+  
       // Parse the age filter input
-    const parseAgeFilter = (ageFilter: string) => {
-      if (!ageFilter) return null;
-
-      const rangeMatch = ageFilter.match(/^(\d+)\s*-\s*(\d+)$/); // Matches "20 - 25" format
-      if (rangeMatch) {
-        const [_, minAge, maxAge] = rangeMatch;
-        return { minAge: parseInt(minAge), maxAge: parseInt(maxAge) };
+      const parseAgeFilter = (ageFilter: string) => {
+        if (!ageFilter) return null;
+  
+        const rangeMatch = ageFilter.match(/^(\d+)\s*-\s*(\d+)$/); // Matches "20 - 25" format
+        if (rangeMatch) {
+          const [_, minAge, maxAge] = rangeMatch;
+          return { minAge: parseInt(minAge), maxAge: parseInt(maxAge) };
+        }
+  
+        const singleAge = parseInt(ageFilter); // Single age input
+        return singleAge ? { minAge: singleAge, maxAge: singleAge } : null;
+      };
+  
+      const ageFilter = parseAgeFilter(filters.age);
+  
+      // Apply month filter
+      if (filters.startMonth) {
+        const startMonthDate = new Date(filters.startMonth + '-01'); // Use the first day of the start month
+        let endMonthDate = new Date(startMonthDate); // Initialize endMonthDate as startMonthDate
+        endMonthDate.setMonth(endMonthDate.getMonth() + 1); // Move to the next month
+  
+        // If endMonth is provided, use it for a range filter
+        if (filters.endMonth) {
+          const endMonth = new Date(filters.endMonth + '-01');
+          endMonth.setMonth(endMonth.getMonth() + 1); // Adjust for end month range
+          filteredData = filteredData.filter((result) => {
+            const testDate = new Date(result.testDate); // Assuming testDate is a Date object
+            return testDate >= startMonthDate && testDate < endMonth;
+          });
+        } else {
+          // If only startMonth is provided, filter for that single month
+          filteredData = filteredData.filter((result) => {
+            const testDate = new Date(result.testDate); // Assuming testDate is a Date object
+            return testDate >= startMonthDate && testDate < endMonthDate;
+          });
+        }
       }
-
-      const singleAge = parseInt(ageFilter); // Single age input
-      return singleAge ? { minAge: singleAge, maxAge: singleAge } : null;
-    };
-
-    const ageFilter = parseAgeFilter(filters.age);
-
-   
+  
       // Apply the additional filters (age, sex, course, year, section)
       filteredData = filteredData.filter((result) => {
         const age = parseInt(result.age);
-      const ageCondition = ageFilter
-        ? age >= ageFilter.minAge && age <= ageFilter.maxAge
-        : true;
+        const ageCondition = ageFilter
+          ? age >= ageFilter.minAge && age <= ageFilter.maxAge
+          : true;
         const sexFilter = filters.sex ? result.sex === filters.sex : true;
         const courseFilter = filters.course ? result.course === filters.course : true;
         const yearFilter = filters.year ? result.year === parseInt(filters.year) : true;
@@ -236,38 +263,44 @@ const PFStatistics: React.FC = () => {
       // Update filteredUserIDs based on the selected factor and meaning
       let filteredUserIDs: any[] | ((prevState: string[]) => string[]) = [];
       if (meaning === 'left' || meaning === 'all') {
-        filteredUserIDs = filteredData.filter((result) =>
-          result.scoring.scores.some((score) => score.stenScore <= 3 && score.factorLetter === selectedFactor)
-        ).map(result => result.userID);
+        filteredUserIDs = filteredData.filter((result) => {
+          const score = result.scoring.scores.find((score) => score.factorLetter === selectedFactor);
+          return score && score.stenScore <= 3; // Left meaning
+        }).map(result => result.userID); // Get the user IDs for left meaning
       }
+  
       if (meaning === 'average' || meaning === 'all') {
-        filteredUserIDs = filteredUserIDs.concat(filteredData.filter((result) =>
-          result.scoring.scores.some((score) => score.stenScore >= 4 && score.stenScore <= 7 && score.factorLetter === selectedFactor)
-        ).map(result => result.userID));
+        filteredUserIDs = [...filteredUserIDs, ...filteredData.filter((result) => {
+          const score = result.scoring.scores.find((score) => score.factorLetter === selectedFactor);
+          const stenScore = score?.stenScore || 0;
+          return stenScore >= 4 && stenScore <= 7; // Average range
+        }).map(result => result.userID)]; // Add the user IDs for average meaning
       }
+  
       if (meaning === 'right' || meaning === 'all') {
-        filteredUserIDs = filteredUserIDs.concat(filteredData.filter((result) =>
-          result.scoring.scores.some((score) => score.stenScore >= 8 && score.factorLetter === selectedFactor)
-        ).map(result => result.userID));
+        filteredUserIDs = [...filteredUserIDs, ...filteredData.filter((result) => {
+          const score = result.scoring.scores.find((score) => score.factorLetter === selectedFactor);
+          return score && score.stenScore >= 8; // Right meaning
+        }).map(result => result.userID)]; // Add the user IDs for right meaning
+      }
+  
+      // If no filters are applied, show all user IDs
+      if (meaning === 'all' && selectedFactor === '') {
+        filteredUserIDs = results.map((result) => result.userID); // Show all user IDs when no filters are applied
       }
   
       setFilteredUserIDs(filteredUserIDs);
     };
   
-    filterUserIDs(); // Trigger filtering whenever the filter or factor changes
-  }, [meaning, selectedFactor, filters, results]);
-  
-  
-  
-  
-  
+    // Call the function to filter the user IDs when filters or other state changes
+    filterUserIDs();
+  }, [filters, selectedFactor, meaning, results]);
   
 
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
   
-
   // Prepare data for the stacked bar chart with filter applied
   const chartData = {
     labels: selectedFactor === 'all' || selectedFactor === ''
@@ -299,8 +332,6 @@ const PFStatistics: React.FC = () => {
   };
   
   
-  
-
   // Filter widget components
   const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilter(event.target.value as 'left' | 'average' | 'right' | 'all');
@@ -311,15 +342,10 @@ const PFStatistics: React.FC = () => {
   };
 
   const handleFilterInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    // Check if the event target is an input or select element
-    if (event.target instanceof HTMLSelectElement) {
-      setFilters({ ...filters, [event.target.name]: event.target.value });
-    } else if (event.target instanceof HTMLInputElement) {
-      setFilters({ ...filters, [event.target.name]: event.target.value });
-    }
+    const { name, value } = event.target;
+    setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
   };
   
-
   return (
     <div className={styles.reportContainer}>
 
@@ -488,6 +514,25 @@ const PFStatistics: React.FC = () => {
         <option value="10">10</option>
         <option value="Irregular">Irregular</option>
         </select>
+        <div className={styles.monthFilterRow}>
+          <label>From:</label>
+          <input
+            type="month"
+            name="startMonth"
+            value={filters.startMonth}
+            onChange={handleFilterInputChange}
+            className={styles.monthFilter}
+          />
+          <label>To:</label>
+          <input
+            type="month"
+            name="endMonth"
+            value={filters.endMonth}
+            onChange={handleFilterInputChange}
+            className={styles.monthFilter}
+          />
+        </div>
+        
 
         <table className={styles.userListContaIner}>
         {/* Display heading and number of results */}
@@ -511,12 +556,8 @@ const PFStatistics: React.FC = () => {
       </div>
       </table>
       </div>
-
-     
       </div>
       </Modal>
-
-      
     </div>
   );
 };

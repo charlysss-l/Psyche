@@ -155,18 +155,7 @@ font-size: 3rem;
   margin-bottom: -50px;
 }
 
-/* Media Query for small screens */
-@media (max-width: 768px) {
-  .contentRow {
-    flex-direction: column; /* Stack items in a column on small screens */
-    gap: 20px; /* Reduce the gap on smaller screens */
-  }
 
-  .filterContainer,
-  .chartContainerPF {
-    width: 100%; /* Make both containers take full width on small screens */
-  }
-}
 
 
   .userListContaIner{
@@ -290,9 +279,45 @@ font-size: 3rem;
     font-weight: bold;
     margin-top: -10px;
   }
+
+  .monthFilterRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: .5rem;
+  
+    .monthFilter {
+      flex: 1;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+  }
   
   
-  
+/* Media Query for small screens */
+@media (max-width: 768px) {
+  .contentRow {
+    flex-direction: column; /* Stack items in a column on small screens */
+    gap: 20px; /* Reduce the gap on smaller screens */
+  }
+
+  .filterContainer,
+  .chartContainer {
+    width: 100%; /* Make both containers take full width on small screens */
+  }
+
+  .monthFilterRow {
+    gap: 2.5rem;
+
+    .monthFilter {
+      flex: 1;
+      padding: .5rem;
+      width: 200px;
+      font-size: 1rem;
+    }
+  }
+}
+
   
   
 :global(body.dark-mode){

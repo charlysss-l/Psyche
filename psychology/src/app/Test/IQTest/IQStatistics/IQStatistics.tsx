@@ -71,7 +71,10 @@ const IQStatistics: React.FC = () => {
     year: '',
     section: '',
     testType: '',
+    startMonth: '', // Starting month for range filter
+    endMonth: '',   // Ending month for range filter
   });
+  
 
   // Fetch data from the server
   const fetchData = async () => {
@@ -135,34 +138,52 @@ const IQStatistics: React.FC = () => {
   }, []);
 
   // Filter the results based on the filter criteria
-  const filteredResults = results.filter((result) => {
-    const ageFilter = filters.age;
-    let ageMatch = true;
+const filteredResults = results.filter((result) => {
+  const ageFilter = filters.age;
+  let ageMatch = true;
 
-    // Check if the age filter is a range (e.g., 20-25)
-    if (ageFilter) {
-      const ageRange = ageFilter.split('-').map(Number);
-      if (ageRange.length === 2) {
-        // Age is a range, check if the result's age falls within the range
-        ageMatch = result.age >= ageRange[0] && result.age <= ageRange[1];
-      } else {
-        // Age is a single number, check for exact match
-        ageMatch = result.age === Number(ageFilter);
-      }
+  // Handle age filter
+  if (ageFilter) {
+    const ageRange = ageFilter.split('-').map(Number);
+    if (ageRange.length === 2) {
+      ageMatch = result.age >= ageRange[0] && result.age <= ageRange[1];
+    } else {
+      ageMatch = result.age === Number(ageFilter);
     }
+  }
 
-    return (
-      (filters.userID ? result.userID.includes(filters.userID) : true) &&
-      (filters.firstName ? result.firstName.toLowerCase().includes(filters.firstName.toLowerCase()) : true) &&
-      (filters.lastName ? result.lastName.toLowerCase().includes(filters.lastName.toLowerCase()) : true) &&
-      ageMatch &&
-      (filters.sex ? result.sex === filters.sex : true) &&
-      (filters.course ? result.course.toLowerCase().includes(filters.course.toLowerCase()) : true) &&
-      (filters.year ? result.year.toString() === filters.year : true) &&
-      (filters.section ? result.section.toString() === filters.section : true) &&
-      (filters.testType ? result.testType === filters.testType : true)
-    );
-  });
+  // Handle month filtering
+  const testMonth = new Date(result.testDate).toISOString().slice(0, 7); // Extract YYYY-MM
+  let startMonthMatch = true;
+  let endMonthMatch = true;
+
+  // If a start month is provided, filter based on it.
+  if (filters.startMonth) {
+    startMonthMatch = testMonth >= filters.startMonth;
+    // If no endMonth is provided, the filter should stop at startMonth
+    endMonthMatch = filters.endMonth ? testMonth <= filters.endMonth : testMonth === filters.startMonth;
+  } else if (filters.endMonth) {
+    // If only endMonth is provided, filter up to that month
+    endMonthMatch = testMonth <= filters.endMonth;
+  }
+
+  return (
+    startMonthMatch &&
+    endMonthMatch &&
+    (filters.userID ? result.userID.includes(filters.userID) : true) &&
+    (filters.firstName ? result.firstName.toLowerCase().includes(filters.firstName.toLowerCase()) : true) &&
+    (filters.lastName ? result.lastName.toLowerCase().includes(filters.lastName.toLowerCase()) : true) &&
+    ageMatch &&
+    (filters.sex ? result.sex === filters.sex : true) &&
+    (filters.course ? result.course.toLowerCase().includes(filters.course.toLowerCase()) : true) &&
+    (filters.year ? result.year.toString() === filters.year : true) &&
+    (filters.section ? result.section.toString() === filters.section : true) &&
+    (filters.testType ? result.testType === filters.testType : true)
+  );
+});
+
+  
+  
 
   // Prepare chart data for bar chart
   const interpretationCounts: Record<string, number> = {};
@@ -320,6 +341,27 @@ const IQStatistics: React.FC = () => {
         <option value="10">10</option>
         <option value="Irregular">Irregular</option>
         </select>
+        <div className={styles.monthFilterRow}>
+          <label>From:</label>
+          <input
+            type="month"
+            name="startMonth"
+            value={filters.startMonth}
+            onChange={handleFilterChange}
+            className={styles.monthFilter}
+          />
+          <label>To:</label>
+          <input
+            type="month"
+            name="endMonth"
+            value={filters.endMonth}
+            onChange={handleFilterChange}
+            className={styles.monthFilter}
+          />
+        </div>
+
+
+
 
         {/* Display the filtered results */}
       <table className={styles.userListContaIner}>
