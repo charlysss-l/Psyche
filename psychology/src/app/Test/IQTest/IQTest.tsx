@@ -52,6 +52,7 @@ const IQTest: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const resultsPerPage = 12;
     const [selectedFiles, setSelectedFiles] = useState<{ [key: string]: File | null }>({});
+    const [isEditing, setIsEditing] = useState<string | null>(null); // To track which question is being edited
 
     // Fetch data from the server
     const fetchData = async () => {
@@ -105,70 +106,66 @@ const IQTest: React.FC = () => {
     };
 
     // Update question with new image URLs
-    // Update question with new image URLs
-const handleSaveUpdatedQuestion = async (questionID: string, questionSet: string, correctAnswer: string) => {
-    if (!questionID || !questionSet || !correctAnswer) {
-        setError('Question ID, Question Set, and Correct Answer cannot be empty');
-        return;
-    }
-
-    const updatedQuestionData: any = {
-        questionID,
-        questionSet,
-        correctAnswer,
-    };
-
-    const imageTypes: ('questionImage' | 'choicesImage' | 'correctAnswer')[] = ['questionImage', 'choicesImage', 'correctAnswer'];
-
-    for (const imageType of imageTypes) {
-      if (imageType === 'choicesImage') {
-        // Handle choices image upload for all choices
-        const updatedChoiceImages: string[] = [];
-        const currentChoices = iqTests[0].questions.find(q => q.questionID === questionID)?.choicesImage || [];
-    
-        for (let index = 0; index < 6; index++) { 
-            const choiceImageURL = await handleUpdateQuestion(questionID, imageType, index);
-            if (choiceImageURL) {
-                updatedChoiceImages.push(choiceImageURL); // Add new image if uploaded
-            } else if (currentChoices[index]) {
-                updatedChoiceImages.push(currentChoices[index]); // Preserve existing image
-            }
+    const handleSaveUpdatedQuestion = async (questionID: string, questionSet: string, correctAnswer: string) => {
+        if (!questionID || !questionSet || !correctAnswer) {
+            setError('Question ID, Question Set, and Correct Answer cannot be empty');
+            return;
         }
-        updatedQuestionData.choicesImage = updatedChoiceImages;
-    }
-     else {
-            const downloadURL = await handleUpdateQuestion(questionID, imageType);
-            if (downloadURL) {
-                updatedQuestionData[imageType] = downloadURL;
+
+        const updatedQuestionData: any = {
+            questionID,
+            questionSet,
+            correctAnswer,
+        };
+
+        const imageTypes: ('questionImage' | 'choicesImage' | 'correctAnswer')[] = ['questionImage', 'choicesImage', 'correctAnswer'];
+
+        for (const imageType of imageTypes) {
+            if (imageType === 'choicesImage') {
+                // Handle choices image upload for all choices
+                const updatedChoiceImages: string[] = [];
+                const currentChoices = iqTests[0].questions.find(q => q.questionID === questionID)?.choicesImage || [];
+        
+                for (let index = 0; index < 6; index++) { 
+                    const choiceImageURL = await handleUpdateQuestion(questionID, imageType, index);
+                    if (choiceImageURL) {
+                        updatedChoiceImages.push(choiceImageURL); // Add new image if uploaded
+                    } else if (currentChoices[index]) {
+                        updatedChoiceImages.push(currentChoices[index]); // Preserve existing image
+                    }
+                }
+                updatedQuestionData.choicesImage = updatedChoiceImages;
             } else {
-                const currentImage = iqTests[0].questions.find(q => q.questionID === questionID)?.[imageType];
-                if (currentImage) {
-                    updatedQuestionData[imageType] = currentImage; // Preserve existing image if no new upload
+                const downloadURL = await handleUpdateQuestion(questionID, imageType);
+                if (downloadURL) {
+                    updatedQuestionData[imageType] = downloadURL;
+                } else {
+                    const currentImage = iqTests[0].questions.find(q => q.questionID === questionID)?.[imageType];
+                    if (currentImage) {
+                        updatedQuestionData[imageType] = currentImage; // Preserve existing image if no new upload
+                    }
                 }
             }
         }
-    }
 
-    // Send PUT request to update the question
-    const response = await fetch(`${backendUrl}/api/IQtest/${iqTests[0]._id}/question/${questionID}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedQuestionData),
-    });
+        // Send PUT request to update the question
+        const response = await fetch(`${backendUrl}/api/IQtest/${iqTests[0]._id}/question/${questionID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedQuestionData),
+        });
 
-    alert('Question updated successfully');
-    window.location.reload();
+        alert('Question updated successfully');
+        window.location.reload();
 
-    if (!response.ok) {
-        setError(`Failed to update question image: ${response.statusText}`);
-    } else {
-        fetchData(); // Reload data to reflect the changes
-    }
-};
-
-  
+        if (!response.ok) {
+            setError(`Failed to update question image: ${response.statusText}`);
+        } else {
+            fetchData(); // Reload data to reflect the changes
+        }
+    };
 
     // Display loading or error messages if necessary
     if (loading) return <div>Loading...</div>;
@@ -213,6 +210,7 @@ const handleSaveUpdatedQuestion = async (questionID: string, questionSet: string
                         <th className={style.th}>Question Image</th>
                         <th className={style.th}>Choices Images</th>
                         <th className={style.th}>Correct Answer</th>
+                        <th className={style.th}>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -222,67 +220,92 @@ const handleSaveUpdatedQuestion = async (questionID: string, questionSet: string
                             <td className={style.td}>{q.questionSet}</td>
                             <td className={style.question}>
                                 <img src={q.questionImage} alt="Question" />
-                                <input type="file" onChange={(e) => handleFileChange(e, q.questionID, 'questionImage')} />
-                                <button onClick={() => handleSaveUpdatedQuestion(q.questionID, q.questionSet, q.correctAnswer)}>Update Image</button>
+                                {isEditing === q.questionID && (
+                                    <>
+                                        <input
+                                            type="file"
+                                            onChange={(e) => handleFileChange(e, q.questionID, 'questionImage')}
+                                        />
+                                    </>
+                                )}
                             </td>
                             <td className={style.choice}>
                                 {q.choicesImage.map((choiceImage, index) => (
                                     <div key={index}>
                                         <img src={choiceImage} alt={`Choice ${index + 1}`} />
-                                        <input type="file" onChange={(e) => handleFileChange(e, q.questionID, 'choicesImage', index)} />
+                                        {isEditing === q.questionID && (
+                                            <input
+                                                type="file"
+                                                onChange={(e) => handleFileChange(e, q.questionID, 'choicesImage', index)}
+                                            />
+                                        )}
                                     </div>
                                 ))}
-                                                                        <button onClick={() => handleSaveUpdatedQuestion(q.questionID, q.questionSet, q.correctAnswer)}>Update Image</button>
-
                             </td>
                             <td className={style.answer}>
-                            {q.choicesImage.map((choiceImage, index) => (
-                                <div key={index}>
-                                    <img src={choiceImage} alt={`Choice ${index + 1}`} />
-                                    <input
-                                        type="radio"
-                                        name={`correctAnswer-${q.questionID}`}
-                                        value={choiceImage}
-                                        checked={q.correctAnswer === choiceImage}
-                                        onChange={() =>
-                                            setIqTests(prev =>
-                                                prev.map(test =>
-                                                    ({
-                                                        ...test,
-                                                        questions: test.questions.map(question =>
-                                                            question.questionID === q.questionID
-                                                                ? { ...question, correctAnswer: choiceImage }
-                                                                : question
+                                {isEditing === q.questionID ? (
+                                    q.choicesImage.map((choiceImage, index) => (
+                                        <div key={index}>
+                                            <img src={choiceImage} alt={`Choice ${index + 1}`} />
+                                            <input
+                                                type="radio"
+                                                name={`correctAnswer-${q.questionID}`}
+                                                value={choiceImage}
+                                                checked={q.correctAnswer === choiceImage}
+                                                onChange={() =>
+                                                    setIqTests(prev =>
+                                                        prev.map(test =>
+                                                            ({
+                                                                ...test,
+                                                                questions: test.questions.map(question =>
+                                                                    question.questionID === q.questionID
+                                                                        ? { ...question, correctAnswer: choiceImage }
+                                                                        : question
+                                                                )
+                                                            })
                                                         )
-                                                    })
-                                                )
-                                            )
-                                        }
-                                    />
-                                </div>
-                            ))}
-                            <button onClick={() => handleSaveUpdatedQuestion(q.questionID, q.questionSet, q.correctAnswer)}>
-                                Update Correct Answer
-                            </button>
-                        </td>
-
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div>
+                                        <img src={q.correctAnswer} alt="Correct Answer" />
+                                    </div>
+                                )}
+                            </td>
+                            <td className={style.actions}>
+                                <button
+                                    className={style.editButton}
+                                    onClick={() => setIsEditing(isEditing === q.questionID ? null : q.questionID)}
+                                >
+                                    {isEditing === q.questionID ? 'Cancel' : 'Edit'}
+                                </button>
+                                {isEditing === q.questionID && (
+                                    <button
+                                        className={style.saveButton}
+                                        onClick={() => handleSaveUpdatedQuestion(q.questionID, q.questionSet, q.correctAnswer)}
+                                    >
+                                        Save
+                                    </button>
+                                )}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-
-             {/* Pagination Controls */}
-             <div className={style.pagination}>
+            <div>
                 <button
+                    className={style.paginationButton}
                     onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
                     disabled={currentPage === 1}
                 >
-                    Previous
+                    Prev
                 </button>
-                <span>
-                    Page {currentPage} of {totalPages}
-                </span>
+                <span>{`Page ${currentPage} of ${totalPages}`}</span>
                 <button
+                    className={style.paginationButton}
                     onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
                     disabled={currentPage === totalPages}
                 >
