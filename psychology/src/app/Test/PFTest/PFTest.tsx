@@ -37,6 +37,11 @@ const PFTest: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [editQuestion, setEditQuestion] = useState<Question | null>(null);
+    const [newQuestionText, setNewQuestionText] = useState('');
+    const [newChoices, setNewChoices] = useState<Choice>({ a: '', b: '', c: '' });
+    const [newChoiceEquivalentScore, setNewChoiceEquivalentScore] = useState<ChoiceEquivalentScore>({ a: 0, b: 0, c: 0 });
+    
     const resultsPerPage = 10;
 
     const fetchData = async () => {
@@ -57,6 +62,51 @@ const PFTest: React.FC = () => {
     useEffect(() => {
         fetchData();
     }, []);
+
+    const handleEditClick = (question: Question) => {
+        setEditQuestion(question);
+        setNewQuestionText(question.questionText);
+        setNewChoices(question.choices);
+        setNewChoiceEquivalentScore(question.choiceEquivalentScore);
+    };
+
+    const handleUpdateQuestion = async () => {
+        if (!editQuestion) return;
+    
+        const { questionID, questionNum, factorLetter } = editQuestion; // Ensure you extract testID
+    
+        const updatedQuestion = {
+            questionNum, 
+            factorLetter, 
+            questionText: newQuestionText,
+            choices: newChoices,
+            choiceEquivalentScore: newChoiceEquivalentScore,
+        };
+    
+        try {
+            const response = await fetch(`${backendUrl}/api/16pf/67282807d9bdba831a7e9063/question/${questionID}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedQuestion),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Failed to update question: ${response.statusText}`);
+            }
+    
+            const updatedTest = await response.json();
+            setPfTest(prevTests => 
+                prevTests.map(test =>
+                    test._id === updatedTest._id ? updatedTest : test
+                )
+            ); // Update state correctly
+            setEditQuestion(null); // Close the edit form
+            alert('Question updated successfully');
+            window.location.reload();
+        } catch (error) {
+            setError('Error updating question');
+        }
+    };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -105,6 +155,7 @@ const PFTest: React.FC = () => {
                         <th className={style.th}>Question Text</th>
                         <th className={style.th}>Choices</th>
                         <th className={style.th}>Equivalent Score</th>
+                        <th className={style.th}>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,10 +174,80 @@ const PFTest: React.FC = () => {
                                 B: {q.choiceEquivalentScore.b}<br />
                                 C: {q.choiceEquivalentScore.c}
                             </td>
+                            <td className={style.td}>
+                                <button onClick={() => handleEditClick(q)}>Edit</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+            {/* Modal for Editing */}
+            {editQuestion && (
+                <div className={style.modalOverlay}>
+                    <div className={style.modalContent}>
+                        <h3>Edit Question</h3>
+                        <label>
+                            Question Text:
+                            <input
+                                type="text"
+                                value={newQuestionText}
+                                onChange={(e) => setNewQuestionText(e.target.value)}
+                            />
+                        </label>
+                        <label>
+                            A:
+                            <input
+                                type="text"
+                                value={newChoices.a}
+                                onChange={(e) => setNewChoices({ ...newChoices, a: e.target.value })}
+                            />
+                        </label>
+                        <label>
+                            B:
+                            <input
+                                type="text"
+                                value={newChoices.b}
+                                onChange={(e) => setNewChoices({ ...newChoices, b: e.target.value })}
+                            />
+                        </label>
+                        <label>
+                            C:
+                            <input
+                                type="text"
+                                value={newChoices.c}
+                                onChange={(e) => setNewChoices({ ...newChoices, c: e.target.value })}
+                            />
+                        </label>
+                        <label>
+                            A Score:
+                            <input
+                                type="number"
+                                value={newChoiceEquivalentScore.a}
+                                onChange={(e) => setNewChoiceEquivalentScore({ ...newChoiceEquivalentScore, a: Number(e.target.value) })}
+                            />
+                        </label>
+                        <label>
+                            B Score:
+                            <input
+                                type="number"
+                                value={newChoiceEquivalentScore.b}
+                                onChange={(e) => setNewChoiceEquivalentScore({ ...newChoiceEquivalentScore, b: Number(e.target.value) })}
+                            />
+                        </label>
+                        <label>
+                            C Score:
+                            <input
+                                type="number"
+                                value={newChoiceEquivalentScore.c}
+                                onChange={(e) => setNewChoiceEquivalentScore({ ...newChoiceEquivalentScore, c: Number(e.target.value) })}
+                            />
+                        </label>
+                        <button onClick={handleUpdateQuestion}>Save Changes</button>
+                        <button onClick={() => setEditQuestion(null)}>Cancel</button>
+                    </div>
+                </div>
+            )}
 
             {/* Pagination Controls */}
             <div className={style.pagination}>

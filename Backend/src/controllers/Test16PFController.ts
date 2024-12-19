@@ -52,6 +52,36 @@ export const update16PFTest = async (req: Request, res: Response) => {
     }
 };
 
+export const update16PFTestQuestion = async (req: Request, res: Response) => {
+    const { id, questionID } = req.params;
+    const { questionText, choices, choiceEquivalentScore } = req.body;
+
+    try {
+        // Find the test by testId
+        const test = await Test16PF.findById(id);
+        if (!test) {
+            return res.status(404).json({ message: 'Test not found' });
+        }
+
+        // Find the question by questionId within the test
+        const question = test.question.find(q => q.questionID === questionID);
+        if (!question) {
+            return res.status(404).json({ message: 'Question not found' });
+        }
+
+        // Update the question fields
+        question.questionText = questionText ?? question.questionText;
+        question.choices = choices ?? question.choices;
+        question.choiceEquivalentScore = choiceEquivalentScore ?? question.choiceEquivalentScore;
+
+        // Save the test with the updated question
+        await test.save();
+
+        res.status(200).json({ message: 'Question updated successfully', test });
+    } catch (error) {
+        res.status(400).json({ message: 'Error updating question', error: (error as Error).message });
+    }
+};
 
 export const delete16PFTest = async (req: Request, res: Response) => {
     const { id } = req.params;
