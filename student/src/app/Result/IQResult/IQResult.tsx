@@ -3,7 +3,7 @@ import styles from './IQResult.module.scss';
 import { useNavigate } from 'react-router-dom';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import html2canvas from 'html2canvas';
+import axios from 'axios';
 import backendUrl from '../../../config';
 
 
@@ -40,6 +40,34 @@ const IQResult: React.FC = () => {
     const [result, setResult] = useState<IQTestResultData | null>(null);
     const [interpretation, setInterpretation] = useState<Interpretation | null>(null);
     const [isChecked, setIsChecked] = useState(false); // Track checkbox state
+    const [dataTitle, setDataTitle] = useState<string>(''); // State for intro title
+    const [outroTitle, setOutroTitle] = useState<string>(''); // State for terms and conditions title
+    const [dataText, setDataText] = useState<string>(''); // State for intro text
+    const [outroText, setOutroText] = useState<string>(''); // State for terms and conditions text
+    const [loading, setLoading] = useState<boolean>(true); // Loading state
+    const [error, setError] = useState<string | null>(null); // Error state
+
+    // Fetch content from the database
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get('http://localhost:5000/api/textDisplay/contents/IQ')
+      .then((response) => {
+        const dataContent = response.data.find((content: any) => content.key === 'data_privacyIQ');
+        const outroContent = response.data.find((content: any) => content.key === 'outroIQ');
+
+        if (dataContent) setDataText(dataContent.text);
+        if (outroContent) setOutroText(outroContent.text);
+        if (dataContent) setDataTitle(dataContent.title);
+        if (outroContent) setOutroTitle(outroContent.title);
+      })
+      .catch((err) => {
+        setError('Failed to fetch content. Please try again later.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
 // Format the testDate in the desired format (e.g., "December 16, 2024")
 const formatDate = (dateString: string) => {
@@ -260,48 +288,56 @@ const formatDate = (dateString: string) => {
  <div className={styles.messageContainer}>
         {/* Data Privacy Section */}
         <div className={styles.privacySection}>
-    <h1>Data Privacy Act</h1>
-    <p>
-        Your personal information and test results are protected under the Data Privacy Act of 2012 (Republic Act No. 10173). 
-        This ensures that all data collected through this IQ test is handled with the utmost confidentiality and care. 
-        The information provided will be used exclusively for assessment and consultation purposes within the psychology department.
-    </p>
-    <p>
-        The results of your test are securely stored on the psychology department’s servers, accessible only to authorized personnel. 
-        You have full control over how your results are shared. If you decide to consult with our guidance counselor, your results 
-        can be accessed by them to provide personalized advice and assistance. Rest assured, no data will be shared with third parties 
-        without your explicit consent.
-    </p>
-    <p>
-        We prioritize your privacy and comply with all applicable laws and regulations regarding data protection. If you have any concerns 
-        or require further information on how we handle your data, you may reach out to our psychology department or refer to our privacy policy.
-    </p>
+        <h1 className={styles.pfintro}>{dataTitle}</h1>
+        <p className={styles.pfintroinfo}>
+        {dataText.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+            {line.split(/(https?:\/\/[^\s]+)/).map((part, idx) => (
+          // Check if the part is a URL
+          /https?:\/\/[^\s]+/.test(part) ? (
+            <a
+              key={idx}
+              href={part}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link} // Optional: Style the link
+            >
+              {part}
+            </a>
+          ) : (
+            part
+          )
+        ))}
+        <br />
+            </React.Fragment>
+        ))}
+        </p>
 </div>
 <div className={styles.outro}>
-    <h1>Is the Raven IQ Test valid and reliable when completed online?</h1>
-    <p>
-    The reliability of the test can be maintained when taken online if proper measures 
-    are taken to ensure a consistent and standardized testing environment. 
-    This includes minimizing distractions, ensuring proper time limits, and providing 
-    clear instructions. However, when the test is administered in less controlled settings 
-    (e.g., from home or in a non-supervised environment), variability in how test-takers 
-    interact with the test can introduce measurement errors, potentially affecting reliability. 
-    Additionally, the lack of a proctor may allow for cheating or the use of external resources, 
-    which could undermine the consistency of results.
-    </p>
-    <p>
-    The validity of the SPM, in terms of accurately measuring fluid intelligence, can still be 
-    preserved when administered online if the test interface is designed to replicate the physical 
-    version as closely as possible. Issues such as screen size, resolution, or technical problems 
-    (e.g., slow loading times) could introduce errors or distract the test-taker, potentially 
-    compromising the test's ability to measure the intended cognitive skills.
-    </p>
-    
-    <p>
-        {/* References: <a href="https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf" target="_blank" rel="noopener noreferrer">
-            https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf
-        </a> */}
-    </p>
+  <h1 className={styles.termsandconditionpf}>{outroTitle}</h1>
+  <p className={styles.pfintroinfo}>
+    {outroText.split('\n').map((line, index) => (
+      <React.Fragment key={index}>
+        {line.split(/(https?:\/\/[^\s]+)/).map((part, idx) => (
+          // Check if the part is a URL
+          /https?:\/\/[^\s]+/.test(part) ? (
+            <a
+              key={idx}
+              href={part}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link} // Optional: Style the link
+            >
+              {part}
+            </a>
+          ) : (
+            part
+          )
+        ))}
+        <br />
+      </React.Fragment>
+    ))}
+  </p>
 </div>
 </div>
 

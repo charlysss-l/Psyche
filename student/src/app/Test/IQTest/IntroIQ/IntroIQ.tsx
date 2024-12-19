@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styles from './IntroIQ.module.scss'; // Import SCSS file for styling
 import backendUrl from '../../../../config';
 
@@ -9,12 +10,38 @@ interface UserIQTest {
 
 const IntroIQ: React.FC = () => {
   const [isChecked, setIsChecked] = useState(false); // State for checkbox
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [introTitle, setIntroTitle] = useState<string>(''); // State for intro title
+  const [termsTitle, setTermsTitle] = useState<string>(''); // State for terms and conditions title
+  const [introText, setIntroText] = useState<string>(''); // State for intro text    
+  const [termsText, setTermsText] = useState<string>(''); // State for terms and conditions text
+  const [loading, setLoading] = useState<boolean>(true); // Loading state
+  const [error, setError] = useState<string | null>(null); // Error state
   const [userID, setUserID] = useState<string | null>(null);
   const [hasTakenTestToday, setHasTakenTestToday] = useState<boolean>(false); // New state to track if test has been taken today
 
   const navigate = useNavigate(); // Initialize useNavigate
+
+  // Fetch content from the database
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get('http://localhost:5000/api/textDisplay/contents/IQ')
+      .then((response) => {
+        const introContent = response.data.find((content: any) => content.key === 'introductionIQ');
+        const termsContent = response.data.find((content: any) => content.key === 'termsIQ');
+
+        if (introContent) setIntroText(introContent.text);
+        if (termsContent) setTermsText(termsContent.text);
+        if (introContent) setIntroTitle(introContent.title);
+        if (termsContent) setTermsTitle(termsContent.title);
+      })
+      .catch((err) => {
+        setError('Failed to fetch content. Please try again later.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   // Fetch userID from localStorage and set it in state
   useEffect(() => {
@@ -80,74 +107,58 @@ const IntroIQ: React.FC = () => {
     <div className={styles.container}>
      
 
-     <h1 className={styles.introiq}>What is Raven's Standard Progressive Matrices?</h1>
-      <p>
-      Raven's Standard Progressive Matrices (SPM) is a widely recognized nonverbal 
-      intelligence test designed to assess abstract reasoning and problem-solving abilities. 
-      Developed by John C. Raven in 1936, the test presents a series of visual puzzles, each 
-      consisting of a matrix of patterns with one piece missing.       </p>
-      <p>
-      The test-taker's task is to identify the correct piece from a set of options to 
-      complete the matrix. Since it relies on pattern recognition and logical thinking 
-      rather than language or cultural knowledge, the SPM is often considered a "culture-fair" 
-      test of intelligence, making it suitable for individuals from diverse backgrounds.
-      </p>
-      <p>
-      The SPM is used in various settings, including educational assessments, psychological 
-      evaluations, and occupational selection processes. It is particularly effective for measuring 
-      fluid intelligence, which involves the ability to think logically and solve new problems 
-      independently of acquired knowledge.
-      </p>
+     <h1 className={styles.pfintro}>{introTitle}</h1>
+      <p className={styles.pfintroinfo}>
+  {introText.split('\n').map((line, index) => (
+    <React.Fragment key={index}>
+      {line.split(/(https?:\/\/[^\s]+)/).map((part, idx) => (
+          // Check if the part is a URL
+          /https?:\/\/[^\s]+/.test(part) ? (
+            <a
+              key={idx}
+              href={part}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link} // Optional: Style the link
+            >
+              {part}
+            </a>
+          ) : (
+            part
+          )
+        ))}
+        <br />
+    </React.Fragment>
+  ))}
+</p>
 
-      {/* Terms and Conditions Section */}
-      <h1 className={styles.termsandconditioniq}>Terms and Conditions</h1>
-      <p className={styles.termsinfo}>
-        By using this test, you agree to the following terms and conditions. Please read these terms carefully before proceeding with the test. 
-        If you do not agree with any of these terms, you should not access or use the test. 
-      </p>
-      <p className={styles.termsinfo}>
-        <strong className={styles.termsnumiq}>1. General Terms </strong>
-        The Test is designed for individuals interested in gaining insights into their personality traits. The Test is 
-        based on the Sixteen Personality Factor Questionnaire (16PF) developed through years of research and analysis. 
-        Your participation in the Test is voluntary and you may choose to discontinue at any time. By participating, 
-        you consent to the collection of responses provided during the Test.
-      </p>
-      <p className={styles.termsinfo}>
-        <strong className={styles.termsnumiq}>2. Privacy and Data Collection </strong>
-        We respect your privacy and are committed to protecting your personal data. By using the Test, you agree that 
-        we may collect, process, and store information you provide during the assessment for the purpose of analyzing 
-        your results and improving the service. However, we will never share your data with third parties without your 
-        explicit consent, except as required by law or in connection with business operations. We advise that you do 
-        not share sensitive personal information such as medical history or other private details that are not relevant 
-        to the Test. 
-      </p>
-      <p className={styles.termsinfo}>
-        <strong className={styles.termsnumiq}>3. Test Results </strong>
-        The results you receive from the Test are based on the information you provide and the responses you select. 
-        While the Test is designed to provide useful insights into your personality, the results should not be regarded 
-        as definitive or absolute. Personality traits can evolve over time and the results of the Test reflect your 
-        characteristics at the time of taking it. Results are not intended to diagnose or label individuals and should 
-        not be used as the sole basis for important life decisions.
-      </p>
-      <p className={styles.termsinfo}>
-        <strong className={styles.termsnumiq}>4. Limitation of Liability </strong>
-        The Test and any related content are provided "as is" and we do not make any representations or warranties, 
-        express or implied, about the accuracy, reliability, or completeness of the Test or the results provided. 
-        In no event will we be liable for any loss, damage, or harm arising from your use of the Test, including, 
-        but not limited to, direct, indirect, incidental, or consequential damages. Your use of the Test is at your 
-        own risk.
-      </p>
-      <p className={styles.termsinfo}>
-        <strong className={styles.termsnumiq}>5. Changes to Terms </strong>
-        We reserve the right to modify or update these Terms at any time without prior notice. Any changes to these 
-        Terms will be reflected on this page. It is your responsibility to check this page regularly for updates. Your 
-        continued use of the Test after any modifications to the Terms constitutes your acceptance of those changes.
-      </p>
+<h1 className={styles.termsandconditionpf}>{termsTitle}</h1>
+<p className={styles.pftermsinfo}>
+  {termsText.split('\n').map((line, index) => {
+    // Check if the line starts with a numbered section
+    const match = line.match(/^(\d+\.\s.*?)(\s-\s)(.*)$/);
 
-      <p className={styles.confirm}>
-        By proceeding with the test, you acknowledge that you have read, understood, and agree to these terms and conditions.
-      </p>
+    if (match) {
+      // Split the line into heading and body
+      const [, heading, separator, body] = match;
+      return (
+        <React.Fragment key={index}>
+          <strong>{heading}</strong>
+          {separator}
+          {body}
+          <br />
+        </React.Fragment>
+      );
+    }
 
+    return (
+      <React.Fragment key={index}>
+        {line}
+        <br />
+      </React.Fragment>
+    );
+  })}
+</p>
       {/* Checkbox for Terms and Conditions */}
       <div className={styles.checkboxContainer}>
         <input

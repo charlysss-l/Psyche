@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './studentpfresult.module.scss';
 import { useNavigate } from 'react-router-dom';
 import backendUrl from '../../../config';
+import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -357,7 +358,35 @@ const PFResult: React.FC = () => {
     const [isChecked, setIsChecked] = useState(false); // Track checkbox state
     const navigate = useNavigate();
     const [results, setResults] = useState<TestResultData | null>(null);
+    const [dataTitle, setDataTitle] = useState<string>(''); // State for intro title
+    const [outroTitle, setOutroTitle] = useState<string>(''); // State for terms and conditions title
+    const [dataText, setDataText] = useState<string>(''); // State for intro text
+    const [outroText, setOutroText] = useState<string>(''); // State for terms and conditions text
+    const [loading, setLoading] = useState<boolean>(true); // Loading state
+    const [error, setError] = useState<string | null>(null); // Error state
     const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
+
+      // Fetch content from the database
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get('http://localhost:5000/api/textDisplay/contents/PF')
+      .then((response) => {
+        const dataContent = response.data.find((content: any) => content.key === 'data_privacyPF');
+        const outroContent = response.data.find((content: any) => content.key === 'outroPF');
+
+        if (dataContent) setDataText(dataContent.text);
+        if (outroContent) setOutroText(outroContent.text);
+        if (dataContent) setDataTitle(dataContent.title);
+        if (outroContent) setOutroTitle(outroContent.title);
+      })
+      .catch((err) => {
+        setError('Failed to fetch content. Please try again later.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
     useEffect(() => {
         // Retrieve results from local storage
@@ -755,50 +784,58 @@ const PFResult: React.FC = () => {
 <div className={styles.messageContainer}>
         {/* Data Privacy Section */}
         <div className={styles.privacySection}>
-    <h1>Data Privacy Act</h1>
-    <p>
-        Your personal information and test results are protected under the Data Privacy Act of 2012 (Republic Act No. 10173). 
-        This ensures that all data collected through this personality test is handled with the utmost confidentiality and care. 
-        The information provided will be used exclusively for assessment and consultation purposes within the psychology department.
-    </p>
-    <p>
-        The results of your test are securely stored on the psychology department’s servers, accessible only to authorized personnel. 
-        You have full control over how your results are shared. If you decide to consult with our guidance counselor, your results 
-        can be accessed by them to provide personalized advice and assistance. Rest assured, no data will be shared with third parties 
-        without your explicit consent.
-    </p>
-    <p>
-        We prioritize your privacy and comply with all applicable laws and regulations regarding data protection. If you have any concerns 
-        or require further information on how we handle your data, you may reach out to our psychology department or refer to our privacy policy.
-    </p>
+        <h1 className={styles.pfintro}>{dataTitle}</h1>
+        <p className={styles.pfintroinfo}>
+        {dataText.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+            {line.split(/(https?:\/\/[^\s]+)/).map((part, idx) => (
+          // Check if the part is a URL
+          /https?:\/\/[^\s]+/.test(part) ? (
+            <a
+              key={idx}
+              href={part}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link} // Optional: Style the link
+            >
+              {part}
+            </a>
+          ) : (
+            part
+          )
+        ))}
+        <br />
+            </React.Fragment>
+        ))}
+        </p>
 </div>
 <div className={styles.outro}>
-    <h1>Is the 16 Personality Test valid and reliable when completed online?</h1>
-    <p>
-    Test-retest reliability for the 16PF major scales averages 0.80 over a two-week 
-    period and 0.70 over a two-month period. Even greater test-retest reliability is 
-    demonstrated by the five main sub-scales of the 16PF Questionnaire, which average 
-    0.87 at two-week intervals and 0.78 at two-month intervals. These data sets, 
-    fortunately, come from web-based administration. As a result, any further assumptions 
-    or explanations regarding your results from any source should be verified by a professional 
-    conducting a thorough evaluation.
-    </p>
-    <p>
-    For broad, general insights on how you might approach relationships, work, or life, 
-    it can be a helpful tool. However, it should not be used as a diagnostic or 
-    decision-making tool in key areas of life, such as mental health or career.
-    </p>
-    <p>
-    No test, no matter how advanced, can reveal more than what you provide. 
-    If you require any extra counseling or professional education regarding your results, 
-    don't hesitate to seek assistance.
-    </p>
-    <p>
-        References: <a href="https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf" target="_blank" rel="noopener noreferrer">
-            https://people.wku.edu/richard.miller/520%2016PF%20Cattell%20and%20Mead.pdf
-        </a>
-    </p>
+  <h1 className={styles.termsandconditionpf}>{outroTitle}</h1>
+  <p className={styles.pfintroinfo}>
+    {outroText.split('\n').map((line, index) => (
+      <React.Fragment key={index}>
+        {line.split(/(https?:\/\/[^\s]+)/).map((part, idx) => (
+          // Check if the part is a URL
+          /https?:\/\/[^\s]+/.test(part) ? (
+            <a
+              key={idx}
+              href={part}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link} // Optional: Style the link
+            >
+              {part}
+            </a>
+          ) : (
+            part
+          )
+        ))}
+        <br />
+      </React.Fragment>
+    ))}
+  </p>
 </div>
+
 </div>
 
 
