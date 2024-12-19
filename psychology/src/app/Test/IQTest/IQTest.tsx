@@ -236,40 +236,59 @@ const handleSaveUpdatedQuestion = async (questionID: string, questionSet: string
 
                             </td>
                             <td className={style.answer}>
-    {q.choicesImage.map((choiceImage, index) => (
-        <div key={index}>
-            <img src={choiceImage} alt={`Choice ${index + 1}`} />
-            <input
-                type="radio"
-                name={`correctAnswer-${q.questionID}`}
-                value={choiceImage}
-                checked={q.correctAnswer === choiceImage}
-                onChange={() =>
-                    setIqTests(prev =>
-                        prev.map(test =>
-                            ({
-                                ...test,
-                                questions: test.questions.map(question =>
-                                    question.questionID === q.questionID
-                                        ? { ...question, correctAnswer: choiceImage }
-                                        : question
-                                )
-                            })
-                        )
-                    )
-                }
-            />
-        </div>
-    ))}
-    <button onClick={() => handleSaveUpdatedQuestion(q.questionID, q.questionSet, q.correctAnswer)}>
-        Update Correct Answer
-    </button>
-</td>
+                            {q.choicesImage.map((choiceImage, index) => (
+                                <div key={index}>
+                                    <img src={choiceImage} alt={`Choice ${index + 1}`} />
+                                    <input
+                                        type="radio"
+                                        name={`correctAnswer-${q.questionID}`}
+                                        value={choiceImage}
+                                        checked={q.correctAnswer === choiceImage}
+                                        onChange={() =>
+                                            setIqTests(prev =>
+                                                prev.map(test =>
+                                                    ({
+                                                        ...test,
+                                                        questions: test.questions.map(question =>
+                                                            question.questionID === q.questionID
+                                                                ? { ...question, correctAnswer: choiceImage }
+                                                                : question
+                                                        )
+                                                    })
+                                                )
+                                            )
+                                        }
+                                    />
+                                </div>
+                            ))}
+                            <button onClick={() => handleSaveUpdatedQuestion(q.questionID, q.questionSet, q.correctAnswer)}>
+                                Update Correct Answer
+                            </button>
+                        </td>
 
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+             {/* Pagination Controls */}
+             <div className={style.pagination}>
+                <button
+                    onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </button>
+                <span>
+                    Page {currentPage} of {totalPages}
+                </span>
+                <button
+                    onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     );
 };
