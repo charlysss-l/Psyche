@@ -54,6 +54,7 @@ const IQTest: React.FC = () => {
     const [selectedFiles, setSelectedFiles] = useState<{ [key: string]: File | null }>({});
     const [isEditing, setIsEditing] = useState<string | null>(null); // To track which question is being edited
 
+
     // Fetch data from the server
     const fetchData = async () => {
         try {
@@ -75,16 +76,28 @@ const IQTest: React.FC = () => {
     }, []);
 
     // Handle image file selection
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, questionID: string, imageType: 'questionImage' | 'choicesImage' | 'correctAnswer', index?: number) => {
+    const handleFileChange = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        questionID: string,
+        imageType: 'questionImage' | 'choicesImage' | 'correctAnswer',
+        index?: number
+      ) => {
         const file = e.target.files ? e.target.files[0] : null;
         if (file) {
-            const key = `${questionID}-${imageType}-${index !== undefined ? index : ''}`;
-            setSelectedFiles(prev => ({
-                ...prev,
-                [key]: file,
-            }));
+          const key = index !== undefined
+            ? `${questionID}-${imageType}-${index}`
+            : `${questionID}-${imageType}`;
+      
+          // Update the state with the correct file for this specific question and image type
+          setSelectedFiles((prev) => ({
+            ...prev,
+            [key]: file,
+          }));
         }
-    };
+      };
+      
+    
+
 
     // Upload the selected image to Firebase Storage
     const uploadImageToFirebase = async (file: File, path: string) => {
@@ -187,32 +200,44 @@ const IQTest: React.FC = () => {
     const ImageEditModal = ({ questionID }: { questionID: string }) => {
         const question = iqTests[0].questions.find(q => q.questionID === questionID);
         if (!question) return null;
-
+    
         return (
             <div className={style.modal}>
                 <div className={style.modalContent}>
                     <h2>Edit Question Images</h2>
                     <div className={style.modalBody}>
-                        <div>
-                            <h3>Question Image</h3>
-                            <img className={style.imgModal} src={question.questionImage} alt="Question" />
-                            <input
-                                type="file"
-                                onChange={(e) => handleFileChange(e, questionID, 'questionImage')}
-                            />
-                        </div>
-                        <div>
-                            <h3>Choices Images</h3>
-                            {question.choicesImage.map((choiceImage, index) => (
-                                <div key={index}>
-                                    <img className={style.imgModal} src={choiceImage} alt={`Choice ${index + 1}`} />
-                                    <input
-                                        type="file"
-                                        onChange={(e) => handleFileChange(e, questionID, 'choicesImage', index)}
-                                    />
-                                </div>
-                            ))}
-                        </div>
+          <div>
+            <h3>Question Image</h3>
+            <img className={style.imgModal} src={question.questionImage} alt="Question" />
+            <input
+              type="file"
+              id={`file-input-${questionID}`}
+              onChange={(e) => handleFileChange(e, questionID, 'questionImage')}
+              style={{ display: 'none' }} // Hide the default input
+            />
+            <label htmlFor={`file-input-${questionID}`} className={style.customFileLabel}>
+              {selectedFiles[`${questionID}-questionImage`] ? selectedFiles[`${questionID}-questionImage`]?.name : 'Choose a file'}
+            </label>
+          </div>
+          <div>
+            <h3>Choices Images</h3>
+            {question.choicesImage.map((choiceImage, index) => (
+              <div key={index}>
+                <img className={style.imgModal} src={choiceImage} alt={`Choice ${index + 1}`} />
+                <input
+                  type="file"
+                  id={`file-input-${questionID}-${index}`}
+                  onChange={(e) => handleFileChange(e, questionID, 'choicesImage', index)}
+                  style={{ display: 'none' }} // Hide the default input
+                />
+                <label htmlFor={`file-input-${questionID}-${index}`} className={style.customFileLabel}>
+                  {selectedFiles[`${questionID}-choicesImage-${index}`]
+                    ? selectedFiles[`${questionID}-choicesImage-${index}`]?.name
+                    : 'Choose a file'}
+                </label>
+              </div>
+            ))}
+          </div>
                         <div>
                             <h3>Correct Answer</h3>
                             {question.choicesImage.map((choiceImage, index) => (
@@ -254,6 +279,7 @@ const IQTest: React.FC = () => {
             </div>
         );
     };
+    
 
     return (
         <div>
