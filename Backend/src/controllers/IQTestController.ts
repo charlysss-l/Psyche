@@ -68,6 +68,7 @@ export const updateIQTestById: RequestHandler = async (req, res) => {
     }
 };
 
+
 // Delete an IQTest by ID
 export const deleteIQTestById: RequestHandler = async (req, res) => {
     try {
@@ -84,6 +85,52 @@ export const deleteIQTestById: RequestHandler = async (req, res) => {
         res.status(500).json({ message: 'Error deleting IQ Test', error });
     }
 };
+
+// Update a specific question within an IQTest
+export const updateQuestionById: RequestHandler = async (req, res) => {
+    try {
+        const { id, questionID } = req.params; // Get IQTest ID and questionID from request params
+        const updatedData = req.body; // Get the updated data from the request body
+
+        // Find the IQTest by ID
+        const iqTest = await IQTest.findById(id);
+        if (!iqTest) {
+            res.status(404).json({ message: 'IQ Test not found' });
+            return; // End execution if IQTest not found
+        }
+
+        // Find the question in the questions array by questionID
+        const questionIndex = iqTest.questions.findIndex(
+            (question) => question.questionID === questionID
+        );
+
+        if (questionIndex === -1) {
+            res.status(404).json({ message: 'Question not found' });
+            return; // End execution if question not found
+        }
+
+        // Update the question at the found index
+        iqTest.questions[questionIndex] = {
+            ...iqTest.questions[questionIndex],
+            ...updatedData, // Merge updated data into the existing question
+        };
+
+        // Save the updated IQTest document
+        await iqTest.save();
+
+        // Respond with the updated IQTest
+        res.status(200).json({
+            message: 'Question updated successfully',
+            iqTest,
+        });
+    } catch (error) {
+        // Handle any errors
+        res.status(500).json({ message: 'Error updating question', error });
+    }
+};
+
+
+
 
 // Update a specific interpretation within an IQTest
 export const updateInterpretationBySpecificId: RequestHandler = async (req, res) => {

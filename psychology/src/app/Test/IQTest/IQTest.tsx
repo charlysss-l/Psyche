@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import style from './psychologyiqtest.module.scss'; // Importing custom SCSS styles
 import { Link } from 'react-router-dom';
 import backendUrl from '../../../config';
+import { initializeApp } from 'firebase/app';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Interface definitions for the question and interpretation structures
 interface Question {
     questionID: string;
     questionSet: string;
     questionImage: string;
-    choicesImage: string[];
+    choicesImage: string[]; // Array of images for choices
     correctAnswer: string;
 }
 
@@ -30,12 +32,26 @@ interface IQTests {
     interpretation: Interpretation[];
 }
 
+const firebaseConfig = {
+    apiKey: "AIzaSyBWj1L7qdsRH4sFpE7q0CaoyL55KWMGRZI",
+    authDomain: "iqtestupload.firebaseapp.com",
+    projectId: "iqtestupload",
+    storageBucket: "iqtestupload.appspot.com",
+    messagingSenderId: "1045353089399",
+    appId: "1:1045353089399:web:e921f8910028d4b91db972",
+    measurementId: "G-Y50EWBBRFQ"
+};
+
+initializeApp(firebaseConfig);
+const storage = getStorage();
+
 const IQTest: React.FC = () => {
     const [iqTests, setIqTests] = useState<IQTests[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const resultsPerPage = 12;
+    const [selectedFiles, setSelectedFiles] = useState<{ [key: string]: File | null }>({});
 
     // Fetch data from the server
     const fetchData = async () => {
@@ -53,10 +69,106 @@ const IQTest: React.FC = () => {
         }
     };
 
-    // useEffect hook to fetch data on component mount
     useEffect(() => {
         fetchData();
     }, []);
+
+    // Handle image file selection
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, questionID: string, imageType: 'questionImage' | 'choicesImage' | 'correctAnswer', index?: number) => {
+        const file = e.target.files ? e.target.files[0] : null;
+        if (file) {
+            const key = `${questionID}-${imageType}-${index !== undefined ? index : ''}`;
+            setSelectedFiles(prev => ({
+                ...prev,
+                [key]: file,
+            }));
+        }
+    };
+
+    // Upload the selected image to Firebase Storage
+    const uploadImageToFirebase = async (file: File, path: string) => {
+        const imageRef = ref(storage, path);
+        await uploadBytes(imageRef, file);
+        const downloadURL = await getDownloadURL(imageRef);
+        return downloadURL;
+    };
+
+    // Handle image upload and update for the question
+    const handleUpdateQuestion = async (questionID: string, imageType: 'questionImage' | 'choicesImage' | 'correctAnswer', index?: number) => {
+        const file = selectedFiles[`${questionID}-${imageType}-${index !== undefined ? index : ''}`];
+        if (file) {
+            const path = `${imageType}/${questionID}/${file.name}`;
+            const downloadURL = await uploadImageToFirebase(file, path);
+            return downloadURL;
+        }
+        return null; // Return null if no file is selected
+    };
+
+    // Update question with new image URLs
+    // Update question with new image URLs
+const handleSaveUpdatedQuestion = async (questionID: string, questionSet: string, correctAnswer: string) => {
+    if (!questionID || !questionSet || !correctAnswer) {
+        setError('Question ID, Question Set, and Correct Answer cannot be empty');
+        return;
+    }
+
+    const updatedQuestionData: any = {
+        questionID,
+        questionSet,
+        correctAnswer,
+    };
+
+    const imageTypes: ('questionImage' | 'choicesImage' | 'correctAnswer')[] = ['questionImage', 'choicesImage', 'correctAnswer'];
+
+    for (const imageType of imageTypes) {
+      if (imageType === 'choicesImage') {
+        // Handle choices image upload for all choices
+        const updatedChoiceImages: string[] = [];
+        const currentChoices = iqTests[0].questions.find(q => q.questionID === questionID)?.choicesImage || [];
+    
+        for (let index = 0; index < 6; index++) { 
+            const choiceImageURL = await handleUpdateQuestion(questionID, imageType, index);
+            if (choiceImageURL) {
+                updatedChoiceImages.push(choiceImageURL); // Add new image if uploaded
+            } else if (currentChoices[index]) {
+                updatedChoiceImages.push(currentChoices[index]); // Preserve existing image
+            }
+        }
+        updatedQuestionData.choicesImage = updatedChoiceImages;
+    }
+     else {
+            const downloadURL = await handleUpdateQuestion(questionID, imageType);
+            if (downloadURL) {
+                updatedQuestionData[imageType] = downloadURL;
+            } else {
+                const currentImage = iqTests[0].questions.find(q => q.questionID === questionID)?.[imageType];
+                if (currentImage) {
+                    updatedQuestionData[imageType] = currentImage; // Preserve existing image if no new upload
+                }
+            }
+        }
+    }
+
+    // Send PUT request to update the question
+    const response = await fetch(`${backendUrl}/api/IQtest/${iqTests[0]._id}/question/${questionID}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedQuestionData),
+    });
+
+    alert('Question updated successfully');
+    window.location.reload();
+
+    if (!response.ok) {
+        setError(`Failed to update question image: ${response.statusText}`);
+    } else {
+        fetchData(); // Reload data to reflect the changes
+    }
+};
+
+  
 
     // Display loading or error messages if necessary
     if (loading) return <div>Loading...</div>;
@@ -76,7 +188,6 @@ const IQTest: React.FC = () => {
 
     return (
         <div>
-            {/* Displaying the list of IQ tests */}
             <table className={style.table}>
                 <thead>
                     <tr>
@@ -87,18 +198,12 @@ const IQTest: React.FC = () => {
                 <tbody>
                     {iqTests.map(test => (
                         <tr key={test._id}>
-                            <td className={style.td}> Raven's Standard Progressive Matrices</td>
+                            <td className={style.td}>Raven's Standard Progressive Matrices</td>
                             <td className={style.td}>{test.numOfQuestions}</td>
-                   </tr>
+                        </tr>
                     ))}
                 </tbody>
             </table>
-            <div className={style.linkIQliinks}>
-                <Link to="/iqresults_list_both" className={style.testResultsLink}>Test Results</Link>
-                <Link to="/iq-statistics" className={style.testResultsLink}>Analytics</Link>
-                <Link to="/iqinterpretation" className={style.testResultsLink}>Edit IQ Interpretation</Link>
-            
-            </div>
             <h2>Questions</h2>
             <table className={style.table}>
                 <thead>
@@ -117,38 +222,54 @@ const IQTest: React.FC = () => {
                             <td className={style.td}>{q.questionSet}</td>
                             <td className={style.question}>
                                 <img src={q.questionImage} alt="Question" />
+                                <input type="file" onChange={(e) => handleFileChange(e, q.questionID, 'questionImage')} />
+                                <button onClick={() => handleSaveUpdatedQuestion(q.questionID, q.questionSet, q.correctAnswer)}>Update Image</button>
                             </td>
                             <td className={style.choice}>
                                 {q.choicesImage.map((choiceImage, index) => (
-                                    <img key={index} src={choiceImage} alt={`Choice ${index + 1}`} />
+                                    <div key={index}>
+                                        <img src={choiceImage} alt={`Choice ${index + 1}`} />
+                                        <input type="file" onChange={(e) => handleFileChange(e, q.questionID, 'choicesImage', index)} />
+                                    </div>
                                 ))}
+                                                                        <button onClick={() => handleSaveUpdatedQuestion(q.questionID, q.questionSet, q.correctAnswer)}>Update Image</button>
+
                             </td>
                             <td className={style.answer}>
-                                <img src={q.correctAnswer} alt="Correct Answer" />
-                            </td>
+    {q.choicesImage.map((choiceImage, index) => (
+        <div key={index}>
+            <img src={choiceImage} alt={`Choice ${index + 1}`} />
+            <input
+                type="radio"
+                name={`correctAnswer-${q.questionID}`}
+                value={choiceImage}
+                checked={q.correctAnswer === choiceImage}
+                onChange={() =>
+                    setIqTests(prev =>
+                        prev.map(test =>
+                            ({
+                                ...test,
+                                questions: test.questions.map(question =>
+                                    question.questionID === q.questionID
+                                        ? { ...question, correctAnswer: choiceImage }
+                                        : question
+                                )
+                            })
+                        )
+                    )
+                }
+            />
+        </div>
+    ))}
+    <button onClick={() => handleSaveUpdatedQuestion(q.questionID, q.questionSet, q.correctAnswer)}>
+        Update Correct Answer
+    </button>
+</td>
+
                         </tr>
                     ))}
                 </tbody>
             </table>
-
-            {/* Pagination Controls */}
-            <div className={style.pagination}>
-                <button
-                    onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
-                    disabled={currentPage === 1}
-                >
-                    Previous
-                </button>
-                <span>
-                    Page {currentPage} of {totalPages}
-                </span>
-                <button
-                    onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                >
-                    Next
-                </button>
-            </div>
         </div>
     );
 };

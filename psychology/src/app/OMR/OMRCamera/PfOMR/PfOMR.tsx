@@ -8,11 +8,6 @@ import Tesseract from 'tesseract.js';
 import pftestUrl from '../../../../pftestConfig';
 
 
-
-
-
-
-
 // Initialize Firebase with your configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBWj1L7qdsRH4sFpE7q0CaoyL55KWMGRZI",
