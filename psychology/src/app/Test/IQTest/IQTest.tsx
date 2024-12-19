@@ -79,20 +79,17 @@ const IQTest: React.FC = () => {
     const handleFileChange = (
         e: React.ChangeEvent<HTMLInputElement>,
         questionID: string,
-        imageType: 'questionImage' | 'choicesImage' | 'correctAnswer',
+        imageType: 'questionImage' | 'choicesImage',
         index?: number
       ) => {
-        const file = e.target.files ? e.target.files[0] : null;
+        const file = e.target.files?.[0] || null;
         if (file) {
-          const key = index !== undefined
-            ? `${questionID}-${imageType}-${index}`
-            : `${questionID}-${imageType}`;
-      
-          // Update the state with the correct file for this specific question and image type
+          const key = `${questionID}-${imageType}-${index !== undefined ? index : ''}`;
           setSelectedFiles((prev) => ({
             ...prev,
             [key]: file,
           }));
+          console.log(`File selected for ${key}:`, file.name);
         }
       };
       
@@ -206,38 +203,52 @@ const IQTest: React.FC = () => {
                 <div className={style.modalContent}>
                     <h2>Edit Question Images</h2>
                     <div className={style.modalBody}>
-          <div>
-            <h3>Question Image</h3>
-            <img className={style.imgModal} src={question.questionImage} alt="Question" />
-            <input
-              type="file"
-              id={`file-input-${questionID}`}
-              onChange={(e) => handleFileChange(e, questionID, 'questionImage')}
-              style={{ display: 'none' }} // Hide the default input
-            />
-            <label htmlFor={`file-input-${questionID}`} className={style.customFileLabel}>
-              {selectedFiles[`${questionID}-questionImage`] ? selectedFiles[`${questionID}-questionImage`]?.name : 'Choose a file'}
-            </label>
-          </div>
-          <div>
-            <h3>Choices Images</h3>
-            {question.choicesImage.map((choiceImage, index) => (
-              <div key={index}>
-                <img className={style.imgModal} src={choiceImage} alt={`Choice ${index + 1}`} />
-                <input
-                  type="file"
-                  id={`file-input-${questionID}-${index}`}
-                  onChange={(e) => handleFileChange(e, questionID, 'choicesImage', index)}
-                  style={{ display: 'none' }} // Hide the default input
-                />
-                <label htmlFor={`file-input-${questionID}-${index}`} className={style.customFileLabel}>
-                  {selectedFiles[`${questionID}-choicesImage-${index}`]
-                    ? selectedFiles[`${questionID}-choicesImage-${index}`]?.name
-                    : 'Choose a file'}
-                </label>
-              </div>
-            ))}
-          </div>
+                        <div>
+                            <h3>Question Image</h3>
+                            <img className={style.imgModal} src={question.questionImage} alt="Question" />
+                            <input
+                                type="file"
+                                id={`file-input-${questionID}-questionImage`}
+                                onChange={(e) => handleFileChange(e, questionID, 'questionImage')}
+                                style={{ display: 'none' }} // Hide the default input
+                            />
+                            <div className={style.customFileInput}>
+                            <label htmlFor={`file-input-${questionID}-questionImage`} className={style.customFileLabel}>
+                                {selectedFiles[`${questionID}-questionImage`] ? 
+                                    selectedFiles[`${questionID}-questionImage`]?.name : 'Choose a file'}
+                            </label>
+                            <label htmlFor={`file-input-questionImage-${questionID}`} className={style.fileName}>
+                            {selectedFiles[`${questionID}-questionImage-`]
+                                ? selectedFiles[`${questionID}-questionImage-`]?.name
+                                : ''}
+                            </label>
+                            </div>
+                        </div>
+                        <div>
+                            <h3>Choices Images</h3>
+                            {question.choicesImage.map((choiceImage, index) => (
+                                <div key={index}>
+                                    <img className={style.imgModal} src={choiceImage} alt={`Choice ${index + 1}`} />
+                                    <input
+                                        type="file"
+                                        id={`file-input-${questionID}-choicesImage-${index}`}
+                                        onChange={(e) => handleFileChange(e, questionID, 'choicesImage', index)}
+                                        style={{ display: 'none' }} // Hide the default input
+                                    />
+                                                                <div className={style.customFileInput}>
+
+                                    <label htmlFor={`file-input-${questionID}-choicesImage-${index}`} className={style.customFileLabel}>
+                                       Choose a file
+                                    </label>
+                                    <label htmlFor={`file-input-${questionID}-choicesImage-${index}`} className={style.fileName}>
+                                    {selectedFiles[`${questionID}-choicesImage-${index}`]
+                                        ? selectedFiles[`${questionID}-choicesImage-${index}`]?.name
+                                        : ''}
+                                    </label>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                         <div>
                             <h3>Correct Answer</h3>
                             {question.choicesImage.map((choiceImage, index) => (
