@@ -47,6 +47,14 @@ const Navbar = () => {
           </li>
           <li className={style.navItem}>
             <NavLink
+              to="/contentEditor"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              Content Editor
+            </NavLink>
+          </li>
+          <li className={style.navItem}>
+            <NavLink
               to="/"
               className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
             >

@@ -18,6 +18,7 @@ import surveyResponseRoutes from './routes/surveyResponseRoutes';
 import { updateInterpretationBySpecificId } from './controllers/IQTestController';
 import omrIQRoutes from './routes/omrIQRoutes';
 import omrPFRoutes from './routes/omrPFRoutes';
+import textDisplayRoutes from './routes/textDisplayRoutes';
 import axios from 'axios';
 
 
@@ -51,6 +52,7 @@ app.put('/api/IQtest/:id/interpretation/:interpretationId', updateInterpretation
 app.use('/api/omr', omrIQRoutes); // iq
 app.use('/api/omr16pf', omrPFRoutes); //pf
 
+app.use('/api/textDisplay', textDisplayRoutes);
 
 // Survey routes
 app.use('/api', surveyRoutes);

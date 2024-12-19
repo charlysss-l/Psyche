@@ -33,6 +33,7 @@ import IqOMR from './app/OMR/OMRCamera/IqOMR/IqOMR';
 import OMRResult from './app/OMR/OMRCamera/IqOMR/OMRResult';
 import SurveyDetails from './app/Survey/surveyDetails/surveyDetails';
 import SurveyResponse from './app/Survey/surveyResponse/surveyResponse';
+import ContentEditor from './app/Content/editContent';
 // Archive List Components
 import IQOnlineArchiveList from './app/Test/IQTest/IQOnlineList/IQOnlineArchiveList';
 
@@ -83,6 +84,10 @@ function App() {
               <Route
                 path="/iqtest"
                 element={<ProtectedRoute><IQTest /></ProtectedRoute>}
+              />
+              <Route
+                path="/contentEditor"
+                element={<ProtectedRoute><ContentEditor /></ProtectedRoute>}
               />
               <Route
                 path="/pfresults_list"

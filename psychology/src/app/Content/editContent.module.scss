@@ -1,0 +1,128 @@
+// editContent.module.scss
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .testTypeSelector {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #007bff;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  
+    &:hover {
+      background-color: #007bff;
+      color: white;
+      border-color: #0056b3;
+    }
+  
+    &:focus {
+      outline: none;
+      border-color: #0056b3;
+    }
+  
+    &.active {
+      background-color: #0056b3;
+      color: white;
+      border-color: #004085;
+    }
+  }
+  
+  .contentEditor {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 30px;
+  }
+  
+  .header {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .contentItem {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+  }
+  
+  .contentTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .label {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .input,
+  .textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .button {
+    width: auto;
+    background-color: #b351d1;
+    color: white;
+    border-color: #b351d1;
+    
+    &:hover {
+      background-color: transparent;
+      border-color: #b351d1;
+      color: black;
+
+    }
+  }
+  
+  .loading,
+  .error {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .loading {
+    color: #007bff;
+  }
+  
+  .error {
+    color: #dc3545;
+  }
+  
