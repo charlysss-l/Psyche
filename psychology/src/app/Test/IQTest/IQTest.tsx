@@ -183,6 +183,78 @@ const IQTest: React.FC = () => {
         currentPage * resultsPerPage
     );
 
+    // Modal component for editing images
+    const ImageEditModal = ({ questionID }: { questionID: string }) => {
+        const question = iqTests[0].questions.find(q => q.questionID === questionID);
+        if (!question) return null;
+
+        return (
+            <div className={style.modal}>
+                <div className={style.modalContent}>
+                    <h2>Edit Question Images</h2>
+                    <div className={style.modalBody}>
+                        <div>
+                            <h3>Question Image</h3>
+                            <img className={style.imgModal} src={question.questionImage} alt="Question" />
+                            <input
+                                type="file"
+                                onChange={(e) => handleFileChange(e, questionID, 'questionImage')}
+                            />
+                        </div>
+                        <div>
+                            <h3>Choices Images</h3>
+                            {question.choicesImage.map((choiceImage, index) => (
+                                <div key={index}>
+                                    <img className={style.imgModal} src={choiceImage} alt={`Choice ${index + 1}`} />
+                                    <input
+                                        type="file"
+                                        onChange={(e) => handleFileChange(e, questionID, 'choicesImage', index)}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                        <div>
+                            <h3>Correct Answer</h3>
+                            {question.choicesImage.map((choiceImage, index) => (
+                                <div key={index}>
+                                    <img className={style.imgModal} src={choiceImage} alt={`Choice ${index + 1}`} />
+                                    <input
+                                        type="radio"
+                                        name={`correctAnswer-${questionID}`}
+                                        value={choiceImage}
+                                        checked={question.correctAnswer === choiceImage}
+                                        onChange={() =>
+                                            setIqTests(prev =>
+                                                prev.map(test =>
+                                                    ({
+                                                        ...test,
+                                                        questions: test.questions.map(q =>
+                                                            q.questionID === questionID
+                                                                ? { ...q, correctAnswer: choiceImage }
+                                                                : q
+                                                        )
+                                                    })
+                                                )
+                                            )
+                                        }
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className={style.modalFooter}>
+                        <button
+                            onClick={() => handleSaveUpdatedQuestion(questionID, question.questionSet, question.correctAnswer)}
+                        >
+                            Save Changes
+                        </button>
+                        <button onClick={() => setIsEditing(null)}>Close</button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div>
             <table className={style.table}>
@@ -220,92 +292,47 @@ const IQTest: React.FC = () => {
                             <td className={style.td}>{q.questionSet}</td>
                             <td className={style.question}>
                                 <img src={q.questionImage} alt="Question" />
-                                {isEditing === q.questionID && (
-                                    <>
-                                        <input
-                                            type="file"
-                                            onChange={(e) => handleFileChange(e, q.questionID, 'questionImage')}
-                                        />
-                                    </>
-                                )}
                             </td>
                             <td className={style.choice}>
                                 {q.choicesImage.map((choiceImage, index) => (
                                     <div key={index}>
                                         <img src={choiceImage} alt={`Choice ${index + 1}`} />
-                                        {isEditing === q.questionID && (
-                                            <input
-                                                type="file"
-                                                onChange={(e) => handleFileChange(e, q.questionID, 'choicesImage', index)}
-                                            />
-                                        )}
                                     </div>
                                 ))}
                             </td>
                             <td className={style.answer}>
-                                {isEditing === q.questionID ? (
-                                    q.choicesImage.map((choiceImage, index) => (
-                                        <div key={index}>
-                                            <img src={choiceImage} alt={`Choice ${index + 1}`} />
-                                            <input
-                                                type="radio"
-                                                name={`correctAnswer-${q.questionID}`}
-                                                value={choiceImage}
-                                                checked={q.correctAnswer === choiceImage}
-                                                onChange={() =>
-                                                    setIqTests(prev =>
-                                                        prev.map(test =>
-                                                            ({
-                                                                ...test,
-                                                                questions: test.questions.map(question =>
-                                                                    question.questionID === q.questionID
-                                                                        ? { ...question, correctAnswer: choiceImage }
-                                                                        : question
-                                                                )
-                                                            })
-                                                        )
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                    ))
-                                ) : (
+                                
                                     <div>
                                         <img src={q.correctAnswer} alt="Correct Answer" />
                                     </div>
-                                )}
                             </td>
                             <td className={style.actions}>
                                 <button
                                     className={style.editButton}
                                     onClick={() => setIsEditing(isEditing === q.questionID ? null : q.questionID)}
                                 >
-                                    {isEditing === q.questionID ? 'Cancel' : 'Edit'}
+                                    Edit
                                 </button>
-                                {isEditing === q.questionID && (
-                                    <button
-                                        className={style.saveButton}
-                                        onClick={() => handleSaveUpdatedQuestion(q.questionID, q.questionSet, q.correctAnswer)}
-                                    >
-                                        Save
-                                    </button>
-                                )}
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <div>
+            {isEditing && <ImageEditModal questionID={isEditing} />}
+
+            
+            {/* Pagination Controls */}
+            <div className={style.pagination}>
                 <button
-                    className={style.paginationButton}
                     onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
                     disabled={currentPage === 1}
                 >
-                    Prev
+                    Previous
                 </button>
-                <span>{`Page ${currentPage} of ${totalPages}`}</span>
+                <span>
+                    Page {currentPage} of {totalPages}
+                </span>
                 <button
-                    className={style.paginationButton}
                     onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
                     disabled={currentPage === totalPages}
                 >
