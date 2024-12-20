@@ -1,8 +1,19 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import style from "./studentNavbar.module.scss";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("studentId");
+    localStorage.removeItem("userId");
+
+    // Redirect to the login page
+    navigate("/login");
+  };
   return (
     <nav className={style.studentNavbar}>
       <div className={style.logoSection}>
@@ -54,7 +65,8 @@ const Navbar = () => {
           </li>
           <li className={style.navItem}>
             <NavLink
-              to="/"
+              to="/login"
+              onClick={handleLogout}
               className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
             >
               Logout

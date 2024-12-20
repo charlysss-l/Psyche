@@ -24,6 +24,15 @@ const Login: React.FC = () => {
     }
   }, [location]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("studentId");
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
@@ -38,10 +47,10 @@ const Login: React.FC = () => {
     try {
       const response = await loginUser(email, password);
       if (response.token) {
-        setSuccessMessage("Login successful!");
         localStorage.setItem("token", response.token);  // Store token in localStorage
         localStorage.setItem("studentId", response.studentId); 
         localStorage.setItem("userId", response.userId); // Store studentId in localStorage
+        setSuccessMessage("Login successful!");
         setTimeout(() => {
           navigate("/home");
         }, 1500);

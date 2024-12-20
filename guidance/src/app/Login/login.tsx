@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import backendURL from "../../config";
 import styles from "./pagelogin.module.scss";
@@ -16,8 +16,15 @@ const Login: React.FC = () => {
   const [newPassword, setNewPassword] = useState<string>("");
   const [resetError, setResetError] = useState<string | null>(null);
   const [resetSuccessMessage, setResetSuccessMessage] = useState<string | null>(null);
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      localStorage.removeItem("token");
+    }
+  }, []);
+
   // Function to handle login form submission
   const handleSubmit = async (e: React.FormEvent) => {  
     e.preventDefault();

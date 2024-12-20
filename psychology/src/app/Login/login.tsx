@@ -20,7 +20,6 @@ const Login: React.FC = () => {
     const token = localStorage.getItem("token");
     if (token) {
       localStorage.removeItem("token");
-      localStorage.removeItem("studentId");
     }
   }, []);
 
@@ -38,7 +37,7 @@ const Login: React.FC = () => {
   
       if (response.token) {
         // Store the token in localStorage
-        localStorage.setItem("token", "cvsu");
+        localStorage.setItem("token", response.token);
         console.log("Stored token in localStorage:", localStorage.getItem("token"));
         setSuccessMessage("Login successful!");
   

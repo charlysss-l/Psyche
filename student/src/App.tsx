@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./app/Home/Home";
@@ -35,6 +35,7 @@ import SurveyDetails from "./app/Survey/surveryDetails/surveyDetails";
 import ArchiveInbox from "./app/Consultation/ArchiveInbox";
 import IntroPF from "./app/Test/PFTest/IntroPF/IntroPF";
 import IntroIQ from "./app/Test/IQTest/IntroIQ/IntroIQ";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   return (
@@ -42,7 +43,8 @@ function App() {
       <div className="App">
         <Routes>
           {/* Landing Page Route */}
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />} 
+          />
 
           {/* Route for Login and Signup Pages without Navbar/Sidebar */}
           <Route path="/login" element={<Login />} />
@@ -60,35 +62,35 @@ function App() {
                   
                   <div className="content">
                     <Routes>
-                      <Route path="/home" element={<Home />} />
-                      <Route path="/test" element={<Test />} />
-                      <Route path="/result" element={<Result />} />
-                      <Route path="/consultation" element={<Consultation />} />
-                      <Route path="/archive" element={<ArchiveInbox />} />
-                      <Route path="/surveyDashboard" element={<StudentDashboard />} />
-                      <Route path="/profile" element={<Profile />} />
-                      <Route path="/omr" element={<OMR />} />
-                      <Route path="/pftest" element={<PFTest />} />
-                      <Route path="/iqtestuserform" element={<IQTestUserForm />} />
-                      <Route path="/iqtest" element={<IQTest />} />
-                      <Route path="/pf-results" element={<PFResult />} />
-                      <Route path="/iq-results" element={<IQResult />} />
-                      <Route path="/omrcamera" element={<OMRCamera />} />
-                      <Route path="/iqresultlist" element={<IQResultList />} />
-                      <Route path="/omriqresultlist" element={<OmrIQResultsList />} />
-                      <Route path="/iqresultlistboth" element={<IQResultListBoth />} />
-                      <Route path="/pfbothlist" element={<PFBothList />} />
-                      <Route path="/pfomrlist" element={<PFOMRList />} />
-                      <Route path="/pfonlinelist" element={<PFOnlineList />} />
-                      <Route path="/intro-pf" element={<IntroPF />} />
-                      <Route path="/intro-iq" element={<IntroIQ />} />
-
-                      <Route path="/allomr" element={<AllOMR />} />
-                      <Route path="/iqomr" element={<IqOMR />} />
-                      <Route path="/iqomrresult" element={<OMRResult />} />
-                      <Route path="/pfomr" element={<PfOMR />} />
-                      <Route path="/pfomrresult" element={<OmrResult />} />
-                      <Route path="/survey-details/:surveyId" element={<SurveyDetails />} />
+                      <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+                      <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />
+                      <Route path="/result" element={<ProtectedRoute><Result /></ProtectedRoute>} />
+                      <Route path="/consultation" element={<ProtectedRoute><Consultation /></ProtectedRoute>} />
+                      <Route path="/archive" element={<ProtectedRoute><ArchiveInbox /></ProtectedRoute>} />
+                      <Route path="/surveyDashboard" element={<ProtectedRoute><StudentDashboard /></ProtectedRoute>} />
+                      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                      <Route path="/omr" element={<ProtectedRoute><OMR /></ProtectedRoute>} />
+                      <Route path="/pftest" element={<ProtectedRoute><PFTest /></ProtectedRoute>} />
+                      <Route path="/iqtestuserform" element={<ProtectedRoute><IQTestUserForm /></ProtectedRoute>} />
+                      <Route path="/iqtest" element={<ProtectedRoute><IQTest /></ProtectedRoute>} />
+                      <Route path="/pf-results" element={<ProtectedRoute><PFResult /></ProtectedRoute>} />
+                      <Route path="/iq-results" element={<ProtectedRoute><IQResult /></ProtectedRoute>} />
+                      <Route path="/omrcamera" element={<ProtectedRoute><OMRCamera /></ProtectedRoute>} />
+                      <Route path="/iqresultlist" element={<ProtectedRoute><IQResultList /></ProtectedRoute>} />
+                      <Route path="/omriqresultlist" element={<ProtectedRoute><OmrIQResultsList /></ProtectedRoute>} />
+                      <Route path="/iqresultlistboth" element={<ProtectedRoute><IQResultListBoth /></ProtectedRoute>} />
+                      <Route path="/pfbothlist" element={<ProtectedRoute><PFBothList /></ProtectedRoute>} />
+                      <Route path="/pfomrlist" element={<ProtectedRoute><PFOMRList /></ProtectedRoute>} />
+                      <Route path="/pfonlinelist" element={<ProtectedRoute><PFOnlineList /></ProtectedRoute>} />
+                      <Route path="/intro-pf" element={<ProtectedRoute><IntroPF /></ProtectedRoute>} />
+                      <Route path="/intro-iq" element={<ProtectedRoute><IntroIQ /></ProtectedRoute>} />
+                      <Route path="/allomr" element={<ProtectedRoute><AllOMR /></ProtectedRoute>} />
+                      <Route path="/iqomr" element={<ProtectedRoute><IqOMR /></ProtectedRoute>} />
+                      <Route path="/iqomrresult" element={<ProtectedRoute><OmrResult /></ProtectedRoute>} />
+                      <Route path="/pfomr" element={<ProtectedRoute><PfOMR /></ProtectedRoute>} />
+                      <Route path="/pfomrresult" element={<ProtectedRoute><OmrResult /></ProtectedRoute>} />
+                      <Route path="/survey-details/:surveyId" element={<ProtectedRoute><SurveyDetails /></ProtectedRoute>} />
+                      <Route path="*" element={<Navigate to="/login" />} />
                     </Routes>
                   </div>
                 </div>

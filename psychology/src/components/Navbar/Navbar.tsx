@@ -9,7 +9,6 @@ const Navbar = () => {
   const handleLogout = () => {
     // Remove the token from localStorage
     localStorage.removeItem("token");
-    localStorage.removeItem("studentId");
 
     // Redirect to the login page
     navigate("/");
