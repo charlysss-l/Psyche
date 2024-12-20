@@ -201,11 +201,12 @@ const IQTest: React.FC = () => {
         return (
             <div className={style.modal}>
                 <div className={style.modalContent}>
-                    <h2>Edit Question Images</h2>
+                    <h2>Edit Question Images</h2> <br/>
                     <div className={style.modalBody}>
-                        <div>
-                            <h3>Question Image</h3>
-                            <img className={style.imgModal} src={question.questionImage} alt="Question" />
+                    <h3>Question Image</h3>
+
+                        <div className={style.questionContainer}>
+                            <img className={style.questionImageModal} src={question.questionImage} alt="Question" />
                             <input
                                 type="file"
                                 id={`file-input-${questionID}-questionImage`}
@@ -225,58 +226,62 @@ const IQTest: React.FC = () => {
                             </div>
                         </div>
                         <div>
-                            <h3>Choices Images</h3>
-                            {question.choicesImage.map((choiceImage, index) => (
-                                <div key={index}>
-                                    <img className={style.imgModal} src={choiceImage} alt={`Choice ${index + 1}`} />
-                                    <input
-                                        type="file"
-                                        id={`file-input-${questionID}-choicesImage-${index}`}
-                                        onChange={(e) => handleFileChange(e, questionID, 'choicesImage', index)}
-                                        style={{ display: 'none' }} // Hide the default input
-                                    />
-                                                                <div className={style.customFileInput}>
-
+                    <h3>Choices Images</h3>
+                    <div className={style.choiceContainer}>
+                        {question.choicesImage.map((choiceImage, index) => (
+                            <div className={style.choiceImageContainer} key={index}>
+                                <img className={style.choiceImageModal} src={choiceImage} alt={`Choice ${index + 1}`} />
+                                <input
+                                    type="file"
+                                    id={`file-input-${questionID}-choicesImage-${index}`}
+                                    onChange={(e) => handleFileChange(e, questionID, 'choicesImage', index)}
+                                    style={{ display: 'none' }} // Hide the default input
+                                />
+                                <div className={style.customFileInput}>
                                     <label htmlFor={`file-input-${questionID}-choicesImage-${index}`} className={style.customFileLabel}>
-                                       Choose a file
+                                        Choose a file
                                     </label>
                                     <label htmlFor={`file-input-${questionID}-choicesImage-${index}`} className={style.fileName}>
-                                    {selectedFiles[`${questionID}-choicesImage-${index}`]
-                                        ? selectedFiles[`${questionID}-choicesImage-${index}`]?.name
-                                        : ''}
+                                        {selectedFiles[`${questionID}-choicesImage-${index}`]
+                                            ? selectedFiles[`${questionID}-choicesImage-${index}`]?.name
+                                            : ''}
                                     </label>
-                                    </div>
                                 </div>
-                            ))}
-                        </div>
-                        <div>
-                            <h3>Correct Answer</h3>
-                            {question.choicesImage.map((choiceImage, index) => (
-                                <div key={index}>
-                                    <img className={style.imgModal} src={choiceImage} alt={`Choice ${index + 1}`} />
-                                    <input
-                                        type="radio"
-                                        name={`correctAnswer-${questionID}`}
-                                        value={choiceImage}
-                                        checked={question.correctAnswer === choiceImage}
-                                        onChange={() =>
-                                            setIqTests(prev =>
-                                                prev.map(test =>
-                                                    ({
-                                                        ...test,
-                                                        questions: test.questions.map(q =>
-                                                            q.questionID === questionID
-                                                                ? { ...q, correctAnswer: choiceImage }
-                                                                : q
-                                                        )
-                                                    })
+                            </div>
+                    ))}
+                </div>
+            </div>
+            <div>
+                <h3>Correct Answer</h3>
+                <div className={style.answerContainer}>
+                    {question.choicesImage.map((choiceImage, index) => (
+                        <div className={style.answerImageContainer} key={index}>
+                            <img className={style.answerImageModal} src={choiceImage} alt={`Choice ${index + 1}`} />
+                            <input
+                                type="radio"
+                                name={`correctAnswer-${questionID}`}
+                                value={choiceImage}
+                                checked={question.correctAnswer === choiceImage}
+                                onChange={() =>
+                                    setIqTests(prev =>
+                                        prev.map(test =>
+                                            ({
+                                                ...test,
+                                                questions: test.questions.map(q =>
+                                                    q.questionID === questionID
+                                                        ? { ...q, correctAnswer: choiceImage }
+                                                        : q
                                                 )
-                                            )
-                                        }
-                                    />
-                                </div>
-                            ))}
+                                            })
+                                        )
+                                    )
+                                }
+                            />
                         </div>
+                    ))}
+                </div>
+            </div>
+
                     </div>
                     <div className={style.modalFooter}>
                         <button
@@ -310,6 +315,12 @@ const IQTest: React.FC = () => {
                     ))}
                 </tbody>
             </table>
+            <div className={style.linkIQliinks}>
+                <Link to="/iqresults_list_both" className={style.testResultsLink}>Test Results</Link>
+                <Link to="/iq-statistics" className={style.testResultsLink}>Analytics</Link>
+                <Link to="/iqinterpretation" className={style.testResultsLink}>Edit IQ Interpretation</Link>
+            
+            </div>
             <h2>Questions</h2>
             <table className={style.table}>
                 <thead>
@@ -338,7 +349,6 @@ const IQTest: React.FC = () => {
                                 ))}
                             </td>
                             <td className={style.answer}>
-                                
                                     <div>
                                         <img src={q.correctAnswer} alt="Correct Answer" />
                                     </div>

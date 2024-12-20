@@ -1,6 +1,7 @@
 .linkIQliinks{
   display: flex;
   justify-content: space-around;
+  margin-bottom: 20px;
 }
 .table {
     background-color: rgb(255, 252, 252);
@@ -57,23 +58,26 @@
   .pagination span {
     font-size: 16px;
   }
+  .choice {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // Two columns for two rows
+    gap: 10px; // Add some spacing between items
+}
 
   .choice img {
-    width: 150px;  // Adjust the width as needed
-    height: 130px; // Adjust the height to maintain aspect ratio or as needed
-    margin: 20px; // Optional: add some spacing between the images
+    width: 130px;  // Adjust the width as needed
+    height: 110px; // Adjust the height to maintain aspect ratio or as needed
+  
 }
   
   .answer img {
     width: 170px;  // Adjust the width as needed
     height: 130px; // Adjust the height to maintain aspect ratio or as needed
-    margin: 15px; // Optional: add some spacing between the images
 }
 
 .question img {
     width: 400px;  // Adjust the width as needed
     height: 350px; // Adjust the height to maintain aspect ratio or as needed
-    margin: 15px; // Optional: add some spacing between the images
 }
 
 .testResultsLink {
@@ -119,11 +123,12 @@
 .modalContent {
   background-color: white;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden; // Ensure content doesn't overflow
+  scroll-behavior: smooth; /* Smooth scrolling to prevent abrupt jumps */
 
   // Adding scroll when content is too tall
   max-height: 90vh;
@@ -132,16 +137,66 @@
 
 .modalBody {
   max-height: 500px; // Limit the body height for scrolling
+  scroll-behavior: smooth; /* Keeps scrolling smooth during height changes */
   overflow-y: auto; // Enable scrolling in the body when content is too long
 }
 
 
-.imgModal {
-  max-width: 200px;  // Limit the size of images for better display in the modal
+.questionContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
+  border: #222222 1px solid;
+    border-radius: 50px;
+    padding: 30px;
+}
+.questionImageModal {
+  max-width: 500px;  // Limit the size of images for better display in the modal
   height: auto;
   margin-bottom: 10px;
   display: block;
 }
+
+
+.choiceContainer,
+.answerContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // Two columns for two rows
+    gap: 10px; // Add spacing between items
+    margin-bottom: 50px;
+    border: #222222 1px solid;
+    border-radius: 50px;
+    padding: 30px;
+    
+}
+
+.choiceImageContainer,
+.answerImageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.choiceImageModal,
+.answerImageModal {
+    max-width: 100px; // Adjust size as needed
+    height: auto;
+    
+}
+h3, h2 {
+  text-align: center; /* Centers the text inside the h3 element */
+  margin: 0 auto; /* Ensures it's horizontally centered */
+  width: 100%; /* Optional: Ensures it spans the full width */
+}
+
+.customFileInput {
+    margin-top: 5px; // Space between the image and file input
+}
+
 
 .modalFooter {
   display: flex;
