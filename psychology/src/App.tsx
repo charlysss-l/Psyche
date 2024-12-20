@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import Report from './app/Report/Report';
@@ -162,17 +162,14 @@ function App() {
                 path="/survey-details/:id"
                 element={<ProtectedRoute><SurveyDetails /></ProtectedRoute>}
               />
-               <Route path="/survey-responses/:surveyId" element={<ProtectedRoute><SurveyResponse /></ProtectedRoute>} />
-
-            </Routes>
-
-            {/* Archive List Routes */}
-            
-            <Routes>
+               <Route path="/survey-responses/:surveyId" element={<ProtectedRoute><SurveyResponse /></ProtectedRoute>}
+                />
               <Route
                 path="/iqonlinearchive"
                 element={<ProtectedRoute><IQOnlineArchiveList /></ProtectedRoute>}
               />
+              <Route path="*" element={<Navigate to="/" />} />
+
             </Routes>
           </div>
         </div>

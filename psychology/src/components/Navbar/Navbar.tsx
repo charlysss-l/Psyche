@@ -1,9 +1,19 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import style from "./psychologynavbar.module.scss";
 
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("studentId");
+
+    // Redirect to the login page
+    navigate("/");
+  };
   return (
     <nav className={style.studentNavbar}>
       <div className={style.logoSection}>
@@ -56,6 +66,7 @@ const Navbar = () => {
           <li className={style.navItem}>
             <NavLink
               to="/"
+              onClick={handleLogout}
               className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
             >
               Logout

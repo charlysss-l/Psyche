@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./pagelogin.module.scss";
 import backendUrl from "../../config"; // Adjust the path if `config.ts` is in a different location
@@ -14,8 +14,15 @@ const Login: React.FC = () => {
   const [newPassword, setNewPassword] = useState<string>("");
   const [resetError, setResetError] = useState<string | null>(null);
   const [resetSuccessMessage, setResetSuccessMessage] = useState<string | null>(null);
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("studentId");
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,13 +38,15 @@ const Login: React.FC = () => {
   
       if (response.token) {
         // Store the token in localStorage
-        localStorage.setItem("token", response.token);
+        localStorage.setItem("token", "cvsu");
+        console.log("Stored token in localStorage:", localStorage.getItem("token"));
         setSuccessMessage("Login successful!");
   
         // Redirect to the /report page
+        console.log("Navigating to report...");
         setTimeout(() => {
           navigate("/report");
-        }, 1500);
+        }, 1000);
       } else {
         setError("Invalid username or password.");
       }
