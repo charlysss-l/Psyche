@@ -131,6 +131,20 @@ const SurveyList: React.FC = () => {
                 ))}
               </tbody>
             </table>
+            <div 
+              className={styles.surveyLink} 
+              onClick={() => {
+                const linkText = `${backendUrl}/survey-details/${survey._id}`;
+                navigator.clipboard.writeText(linkText).then(() => {
+                  alert("Link copied to clipboard!");
+                }).catch((err) => {
+                  console.error("Failed to copy: ", err);
+                });
+              }}
+            >
+              <p>Click the Survey Link to Copy:</p>  {backendUrl}/survey-details/{survey._id}
+            </div>
+
           </div>
           <div className={styles.surveyActions}>
             <Link

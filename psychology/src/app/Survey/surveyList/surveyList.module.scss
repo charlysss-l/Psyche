@@ -112,6 +112,32 @@ h2, h3, p {
   color: #b072e2;
 }
 
+.surveyLink {
+  cursor: pointer;
+  color: #000000;  // Blue color to mimic a hyperlink
+  text-decoration: underline;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  width: 100%; /* Take up the full width of the parent container */
+  max-width: 500px; /* Optional: limit the width */
+  margin: 10px auto; /* Center the element horizontally */
+
+  &:hover {
+    color: #0056b3;  // Darker shade of blue on hover
+  }
+
+  &:active {
+    color: #004085;  // Dark blue color when clicked
+  }
+}
+
+
+
 .surveyCount {
   font-size: 1rem;
   color: #b32323;
