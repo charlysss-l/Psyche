@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./surveyList.module.scss"; // SCSS module for styling
 import { Link } from "react-router-dom";
 import backendUrl from "../../../config";
+import surveyLinkUrl from "../../../surveyConfig";
 
 // SurveyList component to display a list of available surveys
 const SurveyList: React.FC = () => {
@@ -134,7 +135,7 @@ const SurveyList: React.FC = () => {
             <div 
               className={styles.surveyLink} 
               onClick={() => {
-                const linkText = `${backendUrl}/survey-details/${survey._id}`;
+                const linkText = `${surveyLinkUrl}/survey-details/${survey._id}`;
                 navigator.clipboard.writeText(linkText).then(() => {
                   alert("Link copied to clipboard!");
                 }).catch((err) => {

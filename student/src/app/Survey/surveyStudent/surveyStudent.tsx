@@ -174,8 +174,8 @@ const SurveyAnswerForm: React.FC = () => {
                 <div 
               className={styles.surveyLink} 
               onClick={() => {
-                const linkText = `${backendUrl}/survey-details/${survey._id}`;
-                navigator.clipboard.writeText(linkText).then(() => {
+                const currentUrl = `${window.location.origin}/survey-details/${survey._id}`;
+                navigator.clipboard.writeText(currentUrl).then(() => {
                   alert("Link copied to clipboard!");
                 }).catch((err) => {
                   console.error("Failed to copy: ", err);
