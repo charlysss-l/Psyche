@@ -1,10 +1,90 @@
+.mainContainer {
+  display: flex;
+  justify-content: center; /* Center the items horizontally */
+  width: 100%; /* Ensure it takes full width */
+  align-items: flex-start; /* Align items to the top, so they don't stretch */
+}
+
+.subContainer {
+  display: flex;
+  width: 65%;
+  align-items: flex-start; /* Aligns formContainer and controlContainer at the top */
+  position: relative;
+}
+
 .formContainer {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #e9e9e9;
+  flex: 2;
   border-radius: 8px;
 }
+
+.controlContainer {
+  display: flex;
+  flex-direction: column; /* Align items in a column */
+  align-items: center; /* Center align the buttons horizontally */
+  width: fit-content; /* Adjust the width to fit the content */
+  position: sticky; /* Make it follow the scrolling */
+  top: 1rem; /* Ensure it sticks below any header or top margin */
+  gap: 0.5rem; /* Reduce spacing between the buttons */
+  background-color: #dadada;
+  padding: 0.5rem; /* Reduce padding to bring it closer visually */
+  border-radius: 8px;
+  margin-left: -9rem; /* Move the controlContainer slightly to the left */
+
+  h3 {
+    margin-bottom: 0.5rem; /* Reduce spacing below the title */
+  }
+
+  button {
+    width: 100%; /* Ensure buttons span the full container width */
+    padding: 0.5rem 0.75rem; /* Adjust button padding */
+    font-size: 1rem; /* Ensure text is readable */
+  }
+}
+
+
+/* Responsive design for small screens */
+@media (max-width: 768px) {
+  .mainContainer {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    width: 100%;
+  }
+
+  .subContainer {
+    display: flex;
+    flex-direction: row; /* Align containers side by side */
+    align-items: flex-start;
+    gap: 1rem; /* Small gap between containers */
+    width: 90%;
+  }
+
+  .formContainer {
+    width: 80%; /* Take up more space for the form */
+  }
+
+  .controlContainer {
+    position: sticky;
+    top: 0; /* Sticky position */
+    bottom: 0; /* Sticky until bottom of the screen */
+    width: 15%; /* Adjust the width as needed */
+    height: 100%; /* Ensure control container is as tall as the screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem; /* Small gap inside the control container */
+    margin-left: 0; /* Reset margin */
+    padding-top: 1rem; /* Add some padding at the top */
+  }
+
+  .controlContainer button {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+}
+
 
 .survTitleh2 {
   text-align: center;
@@ -137,6 +217,31 @@
   }
 }
 
+.section {
+  padding: 16px; /* Adjust as needed */
+  border: 1px solid #ccc; /* Optional: for visual separation */
+  border-radius: 8px; /* Optional: for rounded edges */
+  background-color: #f9f9f9; /* Optional: for a better section view */
+  margin-top: 20px; /* Add space between sections */
+
+  &:first-child {
+    margin-top: 0; /* Remove margin for the first section */
+  }
+}
+
+.question {
+  padding: 12px; /* Optional: Adjust for visual separation */
+  border: 1px solid #e0e0e0; /* Optional: for clarity */
+  border-radius: 8px; /* Optional: rounded edges */
+  background-color: #d1abcf; /* Optional: distinct background */
+  margin-top: 16px; /* Space between questions */
+
+  &:first-child {
+    margin-top: 0; /* Remove margin for the first question */
+  }
+}
+
+
 .submitBtn {
   width: 100%;
   padding: 0.7rem;
@@ -152,6 +257,35 @@
   color: #8d8d8d;
   border: 1px solid #8d8d8d;
 }
+
+
+.titleGroup {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: #dfdfdf;
+  margin-bottom: 20px;
+}
+
+.filterGroup {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: #dfdfdf;
+  margin-bottom: 20px;
+
+}
+
+.sectionGroup {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: #dfdfdf;
+}
+
 
 :global(body.dark-mode){
   .formContainer {

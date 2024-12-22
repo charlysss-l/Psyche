@@ -25,15 +25,15 @@ interface Survey extends Document {
 
 // Define the filterSchema
 const filterSchema = new Schema<FilterOption>({
-  field: { type: String, required: true },
-  options: { type: String, required: true },  
+  field: { type: String, required: false },
+  options: { type: String, required: false },  
 });
 
 // Define the main survey schema
 const surveySchema = new Schema<Survey>({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  category: { type: String, required: true },  
+  category: { type: String, required: false },  
   filters: { type: [filterSchema], required: false }, 
   sections: [
     {
