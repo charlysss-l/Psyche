@@ -139,27 +139,42 @@ $table-border-color: #E9E9E9;
   }
 }
 
+.linkContainer {
+  display: flex;
+  justify-content: space-between; /* Space between title and button */
+  align-items: center; /* Vertically align items */
+  width: 100%; /* Ensure the container takes up the full width */
+}
+
 .surveyLink {
   cursor: pointer;
-  color: #000000;  // Blue color to mimic a hyperlink
-  text-decoration: underline;
+  color: #000000;
   font-size: 16px;
   font-weight: 500;
   display: flex;
-  justify-content: center;
   align-items: center;
   text-align: center;
-  flex-direction: column;
-  width: 100%; /* Take up the full width of the parent container */
-  max-width: 500px; /* Optional: limit the width */
-  margin: 10px auto; /* Center the element horizontally */
 
   &:hover {
-    color: #0056b3;  // Darker shade of blue on hover
+    color: #0056b3;
   }
 
   &:active {
-    color: #004085;  // Dark blue color when clicked
+    color: #004085;
+  }
+}
+
+.copyLinkText {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  background-color: #d8b803;
+
+  &:hover {
+    background-color: #8e5ab9;
   }
 }
 

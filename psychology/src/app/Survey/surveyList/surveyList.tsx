@@ -131,7 +131,6 @@ const SurveyList: React.FC = () => {
               <p className={styles.copyLinkText}>Copy Link</p> 
             </div>
           </div>
-
             <table>
               <thead>
                 <tr>

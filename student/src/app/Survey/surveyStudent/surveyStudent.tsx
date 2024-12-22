@@ -154,7 +154,22 @@ const SurveyAnswerForm: React.FC = () => {
               <p>Description: {survey.description}</p>
               <p>Category: {survey.category}</p>
               <div className={styles.filters}>
-                <h4>Participant Filters:</h4>
+              <div className={styles.linkContainer}>
+            <h4>Participant Filters:</h4>
+            <div 
+              className={styles.surveyLink} 
+              onClick={() => {
+                const currentUrl = `${window.location.origin}/survey-details/${survey._id}`;
+                navigator.clipboard.writeText(currentUrl).then(() => {
+                  alert("Link copied to clipboard!");
+                }).catch((err) => {
+                  console.error("Failed to copy: ", err);
+                });
+              }}
+            >
+              <p className={styles.copyLinkText}>Copy Link</p> 
+            </div>
+          </div>
                 <table>
                   <thead>
                     <tr>
@@ -171,20 +186,6 @@ const SurveyAnswerForm: React.FC = () => {
                     ))}
                   </tbody>
                 </table>
-                <div 
-              className={styles.surveyLink} 
-              onClick={() => {
-                const currentUrl = `${window.location.origin}/survey-details/${survey._id}`;
-                navigator.clipboard.writeText(currentUrl).then(() => {
-                  alert("Link copied to clipboard!");
-                }).catch((err) => {
-                  console.error("Failed to copy: ", err);
-                });
-              }}
-            >
-              <p>Click the Survey Link to Copy:</p>  {backendUrl}/survey-details/{survey._id}
-            </div>
-
               </div>
               <div className={styles.surveyActions}>
                 {/* Always show "View Details" regardless of whether answered or not */}
