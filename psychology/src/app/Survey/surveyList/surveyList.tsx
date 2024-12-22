@@ -115,7 +115,23 @@ const SurveyList: React.FC = () => {
           <p>Category: {survey.category}</p>
           <p>Release Date: {formatDate(survey.releaseDate)}</p>
           <div className={styles.filters}>
+          <div className={styles.linkContainer}>
             <h4>Participant Filters:</h4>
+            <div 
+              className={styles.surveyLink} 
+              onClick={() => {
+                const linkText = `${surveyLinkUrl}/survey-details/${survey._id}`;
+                navigator.clipboard.writeText(linkText).then(() => {
+                  alert("Link copied to clipboard!");
+                }).catch((err) => {
+                  console.error("Failed to copy: ", err);
+                });
+              }}
+            >
+              <p className={styles.copyLinkText}>Copy Link</p> 
+            </div>
+          </div>
+
             <table>
               <thead>
                 <tr>
@@ -132,19 +148,7 @@ const SurveyList: React.FC = () => {
                 ))}
               </tbody>
             </table>
-            <div 
-              className={styles.surveyLink} 
-              onClick={() => {
-                const linkText = `${surveyLinkUrl}/survey-details/${survey._id}`;
-                navigator.clipboard.writeText(linkText).then(() => {
-                  alert("Link copied to clipboard!");
-                }).catch((err) => {
-                  console.error("Failed to copy: ", err);
-                });
-              }}
-            >
-              <p>Click the Survey Link to Copy:</p>  {backendUrl}/survey-details/{survey._id}
-            </div>
+           
 
           </div>
           <div className={styles.surveyActions}>
