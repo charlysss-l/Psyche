@@ -42,49 +42,6 @@
 }
 
 
-/* Responsive design for small screens */
-@media (max-width: 768px) {
-  .mainContainer {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center;
-    width: 100%;
-  }
-
-  .subContainer {
-    display: flex;
-    flex-direction: row; /* Align containers side by side */
-    align-items: flex-start;
-    gap: 1rem; /* Small gap between containers */
-    width: 90%;
-  }
-
-  .formContainer {
-    width: 80%; /* Take up more space for the form */
-  }
-
-  .controlContainer {
-    position: sticky;
-    top: 0; /* Sticky position */
-    bottom: 0; /* Sticky until bottom of the screen */
-    width: 15%; /* Adjust the width as needed */
-    height: 100%; /* Ensure control container is as tall as the screen */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 1rem; /* Small gap inside the control container */
-    margin-left: 0; /* Reset margin */
-    padding-top: 1rem; /* Add some padding at the top */
-  }
-
-  .controlContainer button {
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    font-size: 1rem;
-    border-radius: 10px;
-  }
-}
-
 
 .survTitleh2 {
   text-align: center;
@@ -93,7 +50,6 @@
 }
 
 .formGroup {
-  margin-bottom: 1rem;
   label {
     font-weight: bold;
   }
@@ -111,20 +67,25 @@
 }
 
 .filters {
-  margin-bottom: 2rem;
   h3 {
     color: #b072e2;
   }
-  .filterGroup {
+  h4 {
+    color: #3a3a3a;
+  }
+  .filterInput {
     display: flex;
-    gap: 1rem;
+    gap: .5rem;
     input {
-      flex: 1;
+      flex: .5;
+      padding: .6rem;
+      border: 1px solid #000000;
+      border-radius: 4px;
     }
     .removeFilterBtn {
       background-color: #AF1740;
       color: white;
-      padding: 0.3rem 0.6rem;
+      padding: .5rem 0.6rem;
       border: none;
       border-radius: 4px;
       cursor: pointer;
@@ -136,7 +97,6 @@
     }
   }
   .addFilterBtn {
-    margin-top: 1rem;
     background-color: #b072e2;
     color: white;
     padding: 0.5rem 1rem;
@@ -221,7 +181,7 @@
   padding: 16px; /* Adjust as needed */
   border: 1px solid #ccc; /* Optional: for visual separation */
   border-radius: 8px; /* Optional: for rounded edges */
-  background-color: #f9f9f9; /* Optional: for a better section view */
+  background-color: #dfdfdf;
   margin-top: 20px; /* Add space between sections */
 
   &:first-child {
@@ -233,7 +193,7 @@
   padding: 12px; /* Optional: Adjust for visual separation */
   border: 1px solid #e0e0e0; /* Optional: for clarity */
   border-radius: 8px; /* Optional: rounded edges */
-  background-color: #d1abcf; /* Optional: distinct background */
+  background-color: #ffffff; /* Optional: distinct background */
   margin-top: 16px; /* Space between questions */
 
   &:first-child {
@@ -275,15 +235,68 @@
   border-radius: 8px;
   background-color: #dfdfdf;
   margin-bottom: 20px;
+  text-align: center;
 
 }
 
 .sectionGroup {
-  max-width: 800px;
+  max-width: 865px;
   margin: 0 auto;
   padding: 2rem;
   border-radius: 8px;
-  background-color: #dfdfdf;
+  
+}
+
+/* Responsive design for small screens */
+@media (max-width: 768px) {
+  .mainContainer {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    width: 100%;
+  }
+
+  .subContainer {
+    display: flex;
+    flex-direction: row; /* Align containers side by side */
+    align-items: flex-start;
+    gap: 1rem; /* Small gap between containers */
+    width: 90%;
+  }
+
+  .formContainer {
+    width: 80%; /* Take up more space for the form */
+  }
+
+  .controlContainer {
+    position: sticky;
+    top: 0; /* Sticky position */
+    bottom: 0; /* Sticky until bottom of the screen */
+    width: 15%; /* Adjust the width as needed */
+    height: 100%; /* Ensure control container is as tall as the screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem; /* Small gap inside the control container */
+    margin-left: 0; /* Reset margin */
+    padding-top: 1rem; /* Add some padding at the top */
+  }
+
+  .controlContainer button {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+
+  .sectionGroup {
+    max-width: 865px;
+    margin: 0 auto;
+    padding: 0rem;
+    border-radius: 8px;
+    
+  }
+
 }
 
 

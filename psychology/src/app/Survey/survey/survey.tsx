@@ -162,8 +162,9 @@ const SurveyForm = () => {
         <div className={styles.filterGroup}>
           <div className={styles.filters}>
             <h3>Participants Filters</h3>
+            <h4>(Remove filters if not needed)</h4>
             {filters.map((filter, index) => (
-              <div key={index} className={styles.filterGroup}>
+              <div key={index} className={styles.filterInput}>
                 <input
                   type="text"
                   placeholder="Field: age, sex, ethnicity, etc..."
@@ -174,6 +175,7 @@ const SurveyForm = () => {
                     setFilters(newFilters);
                   }}
                   className={styles.input}
+                  required
                 />
                 <input
                   type="text"
@@ -185,6 +187,7 @@ const SurveyForm = () => {
                     setFilters(newFilters);
                   }}
                   className={styles.input}
+                  required
                 />
                 <button
                   type="button"
@@ -200,9 +203,10 @@ const SurveyForm = () => {
 
         <div className={styles.sectionGroup}>
           <div className={styles.sections}>
-            <h3>Sections</h3>
             {sections.map((section, sIndex) => (
               <div key={sIndex} className={styles.section}>
+                            <h3>Section</h3>
+
                 <div className={styles.formGroup}>
                   <label>Section Title:</label>
                   <input
