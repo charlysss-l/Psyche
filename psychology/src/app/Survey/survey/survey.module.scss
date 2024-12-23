@@ -39,6 +39,10 @@
     padding: 0.5rem 0.75rem; /* Adjust button padding */
     font-size: 1rem; /* Ensure text is readable */
   }
+
+  &:hover {
+    border: 2px solid #b072e2;
+  }
 }
 
 
@@ -178,16 +182,23 @@
 }
 
 .section {
-  padding: 16px; /* Adjust as needed */
-  border: 1px solid #ccc; /* Optional: for visual separation */
-  border-radius: 8px; /* Optional: for rounded edges */
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   background-color: #dfdfdf;
-  margin-top: 20px; /* Add space between sections */
+  transition: border 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover/active effects */
 
-  &:first-child {
-    margin-top: 0; /* Remove margin for the first section */
+  &:hover {
+    border: 2px solid #b072e2;
+    cursor: pointer;
   }
 }
+
+.activeSection {
+  border: 2px solid #b072e2; /* Green border for active section */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for emphasis */
+}
+
 
 .question {
   padding: 12px; /* Optional: Adjust for visual separation */
@@ -226,6 +237,10 @@
   border-radius: 8px;
   background-color: #dfdfdf;
   margin-bottom: 20px;
+
+  &:hover {
+    border: 2px solid #b072e2;
+  }
 }
 
 .filterGroup {
@@ -234,9 +249,11 @@
   padding: 2rem;
   border-radius: 8px;
   background-color: #dfdfdf;
-  margin-bottom: 20px;
   text-align: center;
 
+  &:hover {
+    border: 2px solid #b072e2;
+  }
 }
 
 .sectionGroup {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import styles from './survey.module.scss'; // Assuming this file contains your SCSS styles
+import { useNavigate } from 'react-router-dom';
+import styles from './survey.module.scss';
 import backendUrl from '../../../config';
 
 const SurveyForm = () => {  
@@ -16,6 +16,7 @@ const SurveyForm = () => {
       questions: [{ questionText: '', choices: [''] }],
     },
   ]);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
 
   const handleChangeSectionTitle = (sIndex: number, value: string) => {
     const newSections = [...sections];
@@ -47,9 +48,9 @@ const SurveyForm = () => {
     setSections(newSections);
   };
 
-  const handleAddQuestion = (sIndex: number) => {
+  const handleAddQuestion = (p0: number) => {
     const newSections = [...sections];
-    newSections[sIndex].questions.push({ questionText: '', choices: [''] });
+    newSections[currentSectionIndex].questions.push({ questionText: '', choices: [''] });
     setSections(newSections);
   };
 
@@ -65,12 +66,14 @@ const SurveyForm = () => {
       { sectionTitle: '', questions: [{ questionText: '', choices: [''] }] },
     ];
     setSections(newSections);
+    setCurrentSectionIndex(newSections.length - 1); // Set the new section as the selected one
   };
 
   const handleDeleteSection = (sIndex: number) => {
     const newSections = [...sections];
     newSections.splice(sIndex, 1);
     setSections(newSections);
+    setCurrentSectionIndex(Math.max(0, sIndex - 1)); // Update selected section index
   };
 
   const handleDeleteFilter = (index: number) => {
@@ -78,7 +81,7 @@ const SurveyForm = () => {
     setFilters(newFilters);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     const surveyData = {
@@ -112,124 +115,130 @@ const SurveyForm = () => {
 
   return (
     <div className={styles.mainContainer}>
-    <div className={styles.subContainer}>
-      <form onSubmit={handleSubmit} className={styles.formContainer}>
-        <div className={styles.titleGroup}>
-          <h2 className={styles.survTitleh2}>Create Survey</h2>
-          <div className={styles.formGroup}>
-            <label>Title:</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className={styles.surInput}
-              required
-            />
+      <div className={styles.subContainer}>
+        <form onSubmit={handleSubmit} className={styles.formContainer}>
+          <div className={styles.titleGroup}>
+            <h2 className={styles.survTitleh2}>Create Survey</h2>
+            <div className={styles.formGroup}>
+              <label>Title:</label>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className={styles.surInput}
+                required
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label>Description:</label>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className={styles.surTextArea}
+                required
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label>Category:</label>
+              <input
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className={styles.input}
+                placeholder="Psychology, Health, Mental Health, etc... or others."
+                required
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Release date:</label>
+              <input
+                type="date"
+                value={releaseDate}
+                onChange={(e) => setreleaseDate(e.target.value)}
+                className={styles.input}
+                required
+              />
+            </div>
           </div>
 
-          <div className={styles.formGroup}>
-            <label>Description:</label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className={styles.surTextArea}
-              required
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Category:</label>
-            <input
-              type="text"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className={styles.input}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label>Release date:</label>
-            <input
-              type="date"
-              value={releaseDate}
-              onChange={(e) => setreleaseDate(e.target.value)}
-              className={styles.input}
-              required
-            />
-          </div>
-        </div>
-
-        <div className={styles.filterGroup}>
-          <div className={styles.filters}>
-            <h3>Participants Filters</h3>
-            <h4>(Remove filters if not needed)</h4>
-            {filters.map((filter, index) => (
-              <div key={index} className={styles.filterInput}>
-                <input
-                  type="text"
-                  placeholder="Field: age, sex, ethnicity, etc..."
-                  value={filter.field}
-                  onChange={(e) => {
-                    const newFilters = [...filters];
-                    newFilters[index].field = e.target.value;
-                    setFilters(newFilters);
-                  }}
-                  className={styles.input}
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Options (comma-separated)"
-                  value={filter.options}
-                  onChange={(e) => {
-                    const newFilters = [...filters];
-                    newFilters[index].options = e.target.value;
-                    setFilters(newFilters);
-                  }}
-                  className={styles.input}
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => handleDeleteFilter(index)}
-                  className={styles.removeFilterBtn}
-                >
-                  Remove Filter
-                </button>
+          {filters.length > 0 && (
+            <div className={styles.filterGroup}>
+              <div className={styles.filters}>
+                <h3>Participants Filters</h3>
+                <h4>(Remove filters if not needed)</h4>
+                {filters.map((filter, index) => (
+                  <div key={index} className={styles.filterInput}>
+                    <input
+                      type="text"
+                      placeholder="Field: age, sex, ethnicity, etc..."
+                      value={filter.field}
+                      onChange={(e) => {
+                        const newFilters = [...filters];
+                        newFilters[index].field = e.target.value;
+                        setFilters(newFilters);
+                      }}
+                      className={styles.input}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="Options (comma-separated)"
+                      value={filter.options}
+                      onChange={(e) => {
+                        const newFilters = [...filters];
+                        newFilters[index].options = e.target.value;
+                        setFilters(newFilters);
+                      }}
+                      className={styles.input}
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteFilter(index)}
+                      className={styles.removeFilterBtn}
+                    >
+                      Remove Filter
+                    </button>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          )}
 
-        <div className={styles.sectionGroup}>
-          <div className={styles.sections}>
-            {sections.map((section, sIndex) => (
-              <div key={sIndex} className={styles.section}>
-                            <h3>Section</h3>
+          <div className={styles.sectionGroup}>
+            <div className={styles.sections}>
+              {sections.map((section, sIndex) => (
+                <div
+                  key={sIndex}
+                  className={`${styles.section} ${currentSectionIndex === sIndex ? styles.activeSection : ''}`}
+                  onClick={() => setCurrentSectionIndex(sIndex)}
+                >
+                  <h3>Section</h3>
+                  <div className={styles.formGroup}>
+                    <label>Section Title:</label>
+                    <input
+                      type="text"
+                      value={section.sectionTitle}
+                      onChange={(e) => handleChangeSectionTitle(sIndex, e.target.value)}
+                      className={styles.input}
+                      required
+                    />
+                  </div>
 
-                <div className={styles.formGroup}>
-                  <label>Section Title:</label>
-                  <input
-                    type="text"
-                    value={section.sectionTitle}
-                    onChange={(e) => handleChangeSectionTitle(sIndex, e.target.value)}
-                    className={styles.input}
-                    required
-                  />
-                </div>
-
-                {section.questions.map((question, qIndex) => (
-                  <div key={qIndex} className={styles.question}>
-                    <div className={styles.formGroup}>
-                      <label>Question Text:</label>
-                      <input
-                        type="text"
-                        value={question.questionText}
-                        onChange={(e) => handleChangeQuestionText(sIndex, qIndex, e.target.value)}
-                        className={styles.input}
-                        required
-                      />
-                    </div>
+                  {section.questions.map((question, qIndex) => (
+                    <div key={qIndex} className={styles.question}>
+                      <div className={styles.formGroup}>
+                        <label>Question Text:</label>
+                        <input
+                          type="text"
+                          value={question.questionText}
+                          onChange={(e) => handleChangeQuestionText(sIndex, qIndex, e.target.value)}
+                          className={styles.input}
+                          required
+                        />
+                      </div>
 
                     <div className={styles.choices}>
                       <label>Choices:</label>
