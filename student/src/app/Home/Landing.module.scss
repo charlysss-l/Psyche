@@ -13,6 +13,7 @@
   align-items: center;
   position: relative;
   animation: fadeIn 1.0s ease-in-out;
+  z-index: 1;
 
   &:before {
     content: '';
