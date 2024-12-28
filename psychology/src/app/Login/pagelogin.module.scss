@@ -79,7 +79,6 @@ $font-color: #727272;
   border: 1px solid #ccc;
   border-radius: 10px;
   font-size: 1rem;
-  margin-bottom: 15px;
   box-sizing: border-box;
 
   &:focus {
@@ -88,12 +87,14 @@ $font-color: #727272;
   }
 }
 
+
 .submitButtonLog {
   background-color: #a1a1a1;
   color: white;
   padding: 12px 20px;
   border: none;
   border-radius: 10px;
+  margin-top: 15px;
   font-size: 1rem;
   width: 100%;
   cursor: pointer;
@@ -143,7 +144,7 @@ $font-color: #727272;
 .modal {
   position: fixed;
   width: 30%;
-  height: 40%;
+  height: 32%;
   top: 50%;
   left: 50%;
   border-radius: 10px;
@@ -187,6 +188,7 @@ $font-color: #727272;
     }
   }
 }
+
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -196,6 +198,137 @@ $font-color: #727272;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
+
+.passwordInputContainer {
+  position: relative;
+}
+
+.togglePasswordButton {
+  position: absolute;
+  right: 0px;
+  top: 45%;
+  transform: translateY(-50%);
+  background: none;
+  color: black;
+  border: none !important;
+  cursor: pointer;
+}
+
+
+/* Add responsive styling for small screens */
+@media (max-width: 768px) {
+  .loginContainer {
+    flex-direction: column; /* Stack the form vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    height: 93vh; /* Full viewport height */
+    position: relative; /* Needed for z-index to work properly */
+  }
+
+  .imageContainer {
+    position: absolute;
+    z-index: -1; /* Place the imageContainer behind the loginContainer */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Full viewport height */
+    animation: fadeIn 1.5s ;
+
+  }
+
+  .loginForm {
+    z-index: 1; /* Ensure the login form appears above the image */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    
+  }
+
+  .loginForm_h1 {
+    font-size: 1.5rem;
+    color: $font-color;
+  }
+  
+  .loginForm_h2 {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: $font-color;
+  }
+
+  .forgotPasswordButton {
+    background-color: #c485ff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  
+    &:hover {
+      background-color: #a1a1a1;
+      color: white;
+      border: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .modal {
+    position: fixed;
+    width: 70%;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 2.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  
+    h3{
+      text-align: center;
+      color: #c485ff;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+  
+    label{
+      color: black;
+      margin-bottom: 4px;
+      font-size: .8rem;
+    }
+    .modalContent {
+      display: flex;
+      flex-direction: column;
+  
+      input {
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        border-radius: 9px;
+      }
+  
+      button {
+        align-self: center;
+        background-color: #a1a1a1;
+        border-radius: 20px;
+        width: 60%;
+        margin-top: 10px;
+  
+        &:hover {
+          background-color: #c485ff;
+          border: none;
+        }
+      }
+    }
+  }
+}
+
 
 
 :global(body.dark-mode){

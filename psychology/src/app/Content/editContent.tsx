@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./editContent.module.scss";
+import backendUrl from "../../config";
 
 interface Content {
   key: string;
@@ -20,7 +21,7 @@ const ContentEditor: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/api/textDisplay/contents/${testType}`)
+      .get(`${backendUrl}/api/textDisplay/contents/${testType}`)
       .then((response) => {
         const sortedContents = response.data.sort((a: Content, b: Content) => {
           // Define custom order for sorting
@@ -65,7 +66,7 @@ const ContentEditor: React.FC = () => {
     const updatedContent = testType === 'PF' ? contentsPF[index] : contentsIQ[index];
 
     axios
-      .post(`http://localhost:5000/api/textDisplay/contents/${testType}`, [updatedContent])
+      .post(`${backendUrl}/api/textDisplay/contents/${testType}`, [updatedContent])
       .then((response) => {
         alert("Content updated successfully");
       })
