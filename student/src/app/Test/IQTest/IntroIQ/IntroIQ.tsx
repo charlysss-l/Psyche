@@ -25,7 +25,7 @@ const IntroIQ: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get('http://localhost:5000/api/textDisplay/contents/IQ')
+      .get(`${backendUrl}/api/textDisplay/contents/IQ`)
       .then((response) => {
         const introContent = response.data.find((content: any) => content.key === 'introductionIQ');
         const termsContent = response.data.find((content: any) => content.key === 'termsIQ');

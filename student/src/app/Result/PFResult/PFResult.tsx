@@ -370,7 +370,7 @@ const PFResult: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get('http://localhost:5000/api/textDisplay/contents/PF')
+      .get(`${backendUrl}/api/textDisplay/contents/PF`)
       .then((response) => {
         const dataContent = response.data.find((content: any) => content.key === 'data_privacyPF');
         const outroContent = response.data.find((content: any) => content.key === 'outroPF');

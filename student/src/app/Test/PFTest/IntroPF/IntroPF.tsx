@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './IntroPF.module.scss'; // Import SCSS file for styling
+import backendUrl from '../../../../config';
 
 const IntroPF: React.FC = () => {
   const [isChecked, setIsChecked] = useState(false); // State for checkbox
@@ -18,7 +19,7 @@ const IntroPF: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get('http://localhost:5000/api/textDisplay/contents/PF')
+      .get(`${backendUrl}/api/textDisplay/contents/PF`)
       .then((response) => {
         const introContent = response.data.find((content: any) => content.key === 'introductionPF');
         const termsContent = response.data.find((content: any) => content.key === 'termsPF');

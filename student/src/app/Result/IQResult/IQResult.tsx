@@ -51,7 +51,7 @@ const IQResult: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get('http://localhost:5000/api/textDisplay/contents/IQ')
+      .get(`${backendUrl}/api/textDisplay/contents/IQ`)
       .then((response) => {
         const dataContent = response.data.find((content: any) => content.key === 'data_privacyIQ');
         const outroContent = response.data.find((content: any) => content.key === 'outroIQ');
