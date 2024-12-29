@@ -122,6 +122,22 @@ $error-color: red;
   margin-top: 10px;
 }
 
+.passwordInputContainer {
+  position: relative;
+}
+
+.togglePasswordButton {
+  position: absolute;
+  right: 0px;
+  top: 37%;
+  transform: translateY(-50%);
+  background: none;
+  color: black;
+  border: none !important;
+  cursor: pointer;
+}
+
+
 .Signuplink_info {
   color: #849670;
   font-size: 20px;

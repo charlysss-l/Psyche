@@ -186,6 +186,27 @@ $font-color: #727272;
         border: none;
       }
     }
+
+    .passwordInputContainer {
+      position: relative;
+    }
+
+    .toggleConfirmPasswordButton {
+      position: absolute;
+      right: 0%;
+      top: 25%;
+      transform: translateY(-50%);
+      background: none;
+      color: black;
+      border: none !important;
+      width: 50px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: transparent;
+        border: none;
+      }
+    }
   }
 }
 

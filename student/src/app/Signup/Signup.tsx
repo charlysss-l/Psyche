@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./studentsignup.module.scss";
 import backendUrl from "../../config";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 
 const SignupForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [studentNumber, setStudentNumber] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -181,13 +184,23 @@ const SignupForm: React.FC = () => {
           <label className={styles.signuplabel}>
             Password: <span className={styles.required}>*</span>
           </label>
+          <div className={styles.passwordInputContainer}>
           <input
             className={styles.signupInput}
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => handlePasswordChange(e.target.value)}
             required
           />
+           <button
+              type="button"
+              className={styles.togglePasswordButton}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
           <div className={styles.passwordStrengthContainer}> <p>Password Strength: </p><div className={`${styles.passwordStrength} ${styles[passwordStrength.toLowerCase()]}`}>
    <strong> {passwordStrength}</strong>
 </div></div>
@@ -198,9 +211,10 @@ const SignupForm: React.FC = () => {
           <label className={styles.signuplabel}>
             Confirm Password: <span className={styles.required}>*</span>
           </label>
+          <div className={styles.passwordInputContainer}>
           <input
             className={styles.signupInput}
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
@@ -213,6 +227,15 @@ const SignupForm: React.FC = () => {
                   : "red",
             }}
           />
+           <button
+              type="button"
+              className={styles.togglePasswordButton}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
         </div>
         {error && <p className={styles.errorMessage}>{error}</p>}
 

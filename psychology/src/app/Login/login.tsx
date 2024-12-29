@@ -180,12 +180,23 @@ const Login: React.FC = () => {
                 required
               />
               <label>New Password:</label>
+              <div className={styles.passwordInputContainer}>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Enter your new password"
+                className={styles.logInput}
               />
+              <button
+              type="button"
+              className={styles.toggleConfirmPasswordButton}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+            </div>
               <button onClick={handleForgotPassword}>Submit</button>
               <button onClick={() => setForgotPasswordModal(false)}>Cancel</button>
             </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Studentlogin.module.scss";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import backendUrl from "../../config";
 
 //  Handles user input (email, password), error, and success messages.
@@ -11,9 +12,9 @@ const Login: React.FC = () => {
      // State variables for email, password, error messages, and success messages
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
   const navigate = useNavigate();  // Used to navigate to different routes
   const location = useLocation();  // Provides access to the current location object
 
@@ -119,14 +120,24 @@ const Login: React.FC = () => {
           <label htmlFor="password" className={styles.logLabel}>
             Password:
           </label>
+          <div className={styles.passwordInputContainer}>
           <input
             className={styles.logInput}
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <button
+              type="button"
+              className={styles.togglePasswordButton}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
           <button type="submit" className={styles.submitButtonLog}>
             Login
           </button>
