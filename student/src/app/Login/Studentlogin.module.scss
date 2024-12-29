@@ -137,6 +137,11 @@ $error-color: red;
   cursor: pointer;
 }
 
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}
 
 .Signuplink_info {
   color: #849670;

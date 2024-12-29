@@ -97,6 +97,12 @@
   cursor: pointer;
 }
 
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}
+
 .loginLink_info {
   font-size: 0.9rem;
   color: #849670;

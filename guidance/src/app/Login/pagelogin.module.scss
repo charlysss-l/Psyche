@@ -76,7 +76,7 @@ $font-color: #727272;
 }
 
 .logInput {
-  width: 90%;
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -97,7 +97,7 @@ $font-color: #727272;
   border: none;
   border-radius: 10px;
   font-size: 1rem;
-  width: 90%;
+  width: 100%;
   cursor: pointer;
   transition: background-color 0.3s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -140,6 +140,27 @@ $font-color: #727272;
   color: green;
   font-size: 0.9rem;
   margin-top: 10px;
+}
+
+.passwordInputContainer {
+  position: relative;
+}
+
+.togglePasswordButton {
+  position: absolute;
+  right: 0px;
+  top: 45%;
+  transform: translateY(-50%);
+  background: none;
+  color: black;
+  border: none !important;
+  cursor: pointer;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
 }
 
 .modal {
@@ -187,6 +208,27 @@ $font-color: #727272;
 
       &:hover {
         background-color: #749ef8;
+      }
+    }
+
+    .passwordInputContainer {
+      position: relative;
+    }
+
+    .toggleConfirmPasswordButton {
+      position: absolute;
+      right: 0%;
+      top: 20%;
+      transform: translateY(-50%);
+      background: none;
+      color: black;
+      border: none !important;
+      width: 50px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: transparent;
+        border: none;
       }
     }
   }
@@ -247,6 +289,18 @@ $font-color: #727272;
 
   .forgotPasswordButton {
     width: 90%;
+  }
+
+  .togglePasswordButton {
+    position: absolute;
+    right: 10px;
+    font-size: 15px;
+    top: 45%;
+    transform: translateY(-50%);
+    background: none;
+    color: black;
+    border: none !important;
+    cursor: pointer;
   }
 
   .modal {

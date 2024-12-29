@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import backendURL from "../../config";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import styles from "./pagelogin.module.scss";
 //Provides login functionality with error/success feedback and a "Forgot Password" feature.
 // Functional component for the Login page
@@ -9,6 +10,7 @@ const Login: React.FC = () => {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // State for success message
   const [forgotPasswordModal, setForgotPasswordModal] = useState<boolean>(false);
@@ -136,14 +138,24 @@ const Login: React.FC = () => {
             required
           />
           <label htmlFor="password" className={styles.logLabel}>Password:</label>
+          <div className={styles.passwordInputContainer}>
           <input
           className={styles.logInput}
-            type="password"
-            id="password"
+          type={showPassword ? "text" : "password"}
+          id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <button
+              type="button"
+              className={styles.togglePasswordButton}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
           <button type="submit" className={styles.submitButtonLog}>Login</button>
         </form>
         <button
@@ -175,12 +187,24 @@ const Login: React.FC = () => {
           placeholder="Enter your username"
         />
         <label>New Password:</label>
+        <div className={styles.passwordInputContainer}>
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           placeholder="Enter your new password"
+          className={styles.logInput}
+
         />
+         <button
+              type="button"
+              className={styles.toggleConfirmPasswordButton}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
         <button onClick={handleForgotPassword}>Submit</button>
         <button onClick={() => setForgotPasswordModal(false)}>Cancel</button>
           </div>
