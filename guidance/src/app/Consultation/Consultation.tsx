@@ -709,10 +709,11 @@ const handleRemove = async (id: string) => {
 
     
     <React.Fragment key={testDetails._id}>
-      <tr>
-        <td>Student Name</td>
-        <td>{testDetails.studentName}</td>
-        </tr>
+     <tr>
+  <td>Student Name</td>
+  <td>{testDetails.studentName || testDetails.firstName + " " + testDetails.lastName}</td>
+</tr>
+
       <tr>
         <td>Age</td>
         <td>{testDetails.age}</td>
@@ -742,6 +743,7 @@ const handleRemove = async (id: string) => {
       
       {testDetails.note !== 'Others' && (
         <>
+         
               <tr>
                 <td>Test ID</td>
                 <td>{testDetails.testID}</td>
