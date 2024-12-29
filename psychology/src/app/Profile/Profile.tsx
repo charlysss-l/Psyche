@@ -53,7 +53,7 @@ const Profile: React.FC = () => {
       <form onSubmit={handleSubmit} className={style.infoContainer}>
         <label className={style.pr_label}>Email:</label>
         {/* Display username as text, not editable */}
-        <p className={style.pr_input}>{'cvsu.psychologydepartment@gmail.com'}</p>
+        <p className={style.pr_input}>{'cvsu.psychology@gmail.com'}</p>
 
         <label className={style.passWord}>* Change Password</label>
         <input

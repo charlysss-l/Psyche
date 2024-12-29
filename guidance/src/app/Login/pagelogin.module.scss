@@ -245,7 +245,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 }
 
 /* Add responsive styling for small screens */
-@media (max-width: 768px) {
+@media (max-width: 768px ) {
   .loginContainer {
     flex-direction: column; /* Stack the form vertically */
     justify-content: center; /* Center content vertically */

@@ -82,7 +82,7 @@ const Login: React.FC = () => {
   };
 
   const handleForgotPassword = async () => {
-    if (resetUsername !== "cvsu.psychologydepartment@gmail.com") {
+    if (resetUsername !== "cvsu.psychology@gmail.com") {
       setResetError("Invalid username.");
       return;
     }
