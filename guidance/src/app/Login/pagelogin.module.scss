@@ -244,10 +244,15 @@ $font-color: #727272;
     margin-top: 10px;
     color: $font-color;
   }
+
+  .forgotPasswordButton {
+    width: 90%;
+  }
+
   .modal {
     position: fixed;
     width: 70%;
-    height: 40%;
+    height: 350px;
     top: 50%;
     left: 50%;
     border-radius: 10px;
@@ -260,7 +265,7 @@ $font-color: #727272;
     h3{
       text-align: center;
       color: #749ef8;
-      margin-bottom: 1.5rem;
+      margin-top: .5rem;
     }
   
     label{
