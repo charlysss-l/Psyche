@@ -98,7 +98,7 @@ const Login: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${backendURL}api/authGuidance/forgot-password`, {
+      const response = await fetch(`${backendURL}/api/authGuidance/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: resetUsername, newPassword }),
@@ -169,7 +169,7 @@ const Login: React.FC = () => {
         )}
         <label>Enter Your Old Username:</label>
         <input
-          type="password"
+          type="input"
           value={resetUsername}
           onChange={(e) => setResetUsername(e.target.value)}
           placeholder="Enter your username"
