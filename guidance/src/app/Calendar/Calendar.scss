@@ -156,6 +156,13 @@ textarea {
   }
 }
 
+/* Hides extra dates outside the current month */
+.react-calendar__month-view__days__day--neighboringMonth {
+  pointer-events: none; /* Disable interaction with them */
+  opacity: 0.5;
+  color: transparent;
+}
+
 
 
 
