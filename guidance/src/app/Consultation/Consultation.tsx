@@ -15,6 +15,7 @@ const USERPFOMRE_URL = `${backendUrl}/api/omr16pf/test/`;
 interface ConsultationRequest {
   _id: string;
   userId: string;
+  email: string;
   studentName: string;
   timeForConsultation: string;
   note: string;
@@ -186,7 +187,6 @@ const GuidanceConsultation: React.FC = () => {
   return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
   }
   
-
   const pendingRequests = filteredPendingUsers.filter((request) => request.status === "pending" || request.status === "cancelled");
   const acceptedRequests = filteredAcceptedUsers.filter((request) => request.status === "accepted" || request.status === "completed");
  
@@ -227,8 +227,6 @@ const GuidanceConsultation: React.FC = () => {
     }
   };
   
-
-
 const deleteConsultation = async (_id: string) => {
   const confirmDelete = window.confirm("Are you sure you want to delete this consultation?");
   if (!confirmDelete) return;
@@ -282,11 +280,7 @@ const handleArchive = async (testID: string) => {
   }
 };
 
-
   const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
-
-  
-
 
   const getFactorDescription = (factorLetter: string) => {
     switch (factorLetter) {
@@ -447,6 +441,7 @@ const handleRemove = async (id: string) => {
     <thead>
       <tr>
         <th>User ID</th>
+        <th>Email</th>
         <th>Student Name</th>
         <th>Date</th>
         <th>Time</th>
@@ -462,6 +457,7 @@ const handleRemove = async (id: string) => {
         .map((request) => (
         <tr key={request._id}>
           <td>{request.userId}</td>
+          <td>{request.email}</td>
           <td>{request.studentName}</td>
           <td>
             {new Date(request.date).toLocaleDateString("en-US", {

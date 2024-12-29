@@ -8,6 +8,7 @@ import { set } from "mongoose";
 
 interface Consultation {
   userId: string;
+  email: string;
   studentName: string;
   date: string;
   testID: string;
@@ -43,12 +44,12 @@ const ConsultationRequestForm: React.FC = () => {
   const [testIDs, setTestIDs] = useState<string[]>([]); // To store fetched test IDs
   const [selectedTestID, setSelectedTestID] = useState<string>(""); // For selected test ID
   const [date, setDate] = useState("");
+  const [email, setEmail] = useState<string>(""); // For displaying current email
   const [studentName, setStudentName] = useState("");
   const [consultations, setConsultation] = useState<Consultation[]>([]);
   const [followUpSchedules, setFollowUpSchedules] = useState<FollowUpSchedule[]>([]);
   const [decliningSchedule, setDecliningSchedule] = useState<string | null>(null);
   const [declineMessage, setDeclineMessage] = useState<string>("");
-
   const [showArchived, setShowArchived] = useState(false);  // State to toggle the archive list visibility
   const toggleArchivedList = () => {
     setShowArchived(prevState => !prevState);  // Toggle the state
@@ -158,12 +159,41 @@ const ConsultationRequestForm: React.FC = () => {
     fetchTestIDs();
   }, [note, userId]);
 
+  // Function to fetch the user's email
+  const fetchEmail = async () => {
+    const token = localStorage.getItem("token"); // Retrieve the authentication token
+    if (!token) {
+      return;
+    }
+    try {
+      const response = await fetch(
+       `${backendUrl}/api/authStudents/profile`,
+       {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      );
+      const result = await response.json();
+      if (response.ok) {
+        setEmail(result.email); // Set current email for display
+      } 
+    } catch (error) {
+      console.error("Error loading profile:", error);
+
+    }
+  };
+useEffect(() => {
+  fetchEmail();
+}, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       const consultationRequest = {
         userId,
+        email,
         studentName,
         timeForConsultation,
         note,

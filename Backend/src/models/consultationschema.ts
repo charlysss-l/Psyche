@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 interface IConsultationRequest extends Document {
   userId: string;
+  email: string;
   studentName: string;
   timeForConsultation: string;
   testID: string;
@@ -19,6 +20,10 @@ interface IConsultationRequest extends Document {
 
 const ConsultationRequestSchema: Schema = new Schema({
   userId: {
+    type: String,
+    required: true,
+  },
+  email: {
     type: String,
     required: true,
   },

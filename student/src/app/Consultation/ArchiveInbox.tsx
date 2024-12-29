@@ -5,6 +5,7 @@ import backendUrl from "../../config";
 
 interface Consultation {
   userId: string;
+  studentName: string;
   date: string;
   testID: string;
   timeForConsultation: string;
@@ -76,6 +77,7 @@ const ArchiveInbox = () => {
           <thead>
             <tr>
               <th>User ID</th>
+              <th>Student Name</th>
               <th>Date</th>
               <th>Time for Consultation</th>
               <th>Test ID</th>
@@ -89,6 +91,7 @@ const ArchiveInbox = () => {
               archivedConsultations.map((consultation) => (
                 <tr key={consultation.testID}>
                   <td>{consultation.userId}</td>
+                  <td>{consultation.studentName}</td>
                   <td>
                     {new Date(consultation.date).toLocaleDateString("en-US", {
                       month: "2-digit",
