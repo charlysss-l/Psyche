@@ -157,50 +157,23 @@
 
 @media (max-width: 768px) {
   .signup_container {
-    padding: 1.5rem;
-    margin-top: 5%;
-  }
-
-  .signup_h2 {
-    font-size: 1.8rem;
-  }
-
-  .signupInput {
-    font-size: 0.9rem;
-    padding: 0.7rem;
-  }
-
-  .signupSubmit {
-    font-size: 0.9rem;
-    padding: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-top: 13%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 }
 
-/* Media queries for mobile devices */
-@media (max-width: 480px) {
-  .signup_container {
-    padding: 1rem;
-    margin-top: 5%;
-  }
-
-  .signup_h2 {
-    font-size: 1.5rem;
-  }
-
-  .signupInput {
-    font-size: 0.8rem;
-    padding: 0.6rem;
-  }
-
-  .signupSubmit {
-    font-size: 0.8rem;
-    padding: 0.6rem;
-  }
-
-  .loginLink_info {
-    font-size: 0.8rem;
-  }
-}
 
 .hidden {
   display: none;

@@ -139,6 +139,63 @@ $error-color: red;
   color: #849670;
 }
 
+/* Add responsive styling for small screens */
+@media (max-width: 768px) {
+  .loginContainer {
+    flex-direction: column; /* Stack the form vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    height: 96vh; /* Full viewport height */
+    width: 100%;
+    position: relative; /* Needed for z-index to work properly */
+  }
+
+  .imageContainer {
+    position: absolute;
+    z-index: -1; /* Place the imageContainer behind the loginContainer */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Full viewport height */
+    animation: fadeIn 1.5s ;
+
+  }
+
+  .loginForm {
+    z-index: 1; /* Ensure the login form appears above the image */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    
+  }
+
+  .loginForm_h1 {
+    font-size: 1.5rem;
+    color: $font-color;
+  }
+  
+  .loginForm_h2 {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: $font-color;
+  }
+  .Signuplink_info {
+    color: #849670;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .Signuplink {
+    font-size: 14px;
+    color:  #d7a52f;
+    cursor: pointer;
+  }
+  
+  
+}
+
 :global(body.dark-mode){
   .loginForm {
     background-color: #2a3744ef;

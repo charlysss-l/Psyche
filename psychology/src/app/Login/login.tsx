@@ -177,6 +177,7 @@ const Login: React.FC = () => {
                 value={resetUsername}
                 onChange={(e) => setResetUsername(e.target.value)}
                 placeholder="Enter your username"
+                required
               />
               <label>New Password:</label>
               <input

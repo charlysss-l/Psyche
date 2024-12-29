@@ -278,9 +278,11 @@ $font-color: #727272;
     }
   }
 
+  
+
   .modal {
     position: fixed;
-    width: 70%;
+    width: 65%;
     height: 300px;
     top: 50%;
     left: 50%;
@@ -326,6 +328,19 @@ $font-color: #727272;
         }
       }
     }
+  }
+  .errorMessage {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -10px;
+    margin-bottom: -6px;
+  }
+  .successMessage {
+    color: #079107;
+    font-size: 0.9rem;
+    margin-top: -10px;
+    margin-bottom: -6px;
+
   }
 }
 
