@@ -59,7 +59,7 @@ const Navbar = () => {
               to="/contentEditor"
               className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
             >
-              Content Editor
+              Content 
             </NavLink>
           </li>
           <li className={style.navItem}>
