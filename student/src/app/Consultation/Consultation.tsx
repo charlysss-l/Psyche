@@ -187,7 +187,7 @@ useEffect(() => {
   fetchEmail();
 }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
@@ -405,29 +405,31 @@ const handleRemove = async (id: string) => {
           </label>
 
           <label className={styles.conLabel}>
-    Time for Consultation <br/>
-    ***Choose time between 9:00 AM and 5:00 PM***
-
-    <input
-        className={styles.conInput}
-        type="time"
-        value={timeForConsultation}
-        onChange={(e) => {
-            const selectedTime = e.target.value;
-            const [hours, minutes] = selectedTime.split(":").map(Number);
-            
-            // Check if the selected time is within the allowed range (9 AM to 5 PM)
-            if (hours >= 9 && hours < 17) {
-                setTimeForConsultation(selectedTime);
-            } else {
-                alert("Please choose a time between 9:00 AM and 5:00 PM.");
-            }
-        }}
-        required
-        min="09:00"
-        max="17:00"
-    />
-</label>
+            Time for Consultation <br/>
+            <select
+              value={timeForConsultation}
+              onChange={(e) =>
+                setTimeForConsultation(e.target.value as "9:00 AM" | "9:30 AM" | "10:00 AM" | "10:30 AM" | "11:00 AM" | "1:00 PM" | "1:30 PM" | "2:00 PM" | "2:30 PM" | "3:00 PM" | "3:30 PM" | "4:00 PM")
+              }
+              required
+            >
+              <option value="" disabled>
+                Select Time
+              </option>
+              <option value="9:00 AM">9:00 AM</option>
+              <option value="9:30 AM">9:30 AM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="10:30 AM">10:30 AM</option>
+              <option value="11:00 AM">11:00 AM</option>
+              <option value="1:00 PM">1:00 PM</option>
+              <option value="1:30 PM">1:30 PM</option>
+              <option value="2:00 PM">2:00 PM</option>
+              <option value="2:30 PM">2:30 PM</option>
+              <option value="3:00 PM">3:00 PM</option>
+              <option value="3:30 PM">3:30 PM</option>
+              <option value="4:00 PM">4:00 PM</option>
+            </select>
+          </label>
           <label className={styles.conLabel}>
             Note
             <select

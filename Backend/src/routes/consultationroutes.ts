@@ -10,7 +10,7 @@ router.post('/', async (req: Request, res: Response) => {
       res.status(500).json({ message: 'Error creating survey', error });
     }
   });
-router.get('/', getConsultationRequests);
+router.get('/all/request', getConsultationRequests);
 router.get('/user/:userId', getConsultationRequestsByUserID);
 router.get('/:testID', getConsultationRequestsById);
 router.get('/archive/status/archived', async (req: Request, res: Response) => {

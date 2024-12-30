@@ -37,6 +37,8 @@ const SchedulingCalendar: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [timeForConsultation, setTimeForConsultation] = useState("");
+
 
   useEffect(() => {
     const loadConsultationRequests = async () => {
@@ -80,7 +82,6 @@ const SchedulingCalendar: React.FC = () => {
     const form = e.target as HTMLFormElement;
     const userId = (form.elements.namedItem("userId") as HTMLInputElement).value;
     const studentName = (form.elements.namedItem("studentName") as HTMLInputElement).value;
-    const timeForConsultation = (form.elements.namedItem("timeForConsultation") as HTMLInputElement).value;
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
   
     try {
@@ -273,8 +274,30 @@ const SchedulingCalendar: React.FC = () => {
               </div>
               <div>
                 <label className={styles.newSchedlabel}>Time for Consultation:</label>
-                <input type="time" name="timeForConsultation" className="newSchedinput" required />
-              </div>
+                <select
+              value={timeForConsultation}
+              onChange={(e) =>
+                setTimeForConsultation(e.target.value as "9:00 AM" | "9:30 AM" | "10:00 AM" | "10:30 AM" | "11:00 AM" | "1:00 PM" | "1:30 PM" | "2:00 PM" | "2:30 PM" | "3:00 PM" | "3:30 PM" | "4:00 PM")
+              }
+              required
+            >
+              <option value="" disabled>
+                Select Time
+              </option>
+              <option value="9:00 AM">9:00 AM</option>
+              <option value="9:30 AM">9:30 AM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="10:30 AM">10:30 AM</option>
+              <option value="11:00 AM">11:00 AM</option>
+              <option value="1:00 PM">1:00 PM</option>
+              <option value="1:30 PM">1:30 PM</option>
+              <option value="2:00 PM">2:00 PM</option>
+              <option value="2:30 PM">2:30 PM</option>
+              <option value="3:00 PM">3:00 PM</option>
+              <option value="3:30 PM">3:30 PM</option>
+              <option value="4:00 PM">4:00 PM</option>
+            </select>              
+            </div>
               <div>
                 <label className={styles.newSchedlabel}>Note:</label>
                 <textarea name="note" className="newSchedinput" required />
