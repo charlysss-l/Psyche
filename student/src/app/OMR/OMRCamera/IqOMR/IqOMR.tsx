@@ -77,82 +77,88 @@ const IqOMR: React.FC = () => {
     });
   };
 
-  const validateTextInImage = async (file: File): Promise<boolean> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = async () => {
-          let angle = 0;
-          const maxRotation = 360;  // Max rotation in degrees
-          const rotationStep = 5;   // Rotation step in degrees (you can adjust for faster/slower rotation)
-          const maxAttempts = maxRotation / rotationStep;
-  
-          // Create a canvas to rotate and process the image
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            reject('Canvas context not available');
-            return;
-          }
-  
-          // Set canvas size to image size
-          canvas.width = img.width;
-          canvas.height = img.height;
-
-          // Function to render the rotated image
-        const renderImage = () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.save();
-          ctx.translate(canvas.width / 2, canvas.height / 2);
-          ctx.rotate((angle * Math.PI) / 180); // Convert angle to radians
-          ctx.drawImage(img, -img.width / 2, -img.height / 2);
-          ctx.restore();
-
-          // Update image preview state to show rotated image
-          setImagePreview(canvas.toDataURL()); // Display the rotated image in your component
-        };
-  
-          while (angle < maxRotation) {
-            
-            // Perform OCR using Tesseract.js
-            try {
-              renderImage(); // Render the rotated image at the current angle
-
-              const { data: { text } } = await Tesseract.recognize(canvas.toDataURL(), 'eng');
-              console.log(`OCR Text at ${angle} degrees:`, text);
-  
-              // Check if the text includes the word "PF"
-              if (text.toLowerCase().includes('iq')) {
-                resolve(true); // Text found, stop and resolve
-                return;
-              }
-            } catch (err) {
-              reject(err);
+  // function validateTextInImage attempts to detect specific text (PF) in image by rotating image using OCR via Tesseract.js
+    const validateTextInImage = async (file: File): Promise<boolean> => {
+      return new Promise((resolve, reject) => {
+        // FileReader an instance to read image file as data URL
+        const reader = new FileReader();
+        // once image loaded, .onload, a new Image img is created in file memory
+        reader.onload = (e) => {
+          const img = new Image();
+    
+          // Image will be rotated
+          img.onload = async () => {
+            let angle = 0;
+            const maxRotation = 95;  // Max rotation in degrees
+            let rotationStep = 5;  // Initial rotation step
+            const maxAttempts = maxRotation / rotationStep;
+    
+            // Create a canvas to rotate and process the image
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+              reject('Canvas context not available');
               return;
             }
+    
+            // Set canvas size to image size
+            canvas.width = img.width;
+            canvas.height = img.height;
+    
+            // Function to render the rotated image
+            const renderImage = () => {
+              ctx.clearRect(0, 0, canvas.width, canvas.height); // Clears canvas before drawing new frame
+              ctx.save(); // Saves current drawing
+              ctx.translate(canvas.width / 2, canvas.height / 2); // Translate canvas to its center so image can rotate around center
+              ctx.rotate((angle * Math.PI) / 180); // Convert angle to radians. Rotate image by angle
+              ctx.drawImage(img, -img.width / 2, -img.height / 2); // Draws image at new position
+              ctx.restore(); // To avoid affecting other canvas operations
+    
+              // Update image preview state to show rotated image
+              setImagePreview(canvas.toDataURL()); // Display the rotated image in your component
+            };
+    
+            let stepSign = 1;  // 1 for adding rotation, -1 for subtracting rotation
+            while (Math.abs(angle) < maxRotation) {
+    
+              // Perform OCR using Tesseract.js
+              try {
+                renderImage(); // Render the rotated image at the current angle
+    
+                // Performing OCR on Rotated Image
+                const { data: { text } } = await Tesseract.recognize(canvas.toDataURL(), 'eng');
+                console.log(`OCR Text at ${angle} degrees:`, text);
+    
+                // If OCR recognizes text "PF" function resolves true indicating desired text found
+                if (text.toLowerCase().includes('iq test')) {
+                  resolve(true); // Text found, stop and resolve
+                  return;
+                }
+              } catch (err) {
+                reject(err);
+                return;
+              }
+    
+              // Alternate adding and subtracting the rotation step
+              angle += rotationStep * stepSign;
+              stepSign *= -1;  // Switch the sign for the next iteration
   
-            // Increment the angle by the rotation step
-            angle += rotationStep;
-  
-            // If we have checked all rotations and didn't find the text, reject
-            if (angle >= maxRotation) {
-              resolve(false);
+              rotationStep += 5;
+    
+              // If we have checked all rotations and didn't find the text, reject
+              if (Math.abs(angle) >= maxRotation) {
+                resolve(false);
+              }
             }
-          }
+          };
+          img.onerror = reject;
+          img.src = e.target?.result as string;
         };
-        img.onerror = reject;
-        img.src = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
-    });
-  };
+        reader.readAsDataURL(file);
+      });
+    };
   
   
-  
-  
- 
-
   const resetUploadCount = () => {
     localStorage.removeItem(`${userId}_uploadCount`);
     localStorage.removeItem(`${userId}_uploadDate`);
@@ -210,6 +216,7 @@ const IqOMR: React.FC = () => {
       if (!isValidText) {
         alert('Invalid image');
         setLoading(false);
+        window.location.reload();
         return;
       }
 
