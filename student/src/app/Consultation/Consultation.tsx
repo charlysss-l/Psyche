@@ -406,24 +406,34 @@ const handleRemove = async (id: string) => {
           </label>
 
           <label className={styles.conLabel}>
-              Date
-              <input
-                className={styles.conInput}
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-                min={new Date().toISOString().split('T')[0]} // Restrict to today and future dates
-                style={{
-                  color: allConsultations.filter(
-                    (consultation) =>
-                      new Date(consultation.date).toISOString().split('T')[0] === date
-                  ).length >= 5
-                    ? "red"
-                    : "black", // Color the input text red if the date has 5 or more consultations
-                }}
-              />
-            </label>
+            Date (Mon - Fri only available except holidays)  
+            <input
+              className={styles.conInput}
+              type="date"
+              value={date}
+              onChange={(e) => {
+                const selectedDate = new Date(e.target.value);
+                // Check if the selected date is a Saturday (6) or Sunday (0)
+                if (selectedDate.getDay() === 6 || selectedDate.getDay() === 0) {
+                  alert("Weekends (Saturday and Sunday) are not allowed.");
+                  // Reset the date to the previous valid date if the weekend is selected
+                  return;
+                }
+                setDate(e.target.value);
+              }}
+              required
+              min={new Date().toISOString().split('T')[0]} // Restrict to today and future dates
+              style={{
+                color: allConsultations.filter(
+                  (consultation) =>
+                    new Date(consultation.date).toISOString().split('T')[0] === date
+                ).length >= 5
+                  ? "red"
+                  : "black", // Color the input text red if the date has 5 or more consultations
+              }}
+            />
+          </label>
+
 
             {allConsultations.filter(
               (consultation) =>
@@ -435,7 +445,7 @@ const handleRemove = async (id: string) => {
             )}
 
           <label className={styles.conLabel}>
-            Time for Consultation <span style={{ color: "red" }}>* If Time is Red it is Reserved and Cannot be Selected *</span>
+            Time for Consultation <span style={{ color: "red" }}>( If Time is Red it is Reserved and Cannot be Selected )</span>
             <select
               value={timeForConsultation}
               onChange={(e) => setTimeForConsultation(e.target.value)}
