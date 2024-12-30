@@ -5,7 +5,6 @@ import styles from "./Consultation.module.scss";
 import { v4 as uuidv4 } from 'uuid'; // Install with `npm install uuid`
 import ArchiveInbox from "./ArchiveInbox";
 import backendUrl from "../../config";
-import { set } from "mongoose";
 
 interface Consultation {
   userId: string;
@@ -29,7 +28,6 @@ interface FollowUpSchedule {
   status: string;
   message: string;
 }
-
 
 const API_URL = `${backendUrl}/api/consult/`;
 const FOLLOWUP_URL = `${backendUrl}/api/followup/user/`;
@@ -57,9 +55,7 @@ const ConsultationRequestForm: React.FC = () => {
     setShowArchived(prevState => !prevState);  // Toggle the state
   };
 
-  
   // Fields for "Others"
-  
   const [age, setAge] = useState<number | "">("");
   const [sex, setSex] = useState<"Male" | "Female" | "">("");
   const [course, setCourse] = useState<"BSCS" | "BSIT" | "BSCrim" | "BSHRM" | "BSEDUC" | "BSP" | "">("");
@@ -78,8 +74,8 @@ const ConsultationRequestForm: React.FC = () => {
       setSection(1);
       setReasonForConsultation("N/A");
     } else {
+
       // Clear fields for user input
-    
       setAge("");
       setSex("");
       setCourse("");
@@ -89,6 +85,7 @@ const ConsultationRequestForm: React.FC = () => {
     }
   }, [note]);
 
+  // fetch all consultation requests
   useEffect(() => {
     const fetchAllConsultationRequests = async () => {
       try {
@@ -122,11 +119,9 @@ const ConsultationRequestForm: React.FC = () => {
           console.error("Error fetching follow-up schedules:", error);
         }
       };
-
       fetchFollowUpSchedules();
     }
   }, [userId]);
-
 
   useEffect(() => {
     // Reset test IDs and selectedTestID when note changes
@@ -179,6 +174,7 @@ const ConsultationRequestForm: React.FC = () => {
     if (!token) {
       return;
     }
+
     try {
       const response = await fetch(
        `${backendUrl}/api/authStudents/profile`,
@@ -259,8 +255,6 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
   };
 
- 
-
   const deleteConsultation = async (testID: string) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this consultation?");
     if (!confirmDelete) return;
@@ -276,7 +270,6 @@ const handleSubmit = async (e: React.FormEvent) => {
       alert("Failed to delete consultation.");
     }
   };
-  
   
   const cancelConsultation = async (testID: string) => {
     const confirmCancel = window.confirm("Are you sure you want to cancel this consultation?");
@@ -420,47 +413,45 @@ const handleRemove = async (id: string) => {
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
-              min={new Date().toISOString().split('T')[0]}  // Restrict to today and future dates
+              min={new Date().toISOString().split('T')[0]} // Restrict to today and future dates
             />
           </label>
 
           <label className={styles.conLabel}>
-  Time for Consultation <br />
-  <select
-    value={timeForConsultation}
-    onChange={(e) => setTimeForConsultation(e.target.value)}
-    required
-  >
-    <option value="" disabled>
-      Select Time
-    </option>
-    {[
-      "9:00 AM",
-      "9:30 AM",
-      "10:00 AM",
-      "10:30 AM",
-      "11:00 AM",
-      "1:00 PM",
-      "1:30 PM",
-      "2:00 PM",
-      "2:30 PM",
-      "3:00 PM",
-      "3:30 PM",
-      "4:00 PM",
-    ].map((time) => {
-      // Check if this time is already taken for the selected date
-      const isTaken = allConsultations.some(
-        (consultation) =>
-          consultation.date === date && consultation.timeForConsultation === time
-      );
-      return (
-        <option key={time} value={time} disabled={isTaken}>
-          {time} {isTaken ? "(Unavailable)" : ""}
-        </option>
-      );
-    })}
-  </select>
-</label>
+            Time for Consultation <span style={{ color: "red" }}>* If Time is Red it is Reserved and Cannot be Selected *</span>
+            <select
+              value={timeForConsultation}
+              onChange={(e) => setTimeForConsultation(e.target.value)}
+              required
+            >
+              <option value="" disabled>
+                Select Time
+              </option>
+              {[
+                "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", 
+                "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", 
+                "3:30 PM", "4:00 PM"
+              ].map((time) => {
+                const isReserved = allConsultations.some(
+                  (consultation) =>
+                    new Date(consultation.date).toISOString().split('T')[0] === date &&
+                    consultation.timeForConsultation === time
+                );
+                return (
+                  <option
+                    key={time}
+                    value={isReserved ? "" : time} // Disable selection for reserved times
+                    style={{
+                      color: isReserved ? "red" : "black", // Color reserved times in red
+                    }}
+                    disabled={isReserved} // Make reserved times unselectable
+                  >
+                    {time}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
 
           <label className={styles.conLabel}>
             Note
