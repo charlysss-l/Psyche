@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { fetchConsultationRequests } from "../services/consultationservice";
 import styles from "./Consultation.module.scss";
 import { v4 as uuidv4 } from 'uuid'; // Install with `npm install uuid`
 import ArchiveInbox from "./ArchiveInbox";
@@ -47,6 +48,7 @@ const ConsultationRequestForm: React.FC = () => {
   const [email, setEmail] = useState<string>(""); // For displaying current email
   const [studentName, setStudentName] = useState("");
   const [consultations, setConsultation] = useState<Consultation[]>([]);
+  const [allConsultations, setAllConsultations] = useState<Consultation[]>([]);
   const [followUpSchedules, setFollowUpSchedules] = useState<FollowUpSchedule[]>([]);
   const [decliningSchedule, setDecliningSchedule] = useState<string | null>(null);
   const [declineMessage, setDeclineMessage] = useState<string>("");
@@ -86,6 +88,18 @@ const ConsultationRequestForm: React.FC = () => {
       setReasonForConsultation("");
     }
   }, [note]);
+
+  useEffect(() => {
+    const fetchAllConsultationRequests = async () => {
+      try {
+        const requests = await fetchConsultationRequests();
+        setAllConsultations(requests);
+      } catch (error) {
+        console.error("Error loading consultation requests:", error);
+      }
+    };
+    fetchAllConsultationRequests();
+  }, []);
   
 
   useEffect(() => {
@@ -213,9 +227,15 @@ const handleSubmit = async (e: React.FormEvent) => {
       alert("Consultation request submitted successfully. Your Result has been shared with the guidance counselor.");
 
       window.location.reload();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting consultation request:", error);
-      alert("You have already scheduled this test.");
+
+      // Check if the error response contains a message
+    if (error.response && error.response.data && error.response.data.message) {
+      alert(error.response.data.message);
+    } else {
+      alert("An unexpected error occurred. Please try again.");
+    }
    }
   };
 
@@ -405,31 +425,43 @@ const handleRemove = async (id: string) => {
           </label>
 
           <label className={styles.conLabel}>
-            Time for Consultation <br/>
-            <select
-              value={timeForConsultation}
-              onChange={(e) =>
-                setTimeForConsultation(e.target.value as "9:00 AM" | "9:30 AM" | "10:00 AM" | "10:30 AM" | "11:00 AM" | "1:00 PM" | "1:30 PM" | "2:00 PM" | "2:30 PM" | "3:00 PM" | "3:30 PM" | "4:00 PM")
-              }
-              required
-            >
-              <option value="" disabled>
-                Select Time
-              </option>
-              <option value="9:00 AM">9:00 AM</option>
-              <option value="9:30 AM">9:30 AM</option>
-              <option value="10:00 AM">10:00 AM</option>
-              <option value="10:30 AM">10:30 AM</option>
-              <option value="11:00 AM">11:00 AM</option>
-              <option value="1:00 PM">1:00 PM</option>
-              <option value="1:30 PM">1:30 PM</option>
-              <option value="2:00 PM">2:00 PM</option>
-              <option value="2:30 PM">2:30 PM</option>
-              <option value="3:00 PM">3:00 PM</option>
-              <option value="3:30 PM">3:30 PM</option>
-              <option value="4:00 PM">4:00 PM</option>
-            </select>
-          </label>
+  Time for Consultation <br />
+  <select
+    value={timeForConsultation}
+    onChange={(e) => setTimeForConsultation(e.target.value)}
+    required
+  >
+    <option value="" disabled>
+      Select Time
+    </option>
+    {[
+      "9:00 AM",
+      "9:30 AM",
+      "10:00 AM",
+      "10:30 AM",
+      "11:00 AM",
+      "1:00 PM",
+      "1:30 PM",
+      "2:00 PM",
+      "2:30 PM",
+      "3:00 PM",
+      "3:30 PM",
+      "4:00 PM",
+    ].map((time) => {
+      // Check if this time is already taken for the selected date
+      const isTaken = allConsultations.some(
+        (consultation) =>
+          consultation.date === date && consultation.timeForConsultation === time
+      );
+      return (
+        <option key={time} value={time} disabled={isTaken}>
+          {time} {isTaken ? "(Unavailable)" : ""}
+        </option>
+      );
+    })}
+  </select>
+</label>
+
           <label className={styles.conLabel}>
             Note
             <select

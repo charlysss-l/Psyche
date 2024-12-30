@@ -4,11 +4,26 @@ import { param } from 'express-validator';
 
 export const createConsultationRequest = async (req: Request, res: Response) => {
   try {
+    const { timeForConsultation, date } = req.body;
+
+    // Check if a consultation already exists with the same date and time
+    const existingConsultation = await ConsultationRequest.findOne({
+      timeForConsultation,
+      date: new Date(date)
+        });
+
+    if (existingConsultation) {
+      return res.status(400).json({
+        message: 'The selected time slot is already taken. Please choose a different time.',
+      });
+    }
+
+    // If no conflict, create the new consultation request
     const request = new ConsultationRequest(req.body);
     await request.save();
     res.status(201).json(request);
   } catch (error) {
-    res.status(400).json({ message: 'Error creating Consultation Request', error });
+    res.status(500).json({ message: 'You have already scheduled this test ID.', error });
   }
 };
 
