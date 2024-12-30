@@ -406,16 +406,33 @@ const handleRemove = async (id: string) => {
           </label>
 
           <label className={styles.conLabel}>
-            Date
-            <input
-              className={styles.conInput}
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-              min={new Date().toISOString().split('T')[0]} // Restrict to today and future dates
-            />
-          </label>
+              Date
+              <input
+                className={styles.conInput}
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+                min={new Date().toISOString().split('T')[0]} // Restrict to today and future dates
+                style={{
+                  color: allConsultations.filter(
+                    (consultation) =>
+                      new Date(consultation.date).toISOString().split('T')[0] === date
+                  ).length >= 5
+                    ? "red"
+                    : "black", // Color the input text red if the date has 5 or more consultations
+                }}
+              />
+            </label>
+
+            {allConsultations.filter(
+              (consultation) =>
+                new Date(consultation.date).toISOString().split('T')[0] === date
+            ).length >= 5 && (
+              <p style={{ color: "red" }}>
+                This date is fully booked. Please select a different date.
+              </p>
+            )}
 
           <label className={styles.conLabel}>
             Time for Consultation <span style={{ color: "red" }}>* If Time is Red it is Reserved and Cannot be Selected *</span>
@@ -594,7 +611,14 @@ const handleRemove = async (id: string) => {
             </>
           )}
 
-          <button type="submit" className={styles.conSubmit}>
+          <button type="submit" className={styles.conSubmit}
+           disabled={
+            allConsultations.filter(
+              (consultation) =>
+                new Date(consultation.date).toISOString().split('T')[0] === date
+            ).length >= 5
+          }
+          >
             Submit
           </button>
         </form> 
