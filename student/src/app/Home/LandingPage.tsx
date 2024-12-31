@@ -3,20 +3,15 @@ import { Link } from 'react-router-dom';
 import styles from './Landing.module.scss';
 
 const LandingPage: React.FC = () => {
-  const logoText = "DiscoverU";
 
   return (
     <div className={styles.landing_page}>
 
       {/* Main Content */}
+      
       <div className={styles.content}>
-        <h1 className={styles.logo}>
-          {logoText.split('').map((letter, index) => (
-            <span key={index} style={{ '--i': index } as React.CSSProperties}>
-              {letter}
-            </span>
-          ))}
-        </h1>
+        <div className={styles.logo}>
+        </div>
         <h2 className={styles.landing_page_subheader}>
           Welcome to Your Personal Growth Journey
         </h2>
@@ -33,6 +28,7 @@ const LandingPage: React.FC = () => {
         </Link>
       </div>
     </div>
+    
   );
 };
 
