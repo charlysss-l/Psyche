@@ -1,6 +1,6 @@
 $background-color: #ffffff00;
-$font-color: #d7a52f;
-$button-bg-color: #849670;// Updated login button color
+$font-color: #2e70d3 ;
+$button-bg-color: #2e70d3;// Updated login button color
 $button-hover-bg-color: #2a3744;
 $error-color: red;
 
@@ -32,42 +32,54 @@ $error-color: red;
   align-items: center; 
   height: 100vh;
   background-color: $background-color;
-  gap: 20px; 
-  padding: 20px;
+  gap: 70px; 
+  padding: 2px 10px;
 }
 
 .imageContainer {
-  background-image: url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVzdCUyMHRha2luZ3xlbnwwfHwwfHx8MA%3D%3D');
+  background: linear-gradient(to bottom right, #050505a8, #2727279a), url('../../images/landing.jpg');
   background-size: cover;
   background-position: center;
-  height: 100vh; 
-  width: 70vw; 
+  height: 96vh; 
+  width: 60vw; 
   border-radius: 10px;
   animation: slideInFromLeft 1.5s ease-out;
 }
 
+.logoimg {
+  background-image: url('../../images/LOGOdark.png');
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+  width: 180px;
+  margin: 0 auto;
+  margin-top: 2px;
+}
+
 .loginForm {
   background-color: white;
-  padding: 40px;
+  padding: 70px;
   max-width: 400px;
   width: 100%;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  text-align: center;
+  margin-left: 60px;
+  
   font-family: Arial, Helvetica, sans-serif;
   animation: fadeIn 1.5s ease-out 0.5s; 
   animation-fill-mode: both; 
 }
 
-.loginForm_h1 {
+.welcomelog{
   font-size: 2rem;
   color: $font-color;
+  text-align: center;
 }
 
-.loginForm_h2 {
-  font-size: 1.2rem;
-  margin-top: 10px;
+.welcomelogdesc {
+  font-size: 1rem;
   color: #000000;
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .logLabel {
@@ -82,44 +94,51 @@ $error-color: red;
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 1rem;
   margin-bottom: 15px;
   box-sizing: border-box;
 }
 
 .logInput:focus {
-  border-color: #f2f2f2;
+  border-color: #7a7a7a;
   outline: none;
+  box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
 }
 
 .submitButtonLog {
   background-color: $button-bg-color; // Updated button color
   color: white;
   padding: 12px 20px;
-  border: none;
+  border: $button-bg-color solid 2px;
   border-radius: 10px;
   font-size: 1rem;
+  font-weight: bold;
   width: 100%;
   cursor: pointer;
+  margin-top: 30px;
   transition: background-color 0.3s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .submitButtonLog:hover {
-  background-color: $button-hover-bg-color;
-  color: rgb(255, 255, 255);
+  background-color: transparent;
+  border: #2e70d3 solid 2px;
+  color: $button-bg-color;
+  box-shadow: none;
 }
 
 .errorMessage {
   color: $error-color;
   font-size: 0.9rem;
   margin-top: 10px;
+  text-align: center;
 }
 .successMessage {
   color: #079107;
   font-size: 0.9rem;
   margin-top: 10px;
+  text-align: center;
 }
 
 .passwordInputContainer {
@@ -144,20 +163,20 @@ input[type="password"]::-webkit-textfield-decoration-container {
 }
 
 .Signuplink_info {
-  color: #849670;
+  color: #0c0c0c;
   font-size: 20px;
   margin-top: 20px;
 }
 
 .Signuplink {
   font-size: 17px;
-  color:  #d7a52f;
+  color:  #2e70d3;
   cursor: pointer;
 }
 
 .Signuplink:hover {
-  border-bottom: 1px solid #849670;
-  color: #849670;
+  border-bottom: 1px solid #2e70d3;
+  color: #2e70d3;
 }
 
 /* Add responsive styling for small screens */
@@ -185,16 +204,16 @@ input[type="password"]::-webkit-textfield-decoration-container {
   .loginForm {
     z-index: 1; /* Ensure the login form appears above the image */
     background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
     padding: 30px;
+    margin: auto;
     border-radius: 8px;
-    width: 90%;
+    width: 80%;
     
   }
 
   .loginForm_h1 {
     font-size: 1.5rem;
-    color: $font-color;
+    color: #2e70d3 ;
   }
   
   .loginForm_h2 {
@@ -203,14 +222,14 @@ input[type="password"]::-webkit-textfield-decoration-container {
     color: $font-color;
   }
   .Signuplink_info {
-    color: #849670;
+    color: #000000;
     font-size: 16px;
     margin-top: 20px;
   }
   
   .Signuplink {
     font-size: 14px;
-    color:  #d7a52f;
+    color:  #2e70d3;
     cursor: pointer;
   }
   
@@ -218,35 +237,45 @@ input[type="password"]::-webkit-textfield-decoration-container {
 }
 
 :global(body.dark-mode){
+  .logoimg {
+    background-image: url('../../images/LOGO.png');
+    background-size: cover;
+    background-position: center;
+    height: 150px;
+    width: 180px;
+    margin: 0 auto;
+    margin-top: 2px;
+  }
   .loginForm {
-    background-color: #2a3744ef;
+    background-color: #141313ea;
     color: white;
 
     h1{
-      color: #849670;
+      color: #2e70d3;
     }
-    h2{
-      color: #cc63b5e1 ;
+    h3{
+      color: #ffffffe1 ;
     }
     label{
       color: #ccc;
     }
     .submitButtonLog{
-      background-color: #d7a52f;
+      background-color: #2e70d3;
 
       &:hover{
-        background-color: #849670;
+        background-color: transparent;
+        border: #2e70d3 solid 2px;
       }
     }
     .Signuplink_info{
-      color: #d7a52f;
+      color: #e4e4e4  ;
     }
     .Signuplink{
-      color: #849670;
+      color: #2e70d3;
       
       &:hover{
-        border-bottom: 1px solid #ccc;
-        color: #ccc;
+        border-bottom: 1px solid #2e70d3;
+        color: #2e70d3;
       }
     }
   }
@@ -254,10 +283,12 @@ input[type="password"]::-webkit-textfield-decoration-container {
     color: rgb(189, 45, 45);
     font-size: 0.9rem;
     margin-top: 10px;
+    text-align: center;
   }
   .successMessage {
     color: #079107;
     font-size: 0.9rem;
     margin-top: 10px;
+    text-align: center;
   }
 }

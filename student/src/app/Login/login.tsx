@@ -95,13 +95,17 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.loginContainer}>
-      <div className={styles.imageContainer}></div>
+      <div className={styles.imageContainer}>
+      </div>
       <div className={styles.loginForm}>
-        <h1 className={styles.loginForm_h1}>Welcome to DiscoverU!</h1>
-        <h2 className={styles.loginForm_h2}>Login</h2>
+
+      <div className ={styles.logoimg}></div>
+        <h1 className={styles.welcomelog}>Welcome to DiscoverU!</h1>
+        <h3 className={styles.welcomelogdesc}>Login to continue access</h3>
 
         {error && <p className={styles.errorMessage}>{error}</p>}
         {successMessage && (
+          
           <p className={styles.successMessage}>{successMessage}</p>
         )}
 
