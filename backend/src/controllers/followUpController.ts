@@ -4,8 +4,8 @@ import { FollowUpSchedule } from "../models/followUpSchema";
 // Create a follow-up schedule
 export const createFollowUpSchedule = async (req: Request, res: Response) => {
   try {
-    const { userId, studentName, followUpDate, timeForConsultation, note } = req.body;
-    const newSchedule = new FollowUpSchedule({ userId, studentName, followUpDate, timeForConsultation, note });
+    const { userId, studentName, councelorName, followUpDate, timeForConsultation, note } = req.body;
+    const newSchedule = new FollowUpSchedule({ userId, studentName, councelorName, followUpDate, timeForConsultation, note });
     await newSchedule.save();
     res.status(201).json(newSchedule);
   } catch (error) {

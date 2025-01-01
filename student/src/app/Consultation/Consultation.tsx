@@ -10,6 +10,7 @@ interface Consultation {
   userId: string;
   email: string;
   studentName: string;
+  councelorName: string;
   date: string;
   testID: string;
   timeForConsultation: string;
@@ -22,6 +23,7 @@ interface FollowUpSchedule {
   _id: string;
   userId: string;
   studentName: string;
+  councelorName: string;
   followUpDate: string;
   timeForConsultation: string;
   note: string;
@@ -200,11 +202,14 @@ useEffect(() => {
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const councelorName = "pending"; // Default password
+
     try {
       const consultationRequest = {
         userId,
         email,
         studentName,
+        councelorName,
         timeForConsultation,
         note,
         testID: selectedTestID,
@@ -659,6 +664,7 @@ const handleRemove = async (id: string) => {
           <th>Test ID</th>
           <th>Note</th>
           <th>Status</th>
+          <th>Counselor Name</th>
           <th>Actions</th>
           <th>Message</th>
         </tr>
@@ -689,6 +695,7 @@ const handleRemove = async (id: string) => {
                 <td>{consultation.testID}</td>
                 <td>{consultation.note}</td>
                 <td>{consultation.status}</td>
+                <td>{consultation.councelorName}</td>
                 <td>
                   {/* Button logic */}
                   {consultation.status === "completed" ? (
@@ -743,6 +750,7 @@ const handleRemove = async (id: string) => {
         <th>Time for Consultation</th>
         <th>Note</th>
         <th>Status</th>
+        <th>Councelor Name</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -755,6 +763,7 @@ const handleRemove = async (id: string) => {
             <td>{schedule.timeForConsultation}</td>
             <td>{schedule.note}</td>
             <td>{schedule.status}</td>
+            <td>{schedule.councelorName}</td>
             <td>
               {schedule.status === "pending" ? (
                 <>

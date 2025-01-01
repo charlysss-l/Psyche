@@ -14,6 +14,7 @@ interface ConsultationRequest {
   _id: string;
   userId: string;
   studentName: string;
+  councelorName: string;
   timeForConsultation: string;
   note: string;
   date: string;
@@ -24,6 +25,7 @@ interface FollowUpSchedule {
   _id: string;
   userId: string;
   studentName: string;
+  councelorName: string;
   followUpDate: string;
   timeForConsultation: string;
   note: string;
@@ -35,10 +37,17 @@ const SchedulingCalendar: React.FC = () => {
   const [consultationRequests, setConsultationRequests] = useState<ConsultationRequest[]>([]);
   const [followUpSchedules, setFollowUpSchedules] = useState<FollowUpSchedule[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [councelorName, setCouncelorName] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [timeForConsultation, setTimeForConsultation] = useState("");
 
+  useEffect(() => {
+    const fullName = localStorage.getItem("fullName");
+    if (fullName) {
+      setCouncelorName(fullName);
+    } 
+  })
 
   useEffect(() => {
     const loadConsultationRequests = async () => {
@@ -88,6 +97,7 @@ const SchedulingCalendar: React.FC = () => {
       const response = await axios.post(`${backendUrl}/api/followup`, {
         userId,
         studentName,
+        councelorName,
         followUpDate: selectedDate?.toDateString(),
         timeForConsultation,
         note,

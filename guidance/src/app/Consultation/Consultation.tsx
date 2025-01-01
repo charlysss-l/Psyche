@@ -19,6 +19,7 @@ interface ConsultationRequest {
   userId: string;
   email: string;
   studentName: string;
+  councelorName: string;
   timeForConsultation: string;
   note: string;
   testID: string;
@@ -31,6 +32,7 @@ interface FollowUpSchedule {
   _id: string;
   userId: string;
   studentName: string;
+  councelorName: string;
   followUpDate: string;
   timeForConsultation: string;
   note: string;
@@ -63,6 +65,7 @@ const GuidanceConsultation: React.FC = () => {
   const [testDetails, setTestDetails] = useState<any>(null);  // For storing test results
   const [showTestInfo, setShowTestInfo] = useState<boolean>(false);  // To control modal visibility
   const [declineNote, setDeclineNote] = useState<string>("");
+  const [fullName, setFullName] = useState<string>("");
   const [pendingSearchTerm, setPendingSearchTerm] = useState<string>("");
   const [acceptedSearchTerm, setAcceptedSearchTerm] = useState<string>("");
   const [followUpSearchTerm, setFollowUpSearchTerm] = useState<string>("");
@@ -193,15 +196,21 @@ const GuidanceConsultation: React.FC = () => {
   const pendingRequests = filteredPendingUsers.filter((request) => request.status === "pending" || request.status === "cancelled");
   const acceptedRequests = filteredAcceptedUsers.filter((request) => request.status === "accepted" || request.status === "completed");
  
-
+  useEffect(() => {
+    const fullName = localStorage.getItem("fullName");
+    if (fullName) {
+      setFullName(fullName);
+    }
+  }, []);
   
   // Accept a consultation request
   const acceptRequest = async (id: string, userEmail: string) => {
     try {
-      await axios.put(`${API_URL}${id}/accept`);
+      const localFullName = fullName || "pending"; // Fallback if fullName is not set
+      await axios.put(`${API_URL}${id}/accept`, { fullName: localFullName });
       setConsultationRequests((prevRequests) =>
         prevRequests.map((request) =>
-          request._id === id ? { ...request, status: "accepted" } : request
+          request._id === id ? { ...request, status: "accepted", councelorName: localFullName } : request
         )
       );
       sendEmailNotification("Accepted", userEmail); // Pass the email
@@ -210,6 +219,7 @@ const GuidanceConsultation: React.FC = () => {
       console.error("Error accepting consultation request:", error);
     }
   };
+  
   
 
   // Decline a consultation request
@@ -221,7 +231,7 @@ const GuidanceConsultation: React.FC = () => {
       setConsultationRequests((prevRequests) =>
         prevRequests.map((request) =>
           request._id === decliningRequestId
-            ? { ...request, status: "declined", note: declineNote }
+            ? { ...request, status: "declined", councelorName: "N/A", note: declineNote }
             : request
         )
       );
@@ -538,67 +548,71 @@ const handleRemove = async (id: string) => {
   </div>
 </div>
 
- {/* Follow Up Requests Table */}
+{/* Follow Up Requests Table */}
 <div className={styles.tableBox}>
-<h2 className={styles.title}>Follow-Up Consultation Request
-      <div className={styles.smartWrapper}>
+  <h2 className={styles.title}>
+    Follow-Up Consultation Request
+    <div className={styles.smartWrapper}>
       <input
-              type="text"
-              placeholder="Search by User ID, Name, Date, Time, Note"
-              value={followUpSearchTerm}
-              onChange={(e) => setFollowUpSearchTerm(e.target.value)}
-              className={styles.searchInput}
-            />
-            </div>
-            
-            </h2>  <div className={styles.responsesWrapper}>
-
-  <table>
-    <thead>
-      <tr>
-        <th>User ID</th>
-        <th>Student Name</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Note</th>
-        <th>Status</th>
-        <th>Action</th>
-        <th>Message</th>
-      </tr>
-    </thead>
-    <tbody>
-      {filteredFollowUpUsers.length > 0 ? (
-        filteredFollowUpUsers
-          .map((schedule) => (
-            <tr key={schedule._id}>
-              <td>{schedule.userId}</td>
-              <td>{schedule.studentName}</td>
-              <td>{new Date(schedule.followUpDate).toLocaleDateString()}</td>
-              <td>{schedule.timeForConsultation}</td>
-              <td>{schedule.note}</td>
-              <td>{schedule.status}</td>
-              <td>
-              <button
-                  onClick={() => handleRemove(schedule._id)}
-                  className={styles.removeButton}
-                >
-                  Remove
-                </button>
-              </td>
-              <td>{schedule.message}</td>
-            </tr>
-          ))
-      ) : (
+        type="text"
+        placeholder="Search by User ID, Name, Date, Time, Note"
+        value={followUpSearchTerm}
+        onChange={(e) => setFollowUpSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
+    </div>
+  </h2>
+  <div className={styles.responsesWrapper}>
+    <table>
+      <thead>
         <tr>
-          <td colSpan={6} className={styles.noData}>
-            No pending follow-up consultation requests.
-          </td>
+          <th>User ID</th>
+          <th>Student Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Note</th>
+          <th>Status</th>
+          <th>Counselor Name</th>
+          <th>Action</th>
+          <th>Message</th>
         </tr>
-      )}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {filteredFollowUpUsers.length > 0 ? (
+          filteredFollowUpUsers
+            .filter((schedule) => schedule.councelorName === fullName) // Filter by counselor name
+            .map((schedule) => (
+              <tr key={schedule._id}>
+                <td>{schedule.userId}</td>
+                <td>{schedule.studentName}</td>
+                <td>{new Date(schedule.followUpDate).toLocaleDateString()}</td>
+                <td>{schedule.timeForConsultation}</td>
+                <td>{schedule.note}</td>
+                <td>{schedule.status}</td>
+                <td>{schedule.councelorName}</td>
+                <td>
+                  <button
+                    onClick={() => handleRemove(schedule._id)}
+                    className={styles.removeButton}
+                  >
+                    Remove
+                  </button>
+                </td>
+                <td>{schedule.message}</td>
+              </tr>
+            ))
+        ) : (
+          <tr>
+            <td colSpan={9} className={styles.noData}>
+              No pending follow-up consultation requests.
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   </div>
 </div>
+
 
 
 
@@ -636,6 +650,7 @@ const handleRemove = async (id: string) => {
         <th>Time</th>
         <th>Note</th>
         <th>Status</th>
+        <th>Councelor Name</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -667,6 +682,7 @@ const handleRemove = async (id: string) => {
               {request.status}
             </span>
           </td>
+          <td>{request.councelorName}</td>
           <td>
             <button
               className={styles.viewInfo}

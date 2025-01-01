@@ -74,12 +74,18 @@ export const getConsultationRequests = async (req: Request, res: Response) => {
 
 export const acceptConsultationRequest = async (req: Request, res: Response) => {
   try {
-    const request = await ConsultationRequest.findByIdAndUpdate(req.params.id, { status: 'accepted' }, { new: true });
+    const { fullName } = req.body;
+    const request = await ConsultationRequest.findByIdAndUpdate(
+      req.params.id,
+      { status: 'accepted', councelorName: fullName },
+      { new: true }
+    );
     res.status(200).json(request);
   } catch (error) {
-    res.status(400).json({ message: 'Error' });
+    res.status(400).json({ message: 'Error accepting consultation request' });
   }
 };
+
 
 export const declineConsultationRequest = async (req: Request, res: Response) => {
   try {
@@ -91,6 +97,7 @@ export const declineConsultationRequest = async (req: Request, res: Response) =>
       req.params.id, 
       { 
         status: 'declined', 
+        councelorName: 'N/A',
         message: note  // Update the message with the decline reason
       },
       { new: true }  // This returns the updated document
