@@ -4,7 +4,6 @@ import styles from "./studentsignup.module.scss";
 import backendUrl from "../../config";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-
 const SignupForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -24,7 +23,9 @@ const SignupForm: React.FC = () => {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let result = "";
     for (let i = 0; i < 8; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
     }
     return result;
   };
@@ -55,17 +56,21 @@ const SignupForm: React.FC = () => {
   };
 
   const validatePassword = (password: string) => {
-     // Use a broader regex that explicitly includes _ as a special character
-     const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>_\-]).{8,}$/;
-     return regex.test(password);
-   };
+    // Use a broader regex that explicitly includes _ as a special character
+    const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>_\-]).{8,}$/;
+    return regex.test(password);
+  };
 
   const evaluatePasswordStrength = (password: string) => {
     // Regex includes \W (non-word characters) or _ (explicitly checking for underscore)
     const hasSpecialChar = /[\W_]/;
     const hasUpperCase = /[A-Z]/;
-  
-    if (password.length >= 8 && hasUpperCase.test(password) && hasSpecialChar.test(password)) {
+
+    if (
+      password.length >= 8 &&
+      hasUpperCase.test(password) &&
+      hasSpecialChar.test(password)
+    ) {
       return "Strong";
     } else if (password.length >= 6 && hasUpperCase.test(password)) {
       return "Medium";
@@ -128,16 +133,13 @@ const SignupForm: React.FC = () => {
     studentNumber: string,
     userId: string
   ) => {
-    const response = await fetch(
-      `${backendUrl}/api/authStudents/signup`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, studentNumber, userId }),
-      }
-    );
+    const response = await fetch(`${backendUrl}/api/authStudents/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password, studentNumber, userId }),
+    });
 
     if (!response.ok) {
       throw new Error("Sign up failed");
@@ -147,116 +149,127 @@ const SignupForm: React.FC = () => {
   };
 
   return (
-    <div className={styles.signup_container}>
-      <h2 className={styles.signup_h2}>Sign Up</h2>
-      <form onSubmit={handleSubmit} className={styles.signup_form}>
-        <div>
-          <label className={styles.signuplabel}>
-            Email: <span className={styles.required}>*</span>
-          </label>
-          <input
-            className={styles.signupInput}
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label className={styles.signuplabel}>Student Number: *</label>
-          <input
-            className={styles.signupInput}
-            type="studentNumber"
-            value={studentNumber}
-            onChange={(e) => setStudentNumber(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-        <div className={styles.passwordRules}>
-            <p>Password must:</p>
-            <ul>
-              <p>* Be at least 8 characters long</p>
-              <p>* Contain at least one uppercase letter</p>
-              <p>* Contain at least one special character</p>
-            </ul>
+    <div className={styles.signup_page}>
+      <div className={styles.signup_container}>
+        <h2 className={styles.signup_h2}>Sign Up</h2>
+        <p className={styles.signup_p}>create your account</p>
+        <form onSubmit={handleSubmit} className={styles.signup_form}>
+          <div>
+            <label className={styles.signuplabel}>
+              Email: <span className={styles.required}>*</span>
+            </label>
+            <input
+              className={styles.signupInput}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-          <label className={styles.signuplabel}>
-            Password: <span className={styles.required}>*</span>
-          </label>
-          <div className={styles.passwordInputContainer}>
-          <input
-            className={styles.signupInput}
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => handlePasswordChange(e.target.value)}
-            required
-          />
-           <button
-              type="button"
-              className={styles.togglePasswordButton}
-              onClick={() => setShowPassword((prev) => !prev)}
-              aria-label="Toggle password visibility"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
+          <div>
+            <label className={styles.signuplabel}>Student Number: *</label>
+            <input
+              className={styles.signupInput}
+              type="studentNumber"
+              value={studentNumber}
+              onChange={(e) => setStudentNumber(e.target.value)}
+              required
+            />
           </div>
-          <div className={styles.passwordStrengthContainer}> <p>Password Strength: </p><div className={`${styles.passwordStrength} ${styles[passwordStrength.toLowerCase()]}`}>
-   <strong> {passwordStrength}</strong>
-</div></div>
-          
+          <div>
+            <label className={styles.signuplabel}>
+              Password: <span className={styles.required}>*</span>
+              <div className={styles.passwordRules}>
+                <ul>
+                  <p>* Be at least 8 characters long</p>
+                  <p>* Contain at least one uppercase letter</p>
+                  <p>* Contain at least one special character</p>
+                </ul>
+              </div>
+            </label>
+            <div className={styles.passwordInputContainer}>
+              <input
+                className={styles.signupInput}
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className={styles.togglePasswordButton}
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+            <div className={styles.passwordStrengthContainer}>
+              {" "}
+              <p>Password Strength: </p>
+              <div
+                className={`${styles.passwordStrength} ${
+                  styles[passwordStrength.toLowerCase()]
+                }`}
+              >
+                <strong> {passwordStrength}</strong>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label className={styles.signuplabel}>
+              Confirm Password: <span className={styles.required}>*</span>
+            </label>
+            <div className={styles.passwordInputContainer}>
+              <input
+                className={styles.signupInput}
+                type={showPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                style={{
+                  borderColor:
+                    confirmPassword === ""
+                      ? ""
+                      : confirmPassword === password
+                      ? "green"
+                      : "red",
+                }}
+              />
+              <button
+                type="button"
+                className={styles.togglePasswordButton}
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
+          {error && <p className={styles.errorMessage}>{error}</p>}
 
-        </div>
-        <div>
-          <label className={styles.signuplabel}>
-            Confirm Password: <span className={styles.required}>*</span>
-          </label>
-          <div className={styles.passwordInputContainer}>
-          <input
-            className={styles.signupInput}
-            type={showPassword ? "text" : "password"}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            style={{
-              borderColor:
-                confirmPassword === ""
-                  ? ""
-                  : confirmPassword === password
-                  ? "green"
-                  : "red",
-            }}
-          />
-           <button
-              type="button"
-              className={styles.togglePasswordButton}
-              onClick={() => setShowPassword((prev) => !prev)}
-              aria-label="Toggle password visibility"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
+          <div>
+            <input
+              className={styles.hidden}
+              type="text"
+              value={userId}
+              readOnly
+            />
           </div>
-        </div>
-        {error && <p className={styles.errorMessage}>{error}</p>}
-
-        <div>
-          <input
-            className={styles.hidden}
-            type="text"
-            value={userId}
-            readOnly
-          />
-        </div>
-        <button type="submit" className={styles.signupSubmit}>
-          Sign Up
-        </button>
-        <h4 className={styles.loginLink_info}>
-          Already have an account?{" "}
-          <span onClick={() => navigate("/login")} className={styles.loginLink}>
-            Log in
-          </span>
-        </h4>
-      </form>
+          <button type="submit" className={styles.signupSubmit}>
+            Sign Up
+          </button>
+          <h4 className={styles.loginLink_info}>
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate("/login")}
+              className={styles.loginLink}
+            >
+              Log in
+            </span>
+          </h4>
+        </form>
+      </div>
     </div>
   );
 };

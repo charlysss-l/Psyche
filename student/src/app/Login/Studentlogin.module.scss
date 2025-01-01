@@ -1,6 +1,6 @@
 $background-color: #ffffff00;
-$font-color: #2e70d3 ;
-$button-bg-color: #2e70d3;// Updated login button color
+$font-color: #2e70d3;
+$button-bg-color: #2e70d3; // Updated login button color
 $button-hover-bg-color: #2a3744;
 $error-color: red;
 
@@ -28,26 +28,27 @@ $error-color: red;
 
 .loginContainer {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   background-color: $background-color;
-  gap: 70px; 
+  gap: 70px;
   padding: 2px 10px;
 }
 
 .imageContainer {
-  background: linear-gradient(to bottom right, #050505a8, #2727279a), url('../../images/landing.jpg');
+  background: linear-gradient(to bottom right, #050505a8, #2727279a),
+    url("../../images/landing.jpg");
   background-size: cover;
   background-position: center;
-  height: 96vh; 
-  width: 60vw; 
+  height: 96vh;
+  width: 60vw;
   border-radius: 10px;
   animation: slideInFromLeft 1.5s ease-out;
 }
 
 .logoimg {
-  background-image: url('../../images/LOGOdark.png');
+  background-image: url("../../images/LOGOdark.png");
   background-size: cover;
   background-position: center;
   height: 150px;
@@ -62,13 +63,13 @@ $error-color: red;
   max-width: 400px;
   width: 100%;
   margin-left: 60px;
-  
+
   font-family: Arial, Helvetica, sans-serif;
-  animation: fadeIn 1.5s ease-out 0.5s; 
-  animation-fill-mode: both; 
+  animation: fadeIn 1.5s ease-out 0.5s;
+  animation-fill-mode: both;
 }
 
-.welcomelog{
+.welcomelog {
   font-size: 2rem;
   color: $font-color;
   text-align: center;
@@ -103,14 +104,14 @@ $error-color: red;
 .logInput:focus {
   border-color: #7a7a7a;
   outline: none;
-  box-shadow:rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
 }
 
 .submitButtonLog {
   background-color: $button-bg-color; // Updated button color
   color: white;
   padding: 12px 20px;
-  border: $button-bg-color solid 2px;
+  border: $button-bg-color solid 3px;
   border-radius: 10px;
   font-size: 1rem;
   font-weight: bold;
@@ -123,7 +124,7 @@ $error-color: red;
 
 .submitButtonLog:hover {
   background-color: transparent;
-  border: #2e70d3 solid 2px;
+  border: #2e70d3 solid 3px;
   color: $button-bg-color;
   box-shadow: none;
 }
@@ -170,7 +171,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
 .Signuplink {
   font-size: 17px;
-  color:  #2e70d3;
+  color: #2e70d3;
   cursor: pointer;
 }
 
@@ -197,25 +198,28 @@ input[type="password"]::-webkit-textfield-decoration-container {
     left: 0;
     width: 100%;
     height: 100%; /* Full viewport height */
-    animation: fadeIn 1.5s ;
-
+    animation: fadeIn 1.5s;
   }
 
   .loginForm {
     z-index: 1; /* Ensure the login form appears above the image */
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.9
+    ); /* Semi-transparent background */
     padding: 30px;
     margin: auto;
     border-radius: 8px;
     width: 80%;
-    
   }
 
   .loginForm_h1 {
     font-size: 1.5rem;
-    color: #2e70d3 ;
+    color: #2e70d3;
   }
-  
+
   .loginForm_h2 {
     font-size: 1rem;
     margin-top: 10px;
@@ -226,19 +230,17 @@ input[type="password"]::-webkit-textfield-decoration-container {
     font-size: 16px;
     margin-top: 20px;
   }
-  
+
   .Signuplink {
     font-size: 14px;
-    color:  #2e70d3;
+    color: #2e70d3;
     cursor: pointer;
   }
-  
-  
 }
 
-:global(body.dark-mode){
+:global(body.dark-mode) {
   .logoimg {
-    background-image: url('../../images/LOGO.png');
+    background-image: url("../../images/LOGO.png");
     background-size: cover;
     background-position: center;
     height: 150px;
@@ -250,30 +252,30 @@ input[type="password"]::-webkit-textfield-decoration-container {
     background-color: #141313ea;
     color: white;
 
-    h1{
+    h1 {
       color: #2e70d3;
     }
-    h3{
-      color: #ffffffe1 ;
+    h3 {
+      color: #ffffffe1;
     }
-    label{
+    label {
       color: #ccc;
     }
-    .submitButtonLog{
+    .submitButtonLog {
       background-color: #2e70d3;
 
-      &:hover{
+      &:hover {
         background-color: transparent;
-        border: #2e70d3 solid 2px;
+        border: #2e70d3 solid 3px;
       }
     }
-    .Signuplink_info{
-      color: #e4e4e4  ;
+    .Signuplink_info {
+      color: #e4e4e4;
     }
-    .Signuplink{
+    .Signuplink {
       color: #2e70d3;
-      
-      &:hover{
+
+      &:hover {
         border-bottom: 1px solid #2e70d3;
         color: #2e70d3;
       }
