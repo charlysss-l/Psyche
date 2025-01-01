@@ -2,7 +2,10 @@ import {Router, Request, Response} from 'express';
 import{
     loginGuidance,
     updateGuidanceUser,
-    forgotPassword
+    forgotPassword,
+    updateUserRole,
+    subGuidance,
+    getAllGuidance
 } from '../authControllers/authGuidanceController';
 
 const router = Router();
@@ -31,5 +34,29 @@ router.put('/update', async (req: Request, res: Response): Promise<void> => {
       res.status(500).json({ message: 'Internal server error' });
     }
   });
+
+  router.put('/role/update', async (req: Request, res: Response): Promise<void> => {
+    try {
+      await updateUserRole(req, res); 
+    } catch (error) {
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+  router.post('/subGuidance/create', async (req: Request, res: Response): Promise<void> => {
+      try {
+          await subGuidance(req, res);
+      } catch (error) {
+          res.status(500).json({ message: 'Internal server error' });
+      }
+  });
+
+  router.get('/guidance', async (req: Request, res: Response): Promise<void> => {
+    try {
+        await getAllGuidance(req, res);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
+    } 
+});
 
 export default router;

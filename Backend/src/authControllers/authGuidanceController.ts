@@ -22,13 +22,24 @@ export const loginGuidance = async (req: Request, res: Response): Promise<Respon
       return res.status(500).json({ message: 'JWT secret is missing' });
     }
 
-    const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
-    return res.status(200).json({ message: 'Login successful', token });
+    // Assuming your user model has a 'role' field
+    const token = jwt.sign({ userId: user._id, role: user.role }, jwtSecret, { expiresIn: '1h' });
+    
+    return res.status(200).json({
+      message: 'Login successful',
+      token,
+      role: user.role, // Send the role along with the token
+      email: user.email,
+      userId: user.userId,
+      fullName: user.fullName
+
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 // New function to handle user update without requiring userId in the request body
 export const updateGuidanceUser = async (req: Request, res: Response) => {
@@ -95,5 +106,91 @@ export const forgotPassword = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error while resetting password." });
+  }
+};
+
+
+export const updateUserRole = async (req: Request, res: Response) => {
+  const { role } = req.body;
+
+  // Extract userId from JWT token
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Authorization token missing' });
+  }
+
+  try {
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      return res.status(500).json({ message: 'JWT secret is missing' });
+    }
+
+    // Verify the token and extract userId
+    const decoded = jwt.verify(token, jwtSecret) as { userId: string };
+    const userId = decoded.userId;
+
+    // Update role
+    const updatedUser = await UserGuidance.findByIdAndUpdate(
+      userId,
+      { role }, // Update role
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'User role updated successfully', user: updatedUser });
+  } catch (error) {
+    console.error('Error updating user role:', error);
+    res.status(500).json({ message: 'Server error while updating user role' });
+  }
+};
+
+export const subGuidance = async (req: Request, res: Response): Promise<Response> => {
+  const { email, fullName, password, role, userId} = req.body;
+
+  try {
+      // Check if email or userId already exists
+      const existingGuidance = await UserGuidance.findOne({ $or: [{ email }, { userId }] });
+
+      if (existingGuidance) {
+        // Send specific errors if email or userId exists
+        if (existingGuidance.email === email) {
+            return res.status(400).json({ error: 'email_exists' }); // Correct error handling for email
+        }
+        if (existingGuidance.userId === userId) {
+            return res.status(400).json({ error: 'userId_exists' }); // Handle userId error
+        }
+    }
+    
+
+      // Hash the password and save the new student
+      const hashedPassword = await bcrypt.hash(password, 12);
+      const newGuidance = new UserGuidance({
+          email,
+          fullName,
+          password: hashedPassword,
+          role,
+          userId
+         
+      });
+
+      await newGuidance.save();
+      return res.status(201).json({ message: 'sub account created successfully' });
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+export const getAllGuidance = async (req: Request, res: Response): Promise<Response> => {
+  try {
+      const guidance = await UserGuidance.find({}, 'email userId role'); // Fetch only email and userId fields
+      return res.status(200).json(guidance);
+  } catch (error) {
+      console.error('Error fetching accounts:', error);
+      return res.status(500).json({ message: 'Server error while fetching accounts' });
   }
 };

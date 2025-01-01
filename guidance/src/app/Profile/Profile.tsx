@@ -1,17 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './Guidanceprofile.module.scss';
 import backendUrl from "../../config";
-//This component enables the "Guidance" user to update their password securely.
- //This component handles the profile management of the "Guidance" user. 
- //allow user to update their password 
- //has validation - token based authorization
+
 const Profile: React.FC = () => {
+  const [email, setEmail] = useState<string | null>(null);
+  const [fullName, setFullName] = useState<string>('');
+  const [userId, setUserId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
-  const [confirmPassword, setConfirmPassword] = useState<string>(''); // State for confirm password
- 
-//Handles the form submission for updating the password.
-//Validates if the passwords match, retrieves the authorization token, and sends a request to the backend API to update the password.
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [role, setRole] = useState<string | null>(null);
+
+  // Fetch the email and role from localStorage when the component mounts
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    const storedUserId = localStorage.getItem("userId");
+    const storedFullName = localStorage.getItem("fullName");
+    const storedRole = localStorage.getItem("role");  // Fetch the role
+
+    console.log("Fetched email from localStorage:", storedEmail); // Debugging log
+    if (storedEmail) {
+      setEmail(storedEmail); // Set email if it exists
+    } else {
+      console.log("No email found in localStorage");
+    }
+
+    if (storedUserId) {
+      setUserId(storedUserId); // Set userId if it exists
+    } else {
+      console.log("No userId found in localStorage");
+    }
+
+    if (storedFullName) {
+      setFullName(storedFullName); // Set fullName if it exists
+    } else {
+      console.log("No fullName found in localStorage");
+    }
+
+    if (storedRole) {
+      setRole(storedRole); // Set role if it exists
+    } else {
+      console.log("No role found in localStorage");
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
@@ -20,8 +52,7 @@ const Profile: React.FC = () => {
       setMessage('Passwords do not match.');
       return;
     }
-    
-    // Retrieve the token from localStorage
+
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -34,9 +65,9 @@ const Profile: React.FC = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+          'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ password }), // Only send password
+        body: JSON.stringify({ password }),
       });
 
       const result = await response.json();
@@ -56,9 +87,22 @@ const Profile: React.FC = () => {
     <div className={style.container}>
       <h2 className={style.userinfo_pr}>Guidance Profile</h2>
       <form onSubmit={handleSubmit} className={style.infoContainer}>
+
+        {role !== 'main' && (
+          <>
+            <label className={style.pr_label}>User ID:</label>
+            {/* Display userId fetched from localStorage */}
+            <p className={style.pr_input}>{userId}</p>
+
+            <label className={style.pr_label}>Name:</label>
+            {/* Display fullName fetched from localStorage */}
+            <p className={style.pr_input}>{fullName}</p>
+          </>
+        )}
+
         <label className={style.pr_label}>Email:</label>
-        {/* Display username as text, not editable */}
-        <p className={style.pr_input}>{'cvsu.guidance@gmail.com'}</p>
+        {/* Display email fetched from localStorage */}
+        <p className={style.pr_input}>{email}</p>
 
         <label className={style.passWord}>* Change Password</label>
         <input
@@ -69,7 +113,7 @@ const Profile: React.FC = () => {
           required
         />
 
-<label className={style.passWord}>* Confirm Password</label>
+        <label className={style.passWord}>* Confirm Password</label>
         <input
           type="password"
           value={confirmPassword}

@@ -11,6 +11,7 @@ import Login from './app/Login/login';
 import ThemeToggle from './darkMode/darkMode';
 import ArchiveInbox from './app/Consultation/ArchiveInbox';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import CreateAccount from './app/CreateAccount/CreateAccount';
 
 function App() {
   return (
@@ -35,6 +36,13 @@ function App() {
                       <Route path="/consultation" element={<ProtectedRoute><Consultation /></ProtectedRoute>} />
                       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                       <Route path="/archive" element={<ProtectedRoute><ArchiveInbox /></ProtectedRoute>} />
+                      <Route path="/create-account"
+                              element={
+                                <ProtectedRoute allowedRoles={['main']}>
+                                  <CreateAccount />
+                                </ProtectedRoute>
+                              }
+                            />
                       <Route path="*" element={<Navigate to="/" />} />
 
                     </Routes>

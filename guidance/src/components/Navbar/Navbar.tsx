@@ -4,16 +4,20 @@ import style from "./guidancenavbar.module.scss";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const role = localStorage.getItem("role"); // Get the role from localStorage
 
   const handleLogout = () => {
-    // Remove the token from localStorage
+    // Remove the token and user info from localStorage
     localStorage.removeItem("token");
-    localStorage.removeItem("studentId");
+    localStorage.removeItem("role");
+    localStorage.removeItem("email");
     localStorage.removeItem("userId");
+    localStorage.removeItem("fullName");
 
     // Redirect to the login page
     navigate("/login");
   };
+
   return (
     <nav className={style.studentNavbar}>
       <div className={style.logoSection}>
@@ -47,6 +51,16 @@ const Navbar = () => {
               Consultation
             </NavLink>
           </li>
+          {role === "main" && ( // Conditionally render the Accounts link if the role is "main"
+            <li className={style.navItem}>
+              <NavLink
+                to="/create-account"
+                className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+              >
+                Accounts
+              </NavLink>
+            </li>
+          )}
           <li className={style.navItem}>
             <NavLink
               to="/"

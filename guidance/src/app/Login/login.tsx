@@ -24,6 +24,10 @@ const Login: React.FC = () => {
     const token = localStorage.getItem("token");
     if (token) {
       localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      localStorage.removeItem("email");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("fullName");
     }
   }, []);
 
@@ -43,6 +47,14 @@ const Login: React.FC = () => {
       if (response.token) {
         // Store the token in localStorage or sessionStorage
         localStorage.setItem("token", response.token);
+        localStorage.setItem("role", response.role); // Save the role
+        localStorage.setItem("email", response.email);
+        localStorage.setItem("userId", response.userId);
+        localStorage.setItem("fullName", response.fullName);
+
+        console.log("Stored email in localStorage:", response.email);  // Log email
+        console.log("Stored userId in localStorage:", response.userId);  // Log userId
+
         setError(""); 
         // Show success message
         setSuccessMessage("Login successful!");
@@ -71,7 +83,7 @@ const Login: React.FC = () => {
 
   // Function to call the backend API
   const loginUser = async (email: string, password: string) => {
-        // Sends a POST request to the API with email and password as JSON payload
+    // Sends a POST request to the API with email and password as JSON payload
     const response = await fetch(`${backendURL}/api/authGuidance`, {
       method: "POST",
       headers: {
@@ -79,13 +91,17 @@ const Login: React.FC = () => {
       },
       body: JSON.stringify({ email, password }),
     });
-
+  
     if (!response.ok) {
       throw new Error("Login failed");
     }
-
-    return response.json();
+  
+    const data = await response.json();  // Capture the response data
+    console.log("Backend response:", data);  // Log the response
+  
+    return data;
   };
+  
 
   const handleForgotPassword = async () => {
         // Validate if the username is correct and if the new password is provided
