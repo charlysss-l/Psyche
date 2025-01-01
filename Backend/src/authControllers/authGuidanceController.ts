@@ -186,6 +186,7 @@ export const subGuidance = async (req: Request, res: Response): Promise<Response
 
 
 export const getAllGuidance = async (req: Request, res: Response): Promise<Response> => {
+  
   try {
       const guidance = await UserGuidance.find({}, 'email userId role'); // Fetch only email and userId fields
       return res.status(200).json(guidance);
@@ -194,3 +195,20 @@ export const getAllGuidance = async (req: Request, res: Response): Promise<Respo
       return res.status(500).json({ message: 'Server error while fetching accounts' });
   }
 };
+
+export const getGuidanceByUserId = async (req: Request, res: Response): Promise<Response> => {
+  const { userId } = req.params;
+
+  try {
+      const guidance = await UserGuidance.find({ userId }, 'email userId role'); // Fetch only email and userId fields
+      
+      if (!guidance) {
+          return res.status(404).json({ message: 'Guidance not found' });
+      }
+
+      return res.status(200).json(guidance);  
+  } catch (error) {
+      console.error('Error fetching guidance:', error);
+      return res.status(500).json({ message: 'Server error while fetching guidance' });   
+  }
+      }

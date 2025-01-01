@@ -5,7 +5,8 @@ import{
     forgotPassword,
     updateUserRole,
     subGuidance,
-    getAllGuidance
+    getAllGuidance,
+    getGuidanceByUserId
 } from '../authControllers/authGuidanceController';
 
 const router = Router();
@@ -57,6 +58,14 @@ router.put('/update', async (req: Request, res: Response): Promise<void> => {
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     } 
+});
+
+router.get('/userId/:userId', async (req: Request, res: Response): Promise<void> => {
+  try {
+      await getGuidanceByUserId(req, res);
+  } catch (error) {
+      res.status(500).json({ message: 'Internal server error' });
+  } 
 });
 
 export default router;
