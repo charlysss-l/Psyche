@@ -57,7 +57,7 @@ const Navbar = () => {
                 to="/create-account"
                 className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
               >
-                Accounts
+                Account
               </NavLink>
             </li>
           )}

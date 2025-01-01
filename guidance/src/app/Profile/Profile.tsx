@@ -93,16 +93,16 @@ const Profile: React.FC = () => {
             <label className={style.pr_label}>User ID:</label>
             {/* Display userId fetched from localStorage */}
             <p className={style.pr_input}>{userId}</p>
-
-            <label className={style.pr_label}>Name:</label>
-            {/* Display fullName fetched from localStorage */}
-            <p className={style.pr_input}>{fullName}</p>
           </>
         )}
 
         <label className={style.pr_label}>Email:</label>
         {/* Display email fetched from localStorage */}
         <p className={style.pr_input}>{email}</p>
+
+        <label className={style.pr_label}>Name:</label>
+            {/* Display fullName fetched from localStorage */}
+            <p className={style.pr_input}>{fullName}</p>
 
         <label className={style.passWord}>* Change Password</label>
         <input
