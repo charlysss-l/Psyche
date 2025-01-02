@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { fetchConsultationRequests } from "../services/consultationservice";
+import { fetchFollowUpSchedules } from "../services/followupservice";
 import styles from "./homepage.module.scss";
+import backendUrl from "../../config";
+import { Link, useNavigate } from "react-router-dom";
+
 //serves as home of guidance user.
 //It displays new consultation requests and today's scheduled consultations, 
 //while providing a link to navigate to the calendar and consultation table.
@@ -8,6 +12,9 @@ const GuidanceHome: React.FC = () => {  // State to store all consultation reque
   const [consultationRequests, setConsultationRequests] = useState<any[]>([]);
     // State to store consultations scheduled for today
   const [todayConsultations, setTodayConsultations] = useState<any[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
+  const [followUpSchedules, setFollowUpSchedules] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadConsultationRequests = async () => {
@@ -33,14 +40,48 @@ const GuidanceHome: React.FC = () => {  // State to store all consultation reque
     loadConsultationRequests();
   }, []);
 
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      try {
+        const response = await fetch(`${backendUrl}/api/authGuidance/guidance`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setUsers(data);
+
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchAllUsers();
+  }, []);
+
+   useEffect(() => {
+      const loadFollowUpSchedules = async () => {
+        try {
+          const schedules = await fetchFollowUpSchedules();
+          setFollowUpSchedules(schedules);
+        } catch (error) {
+          console.error("Error loading follow-up schedules:", error);
+        }
+      };
+      loadFollowUpSchedules();
+    }, []);
+
+
   const newConsultations = consultationRequests.filter(
     (request) => request.status === "pending"
   );
 
+  const acceptedRequests = consultationRequests.filter((request) => request.status === "accepted" || request.status === "completed");
+
+
   return (
     <div className={styles.homeContainer}>
-      {/* Header Section */}
-      <div className={styles.headerSection}>
+       {/* Header Section */}
+       <div className={styles.headerSection}>
         <h2 className={styles.welcomeTitle}>WELCOME TO DISCOVERU</h2>
         <p className={styles.welcomeMessage}>
           Get updated on student's consultation request and track your schedule here now in your calendar
@@ -52,103 +93,37 @@ const GuidanceHome: React.FC = () => {  // State to store all consultation reque
           </button>
       </div>
 
-      {/* New Consultation Request Section */}
-      <div className={styles.newConsultationSection}>
-        
-
-        {/* Table for New Consultation Requests */}
-        <div className={styles.tableBox}>
-        <h1>New Consultation Request</h1>
-        <p>{newConsultations.length} pending consultation request(s)</p>
-        <div className={styles.responsesWrapper}>
-
-          <table>
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Note</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {newConsultations.map((request) => (
-                <tr key={request._id}>
-                  <td>{request.userId}</td>
-                  <td>
-  {new Date(request.date).toLocaleDateString("en-US", {
-    month: "2-digit",
-    day: "2-digit",
-    year: "numeric",
-  })}
-</td>
-
-                  <td>{request.timeForConsultation}</td>
-                  <td>{request.note}</td>
-                  <td>
-                    <span
-                      className={`${styles.statusButton} ${
-                        request.status === "accepted" ? styles.acceptedStatus : ""
-                      }`}
-                    >
-                      {request.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-          {/* Below the table, add the link button */}
-     <div className={styles.viewConsultationContainer}>
-      <p>to Update the status of Request view consultation table</p>
-          <button
-            className={styles.viewConsultationButton}
-            onClick={() => window.location.href = '/consultation'}>
-            View Consultation Table
-          </button>
-        </div>
-        </div>
-        {/* Consultation Schedule for Today */}
-        <div className={styles.tableBox}>
-          <h2>Guidance's Consultation Schedule for Today</h2>
-          <p>{todayConsultations.length} pending consultation request(s)</p>
-          {todayConsultations.length > 0 ? (
-            <table>
-              <thead>
-                <tr>
-                  <th>User ID</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th>Note</th>
-                </tr>
-              </thead>
-              <tbody>
-                {todayConsultations.map((consultation) => (
-                  <tr key={consultation._id}>
-                    <td>{consultation.userId}</td>
-                    <td>
-  {new Date(consultation.date).toLocaleDateString("en-US", {
-    month: "2-digit",
-    day: "2-digit",
-    year: "numeric",
-  })}
-</td>
-
-                    <td>{consultation.timeForConsultation}</td>
-                    <td>{consultation.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p>No consultation for today.</p>
-          )}
-        </div>
-
-   
+      <div className={styles.mainContainer}>
+  <div className={styles.scheduleContainer}>
+    <div className={styles.cardRow}>
+      <div className={styles.schedule}>
+        <p>Total Pending Request: <br/> <span className={styles.count}>{newConsultations.length}</span> <br/></p>
       </div>
+      <div className={styles.schedule}>
+        <p>Total Accepted Request: <br/> <span className={styles.count}>{acceptedRequests.length}</span><br/></p>
+      </div>
+      <div className={styles.schedule}>
+        <p>Today Schedule: <br/> <span className={styles.count}>{todayConsultations.length}</span><br/></p>
+      </div>
+      <div className={styles.schedule}>
+        <p>Total Follow Up Schedule: <br/> <span className={styles.count}>{followUpSchedules.length}</span><br/></p>
+      </div>
+    </div>
+    <button className={styles.seeSchedule} onClick={() => navigate("/consultation")}>See Consulations Schedule</button>
+  </div>
+
+  <div className={styles.usersContainer}>
+    <div className={styles.cardRow}>
+      <div className={styles.users}>
+        <p>Total Users: <br/> <span className={styles.count}>{users.length}</span><br/></p>
+      </div>
+    </div>
+    <button className={styles.seeUsers} onClick={() => navigate("/create-account")}>See Users Account</button>
+  </div>
+</div>
+
+     
+
     </div>
   );
 };

@@ -552,6 +552,7 @@ const handleRemove = async (id: string) => {
 <div className={styles.tableBox}>
   <h2 className={styles.title}>
     Follow-Up Consultation Request
+    <p>Total Follow-up Requests: {followUpSchedules.length}</p>
     <div className={styles.smartWrapper}>
       <input
         type="text"
