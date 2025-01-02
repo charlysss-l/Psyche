@@ -18,7 +18,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(48, 48, 48, 0.514); 
     z-index: 1;
   }
 
@@ -42,19 +42,19 @@
   }
   .homeLink{
     text-decoration: none;
-    color: #d7a52f; 
+    color: #0d60dd; 
   }
   .homeLink:hover{
-    color: #59703d; 
+    color: #303030; 
     transform: translateY(-3px); 
   }
   .header {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    color: #d7a52f; 
+    color: #2e70d3; 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.829);
     animation: textFadeIn 2s ease-in-out; 
   }
 
@@ -68,11 +68,12 @@
 
   .getStartedBtn {
     padding: 1rem 2rem;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: white;
-    background-color: #d7a52f;  
-    border: none;
+    background-color: #0d60dd;  
+    border: 2px solid #0d60dd;
     border-radius: 5px;
+    font-weight: bold;
     cursor: pointer;
     text-decoration: none;
     text-align: center;
@@ -81,8 +82,8 @@
     animation: buttonFadeIn 2s ease-in-out;
 
     &:hover {
-      border: 1px solid #d7a52f;  
       background-color: transparent;  
+      color: #0d60dd;
     }
   }
 }
@@ -202,27 +203,99 @@
 }
 
 :global(body.dark-mode) {
+  .homepagestudent {
+    position: relative;
+    background: url('../../images/home.jpg');  
+    background-size: cover;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    animation: fadeInPage 1.5s ease-in-out;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(19, 19, 19, 0.651); 
+      z-index: 1;
+    }
+  
   .topHeader{
-    background-color: #6b6b6bc4;
+    background-color: #161616c4;
     
     .homeLink{
       text-decoration: none;
-      color: #849670; 
+      color: #2e70d3; 
     }
     .homeLink:hover{
-      color: #d7a52f; 
+      color: #777777; 
       transform: translateY(-3px); 
     }
   }
   .header {
-    color: #849670; 
+    color: #2e70d3; 
   }
   .getStartedBtn {
-    background-color: #849670;  
+    background-color: #0d60dd;  
 
     &:hover {
-      border: 1px solid #849670;  
       background-color: transparent; 
     }
+  }
+  }
+}
+
+@media (max-width: 768px) {
+  .homepagestudent {
+    flex-direction: column; /* Stack elements vertically */
+    padding: 1rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .header {
+    font-size: 1.8rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+
+  .getStartedBtn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .topHeader {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    font-size: 1.5rem;
+  }
+
+  .description {
+    font-size: 0.8rem;
+  }
+
+  .getStartedBtn {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .topHeader {
+    font-size: 0.9rem;
+    padding: 8px;
   }
 }
