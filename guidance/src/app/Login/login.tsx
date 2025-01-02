@@ -139,8 +139,9 @@ const Login: React.FC = () => {
     <div className={styles.loginContainer}>
       <div className={styles.imageContainer}></div>
       <div className={styles.loginForm}>
+      <div className ={styles.logoimg}></div>
         <h1 className={styles.loginForm_h1}>Welcome Back!</h1>
-        <h2 className={styles.loginForm_h2}>Login</h2>
+        <h3 className={styles.loginForm_h3}>Login to continue access</h3>
         {error && <p className={styles.errorMessage}>{error}</p>}
         {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
         <form onSubmit={handleSubmit}>
@@ -195,7 +196,7 @@ const Login: React.FC = () => {
         {resetSuccessMessage && (
           <p className={styles.successMessage}>{resetSuccessMessage}</p>
         )}
-        <label>Enter Your Old Username:</label>
+        <label>Enter your Email:</label>
         <input
           type="input"
           value={resetUsername}
@@ -221,8 +222,8 @@ const Login: React.FC = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-        <button onClick={handleForgotPassword}>Submit</button>
-        <button onClick={() => setForgotPasswordModal(false)}>Cancel</button>
+        <button onClick={handleForgotPassword} className={styles.submitforgotpass}>Submit</button>
+        <button onClick={() => setForgotPasswordModal(false)} className={styles.cancelButton}>Cancel</button>
           </div>
         </div>
       </>
