@@ -2,7 +2,7 @@ $background-color: #ffffff00;
 $font-color: #2e70d3;
 $button-bg-color: #2e70d3; // Updated login button color
 $button-hover-bg-color: #2a3744;
-$error-color: red;
+$error-color: #ce1a1a;
 
 @keyframes slideInFromLeft {
   from {
@@ -63,7 +63,6 @@ $error-color: red;
   max-width: 400px;
   width: 100%;
   margin-left: 60px;
-
   font-family: Arial, Helvetica, sans-serif;
   animation: fadeIn 1.5s ease-out 0.5s;
   animation-fill-mode: both;

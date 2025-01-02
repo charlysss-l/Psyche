@@ -30,11 +30,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80%;
+  height: 70%;
   width: 90%;
   max-width: 520px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.3rem;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   background-color: #ffffffed;
@@ -48,7 +48,7 @@
   color: #2e70d3;
   text-align: center;
   padding: 0;
-  margin: 5% 0 0 0;
+  margin: 2% 0 0 0;
 }
 .signup_p {
   margin-bottom: 10px;
@@ -237,7 +237,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
 :global(body.dark-mode) {
   .signup_container {
-    background-color: #1c1c1cec;
+    background-color: #181818ec;
     border: none;
 
     h2 {
@@ -274,5 +274,60 @@ input[type="password"]::-webkit-textfield-decoration-container {
         }
       }
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .signup_page {
+    padding: 5%;
+  }
+
+  .signup_container {
+    width: 90%;
+    padding: 0.5rem;
+  }
+
+  .signup_h2 {
+    font-size: 1.5rem;
+  }
+
+  .signup_form {
+    gap: 0.8rem;
+    max-width: 100%;
+  }
+
+  .signupInput {
+    font-size: 0.9rem;
+    width: 90%;
+  }
+
+  .signupSubmit {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup_page {
+    padding: 3%;
+  }
+
+  .signup_container {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .signup_h2 {
+    font-size: 1.2rem;
+  }
+
+  .signupInput {
+    font-size: 0.8rem;
+    width: 90%;
+  }
+
+  .signupSubmit {
+    padding: 0.5rem;
+    font-size: 0.8rem;
   }
 }

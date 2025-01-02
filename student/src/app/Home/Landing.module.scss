@@ -55,7 +55,7 @@
 
   .landing_page_description,
   .landing_page_extra_description {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: #e4e4e4; 
     max-width: 60%; 
     margin-top: 0; 
@@ -68,7 +68,7 @@
     padding: 15px 10px;
     text-decoration: none;
     background-color: #2e70d3;
-    border: #2e70d3 solid 2px;
+    border: #2e70d3 solid 3px;
     color: #fff;
     border-radius: 5px;
     text-align: center;
@@ -81,7 +81,7 @@
 
   .get_started_btn:hover {
     background-color: transparent;
-    border: #2e70d3 solid 2px;
+    border: #2e70d3 solid 3px;
     color: #2e70d3;
   }
 }
