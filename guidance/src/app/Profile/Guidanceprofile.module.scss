@@ -46,6 +46,11 @@ $message-error: #B30000;
   font-size: 1rem;
 }
 
+p {
+  text-align: center;
+  font-size: 16px;
+}
+
 .pr_input {
   width: 100%;
   padding: 10px;
@@ -55,7 +60,6 @@ $message-error: #B30000;
   font-size: 1rem;
   margin-bottom: 15px;
   box-sizing: border-box;
-  text-align: center;
 }
 
 .pr_input:focus {
