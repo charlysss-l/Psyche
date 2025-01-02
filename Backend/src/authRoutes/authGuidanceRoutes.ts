@@ -6,7 +6,9 @@ import{
     updateUserRole,
     subGuidance,
     getAllGuidance,
-    getGuidanceByUserId
+    getGuidanceByUserId,
+    deleteGuidanceByUserId,
+    updateGuidanceByUserId
 } from '../authControllers/authGuidanceController';
 
 const router = Router();
@@ -68,4 +70,19 @@ router.get('/userId/:userId', async (req: Request, res: Response): Promise<void>
   } 
 });
 
+router.delete('/delete/:userId', async (req: Request, res: Response): Promise<void> => {
+  try {
+      await deleteGuidanceByUserId(req, res);
+  } catch (error) {
+      res.status(500).json({ message: 'Internal server error' });
+  } 
+});
+
+router.put('/update/guidance/:userId', async (req: Request, res: Response): Promise<void> => {
+  try {
+      await updateGuidanceByUserId(req, res);
+  } catch (error) {
+      res.status(500).json({ message: 'Internal server error' });
+  } 
+});
 export default router;

@@ -188,7 +188,7 @@ export const subGuidance = async (req: Request, res: Response): Promise<Response
 export const getAllGuidance = async (req: Request, res: Response): Promise<Response> => {
   
   try {
-      const guidance = await UserGuidance.find({}, 'email userId role'); // Fetch only email and userId fields
+      const guidance = await UserGuidance.find({}, 'email userId role fullName'); // Fetch only email and userId fields
       return res.status(200).json(guidance);
   } catch (error) {
       console.error('Error fetching accounts:', error);
@@ -211,4 +211,52 @@ export const getGuidanceByUserId = async (req: Request, res: Response): Promise<
       console.error('Error fetching guidance:', error);
       return res.status(500).json({ message: 'Server error while fetching guidance' });   
   }
+}
+
+export const deleteGuidanceByUserId = async (req: Request, res: Response): Promise<Response> => {
+  const { userId } = req.params;
+
+  try {
+      const guidance = await UserGuidance.findOneAndDelete({ userId }); // Fetch only email and userId fields
+      
+      if (!guidance) {
+          return res.status(404).json({ message: 'Guidance not found' });
       }
+
+      return res.status(200).json(guidance);  
+  } catch (error) {
+      console.error('Error fetching guidance:', error);
+      return res.status(500).json({ message: 'Server error while fetching guidance' });   
+  }
+}
+
+export const updateGuidanceByUserId = async (req: Request, res: Response): Promise<Response> => {
+  const { userId } = req.params;
+  const { email, fullName, role } = req.body;
+
+  try {
+    // Check if the email already exists for another user
+    if (email) {
+      const existingEmail = await UserGuidance.findOne({ email, userId: { $ne: userId } });
+      if (existingEmail) {
+        return res.status(400).json({ error: 'email_exists' });
+      }
+    }
+
+    // Update the user fields
+    const updatedGuidance = await UserGuidance.findOneAndUpdate(
+      { userId },
+      { $set: { email, fullName, role } },
+      { new: true, runValidators: true } // Return the updated document and ensure validation
+    );
+
+    if (!updatedGuidance) {
+      return res.status(404).json({ message: 'Guidance not found' });
+    }
+
+    return res.status(200).json({ message: 'Guidance updated successfully', updatedGuidance });
+  } catch (error) {
+    console.error('Error updating guidance:', error);
+    return res.status(500).json({ message: 'Server error while updating guidance' });
+  }
+};
