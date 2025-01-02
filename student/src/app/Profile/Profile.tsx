@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "./page.module.scss";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import backendUrl from "../../config";
 //Retrieves user details from a backend server. 
 //Ensures all inputs are valid before submission.
@@ -17,6 +18,8 @@ const Profile: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [passwordStrength, setPasswordStrength] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
 
 
     // Function to fetch the user's profile information from the backend
@@ -46,7 +49,7 @@ const Profile: React.FC = () => {
         }
       } catch (error) {
         console.error("Error loading profile:", error);
-        setMessage("An error occurred while loading the profile.");
+        setMessage("An error occurred while loading the profile. Please ReLogin.");
       }
     };
 useEffect(() => {
@@ -178,21 +181,32 @@ useEffect(() => {
             </ul>
           </div>
           <label className={style.pr_label}>New Password</label>
+          <div className={style.passwordInputContainer}>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Enter new password"
             value={password}
             onChange={(e) => handlePasswordChange(e.target.value)}
             className={style.pr_input}
           />
+           <button
+              type="button"
+              className={style.togglePasswordButton}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
            <div className={style.passwordStrengthContainer}> <p>Password Strength: </p><div className={`${style.passwordStrength} ${style[passwordStrength.toLowerCase()]}`}>
    <strong> {passwordStrength}</strong>
 </div></div>
           <label className={style.pr_label}>
             Confirm Password: <span className={style.required}>*</span>
           </label>
+          <div className={style.passwordInputContainer}>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Confirm new password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -207,7 +221,15 @@ useEffect(() => {
                   : "red",
             }}
           />
-
+          <button
+              type="button"
+              className={style.togglePasswordButton}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
 {errorMessage && <p className={style.updateMessageError}>{errorMessage}</p>}
 
           <div className={style.buttonContainer}>

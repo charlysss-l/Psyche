@@ -209,6 +209,27 @@
   }
 }
 
+.passwordInputContainer {
+  position: relative;
+}
+
+.togglePasswordButton {
+  position: absolute;
+  right: 0px;
+  top: 37%;
+  transform: translateY(-50%);
+  background: none;
+  color: black;
+  border: none !important;
+  cursor: pointer;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}
+
 :global(body.dark-mode){
   .container {
     background-color: #2a3744ef;
