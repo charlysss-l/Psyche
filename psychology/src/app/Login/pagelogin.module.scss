@@ -1,5 +1,5 @@
 $background-color: #97212100;
-$font-color: #727272;
+$font-color: #2e70d3;
 
 @keyframes slideInFromLeft {
   from {
@@ -22,6 +22,16 @@ $font-color: #727272;
     transform: translateY(0);
   }
 }
+@keyframes modalSlideDown {
+  from {
+    transform: translate(-50%, -60%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
 
 .loginContainer {
   display: flex;
@@ -29,47 +39,62 @@ $font-color: #727272;
   align-items: center; /* Center content vertically */
   height: 100vh;
   background-color: $background-color;
-  gap: 20px; /* Add spacing between the form and the image */
-  padding: 20px;
+  gap: 70px; /* Add spacing between the form and the image */
+  padding: 1px 1px;
 }
 
 .imageContainer {
-  background-image: url("https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVzdCUyMHRha2luZ3xlbnwwfHwwfHx8MA%3D%3D");
+  background: linear-gradient(to bottom right, #050505a8, #2727279a),
+    url("../../images/landing.jpg");
+  background-size: cover;
   background-position: center;
-  height: 100vh;
-  width: 70vw;
+  height: 96vh;
+  width: 60vw;
+  margin-right: 90px; /* Add margin to the right of the image */
   border-radius: 10px;
   animation: slideInFromLeft 1.5s ease-out;
 }
 
+.logoimg {
+  background-image: url("../../images/LOGOdark.png");
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+  width: 180px;
+  margin: 0 auto;
+  margin-top: 2px;
+}
+
 .loginForm {
   background-color: white;
-  padding: 40px;
+  padding: 70px;
+  margin-right: 80px;
   max-width: 400px;
   width: 100%;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   animation: fadeIn 1.5s ease-out 0.5s;
   animation-fill-mode: both;
 }
 
+
 .loginForm_h1 {
   font-size: 2rem;
+  text-align: center;
   color: $font-color;
 }
 
-.loginForm_h2 {
-  font-size: 1.2rem;
+.loginForm_h3 {
+  font-size: 1rem;
+  text-align: center;
   margin-top: 10px;
-  color: $font-color;
+  color: black;
+  font-weight: normal;
 }
 
 .logLabel {
   display: block;
   margin: 10px 0 5px;
-  color: $font-color;
+  color: black;
   font-size: 1rem;
 }
 
@@ -77,74 +102,79 @@ $font-color: #727272;
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 1rem;
+  margin-bottom: 15px;
   box-sizing: border-box;
 
   &:focus {
-    border-color: #f2f2f2;
+    border-color: #7a7a7a;
     outline: none;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
   }
 }
 
 
 .submitButtonLog {
-  background-color: #a1a1a1;
+  background-color: #2e70d3;
   color: white;
   padding: 12px 20px;
-  border: none;
+  border: #2e70d3 solid 3px;
   border-radius: 10px;
-  margin-top: 15px;
+  margin-top: 30px;
   font-size: 1rem;
+  font-weight: bold;
   width: 100%;
   cursor: pointer;
   transition: background-color 0.3s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
   &:hover {
-    background-color: #cd97ff;
-    border: none;
-    color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+  border: #2e70d3 solid 3px;
+  color: #2e70d3;
+  box-shadow: none;
   }
 }
 
 .forgotPasswordButton {
-  background-color: #c485ff;
+  display: block; 
+  margin: 15px auto; 
+  background-color: #313131;
   color: white;
   padding: 12px 20px;
-  border: none;
+  border: #313131 solid 3px;
   border-radius: 10px;
   font-size: 1rem;
   width: 45%;
-  margin-top: 15px;
   cursor: pointer;
   transition: background-color 0.3s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
   &:hover {
-    background-color: #a1a1a1;
-    color: white;
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+    color: #313131;
+    border: #313131 solid 3px;
   }
 }
 
 .errorMessage {
-  color: red;
+  color: #ce1a1a;
   font-size: 0.9rem;
   margin-top: 10px;
+  text-align: center;
 }
 .successMessage {
   color: #079107;
   font-size: 0.9rem;
   margin-top: 10px;
+  text-align: center;
 }
 
 .modal {
   position: fixed;
-  width: 30%;
-  height: 32%;
+  width: 40%;
+  height: 45%;
   top: 50%;
   left: 50%;
   border-radius: 10px;
@@ -153,16 +183,28 @@ $font-color: #727272;
   padding: 2.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+  opacity: 0; 
+  animation: modalSlideDown 0.5s ease-out forwards;
+  
+  &.hidden {
+    display: none;
+  }
+
+  &.visible {
+    display: block;
+    animation: modalSlideDown 0.5s ease-out forwards;
+  }
 
   h3{
     text-align: center;
-    color: #c485ff;
+    color: #2e70d3;
     margin-bottom: 1rem;
   }
 
   label{
     color: black;
     margin-bottom: 4px;
+    margin-top: 20px;
   }
   .modalContent {
     display: flex;
@@ -170,22 +212,48 @@ $font-color: #727272;
 
     input {
       margin-bottom: 1rem;
-      padding: 0.5rem;
+      width: 100%;
+      padding: 0.7rem;
+      background-color: white;
       border-radius: 9px;
-    }
+      font-size: 0.9rem;
+      border: #c5c5c5 solid 1px;
 
-    button {
-      align-self: center;
-      background-color: #a1a1a1;
-      border-radius: 20px;
-      width: 60%;
-      margin-top: 10px;
-
-      &:hover {
-        background-color: #c485ff;
-        border: none;
+      &:focus {
+        border-color: #7a7a7a;
+        outline: none;
+        box-shadow: rgba(0, 0, 0, 0.411) 0px 0px 5px 0px;
       }
     }
+
+    .submitforgotpass {
+      align-self: center;
+      background-color: #2e70d3;
+      border: #2e70d3 solid 2px;
+      border-radius: 10px;
+      width: 60%;
+      margin-top: 30px;
+
+      &:hover {
+        background-color: transparent;
+        color: #2e70d3;
+      }
+    }
+
+    .cancelButton{
+      align-self: center;
+      background-color: #313131;
+      border: #313131 solid 2px;
+      border-radius: 10px;
+      width: 40%;
+      margin-top: 30px;
+
+      &:hover {
+        background-color: transparent;
+        color: #313131;
+      }
+    }
+    
 
     .passwordInputContainer {
       position: relative;
@@ -194,8 +262,8 @@ $font-color: #727272;
     .toggleConfirmPasswordButton {
       position: absolute;
       right: 0%;
-      top: 25%;
-      transform: translateY(-50%);
+      top: 30%;
+      transform: translateY(-45%);
       background: none;
       color: black;
       border: none !important;
@@ -227,8 +295,8 @@ $font-color: #727272;
 .togglePasswordButton {
   position: absolute;
   right: 0px;
-  top: 45%;
-  transform: translateY(-50%);
+  top: 1%;
+  transform: translateY(-2%);
   background: none;
   color: black;
   border: none !important;
@@ -270,7 +338,8 @@ input[type="password"]::-webkit-textfield-decoration-container {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
     padding: 30px;
     border-radius: 8px;
-    width: 90%;
+    margin-right: 0px;
+    width: 70%;
     
   }
 
@@ -286,23 +355,21 @@ input[type="password"]::-webkit-textfield-decoration-container {
   }
 
   .forgotPasswordButton {
-    background-color: #c485ff;
+    background-color: #313131;
     color: white;
     padding: 12px 20px;
-    border: none;
+    border: #313131 solid 3px;
     border-radius: 10px;
     font-size: 1rem;
-    width: 100%;
+    width: 80%;
     margin-top: 15px;
     cursor: pointer;
     transition: background-color 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   
     &:hover {
-      background-color: #a1a1a1;
-      color: white;
-      border: none;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      background-color: transparent;
+      color: #313131;
     }
   }
 
@@ -311,7 +378,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
   .modal {
     position: fixed;
     width: 65%;
-    height: 300px;
+    height: 350px;
     top: 50%;
     left: 50%;
     border-radius: 10px;
@@ -323,14 +390,14 @@ input[type="password"]::-webkit-textfield-decoration-container {
   
     h3{
       text-align: center;
-      color: #c485ff;
+      color: #2e70d3;
       margin-bottom: 1rem;
       font-size: 1.1rem;
     }
   
     label{
       color: black;
-      margin-bottom: 4px;
+      margin-bottom: 1px;
       font-size: .8rem;
     }
     .modalContent {
@@ -338,21 +405,35 @@ input[type="password"]::-webkit-textfield-decoration-container {
       flex-direction: column;
   
       input {
-        margin-bottom: 1rem;
+        margin-bottom: 0.1rem;
         padding: 0.5rem;
         border-radius: 9px;
       }
   
-      button {
+      .submitforgotpass {
         align-self: center;
-        background-color: #a1a1a1;
-        border-radius: 20px;
-        width: 60%;
-        margin-top: 10px;
+        background-color: #2e70d3;
+        border: #2e70d3 solid 2px;
+        border-radius: 10px;
+        width: 80%;
+        margin-top: 40px;
   
         &:hover {
-          background-color: #c485ff;
-          border: none;
+          background-color: transparent;
+          color: #2e70d3;
+        }
+      }
+      .cancelButton{ 
+        align-self: center;
+        background-color: #313131;
+        border: #313131 solid 2px;
+        border-radius: 10px;
+        width: 50%;
+        margin-top: 20px;
+  
+        &:hover {
+          background-color: transparent;
+          color: #313131;
         }
       }
     }
@@ -375,48 +456,72 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
 
 :global(body.dark-mode){
+  .logoimg {
+    background-image: url("../../images/LOGO.png");
+    background-size: cover;
+    background-position: center;
+    height: 150px;
+    width: 180px;
+    margin: 0 auto;
+    margin-top: 2px;
+  }
+
   .loginForm {
-    background-color: #222222;
+    background-color: #141313ea;
     
     h1{
-      color: #c485ff;
+      color: #2e70d3;
     }
 
-    h2{
-      color: #cc63b5e1;
+    h3{
+      color: #ffffffe1;
     }
 
     .logLabel{
       color: #ccc;
     }
     .submitButtonLog{
-      background-color: #c485ff;
+      background-color: #2e70d3;
 
       &:hover {
-        background-color: #9e9e9e;
+        background-color: transparent;
       }
     }
     .forgotPasswordButton{
-      background-color: #9e9e9e;
+      background-color: #6e6e6e;
+      border: #6e6e6e solid 3px;
+
 
       &:hover {
-        background-color: #c485ff;
+        background-color: transparent;
+        color: #6e6e6e;
       }
     }
   }
   .modal{
-    background-color: #222222e8;
+    background-color: #141313f3;
 
-    h3, label{
+    h3{
+      color: #2e70d3;
+    }
+    label{
       color: #9e9e9e;
     }
     button{
-      background-color: #c485ff;
+      background-color: #2e70d3;
       &:hover {
         background-color: #9e9e9e;
       }
     }
+    .cancelButton{
+      background-color: #6e6e6e;
+      border: #6e6e6e solid 2px;
 
+      &:hover {
+        background-color: transparent;
+        color: #6e6e6e;
+      }
+    }
   }
   .errorMessage {
     color: rgb(189, 45, 45);
