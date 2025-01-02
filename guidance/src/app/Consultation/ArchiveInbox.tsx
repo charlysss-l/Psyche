@@ -61,6 +61,7 @@ const ArchiveInbox = () => {
         )
       );
       alert(" restored successfully.");
+      window.location.reload();
     } catch (error) {
       console.error("Error restoring consultation:", error);
       alert("Failed to restore consultation.");

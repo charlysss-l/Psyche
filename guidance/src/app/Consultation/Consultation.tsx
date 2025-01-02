@@ -155,6 +155,8 @@ const GuidanceConsultation: React.FC = () => {
       request.studentName,
       request.note,
       request.timeForConsultation,
+      request.councelorName,
+      request.status,
       normalizedDate,
     ]
     .join(" ")
@@ -170,6 +172,7 @@ const GuidanceConsultation: React.FC = () => {
       schedule.studentName,
       schedule.note,
       schedule.timeForConsultation,
+      schedule.councelorName,
       normalizedDate,
     ]
     .join(" ")
@@ -581,7 +584,6 @@ const handleRemove = async (id: string) => {
       <tbody>
         {filteredFollowUpUsers.length > 0 ? (
           filteredFollowUpUsers
-            .filter((schedule) => schedule.councelorName === fullName) // Filter by counselor name
             .map((schedule) => (
               <tr key={schedule._id}>
                 <td>{schedule.userId}</td>
