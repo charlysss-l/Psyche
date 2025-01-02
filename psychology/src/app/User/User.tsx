@@ -122,12 +122,15 @@ const User = () => {  //Holds the list of all users fetched from the server.
                   >
                     Edit
                   </button>
-                  <button
-                    className={`${style["button-action"]} ${style["delete"]}`}
-                    onClick={() => handleDelete(user.userId, user.role)}
-                  >
-                    Delete
-                  </button>
+                  {user.role === 'Student' && (
+                    <button
+                      className={`${style["button-action"]} ${style["delete"]}`}
+                      onClick={() => handleDelete(user.userId, user.role)}
+                    >
+                      Delete
+                    </button>
+                  )}
+
                 </td>
               </tr>
             ))
