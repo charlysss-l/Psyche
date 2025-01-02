@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import style from './psychologyprofile.module.scss';
 import backendUrl from '../../config';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 //Username field is for displaying the user’s email, non-editable.
 const Profile: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>(''); // State for confirm password
   const [message, setMessage] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,23 +60,41 @@ const Profile: React.FC = () => {
         <p className={style.pr_input}>{'cvsu.psychology@gmail.com'}</p>
 
         <label className={style.passWord}>* Change Password</label>
+        <div className={style.passwordInputContainer}>
         <input
-          type="password"
-          value={password}
+            type={showPassword ? "text" : "password"}
+            value={password}
           onChange={(e) => setPassword(e.target.value)}
           className={style.pr_input}
           required
         />
-
+         <button
+              type="button"
+              className={style.togglePasswordButton}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+        </div>
         <label className={style.passWord}>* Confirm Password</label>
+        <div className={style.passwordInputContainer}>
         <input
-          type="password"
-          value={confirmPassword}
+            type={showPassword ? "text" : "password"}
+            value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           className={style.pr_input}
           required
         />
-
+         <button
+              type="button"
+              className={style.togglePasswordButton}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+        </div>
         <div className={style.buttonContainer}>
           <button type="submit" className={style.submitButton}>
             Update Password

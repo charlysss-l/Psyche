@@ -114,6 +114,28 @@ p {
 .passWord {
   color: #e23f3f;
 }
+
+.passwordInputContainer {
+  position: relative;
+}
+
+.togglePasswordButton {
+  position: absolute;
+  right: 0px;
+  top: 37%;
+  transform: translateY(-50%);
+  background: none;
+  color: black;
+  border: none !important;
+  cursor: pointer;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}
+
 :global(body.dark-mode){
   .userinfo_pr {
     color: #b072e2;
