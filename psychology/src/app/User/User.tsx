@@ -30,6 +30,9 @@ const User = () => {  //Holds the list of all users fetched from the server.
   }, []);
 
   const handleDelete = async (userId: string, role: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this user?");
+    if (!confirmDelete) return; // Exit if user cancels
+
     try {
       const response = await fetch(
         `${backendUrl}/api/allusers/users/${userId}`,
@@ -107,7 +110,7 @@ const User = () => {  //Holds the list of all users fetched from the server.
             filteredUsers.map((user) => (
               <tr key={user.userId}>
                 <td className={style.td}>{user.userId}</td>
-                <td className={style.td}>{user.studentNumber}</td>
+                <td className={style.td}>{user.studentNumber || "N/A"}</td>
                 <td className={style.td}>{user.email}</td>
                 <td className={style.td}>{user.role}</td>
                 <td className={style.td}>
