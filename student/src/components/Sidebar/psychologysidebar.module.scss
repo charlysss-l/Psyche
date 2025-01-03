@@ -93,7 +93,7 @@ $transition-duration: 0.3s;
           }
 
           &.active {
-            background-color: #d7a52f;
+            background-color: #2e70d3;
             color: $sidebar-link-color;
             font-weight: bold;
             box-shadow: 0 4px 8px $box-shadow-color;
@@ -110,7 +110,7 @@ $transition-duration: 0.3s;
 
 :global(body.dark-mode) {
   .sidebar {
-    background: linear-gradient(135deg, #677a51, #b9cca3);
+    background: #c0c0c0;
     ul {
       list-style: none;
       padding: 0;
@@ -141,7 +141,7 @@ $transition-duration: 0.3s;
           border-radius: 10px;
 
           &:hover {
-            background-color: #d7a52f;
+            background-color: #2e70d3;
             color: rgb(0, 0, 0);
           }
 
@@ -152,7 +152,7 @@ $transition-duration: 0.3s;
           }
 
           &.active {
-            background-color: #d7a52f;
+            background-color: #2e70d3;
             color: $sidebar-link-color;
             font-weight: bold;
             box-shadow: 0 4px 8px $box-shadow-color;
