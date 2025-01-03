@@ -47,6 +47,7 @@
   p {
     font-size: 1.2em;
     margin: 30px;
+    user-select: none; /* Prevents text selection */
   }
 }
 
@@ -67,6 +68,8 @@
   transition: background-color 0.3s ease;
   align-self: center; /* Center aligns the button */
   margin-top: 20px; /* Adds spacing above the button */
+  user-select: none; /* Prevents text selection */
+
 
   &:hover {
     background-color: #0056b3;
@@ -111,6 +114,8 @@
   transition: transform 0.2s, box-shadow 0.3s;
   min-height: 300px; 
   animation: fadeIn 1s ease-in-out;
+  user-select: none; /* Prevents text selection */
+
 
 
   &::before {
