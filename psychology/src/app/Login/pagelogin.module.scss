@@ -301,6 +301,12 @@ $font-color: #2e70d3;
   color: black;
   border: none !important;
   cursor: pointer;
+
+  &:hover {
+    background-color: transparent;
+    color: black;
+    border: none;
+  }
 }
 
 input[type="password"]::-ms-reveal,
