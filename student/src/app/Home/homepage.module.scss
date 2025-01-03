@@ -10,6 +10,7 @@
   text-align: center;
   margin: 0;
   animation: fadeInPage 1.5s ease-in-out;
+  user-select: none;
 
   &::before {
     content: '';
