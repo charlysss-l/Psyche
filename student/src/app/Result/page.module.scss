@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
 .ResultContent {
   display: flex;
@@ -7,8 +7,8 @@
   align-items: center;
   padding: 20px;
 
-  h1{
-    color: #d7a52f;
+  h1 {
+    color: black;
   }
 }
 
@@ -20,41 +20,45 @@
   justify-content: center;
 }
 
-.TestPF_res, .iqLinkContainer_res {
-  background-color: #ffffff;
-  width: 800px;
-  height: 120px;
+.TestPF_res,
+.iqLinkContainer_res {
+  background-color: transparent;
+  width: 400px;
+  height: 200px;
   border-radius: 12px;
-  box-shadow: 0 6px 12px #E9E9E9;
+  border: #000000 2px solid;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   position: relative;
   margin-top: 20px;
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: center;
-  background: linear-gradient(120deg, #849670, #e0f1cd);
+
+  :hover {
+    background-color: #2e70d3;
+  }
 }
 
 :global(body.dark-mode) {
-  .ResultContent h1{
-    color: #d7a52f;
+  .ResultContent h1 {
+    color: #b4b4b4;
   }
-  .TestPF_res, .iqLinkContainer_res {
-    background: linear-gradient(135deg, #98d172, #000000);
-    box-shadow: 0 6px 12px #000000;
+  .TestPF_res,
+  .iqLinkContainer_res {
+    background: transparent;
+    border: #b4b4b4 2px solid;
 
+    :hover {
+      cursor: pointer;
+      color: #000000;
+      background-color: #2e70d3;
+    }
   }
 }
-
-.TestPF_res:hover, .iqLinkContainer_res:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  transform: translateY(-10px);
-  cursor: pointer;
-  background-color: #e6e6e6;
-}
-
-.pfLink_res, .iqLink_res {
+.pfLink_res,
+.iqLink_res {
   color: #1c1c1c;
   text-decoration: none;
   width: 100%;
@@ -62,20 +66,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 1.5px;
   text-align: center;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.pfLink_res:hover, .iqLink_res:hover {
-  color: black;
-  text-shadow: 0 3px 6px rgba(236, 211, 20, 0.785); 
-  transition: color 0.3s ease;
+.pfLink_res:hover,
+.iqLink_res:hover {
+  color: #ffffff;
+  transform: scale(1.05);
 }
 
-.pfLink_res span, .iqLink_res span {
+.pfLink_res span,
+.iqLink_res span {
   position: relative;
   z-index: 1;
   text-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
