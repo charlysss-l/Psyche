@@ -26,6 +26,7 @@ $test-size: 400px;
   flex-direction: column;
   align-items: center;
   padding: $padding-size;
+  user-select: none;
 
   h1 {
     color: #000000;
@@ -82,7 +83,7 @@ $test-size: 400px;
     border: #b4b4b4 solid 2px;
 
     :hover {
-      background: #2e70d3;
+      background: #2a61b4;
       color: #000000;
       border: #2e70d3 solid 2px;
     }
