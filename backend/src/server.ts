@@ -19,6 +19,7 @@ import { updateInterpretationBySpecificId } from './controllers/IQTestController
 import omrIQRoutes from './routes/omrIQRoutes';
 import omrPFRoutes from './routes/omrPFRoutes';
 import textDisplayRoutes from './routes/textDisplayRoutes';
+import OnlineConsultRoutes from './routes/OnlineConsultRoutes';
 import axios from 'axios';
 
 
@@ -68,6 +69,8 @@ app.use('/api/authGuidance', authGuidanceRoutes);
 app.use('/api/authStudents', authStudentsRoutes);
 
 app.use('/api/allusers', userRoutes);
+
+app.use('/api/onlineconsult', OnlineConsultRoutes);
 
 
 // Example of calling the Python service

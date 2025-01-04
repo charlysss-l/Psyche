@@ -1,5 +1,20 @@
 import express, { Request, Response } from 'express';
-import { createConsultationRequest, getConsultationRequestsById, restoreConsultationRequest, getArchivedConsultations, getArchivedConsultationsByUserID, markConsultationRequestAsDone, archiveConsultationRequest, acceptConsultationRequest, deleteConsultationRequest, getConsultationRequests, getConsultationRequestsByUserID, cancelConsultationRequest, declineConsultationRequest, deleteConsultationRequestById  } from '../controllers/consultationcontroller';
+import { createConsultationRequest, 
+  getConsultationRequestsById, 
+  restoreConsultationRequest, 
+  getArchivedConsultations, 
+  getArchivedConsultationsByUserID, 
+  markConsultationRequestAsDone, 
+  archiveConsultationRequest, 
+  acceptConsultationRequest, 
+  deleteConsultationRequest, 
+  getConsultationRequests, 
+  getConsultationRequestsByUserID, 
+  cancelConsultationRequest, 
+  declineConsultationRequest, 
+  deleteConsultationRequestById
+} from '../controllers/consultationcontroller';
+import { get } from 'http';
 
 const router = express.Router();
 
@@ -57,4 +72,5 @@ router.put('/:id/decline', async (req: Request, res: Response) => {
 });
 
 router.put('/restore/:testID', restoreConsultationRequest);
+
 export default router;

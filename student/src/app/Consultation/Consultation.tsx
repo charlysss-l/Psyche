@@ -713,11 +713,10 @@ const handleRemove = async (id: string) => {
                 <td>{consultation.testID}</td>
                 <td>{consultation.note}</td>
                 <td>{consultation.councelorName}</td>
-                <td>
-                    {consultation.consultationType}
+                <td>{consultation.consultationType}
                     {consultation.consultationType === "Online" && (
                       <button
-                        className={styles.viewButton}
+                        className={`${styles.viewButton} ${consultation.status !== "accepted" ? styles.disabledButton : ""}`}
                         onClick={() => {
                           if (consultation.status === "accepted") {
                             window.location.href = "/online-consultation";

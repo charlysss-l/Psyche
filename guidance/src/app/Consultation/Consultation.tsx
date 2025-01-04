@@ -20,6 +20,7 @@ interface ConsultationRequest {
   email: string;
   studentName: string;
   councelorName: string;
+  consultationType: string;
   timeForConsultation: string;
   note: string;
   testID: string;
@@ -497,6 +498,7 @@ const handleRemove = async (id: string) => {
         <th>Student Name</th>
         <th>Date</th>
         <th>Time</th>
+        <th>Consultation Type</th>
         <th>Note</th>
         <th>Status</th>
         <th>Action</th>
@@ -519,6 +521,7 @@ const handleRemove = async (id: string) => {
             })}
           </td>
           <td>{request.timeForConsultation}</td>
+          <td>{request.consultationType}</td>
           <td>{request.note}</td>
           <td>
             <span className={`${styles.statusButton}`}>

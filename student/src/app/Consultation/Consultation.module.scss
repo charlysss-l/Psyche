@@ -12,6 +12,8 @@ $border-dark: #2c2c2c;
   justify-content: space-between;
   padding: 20px;
   gap: 20px;
+  user-select: none;
+
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -305,7 +307,7 @@ select {
 }
 
 .viewButton {
-  background-color: #2A3744;
+  background-color: #0C4C78;
   color: white;
   border: none;
   padding: 9px 16px;
@@ -318,6 +320,12 @@ select {
   color: black;
   border: 1px solid #2A3744;
 }
+
+.disabledButton {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 
 :global(body.dark-mode){
   .consulForm {
