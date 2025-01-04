@@ -15,7 +15,7 @@ $bg-color-yellow: #FFD35A;
 $bg-color-red: #FFD35A;
 
 $bg-color-dark-gray-2: #AF1740;
-$bg-color-black-overlay: rgba(0, 0, 0, 0.5);
+$bg-color-black-overlay: rgba(0, 0, 0, 0.7);
 
 $bg-light: #F5F5F5; /* Light grey background */
 $font-light: #F5F5F5; /* Black font color */
@@ -313,7 +313,64 @@ button {
   margin-top: 20px;
 }
 
-/* Table Styling for Test Information Modal */
+.followUpModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $bg-color-black-overlay;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  padding: 20px; /* Optional: Adds padding around the modal */
+}
+
+.followUpModalContent {
+  border-radius: $border-radius;
+  background-color: $bg-color-gray;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 90%;
+  max-height: 90vh; /* Ensures content does not exceed 90% of the viewport height */
+  overflow-y: auto; /* Adds scroll for overflowing content */
+  z-index: 10;
+}
+
+/* Optional: View Button */
+.viewButton {
+  padding: 10px 20px;
+  background-color: #567fd6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.viewButton:hover {
+  background-color: transparent;
+  color: black;
+  border: 1px solid  #567fd6b7 ;
+}
+
+
+.testInfoModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $bg-color-black-overlay;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  padding: 20px; /* Optional: Adds padding around the modal */
+}
+
 .testInfoModalContent {
   border-radius: $border-radius;
   background-color: $bg-color-light-gray;
@@ -321,7 +378,12 @@ button {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 50%;
+  max-height: 90vh; /* Ensures content does not exceed 90% of the viewport height */
+  overflow-y: auto; /* Adds scroll for overflowing content */
+  z-index: 10;
 }
+
 
 .testInfoTable {
   width: 100%;
@@ -488,6 +550,22 @@ button {
 .smartWrapper {
   display: flex; /* Arrange buttons in a row */
   width: 320px;
+}
+
+// today schedule message
+.noScheduleWrapper {
+  display: flex; /* Arrange buttons in a column */
+  flex-direction: column;
+  align-items: center;
+}
+
+.noScheduleMessage { 
+  font-size: 1.5rem;
+  padding: 30px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 400px;
 }
 
 :global(body.dark-mode) {

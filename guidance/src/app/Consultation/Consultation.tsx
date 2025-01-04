@@ -71,6 +71,7 @@ const GuidanceConsultation: React.FC = () => {
   const [followUpSearchTerm, setFollowUpSearchTerm] = useState<string>("");
   const [showDeclineModal, setShowDeclineModal] = useState<boolean>(false);
   const [decliningRequestId, setDecliningRequestId] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState<string>("");
   const [showArchived, setShowArchived] = useState(false);  // State to toggle the archive list visibility
   const toggleArchivedList = () => {
@@ -100,6 +101,10 @@ const GuidanceConsultation: React.FC = () => {
     };
     loadFollowUpSchedules();
   }, []);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   // Fetch test details based on testID
   const fetchTestDetails = async (testID: string, note: string) => {
@@ -551,71 +556,6 @@ const handleRemove = async (id: string) => {
   </div>
 </div>
 
-{/* Follow Up Requests Table */}
-<div className={styles.tableBox}>
-  <h2 className={styles.title}>
-    Follow-Up Consultation Request
-    <p>Total Follow-up Requests: {followUpSchedules.length}</p>
-    <div className={styles.smartWrapper}>
-      <input
-        type="text"
-        placeholder="Search by User ID, Name, Date, Time, Note"
-        value={followUpSearchTerm}
-        onChange={(e) => setFollowUpSearchTerm(e.target.value)}
-        className={styles.searchInput}
-      />
-    </div>
-  </h2>
-  <div className={styles.responsesWrapper}>
-    <table>
-      <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Student Name</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Note</th>
-          <th>Status</th>
-          <th>Counselor Name</th>
-          <th>Action</th>
-          <th>Message</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredFollowUpUsers.length > 0 ? (
-          filteredFollowUpUsers
-            .map((schedule) => (
-              <tr key={schedule._id}>
-                <td>{schedule.userId}</td>
-                <td>{schedule.studentName}</td>
-                <td>{new Date(schedule.followUpDate).toLocaleDateString()}</td>
-                <td>{schedule.timeForConsultation}</td>
-                <td>{schedule.note}</td>
-                <td>{schedule.status}</td>
-                <td>{schedule.councelorName}</td>
-                <td>
-                  <button
-                    onClick={() => handleRemove(schedule._id)}
-                    className={styles.removeButton}
-                  >
-                    Remove
-                  </button>
-                </td>
-                <td>{schedule.message}</td>
-              </tr>
-            ))
-        ) : (
-          <tr>
-            <td colSpan={9} className={styles.noData}>
-              No pending follow-up consultation requests.
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </table>
-  </div>
-</div>
-
 
 
 
@@ -628,6 +568,9 @@ const handleRemove = async (id: string) => {
     >
       Archive List
     </button>
+    <button onClick={toggleModal} className={styles.viewButton}>
+        View Follow-Up Schedule List
+      </button>
       <div className={styles.smartWrapper}>
         
       <input
@@ -643,7 +586,6 @@ const handleRemove = async (id: string) => {
  
   
   <div className={styles.responsesWrapper}>
-
   <table>
     <thead>
       <tr>
@@ -721,6 +663,89 @@ const handleRemove = async (id: string) => {
   </div>
 </div>
 
+{/* today schedule */}
+<div className={styles.tableBox}>
+  <h3>Today's Scheduled Requests</h3>
+  {acceptedRequests.filter((request) => {
+    const today = new Date();
+    const requestDate = new Date(request.date);
+    return (
+      requestDate.toDateString() === today.toDateString() &&
+      request.status === "accepted"
+    );
+  }).length === 0 ? (
+    <div className={styles.noScheduleWrapper}>
+    <p className={styles.noScheduleMessage}>No scheduled requests for today.</p>
+  </div>
+  ) : (
+    <table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Student Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Note</th>
+          <th>Status</th>
+          <th>Counselor Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <div className={styles.responsesWrapper}>
+        <tbody>
+          {acceptedRequests
+            .filter((request) => {
+              const today = new Date();
+              const requestDate = new Date(request.date);
+              return (
+                requestDate.toDateString() === today.toDateString() &&
+                request.status === "accepted"
+              );
+            })
+            .map((request) => (
+              <tr key={request._id}>
+                <td>{request.userId}</td>
+                <td>{request.studentName}</td>
+                <td>
+                  {new Date(request.date).toLocaleDateString("en-US", {
+                    month: "2-digit",
+                    day: "2-digit",
+                    year: "numeric",
+                  })}
+                </td>
+                <td>{request.timeForConsultation}</td>
+                <td>{request.note}</td>
+                <td>
+                  <span
+                    className={`${styles.statusButton} ${styles.acceptedStatus}`}
+                  >
+                    {request.status}
+                  </span>
+                </td>
+                <td>{request.councelorName}</td>
+                <td>
+                  <button
+                    className={styles.viewInfo}
+                    onClick={() => handleViewInfo(request.testID, request.note)}
+                  >
+                    View Info
+                  </button>
+                  {request.status !== "completed" && (
+                    <button
+                      className={styles.markDone}
+                      onClick={() => handleMarkAsDone(request._id)}
+                    >
+                      Mark as Done
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </div>
+    </table>
+  )}
+</div>
 
 
 
@@ -905,6 +930,79 @@ const handleRemove = async (id: string) => {
   </div>
 )}
 
+{isModalOpen && (
+        <div className={styles.followUpModal}>
+          <div className={styles.followUpModalContent}>
+{/* Follow Up Requests Table */}
+<div className={styles.tableBox}>
+  <h2 className={styles.title}>
+    Follow-Up Consultation Request
+    <p>Total Follow-up Requests: {followUpSchedules.length}</p>
+    <div className={styles.smartWrapper}>
+      <input
+        type="text"
+        placeholder="Search by User ID, Name, Date, Time, Note"
+        value={followUpSearchTerm}
+        onChange={(e) => setFollowUpSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
+    </div>
+  </h2>
+  <div className={styles.responsesWrapper}>
+    <table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Student Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Note</th>
+          <th>Status</th>
+          <th>Counselor Name</th>
+          <th>Action</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredFollowUpUsers.length > 0 ? (
+          filteredFollowUpUsers
+            .map((schedule) => (
+              <tr key={schedule._id}>
+                <td>{schedule.userId}</td>
+                <td>{schedule.studentName}</td>
+                <td>{new Date(schedule.followUpDate).toLocaleDateString()}</td>
+                <td>{schedule.timeForConsultation}</td>
+                <td>{schedule.note}</td>
+                <td>{schedule.status}</td>
+                <td>{schedule.councelorName}</td>
+                <td>
+                  <button
+                    onClick={() => handleRemove(schedule._id)}
+                    className={styles.removeButton}
+                  >
+                    Remove
+                  </button>
+                </td>
+                <td>{schedule.message}</td>
+              </tr>
+            ))
+        ) : (
+          <tr>
+            <td colSpan={9} className={styles.noData}>
+              No pending follow-up consultation requests.
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+          </div>
+        </div>
+        <button onClick={toggleModal} className={styles.closeInfo}>
+              Close
+            </button>
+      </div>
+    </div>
+  )}
 
     </div>
   );
