@@ -5,6 +5,7 @@ interface IConsultationRequest extends Document {
   email: string;
   studentName: string;
   councelorName: string;
+  consultationType: string;
   timeForConsultation: string;
   testID: string;
   note: 'IQ Test (Online)' | 'IQ Test (Physical)' | 'Personality Test (Online)' | 'Personality Test (Physical)' | 'Others';
@@ -33,6 +34,10 @@ const ConsultationRequestSchema: Schema = new Schema({
     required: true,
   },
   councelorName: {
+    type: String,
+    required: true,
+  },
+  consultationType: {
     type: String,
     required: true,
   },

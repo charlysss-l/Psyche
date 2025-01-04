@@ -304,6 +304,21 @@ select {
 
 }
 
+.viewButton {
+  background-color: #2A3744;
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.viewButton:hover {
+  transform: scale(1.05);
+  background-color: transparent;
+  color: black;
+  border: 1px solid #2A3744;
+}
+
 :global(body.dark-mode){
   .consulForm {
     background: linear-gradient(135deg, #2a3744ef, #2a3744ef);

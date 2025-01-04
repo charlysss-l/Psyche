@@ -6,6 +6,7 @@ import Home from "./app/Home/Home";
 import Test from "./app/Test/Test";
 import Result from "./app/Result/Result";
 import Consultation from "./app/Consultation/Consultation";
+import OnlineConsult from "./app/Consultation/OnlineConsult/OnlineConsult";
 import StudentDashboard from "./app/Survey/surveyList";
 import Profile from "./app/Profile/Profile";
 import OMR from "./app/OMR/OMR";
@@ -66,6 +67,7 @@ function App() {
                       <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />
                       <Route path="/result" element={<ProtectedRoute><Result /></ProtectedRoute>} />
                       <Route path="/consultation" element={<ProtectedRoute><Consultation /></ProtectedRoute>} />
+                      <Route path="/online-consultation" element={<ProtectedRoute><OnlineConsult /></ProtectedRoute>} />
                       <Route path="/archive" element={<ProtectedRoute><ArchiveInbox /></ProtectedRoute>} />
                       <Route path="/surveyDashboard" element={<ProtectedRoute><StudentDashboard /></ProtectedRoute>} />
                       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
@@ -86,7 +88,7 @@ function App() {
                       <Route path="/intro-iq" element={<ProtectedRoute><IntroIQ /></ProtectedRoute>} />
                       <Route path="/allomr" element={<ProtectedRoute><AllOMR /></ProtectedRoute>} />
                       <Route path="/iqomr" element={<ProtectedRoute><IqOMR /></ProtectedRoute>} />
-                      <Route path="/iqomrresult" element={<ProtectedRoute><OmrResult /></ProtectedRoute>} />
+                      <Route path="/iqomrresult" element={<ProtectedRoute><OMRResult /></ProtectedRoute>} />
                       <Route path="/pfomr" element={<ProtectedRoute><PfOMR /></ProtectedRoute>} />
                       <Route path="/pfomrresult" element={<ProtectedRoute><OmrResult /></ProtectedRoute>} />
                       <Route path="/survey-details/:surveyId" element={<ProtectedRoute><SurveyDetails /></ProtectedRoute>} />

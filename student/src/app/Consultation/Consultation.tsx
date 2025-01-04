@@ -13,6 +13,7 @@ interface Consultation {
   councelorName: string;
   date: string;
   testID: string;
+  consultationType: string;
   timeForConsultation: string;
   note: string;
   status: string;
@@ -41,6 +42,7 @@ const USERPFOMRE_URL = `${backendUrl}/api/omr16pf/`
 const ConsultationRequestForm: React.FC = () => {
   const [userId, setUserID] = useState("");
   const [timeForConsultation, setTimeForConsultation] = useState("");
+  const [consultationType, setConsultationType] = useState("");
   const [note, setNote] = useState<"IQ Test (Online)" | "IQ Test (Physical)" | "Personality Test (Physical)" | "Personality Test (Online)" | "Others" | "">("");
   const [testIDs, setTestIDs] = useState<string[]>([]); // To store fetched test IDs
   const [selectedTestID, setSelectedTestID] = useState<string>(""); // For selected test ID
@@ -210,6 +212,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         email,
         studentName,
         councelorName,
+        consultationType,
         timeForConsultation,
         note,
         testID: selectedTestID,
@@ -408,6 +411,20 @@ const handleRemove = async (id: string) => {
               onChange={(e) => setStudentName(e.target.value)}
               required
             />
+          </label>
+
+          <label className={styles.conLabel}>
+            Consultaion Type
+            <select
+              className={styles.conInput}
+              value={consultationType}
+              onChange={(e) => setConsultationType(e.target.value)}
+              required
+            >
+              <option value="">Select Consultation Type</option>
+              <option value="Online">Online</option>
+              <option value="F2F">Face To Face</option>
+            </select> 
           </label>
 
           <label className={styles.conLabel}>
@@ -663,8 +680,9 @@ const handleRemove = async (id: string) => {
           <th>Time for Consultation</th>
           <th>Test ID</th>
           <th>Note</th>
-          <th>Status</th>
           <th>Counselor Name</th>
+          <th>Consultation Type</th>
+          <th>Status</th>
           <th>Actions</th>
           <th>Message</th>
         </tr>
@@ -694,8 +712,27 @@ const handleRemove = async (id: string) => {
                 <td>{consultation.timeForConsultation}</td>
                 <td>{consultation.testID}</td>
                 <td>{consultation.note}</td>
-                <td>{consultation.status}</td>
                 <td>{consultation.councelorName}</td>
+                <td>
+                    {consultation.consultationType}
+                    {consultation.consultationType === "Online" && (
+                      <button
+                        className={styles.viewButton}
+                        onClick={() => {
+                          if (consultation.status === "accepted") {
+                            window.location.href = "/online-consultation";
+                          } else {
+                            alert("The consultation is not yet accepted. Wait for the counselor to accept the request.");
+                          }
+                        }}
+                      >
+                        View Online Consultation
+                      </button>
+                    )}
+                  </td>
+
+
+                <td>{consultation.status}</td>
                 <td>
                   {/* Button logic */}
                   {consultation.status === "completed" ? (
@@ -723,7 +760,7 @@ const handleRemove = async (id: string) => {
                     </button>
                   )}
                 </td>
-                <td>{consultation.message}</td>
+                <td>{consultation.message} </td>
               </tr>
             ))
         ) : (
