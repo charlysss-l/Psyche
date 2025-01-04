@@ -456,20 +456,26 @@ const handleRemove = async (id: string) => {
   return (
     <div>
     <div className={styles.statusBoxContainer}>
+    <div className={styles.pendingBox}>
+        <h3>Pending Requests</h3>
+        <p>{pendingRequests.length}</p>
+      </div>
       <div className={styles.acceptedBox}>
         <h3>Accepted Requests</h3>
         <p>{acceptedRequests.length}</p>
       </div>
-      <div className={styles.pendingBox}>
-        <h3>Pending Requests</h3>
-        <p>{pendingRequests.length}</p>
-      </div>
+      
     </div>
 
     {/* Pending Requests Table */}
 <div className={styles.tableBox}>
 <h2 className={styles.title}>Pending Consultation Request
+
+<button onClick={toggleModal} className={styles.viewButton}>
+        View Follow-Up Schedule List
+      </button>
       <div className={styles.smartWrapper}>
+        
       <input
               type="text"
               placeholder="Search by User ID, Name, Date, Time, Note"
@@ -568,9 +574,7 @@ const handleRemove = async (id: string) => {
     >
       Archive List
     </button>
-    <button onClick={toggleModal} className={styles.viewButton}>
-        View Follow-Up Schedule List
-      </button>
+   
       <div className={styles.smartWrapper}>
         
       <input
