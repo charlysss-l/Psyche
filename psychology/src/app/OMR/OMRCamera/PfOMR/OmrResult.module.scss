@@ -8,10 +8,10 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
 $font-family: Arial, sans-serif;
 
 .formTest {
-  background-color: #dad8d8;
+  background-color: #fffdfd;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 30%;
   display: flex;
   flex-direction: column;
@@ -22,6 +22,15 @@ $font-family: Arial, sans-serif;
   left: 50%;
   top: 25%;
   transform: translate(-50%, 0%);
+
+  h1 {   // Color for the header text (SAMPLE IQ TEST)
+    font-size: 2rem;
+    margin-bottom: 20px;
+    justify-self: center;
+    font-family: $font-family; 
+    color:#141414;
+  
+  }
 }
 
 // Container for the form
@@ -36,15 +45,7 @@ $font-family: Arial, sans-serif;
 }
 
 // Header for the form (SAMPLE IQ TEST)
-h1 {
-  color: $header-text-color;     // Color for the header text (SAMPLE IQ TEST)
-  font-size: 2rem;
-  margin-bottom: 20px;
-  justify-self: center;
-  font-family: $font-family; 
-  color:#5e2792;
 
-}
 
 .ageWarning {
   color: #e62f2f;
@@ -228,18 +229,18 @@ li {
   background-color: darken($primary-color, 10%); /* Darker shade on hover */
 }
 
-button {
-  padding: 10px 20px;
+.submitres {
+  padding: 10px 60px;
   font-size: 16px;
-  border: none;
+  border: 2px solid #2e70d3;
   cursor: pointer;
-  background-color: #5e2792;
+  background-color: #2e70d3;
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
     background-color: transparent; 
-    color: #5e2792;
-    border: 1px solid #5e2792;
+    color: #2e70d3;
+    border: 2px solid #2e70d3;
   } &:disabled {
       background-color: #ccc;
       cursor: not-allowed;
@@ -268,24 +269,25 @@ button {
 }
 :global(body.dark-mode){
   .formTest {
-    background-color: #302f30;
+    background-color: #1f1f1f5d;
     h1{
-      color: #b072e2;
+      color: #b4b4b4;
     }
     p{
       color: #e23f3f;
     }
-    h3{
-      color: #b072e2;
+    h3{ 
+      color: #2a61b4;
     }
     button{
-      background-color: #b072e2;
+      background-color: #2a61b4;
       color: #dad8d8;
+      border: 2px solid  #2a61b4;
 
       &:hover {
         background-color: transparent;
-        color: #b072e2;
-        border: 1px solid  #b072e2;
+        color: #2a61b4;
+        border: 2px solid  #2a61b4;
       }
     }
   }
