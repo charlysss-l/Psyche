@@ -500,7 +500,7 @@ const IqOMR: React.FC = () => {
   
         {omrScore !== null && (
           <div>
-            <h3>OMR Score: {omrScore}</h3>
+            <h3 className={styles.omrscoreres}>OMR Score: {omrScore}</h3>
             <button onClick={handleSaveScore} className={styles.saveScoreButton}>
             Send To The User
             </button>

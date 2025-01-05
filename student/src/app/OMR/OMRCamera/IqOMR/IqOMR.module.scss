@@ -164,7 +164,8 @@
     .fileInput {
       margin-top: 20px;
       display: block;
-      background-color: #444;
+      background-color: #666;
+      border: 1px solid  #666;
       color: white;
       padding: 10px 15px;
       border-radius: 5px;
@@ -172,7 +173,7 @@
       transition: background-color 0.3s ease;
   
       &:hover {
-        background-color: #666;
+        background-color: transparent;
       }
     }
   }

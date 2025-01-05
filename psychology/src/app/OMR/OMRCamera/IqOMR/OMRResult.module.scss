@@ -8,7 +8,7 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
 $font-family: Arial, sans-serif;
 
 .formTest {
-  background-color:#dad8d8;
+  background-color:#fffdfd;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -42,7 +42,7 @@ h1 {
   margin-bottom: 20px;
   justify-self: center;
   font-family: $font-family; 
-  color:#5e2792;
+  color:#141414;
 
 }
 
@@ -233,17 +233,18 @@ button {
   font-size: 16px;
   border: none;
   cursor: pointer;
-  background-color: #5e2792;
+  border: 2px solid #2e70d3;
+  background-color: #2e70d3;
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
     background-color: transparent; 
-    color: #5e2792;
-    border: 1px solid #5e2792;
+    color: #2e70d3;
+    border: 2px solid #2e70d3;
   }
 
   &:disabled {
-    background-color: #5e2792;
+    background-color: #ccc;
       cursor: not-allowed;
   }
 }
@@ -271,25 +272,26 @@ button {
 
 :global(body.dark-mode){
   .formTest {
-    background-color: #302f30;
+    background-color: #1f1f1f5d;
 
     h1{
-      color: #b072e2;
+      color: #b4b4b4;
     }
     p{
       color: #e23f3f;
     }
     h3{
-      color: #b072e2;
+      color: #2a61b4;
     }
     button{
-      background-color: #b072e2;
+      background-color: #2a61b4;
       color: #dad8d8;
+      border: 2px solid  #2a61b4;
 
       &:hover {
         background-color: transparent;
-        color: #b072e2;
-        border: 1px solid  #b072e2;
+        color: #2a61b4;
+        border: 2px solid  #2a61b4;
       }
     }
   }
