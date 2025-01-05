@@ -7,7 +7,7 @@ const router = express.Router();
 // Route to send a message
 router.post('/send', sendMessage);
 
-// Route to get messages between two users
-router.get('/:sender/:receiver', getMessages);
+// Route to get messages by testID
+router.get('/:sender/:receiver/:testID', getMessages);
 
 export default router;

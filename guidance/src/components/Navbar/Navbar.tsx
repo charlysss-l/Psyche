@@ -51,6 +51,14 @@ const Navbar = () => {
               Consultation
             </NavLink>
           </li>
+          <li className={style.navItem}>
+            <NavLink
+              to="/online-consultation"
+              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+            >
+              Online
+            </NavLink>
+          </li>
           {role === "main" && ( // Conditionally render the Accounts link if the role is "main"
             <li className={style.navItem}>
               <NavLink
@@ -61,6 +69,7 @@ const Navbar = () => {
               </NavLink>
             </li>
           )}
+         
           <li className={style.navItem}>
             <NavLink
               to="/"

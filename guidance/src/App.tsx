@@ -12,6 +12,7 @@ import ThemeToggle from './darkMode/darkMode';
 import ArchiveInbox from './app/Consultation/ArchiveInbox';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import CreateAccount from './app/CreateAccount/CreateAccount';
+import OnlineConsult from './app/Consultation/OnlineConsult/OnlineConsult';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                       <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
                       <Route path="/calendar" element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
                       <Route path="/consultation" element={<ProtectedRoute><Consultation /></ProtectedRoute>} />
+                      <Route path="/online-consultation" element={<ProtectedRoute><OnlineConsult /></ProtectedRoute>} />
                       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                       <Route path="/archive" element={<ProtectedRoute><ArchiveInbox /></ProtectedRoute>} />
                       <Route path="/create-account"

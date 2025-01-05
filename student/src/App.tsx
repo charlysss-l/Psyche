@@ -67,7 +67,7 @@ function App() {
                       <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />
                       <Route path="/result" element={<ProtectedRoute><Result /></ProtectedRoute>} />
                       <Route path="/consultation" element={<ProtectedRoute><Consultation /></ProtectedRoute>} />
-                      <Route path="/online-consultation" element={<ProtectedRoute><OnlineConsult /></ProtectedRoute>} />
+                      <Route path="/online-consult/:testID" element={<OnlineConsult />} />
                       <Route path="/archive" element={<ProtectedRoute><ArchiveInbox /></ProtectedRoute>} />
                       <Route path="/surveyDashboard" element={<ProtectedRoute><StudentDashboard /></ProtectedRoute>} />
                       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
@@ -92,7 +92,6 @@ function App() {
                       <Route path="/pfomr" element={<ProtectedRoute><PfOMR /></ProtectedRoute>} />
                       <Route path="/pfomrresult" element={<ProtectedRoute><OmrResult /></ProtectedRoute>} />
                       <Route path="/survey-details/:surveyId" element={<ProtectedRoute><SurveyDetails /></ProtectedRoute>} />
-                      <Route path="*" element={<Navigate to="/login" />} />
                     </Routes>
                   </div>
                 </div>

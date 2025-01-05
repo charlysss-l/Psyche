@@ -1,28 +1,61 @@
-// components/Chat.tsx
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import styles from './OnlineConsult.module.scss'; // Import the SCSS module
+import styles from './OnlineConsult.module.scss';
 import backendUrl from '../../../config';
+import { fetchConsultationRequests } from "../../services/consultationservice";
 
 interface Message {
   sender: string;
   receiver: string;
   content: string;
   createdAt: string;
+  testID: string;
+}
+
+interface Consultation {
+  userId: string;
+  email: string;
+  studentName: string;
+  councelorName: string;
+  date: string;
+  testID: string;
+  consultationType: string;
+  timeForConsultation: string;
+  note: string;
+  status: string;
+  message: string;
 }
 
 const OnlineConsult: React.FC = () => {
+  const [currentConsultation, setCurrentConsultation] = useState<Consultation | null>(null);
+  const { testID } = useParams<{ testID: string }>(); // Get testID from URL
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
-  const [sender, setSender] = useState('user1');  // Initially set to user1
-  const [receiver, setReceiver] = useState('user2');  // Initially set to user2
-  const [user, setUser] = useState('user1');  // Track the logged-in user
+  const sender = 'user1';
+  const receiver = 'user2';
 
-  // Fetch messages between sender and receiver
+  // Fetch all consultation requests
+  useEffect(() => {
+    const fetchAllConsultationRequests = async () => {
+      try {
+        const requests = await fetchConsultationRequests();
+        setCurrentConsultation(requests);
+
+        // Find the consultation that matches the testID from the URL
+        const consultation = requests.find((req: Consultation) => req.testID === testID);
+        setCurrentConsultation(consultation || null);
+      } catch (error) {
+        console.error("Error loading consultation requests:", error);
+      }
+    };
+    fetchAllConsultationRequests();
+  }, [testID]);
+
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get(`${backendUrl}/api/onlineconsult/${sender}/${receiver}`);
+        const response = await axios.get(`${backendUrl}/api/onlineconsult/${sender}/${receiver}/${testID}`);
         setMessages(response.data);
       } catch (error) {
         console.error('Failed to fetch messages', error);
@@ -30,13 +63,13 @@ const OnlineConsult: React.FC = () => {
     };
 
     fetchMessages();
-  }, [sender, receiver]);
+  }, [testID]);
 
   const sendMessage = async () => {
     if (message.trim() === '') return;
 
     try {
-      const newMessage = { sender, receiver, content: message };
+      const newMessage = { sender, receiver, content: message, testID };
       const response = await axios.post(`${backendUrl}/api/onlineconsult/send`, newMessage);
       setMessages([...messages, response.data]);
       setMessage('');
@@ -45,26 +78,24 @@ const OnlineConsult: React.FC = () => {
     }
   };
 
-  // Toggle between user1 and user2
-  const toggleUser = () => {
-    if (user === 'user1') {
-      setUser('user2');
-      setSender('user2');
-      setReceiver('user1');
-    } else {
-      setUser('user1');
-      setSender('user1');
-      setReceiver('user2');
-    }
+  // Function to format the date in d/m/y format
+  const formatDate = (date: string) => {
+    const d = new Date(date);
+    return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
   };
 
   return (
     <div className={styles['chat-container']}>
-      <div className={styles['chat-header']}>
-        <h2>Chat with {receiver}</h2>
-        <button onClick={toggleUser}>
-          Switch to {user === 'user1' ? 'User 2' : 'User 1'}
-        </button>
+      <div className={styles['chat-header']}
+      >
+        {currentConsultation ? (
+          <h2>
+            Chat with {currentConsultation.councelorName} <br/>
+            Schedule Date and Time: {formatDate(currentConsultation.date)} - {currentConsultation.timeForConsultation}
+          </h2>
+        ) : (
+          <h2>Loading consultation details...</h2>
+        )}
       </div>
 
       <div className={styles['chat-window']}>

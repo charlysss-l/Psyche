@@ -1,12 +1,12 @@
-// controllers/messageController.ts
+// controllers/OnlineConsultController.ts
 import { Request, Response } from 'express';
 import Message from '../models/OnlineConsultSchema';
 
 // Send a new message
 export const sendMessage = async (req: Request, res: Response) => {
   try {
-    const { sender, receiver, content } = req.body;
-    const newMessage = new Message({ sender, receiver, content });
+    const { sender, receiver, content, testID } = req.body; // Include testID
+    const newMessage = new Message({ sender, receiver, content, testID });
     await newMessage.save();
     res.status(201).json(newMessage);
   } catch (error) {
@@ -14,11 +14,12 @@ export const sendMessage = async (req: Request, res: Response) => {
   }
 };
 
-// Get messages between two users
+// Get messages by testID
 export const getMessages = async (req: Request, res: Response) => {
   try {
-    const { sender, receiver } = req.params;
+    const { sender, receiver, testID } = req.params; // Include testID
     const messages = await Message.find({
+      testID, // Filter by testID
       $or: [
         { sender, receiver },
         { sender: receiver, receiver: sender },

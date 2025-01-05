@@ -719,7 +719,7 @@ const handleRemove = async (id: string) => {
                         className={`${styles.viewButton} ${consultation.status !== "accepted" ? styles.disabledButton : ""}`}
                         onClick={() => {
                           if (consultation.status === "accepted") {
-                            window.location.href = "/online-consultation";
+                            window.location.href = `/online-consult/${consultation.testID}`;
                           } else {
                             alert("The consultation is not yet accepted. Wait for the counselor to accept the request.");
                           }
