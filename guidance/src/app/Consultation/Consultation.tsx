@@ -89,6 +89,9 @@ const GuidanceConsultation: React.FC = () => {
       }
     };
     loadConsultationRequests();
+    const intervalId = setInterval(loadConsultationRequests, 5000); // Poll every 5 seconds
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, []);
 
   useEffect(() => {
@@ -101,6 +104,9 @@ const GuidanceConsultation: React.FC = () => {
       }
     };
     loadFollowUpSchedules();
+    const intervalId = setInterval(loadFollowUpSchedules, 5000); // Poll every 5 seconds
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, []);
 
   const toggleModal = () => {

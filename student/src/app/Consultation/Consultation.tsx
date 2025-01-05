@@ -124,7 +124,12 @@ const ConsultationRequestForm: React.FC = () => {
         }
       };
       fetchFollowUpSchedules();
+      const intervalId = setInterval(fetchFollowUpSchedules, 5000); // Poll every 5 seconds
+
+      return () => clearInterval(intervalId); // Cleanup interval on component unmount
     }
+    
+    
   }, [userId]);
 
   useEffect(() => {
