@@ -569,6 +569,12 @@ button {
   width: 400px;
 }
 
+.disabledButton {
+  background-color: #d3d3d3; // Disabled button color (light gray)
+  color: #888888; // Disabled text color (gray)
+  cursor: not-allowed;
+}
+
 :global(body.dark-mode) {
   .acceptedBox, .pendingBox {
     background-color: #222222;

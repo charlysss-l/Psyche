@@ -638,22 +638,30 @@ const handleRemove = async (id: string) => {
           <td>{request.note}</td>
           <td>{request.councelorName}</td>
           <td>
-              {request.consultationType !== "Online" && request.consultationType} 
-              {request.consultationType === "Online" && (
-                <button
-                  className={`${styles.viewButton} ${request.status !== "accepted" ? styles.disabledButton : ""}`}
-                  onClick={() => {
-                    if (request.status === "accepted") {
-                      window.location.href = `/online-consult/${request.testID}`;
-                    } else {
-                      alert("The consultation is not yet accepted. Wait for the counselor to accept the request.");
-                    }
-                  }}
-                >
-                  View Online Consultation
-                </button>
-              )}
-            </td>
+            {request.consultationType !== "Online" && request.consultationType}
+            {request.consultationType === "Online" && (
+              <button
+              className={`${styles.viewButton} ${
+                request.status !== "accepted" || request.councelorName !== fullName
+                  ? styles.disabledButton
+                  : ""
+              }`}
+              onClick={() => {
+                if (request.status !== "accepted") {
+                  alert("This consultation is already completed.");
+                } else if (request.councelorName !== fullName) {
+                  alert("You are not the assigned counselor for this consultation.");
+                } else {
+                  window.location.href = `/online-consult/${request.testID}`;
+                }
+              }}
+            >
+              View Online Consultation
+            </button>
+            
+            )}
+          </td>
+
        
            <td>
             <span className={`${styles.statusButton} ${styles.acceptedStatus}`}>
