@@ -70,7 +70,7 @@ const OnlineConsult: React.FC = () => {
 
     return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, [testID]);
-  
+
   const sendMessage = async () => {
     if (message.trim() === '') return;
 
@@ -134,6 +134,7 @@ const OnlineConsult: React.FC = () => {
         />
         <button 
         onClick={sendMessage}
+        // disabled={!isConsultationTimeActive()}
         >Send</button>
         <p>Note: You can only send messages during the scheduled consultation time.</p>
 

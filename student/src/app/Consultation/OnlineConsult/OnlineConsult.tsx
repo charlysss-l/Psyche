@@ -131,6 +131,8 @@ const OnlineConsult: React.FC = () => {
         />
         <button
           onClick={sendMessage}
+          // disabled={!isConsultationTimeActive()}
+
         >
           Send
         </button>
