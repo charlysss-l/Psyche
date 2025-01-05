@@ -94,7 +94,8 @@ const OnlineConsult: React.FC = () => {
         {currentConsultation ? (
           <h2>
             Chat with {currentConsultation.studentName} <br/>
-            Schedule Date and Time: {formatDate(currentConsultation.date)} - {currentConsultation.timeForConsultation}
+            Schedule Date and Time: {formatDate(currentConsultation.date)} - {currentConsultation.timeForConsultation} <br/>
+            Note: {currentConsultation.note}
           </h2>
         ) : (
           <h2>Loading consultation details...</h2>

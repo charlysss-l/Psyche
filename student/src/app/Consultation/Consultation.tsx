@@ -713,7 +713,7 @@ const handleRemove = async (id: string) => {
                 <td>{consultation.testID}</td>
                 <td>{consultation.note}</td>
                 <td>{consultation.councelorName}</td>
-                <td>{consultation.consultationType}
+                <td>{consultation.consultationType  !== "Online" && consultation.consultationType}
                     {consultation.consultationType === "Online" && (
                       <button
                         className={`${styles.viewButton} ${consultation.status !== "accepted" ? styles.disabledButton : ""}`}
