@@ -57,6 +57,7 @@
  .termsandconditionpf{
     font-size: 1.8rem;
     color: #2e70d3;
+    text-align: center;
  }
 }
 
@@ -229,7 +230,8 @@
   }
 
   &:active {
-    background-color: #902679e1;
+    background-color: #6e6e6e;
+    color: white;
   }
 
   &:focus {

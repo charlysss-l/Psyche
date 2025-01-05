@@ -14,12 +14,14 @@
   display: flex;
   flex-direction: column;
   position: relative;  min-width: 40%; /* Minimum width to ensure good readability */
-  width: 35%; /* Ensure it takes up about half of the screen */
+  width: 40%; /* Ensure it takes up about half of the screen */
   text-align: center;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border: 1px solid #b4b4b4;
+  box-shadow: #b4b4b4 0px 0px 5px;
   border-radius: 8px;
   padding: 50px;
+  user-select: none;
 
 
 }
@@ -30,7 +32,7 @@
   padding: 20px;
   background-color: #ffffff;
   border-radius: 8px;
-  width: 35%; /* Ensure it takes up about half of the screen */
+  width: 30%; /* Ensure it takes up about half of the screen */
   position: relative;
   margin-top: -1%;
 }
@@ -39,11 +41,26 @@
   flex: 1;
   min-width: 50%;
   padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border: 1px solid #b4b4b4;
+  box-shadow: #b4b4b4 0px 0px 2px;
   border-radius: 8px;
   height: 50%;
   margin-bottom: 10px; /* Add spacing between sections */
+  user-select: none;
+
+  .pfintroinfo{
+    font-size: 0.8rem;
+  }
+ .pfintro{
+    font-size: 1.8rem;
+    color: #2e70d3;
+ }
+ .termsandconditionpf{
+    font-size: 1.8rem;
+    color: #2e70d3;
+    text-align: center;
+ }
 }
 
 /* Media query for smaller screens (below 768px) */
@@ -76,7 +93,7 @@
   font-size: 28px;
   font-weight: 700;
   text-align: center;
-  color: #d7a52f;
+  color: #2e70d3;
   margin-bottom: 30px;
 }
 
@@ -125,14 +142,14 @@
 }
 
 .interpretation {
-  color: #d7a52f;
+  color: #2e70d3;
 
 }
 
 /* Score styling */
 .score {
   font-weight: bold;
-  color: #d7a52f;
+  color: #2e70d3;
   font-size: 20px;
 }
 
@@ -176,49 +193,51 @@
 }
 
 .buttonYes {
-  background-color: #849670;
+  background-color: #71914c;
   color: white;
   margin-right: 10px;
+  border: 2px solid #71914c;
 }
 
 .buttonYes:hover {
   background-color: transparent;
-  color: black;
-  border: 1px solid #95a581;
+  color: #71914c;
+  border: 2px solid #71914c;
 }
 
 .buttonCancel {
-  background-color: #b62e2e;
+  background-color: #af1414;
   color: white;
+  border: 2px solid #af1414;
 }
 
 .buttonCancel:hover {
   background-color: transparent;
-  color: black;
-  border: 1px solid #b94d4dce;
+  color: #af1414;
+  border: 2px solid #af1414;
 }
 
 .pdfButton {
   margin-top: 10px;
-  background-color: #000000e1; /* Blue background */
-  color: white; /* White text */
-  padding: 10px 20px; /* Space inside the button */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  font-size: 16px; /* Font size */
-  cursor: pointer; /* Pointer on hover */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions for hover effect */
+  background-color: #6e6e6e;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid #6e6e6e;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 
+    
   &:hover {
     background-color: transparent;
-    color: black;
-    border: 1px solid #000000e1;
-    transform: scale(1.05);
+    color: #6e6e6e;
+    border: 2px solid #6e6e6e;
   }
 
-
   &:active {
-    background-color: #902679e1; /* Darker blue on hover */
+    background-color: #6e6e6e;
+    color: white;
   }
 
   &:focus {
@@ -229,15 +248,18 @@
 
 
 
+
 :global(body.dark-mode){
   .container{
-    background-color: #2a3744ef;
+    background-color: #1f1f1f5d;
+    border: none;
+    box-shadow: none;
 
     .subheading {
-      color: #d1d1d1;
+      color: #b4b4b4;
     }
     .header {
-      color: #849670;
+      color: #2a61b4;
     }
   }
   .section, .label, .value {
@@ -247,7 +269,7 @@
     color: #d1d1d1;
   }
   .interpretation, .score {
-    color: #849670;
+    color: #2a61b4;
   }
   .sharePrompt p {
     color: #bbbbbbef;
@@ -256,29 +278,35 @@
     color: #bbbbbbef;
   }
   :hover.buttonYes {
-      color: rgb(255, 255, 255);
+      color: #71914c;
   }
   :hover.buttonCancel {
-    color: rgb(255, 255, 255);
+    color: #af1414;
 }
   :hover.pdfButton {
-    color: rgb(255, 255, 255);
+    color: #6e6e6e;
+
+    &:active {
+      background-color: #6e6e6e;
+      color: white;
+    }
 }
 .messageContainer{
   background-color: transparent;
   color: #d1d1d1;
 
   .outro, .privacySection {
-    background-color: #2a3744ef;
+    background-color: #1f1f1f5d;
     color: #d1d1d1;
     border: none;
+    box-shadow: none;
 
     h1{
-      color: #849670;
+      color: #2a61b4;
     }
 
     a{
-      color: #849670;
+      color: #2a61b4;
     }
   }
 }

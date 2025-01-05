@@ -254,7 +254,7 @@ button {
 
 .submitButton {
   padding: 10px 15px;
-  background-color: #67b2da;
+  background-color: #2e70d3;
   color: white;
   border: none;
   border-radius: 10px;
@@ -266,7 +266,9 @@ button {
 }
 
 .submitButton:hover {
-  background-color: #1d3a46; /* Darker shade on hover */
+  background-color: transparent;
+  color: #2e70d3;
+  border: 2px solid #2e70d3;
 }
 
 :global(body.dark-mode){
