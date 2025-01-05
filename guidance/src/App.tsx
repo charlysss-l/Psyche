@@ -35,7 +35,7 @@ function App() {
                       <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
                       <Route path="/calendar" element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
                       <Route path="/consultation" element={<ProtectedRoute><Consultation /></ProtectedRoute>} />
-                      <Route path="/online-consultation" element={<ProtectedRoute><OnlineConsult /></ProtectedRoute>} />
+                      <Route path="/online-consult/:testID" element={<ProtectedRoute><OnlineConsult /></ProtectedRoute>} />
                       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                       <Route path="/archive" element={<ProtectedRoute><ArchiveInbox /></ProtectedRoute>} />
                       <Route path="/create-account"

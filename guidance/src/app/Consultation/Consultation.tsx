@@ -601,8 +601,9 @@ const handleRemove = async (id: string) => {
         <th>Date</th>
         <th>Time</th>
         <th>Note</th>
-        <th>Status</th>
         <th>Councelor Name</th>
+        <th>Consultation Type</th>
+        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -629,12 +630,27 @@ const handleRemove = async (id: string) => {
           </td>
           <td>{request.timeForConsultation}</td>
           <td>{request.note}</td>
-          <td>
+          <td>{request.councelorName}</td>
+          <td>{request.consultationType} <br/>
+                    {request.consultationType === "Online" && (
+                      <button
+                        className={`${styles.viewButton} ${request.status !== "accepted" ? styles.disabledButton : ""}`}
+                        onClick={() => {
+                          if (request.status === "accepted") {
+                            window.location.href = `/online-consult/${request.testID}`;
+                          } else {
+                            alert("The consultation is not yet accepted. Wait for the counselor to accept the request.");
+                          }
+                        }}
+                      >
+                        View Online Consultation
+                      </button>
+                    )}
+                  </td>          <td>
             <span className={`${styles.statusButton} ${styles.acceptedStatus}`}>
               {request.status}
             </span>
           </td>
-          <td>{request.councelorName}</td>
           <td>
             <button
               className={styles.viewInfo}
