@@ -253,20 +253,34 @@ const handleSubmit = async (e: React.FormEvent) => {
     const storedUserId = localStorage.getItem("userId");
     if (storedUserId) {
       setUserID(storedUserId);
-      fetchConsultations(storedUserId);
+      fetchConsultations(storedUserId); // Initial fetch
+  
+      // Set up polling for real-time updates
+      const intervalId = setInterval(() => {
+        fetchConsultations(storedUserId);
+      }, 5000); // Poll every 5 seconds
+  
+      // Cleanup on component unmount
+      return () => clearInterval(intervalId);
     }
   }, []);
-
+  
   const fetchConsultations = async (id: string) => {
     try {
       const response = await axios.get(`${backendUrl}/api/consult/user/${id}`);
       if (response?.data?.data) {
-        setConsultation(response.data.data);
+        setConsultation((prevConsultations) => {
+          // Update state only if the data has changed
+          const isChanged = 
+            JSON.stringify(prevConsultations) !== JSON.stringify(response.data.data);
+          return isChanged ? response.data.data : prevConsultations;
+        });
       }
     } catch (error) {
       console.error("Error fetching consultations:", error);
     }
   };
+  
 
   const deleteConsultation = async (testID: string) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this consultation?");

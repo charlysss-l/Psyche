@@ -70,6 +70,7 @@ const OnlineConsult: React.FC = () => {
 
     return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, [testID]);
+  
   const sendMessage = async () => {
     if (message.trim() === '') return;
 
