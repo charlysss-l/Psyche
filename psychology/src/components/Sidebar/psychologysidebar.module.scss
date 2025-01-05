@@ -3,11 +3,11 @@
 $sidebar-width: 250px;
 $sidebar-bg-color: #ffffff;
 $sidebar-hover-bg-color: #c187f8;
-$sidebar-link-color: #000000;
+$sidebar-link-color: white;
 $sidebar-hover-color: #000000;
 $sidebar-active-bg-color: #d2d2d2;
 $sidebar-font-size: 112.5%; // 16px to percentage based on default 16px
-$toggle-btn-bg-color: #d2d2d2;
+$toggle-btn-bg-color: #2e70d3;
 $toggle-btn-hover-bg-color: #ad6ce9;
 $font-size-base: 100%; // 16px to 100%
 $box-shadow-color: rgba(0, 0, 0, 0.5);
@@ -22,17 +22,17 @@ $transition-duration: 0.3s;
     left: 1rem;
     background-color: $toggle-btn-bg-color;
     color: $sidebar-link-color;
-    border: 2px solid #5e5e5eda;
+    border: 2px solid #2e70d3;
     padding: 0.7rem 1.5rem;
     cursor: pointer;
     z-index: 1001;
     border-radius: 20px;
-    font-size: $font-size-base;
+    font-size: 0.9rem;
     font-weight: bold;
 
     &:hover {
-      color: $sidebar-bg-color;
-      background-color: $toggle-btn-hover-bg-color;
+      color: #2e70d3;
+      background-color: transparent;
     }
   }
 
@@ -42,8 +42,7 @@ $transition-duration: 0.3s;
     left: -$sidebar-width; // Hidden by default
     width: $sidebar-width;
     height: 100%; 
-    background-color: #d5bdeb;
-    color: $sidebar-link-color;
+    background-color: white;
     transition: left $transition-duration ease;
     box-shadow: 2px 0 5px $box-shadow-color;
     z-index: 1000;
@@ -72,7 +71,7 @@ $transition-duration: 0.3s;
           display: flex;
           align-items: center;
           text-decoration: none;
-          color: $sidebar-link-color;
+          color: #000000;
           font-weight: 400;
           font-size: $sidebar-font-size;
           transition: all $transition-duration ease;
@@ -85,13 +84,13 @@ $transition-duration: 0.3s;
           border-radius: 10px;
 
           &:hover {
-            background-color: $toggle-btn-hover-bg-color;
+            background-color: #2e70d3;
             color: $sidebar-hover-color;
           }
 
           &.active {
-            background-color: $sidebar-active-bg-color;
-            color: $sidebar-link-color;
+            background-color: #2e70d3;
+            color: black;
             font-weight: bold;
             box-shadow: 0 4px 8px $box-shadow-color;
           }
@@ -165,32 +164,58 @@ $transition-duration: 0.3s;
   }
 }
 :global(body.dark-mode){
-  .sidebar{
-    background: linear-gradient(150deg,  #c9ade2, #636363);
-  }
+  .sidebar {
+    background: #c0c0c0;
+    ul {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      margin-top: 80%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-      .link {
+      li {
+        margin: 1rem 0;
         display: flex;
         align-items: center;
-        text-decoration: none;
-        color: $sidebar-link-color;
-        font-weight: 400;
-        font-size: $sidebar-font-size;
-        transition: all $transition-duration ease;
-        width: 80%;
-        height: 50px;
-        border: 2px solid #5e5e5eda;
-        text-align: center;
         justify-content: center;
-        padding: 0 1rem;
-        border-radius: 10px;
 
-        &.active {
-          background-color: $sidebar-active-bg-color;
-          color: $sidebar-link-color;
-          font-weight: bold;
-          box-shadow: 0 4px 8px $box-shadow-color;
+        .link {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          font-weight: 400;
+          font-size: $sidebar-font-size;
+          transition: all $transition-duration ease;
+          width: 80%;
+          height: 50px;
+          text-align: center;
+          justify-content: center;
+          padding: 0 1rem;
+          border-radius: 10px;
+
+          &:hover {
+            background-color: #2e70d3;
+            color: rgb(0, 0, 0);
+          }
+
+          .icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+          }
+
+          &.active {
+            background-color: #2e70d3;
+            color: black;
+            font-weight: bold;
+            box-shadow: 0 4px 8px $box-shadow-color;
+          }
         }
       }
     }
+  }
   
+ 
+}

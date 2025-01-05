@@ -59,7 +59,7 @@ const Profile: React.FC = () => {
         {/* Display username as text, not editable */}
         <p className={style.pr_input}>{'cvsu.psychology@gmail.com'}</p>
 
-        <label className={style.passWord}>* Change Password</label>
+        <label className={style.passWord}>Change Password:</label>
         <div className={style.passwordInputContainer}>
         <input
             type={showPassword ? "text" : "password"}
@@ -77,7 +77,7 @@ const Profile: React.FC = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
         </div>
-        <label className={style.passWord}>* Confirm Password</label>
+        <label className={style.passWord}>Confirm Password:</label>
         <div className={style.passwordInputContainer}>
         <input
             type={showPassword ? "text" : "password"}
