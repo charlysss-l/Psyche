@@ -66,8 +66,10 @@ const OnlineConsult: React.FC = () => {
     };
 
     fetchMessages();
-  }, [testID]);
+ const intervalId = setInterval(fetchMessages, 5000); // Poll every 5 seconds
 
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, [testID]);
   const sendMessage = async () => {
     if (message.trim() === '') return;
 
@@ -85,6 +87,19 @@ const OnlineConsult: React.FC = () => {
    const formatDate = (date: string) => {
     const d = new Date(date);
     return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+  };
+
+  // Function to check if the current date and time match the scheduled consultation time
+  const isConsultationTimeActive = () => {
+    if (!currentConsultation) return false;
+
+    const scheduledDateTime = new Date(
+      `${currentConsultation.date}T${currentConsultation.timeForConsultation}`
+    );
+    const currentTime = new Date();
+
+    // Check if the current time is between the scheduled start and end time
+    return currentTime >= scheduledDateTime;
   };
 
   return (
@@ -116,7 +131,11 @@ const OnlineConsult: React.FC = () => {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type your message..."
         />
-        <button onClick={sendMessage}>Send</button>
+        <button 
+        onClick={sendMessage}
+        >Send</button>
+        <p>Note: You can only send messages during the scheduled consultation time.</p>
+
       </div>
     </div>
   );

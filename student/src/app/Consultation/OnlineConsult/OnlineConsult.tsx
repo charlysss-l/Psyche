@@ -52,6 +52,7 @@ const OnlineConsult: React.FC = () => {
     fetchAllConsultationRequests();
   }, [testID]);
 
+  // Poll for new messages every 5 seconds
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -62,7 +63,10 @@ const OnlineConsult: React.FC = () => {
       }
     };
 
-    fetchMessages();
+    fetchMessages(); // Fetch messages initially
+    const intervalId = setInterval(fetchMessages, 5000); // Poll every 5 seconds
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, [testID]);
 
   const sendMessage = async () => {
@@ -71,7 +75,7 @@ const OnlineConsult: React.FC = () => {
     try {
       const newMessage = { sender, receiver, content: message, testID };
       const response = await axios.post(`${backendUrl}/api/onlineconsult/send`, newMessage);
-      setMessages([...messages, response.data]);
+      setMessages((prevMessages) => [...prevMessages, response.data]);
       setMessage('');
     } catch (error) {
       console.error('Failed to send message', error);
@@ -84,16 +88,27 @@ const OnlineConsult: React.FC = () => {
     return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
   };
 
+  // Function to check if the current date and time match the scheduled consultation time
+  const isConsultationTimeActive = () => {
+    if (!currentConsultation) return false;
+
+    const scheduledDateTime = new Date(
+      `${currentConsultation.date}T${currentConsultation.timeForConsultation}`
+    );
+    const currentTime = new Date();
+
+    // Check if the current time is between the scheduled start and end time
+    return currentTime >= scheduledDateTime;
+  };
+
   return (
     <div className={styles['chat-container']}>
-      <div className={styles['chat-header']}
-      >
+      <div className={styles['chat-header']}>
         {currentConsultation ? (
           <h2>
             Chat with {currentConsultation.councelorName} <br/>
             Schedule Date and Time: {formatDate(currentConsultation.date)} - {currentConsultation.timeForConsultation} <br/>
             Note: {currentConsultation.note}
-
           </h2>
         ) : (
           <h2>Loading consultation details...</h2>
@@ -114,7 +129,12 @@ const OnlineConsult: React.FC = () => {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type your message..."
         />
-        <button onClick={sendMessage}>Send</button>
+        <button
+          onClick={sendMessage}
+        >
+          Send
+        </button>
+        <p style={{ textAlign:"center" }}>Note: You can only send messages during the scheduled consultation time.</p>
       </div>
     </div>
   );
