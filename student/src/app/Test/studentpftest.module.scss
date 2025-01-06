@@ -133,4 +133,5 @@ $test-size: 400px;
 .TestPF:hover,
 .iqLinkContainer:hover {
   box-shadow: $box-shadow-large;
+  transform: scale(1.05);
 }

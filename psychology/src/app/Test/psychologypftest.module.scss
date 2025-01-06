@@ -57,11 +57,13 @@ $test-size: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 .TestPF:hover,
 .iqLinkContainer:hover {
   box-shadow: $box-shadow-large;
+  transform: scale(1.05);
 
   cursor: pointer;
   background-color: $hover-bg-color;
@@ -121,6 +123,7 @@ $test-size: 400px;
   position: relative;
   z-index: 1;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  
 }
 
 // Reapply common styles for box-shadow and transition
@@ -128,9 +131,12 @@ $test-size: 400px;
 .iqLinkContainer {
   box-shadow: $box-shadow-small;
   transition: transform 0.2s, box-shadow $transition-duration ease;
+  
+  
 }
 
 .TestPF:hover,
 .iqLinkContainer:hover {
   box-shadow: $box-shadow-large;
+
 }
