@@ -15,9 +15,15 @@ p {
   color: #45474B; /* Dark gray for general text */
   
 }
+.PFtitle{
+  color: #6e6e6e;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
 .instruction, .rules{
-  color: #95a581;
+  color: #2e70d3;
   font-weight: bold;
 }
 
@@ -85,13 +91,13 @@ input[type="radio"] {
 
 /* Submit button styling */
 .submitPFbutton {
-  background-color: #d7a52f;
+  background-color: #2e70d3;
   color: white;
 }
 
 .submitPFbutton:hover {
   background-color: transparent ; 
-  border: 1px solid #d7a52f ; 
+  border: 1px solid #2e70d3 ; 
   color: black;
 }
 /* Pagination styling */
@@ -106,9 +112,9 @@ input[type="radio"] {
 
 .pagination button {
   padding: 10px 15px;
-  background-color: #95a581;
+  background-color: #b4b4b4;
   color: white;
-  border: none;
+  border: 1px solid #b4b4b4 ;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -116,12 +122,13 @@ input[type="radio"] {
 
 .pagination button:hover {
   background-color: transparent ; 
-  border: 1px solid #95a581 ; 
-  color: black;
+  border: 1px solid #b4b4b4 ; 
+  color: #b4b4b4;
 }
 
 .pagination button:disabled {
   background-color: #ddd;
+  border: 1px solid #b4b4b4 ;
   cursor: not-allowed;
 }
 
@@ -133,9 +140,9 @@ input[type="radio"] {
 
 .submitButton{
   padding: 10px 15px;
-  background-color: #d7a52f;
+  background-color: #2e70d3;
   color: white;
-  border: none;
+  border: 1px solid  #2e70d3 ;
   border-radius: 10px;
   cursor: pointer;
   margin-top: 40px;
@@ -148,8 +155,8 @@ input[type="radio"] {
 
 .submitButton:hover {
   background-color: transparent ;
-  border: 1px solid  #d7a52f ;
-  color: black;
+  border: 1px solid  #2e70d3 ;
+  color: #2e70d3;
 }
 
 .highlight {
@@ -157,17 +164,23 @@ input[type="radio"] {
   font-weight: bold;
 }
 :global(body.dark-mode){
+  .form {
+    box-shadow: #535353  0 2px 4px;
+  }
+  .PFtitle{
+    color: #6e6e6e;
+  }
   .instruction, .rules{
-    color: #d7a52f;
+    color: #2a61b4;
     font-weight: bold;
   }
   .pagination button {
-    background-color: #d7a52f;
+    background-color: #6e6e6e;
 
     &:hover {
       background-color: transparent ; 
-       border: 1px solid #d7a52f ; 
-      color: black;
+       border: 1px solid #6e6e6e ; 
+      color: #6e6e6e;
     }
     
   }
@@ -179,15 +192,15 @@ input[type="radio"] {
     box-shadow: #ddd  0 4px 8px;
   }
   p {
-    color: #45474B; /* Dark gray for general text */
+    color: #030303; /* Dark gray for general text */
     
   }
   .submitButton{
-    background-color: #95a581;
+    background-color: #2a61b4;
   }
   .submitButton:hover {
     background-color: transparent ;
-    border: 1px solid  #95a581 ;
-    color: black;
+    border: 1px solid  #2a61b4 ;
+    color: #2a61b4;
   }
 }

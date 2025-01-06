@@ -31,7 +31,7 @@ const UserForm: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>
-            <h1>IQ Test</h1>
+            <h1 className={style.iqTitle}>IQ Test</h1>
             <p className={style.ageWarning}>
                <span className ={style.highlight}>*</span> You Must Be 20 Years Old and Above To Take This Test <br/> 
                <span className ={style.highlight}>*</span>  You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up" <br/>

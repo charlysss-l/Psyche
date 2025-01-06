@@ -36,10 +36,9 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
 
 // Header for the form (SAMPLE IQ TEST)
 h1 {
-  color: #d7a52f;     // Color for the header text (SAMPLE IQ TEST)
+  color: #2e70d3;     // Color for the header text (SAMPLE IQ TEST)
   font-size: 2rem;
   margin-bottom: 20px;
-  justify-self: center;
 }
 .rules{
   color: #353535;
@@ -48,12 +47,10 @@ h1 {
 }
 
 .ageWarning {
-  color: #962f2f;
+  color: #8a2525;
   font-weight: bold;
   margin-top: 1px;
   margin-bottom: 10px;
-  justify-self: center;
-  align-items: center;
   text-align: center;
 }
 // Label styling for inputs
@@ -65,7 +62,8 @@ label {
   // Label text color set to $input-border-color
 }
 .rulesTitle{
-  color: #849670;
+  color: #2e70d3;
+
 }
 // Input fields and select elements
 input[type="text"],
@@ -195,9 +193,9 @@ li {
 
 .pagination button {
   padding: 10px 15px;
-  background-color: #d7a52f;
-  color: white;
-  border: none;
+  background-color: #b4b4b4;
+  color: #131212;
+  border:1px solid #b4b4b4 ; 
   border-radius: $border-radius;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -205,13 +203,14 @@ li {
 
 .pagination button:hover {
   background-color: transparent;
-  color:black;
-  border:1px solid #efb836 ; 
+  color:#b4b4b4;
+  border:1px solid #b4b4b4 ; 
 }
 
 .pagination button:disabled {
-  background-color: #ddd;
+  background-color: #b4b4b4;
   cursor: not-allowed;
+  color: #3a3a3a;
 }
 
 // Active page button
@@ -223,7 +222,7 @@ li {
 .start {
   margin-top: -20px;
   padding: 10px 15px;
-  background-color: #d7a52f;
+  background-color: #2e70d3;
   color: white;
   border: none;
   border-radius: $border-radius;
@@ -233,11 +232,11 @@ li {
 
 .start:hover {
   background-color: transparent;
-  color:black;
-  border:1px solid #efb836 ; 
+  color:#2e70d3;
+  border:1px solid #2e70d3 ; 
 }
 .note{
-  color: #849670;
+  color: #414141;
   font-size: 16px;
   margin-right: 40px;
 }
@@ -249,17 +248,17 @@ button {
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:disabled {
-      background-color: #ccc;
+      background-color: #8a8a8a;
       cursor: not-allowed;
   }
 }
 
 .submitButton {
   padding: 10px 15px;
-  background-color: #849670;
+  background-color: #2e70d3;
   color: white;
-  border: none;
-  border-radius: 10px;
+  border:1px solid #2e70d3;
+  border-radius: 5px;
   cursor: pointer;
   margin-top: 40px;
   
@@ -269,9 +268,9 @@ button {
 
 .submitButton:hover {
   background-color: transparent;
-  color:black;
-  border:1px solid #849670;
-  ; 
+  color:#2e70d3;
+  border:1px solid #2e70d3;
+  
 }
 
 
@@ -290,27 +289,30 @@ button {
     color: #962f2f;
   }
   .rulesTitle{
-    color: #efb836;
+    color: #2a61b4;
   }
   .rules{
     color: #2c2c2c;
   }
+  .iqTitle{
+    color: #2a61b4;
+  }
   .start{
-    background-color: #849670;
+    background-color: #2a61b4;
 
     &:hover {
     background-color: transparent;
-    color:black;
-    border:1px solid #849670 ; 
+    color:#2e70d3;
+    border:1px solid #2a61b4 ; 
     }
   }
   .pagination button {
-    background-color: #849670 ;
+    background-color: #b4b4b4 ;
 
     &:hover{
     background-color: transparent;
-    color:black;
-    border:1px solid #849670 ; 
+    color:#b4b4b4;
+    border:1px solid #b4b4b4 ; 
   }
 }
 .pagination button:disabled {
@@ -318,12 +320,12 @@ button {
   cursor: not-allowed;
 }
 .submitButton {
-  background-color: #efb836;
+  background-color: #2a61b4;
 
   &:hover {
     background-color: transparent;
-    color:black;
-    border:1px solid #efb836 ; 
+    color:#2a61b4;
+    border:1px solid #2a61b4 ; 
   }
 }
 }

@@ -147,7 +147,7 @@ const PFTest: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
-            <h1>{test?.nameofTest}</h1>
+            <h1 className={styles.PFtitle}>{test?.nameofTest}</h1>
             <h2 className={styles.instruction}>Instructions:</h2>
             <p>
                 <em>
