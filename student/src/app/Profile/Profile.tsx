@@ -135,10 +135,10 @@ const Profile: React.FC = () => {
       <div className={style.container}>
         <div className={style.infoContainer}>
           <div className={style.userIDDisplay}>UserID: {userId || "Loading..."}</div>
-          <p>
+          <p className={style.pr_labelName}>
             <strong className={style.pr_labelcurrent}>Email:</strong> {currentEmail || "Loading..."}
           </p>
-          <p>
+          <p className={style.pr_labelName}>
             <strong className={style.pr_labelcurrent}>Student Number:</strong> {currentStudentNumber || "Loading..."}
           </p>
 
