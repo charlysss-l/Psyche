@@ -31,7 +31,7 @@ export const getAllUsers = async (req: Request, res: Response): Promise<void> =>
 // Edit a user (Update their email or role)
 export const editUser = async (req: Request, res: Response): Promise<void> => {
     const { userId } = req.params;
-    const { email, role } = req.body;
+    const { email, studentNumber, role } = req.body;  // Include studentNumber in the request body
 
     try {
         let user;
@@ -40,7 +40,7 @@ export const editUser = async (req: Request, res: Response): Promise<void> => {
         } else if (role === 'Psychology') {
             user = await PsychStudent.findByIdAndUpdate(userId, { email }, { new: true });
         } else if (role === 'Student') {
-            user = await Student.findOneAndUpdate({ userId }, { email }, { new: true });
+            user = await Student.findOneAndUpdate({ userId }, { email, studentNumber }, { new: true });  // Update studentNumber
         }
 
         if (!user) {
@@ -54,6 +54,7 @@ export const editUser = async (req: Request, res: Response): Promise<void> => {
         res.status(500).json({ message: 'Server error while editing user' });
     }
 };
+
 
 // Delete a user
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
