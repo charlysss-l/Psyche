@@ -65,6 +65,7 @@ $test-size: 400px;
   box-shadow: $box-shadow-large;
   transform: scale(1.05);
 
+
   cursor: pointer;
   background-color: $hover-bg-color;
 }
@@ -138,5 +139,5 @@ $test-size: 400px;
 .TestPF:hover,
 .iqLinkContainer:hover {
   box-shadow: $box-shadow-large;
-
+  transform: scale(1.05);
 }

@@ -273,7 +273,7 @@ button {
 
 :global(body.dark-mode){
   .FormTitle{
-      color: #1b1b1b;
+      color: #e4e4e4;
   }
   .start{
       background-color: #2a61b4;
@@ -285,5 +285,13 @@ button {
         }
       
   }
+  .formTest{
+      background-color: #161616;
+      
 
+      input, select, textarea{
+          background-color: #161616;
+          color: #fff;
+      }
+  }
 }

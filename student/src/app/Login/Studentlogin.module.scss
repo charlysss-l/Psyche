@@ -261,6 +261,14 @@ input[type="password"]::-webkit-textfield-decoration-container {
     label {
       color: #ccc;
     }
+    .logInput {
+      background-color: #141313ea;
+      color: #ffffff;
+      border: 1px solid #8a8a8a;
+    }
+    .togglePasswordButton {
+      color: #ffffff;
+    }
     .submitButtonLog {
       background-color: #2e70d3;
 

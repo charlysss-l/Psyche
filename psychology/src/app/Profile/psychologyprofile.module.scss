@@ -147,11 +147,11 @@ input[type="password"]::-webkit-textfield-decoration-container {
     color: #2a61b4;
   }
   .infoContainer {
-    background-color: #141313ea;
-    border: #b4b4b4 2px solid;
+    background-color: #161616;
+    border: none;
   }
   .pr_input {
-    background-color: #e2e2e2;
+    background-color: #161616;
     color: #727272;
   }
   .pr_label {
@@ -169,4 +169,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
       border: 2px solid  #2a61b4;
     }
   } 
+  .togglePasswordButton{
+    color: #b4b4b4;
+  }
 }

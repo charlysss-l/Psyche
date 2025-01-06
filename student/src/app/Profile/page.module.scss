@@ -268,8 +268,8 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
 :global(body.dark-mode){
   .container {
-    background-color: #141313ea;
-    border: #b4b4b4 2px solid;
+    background-color: #161616;
+    border: none;
 
     h2{
       color: #2e70d3;
@@ -294,8 +294,8 @@ input[type="password"]::-webkit-textfield-decoration-container {
     }
   }
   .passcontainer{
-    background-color: #141313ea;
-    border: #b4b4b4 2px solid;
+    background-color: #161616;
+    border: none;
   }
   .userinfo_pr {
     color: #2e70d3;
@@ -309,5 +309,12 @@ input[type="password"]::-webkit-textfield-decoration-container {
   .updateMessageError, .updateMessageSuccess {
     color: white;
   }
-
+  .pr_input {
+    color: #b4b4b4;
+    border: 1px solid #b4b4b4;
+    background-color: #20202000;
+  }
+  .togglePasswordButton {
+    color: #b4b4b4;
+  }
 }

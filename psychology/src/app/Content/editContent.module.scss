@@ -35,18 +35,18 @@
   .savebutton:hover {
     background-color: transparent;
     color: #2e70d3;
-    border-color: #2e70d3;
+    border: 2px solid #2e70d3;
   }
   
   .savebutton:focus {
     outline: none;
-    border-color: #0056b3;
+    border: 2px solid #2e70d3;
   }
   
   .savebutton.active {
     background-color: #0056b3;
     color: white;
-    border-color: #004085;
+    border: 2px solid #2e70d3;
   }
   .backbutton {
     padding: 15px 15px;
@@ -62,18 +62,18 @@
     &:hover {
       background-color: transparent;
       color: #6e6e6e;
-      border-color: #6e6e6e;
+      border: 2px solid #6e6e6e;
     }
   
     &:focus {
       outline: none;
-      border-color: #0056b3;
+      border: 2px solid #6e6e6e;
     }
   
     &.active {
       background-color: #0056b3;
       color: white;
-      border-color: #004085;
+      border: 2px solid #6e6e6e;
     }
   }
   
@@ -187,12 +187,12 @@
       &:hover {
         background-color: #2a61b4;
         color: #000000;
-        border: #2e70d3 2px solid;
+        border: #b4b4b4 2px solid;
       }
     }
     .contentItem {
-      background-color: #20202000;
-      border: 1px solid #b4b4b4;
+      background-color: #161616;
+      border: none;
     }
     .contentTitle {
       color: #2e70d3;
@@ -204,7 +204,7 @@
     .textarea {
       color: #b4b4b4;
       border: 1px solid #b4b4b4;
-      background-color: #20202000;
+      background-color: #161616;
     }
     .header{
       color: #b4b4b4;

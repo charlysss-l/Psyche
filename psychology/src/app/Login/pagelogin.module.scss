@@ -482,6 +482,14 @@ input[type="password"]::-webkit-textfield-decoration-container {
     h3{
       color: #ffffffe1;
     }
+    input{
+      background-color: #141313ea;
+      color: #ffffffe1;
+      border: #ffffffe1 solid 1px;
+    }
+    .togglePasswordButton{
+      color: #ffffffe1;
+    }
 
     .logLabel{
       color: #ccc;
@@ -518,6 +526,14 @@ input[type="password"]::-webkit-textfield-decoration-container {
       &:hover {
         background-color: #9e9e9e;
       }
+    }
+    input{
+      background-color: #141313ea;
+      color: #ffffffe1;
+      border: #ffffffe1 solid 1px;
+    }
+    .toggleConfirmPasswordButton{
+      color: #ffffffe1;
     }
     .cancelButton{
       background-color: #6e6e6e;

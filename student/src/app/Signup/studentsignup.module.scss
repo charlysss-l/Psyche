@@ -89,7 +89,7 @@
   transition: border-color 0.3s;
 
   &:focus {
-    border-color: #849670;
+    border-color: #636363;
     outline: none;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
   }
@@ -238,7 +238,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
 :global(body.dark-mode) {
   .signup_container {
-    background-color: #181818ec;
+    background-color: #181818fb;
     border: none;
 
     h2 {
@@ -253,7 +253,13 @@ input[type="password"]::-webkit-textfield-decoration-container {
         background-color: transparent;
       }
     }
-
+    .signupInput {
+      background-color: #181818fb;
+      color: #d9d9d9;
+    }
+    .togglePasswordButton {
+      color: #d9d9d9;
+    }
     .signup_p {
       color: #d9d9d9;
     }

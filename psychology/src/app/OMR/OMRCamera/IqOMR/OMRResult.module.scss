@@ -228,27 +228,6 @@ li {
   background-color: darken($primary-color, 10%); /* Darker shade on hover */
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  border: 2px solid #2e70d3;
-  background-color: #2e70d3;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-
-  &:hover {
-    background-color: transparent; 
-    color: #2e70d3;
-    border: 2px solid #2e70d3;
-  }
-
-  &:disabled {
-    background-color: #ccc;
-      cursor: not-allowed;
-  }
-}
-
 .submitButton {
   padding: 10px 15px;
   background-color: #67b2da;
@@ -272,7 +251,7 @@ button {
 
 :global(body.dark-mode){
   .formTest {
-    background-color: #1f1f1f5d;
+    background-color: #161616;
 
     h1{
       color: #b4b4b4;
@@ -282,6 +261,11 @@ button {
     }
     h3{
       color: #2a61b4;
+    }
+    input{
+      background-color: #161616;
+      color: #b4b4b4;
+      border: 2px solid #b4b4b4;
     }
     button{
       background-color: #2a61b4;

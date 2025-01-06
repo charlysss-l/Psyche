@@ -269,7 +269,7 @@ li {
 }
 :global(body.dark-mode){
   .formTest {
-    background-color: #1f1f1f5d;
+    background-color: #161616;
     h1{
       color: #b4b4b4;
     }
@@ -278,6 +278,11 @@ li {
     }
     h3{ 
       color: #2a61b4;
+    }
+    input{
+      background-color: #161616;
+      color: #b4b4b4;
+      border: 1px solid #b4b4b4;
     }
     button{
       background-color: #2a61b4;
