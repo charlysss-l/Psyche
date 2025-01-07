@@ -580,24 +580,18 @@ const handleRemove = async (id: string) => {
   <button
       className={styles.archiveButton}
       onClick={toggleArchivedList}
-    >
-      Archive List
-    </button>
-   
+    > Archive List
+  </button>
       <div className={styles.smartWrapper}>
-        
-      <input
+            <input
               type="text"
               placeholder="Search by User ID, Name, Date, Time, Note"
               value={acceptedSearchTerm}
               onChange={(e) => setAcceptedSearchTerm(e.target.value)}
               className={styles.searchInput}
             />
-            </div>
-            
-            </h2>
- 
-  
+      </div>
+  </h2>
   <div className={styles.responsesWrapper}>
   <table>
     <thead>
@@ -658,11 +652,8 @@ const handleRemove = async (id: string) => {
             >
               View Online Consultation
             </button>
-            
             )}
           </td>
-
-       
            <td>
             <span className={`${styles.statusButton} ${styles.acceptedStatus}`}>
               {request.status}
@@ -718,6 +709,7 @@ const handleRemove = async (id: string) => {
     <p className={styles.noScheduleMessage}>No scheduled requests for today.</p>
   </div>
   ) : (
+    <div className={styles.responsesWrapper}>
     <table>
       <thead>
         <tr>
@@ -726,21 +718,28 @@ const handleRemove = async (id: string) => {
           <th>Date</th>
           <th>Time</th>
           <th>Note</th>
-          <th>Status</th>
           <th>Counselor Name</th>
+          <th>Consultation Type</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
-      <div className={styles.responsesWrapper}>
         <tbody>
           {acceptedRequests
             .filter((request) => {
               const today = new Date();
               const requestDate = new Date(request.date);
               return (
-                requestDate.toDateString() === today.toDateString() &&
-                request.status === "accepted"
+                requestDate.toDateString() === today.toDateString()
+
               );
+            })
+            .sort((a, b) => {
+              if (a.status === "accepted" && b.status !== "accepted") return -1;
+              if (a.status !== "accepted" && b.status === "accepted") return 1;
+              if (a.status === "completed" && b.status !== "completed") return 1;
+              if (a.status !== "completed" && b.status === "completed") return -1;
+              return 0; 
             })
             .map((request) => (
               <tr key={request._id}>
@@ -755,14 +754,37 @@ const handleRemove = async (id: string) => {
                 </td>
                 <td>{request.timeForConsultation}</td>
                 <td>{request.note}</td>
+                <td>{request.councelorName}</td>
                 <td>
+            {request.consultationType !== "Online" && request.consultationType}
+            {request.consultationType === "Online" && (
+              <button
+              className={`${styles.viewButton} ${
+                request.status !== "accepted" || request.councelorName !== fullName
+                  ? styles.disabledButton
+                  : ""
+              }`}
+              onClick={() => {
+                if (request.status !== "accepted") {
+                  alert("This consultation is already completed.");
+                } else if (request.councelorName !== fullName) {
+                  alert("You are not the assigned counselor for this consultation.");
+                } else {
+                  window.location.href = `/online-consult/${request.testID}`;
+                }
+              }}
+            >
+              View Online Consultation
+            </button>
+            
+            )}
+          </td>                <td>
                   <span
                     className={`${styles.statusButton} ${styles.acceptedStatus}`}
                   >
                     {request.status}
                   </span>
                 </td>
-                <td>{request.councelorName}</td>
                 <td>
                   <button
                     className={styles.viewInfo}
@@ -778,12 +800,21 @@ const handleRemove = async (id: string) => {
                       Mark as Done
                     </button>
                   )}
+                  {request.status === 'completed' && (
+              <button
+                className={styles.archive}
+                onClick={() => handleArchive(request.testID)}
+              >
+                Archive
+              </button>
+            )}
                 </td>
               </tr>
             ))}
         </tbody>
-      </div>
     </table>
+    </div>
+
   )}
 </div>
 

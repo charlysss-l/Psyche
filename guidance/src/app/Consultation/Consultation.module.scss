@@ -95,12 +95,14 @@ table {
   background-color: $bg-color-light-gray-2;
   text-align: center;
   border-radius: $border-radius;
-  overflow: hidden; 
+  border-collapse: collapse;
+
 
   th,
   td {
     padding: $padding-large;
     border: 1px solid #858585;
+    border-top: none;
   }
 
   th {
@@ -112,6 +114,18 @@ table {
     font-size: $font-size-small;
     color: #333;
   }
+  thead th {
+    position: sticky;
+    top: 0; /* Sticks the header to the top */
+    z-index: 1;
+    padding: 8px;
+  }
+  
+  tbody td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
 }
 
 .statusButton {
