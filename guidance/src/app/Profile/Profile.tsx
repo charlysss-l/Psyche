@@ -99,15 +99,15 @@ const Profile: React.FC = () => {
           </>
         )}
 
-        <label className={style.pr_label}>Email:</label>
+        <label className={style.pr_labelemail}>Email:</label>
         {/* Display email fetched from localStorage */}
         <p className={style.pr_input}>{email}</p>
 
-        <label className={style.pr_label}>Name:</label>
+        <label className={style.pr_labelname}>Name:</label>
             {/* Display fullName fetched from localStorage */}
             <p className={style.pr_input}>{fullName}</p>
 
-        <label className={style.passWord}>* Change Password</label>
+        <label className={style.passWord}>Change Password:</label>
         <div className={style.passwordInputContainer}>
         <input
             type={showPassword ? "text" : "password"}
@@ -125,7 +125,7 @@ const Profile: React.FC = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
         </div>
-        <label className={style.passWord}>* Confirm Password</label>
+        <label className={style.passWord}>Confirm Password:</label>
         <div className={style.passwordInputContainer}>
         <input
             type={showPassword ? "text" : "password"}

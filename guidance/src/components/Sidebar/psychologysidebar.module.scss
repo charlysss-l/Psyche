@@ -7,8 +7,8 @@ $sidebar-link-color: #000000;
 $sidebar-hover-color: #000000;
 $sidebar-active-bg-color: #d2d2d2;
 $sidebar-font-size: 112.5%; // 16px to percentage based on default 16px
-$toggle-btn-bg-color: #d2d2d2;
-$toggle-btn-hover-bg-color: #749ef8;
+$toggle-btn-bg-color: #2e70d3;
+$toggle-btn-hover-bg-color: #ffffff;
 $font-size-base: 100%; // 16px to 100%
 $box-shadow-color: rgba(0, 0, 0, 0.5);
 $transition-duration: 0.3s;
@@ -22,18 +22,18 @@ $transition-duration: 0.3s;
     left: 1rem;
     border-radius: 20px;
     background-color: $toggle-btn-bg-color;
-    color: $sidebar-link-color;
+    color: #ffffff;
     border: none;
     padding: 0.7rem 1.5rem;
-    border: 2px solid #5e5e5eda;
+    border: 2px solid #2e70d3;
     cursor: pointer;
     z-index: 1001;
-    font-size: $font-size-base;
+    font-size:0.9rem;
     font-weight: bold;
 
     &:hover {
-      color: white;
-      background-color: $toggle-btn-hover-bg-color;
+      color: #2e70d3;
+      background-color: transparent;
     }
   }
 
@@ -43,7 +43,7 @@ $transition-duration: 0.3s;
     left: -$sidebar-width; // Hidden by default
     width: $sidebar-width;
     height: 100%;
-    background-color: $sidebar-bg-color;
+    background-color:white;
     color: $sidebar-link-color;
     transition: left $transition-duration ease;
     box-shadow: 2px 0 5px $box-shadow-color;
@@ -86,12 +86,12 @@ $transition-duration: 0.3s;
           border-radius: 10px;
 
           &:hover {
-            background-color: #749ef8 ;
-            color: $sidebar-hover-color;
+            background-color: #2e70d3 ;
+            color: #000000;
           }
 
           &.active {
-            background-color: $sidebar-active-bg-color;
+            background-color: #2e70d3;
             color: $sidebar-link-color;
             font-weight: bold;
             box-shadow: 0 4px 8px $box-shadow-color;
@@ -168,7 +168,7 @@ $transition-duration: 0.3s;
 
 :global(body.dark-mode){
   .sidebar{
-    background: linear-gradient(150deg,  #8facec, #b9b9b9);
+    background: #c0c0c0;
   }
 
       .link {
