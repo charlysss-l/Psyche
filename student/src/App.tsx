@@ -12,6 +12,7 @@ import Profile from "./app/Profile/Profile";
 import OMR from "./app/OMR/OMR";
 import PFTest from "./app/Test/PFTest/PFTest";
 import IQTest from "./app/Test/IQTest/IQTest";
+import CFTest from "./app/Test/CFTest/CFTest";
 import IQTestUserForm from "./app/Test/IQTest/IQTestUserForm";
 import PFResult from "./app/Result/PFResult/PFResult";
 import IQResult from "./app/Result/IQResult/IQResult";
@@ -36,7 +37,9 @@ import SurveyDetails from "./app/Survey/surveryDetails/surveyDetails";
 import ArchiveInbox from "./app/Consultation/ArchiveInbox";
 import IntroPF from "./app/Test/PFTest/IntroPF/IntroPF";
 import IntroIQ from "./app/Test/IQTest/IntroIQ/IntroIQ";
+import IntroCF from "./app/Test/CFTest/IntroCF/IntroCF";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+
 
 function App() {
   return (
@@ -75,6 +78,7 @@ function App() {
                       <Route path="/pftest" element={<ProtectedRoute><PFTest /></ProtectedRoute>} />
                       <Route path="/iqtestuserform" element={<ProtectedRoute><IQTestUserForm /></ProtectedRoute>} />
                       <Route path="/iqtest" element={<ProtectedRoute><IQTest /></ProtectedRoute>} />
+                      <Route path="/cftest" element={<ProtectedRoute><CFTest /></ProtectedRoute>} />
                       <Route path="/pf-results" element={<ProtectedRoute><PFResult /></ProtectedRoute>} />
                       <Route path="/iq-results" element={<ProtectedRoute><IQResult /></ProtectedRoute>} />
                       <Route path="/omrcamera" element={<ProtectedRoute><OMRCamera /></ProtectedRoute>} />
@@ -86,6 +90,7 @@ function App() {
                       <Route path="/pfonlinelist" element={<ProtectedRoute><PFOnlineList /></ProtectedRoute>} />
                       <Route path="/intro-pf" element={<ProtectedRoute><IntroPF /></ProtectedRoute>} />
                       <Route path="/intro-iq" element={<ProtectedRoute><IntroIQ /></ProtectedRoute>} />
+                      <Route path="/intro-cf" element={<ProtectedRoute><IntroCF /></ProtectedRoute>} />
                       <Route path="/allomr" element={<ProtectedRoute><AllOMR /></ProtectedRoute>} />
                       <Route path="/iqomr" element={<ProtectedRoute><IqOMR /></ProtectedRoute>} />
                       <Route path="/iqomrresult" element={<ProtectedRoute><OMRResult /></ProtectedRoute>} />

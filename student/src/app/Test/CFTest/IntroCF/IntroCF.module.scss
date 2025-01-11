@@ -1,0 +1,115 @@
+.container {
+    width: 70%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .pfintro, .termsandconditionpf{
+    font-size: 2rem;
+    color: #2e70d3;
+    margin-bottom: 16px;
+  }
+  
+  .pftermsinfo {
+    text-align: left;
+  }
+  
+  .termsinfo {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 12px;
+    text-align: left;
+    line-height: 1.8;
+  }
+  .termsnumiq{
+    color: #849670 ;
+  }
+  .pfButton {
+    display: inline-block;
+    padding: 10px 20px;
+    border:1px solid #2e70d3 ;
+    background-color: #2e70d3;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .pfButton:hover {
+    background-color: transparent;
+    color:#2e70d3;
+    border:1px solid #2e70d3 ;
+  
+  }
+  
+  .checkboxContainer {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the container horizontally */
+  
+    label {
+        color: #2e70d3;
+    }
+}
+
+.checkbox {
+    display: flex; /* Ensure the checkbox itself uses flexbox */
+    justify-content: center; /* Center the checkbox horizontally */
+    align-items: center; /* Center the checkbox vertically */
+}
+
+  .confirm {
+    text-align: center;
+  }
+
+  :global(body.dark-mode) {
+    .container{
+      background-color: #161616;
+    }
+    .pfintro, .termsandconditionpf{
+      color: #2a61b4;
+    }
+    .pfintroinfo,.pftermsinfo{
+      color: #acacac;
+    }
+    .termsnumiq{
+      color: #2a61b4 ;
+    }
+    .termsinfo {
+      color: #e6e6e6;
+    }
+    .pfButton {
+      background-color: #2a61b4;
+    }
+    .pfButton:hover {
+      background-color: transparent;
+      border: 1px solid #2a61b4;
+      color: #2a61b4;
+    }
+    .confirm{
+      color: #e6e6e6;
+    }
+    .checkboxContainer label{
+        color:#2a61b4;
+      }
+      .pfButton{
+        background-color: #2a61b4;
+  
+       &:hover {
+          background-color: transparent ;
+          border: 1px solid #2a61b4 ;
+          color: #2a61b4;
+        }
+      }
+    }
+  

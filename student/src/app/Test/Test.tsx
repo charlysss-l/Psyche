@@ -17,6 +17,11 @@ const Test = () => {
            Raven’s Standard Progressive Matrices
           </Link>
         </div>
+        <div className={style.iqLinkContainer}>
+          <Link to="/cftest" className={style.iqLink}>
+           Measuring Intelligence with the Culture Fair Test
+          </Link>
+        </div>
       </div>
     </div>
   );
