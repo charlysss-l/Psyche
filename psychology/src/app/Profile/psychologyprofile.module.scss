@@ -1,6 +1,6 @@
 $primary-color: #333;
 $button-color: #2e70d3;
-$button-hover-color: #2e70d3 ;
+$button-hover-color: #2e70d3;
 $message-success: #28a745;
 $message-error: #af1414;
 
@@ -17,6 +17,7 @@ $message-error: #af1414;
   font-size: 1.7rem;
   color: $button-hover-color;
   margin-bottom: 20px;
+  padding-top: 30px;
 }
 
 .infoContainer {
@@ -27,7 +28,6 @@ $message-error: #af1414;
   max-width: 400px;
   width: 100%;
   text-align: left;
-  
 }
 
 .userIDDisplay {
@@ -83,10 +83,10 @@ p {
 
 .submitButton {
   background-color: $button-color;
-  align-self: center ;
+  align-self: center;
   color: white;
   padding: 12px 20px;
-  border: 2px solid  $button-color;
+  border: 2px solid $button-color;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
@@ -96,7 +96,7 @@ p {
 .submitButton:hover {
   background-color: transparent;
   color: $button-color;
-  border: 2px solid  $button-color;
+  border: 2px solid $button-color;
 }
 
 .updateMessage {
@@ -141,8 +141,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
   display: none;
 }
 
-:global(body.dark-mode){
-  
+:global(body.dark-mode) {
   .userinfo_pr {
     color: #2a61b4;
   }
@@ -157,19 +156,19 @@ input[type="password"]::-webkit-textfield-decoration-container {
   .pr_label {
     color: #2a61b4;
   }
-  .passWord{
+  .passWord {
     color: #b4b4b4;
   }
-  .submitButton{ 
+  .submitButton {
     background-color: #2a61b4;
-    border: 2px solid  #2a61b4;
+    border: 2px solid #2a61b4;
     &:hover {
       background-color: transparent;
       color: #2e70d3;
-      border: 2px solid  #2a61b4;
+      border: 2px solid #2a61b4;
     }
-  } 
-  .togglePasswordButton{
+  }
+  .togglePasswordButton {
     color: #b4b4b4;
   }
 }
