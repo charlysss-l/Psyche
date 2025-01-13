@@ -7,19 +7,16 @@
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   box-sizing: border-box;
-  
 }
-.passcontainer{
-    max-width:  700px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    box-sizing: border-box;
-
- 
+.passcontainer {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .userinfo_pr {
@@ -27,6 +24,7 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: #2e70d3;
+  margin-top: -20px;
   margin-bottom: 20px;
   user-select: none;
 }
@@ -49,12 +47,12 @@
   padding-top: 10px;
 }
 
-.pr_labelcurrent{
+.pr_labelcurrent {
   color: #2e70d3;
   margin-bottom: inherit;
 }
 
-.pr_labelName{
+.pr_labelName {
   margin-bottom: -10px;
 }
 
@@ -65,7 +63,7 @@
   color: #444;
 }
 
-.pr_input{
+.pr_input {
   width: 95%;
   padding: 12px;
   margin-bottom: 20px;
@@ -117,7 +115,7 @@
   animation: slideDown 0.5s ease, fadeOut 2s ease 2s forwards;
 }
 .updateMessageSuccess {
-  background-color:#71914c;
+  background-color: #71914c;
   color: white;
   border: 1px solid #71914c;
 }
@@ -128,7 +126,7 @@
   border: 1px solid #af1414;
 }
 
-.changePasswordTitle{
+.changePasswordTitle {
   font-size: 1.5rem;
   font-weight: bold;
   color: #2e70d3;
@@ -203,18 +201,16 @@
   p {
     margin: 0 0 0.5rem;
     font-weight: bold;
-
-
   }
 
   ul {
-    margin-top: -.5rem;
+    margin-top: -0.5rem;
     list-style-type: disc;
 
     p {
       margin-bottom: 0.3rem;
       color: #ff0000;
-      font-size: .7rem;
+      font-size: 0.7rem;
     }
   }
 }
@@ -223,15 +219,15 @@
   display: flex;
   font-weight: bold;
 
-    p {
-      margin: -.1rem 0 0.5rem;
-      font-weight: bold;
-    }
+  p {
+    margin: -0.1rem 0 0.5rem;
+    font-weight: bold;
+  }
 }
 
 .passwordStrength {
   font-size: 0.9rem;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 
   &.weak {
     color: #dc3545; // Red for Weak
@@ -266,18 +262,18 @@ input[type="password"]::-webkit-textfield-decoration-container {
   display: none;
 }
 
-:global(body.dark-mode){
+:global(body.dark-mode) {
   .container {
     background-color: #161616;
     border: none;
 
-    h2{
+    h2 {
       color: #2e70d3;
     }
     .userIDDisplay {
       color: #b4b4b4;
     }
-    p{
+    p {
       color: #ccc;
     }
     .pr_label {
@@ -293,20 +289,21 @@ input[type="password"]::-webkit-textfield-decoration-container {
       }
     }
   }
-  .passcontainer{
+  .passcontainer {
     background-color: #161616;
     border: none;
   }
   .userinfo_pr {
     color: #2e70d3;
-  } 
-  .pr_label{
+  }
+  .pr_label {
     color: #b4b4b4;
   }
   .changePasswordTitle {
     color: #2e70d3;
   }
-  .updateMessageError, .updateMessageSuccess {
+  .updateMessageError,
+  .updateMessageSuccess {
     color: white;
   }
   .pr_input {
