@@ -305,7 +305,8 @@ $table-border-color: #E9E9E9;
 
 :global(body.dark-mode){
     .surveyListContainer {
-        background-color: #2e70d3;
+        background-color: #f1f1f1;
+       
 
         h2{
             color: #e4e4e4;
@@ -329,7 +330,7 @@ $table-border-color: #E9E9E9;
       transform: scale(0.98); 
     }
     .filters{
-        background-color: #697c8f;
+        background-color: whitesmoke;
         border: none;
     } 
     .filters h4{
@@ -339,7 +340,7 @@ $table-border-color: #E9E9E9;
         color: #e4e4e4;
     }
     .surveyCard{
-        background-color: #2e70d3;
+        background-color: whitesmoke;
     }
     .surveyCard p{
         color: #000000;

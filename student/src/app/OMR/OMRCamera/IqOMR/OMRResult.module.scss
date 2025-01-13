@@ -40,7 +40,7 @@ $font-family: Arial, sans-serif;
 
 // Header for the form (SAMPLE IQ TEST)
 h1 {
-  color: #1b1b1b;     // Color for the header text (SAMPLE IQ TEST)
+  color: #ffffff;     // Color for the header text (SAMPLE IQ TEST)
   font-size: 2rem;
   margin-bottom: 20px;
   justify-self: center;
@@ -269,7 +269,7 @@ button {
 
 :global(body.dark-mode){
   .FormTitle{
-      color: #b4b4b4;
+      color: #ffffff;
   }
   .ageWarning {
       color: #ce3636;

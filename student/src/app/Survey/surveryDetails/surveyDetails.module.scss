@@ -126,35 +126,35 @@
   
   :global(body.dark-mode){
     .surveyDetailsContainer {
-      background-color: #2a3744ef;
+      background-color: #b4b4b4;
 
       h2{
         color: #2e70d3;
       }
 
       p{
-        color: #fafafa;
+        color: #000000;
       }
     }
     .question {
-      background-color: #47596b;
+      background-color: #f1f1f1;
       border: none;
 
       label{
-        color: #cecece;
+        color: #000000;
       }
     }
     .submitButton {
-      background-color: #849670 ;
+      background-color: #2e70d3;
       
       &:hover {
         background-color: transparent;
         color: #d3d3d3;
-        border: 1px solid #849670 ;
+        border: 1px solid #2e70d3 ;
       }
     
       &:disabled {
-        background-color: #849670;
+        background-color: #e270d3;
         cursor: not-allowed;
       }
   }
