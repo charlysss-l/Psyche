@@ -29,13 +29,14 @@
   
   :global(body.dark-mode){
     .resultSection{
-      background-color: #2a3744ef;
+      background-color: #f2f2f2;
+      color: rgba(51, 51, 51, 51);
 
       h1 {
-        color: #849670;
+        color: #2e70d3;
       }
       h2{
-        color: #849670;
+        color: #2e70d3;
       }
     }
     

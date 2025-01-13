@@ -330,17 +330,17 @@ select {
 
 :global(body.dark-mode){
   .consulForm {
-    background: linear-gradient(135deg, #2a3744ef, #2a3744ef);
+background-color: whitesmoke;
     border: none;
    }
    .conTitle{
-    color: #849670;
+    color: #2e70d3;
    }
    .conText{
-    color: #a0a0a0;
+    color: #000000;
    }
    .conLabel{
-    color: #a0a0a0;
+    color: #000000;
    }
    .conSubmit{
     background: #2e70d3;
@@ -354,11 +354,11 @@ select {
    }
 
    .tableContainer{
-    background-color: #2a3744;
+    background-color: whitesmoke;
     border: none;
 
     h2{
-      color: #849670;
+      color: #2e70d3;
     }
     .table th,
     .table td {
@@ -386,18 +386,18 @@ select {
    }
    .archiveButton {
     margin-left: 20px;
-    background-color: #849670;
+    background-color: #b60000;
     color: white; 
   }
   
   .archiveButton:hover {
     background-color: transparent;
     color:#b3b3b3;
-    border:1px solid #849670;
+    border:1px solid #b60000;
   }
   
   .archiveButton:active {
-    background-color: #849670;
+    background-color: #b60000;
   
     transform: scale(0.98); 
   }
