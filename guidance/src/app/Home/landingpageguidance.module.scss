@@ -1,0 +1,121 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  
+  .landing_page {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-between; 
+    height: 100vh; 
+    padding: 0 5%; 
+    animation: fadeIn 1s ease-out;
+    width: 100%;
+    border-radius: 20px;
+    background: linear-gradient(to bottom right, #050505a8, #2c2c2c9a), 
+                url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVzdCUyMHRha2luZ3xlbnwwfHwwfHx8MA%3D%3D');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center; /* Adjust the position */
+    user-select: none;
+  }
+  
+  
+  
+  
+  .content {
+    flex: 1; 
+    padding: 0  120px 20px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: right;  
+    
+    .logo {
+      background-image: url('../../images/LOGO.png'); 
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 220px; 
+      height: 220px;
+      margin-bottom: 1px; 
+    }
+  
+    .landing_page_subheader {
+      font-size: 3rem;
+      color: #ffffff; 
+      max-width: 100%; 
+      margin-top: 0; 
+      margin-bottom: 20px;
+      font-weight: bold;
+      text-shadow: #424242 1px 1px; 
+    }
+  
+    .landing_page_description,
+    .landing_page_extra_description {
+      font-size: 1.1rem;
+      color: #e4e4e4; 
+      max-width: 60%; 
+      margin-top: 0; 
+      margin-bottom: 20px; 
+    }
+  
+    .get_started_btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 15px 10px;
+      text-decoration: none;
+      background-color: #2e70d3;
+      border: #2e70d3 solid 3px;
+      color: #fff;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease, color 0.3s ease; 
+      width: 100%; 
+      max-width: 250px; 
+    }
+  
+    .get_started_btn:hover {
+      background-color: transparent;
+      border: #2e70d3 solid 3px;
+      color: #2e70d3;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .landing_page {
+      padding: 0 10px;
+    }
+  
+    .content {
+      padding: 0 20px 20px;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .content .logo {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 20px;
+    }
+  
+    .content .landing_page_subheader {
+      font-size: 1.8rem;
+    }
+  
+    .content .landing_page_description,
+    .content .landing_page_extra_description {
+      font-size: 0.9rem;
+      max-width: 100%;
+    }
+  
+    .content .get_started_btn {
+      max-width: 150px;
+    }
+  }
