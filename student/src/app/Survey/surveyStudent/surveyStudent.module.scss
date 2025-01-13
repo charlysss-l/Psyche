@@ -55,14 +55,15 @@ $table-border-color: #E9E9E9;
   }
 
   h3 {
+    
     font-size: 1.5rem;
-    color: #d7a52f;
+    color: rgba(51, 51, 51, 51);
     margin-bottom: 10px;
   }
 
   p {
     font-size: 1rem;
-    color: #555;
+    color: #000000;
     margin: 5px 0;
   }
 
@@ -94,14 +95,14 @@ $table-border-color: #E9E9E9;
       }
 
       th {
-        background-color: #849670;
-        color: white;
+        background-color: transparent;
+        color: rgba(51, 51, 51, 51);
         font-weight: bold;
       }
 
       td {
         background-color: #fff;
-        color: #555;
+        color: #000000;
       }
 
       tr:nth-child(even) td {
@@ -127,13 +128,13 @@ $table-border-color: #E9E9E9;
       display: inline-block;
       padding: 8px 16px;
       border-radius: $border-radius;
-      background-color: #d7a52f;
+      background-color: #2e70d3;
       text-align: center;
 
       &:hover {
         background-color: transparent;
         color: black;
-        border: 1px solid  #d7a52f;
+        border: 1px solid  #2e70d3;
       }
     }
   }
@@ -168,13 +169,13 @@ $table-border-color: #E9E9E9;
   cursor: pointer;
   padding: 10px;
   border-radius: 20px;
-  color: white;
+  color: rgba(51, 51, 51, 51); ;
   font-weight: bold;
   text-decoration: none;
-  background-color: #d8b803;
+  background-color: transparent;
 
   &:hover {
-    background-color: #b69b00;
+    background-color: #2e70d3;
   }
 }
 
@@ -185,7 +186,7 @@ $table-border-color: #E9E9E9;
   margin-top: 20px;
 
   button {
-    background-color: #d7a52f;
+    background-color: #2e70d3;
     color: white;
     padding: 10px;
     border-radius: $border-radius;
@@ -193,7 +194,7 @@ $table-border-color: #E9E9E9;
     border: none;
 
     &:hover {
-      background-color: #d7a52f ;
+      background-color: #2e70d3;
     }
 
     &:disabled {
@@ -204,7 +205,7 @@ $table-border-color: #E9E9E9;
 }
 
 .doneButton {
-  background-color: #849670; 
+  background-color: #2e70d3; 
   color: white;
   padding: 10px 20px;
   border: none;
@@ -222,7 +223,7 @@ $table-border-color: #E9E9E9;
 
 .archiveButton {
   
-  background-color: #d7a52f; /* Blue like a mailbox */
+  background-color: #2e70d3; /* Blue like a mailbox */
   color: white; /* Text color */
   border-radius: 12px; /* Rounded edges */
   padding: 10px 20px; /* Adjust padding for size */
@@ -238,12 +239,12 @@ $table-border-color: #E9E9E9;
 .archiveButton:hover {
   background-color: transparent;
   color:black;
-  border:1px solid #d7a52f; 
+  border:1px solid rgba(51, 51, 51, 51); 
   
 }
 
 .archiveButton:active {
-  background-color: #d7a52f; /* Darker blue when clicked */
+  background-color: #2e70d3; /* Darker blue when clicked */
   transform: scale(0.98); /* Slight click animation */
 }
 
@@ -259,7 +260,7 @@ $table-border-color: #E9E9E9;
   display: block;
   width: 0;
   height: 4px;
-  background-color: #d7a52f; /* Blue underline */
+  background-color: #2e70d3; /* Blue underline */
   margin: 0 auto;
   border-radius: 2px;
   transition: width 0.3s ease;
@@ -304,17 +305,17 @@ $table-border-color: #E9E9E9;
 
 :global(body.dark-mode){
     .surveyListContainer {
-        background-color: #2a3744ef;
+        background-color: #2e70d3;
 
         h2{
             color: #e4e4e4;
         }
         .surveyCount{
-            color: #d7a52f;
+            color: #2e70d3;
         }
     }
     .archiveButton{
-        background-color: #849670;
+        background-color: #2e70d3;
     }
     .archiveButton:hover {
       background-color: transparent;
@@ -338,26 +339,26 @@ $table-border-color: #E9E9E9;
         color: #e4e4e4;
     }
     .surveyCard{
-        background-color: #47596b;
+        background-color: #2e70d3;
     }
     .surveyCard p{
-        color: #e4e4e4;
+        color: #000000;
     }
     .surveyCard h3{
-        color: #849670;
+        color: #2e70d3;
     }
     .filters th{
-        background-color: #caa44a;
+        background-color: #2e70d3;
         color: white;
     }
     .viewDetailsButton {
-      background-color: #849670;
+      background-color: #2e70d3;
      
 
       &:hover {
         background-color: transparent;
         color: black;
-        border: 1px solid  #849670;
+        border: 1px solid  rgba(51, 51, 51, 51);
       }
 }
 .pagination button{
