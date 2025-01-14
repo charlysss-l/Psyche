@@ -126,22 +126,22 @@
   
   :global(body.dark-mode){
     .surveyDetailsContainer {
-      background-color: #b4b4b4;
+      background-color: #151515;
 
       h2{
         color: #2e70d3;
       }
 
       p{
-        color: #000000;
+        color: #f1f1f1;
       }
     }
     .question {
-      background-color: #f1f1f1;
+      background-color: #151515;
       border: none;
 
       label{
-        color: #000000;
+        color: #f1f1f1;
       }
     }
     .submitButton {
