@@ -265,7 +265,6 @@ const GuidanceConsultation: React.FC = () => {
    const sendEmailNotification = (status: string, userEmail: string) => {
     const templateParams = {
       to_email: userEmail,  // Use the passed email
-      student_number: status,
       message: `Your consultation request has been ${status}.`,
     };
   

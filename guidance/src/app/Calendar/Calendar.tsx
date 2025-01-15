@@ -15,6 +15,7 @@ interface ConsultationRequest {
   userId: string;
   studentName: string;
   councelorName: string;
+  consultationType: string;
   timeForConsultation: string;
   note: string;
   date: string;
@@ -210,6 +211,7 @@ const SchedulingCalendar: React.FC = () => {
                     <th>Student Name</th>
                     <th>Time</th>
                     <th>Note</th>
+                    <th>Consultation Type</th>
                     <th>Status</th>
                     <th>Actions</th>
                   </tr>
@@ -221,6 +223,7 @@ const SchedulingCalendar: React.FC = () => {
                       <td>{request.studentName}</td>
                       <td>{request.timeForConsultation}</td>
                       <td>{request.note}</td>
+                      <td>{request.consultationType}</td>
                       <td>{request.status}</td>
                       <td>
                         <button onClick={() => handleMarkAsDone(request._id)}>Mark as Done</button>
