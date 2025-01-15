@@ -142,7 +142,7 @@
       margin: 10px;
       background-color: #849670;
       color: white;
-      border: none;
+      border:1px solid #95a581 ;
       padding: 10px 15px;
       border-radius: 5px;
       cursor: pointer;
@@ -150,7 +150,7 @@
     
     .graphButton:hover {
       background-color: transparent;
-      color: black;
+      color: #95a581;
       border:1px solid #95a581 ;
     }
     
@@ -175,7 +175,7 @@
       background-color: #b62e2e ;
       ;
       color: white;
-      border: none;
+      border:1px solid #B94d4dce;
       padding: 10px 15px;
       border-radius: 5px;
       cursor: pointer;
@@ -183,7 +183,7 @@
 
     .deleteButton:hover{
       background-color: transparent;
-      color: black;
+      color: #b62e2e;
       border:1px solid #B94d4dce;
     }
 

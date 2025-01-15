@@ -1,6 +1,6 @@
 // SCSS Variables for consistency
 $form-bg-color: #F6F5F5;         // Set form background to #F6F5F5
-$primary-color: #2e70d3;         // Primary color for buttons and focus
+$primary-color: #704191;         // Primary color for buttons and focus
 $border-radius: 5px;
 $input-border-color: #45474B;    // Darker border for the input fields
 $input-focus-border-color: $primary-color; // Focus color for inputs
@@ -219,17 +219,17 @@ li {
 .start {
   margin-top: 20px;
   padding:15px 30px;
-  background-color: #2e70d3;
+  background-color: #704191;
   color: white;
-  border: 2px solid #2e70d3;
+  border: 2px solid #704191;
   border-radius: $border-radius;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
     background-color: transparent;
-    color: #2e70d3;
-    border: 2px solid #2e70d3;
+    color: #704191;
+    border: 2px solid #704191;
   }
 }
 
@@ -250,9 +250,9 @@ button {
 
 .submitButton {
   padding: 10px 15px;
-  background-color: #2e70d3;
+  background-color: #704191;
   color: white;
-  border: 2px solid #2e70d3;
+  border: 2px solid #704191;
   border-radius: 10px;
   cursor: pointer;
   margin-top: 40px;
@@ -263,8 +263,8 @@ button {
 
 .submitButton:hover {
   background-color: transparent;
-  color: #2e70d3;
-  border: 2px solid #2e70d3;
+  color: #704191;
+  border: 2px solid #704191;
 }
 
 :global(body.dark-mode){
@@ -275,12 +275,12 @@ button {
       color: #ce3636;
   }
   .start{
-      background-color: #2a61b4;
+      background-color: #754a94;
       
         &:hover {
           background-color: transparent;
-          color: #2a61b4;
-          border: 2px solid #2a61b4;
+          color: #754a94;
+          border: 2px solid #754a94;
         }
       
   }

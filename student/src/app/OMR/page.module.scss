@@ -14,7 +14,7 @@
     margin: 0;
 }
 .OMRTITLE:hover{
-    color: #2e70d3;
+    color: #704191;
 }
 
 .OMRTITLEnext{
@@ -23,7 +23,7 @@
     margin: 0;
 }
 .OMRTITLEnext:hover{
-    color: #2e70d3 ;
+    color: #704191 ;
 }
 .OMRDesc{
    font-size: 18px;
@@ -43,14 +43,14 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    border: #2e70d3 2px solid;
-    background-color: #2e70d3;
+    border: #704191 2px solid;
+    background-color: #704191;
     color: white;
 }
 .OMRlinkOnline:hover, .OMRLinkUpload:hover{
     background-color: transparent;
-    border: 2px solid #2e70d3;
-    color: #2e70d3;
+    border: 2px solid #704191;
+    color: #704191;
 }
 :global(body.dark-mode){
     .OMRTITLE{
@@ -59,17 +59,17 @@
         margin: 0;
     }
     .OMRTITLE:hover{
-        color: #2a61b4;
+        color: #754a94;
     }
     .OMRlinkOnline, .OMRLinkUpload{
-        background-color: #2a61b4;
+        background-color: #754a94;
         color: #e7e7e7;
-        border: #2a61b4 2px solid;
+        border: #754a94 2px solid;
     }
     .OMRlinkOnline:hover, .OMRLinkUpload:hover{
         background-color: transparent;
-        color: #2a61b4;
-        border: 2px solid #2a61b4;
+        color: #754a94;
+        border: 2px solid #754a94;
     }
     .OMRTITLEnext{
         color: #ffffff;
@@ -77,6 +77,6 @@
         margin: 0;
     }
     .OMRTITLEnext:hover{
-        color: #2a61b4 ;
+        color: #754a94 ;
     }
 }

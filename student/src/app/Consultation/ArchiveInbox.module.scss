@@ -55,7 +55,7 @@
   margin-bottom: 20px;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #d7a52f;
+  color: #1f1f1f;
 
   @media (max-width: 768px) {
     font-size: 1.25rem;
@@ -70,7 +70,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background: #d7a52f ;
+  background: #6e6e6e ;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -81,7 +81,7 @@
   &:hover {
     background-color: transparent;
     color: #2A3744;
-    border: 1px solid #d7a52f;
+    border: 1px solid #6e6e6e;
   }
   @media (max-width: 768px) {
     top: 5px;
@@ -127,7 +127,7 @@
   }
 
  .tableArchive th {
-    background-color: #849670;
+    background-color: #6e6e6e;
     color: white;
   }
 

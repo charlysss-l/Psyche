@@ -221,8 +221,8 @@ li {
 .start {
   margin-top: 20px;
   padding: 15px 30px;
-  background-color: #2e70d3;
-  border: 2px solid #2e70d3;
+  background-color: #704191;
+  border: 2px solid #704191;
   color: white;
   border-radius: $border-radius;
   cursor: pointer;
@@ -230,8 +230,8 @@ li {
 
   &:hover {
   background-color: transparent;
-  color: #2e70d3;
-  border: 2px solid #2e70d3;
+  color: #704191;
+  border: 2px solid #704191;
 }
 }
 
@@ -254,7 +254,7 @@ button {
 
 .submitButton {
   padding: 10px 15px;
-  background-color: #2e70d3;
+  background-color: #704191;
   color: white;
   border: none;
   border-radius: 10px;
@@ -267,8 +267,8 @@ button {
 
 .submitButton:hover {
   background-color: transparent;
-  color: #2e70d3;
-  border: 2px solid #2e70d3;
+  color: #704191;
+  border: 2px solid #704191;
 }
 
 :global(body.dark-mode){
@@ -276,12 +276,12 @@ button {
       color: #e4e4e4;
   }
   .start{
-      background-color: #2a61b4;
+      background-color: #754a94;
       
         &:hover {
           background-color: transparent;
-          color: #2a61b4;
-          border: 2px solid #2a61b4;
+          color: #754a94;
+          border: 2px solid #754a94;
         }
       
   }

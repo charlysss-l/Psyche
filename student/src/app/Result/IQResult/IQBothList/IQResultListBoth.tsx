@@ -6,7 +6,7 @@ import styles from './IQResultListBoth.module.scss';
 const IQResultListBoth: React.FC = () => {
   return (
     <div className={styles.dashboardContainer}>
-      <h1>Results Dashboard</h1>
+      <h1 className={styles.dashboardTitle}>Results Dashboard</h1>
       
       <section className={styles.resultSection}>
         <IQResultsList /> 

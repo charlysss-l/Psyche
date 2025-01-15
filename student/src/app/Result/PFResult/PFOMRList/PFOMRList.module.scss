@@ -44,7 +44,7 @@
       margin: 10px;
       background-color: #b62e2e;
       color: white;
-      border: none;
+      border:1px solid #B94d4dce;
       padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
@@ -52,18 +52,17 @@
   
     .deleteButtonIQLIST:hover{
       background-color: transparent;
-      color: black;
+      color: #b62e2e;
       border:1px solid #B94d4dce;
     }
 
     .updateButtonIQLIST{
       width: 70px;
-      
       margin: 10px;
       background-color: #585858d3;
-      ;
+      
       color: white;
-      border: none;
+      border: 1px solid #585858a6;
       padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
@@ -71,7 +70,7 @@
   
     .updateButtonIQLIST:hover{
       background-color: transparent;
-      color: black;
+      color: #585858a6;
       border: 1px solid #585858a6;
     }
 
@@ -157,11 +156,12 @@
 
     .deleteButtonIQLIST{
       background-color: #b62e2e;
+      border:1px solid #B94d4dce;
       padding: 8px;
     }
     .deleteButtonIQLIST:hover{
       background-color: transparent;
-      color: black;
+      color: #B94d4dce;
       border:1px solid #B94d4dce;
     }
 
@@ -191,7 +191,7 @@
       margin: 10px;
       background-color: #849670;
       color: white;
-      border: none;
+      border:1px solid #849670 ;
       padding: 10px 15px;
       border-radius: 5px;
       cursor: pointer;
@@ -199,7 +199,7 @@
     
     button:hover {
       background-color: transparent;
-      color:black;
+      color:#849670;
       border:1px solid #849670 ;
     }
     
@@ -207,9 +207,9 @@
     .viewImageButton {
       width: 130px;
       margin: 10px;
-      background-color: #d7a52f;
+      background-color: #704191;
       color: white;
-      border: none;
+      border:1px solid #704191;
       padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
@@ -218,8 +218,8 @@
     
     .viewImageButton:hover{
       background-color: transparent;
-      color:black;
-      border:1px solid #d7a52f;
+      color:#704191;
+      border:1px solid #704191;
     }
     
     .modalImageView {

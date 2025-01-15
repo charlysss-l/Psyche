@@ -16,7 +16,7 @@
     padding: 10px;
     text-align: center;
     font-size: 13px;
-    background-color: #849670;
+    background-color: #6e6e6e;
     border-bottom: 1px solid #9e979791; 
   }
   
@@ -51,15 +51,15 @@
       margin: 10px;
       background-color: #b62e2e ;
       color: white;
-      border: none;
+      border:1px solid #b62e2e ;
       padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
 }
 .deleteButtonIQLIST:hover{
   background-color: transparent;
-  color:black;
-  border:1px solid #B94d4dce ;
+  color:#b62e2e;
+  border:1px solid #b62e2e ;
 }
 
 .updateButtonIQLIST{
@@ -67,7 +67,7 @@
   margin: 10px;
   background-color: #849670;
   color: white;
-  border: none;
+  border:1px solid #849670;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -75,8 +75,8 @@
 
 .updateButtonIQLIST:hover{
   background-color: transparent;
-  color:black;
-  border:1px solid #95a581;
+  color:#849670;
+  border:1px solid #849670;
 }
 
 .saveButtonIQLIST{
@@ -136,7 +136,7 @@
   margin: 10px;
   background-color: #bbae3c;
   color: white;
-  border: none;
+  border:1px solid #bbae3c;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -145,8 +145,8 @@
 
 .viewImageButton:hover{
   background-color: transparent;
-  color:black;
-  border:1px solid #948929;
+  color:#bbae3c;
+  border:1px solid #bbae3c;
 }
 
 .modal {
@@ -221,7 +221,7 @@
     color: #ffffff;
   }
   .resultsTableIQ th {
-    background-color: #c09227;
+    background-color: #6e6e6e;
     color: #2e2e2e;
   }
   .ageWarning {

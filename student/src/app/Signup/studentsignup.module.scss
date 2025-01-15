@@ -46,7 +46,7 @@
 
 .signup_h2 {
   font-size: 1.7rem;
-  color: #2e70d3;
+  color: #704191;
   text-align: center;
   padding: 0;
   margin: 2% 0 0 0;
@@ -102,16 +102,16 @@
   margin: 0 10% 0 10%;
   font-weight: bold;
   color: #fff;
-  background-color: #2e70d3;
-  border: 3px solid #2e70d3;
+  background-color: #704191;
+  border: 3px solid #704191;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 
   &:hover {
     background-color: transparent;
-    border: 3px solid #2e70d3;
-    color: #2e70d3;
+    border: 3px solid #704191;
+    color: #704191;
   }
 
   &:active {
@@ -147,14 +147,14 @@ input[type="password"]::-webkit-textfield-decoration-container {
   margin-top: 0.5rem;
 
   .loginLink {
-    color: #2e70d3;
+    color: #704191;
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s;
 
     &:hover {
-      color: #2e70d3;
-      border-bottom: 1px solid #2e70d3;
+      color: #704191;
+      border-bottom: 1px solid #704191;
     }
   }
 }
@@ -242,15 +242,17 @@ input[type="password"]::-webkit-textfield-decoration-container {
     border: none;
 
     h2 {
-      color: #2e70d3;
+      color: #754a94;
     }
     .signuplabel {
       color: #d9d9d9;
     }
     .signupSubmit {
-      background-color: #2e70d3;
+      background-color: #754a94;
+      border: #754a94 3px solid;
       &:hover {
         background-color: transparent;
+        border: #754a94 3px solid;
       }
     }
     .signupInput {
@@ -274,10 +276,10 @@ input[type="password"]::-webkit-textfield-decoration-container {
       color: #d9d9d9;
 
       .loginLink {
-        color: #2e70d3;
+        color: #754a94;
         &:hover {
-          border-bottom: 1px solid #2e70d3;
-          color: #2e70d3;
+          border-bottom: 1px solid #754a94;
+          color: #754a94;
         }
       }
     }

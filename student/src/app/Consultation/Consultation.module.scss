@@ -69,7 +69,7 @@ select {
 }
 
 .conSubmit {
-  background: #2e70d3;
+  background: #704191;
   color: #ffffff;
   border: none;
   padding: 10px;
@@ -84,7 +84,7 @@ select {
   &:hover {
      background-color: transparent;
       color:black;
-      border:1px solid #849670; 
+      border:1px solid #704191; 
     transform: translateY(-2px); 
   }
 
@@ -142,8 +142,8 @@ select {
 }
 
 .table th {
-  background-color: #2e70d3;
-  color: #000000;
+  background-color: #6e6e6e;
+  color: #e4e4e4;
 }
 
 .table tr:nth-child(even) {
@@ -211,7 +211,7 @@ select {
 
 .archiveButton {
   margin-left: 20px;
-  background-color: #b60000;
+  background-color: #704191;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -225,11 +225,11 @@ select {
 .archiveButton:hover {
   background-color: transparent;
   color:black;
-  border:1px solid #EFB836;
+  border:1px solid #704191;
 }
 
 .archiveButton:active {
-  background-color: #d7a52f;
+  background-color: #704191;
 
   transform: scale(0.98); 
 }
@@ -244,7 +244,7 @@ select {
   display: block;
   width: 0;
   height: 4px;
-  background-color: #AF1740;
+  background-color: #704191;
   margin: 0 auto;
   border-radius: 2px;
   transition: width 0.3s ease;
@@ -334,7 +334,7 @@ background-color: #151515;
     border: none;
    }
    .conTitle{
-    color: #2e70d3;
+    color: #754a94;
    }
    .conText{
     color: #000000;
@@ -343,7 +343,7 @@ background-color: #151515;
     color: #000000;
    }
    .conSubmit{
-    background: #2e70d3;
+    background: #754a94;
 
     &:hover {
       background-color: transparent;
@@ -358,7 +358,7 @@ background-color: #151515;
     border: none;
 
     h2{
-      color: #2e70d3;
+      color: #d3d3d3;
     }
     .table th,
     .table td {
@@ -369,7 +369,7 @@ background-color: #151515;
 
 .table th {
      border: #2A3744;
-      background-color: #2e70d3;
+      background-color: #6e6e6e;
       color: white;
 }
 
@@ -386,18 +386,18 @@ background-color: #151515;
    }
    .archiveButton {
     margin-left: 20px;
-    background-color: #b60000;
+    background-color: #754a94;
     color: white; 
   }
   
   .archiveButton:hover {
     background-color: transparent;
     color:#b3b3b3;
-    border:1px solid #b60000;
+    border:1px solid #754a94;
   }
   
   .archiveButton:active {
-    background-color: #b60000;
+    background-color: #754a94;
   
     transform: scale(0.98); 
   }

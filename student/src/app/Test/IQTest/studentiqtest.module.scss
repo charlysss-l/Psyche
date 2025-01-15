@@ -36,7 +36,7 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
 
 // Header for the form (SAMPLE IQ TEST)
 h1 {
-  color: #2e70d3;     // Color for the header text (SAMPLE IQ TEST)
+  color: #704191;     // Color for the header text (SAMPLE IQ TEST)
   font-size: 2rem;
   margin-bottom: 20px;
 }
@@ -62,7 +62,7 @@ label {
   // Label text color set to $input-border-color
 }
 .rulesTitle{
-  color: #2e70d3;
+  color: #704191;
 
 }
 // Input fields and select elements
@@ -222,7 +222,7 @@ li {
 .start {
   margin-top: -20px;
   padding: 10px 15px;
-  background-color: #2e70d3;
+  background-color: #704191;
   color: white;
   border: none;
   border-radius: $border-radius;
@@ -232,8 +232,8 @@ li {
 
 .start:hover {
   background-color: transparent;
-  color:#2e70d3;
-  border:1px solid #2e70d3 ; 
+  color:#704191;
+  border:1px solid #704191 ; 
 }
 .note{
   color: #414141;
@@ -255,9 +255,9 @@ button {
 
 .submitButton {
   padding: 10px 15px;
-  background-color: #2e70d3;
+  background-color: #704191;
   color: white;
-  border:1px solid #2e70d3;
+  border:1px solid #704191;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 40px;
@@ -268,8 +268,8 @@ button {
 
 .submitButton:hover {
   background-color: transparent;
-  color:#2e70d3;
-  border:1px solid #2e70d3;
+  color:#704191;
+  border:1px solid #704191;
   
 }
 
@@ -289,21 +289,21 @@ button {
     color: #962f2f;
   }
   .rulesTitle{
-    color: #2a61b4;
+    color: #754a94;
   }
   .rules{
     color: #2c2c2c;
   }
   .iqTitle{
-    color: #2a61b4;
+    color: #754a94;
   }
   .start{
-    background-color: #2a61b4;
+    background-color: #754a94;
 
     &:hover {
     background-color: transparent;
-    color:#2e70d3;
-    border:1px solid #2a61b4 ; 
+    color:#754a94;
+    border:1px solid #754a94 ; 
     }
   }
   .pagination button {
@@ -320,12 +320,12 @@ button {
   cursor: not-allowed;
 }
 .submitButton {
-  background-color: #2a61b4;
+  background-color: #754a94;
 
   &:hover {
     background-color: transparent;
-    color:#2a61b4;
-    border:1px solid #2a61b4 ; 
+    color:#754a94;
+    border:1px solid #754a94 ; 
   }
 }
 }

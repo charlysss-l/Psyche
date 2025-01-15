@@ -1,6 +1,6 @@
 $background-color: #ffffff00;
-$font-color: #2e70d3;
-$button-bg-color: #2e70d3; // Updated login button color
+$font-color: #704191;
+$button-bg-color: #704191; // Updated login button color
 $button-hover-bg-color: #2a3744;
 $error-color: #ce1a1a;
 
@@ -49,7 +49,7 @@ $error-color: #ce1a1a;
 }
 
 .logoimg {
-  background-image: url("../../images/LOGOdark.png");
+  background-image: url("../../images/LOGOnew.png");
   background-size: cover;
   background-position: center;
   height: 150px;
@@ -124,7 +124,7 @@ $error-color: #ce1a1a;
 
 .submitButtonLog:hover {
   background-color: transparent;
-  border: #2e70d3 solid 3px;
+  border: #704191 solid 3px;
   color: $button-bg-color;
   box-shadow: none;
 }
@@ -171,13 +171,13 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
 .Signuplink {
   font-size: 17px;
-  color: #2e70d3;
+  color: #704191;
   cursor: pointer;
 }
 
 .Signuplink:hover {
-  border-bottom: 1px solid #2e70d3;
-  color: #2e70d3;
+  border-bottom: 1px solid #704191;
+  color: #704191;
 }
 
 /* Add responsive styling for small screens */
@@ -217,7 +217,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
   .loginForm_h1 {
     font-size: 1.5rem;
-    color: #2e70d3;
+    color: #704191;
   }
 
   .loginForm_h2 {
@@ -233,14 +233,14 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
   .Signuplink {
     font-size: 14px;
-    color: #2e70d3;
+    color: #704191;
     cursor: pointer;
   }
 }
 
 :global(body.dark-mode) {
   .logoimg {
-    background-image: url("../../images/LOGO.png");
+    background-image: url("../../images/LOGOnewDark.png");
     background-size: cover;
     background-position: center;
     height: 150px;
@@ -253,7 +253,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
     color: white;
 
     h1 {
-      color: #2e70d3;
+      color: #754a94;
     }
     h3 {
       color: #ffffffe1;
@@ -270,22 +270,23 @@ input[type="password"]::-webkit-textfield-decoration-container {
       color: #ffffff;
     }
     .submitButtonLog {
-      background-color: #2e70d3;
+      background-color: #754a94;
+      border: #754a94 solid 3px;
 
       &:hover {
         background-color: transparent;
-        border: #2e70d3 solid 3px;
+        border: #754a94 solid 3px;
       }
     }
     .Signuplink_info {
       color: #e4e4e4;
     }
     .Signuplink {
-      color: #2e70d3;
+      color: #754a94;
 
       &:hover {
-        border-bottom: 1px solid #2e70d3;
-        color: #2e70d3;
+        border-bottom: 1px solid #754a94;
+        color: #754a94;
       }
     }
   }

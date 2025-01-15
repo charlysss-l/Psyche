@@ -13,7 +13,7 @@
   
   .pfintro, .termsandconditionpf {
     font-size: 24px;
-    color: #2e70d3;
+    color: #704191;
     margin-bottom: 16px;
   }
   .termsnum{
@@ -34,21 +34,21 @@
   .pfButton {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #2e70d3;
+    background-color: #704191;
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
     transition: background-color 0.3s ease;
     font-size: 16px;
-    border: 1px solid #2e70d3;
+    border: 1px solid #704191;
     cursor: pointer;
     margin-top: 20px;
   }
   
   .pfButton:hover {
     background-color: transparent ;
-    border: 1px solid #2e70d3;
-    color: #2e70d3;
+    border: 1px solid #704191;
+    color: #704191;
   }
   
   .checkboxContainer {
@@ -58,7 +58,7 @@
     justify-content: center; /* Center the container horizontally */
   
     label {
-        color: #2e70d3  ;
+        color: #704191  ;
     }
 }
 
@@ -72,7 +72,7 @@
     .container{
       background-color: #161616;
     .pfintro, .termsandconditionpf {
-      color: #2a61b4;
+      color: #754a94;
     }
     .pfintroinfo{
       color: #ffffff;
@@ -82,18 +82,18 @@
       color: #ffffff;
     }
     .termsnum{
-      color: #2a61b4 ;
+      color: #754a94 ;
     }
     .checkboxContainer label{
-      color: #2a61b4;
+      color: #754a94;
     }
     .pfButton{
-      background-color: #2a61b4;
+      background-color: #754a94;
 
      &:hover {
         background-color: transparent ;
-        border: 1px solid #2a61b4;
-        color: #2a61b4;
+        border: 1px solid #754a94;
+        color: #754a94;
       }
     }
     .confirm{

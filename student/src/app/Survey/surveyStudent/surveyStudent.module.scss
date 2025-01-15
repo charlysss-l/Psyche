@@ -128,13 +128,13 @@ $table-border-color: #E9E9E9;
       display: inline-block;
       padding: 8px 16px;
       border-radius: $border-radius;
-      background-color: #2e70d3;
+      background-color: #704191;
       text-align: center;
 
       &:hover {
         background-color: transparent;
         color: black;
-        border: 1px solid  #2e70d3;
+        border: 1px solid  #704191;
       }
     }
   }
@@ -157,11 +157,11 @@ $table-border-color: #E9E9E9;
   text-align: center;
 
   &:hover {
-    color: #0056b3;
+    color: #704191;
   }
 
   &:active {
-    color: #004085;
+    color: #704191;
   }
 }
 
@@ -175,7 +175,7 @@ $table-border-color: #E9E9E9;
   background-color: transparent;
 
   &:hover {
-    background-color: #2e70d3;
+    background-color: #704191;
   }
 }
 
@@ -186,7 +186,7 @@ $table-border-color: #E9E9E9;
   margin-top: 20px;
 
   button {
-    background-color: #2e70d3;
+    background-color: #704191;
     color: white;
     padding: 10px;
     border-radius: $border-radius;
@@ -194,7 +194,7 @@ $table-border-color: #E9E9E9;
     border: none;
 
     &:hover {
-      background-color: #2e70d3;
+      background-color: #704191;
     }
 
     &:disabled {
@@ -223,7 +223,7 @@ $table-border-color: #E9E9E9;
 
 .archiveButton {
   
-  background-color: #2e70d3; /* Blue like a mailbox */
+  background-color: #704191; /* Blue like a mailbox */
   color: white; /* Text color */
   border-radius: 12px; /* Rounded edges */
   padding: 10px 20px; /* Adjust padding for size */
@@ -244,7 +244,7 @@ $table-border-color: #E9E9E9;
 }
 
 .archiveButton:active {
-  background-color: #2e70d3; /* Darker blue when clicked */
+  background-color: #704191; /* Darker blue when clicked */
   transform: scale(0.98); /* Slight click animation */
 }
 
@@ -260,7 +260,7 @@ $table-border-color: #E9E9E9;
   display: block;
   width: 0;
   height: 4px;
-  background-color: #2e70d3; /* Blue underline */
+  background-color: #704191; /* Blue underline */
   margin: 0 auto;
   border-radius: 2px;
   transition: width 0.3s ease;
@@ -316,7 +316,7 @@ $table-border-color: #E9E9E9;
         }
     }
     .archiveButton{
-        background-color: #2e70d3;
+        background-color: #754a94;
     }
     .archiveButton:hover {
       background-color: transparent;
@@ -349,11 +349,11 @@ $table-border-color: #E9E9E9;
         color: #2e70d3;
     }
     .filters th{
-        background-color: #2e70d3;
+        background-color: #754a94;
         color: white;
     }
     .viewDetailsButton {
-      background-color: #2e70d3;
+      background-color: #754a94;
      
 
       &:hover {

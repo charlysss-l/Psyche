@@ -43,7 +43,7 @@
   }
   .homeLink{
     text-decoration: none;
-    color: #0d60dd; 
+    color: #704191; 
   }
   .homeLink:hover{
     color: #303030; 
@@ -53,7 +53,7 @@
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    color: #2e70d3; 
+    color: #9152be; 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.829);
     animation: textFadeIn 2s ease-in-out; 
@@ -71,8 +71,8 @@
     padding: 1rem 2rem;
     font-size: 1.2rem;
     color: white;
-    background-color: #0d60dd;  
-    border: 2px solid #0d60dd;
+    background-color: #884cb3;  
+    border: 2px solid #884cb3;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
@@ -84,7 +84,7 @@
 
     &:hover {
       background-color: transparent;  
-      color: #0d60dd;
+      color: #9152be;
     }
   }
 }
@@ -233,7 +233,7 @@
     
     .homeLink{
       text-decoration: none;
-      color: #2e70d3; 
+      color: #754a94; 
     }
     .homeLink:hover{
       color: #777777; 
@@ -241,10 +241,11 @@
     }
   }
   .header {
-    color: #2e70d3; 
+    color: #754a94; 
   }
   .getStartedBtn {
-    background-color: #0d60dd;  
+    background-color: #754a94;  
+    border: 2px solid #754a94;
 
     &:hover {
       background-color: transparent; 
