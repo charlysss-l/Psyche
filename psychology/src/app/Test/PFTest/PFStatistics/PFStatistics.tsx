@@ -32,7 +32,6 @@ const PFgraphLogo = '/PFgraphLogo.png';
 
 const PFStatistics: React.FC = () => {
   const [results, setResults] = useState<User16PFTest[]>([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [meaning, setFilter] = useState<'left' | 'average' | 'right' | 'all'>('all'); // Filter state
   const [selectedFactor, setSelectedFactor] = useState<string>(""); // Factor Letter state
@@ -149,9 +148,7 @@ const PFStatistics: React.FC = () => {
       setTotalResults(combinedData.length); // Store total results count
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
   
 
@@ -298,7 +295,6 @@ const PFStatistics: React.FC = () => {
   
 
   // Conditional rendering based on loading or error
-  if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
   
   // Prepare data for the stacked bar chart with filter applied
