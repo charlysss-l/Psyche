@@ -213,36 +213,19 @@ li {
   font-weight: bold;
 }
 
-.start {
-  margin-top: -20px;
+.submitButton {
+  margin-top: 10px;
   padding: 10px 15px;
-  background-color: $primary-color;
+  background-color: #704191;
   color: white;
-  border: none;
+  border: 2px solid  #704191;
   border-radius: $border-radius;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.start:hover {
-  background-color: darken($primary-color, 10%); /* Darker shade on hover */
-}
-
-.submitButton {
-  padding: 10px 15px;
-  background-color: #67b2da;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-top: 40px;
-  
-  
-  transition: background-color 0.3s ease;
-}
-
 .submitButton:hover {
-  background-color: #1d3a46; /* Darker shade on hover */
+  background-color: transparent; /* Darker shade on hover */
 }
 
 .hidden {
@@ -260,22 +243,22 @@ li {
       color: #e23f3f;
     }
     h3{
-      color: #2a61b4;
+      color: #754a94;
     }
     input{
       background-color: #161616;
       color: #b4b4b4;
       border: 2px solid #b4b4b4;
     }
-    button{
-      background-color: #2a61b4;
+    .submitButton{
+      background-color: #754a94;
       color: #dad8d8;
-      border: 2px solid  #2a61b4;
+      border: 2px solid  #754a94;
 
       &:hover {
         background-color: transparent;
-        color: #2a61b4;
-        border: 2px solid  #2a61b4;
+        color: #754a94;
+        border: 2px solid  #754a94;
       }
     }
   }

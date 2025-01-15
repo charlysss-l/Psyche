@@ -41,7 +41,7 @@
   }
 
   &:hover {
-    border: 2px solid #b072e2;
+    border: 2px solid #704191;
   }
 }
 
@@ -50,7 +50,7 @@
 .survTitleh2 {
   text-align: center;
   margin-bottom: 2rem;
-  color: #b072e2;
+  color: #704191;
 }
 
 .formGroup {
@@ -72,7 +72,7 @@
 
 .filters {
   h3 {
-    color: #b072e2;
+    color: #704191;
   }
   h4 {
     color: #3a3a3a;
@@ -101,7 +101,7 @@
     }
   }
   .addFilterBtn {
-    background-color: #b072e2;
+    background-color: #704191;
     color: white;
     padding: 0.5rem 1rem;
     border: none;
@@ -110,8 +110,8 @@
 
     &:hover {
       background-color: transparent;
-      color: #b072e2;
-      border: 1px solid #b072e2;
+      color: #704191;
+      border: 1px solid #704191;
     }
   }
 }
@@ -119,7 +119,7 @@
 .sections {
   margin-bottom: 2rem;
   h3 {
-    color: #b072e2;
+    color: #704191;
   }
   .section {
     margin-bottom: 1.5rem;
@@ -142,7 +142,7 @@
     .addFilterBtn,
     .removeChoiceBtn,
     .removeSectionBtn {
-      background-color: #b072e2;
+      background-color: #704191;
       color: white;
       padding: 0.5rem 1rem;
       border: none;
@@ -159,8 +159,8 @@
     .removeSectionBtn:hover,
     .addFilterBtn:hover {
       background-color: transparent;
-      color: #b072e2  ;
-      border: 1px solid #b072e2;
+      color: #704191  ;
+      border: 1px solid #704191;
     }
     .removeQuestionBtn {
       background-color: #AF1740;
@@ -194,7 +194,7 @@
 }
 
 .activeSection {
-  border: 2px solid #b072e2; /* Green border for active section */
+  border: 2px solid #704191; /* Green border for active section */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for emphasis */
 }
 
@@ -238,7 +238,7 @@
   margin-bottom: 20px;
 
   &:hover {
-    border: 2px solid #b072e2;
+    border: 2px solid #704191;
   }
 }
 
@@ -251,7 +251,7 @@
   text-align: center;
 
   &:hover {
-    border: 2px solid #b072e2;
+    border: 2px solid #704191;
   }
 }
 
@@ -326,12 +326,12 @@
   }
   .formGroup, .choices {
     label {
-      color: #b072e2;
+      color: #754a94;
     }
     input, textarea {
       background-color: #e2e2e2;
       color: #303030;
-      border: 1px solid #b072e2;
+      border: 1px solid #754a94;
     }
   }
   }

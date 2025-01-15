@@ -7,8 +7,8 @@ $sidebar-link-color: white;
 $sidebar-hover-color: #000000;
 $sidebar-active-bg-color: #d2d2d2;
 $sidebar-font-size: 112.5%; // 16px to percentage based on default 16px
-$toggle-btn-bg-color: #2e70d3;
-$toggle-btn-hover-bg-color: #ad6ce9;
+$toggle-btn-bg-color: #704191;
+$toggle-btn-hover-bg-color: #704191;
 $font-size-base: 100%; // 16px to 100%
 $box-shadow-color: rgba(0, 0, 0, 0.5);
 $transition-duration: 0.3s;
@@ -22,7 +22,7 @@ $transition-duration: 0.3s;
     left: 1rem;
     background-color: $toggle-btn-bg-color;
     color: $sidebar-link-color;
-    border: 2px solid #2e70d3;
+    border: 2px solid #704191;
     padding: 0.7rem 1.5rem;
     cursor: pointer;
     z-index: 1001;
@@ -31,7 +31,7 @@ $transition-duration: 0.3s;
     font-weight: bold;
 
     &:hover {
-      color: #2e70d3;
+      color: #704191;
       background-color: transparent;
     }
   }
@@ -84,12 +84,12 @@ $transition-duration: 0.3s;
           border-radius: 10px;
 
           &:hover {
-            background-color: #2e70d3;
+            background-color: #704191;
             color: $sidebar-hover-color;
           }
 
           &.active {
-            background-color: #2e70d3;
+            background-color: #704191;
             color: black;
             font-weight: bold;
             box-shadow: 0 4px 8px $box-shadow-color;
@@ -196,7 +196,7 @@ $transition-duration: 0.3s;
           border-radius: 10px;
 
           &:hover {
-            background-color: #2e70d3;
+            background-color: #754a94;
             color: rgb(0, 0, 0);
           }
 
@@ -207,7 +207,7 @@ $transition-duration: 0.3s;
           }
 
           &.active {
-            background-color: #2e70d3;
+            background-color: #754a94;
             color: black;
             font-weight: bold;
             box-shadow: 0 4px 8px $box-shadow-color;

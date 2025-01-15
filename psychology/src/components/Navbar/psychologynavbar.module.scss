@@ -35,7 +35,7 @@ $button-hover: #d2d2d2;
 .logoSection h1 {
   font-size: 24px;
   margin: 0;
-  color: #2e70d3;
+  color: #704191;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: inline-block;
@@ -68,7 +68,7 @@ $button-hover: #d2d2d2;
 }
 
 .navItem:hover {
-  border-bottom: 1px solid #2e70d3; 
+  border-bottom: 1px solid #704191; 
 }
 
 /* Navigation Links */
@@ -85,13 +85,13 @@ $button-hover: #d2d2d2;
 }
 
 .navLink.active {
-  color: #2e70d3; 
+  color: #704191; 
   font-weight: bold;
-  border-bottom: 2px solid #2e70d3; 
+  border-bottom: 2px solid #704191; 
 }
 :global(body.dark-mode){
   .logoSection h1 {
-    color: #2e70d3 ;
+    color: #754a94 ;
     text-shadow: 1px 1px 2px #ffffff50;
   }
   .logoSection p {
@@ -101,8 +101,8 @@ $button-hover: #d2d2d2;
     color: #849670;
   }
   .navLink.active {
-    color: #2e70d3; 
+    color: #754a94; 
     font-weight: bold;
-    border-bottom: 2px solid #2e70d3; 
+    border-bottom: 2px solid #754a94; 
   }
 }

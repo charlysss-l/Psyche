@@ -11,7 +11,8 @@
   h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
-    color: grey;
+    margin-top: 10px;
+    color: #704191;
   }
   
   .error {
@@ -34,7 +35,7 @@
   }
   
   .responsesTable th {
-    background-color: #b072e2;
+    background-color: #6e6e6e;
     color: #fff;
     font-weight: bold;
   }
@@ -62,7 +63,7 @@
   
   :global(body.dark-mode) {
     h2{
-      color: #b072e2;
+      color: #704191  ;
     }
     .responsesTable th {
       background-color: #8a8a8a;

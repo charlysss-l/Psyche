@@ -213,7 +213,7 @@ const OMRResult: React.FC = () => {
                 </div>
             )}
 
-            <button type="submit">Submit</button>
+            <button type="submit" className= {style.submitButton}>Submit</button>
         </form>
     );
 };

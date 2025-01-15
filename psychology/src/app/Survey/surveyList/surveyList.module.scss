@@ -60,13 +60,13 @@ $table-border-color: #d2d2d2;
   margin-left: 20px;
   margin-right: 20px;
   border-radius: 5px;
-  background-color: #b072e2;
+  background-color: #704191;
   text-align: center;
 
   &:hover{
     background-color: transparent;
-    border: 1px solid #b072e2;
-    color: #b072e2;
+    border: 1px solid #704191;
+    color: #704191;
   }
 }
 .surveyActions button{
@@ -109,7 +109,7 @@ h2, h3, p {
 
 .surveytitle{
   font-size: 1.5rem;
-  color: #b072e2;
+  color: #704191;
 }
 
 .linkContainer {
@@ -144,10 +144,10 @@ h2, h3, p {
   color: white;
   font-weight: bold;
   text-decoration: none;
-  background-color: #b072e2;
+  background-color: #704191;
 
   &:hover {
-    background-color: #8e5ab9;
+    background-color: #704191;
   }
 }
 
@@ -231,7 +231,7 @@ h2, h3, p {
 
   h4 {
     font-size: 1.2rem;
-    color: #b072e2;
+    color: #704191;
     margin-bottom: 10px;
   }
 
@@ -248,7 +248,7 @@ h2, h3, p {
     }
 
     th {
-      background-color: #b072e2;
+      background-color: #704191;
       color: #fff;
       border: none;
     }
@@ -272,24 +272,24 @@ h2, h3, p {
 
 :global(body.dark-mode){
   .createsurveyButton {
-    background-color: #b072e2;
+    background-color: #754a94;
 
     &:hover {
       background-color: transparent;
-      border:1px solid #b072e2;
-      color: #b072e2;
+      border:1px solid #754a94;
+      color: #754a94;
   }
 }
 .surveyListContainer {
-  background-color: #302f30;
+  background-color: #1f1f1f5d;
   box-shadow: none;
 }
 .surveyCard{
-  background-color: #5c5c5c;
+  background-color: #222222;
   box-shadow: none;
 }
 .surveytitle{
-  color: #b072e2;
+  color: #754a94;
 }
 .filterContainer label{
   color: #f8f1f1;
