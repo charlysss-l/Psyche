@@ -16,7 +16,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSideBar';
 import PFResultsList from './app/Test/PFTest/PFOnlineList/PFResultsList';
 import IQResultsList from './app/Test/IQTest/IQOnlineList/IQResultsList';
-import DarkMode from "./darkMode/darkMode";
+
 import IQInterpretation from './app/Test/IQTest/IQInterpretationEdit/IQInterpretation';
 import OmrIQResultsList from './app/Test/IQTest/IQOmrList/Omr_IQResultList';
 import IQResultListBoth from './app/Test/IQTest/IQTestDashboard/IQtestListBoth';
@@ -41,9 +41,9 @@ function App() {
   return (
     <Router>
       <div className="App">
-      <MaybeShowNavSideBar>
+      {/*<MaybeShowNavSideBar>
         <Sidebar />
-      </MaybeShowNavSideBar>        <div className="main-content">
+      </MaybeShowNavSideBar>   */}     <div className="main-content">
         <MaybeShowNavSideBar>
         <Navbar />
       </MaybeShowNavSideBar>          <div className="content">
@@ -173,7 +173,7 @@ function App() {
             </Routes>
           </div>
         </div>
-        <DarkMode />
+       
       </div>
     </Router>
   );
