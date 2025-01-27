@@ -375,10 +375,10 @@ input[type="password"]::-webkit-textfield-decoration-container {
   }
 
   .forgotPasswordButton {
-    background-color: #313131;
+    background-color: #6e6e6e;
     color: white;
     padding: 12px 20px;
-    border: #313131 solid 3px;
+    border: #6e6e6e solid 3px;
     border-radius: 10px;
     font-size: 1rem;
     width: 80%;
@@ -389,7 +389,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
     &:hover {
       background-color: transparent;
-      color: #313131;
+      color: #6e6e6e;
     }
   }
 
@@ -408,7 +408,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
     h3 {
       text-align: center;
-      color: #704191;
+      color: #6e6e6e;
       margin-bottom: 1rem;
       font-size: 1.1rem;
     }
@@ -443,15 +443,15 @@ input[type="password"]::-webkit-textfield-decoration-container {
       }
       .cancelButton {
         align-self: center;
-        background-color: #313131;
-        border: #313131 solid 2px;
+        background-color: #6e6e6e;
+        border: #6e6e6e solid 2px;
         border-radius: 10px;
         width: 50%;
         margin-top: 20px;
 
         &:hover {
           background-color: transparent;
-          color: #313131;
+          color: #6e6e6e;
         }
       }
     }
@@ -485,7 +485,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
     background-color: #141313ea;
 
     h1 {
-      color: #8C62A9;
+      color: #6e6e6e;
     }
 
     h3 {

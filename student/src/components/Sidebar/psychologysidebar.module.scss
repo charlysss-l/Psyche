@@ -5,7 +5,7 @@ $sidebar-link-color: #000000;
 $sidebar-hover-color: #849670;
 $sidebar-active-bg-color: #ffffff;
 $sidebar-font-size: 112.5%;
-$toggle-btn-bg-color: #704191;
+$toggle-btn-bg-color: #653E84;
 $toggle-btn-hover-bg-color: #849670;
 $font-size-base: 100%;
 $box-shadow-color: rgba(0, 0, 0, 0.973);
@@ -20,7 +20,7 @@ $transition-duration: 0.3s;
     left: 1rem;
     background-color: $toggle-btn-bg-color;
     border-radius: 20px;
-    border: 2px solid #704191;
+    border: 2px solid #653E84;
     padding: 0.7rem 1.5rem;
     cursor: pointer;
     z-index: 1001;
@@ -29,7 +29,7 @@ $transition-duration: 0.3s;
     color: white;
 
     &:hover {
-      color: #754a94;
+      color: #653E84;
       background-color: transparent;
     }
   }
@@ -82,7 +82,7 @@ $transition-duration: 0.3s;
           border-radius: 10px;
 
           &:hover {
-            background-color: #704191;
+            background-color: #653E84;
             color: #000000;
           }
 
@@ -93,7 +93,7 @@ $transition-duration: 0.3s;
           }
 
           &.active {
-            background-color: #704191;
+            background-color: #653E84;
             color: $sidebar-link-color;
             font-weight: bold;
             box-shadow: 0 4px 8px $box-shadow-color;
@@ -109,6 +109,15 @@ $transition-duration: 0.3s;
 }
 
 :global(body.dark-mode) {
+  .toggleButton {
+    background-color: #8C62A9;
+    border: 2px solid #8C62A9;
+
+    &:hover {
+      color: #8C62A9;
+      background-color: transparent;
+    }
+  }
   .sidebar {
     background: #c0c0c0;
     ul {
@@ -141,7 +150,7 @@ $transition-duration: 0.3s;
           border-radius: 10px;
 
           &:hover {
-            background-color: #754a94;
+            background-color: #8C62A9;
             color: rgb(0, 0, 0);
           }
 
@@ -152,7 +161,7 @@ $transition-duration: 0.3s;
           }
 
           &.active {
-            background-color: #754a94;
+            background-color: #8C62A9;
             color: $sidebar-link-color;
             font-weight: bold;
             box-shadow: 0 4px 8px $box-shadow-color;

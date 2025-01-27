@@ -17,7 +17,7 @@
   h1 {
     font-size: 24px;
     margin: 0;
-    color: #704191;
+    color: #653E84;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
@@ -55,8 +55,8 @@
         }
 
         &.active {
-          color: #704191;
-          border-bottom: 2px solid #704191;
+          color: #653E84;
+          border-bottom: 2px solid #653E84;
         }
       }
     }
@@ -109,6 +109,65 @@
 
         &:hover {
           background-color: #f0f0f0;
+        }
+      }
+    }
+  }
+}
+
+:global(body.dark-mode){
+  .studentNavbar {
+    color: #000000;
+    border-bottom: 1px solid #7a7a7a;
+  }
+
+  .logoSection {
+
+    h1 {
+      color: #8C62A9;
+    }
+
+    p {
+      color: #A9A9A9;
+    }
+  }
+
+  .navigationSection {
+    .navList {
+      .navItem {
+        .navLink {
+          color: #A9A9A9;
+
+          &:hover {
+            color: rgb(94, 93, 93);
+          }
+
+          &.active {
+            color: #8C62A9;
+            border-bottom: 2px solid #8C62A9;
+          }
+        }
+      }
+    }
+  }
+
+  .navRight {
+    .dropdown {
+      .dropdownToggle {
+        .arrowIcon {
+          color: #7a7a7a;
+        }
+      }
+
+      .dropdownMenu {
+        background: #ffffff;
+
+        .dropdownLink {
+          color: #353535;
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
         }
       }
     }

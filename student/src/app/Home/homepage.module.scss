@@ -43,7 +43,7 @@
   }
   .homeLink{
     text-decoration: none;
-    color: #704191; 
+    color: #653E84; 
   }
   .homeLink:hover{
     color: #303030; 
@@ -53,7 +53,7 @@
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    color: #9152be; 
+    color: #653E84; 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.829);
     animation: textFadeIn 2s ease-in-out; 
@@ -71,8 +71,8 @@
     padding: 1rem 2rem;
     font-size: 1.2rem;
     color: white;
-    background-color: #884cb3;  
-    border: 2px solid #884cb3;
+    background-color: #653E84;  
+    border: 2px solid #653E84;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
@@ -84,7 +84,7 @@
 
     &:hover {
       background-color: transparent;  
-      color: #9152be;
+      color: #653E84;
     }
   }
 }
@@ -169,7 +169,7 @@
   position: absolute;
   top: 12%;
   margin-left: -30%;
-  animation: fallAnimation 2s ease-out forwards, floatAnimation 2s ease-in-out 2s infinite;
+  animation: floatAnimation 2s ease-in-out infinite;
 }
 
 .fallGirl {
@@ -177,7 +177,7 @@
   position: absolute;
   top: 20%;
   margin-right: -30%;
-  animation: fallAnimation 2s ease-out forwards, floatAnimation 2s ease-in-out 2.2s infinite; /* Slightly delayed */
+  animation: floatAnimation 2s ease-in-out 0.2s infinite; /* Slightly delayed */
 }
 
 .lappy {
@@ -185,7 +185,7 @@
   position: absolute;
   top: 30%;
   margin-left: -70%;
-  animation: fallAnimation 4s ease-out forwards, floatAnimation 2s ease-in-out 4.4s infinite; /* Slightly delayed */
+  animation: floatAnimation 2s ease-in-out 0.4s infinite; /* Slightly delayed */
 }
 
 .testPaper {
@@ -193,14 +193,14 @@
   position: absolute;
   top: 40%;
   margin-right: -70%;
-  animation: fallAnimation 5s ease-out forwards, floatAnimation 2s ease-in-out 5.6s infinite; /* Slightly delayed */
+  animation: floatAnimation 2s ease-in-out 0.6s infinite; /* Slightly delayed */
 }
 
 .pen {
   height: 150px;
   position: absolute;
   top: 18%;
-  animation: fallAnimation 3s ease-out forwards, floatAnimation 2s ease-in-out 3.8s infinite; /* Slightly delayed */
+  animation: floatAnimation 2s ease-in-out 0.8s infinite; /* Slightly delayed */
 }
 
 :global(body.dark-mode) {
@@ -233,7 +233,7 @@
     
     .homeLink{
       text-decoration: none;
-      color: #754a94; 
+      color: #8C62A9; 
     }
     .homeLink:hover{
       color: #777777; 
@@ -241,14 +241,15 @@
     }
   }
   .header {
-    color: #754a94; 
+    color: #8C62A9; 
   }
   .getStartedBtn {
-    background-color: #754a94;  
-    border: 2px solid #754a94;
+    background-color: #8C62A9;  
+    border: 2px solid #8C62A9;
 
     &:hover {
-      background-color: transparent; 
+      background-color: transparent;
+      color: #8C62A9;
     }
   }
   }

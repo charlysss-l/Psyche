@@ -2,12 +2,12 @@
 
 $sidebar-width: 250px;
 $sidebar-bg-color: #bfcff1;
-$sidebar-hover-bg-color: #749ef8;
+$sidebar-hover-bg-color: #653E84;
 $sidebar-link-color: #000000;
 $sidebar-hover-color: #000000;
 $sidebar-active-bg-color: #d2d2d2;
 $sidebar-font-size: 112.5%; // 16px to percentage based on default 16px
-$toggle-btn-bg-color: #704191;
+$toggle-btn-bg-color: #653E84;
 $toggle-btn-hover-bg-color: #ffffff;
 $font-size-base: 100%; // 16px to 100%
 $box-shadow-color: rgba(0, 0, 0, 0.5);
@@ -25,14 +25,14 @@ $transition-duration: 0.3s;
     color: #ffffff;
     border: none;
     padding: 0.7rem 1.5rem;
-    border: 2px solid #704191;
+    border: 2px solid #653E84;
     cursor: pointer;
     z-index: 1001;
     font-size: 0.9rem;
     font-weight: bold;
 
     &:hover {
-      color: #704191;
+      color: #653E84;
       background-color: transparent;
     }
   }
@@ -86,12 +86,12 @@ $transition-duration: 0.3s;
           border-radius: 10px;
 
           &:hover {
-            background-color: #704191;
+            background-color: #653E84;
             color: #000000;
           }
 
           &.active {
-            background-color: #704191;
+            background-color: #653E84;
             color: $sidebar-link-color;
             font-weight: bold;
             box-shadow: 0 4px 8px $box-shadow-color;
@@ -170,28 +170,68 @@ $transition-duration: 0.3s;
   .sidebar {
     background: #c0c0c0;
   }
+  .toggleButton {
+    background-color: #8C62A9;
+    color: #ffffff;
+    border: 2px solid #8C62A9;
 
-  .link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: $sidebar-link-color;
-    font-weight: 400;
-    font-size: $sidebar-font-size;
-    transition: all $transition-duration ease;
-    width: 80%;
-    height: 50px;
-    border: 2px solid #5e5e5eda;
-    text-align: center;
-    justify-content: center;
-    padding: 0 1rem;
-    border-radius: 10px;
-
-    &.active {
-      background-color: $sidebar-active-bg-color;
-      color: $sidebar-link-color;
-      font-weight: bold;
-      box-shadow: 0 4px 8px $box-shadow-color;
+    &:hover {
+      color: #8C62A9;
+      background-color: transparent;
     }
   }
+
+  .sidebar {
+    background: #c0c0c0;
+    ul {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      margin-top: 80%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      li {
+        margin: 1rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .link {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          font-weight: 400;
+          font-size: $sidebar-font-size;
+          transition: all $transition-duration ease;
+          width: 80%;
+          height: 50px;
+          text-align: center;
+          justify-content: center;
+          padding: 0 1rem;
+          border-radius: 10px;
+
+          &:hover {
+            background-color: #8C62A9;
+            color: rgb(0, 0, 0);
+          }
+
+          .icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+          }
+
+          &.active {
+            background-color: #8C62A9;
+            color: $sidebar-link-color;
+            font-weight: bold;
+            box-shadow: 0 4px 8px $box-shadow-color;
+          }
+        }
+      }
+    }
+  }
+  
 }
