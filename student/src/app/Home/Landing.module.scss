@@ -18,7 +18,7 @@
   animation: fadeIn 1s ease-out;
   width: 100%;
   border-radius: 20px;
-  background: linear-gradient(to bottom right, #050505a8, #2c2c2c9a), 
+  background: linear-gradient(to bottom right, #1f1f1fa8, #2929299a), 
               url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVzdCUyMHRha2luZ3xlbnwwfHwwfHx8MA%3D%3D');
   background-repeat: no-repeat;
   background-size: cover;
@@ -37,7 +37,7 @@
   justify-content: right;  
   
   .logo {
-    background-image: url('../../images/LOGOnewDark.png'); 
+    background-image: url('../../images/LOGOlandingdark.png'); 
     background-repeat: no-repeat;
     background-size: contain;
     width: 220px; 
@@ -69,8 +69,8 @@
     margin-top: 10px;
     padding: 15px 10px;
     text-decoration: none;
-    background-color: #704191;
-    border: #704191 solid 3px;
+    background-color: #653E84  ;
+    border: #653E84   solid 3px;
     color: #fff;
     border-radius: 5px;
     text-align: center;
@@ -83,8 +83,8 @@
 
   .get_started_btn:hover {
     background-color: transparent;
-    border: #704191 solid 3px;
-    color: #704191;
+    border: #653E84   solid 3px;
+    color: #653E84  ;
   }
 }
 
@@ -117,5 +117,44 @@
 
   .content .get_started_btn {
     max-width: 150px;
+  }
+}
+
+:global(body.dark-mode) {
+  .landing_page {
+    background: linear-gradient(to bottom right, #080808a8, #1414149a), 
+                url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVzdCUyMHRha2luZ3xlbnwwfHwwfHx8MA%3D%3D');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+  }
+  .logo {
+    background-image: url('../../images/LOGOnewDark.png'); 
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 220px; 
+    height: 220px;
+    margin-bottom: 1px; 
+  }
+  .content .landing_page_subheader {
+    color: #ffffff; 
+    text-shadow: #424242 1px 1px; 
+  }
+
+  .content .landing_page_description,
+  .content .landing_page_extra_description {
+    color: #e4e4e4; 
+  }
+
+  .content .get_started_btn {
+    background-color: #8C62A9  ;
+    border: #8C62A9   solid 3px;
+    color: #fff;
+  }
+
+  .content .get_started_btn:hover {
+    background-color: transparent;
+    border: #8C62A9   solid 3px;
+    color: #8C62A9  ;
   }
 }

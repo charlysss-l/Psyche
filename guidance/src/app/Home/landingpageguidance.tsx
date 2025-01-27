@@ -14,7 +14,7 @@ const LandingPageGuidance: React.FC = () => {
         <p className={styles.landing_page_description}>
           Our platform is designed to help you unlock your full potential.
           Whether you’re looking for standardized tests, advanced analytics, 
-          or proper guidance, we’ve got you covered.
+          or receive proper guidance, we’ve got you covered.
         </p>
         <p className={styles.landing_page_extra_description}>
           With the collaboration of the Psychology Program, join us to discover yourself more deeply using our intuitive and powerful tools.
