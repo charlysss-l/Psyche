@@ -34,7 +34,6 @@ $font-color: #727272;
   }
 }
 
-
 .loginContainer {
   display: flex;
   justify-content: center; /* Center content horizontally */
@@ -42,15 +41,16 @@ $font-color: #727272;
   height: 100vh;
   background-color: $background-color;
   gap: 20px; /* Add spacing between the form and the image */
-  padding: 15px 15px;
+  padding: 8px 8px 0px 8px;
 }
 
 .imageContainer {
-  background: linear-gradient(to bottom right, #050505a8, #2727279a), url("../Images/landing.jpg");
+  background: linear-gradient(to bottom right, #050505a8, #2727279a),
+    url("../Images/landing.jpg");
   background-size: cover;
   background-position: center;
-  height: 96vh;
-  width: 68vw;
+  height: 98vh;
+  width: 67vw;
   border-radius: 10px;
   animation: slideInFromLeft 1.5s ease-out;
 }
@@ -67,6 +67,7 @@ $font-color: #727272;
 
 .loginForm {
   background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
   padding: 170px;
   max-width: 400px;
   width: 100%;
@@ -128,15 +129,15 @@ $font-color: #727272;
 
   &:hover {
     background-color: transparent;
-  border: #704191 solid 3px;
-  color: #704191;
-  box-shadow: none;
+    border: #704191 solid 3px;
+    color: #704191;
+    box-shadow: none;
   }
 }
 
 .forgotPasswordButton {
-  display: block; 
-  margin: 15px auto; 
+  display: block;
+  margin: 15px auto;
   background-color: #313131;
   color: white;
   padding: 12px 20px;
@@ -191,8 +192,9 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
 .modal {
   position: fixed;
-  width: 40%;
-  height: 45%;
+  width: 45%;
+  height: 50%;
+  font-family: Arial, Helvetica, sans-serif;
   top: 50%;
   left: 50%;
   border-radius: 10px;
@@ -201,9 +203,9 @@ input[type="password"]::-webkit-textfield-decoration-container {
   padding: 2.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
-  opacity: 0; 
+  opacity: 0;
   animation: modalSlideDown 0.5s ease-out forwards;
-  
+
   &.hidden {
     display: none;
   }
@@ -212,15 +214,16 @@ input[type="password"]::-webkit-textfield-decoration-container {
     display: block;
     animation: modalSlideDown 0.5s ease-out forwards;
   }
-  h3{
+  h3 {
     text-align: center;
     color: #704191;
     margin-top: 0;
+    font-size: 1.3rem;
   }
 
-  label{
+  label {
     color: black;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     margin-top: 20px;
     font-size: 1rem;
   }
@@ -243,7 +246,6 @@ input[type="password"]::-webkit-textfield-decoration-container {
         box-shadow: rgba(0, 0, 0, 0.411) 0px 0px 5px 0px;
       }
     }
-    
 
     .submitforgotpass {
       align-self: center;
@@ -254,7 +256,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
       color: white;
       font-size: 1rem;
       padding: 10px;
-      margin-top: 30px;
+      margin-top: 20px;
 
       &:hover {
         background-color: transparent;
@@ -262,7 +264,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
       }
     }
 
-    .cancelButton{
+    .cancelButton {
       align-self: center;
       background-color: #313131;
       border: #313131 solid 2px;
@@ -271,13 +273,13 @@ input[type="password"]::-webkit-textfield-decoration-container {
       color: white;
       font-size: 1rem;
       padding: 10px;
-      margin-top: 30px;
+      margin-top: 10px;
+
       &:hover {
         background-color: transparent;
         color: #313131;
       }
     }
-    
 
     .passwordInputContainer {
       position: relative;
@@ -314,7 +316,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 }
 
 /* Add responsive styling for small screens */
-@media (max-width: 768px ) {
+@media (max-width: 768px) {
   .loginContainer {
     flex-direction: column; /* Stack the form vertically */
     justify-content: center; /* Center content vertically */
@@ -332,25 +334,28 @@ input[type="password"]::-webkit-textfield-decoration-container {
     left: 0;
     width: 100%;
     height: 100%; /* Full viewport height */
-    animation: fadeIn 1.5s ;
-
+    animation: fadeIn 1.5s;
   }
 
   .loginForm {
     z-index: 1; /* Ensure the login form appears above the image */
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.9
+    ); /* Semi-transparent background */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
     padding: 30px;
     border-radius: 8px;
     width: 80%;
-    
   }
 
   .loginForm_h1 {
     font-size: 1.5rem;
     color: #704191;
   }
-  
+
   .loginForm_h2 {
     font-size: 1rem;
     margin-top: 10px;
@@ -369,7 +374,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
     cursor: pointer;
     transition: background-color 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  
+
     &:hover {
       background-color: transparent;
       color: #313131;
@@ -400,30 +405,29 @@ input[type="password"]::-webkit-textfield-decoration-container {
     padding: 2.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    
 
-    h3{
+    h3 {
       text-align: center;
       color: #704191;
       margin-bottom: 1rem;
       font-size: 1.1rem;
     }
-  
-    label{
+
+    label {
       color: black;
       margin-bottom: 10px;
-      font-size: .8rem;
+      font-size: 0.8rem;
     }
     .modalContent {
       display: flex;
       flex-direction: column;
-  
+
       input {
         margin-bottom: 0.1rem;
         padding: 0.5rem;
         border-radius: 9px;
       }
-  
+
       button {
         align-self: center;
         background-color: #a1a1a1;
@@ -433,7 +437,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
         padding: 12px;
         margin-top: 10px;
         font-size: 16px;
-  
+
         &:hover {
           background-color: #749ef8;
         }
@@ -445,20 +449,20 @@ input[type="password"]::-webkit-textfield-decoration-container {
         border-radius: 10px;
         width: 80%;
         margin-top: 40px;
-  
+
         &:hover {
           background-color: transparent;
           color: #704191;
         }
       }
-      .cancelButton{ 
+      .cancelButton {
         align-self: center;
         background-color: #313131;
         border: #313131 solid 2px;
         border-radius: 10px;
         width: 50%;
         margin-top: 20px;
-  
+
         &:hover {
           background-color: transparent;
           color: #313131;
@@ -478,12 +482,10 @@ input[type="password"]::-webkit-textfield-decoration-container {
     font-size: 0.9rem;
     margin-top: -10px;
     margin-bottom: -6px;
-
   }
-  
 }
 
-:global(body.dark-mode){
+:global(body.dark-mode) {
   .logoimg {
     background-image: url("../Images/LOGOnewDark.png");
     background-size: cover;
@@ -495,36 +497,35 @@ input[type="password"]::-webkit-textfield-decoration-container {
   }
   .loginForm {
     background-color: #141313ea;
-    
-    h1{
+
+    h1 {
       color: #754a94;
     }
 
-    h3{
+    h3 {
       color: #ffffffe1;
     }
-    input{
+    input {
       background-color: #141313ea;
       color: #ffffffe1;
       border: #ffffffe1 solid 1px;
     }
-    .togglePasswordButton{
+    .togglePasswordButton {
       color: #ffffffe1;
     }
-    .logLabel{
+    .logLabel {
       color: #ccc;
     }
-    .submitButtonLog{
+    .submitButtonLog {
       background-color: #754a94;
 
       &:hover {
         background-color: transparent;
       }
     }
-    .forgotPasswordButton{
+    .forgotPasswordButton {
       background-color: #6e6e6e;
       border: #6e6e6e solid 3px;
-
 
       &:hover {
         background-color: transparent;
@@ -532,30 +533,30 @@ input[type="password"]::-webkit-textfield-decoration-container {
       }
     }
   }
-  .modal{
+  .modal {
     background-color: #141313f3;
 
-    h3{
+    h3 {
       color: #754a94;
     }
-    label{
+    label {
       color: #9e9e9e;
     }
-    button{
+    button {
       background-color: #2e70d3;
       &:hover {
         background-color: #9e9e9e;
       }
     }
-    input{
+    input {
       background-color: #141313ea;
       color: #ffffffe1;
       border: #ffffffe1 solid 1px;
     }
-    .toggleConfirmPasswordButton{
+    .toggleConfirmPasswordButton {
       color: #ffffffe1;
     }
-    .cancelButton{
+    .cancelButton {
       background-color: #6e6e6e;
       border: #6e6e6e solid 2px;
 
