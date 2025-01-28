@@ -7,16 +7,15 @@
 }
 
 .heading {
-  font-size: 1.8rem;
-  margin-bottom: 0px;
+  font-size: 1rem;
   text-align: center;
   color: #333;
 }
 
 
 .subHeading {
-  font-size: 1.4rem;
-  margin-top: 20px;
+  font-size: 1rem;
+  margin-top: 10px;
   color: #333;
 }
 
@@ -24,50 +23,49 @@
 .onlineResultCount,
 .physicalResultCount,
 .totalResultCount {
-  flex: 1; // Makes each div take equal width
-  padding: 40px;
-  margin: 0.5rem;
-  background-color: #f5f5f5; // Light background for a modern look
-  border-radius: 8px; // Rounded corners
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow
-  text-align: center; // Center-align text
+  flex: 1;
+  margin: 0rem 0.5rem;
+  background-color: #f5f5f5; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  text-align: center;
   font-family: 'Arial', sans-serif;
   max-width: 250px;
-  margin-top: 40px;
 
   p {
-    font-size: 1.2rem; // Adjust text size
+    font-size: 0.8rem;
     font-weight: bold;
-    color: #333; // Darker color for readability
-    margin: 0; // Remove default margin
+    color: #333; 
+    margin: 10px; 
   }
 }
 
 .dashboardRow {
-  display: flex; // Aligns the child elements in a row
-  align-items: center; // Aligns items vertically
-  justify-content: center; // Aligns items horizontally
-  gap: 20px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 10px; 
 }
 
 .count {
-font-weight: bold;
-font-size: 3rem;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #653e84;
 }
 
 .seeGraphButton {
-  display: block; /* Make it a block-level element */
-  margin: 20px auto; /* This will center the button horizontally */
+  display: block; 
+  margin: 20px auto; 
   padding: 10px 20px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   background-color: #f5f5f5;
   color: rgb(0, 0, 0);
   border: 2px solid rgb(255, 255, 255);
   border-radius: 10px;
   cursor: pointer;
-  outline: none; /* Remove the focus outline */
-
+  outline: none;
+  
   &:hover {
     background-color: #9e9e9e;
   }

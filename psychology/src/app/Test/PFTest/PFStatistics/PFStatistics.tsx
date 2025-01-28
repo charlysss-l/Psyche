@@ -345,18 +345,18 @@ const PFStatistics: React.FC = () => {
   return (
     <div className={styles.reportContainer}>
 
-    <h2 className={styles.heading}>16Personality Factor Data</h2>
+    <h2 className={styles.heading}>16 Personality Factor Data</h2>
 
 
     <div className={styles.dashboardRow}>
       <div className={styles.onlineResultCount}>
-        <p>Total Online Data: <br/> <span className={styles.count}>{onlineResults}</span></p>
+        <p>Total Online Data: <span className={styles.count}>{onlineResults}</span></p>
       </div>
       <div className={styles.physicalResultCount}>
-        <p>Total Physical Data: <br/> <span className={styles.count}>{physicalResults}</span></p>
+        <p>Total Physical Data: <span className={styles.count}>{physicalResults}</span></p>
       </div>
       <div className={styles.totalResultCount}>
-        <p>Total Data: <br/> <span className={styles.count}>{totalResults}</span></p>
+        <p>Total Data:  <span className={styles.count}>{totalResults}</span></p>
       </div>
     
     </div>

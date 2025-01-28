@@ -229,13 +229,13 @@ const filteredResults = results.filter((result) => {
 
     <div className={styles.dashboardRow}>
       <div className={styles.onlineResultCount}>
-        <p>Total Online Data: <br/> <span className={styles.count}>{onlineResults}</span></p>
+        <p>Total Online Data: <span className={styles.count}>{onlineResults}</span></p>
       </div>
       <div className={styles.physicalResultCount}>
-        <p>Total Physical Data: <br/> <span className={styles.count}>{physicalResults}</span></p>
+        <p>Total Physical Data: <span className={styles.count}>{physicalResults}</span></p>
       </div>
       <div className={styles.totalResultCount}>
-        <p>Total Data: <br/> <span className={styles.count}>{totalResults}</span></p>
+        <p>Total Data:  <span className={styles.count}>{totalResults}</span></p>
       </div>
  
     </div>
