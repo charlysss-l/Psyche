@@ -3,12 +3,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import style from "./studentNavbar.module.scss";
 import DarkMode from "../../darkMode/darkMode";
 
-import homeIcon from "../../images/camera.png";
+import homeIcon from "../../images/home-page.png";
 import testIcon from "../../images/questionnaire.png";
 import omrIcon from "../../images/camera.png";
-import resultIcon from "../../images/camera.png";
+import resultIcon from "../../images/results.png";
 import surveyIcon from "../../images/notes.png";
-import consultationIcon from "../../images/camera.png";
+import consultationIcon from "../../images/conversation.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
