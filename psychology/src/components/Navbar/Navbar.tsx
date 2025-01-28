@@ -3,15 +3,19 @@ import { NavLink, useNavigate } from "react-router-dom";
 import DarkMode from "../../darkMode/darkMode";
 import style from "./psychologynavbar.module.scss";
 
+import reportIcon from "../../images/report.png";
+import testIcon from "../../images/questionnaire.png";
+import omrIcon from "../../images/camera.png";
+import surveyIcon from "../../images/online-survey.png";
+import userIcon from "../../images/user.png";
+import contentIcon from "../../images/notes.png";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleLogout = () => {
-    // Remove the token from localStorage
     localStorage.removeItem("token");
-
-    // Redirect to the login page
     navigate("/");
   };
 
@@ -19,81 +23,40 @@ const Navbar = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };
 
+  const navLinks = [
+    { to: "/report", label: "Report", icon: reportIcon },
+    { to: "/test", label: "Test", icon: testIcon },
+    { to: "/omr", label: "OMR", icon: omrIcon },
+    { to: "/surveyDashboard", label: "Survey", icon: surveyIcon },
+    { to: "/user", label: "User", icon: userIcon },
+    { to: "/contentEditor", label: "Content", icon: contentIcon },
+  ];
+
   return (
     <nav className={style.studentNavbar}>
-      {/* Logo Section */}
       <div className={style.logoSection}>
         <h1>DiscoverU</h1>
         <p>Psychology</p>
       </div>
 
-      {/* Navigation Links */}
       <div className={style.navigationSection}>
         <ul className={style.navList}>
-          <li className={style.navItem}>
-            <NavLink
-              to="/report"
-              className={({ isActive }) =>
-                isActive ? `${style.navLink} ${style.active}` : style.navLink
-              }
-            >
-              Report
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/test"
-              className={({ isActive }) =>
-                isActive ? `${style.navLink} ${style.active}` : style.navLink
-              }
-            >
-              Test
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/omr"
-              className={({ isActive }) =>
-                isActive ? `${style.navLink} ${style.active}` : style.navLink
-              }
-            >
-              OMR
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/surveyDashboard"
-              className={({ isActive }) =>
-                isActive ? `${style.navLink} ${style.active}` : style.navLink
-              }
-            >
-              Survey
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/user"
-              className={({ isActive }) =>
-                isActive ? `${style.navLink} ${style.active}` : style.navLink
-              }
-            >
-              User
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/contentEditor"
-              className={({ isActive }) =>
-                isActive ? `${style.navLink} ${style.active}` : style.navLink
-              }
-            >
-              Content
-            </NavLink>
-          </li>
+          {navLinks.map((link) => (
+            <li className={style.navItem} key={link.to}>
+              <NavLink
+                to={link.to}
+                className={({ isActive }) =>
+                  isActive ? `${style.navLink} ${style.active}` : style.navLink
+                }
+              >
+                <img src={link.icon} alt={`${link.label} icon`} className={style.navIcon} />
+                {link.label}
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </div>
 
-      {/* Account Section */}
       <div className={style.navRight}>
         <div className={style.dropdown}>
           <button className={style.dropdownToggle} onClick={toggleDropdown}>
@@ -102,7 +65,7 @@ const Navbar = () => {
               alt="Account"
               className={style.accountImage}
             />
-            <span className={style.arrowIcon}>&#9662;</span> {/* Unicode for arrow */}
+            <span className={style.arrowIcon}>&#9662;</span>
           </button>
           {isDropdownOpen && (
             <ul className={style.dropdownMenu}>
