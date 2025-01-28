@@ -23,8 +23,8 @@
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #704191;
-  margin-top: -20px;
+  color: #653e84;
+  margin-top: -10px;
   margin-bottom: 20px;
   user-select: none;
 }
@@ -48,7 +48,7 @@
 }
 
 .pr_labelcurrent {
-  color: #704191;
+  color: #653e84;
   margin-bottom: inherit;
 }
 
@@ -83,9 +83,9 @@
 }
 
 .submitButton {
-  background-color: #704191;
+  background-color: #653e84;
   color: white;
-  border: 2px solid #704191;
+  border: 2px solid #653e84;
   padding: 12px 25px;
   font-size: 1.1rem;
   margin-top: 20px;
@@ -95,8 +95,8 @@
 
 .submitButton:hover {
   background-color: transparent;
-  color: #704191;
-  border: 2px solid #704191;
+  color: #653e84;
+  border: 2px solid #653e84;
 }
 
 .updateMessageError,
@@ -129,7 +129,7 @@
 .changePasswordTitle {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #704191;
+  color: #653e84;
   margin-bottom: 20px;
   margin-top: 50px;
   text-align: center;
@@ -268,7 +268,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
     border: none;
 
     h2 {
-      color: #754a94;
+      color: #8c62a9;
     }
     .userIDDisplay {
       color: #b4b4b4;
@@ -280,12 +280,12 @@ input[type="password"]::-webkit-textfield-decoration-container {
       color: #ccc;
     }
     .submitButton {
-      background-color: #754a94;
+      background-color: #8c62a9;
 
       &:hover {
         background-color: transparent;
-        color: #754a94;
-        border: 2px solid #754a94;
+        color: #8c62a9;
+        border: 2px solid #8c62a9;
       }
     }
   }
@@ -294,13 +294,13 @@ input[type="password"]::-webkit-textfield-decoration-container {
     border: none;
   }
   .userinfo_pr {
-    color: #754a94;
+    color: #8c62a9;
   }
   .pr_label {
     color: #b4b4b4;
   }
   .changePasswordTitle {
-    color: #754a94;
+    color: #8c62a9;
   }
   .updateMessageError,
   .updateMessageSuccess {
@@ -313,5 +313,20 @@ input[type="password"]::-webkit-textfield-decoration-container {
   }
   .togglePasswordButton {
     color: #b4b4b4;
+  }
+  .submitButton {
+    color: white;
+    border: 2px solid #8c62a9;
+    background-color: #8c62a9;
+
+    &:hover {
+      background-color: transparent;
+      color: #8c62a9;
+      border: 2px solid #8c62a9;
+    }
+  }
+
+  .pr_labelcurrent {
+    color: #8c62a9;
   }
 }
