@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./app/Home/Home";
 import Test from "./app/Test/Test";
 import Result from "./app/Result/Result";
@@ -20,7 +19,6 @@ import "./App.css";
 import Login from "./app/Login/login";
 import SignupForm from "./app/Signup/Signup";
 import LandingPage from './app/Home/LandingPage';
-import DarkMode from "./darkMode/darkMode";
 import OMRCamera from "./app/OMR/OMRCamera/PfOMR/PfOMR";
 import OMRResult from "./app/OMR/OMRCamera/IqOMR/OMRResult";
 import IQResultList from "./app/Result/IQResult/IQOnlineList/IQResultList";
@@ -59,7 +57,6 @@ function App() {
             path="*"
             element={
               <>
-                <Sidebar />
                 <div className="main-content">
                   <Navbar />
 
@@ -106,7 +103,6 @@ function App() {
             }
           />
         </Routes>                
-        <DarkMode /> 
 
       </div>
     </Router>

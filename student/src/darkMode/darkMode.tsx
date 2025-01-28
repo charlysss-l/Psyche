@@ -1,4 +1,3 @@
-// src/components/ThemeToggle.tsx
 import React, { useState, useEffect } from "react";
 import styles from "./darkMode.module.scss";
 
@@ -14,17 +13,32 @@ const DarkMode: React.FC = () => {
     }
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = !isDarkMode ? "dark" : "light";
-    setIsDarkMode(!isDarkMode);
-    localStorage.setItem("theme", newTheme);
-    document.body.classList.toggle("dark-mode", newTheme === "dark");
+  const setTheme = (theme: "light" | "dark") => {
+    const isDark = theme === "dark";
+    setIsDarkMode(isDark);
+    localStorage.setItem("theme", theme);
+    document.body.classList.toggle("dark-mode", isDark);
   };
 
   return (
-    <button onClick={toggleTheme} className={styles.darkModeButton}>
-      {isDarkMode ? "🌙" : "☀️"}
-    </button>
+    <div className={styles.themeToggleContainer}>
+      <button
+        onClick={() => setTheme("light")}
+        className={`${styles.themeButton} ${styles.light} ${
+          !isDarkMode ? styles.active : ""
+        }`}
+      >
+        Light
+      </button>
+      <button
+        onClick={() => setTheme("dark")}
+        className={`${styles.themeButton} ${styles.dark} ${
+          isDarkMode ? styles.active : ""
+        }`}
+      >
+        Dark
+      </button>
+    </div>
   );
 };
 

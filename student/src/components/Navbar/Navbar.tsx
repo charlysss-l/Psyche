@@ -1,19 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import style from "./studentNavbar.module.scss";
+import DarkMode from "../../darkMode/darkMode";
+
+import homeIcon from "../../images/camera.png";
+import testIcon from "../../images/questionnaire.png";
+import omrIcon from "../../images/camera.png";
+import resultIcon from "../../images/camera.png";
+import surveyIcon from "../../images/notes.png";
+import consultationIcon from "../../images/camera.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleLogout = () => {
-    // Remove the token from localStorage
     localStorage.removeItem("token");
-    localStorage.removeItem("studentId");
-    localStorage.removeItem("userId");
-
-    // Redirect to the login page
-    navigate("/login");
+    navigate("/");
   };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prevState) => !prevState);
+  };
+
+  const navLinks = [
+    { to: "/home", label: "Home", icon: homeIcon },
+    { to: "/test", label: "Test", icon: testIcon },
+    { to: "/omr", label: "OMR", icon: omrIcon },
+    { to: "/result", label: "Result", icon: resultIcon },
+    { to: "/surveyDashboard", label: "Survey", icon: surveyIcon },
+    { to: "/consultation", label: "Consultation", icon: consultationIcon },
+  ];
+
   return (
     <nav className={style.studentNavbar}>
       <div className={style.logoSection}>
@@ -23,56 +41,50 @@ const Navbar = () => {
 
       <div className={style.navigationSection}>
         <ul className={style.navList}>
-          <li className={style.navItem}>
-            <NavLink
-              to="/home"
-              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
-            >
-              Home
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/test"
-              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
-            >
-              Test
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/result"
-              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
-            >
-              Result
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/consultation"
-              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
-            >
-              Consultation
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/surveyDashboard"
-              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
-            >
-              Survey
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/login"
-              onClick={handleLogout}
-              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
-            >
-              Logout
-            </NavLink>
-          </li>
+          {navLinks.map((link) => (
+            <li className={style.navItem} key={link.to}>
+              <NavLink
+                to={link.to}
+                className={({ isActive }) =>
+                  isActive ? `${style.navLink} ${style.active}` : style.navLink
+                }
+              >
+                <img src={link.icon} alt={`${link.label} icon`} className={style.navIcon} />
+                {link.label}
+              </NavLink>
+            </li>
+          ))}
         </ul>
+      </div>
+
+      <div className={style.navRight}>
+        <div className={style.dropdown}>
+          <button className={style.dropdownToggle} onClick={toggleDropdown}>
+            <img
+              src="https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png"
+              alt="Account"
+              className={style.accountImage}
+            />
+            <span className={style.arrowIcon}>&#9662;</span>
+          </button>
+          {isDropdownOpen && (
+            <ul className={style.dropdownMenu}>
+              <li>
+                <NavLink to="/profile" className={style.dropdownLink}>
+                  Settings
+                </NavLink>
+              </li>
+              <li>
+                <DarkMode />
+              </li>
+              <li>
+                <button onClick={handleLogout} className={style.dropdownLink}>
+                  Logout
+                </button>
+              </li>
+            </ul>
+          )}
+        </div>
       </div>
     </nav>
   );
