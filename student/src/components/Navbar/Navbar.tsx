@@ -7,7 +7,7 @@ import homeIcon from "../../images/home-page.png";
 import testIcon from "../../images/questionnaire.png";
 import omrIcon from "../../images/camera.png";
 import resultIcon from "../../images/results.png";
-import surveyIcon from "../../images/notes.png";
+import surveyIcon from "../../images/survey.png";
 import consultationIcon from "../../images/conversation.png";
 
 const Navbar = () => {

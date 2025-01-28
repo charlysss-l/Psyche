@@ -6,7 +6,7 @@ import style from "./psychologynavbar.module.scss";
 import reportIcon from "../../images/report.png";
 import testIcon from "../../images/questionnaire.png";
 import omrIcon from "../../images/camera.png";
-import surveyIcon from "../../images/online-survey.png";
+import surveyIcon from "../../images/survey.png";
 import userIcon from "../../images/user.png";
 import contentIcon from "../../images/notes.png";
 
