@@ -5,7 +5,7 @@ $primary-color: #d7a52f;
 $bg-color: #ffffff;
 $bg-gradient-start: #98d172;
 $bg-gradient-end: #ffffff;
-$hover-bg-color: #704191;
+$hover-bg-color: #653e84;
 $shadow-light: rgba(0, 0, 0, 0.1);
 $shadow-dark: rgba(0, 0, 0, 0.2);
 $box-shadow-small: 0 4px 8px $shadow-light;
@@ -29,7 +29,7 @@ $test-size: 400px;
   user-select: none;
 
   h1 {
-    color: #000000;
+    color: #6e6e6e;
   }
 }
 
@@ -48,7 +48,7 @@ $test-size: 400px;
   background-color: transparent;
   width: $test-size;
   height: $test-size;
-  border: #000000 solid 2px;
+  border: #6e6e6e solid 2px;
   border-radius: $border-radius;
   box-shadow: $box-shadow-small;
   transition: all 0.3s ease-in-out;
@@ -83,9 +83,9 @@ $test-size: 400px;
     border: #b4b4b4 solid 2px;
 
     :hover {
-      background: #754a94;
+      background: #8c62a9;
       color: #000000;
-      border: #754a94 solid 2px;
+      border: #8c62a9 solid 2px;
     }
   }
 }
@@ -126,6 +126,7 @@ $test-size: 400px;
 // Reapply common styles for box-shadow and transition
 .TestPF,
 .iqLinkContainer {
+  color: #6e6e6e;
   box-shadow: $box-shadow-small;
   transition: transform 0.2s, box-shadow $transition-duration ease;
 }

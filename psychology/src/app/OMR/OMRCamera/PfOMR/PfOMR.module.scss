@@ -22,9 +22,8 @@
   width: 35%; /* Ensure it takes up about half of the screen */
   text-align: center;
 
-
   h2 {
-    color: #704191;
+    color: #653e84;
     margin-bottom: 20px;
     font-size: 28px;
   }
@@ -43,7 +42,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   h1 {
-    color: #704191;
+    color: #653e84;
     text-align: center;
   }
 
@@ -62,344 +61,340 @@
     align-items: center; /* Center them horizontally */
   }
 
-  .omrCameraContainer, .instructionContainer {
+  .omrCameraContainer,
+  .instructionContainer {
     width: 90%; /* Adjust width to take up most of the screen */
     gap: 10px; /* Add a gap between stacked elements */
   }
 }
 
-  
-  .fileInputWrapper {
-    margin-bottom: 15px;
-  
-    label {
-      font-size: 16px;
-      color: #ffffff;
-      cursor: pointer;
-      display: inline-block;
-      margin-bottom: 5px;
-    }
-  
-    input[type="file"] {
-      display: none;
-    }
-  }
-  
-  .uploadLabel {
-    background-color: #704191;
-    padding: 8px 16px;
-    border-radius: 5px;
+.fileInputWrapper {
+  margin-bottom: 15px;
+
+  label {
+    font-size: 16px;
     color: #ffffff;
     cursor: pointer;
-    border: #704191 solid 2px;
-    transition: background-color 0.3s ease;
-  
-    &:hover {
-      background-color: transparent;
-    color: #704191;
-    border: #704191 solid 2px;
-    }
+    display: inline-block;
+    margin-bottom: 5px;
   }
-  
-  .imagePreview {
-    margin-top: 20px;
-    max-width: 100%;
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 5px;
-    }
-  }
-  
-  .cameraWrapper {
-    margin-top: 20px;
-  
-    .video {
-      width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-  
-    .cameraControls {
-      margin-top: 10px;
-  
-      .captureButton, .cancelButton {
-        background-color: #555;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin: 0 10px;
-  
-        &:hover {
-          border: 1px solid  #777;
-        }
-      }
-  
-      .cancelButton {
-        background-color: #cc0000;
-      }
-    }
-  
-    .openCameraButton {
-      background-color: #1a1a1a;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      border: #1a1a1a solid 2px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-bottom: 20px;
-      transition: background-color 0.3s ease;
-  
-      &:hover {
-        background-color: transparent;
-      color: #1a1a1a;
-      }
-    }
-  
-    .fileInput {
-      margin-top: 20px;
-      display: block;
-      background-color: #444;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-  
-      &:hover {
-        background-color: #666;
-      }
-    }
-  }
-  
-  .uploadButton {
-    background-color: #704191;
-    color: white;
-    border: 2px solid #704191;
-    padding: 12px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-    margin-top: 20px;
-  
-    &:disabled {
-      background-color: #704191;
-    cursor: not-allowed;
-    }
-  
-    &:hover {
-      background-color: transparent;
-    color: #704191;
-    border: 2px solid #704191;
-    }
-  }
-  
-  .uploadedImage {
-    margin-top: 20px;
-    text-align: left;
-  
-    p {
-      color: #ccc;
-      font-size: 14px;
-    }
-  
-    img {
-      width: 100%;
-      max-width: 500px;
-      margin-top: 10px;
-      border-radius: 5px;
-    }
-    .uploadedImageText{
-      color: #2A3744;
-      text-align: center;
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
-  }
-  
-  .omrProcessButton {
-    background-color: #1a1a1a;
-    color: white;
-    border: 2px solid #1a1a1a;
-    padding: 12px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-    width: 100%;
-  
-    &:disabled {
-      background-color: #1a1a1a;
-    cursor: not-allowed;
-    }
-  
-    &:hover {
-      background-color: transparent;
-    color: black;
-    border: 2px solid #1a1a1a;
-    }
-  }
-  
-  canvas {
+
+  input[type="file"] {
     display: none;
   }
-  
-  
-  
-  .saveScoreButton {
-    background-color: #704191;
-    color: white;
-    border: 2px solid #704191;
-    padding: 12px 20px;
+}
+
+.uploadLabel {
+  background-color: #653e84;
+  padding: 8px 16px;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  border: #653e84 solid 2px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: transparent;
+    color: #653e84;
+    border: #653e84 solid 2px;
+  }
+}
+
+.imagePreview {
+  margin-top: 20px;
+  max-width: 100%;
+  img {
+    max-width: 100%;
+    height: auto;
     border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 80%;
-    margin-top: 20px;
-  
-  
-    &:hover {
-      background-color: transparent;
-      color: #704191;
-      border: 2px solid #704191;
-    }
+  }
+}
+
+.cameraWrapper {
+  margin-top: 20px;
+
+  .video {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
-
-  .spinnerContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-  }
-  
-  .spinner {
-    margin-bottom: 10px; /* Add some space between the spinner and the text */
-  }
-  
-  .spinnerCircle {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #704191;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .loadingText {
-    font-size: 16px;
-    text-align: center;
+  .cameraControls {
     margin-top: 10px;
-    font-weight: 600;
-    color: #704191;
-  }
-  .testrawscore, pre{
-    margin-top: 20px;
-    color: #616161;
-  }
-  
-  :global(body.dark-mode){
-    .omrCameraContainer{
-      background-color: #1f1f1f5d;
-      
-      h2{
-        color: #754a94;
-      }
-    }
-    .uploadLabel{
-      background-color: #754a94;
-      border: #754a94 solid 2px;
 
-      &:hover{
-        background-color: transparent;
-      }
-    }
-
-    .uploadedImageText{
-      color: #cecece;
-      text-align: center;
-    }
-
-    .uploadButton{
-      background-color: #754a94;
-      border: 2px solid #754a94;
+    .captureButton,
+    .cancelButton {
+      background-color: #555;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 0 10px;
 
       &:hover {
-        background-color: transparent;
-        color: #754a94;
-        border: 2px solid #754a94;
+        border: 1px solid #777;
       }
     }
-    .openCameraButton{
-      background-color: #6e6e6e;
-      border:#6e6e6e 1px solid; 
-      color: #fafafa;
 
-      &:hover{
-        background-color: transparent;
-        color: #6e6e6e;
-        
-      }
-    }
-    .omrProcessButton{
-      background-color: #6e6e6e;
-      color: #fafafa;
-
-      &:hover{
-        background-color: transparent;
-        color: #6e6e6e;
-        border: 2px solid #6e6e6e;
-      }
-    }
-    .loadingText  {
-      color: #754a94;
-    }
-    .testrawscore, pre{
-      color: #dbdbdb;
-    }
-    .saveScoreButton {
-      background-color: #754a94;
-      border:#754a94 1px solid; 
-      color: #fafafa;
-
-      &:hover{
-        background-color: transparent;
-        color: #754a94;
-        border:#754a94 1px solid; 
-      }
-    }
-    .instructionContainer {
-      background-color: #1f1f1f5d;
-
-      h1{
-        color: #754a94;
-      }
-      p{
-        color: #dbdbdb;
-      }
+    .cancelButton {
+      background-color: #cc0000;
     }
   }
-  
-  
+
+  .openCameraButton {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: #1a1a1a solid 2px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: transparent;
+      color: #1a1a1a;
+    }
+  }
+
+  .fileInput {
+    margin-top: 20px;
+    display: block;
+    background-color: #444;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #666;
+    }
+  }
+}
+
+.uploadButton {
+  background-color: #653e84;
+  color: white;
+  border: 2px solid #653e84;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+
+  &:disabled {
+    background-color: #653e84;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background-color: transparent;
+    color: #704191;
+    border: 2px solid #653e84;
+  }
+}
+
+.uploadedImage {
+  margin-top: 20px;
+  text-align: left;
+
+  p {
+    color: #ccc;
+    font-size: 14px;
+  }
+
+  img {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  .uploadedImageText {
+    color: #2a3744;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+}
+
+.omrProcessButton {
+  background-color: #1a1a1a;
+  color: white;
+  border: 2px solid #1a1a1a;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+
+  &:disabled {
+    background-color: #1a1a1a;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background-color: transparent;
+    color: black;
+    border: 2px solid #1a1a1a;
+  }
+}
+
+canvas {
+  display: none;
+}
+
+.saveScoreButton {
+  background-color: #653e84;
+  color: white;
+  border: 2px solid #653e84;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 80%;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: transparent;
+    color: #653e84;
+    border: 2px solid #653e84;
+  }
+}
+
+.spinnerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+
+.spinner {
+  margin-bottom: 10px; /* Add some space between the spinner and the text */
+}
+
+.spinnerCircle {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #704191;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #653e84;
+}
+.testrawscore,
+pre {
+  margin-top: 20px;
+  color: #616161;
+}
+
+:global(body.dark-mode) {
+  .omrCameraContainer {
+    background-color: #1f1f1f5d;
+
+    h2 {
+      color: #8c62a9;
+    }
+  }
+  .uploadLabel {
+    background-color: #8c62a9;
+    border: #8c62a9 solid 2px;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  .uploadedImageText {
+    color: #cecece;
+    text-align: center;
+  }
+
+  .uploadButton {
+    background-color: #8c62a9;
+    border: 2px solid #8c62a9;
+
+    &:hover {
+      background-color: transparent;
+      color: #8c62a9;
+      border: 2px solid #8c62a9;
+    }
+  }
+  .openCameraButton {
+    background-color: #6e6e6e;
+    border: #6e6e6e 1px solid;
+    color: #fafafa;
+
+    &:hover {
+      background-color: transparent;
+      color: #6e6e6e;
+    }
+  }
+  .omrProcessButton {
+    background-color: #6e6e6e;
+    color: #fafafa;
+
+    &:hover {
+      background-color: transparent;
+      color: #6e6e6e;
+      border: 2px solid #6e6e6e;
+    }
+  }
+  .loadingText {
+    color: #8c62a9;
+  }
+  .testrawscore,
+  pre {
+    color: #dbdbdb;
+  }
+  .saveScoreButton {
+    background-color: #8c62a9;
+    border: #8c62a9 1px solid;
+    color: #fafafa;
+
+    &:hover {
+      background-color: transparent;
+      color: #8c62a9;
+      border: #8c62a9 1px solid;
+    }
+  }
+  .instructionContainer {
+    background-color: #1f1f1f5d;
+
+    h1 {
+      color: #8c62a9;
+    }
+    p {
+      color: #dbdbdb;
+    }
+  }
+}

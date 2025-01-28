@@ -20,9 +20,8 @@
   width: 35%; /* Ensure it takes up about half of the screen */
   text-align: center;
 
-
   h2 {
-    color: #704191;
+    color: #653e84;
     margin-bottom: 20px;
     font-size: 28px;
   }
@@ -41,7 +40,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   h1 {
-    color: #704191;
+    color: #653e84;
     text-align: center;
   }
 
@@ -60,14 +59,12 @@
     align-items: center; /* Center them horizontally */
   }
 
-  .omrCameraContainer, .instructionContainer {
+  .omrCameraContainer,
+  .instructionContainer {
     width: 90%; /* Adjust width to take up most of the screen */
     gap: 10px; /* Add a gap between stacked elements */
   }
 }
-
-
-
 
 .fileInputWrapper {
   margin-bottom: 15px;
@@ -86,19 +83,18 @@
 }
 
 .uploadLabel {
-  background-color: #704191;
+  background-color: #653e84;
   padding: 8px 16px;
   border-radius: 5px;
   color: #ffffff;
-  border: #704191 solid 2px;
+  border: #653e84 solid 2px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
     background-color: transparent;
-    color: #704191;
-    border: #704191 solid 2px;
-
+    color: #653e84;
+    border: #653e84 solid 2px;
   }
 }
 
@@ -124,7 +120,8 @@
   .cameraControls {
     margin-top: 10px;
 
-    .captureButton, .cancelButton {
+    .captureButton,
+    .cancelButton {
       background-color: #555;
       color: white;
       border: none;
@@ -161,7 +158,6 @@
       background-color: transparent;
       color: #1a1a1a;
     }
-
   }
 
   .fileInput {
@@ -181,28 +177,27 @@
 }
 
 .uploadButton {
-  background-color: #704191;
+  background-color: #653e84;
   color: white;
   padding: 12px 20px;
   border-radius: 5px;
   font-size: 16px;
-  border: 2px solid #704191;
+  border: 2px solid #653e84;
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
   margin-top: 20px;
 
   &:disabled {
-    background-color: #704191;
+    background-color: #653e84;
     cursor: not-allowed;
   }
 
   &:hover {
     background-color: transparent;
     color: #704191;
-    border: 2px solid #704191;
+    border: 2px solid #653e84;
   }
-
 }
 
 .uploadedImage {
@@ -220,13 +215,12 @@
     margin-top: 10px;
     border-radius: 5px;
   }
-  .uploadedImageText{
-    color: #2A3744;
+  .uploadedImageText {
+    color: #2a3744;
     text-align: center;
     font-size: 0.9rem;
     font-weight: bold;
   }
- 
 }
 
 .omrProcessButton {
@@ -250,23 +244,20 @@
     color: black;
     border: 2px solid #1a1a1a;
   }
-
 }
 
-.processcompleted{
-  color: #2A3744;
+.processcompleted {
+  color: #2a3744;
 }
 
 canvas {
   display: none;
 }
 
-
-
 .saveScoreButton {
-  background-color: #704191;
+  background-color: #653e84;
   color: white;
-  border: 2px solid #704191;
+  border: 2px solid #653e84;
   padding: 12px 20px;
   border-radius: 5px;
   font-size: 16px;
@@ -275,21 +266,19 @@ canvas {
   width: 80%;
   margin-top: 20px;
 
-
   &:hover {
     background-color: transparent;
-    color: #704191;
+    color: #653e84;
     border: 2px solid #704191;
   }
 }
-
 
 .spinnerContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: fixed;  /* Change to fixed positioning */
+  position: fixed; /* Change to fixed positioning */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -304,7 +293,7 @@ canvas {
 .spinnerCircle {
   position: relative; /* Changed from fixed to relative */
   border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid #704191;
+  border-top: 4px solid #653e84;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -320,63 +309,58 @@ canvas {
   }
 }
 
-
-
-
 .loadingText {
   font-size: 16px;
   text-align: center;
   margin-top: 10px;
   font-weight: 600;
-  color: #704191;
+  color: #653e84;
 }
 
 .flashButton {
- margin-left: 10px;
+  margin-left: 10px;
 }
 
-
-
-:global(body.dark-mode){
-  .omrCameraContainer{
+:global(body.dark-mode) {
+  .omrCameraContainer {
     background-color: #1f1f1f5d;
 
-    h2{
-      color: #754a94;
+    h2 {
+      color: #8c62a9;
     }
 
-    .uploadLabel{
-      background-color: #754a94;
-      border: #754a94 solid 2px;
+    .uploadLabel {
+      background-color: #8c62a9;
+      border: #8c62a9 solid 2px;
 
-      &:hover{
+      &:hover {
         background-color: transparent;
       }
     }
-    .uploadedImageText{
+    .uploadedImageText {
       color: #cecece;
       text-align: center;
     }
-    .openCameraButton{
+    .openCameraButton {
       background-color: #6e6e6e;
       border: #6e6e6e solid 2px;
 
-      &:hover{
+      &:hover {
         background-color: transparent;
         color: #6e6e6e;
       }
     }
-    .uploadButton{
-      background-color: #754a94;
-      border: 2px solid #754a94;
+    .uploadButton {
+      background-color: #8c62a9;
+      border: 2px solid #8c62a9;
 
       &:hover {
         background-color: transparent;
-        color: #754a94;
-        border: 2px solid #754a94;
+        color: #8c62a9;
+        border: 2px solid #8c62a9;
       }
     }
-    .omrProcessButton{
+    .omrProcessButton {
       background-color: #6e6e6e;
 
       &:hover {
@@ -385,35 +369,35 @@ canvas {
         border: 2px solid #6e6e6e;
       }
     }
-    .processcompleted{
+    .processcompleted {
       color: #cecece;
     }
-    
-    .loadingText{
-      color: #754a94;
+
+    .loadingText {
+      color: #8c62a9;
     }
-    .spinnerCircle{
-      border-top: 4px solid #754a94;
+    .spinnerCircle {
+      border-top: 4px solid #8c62a9;
     }
   }
-  .saveScoreButton{
-    background-color: #754a94;
-    border: 2px solid #754a94;
+  .saveScoreButton {
+    background-color: #8c62a9;
+    border: 2px solid #8c62a9;
 
     &:hover {
       background-color: transparent;
-      color: #754a94;
-      border: 2px solid #754a94;
+      color: #8c62a9;
+      border: 2px solid #8c62a9;
     }
   }
-  .instructionContainer{
+  .instructionContainer {
     background-color: #1f1f1f5d;
-    color: #754a94;
+    color: #8c62a9;
 
-    h1{
-    color: #754a94;
+    h1 {
+      color: #8c62a9;
     }
-    p{
+    p {
       color: #b9b9b9;
     }
   }

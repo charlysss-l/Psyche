@@ -1,63 +1,66 @@
-.OMRDiv{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    max-width: 100%;
-    height: 50vh;
+.OMRDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  max-width: 100%;
+  height: 50vh;
 }
-.OMRTITLE{
-    color: black;
-    font-size: 50px;
-    margin: 0;
+.OMRTITLE {
+  color: black;
+  font-size: 50px;
+  margin: 0;
 }
-.OMRTITLE:hover{
-    color: #704191;
+.OMRTITLE:hover {
+  color: #653e84;
 }
-.OMRDesc{
-   font-size: 18px;
-   font-weight: 100;
+.OMRDesc {
+  font-size: 18px;
+  font-weight: 100;
 }
-.OMRbutton{
-    display: flex;
-    justify-content: space-between;
+.OMRbutton {
+  display: flex;
+  justify-content: space-between;
 }
 
-.OMRlinkOnline, .OMRLinkUpload{
-    text-decoration: none;
-    margin-right: 50px;
-    width: 200px;
-    height: 50px;
-    display: flex;
-    border: 2px solid  #704191;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background-color: #704191;
+.OMRlinkOnline,
+.OMRLinkUpload {
+  text-decoration: none;
+  margin-right: 50px;
+  width: 200px;
+  height: 50px;
+  display: flex;
+  border: 2px solid #653e84;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: #653e84;
+  color: #fafafa;
+}
+.OMRlinkOnline:hover,
+.OMRLinkUpload:hover {
+  background-color: transparent;
+  color: #653e84;
+  border: 2px solid #653e84;
+}
+:global(body.dark-mode) {
+  .OMRTITLE {
+    color: #dfdfdf;
+  }
+  .OMRTITLE:hover {
+    color: #8c62a9;
+  }
+  .OMRlinkOnline,
+  .OMRLinkUpload {
+    background-color: #8c62a9;
     color: #fafafa;
-}
-.OMRlinkOnline:hover, .OMRLinkUpload:hover{
+    border: 2px solid #8c62a9;
+  }
+  .OMRlinkOnline:hover,
+  .OMRLinkUpload:hover {
     background-color: transparent;
-    color: #704191;
-    border: 2px solid  #704191;
-}
-:global(body.dark-mode){
-    .OMRTITLE{
-        color: #dfdfdf;
-        
-    }
-    .OMRTITLE:hover{
-        color: #754a94;
-    }    
-    .OMRlinkOnline, .OMRLinkUpload{
-        background-color: #754a94;
-        color: #fafafa;
-        border: 2px solid  #754a94;
-    }
-    .OMRlinkOnline:hover, .OMRLinkUpload:hover{
-        background-color: transparent;
-        color: #754a94;
-        border: 2px solid  #754a94;
-    }
+    color: #8c62a9;
+    border: 2px solid #8c62a9;
+  }
 }

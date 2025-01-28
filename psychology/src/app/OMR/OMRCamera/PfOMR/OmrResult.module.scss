@@ -1,10 +1,10 @@
 // SCSS Variables for consistency
-$form-bg-color: #F6F5F5;         // Set form background to #F6F5F5
-$primary-color: #7EA0B7;         // Primary color for buttons and focus
+$form-bg-color: #f6f5f5; // Set form background to #F6F5F5
+$primary-color: #7ea0b7; // Primary color for buttons and focus
 $border-radius: 5px;
-$input-border-color: #45474B;    // Darker border for the input fields
+$input-border-color: #45474b; // Darker border for the input fields
 $input-focus-border-color: $primary-color; // Focus color for inputs
-$header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
+$header-text-color: #45474b; // Color for "SAMPLE IQ TEST"
 $font-family: Arial, sans-serif;
 
 .formTest {
@@ -23,13 +23,13 @@ $font-family: Arial, sans-serif;
   top: 25%;
   transform: translate(-50%, 0%);
 
-  h1 {   // Color for the header text (SAMPLE IQ TEST)
+  h1 {
+    // Color for the header text (SAMPLE IQ TEST)
     font-size: 2rem;
     margin-bottom: 20px;
     justify-self: center;
-    font-family: $font-family; 
-    color:#141414;
-  
+    font-family: $font-family;
+    color: #141414;
   }
 }
 
@@ -39,13 +39,12 @@ $font-family: Arial, sans-serif;
   padding: 20px;
   border-radius: $border-radius;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  color: $input-border-color;    // Text color set to $input-border-color
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: $input-border-color; // Text color set to $input-border-color
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   width: 1000px;
 }
 
 // Header for the form (SAMPLE IQ TEST)
-
 
 .ageWarning {
   color: #e62f2f;
@@ -61,7 +60,7 @@ label {
   display: block;
   margin: 10px 0;
   color: $input-border-color;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   // Label text color set to $input-border-color
 }
 
@@ -75,11 +74,11 @@ input[type="radio"] {
   border: 1px solid $input-border-color;
   border-radius: $border-radius;
   transition: border-color 0.3s;
-  background-color: $form-bg-color;  // Set background color to $form-bg-color
-  color: $input-border-color;        // Set text color to $input-border-color
+  background-color: $form-bg-color; // Set background color to $form-bg-color
+  color: $input-border-color; // Set text color to $input-border-color
 
   &:focus {
-    border-color: $input-focus-border-color;  // Focus color to match navbar hover
+    border-color: $input-focus-border-color; // Focus color to match navbar hover
     outline: none;
   }
 
@@ -98,10 +97,10 @@ ul {
 
 // Update the styles for the questions list
 .questions {
-  display: flex;                // Use flexbox for layout
-  flex-direction: column;       // Arrange items in a column
-  padding: 0;                   // Remove default padding
-  list-style-type: none;        // Remove bullet points
+  display: flex; // Use flexbox for layout
+  flex-direction: column; // Arrange items in a column
+  padding: 0; // Remove default padding
+  list-style-type: none; // Remove bullet points
   width: 200px;
   height: 200px;
 }
@@ -145,23 +144,23 @@ li {
   border-radius: $border-radius;
   padding: 10px;
   background-color: #ffffff00;
-  display: flex;               // Use flexbox for the question and choices
-  flex-direction: row;         // Arrange question and choices in a row
-  align-items: center;         // Center align items vertically
-  color: #333;                 // Text color for the question and choices
+  display: flex; // Use flexbox for the question and choices
+  flex-direction: row; // Arrange question and choices in a row
+  align-items: center; // Center align items vertically
+  color: #333; // Text color for the question and choices
 
   .question-image {
-    margin-right: 20px;         // Space between question image and choices
+    margin-right: 20px; // Space between question image and choices
 
     img {
-      width: 30px;         // Set a max width for the question image
+      width: 30px; // Set a max width for the question image
       height: 30px;
     }
   }
 
   .choices {
     display: flex;
-    flex-direction: row;        // Keep choices in a row
+    flex-direction: row; // Keep choices in a row
 
     label {
       display: flex;
@@ -173,7 +172,7 @@ li {
       }
 
       img {
-        max-width: 60px;         // Adjust size for choice images
+        max-width: 60px; // Adjust size for choice images
         height: auto;
         margin-left: 10px;
       }
@@ -232,18 +231,19 @@ li {
 .submitres {
   padding: 10px 60px;
   font-size: 16px;
-  border: 2px solid #704191;
+  border: 2px solid #653e84;
   cursor: pointer;
-  background-color: #704191;
+  background-color: #653e84;
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: transparent; 
-    color: #704191;
-    border: 2px solid #704191;
-  } &:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
+    background-color: transparent;
+    color: #653e84;
+    border: 2px solid #653e84;
+  }
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
   }
 }
 
@@ -255,8 +255,7 @@ li {
   border-radius: 10px;
   cursor: pointer;
   margin-top: 40px;
-  
-  
+
   transition: background-color 0.3s ease;
 }
 
@@ -265,34 +264,34 @@ li {
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
-:global(body.dark-mode){
+:global(body.dark-mode) {
   .formTest {
     background-color: #161616;
-    h1{
+    h1 {
       color: #b4b4b4;
     }
-    p{
+    p {
       color: #e23f3f;
     }
-    h3{ 
-      color: #754a94;
+    h3 {
+      color: #8c62a9;
     }
-    input{
+    input {
       background-color: #161616;
       color: #b4b4b4;
       border: 1px solid #b4b4b4;
     }
-    button{
-      background-color: #754a94;
+    button {
+      background-color: #8c62a9;
       color: #dad8d8;
-      border: 2px solid  #754a94;
+      border: 2px solid #8c62a9;
 
       &:hover {
         background-color: transparent;
-        color: #754a94;
-        border: 2px solid  #754a94;
+        color: #8c62a9;
+        border: 2px solid #8c62a9;
       }
     }
   }
