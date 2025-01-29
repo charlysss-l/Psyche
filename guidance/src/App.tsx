@@ -2,13 +2,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import Sidebar from './components/Sidebar/Sidebar';
 import './App.css';
 
 import Login from './app/Login/login';
 import LandingPageGuidance from './app/Home/landingpageguidance';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import ThemeToggle from './darkMode/darkMode';
+
 
 // Lazy load components
 const Home = React.lazy(() => import('./app/Home/Home'));
@@ -23,7 +22,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <ThemeToggle />
         <Routes>
           {/* Landing Page */}
           <Route path="/" element={<LandingPageGuidance />} /> {/* Public route for landing page */}
@@ -36,7 +34,6 @@ function App() {
             path="*"
             element={
               <>
-                <Sidebar />
                 <div className="main-content">
                   <Navbar />
                   <div className="content">

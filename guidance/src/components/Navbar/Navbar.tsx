@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import style from "./guidancenavbar.module.scss";
+import DarkMode from "../../darkMode/darkMode";
+
+import homeIcon from "../../images/home-page.png";
+import calendarIcon from "../../images/calendar.png";
+import consultationIcon from "../../images/conversation.png";
+import accountIcon from "../../images/user.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const role = localStorage.getItem("role"); // Get the role from localStorage
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleLogout = () => {
     // Remove the token and user info from localStorage
@@ -18,6 +25,17 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prevState) => !prevState);
+  };
+
+  const navLinks = [
+    { to: "/home", label: "Home", icon: homeIcon },
+    { to: "/calendar", label: "Calendar", icon: calendarIcon },
+    { to: "/consultation", label: "OMR", icon: consultationIcon },
+    ...(role === "main" ? [{ to: "/create-account", label: "Account", icon: accountIcon }] : []),
+  ];
+
   return (
     <nav className={style.studentNavbar}>
       <div className={style.logoSection}>
@@ -27,51 +45,50 @@ const Navbar = () => {
 
       <div className={style.navigationSection}>
         <ul className={style.navList}>
-          <li className={style.navItem}>
-            <NavLink
-              to="/home"
-              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
-            >
-              Home
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/calendar"
-              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
-            >
-              Calendar
-            </NavLink>
-          </li>
-          <li className={style.navItem}>
-            <NavLink
-              to="/consultation"
-              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
-            >
-              Consultation
-            </NavLink>
-          </li>
-          {role === "main" && ( // Conditionally render the Accounts link if the role is "main"
-            <li className={style.navItem}>
+          {navLinks.map((link) => (
+            <li className={style.navItem} key={link.to}>
               <NavLink
-                to="/create-account"
-                className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
+                to={link.to}
+                className={({ isActive }) =>
+                  isActive ? `${style.navLink} ${style.active}` : style.navLink
+                }
               >
-                Account
+                <img src={link.icon} alt={`${link.label} icon`} className={style.navIcon} />
+                {link.label}
               </NavLink>
             </li>
-          )}
-         
-          <li className={style.navItem}>
-            <NavLink
-              to="/"
-              onClick={handleLogout}
-              className={({ isActive }) => isActive ? `${style.navLink} ${style.active}` : style.navLink}
-            >
-              Logout
-            </NavLink>
-          </li>
+          ))}
         </ul>
+      </div>
+
+      <div className={style.navRight}>
+        <div className={style.dropdown}>
+          <button className={style.dropdownToggle} onClick={toggleDropdown}>
+            <img
+              src="https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png"
+              alt="Account"
+              className={style.accountImage}
+            />
+            <span className={style.arrowIcon}>&#9662;</span>
+          </button>
+          {isDropdownOpen && (
+            <ul className={style.dropdownMenu}>
+              <li>
+                <NavLink to="/profile" className={style.dropdownLink}>
+                  Settings
+                </NavLink>
+              </li>
+              <li>
+                <DarkMode />
+              </li>
+              <li>
+                <button onClick={handleLogout} className={style.dropdownLink}>
+                  Logout
+                </button>
+              </li>
+            </ul>
+          )}
+        </div>
       </div>
     </nav>
   );
