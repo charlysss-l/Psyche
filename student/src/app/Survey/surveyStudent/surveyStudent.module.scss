@@ -234,8 +234,8 @@ $table-border-color: #e9e9e9;
 
 .archiveButton {
   position: relative;
-  left: 29vw; /* Use viewport width for better scaling */
-  bottom: 9vh; /* Use viewport height */
+  left: 30vw; /* Use viewport width for better scaling */
+  bottom: 6vh; /* Use viewport height */
   background-color: #653e84;
   color: white;
   border-radius: 12px;
@@ -252,21 +252,21 @@ $table-border-color: #e9e9e9;
 @media (max-width: 1024px) {
   .archiveButton {
     left: 25vw;
-    bottom: 12vh;
+    bottom: 8vh;
   }
 }
 
 @media (max-width: 768px) {
   .archiveButton {
     left: 27vw;
-    bottom: 12vh;
+    bottom: 8vh;
   }
 }
 
 @media (max-width: 480px) {
   .archiveButton {
     left: 40vw;
-    bottom: 12vh;
+    bottom: 8vh;
   }
 }
 /* Hover effect */
@@ -303,13 +303,14 @@ $table-border-color: #e9e9e9;
   display: flex;
   position: fixed;
   z-index: 1100; /* Ensures it appears on top of other content */
-  right: 21%;
+  right: 11%;
   top: 16%;
-  background-color: #8a8a8a; /* Red background for close button */
+  border: 2px solid #6e6e6e; /* Red border for close button */
+  background-color: transparent; /* Red background for close button */
   color: white;
-  font-size: 18px;
-  padding: 8px 16px;
-  border-radius: 12px; /* Rounded edges */
+  font-size: 17px;
+  padding: 8px 15px;
+  border-radius: 8px; /* Rounded edges */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -317,16 +318,16 @@ $table-border-color: #e9e9e9;
 
 .closeButton:hover {
   background-color: transparent;
-  border-color: #c13232;
+  border: 2px solid #6e6e6e;
+  color: #6e6e6e;
 }
 
 .closeButton:active {
-  background-color: #c13232;
+  background-color: #6e6e6e;
   transform: scale(0.98); /* Click animation */
 }
 
 .closeButton::before {
-  content: "❌"; /* Unicode close icon */
   font-size: 20px; /* Adjust icon size */
   margin-right: 8px;
 }
@@ -389,15 +390,19 @@ $table-border-color: #e9e9e9;
   .filters tr:nth-child(even) td {
     background-color: #212121;
   }
-  .answerSurveyButton {
-    background-color: #8c62a9;
-
-    &:hover {
-      background-color: transparent;
-      color: black;
-      border: 1px solid rgba(51, 51, 51, 51);
+  .surveyActions {
+    .answerSurveyButton {
+      background-color: #8c62a9;
+      border: 2px solid #8c62a9;
+  
+      &:hover {
+        background-color: transparent;
+        color: #8c62a9;
+        border: 2px solid #8c62a9;
+      }
     }
   }
+  
   .pagination button {
     background-color: #8c62a9;
 
@@ -422,6 +427,17 @@ $table-border-color: #e9e9e9;
       background-color: #6e6e6e;
       color: #f0f0f0;
       border: #6e6e6e 2px solid;
+    }
+  }
+  .closeButton  {
+    border: 2px solid #a9a9a9;
+    background-color: #a9a9a9;
+    color: #ffffff;
+
+    &:hover {
+      background-color: transparent;
+      border: 2px solid #a9a9a9;
+      color: #a9a9a9;
     }
   }
 }
