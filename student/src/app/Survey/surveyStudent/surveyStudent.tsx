@@ -56,8 +56,12 @@ const SurveyAnswerForm: React.FC = () => {
       if (!userId) return;
 
       try {
-        const response = await axios.get(`${backendUrl}/api/response/archived-surveys/${userId}`);
-        const answeredSurveyIds = response.data.map((survey: any) => survey.surveyId);
+        const response = await axios.get(
+          `${backendUrl}/api/response/archived-surveys/${userId}`
+        );
+        const answeredSurveyIds = response.data.map(
+          (survey: any) => survey.surveyId
+        );
         setAnsweredSurveys(answeredSurveyIds);
       } catch (error) {
         console.error("Error fetching answered surveys", error);
@@ -101,7 +105,10 @@ const SurveyAnswerForm: React.FC = () => {
   // Pagination Logic
   const indexOfLastSurvey = currentPage * surveysPerPage;
   const indexOfFirstSurvey = indexOfLastSurvey - surveysPerPage;
-  const currentSurveys = unansweredSurveys.slice(indexOfFirstSurvey, indexOfLastSurvey);
+  const currentSurveys = unansweredSurveys.slice(
+    indexOfFirstSurvey,
+    indexOfLastSurvey
+  );
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -112,25 +119,19 @@ const SurveyAnswerForm: React.FC = () => {
       setSurveys(allSurveys);
     } else {
       // Filter surveys based on the selected category
-      const filteredByCategory = allSurveys.filter((survey) => survey.category === category);
+      const filteredByCategory = allSurveys.filter(
+        (survey) => survey.category === category
+      );
       setSurveys(filteredByCategory);
     }
   };
 
   return (
     <div className={styles.surveyListContainer}>
-      <h2>
-        Available Surveys{" "}
-        <span className={styles.surveyCount}>({unansweredSurveys.length} surveys)</span>
-      </h2>
-      <button
-        className={isArchivedListVisible ? styles.closeButton : styles.archiveButton}
-        onClick={toggleArchivedList}
-      >
-        {isArchivedListVisible ? 'Close' : 'Archive List'}
-      </button>
-
-      {isArchivedListVisible && <ArchivedSurveys />}
+      <h2>Available Surveys </h2>
+      <span className={styles.surveyCount}>
+        ({unansweredSurveys.length} surveys)
+      </span>
 
       <div className={styles.filterContainer}>
         {/* Filter by Category */}
@@ -144,6 +145,17 @@ const SurveyAnswerForm: React.FC = () => {
         </select>
       </div>
 
+      <button
+        className={
+          isArchivedListVisible ? styles.closeButton : styles.archiveButton
+        }
+        onClick={toggleArchivedList}
+      >
+        {isArchivedListVisible ? "Close" : "Archive List"}
+      </button>
+
+      {isArchivedListVisible && <ArchivedSurveys />}
+
       {currentSurveys.length === 0 ? (
         <p>No surveys available</p>
       ) : (
@@ -154,22 +166,25 @@ const SurveyAnswerForm: React.FC = () => {
               <p>Description: {survey.description}</p>
               <p>Category: {survey.category}</p>
               <div className={styles.filters}>
-              <div className={styles.linkContainer}>
-            <h4>Participant Filters:</h4>
-            <div 
-              className={styles.surveyLink} 
-              onClick={() => {
-                const currentUrl = `${window.location.origin}/survey-details/${survey._id}`;
-                navigator.clipboard.writeText(currentUrl).then(() => {
-                  alert("Link copied to clipboard!");
-                }).catch((err) => {
-                  console.error("Failed to copy: ", err);
-                });
-              }}
-            >
-              <p className={styles.copyLinkText}>Copy Link</p> 
-            </div>
-          </div>
+                <div className={styles.linkContainer}>
+                  <h4>Participant Filters:</h4>
+                  <div
+                    className={styles.surveyLink}
+                    onClick={() => {
+                      const currentUrl = `${window.location.origin}/survey-details/${survey._id}`;
+                      navigator.clipboard
+                        .writeText(currentUrl)
+                        .then(() => {
+                          alert("Link copied to clipboard!");
+                        })
+                        .catch((err) => {
+                          console.error("Failed to copy: ", err);
+                        });
+                    }}
+                  >
+                    <p className={styles.copyLinkText}>Copy Link</p>
+                  </div>
+                </div>
                 <table>
                   <thead>
                     <tr>
@@ -189,8 +204,11 @@ const SurveyAnswerForm: React.FC = () => {
               </div>
               <div className={styles.surveyActions}>
                 {/* Always show "View Details" regardless of whether answered or not */}
-                <Link to={`/survey-details/${survey._id}`} className={styles.viewDetailsButton}>
-                  View Details
+                <Link
+                  to={`/survey-details/${survey._id}`}
+                  className={styles.answerSurveyButton}
+                >
+                  Answer Survey
                 </Link>
               </div>
             </div>
@@ -199,7 +217,10 @@ const SurveyAnswerForm: React.FC = () => {
       )}
 
       <div className={styles.pagination}>
-        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
           Previous
         </button>
         <button

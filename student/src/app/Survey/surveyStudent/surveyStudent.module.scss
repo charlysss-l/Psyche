@@ -1,11 +1,11 @@
 $font-family: Arial, sans-serif;
 $primary-color: #2a3744;
 $secondary-color: #334553;
-$bg-light: #f1f1f1;
+$bg-light: #f1f1f100;
 $box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 $border-radius: 8px;
-$table-header-bg: #ccc ;
-$table-border-color: #E9E9E9;
+$table-header-bg: #ccc;
+$table-border-color: #e9e9e9;
 
 :root {
   font-family: $font-family;
@@ -14,8 +14,6 @@ $table-border-color: #E9E9E9;
 .surveyListContainer {
   padding: 20px;
   background-color: $bg-light;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
   display: flex;
   width: 90%;
   margin-left: 4%;
@@ -25,37 +23,42 @@ $table-border-color: #E9E9E9;
 
   h2 {
     font-size: 1.8rem;
-    color: $secondary-color;
-    margin-bottom: 20px;
+    margin-top: -30px;
+    color: #653e84;
 
     .surveyCount {
       font-size: 1.2rem;
       color: $primary-color;
       margin-left: 10px;
+
       color: #849670;
     }
   }
-  
+}
+.filterContainer {
+  position: relative;
+  align-self: flex-start;
+  left: 9%;
 }
 
 .surveyCard {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   padding: 15px;
   background-color: #ffffff;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
   width: 80%;
   display: flex;
+  margin-top: -20px;
   flex-direction: column;
-  
+
   &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
-    transform: translateY(-3px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
     transition: background-color 0.3s, transform 0.2s;
   }
 
   h3 {
-    
     font-size: 1.5rem;
     color: rgba(51, 51, 51, 51);
     margin-bottom: 10px;
@@ -113,7 +116,6 @@ $table-border-color: #E9E9E9;
         background-color: #e9f5ff;
       }
     }
-    
   }
 
   .surveyActions {
@@ -121,20 +123,24 @@ $table-border-color: #E9E9E9;
     display: flex;
     justify-content: flex-end;
 
-    .viewDetailsButton {
+    .answerSurveyButton {
       text-decoration: none;
       color: white;
       font-size: 16px;
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: $border-radius;
-      background-color: #704191;
+      display: block;
+      padding: 15px 16px;
+      border: 3px solid #653e84;
+      border-radius: 8px;
+      background-color: #653e84;
       text-align: center;
+      width: fit-content;
+      font-weight: bold;
+      margin: 0 auto;
 
       &:hover {
         background-color: transparent;
-        color: black;
-        border: 1px solid  #704191;
+        color: #653e84;
+        border: 3px solid #653e84;
       }
     }
   }
@@ -157,25 +163,28 @@ $table-border-color: #E9E9E9;
   text-align: center;
 
   &:hover {
-    color: #704191;
+    color: #653e84;
   }
 
   &:active {
-    color: #704191;
+    color: #653e84;
   }
 }
 
 .copyLinkText {
   cursor: pointer;
   padding: 10px;
-  border-radius: 20px;
-  color: rgba(51, 51, 51, 51); ;
+  color: rgba(51, 51, 51, 51);
   font-weight: bold;
+  border: #000000 1px solid;
+  border-radius: 5px;
   text-decoration: none;
   background-color: transparent;
 
   &:hover {
-    background-color: #704191;
+    background-color: #6e6e6e;
+    color: #ffffff;
+    border: #6e6e6e 1px solid;
   }
 }
 
@@ -186,26 +195,29 @@ $table-border-color: #E9E9E9;
   margin-top: 20px;
 
   button {
-    background-color: #704191;
+    background-color: #653e84;
     color: white;
     padding: 10px;
     border-radius: $border-radius;
+    border: 1px solid #653e84;
     cursor: pointer;
-    border: none;
 
     &:hover {
-      background-color: #704191;
+      background-color: transparent;
+      color: #653e84;
+      border: 1px solid #653e84;
     }
 
     &:disabled {
       background-color: #ccc;
+      border: 1px solid #ccc;
       cursor: not-allowed;
     }
   }
 }
 
 .doneButton {
-  background-color: #2e70d3; 
+  background-color: #2e70d3;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -217,35 +229,51 @@ $table-border-color: #E9E9E9;
 
 .doneButton:disabled {
   cursor: not-allowed;
-  opacity: 0.6; 
+  opacity: 0.6;
 }
-
 
 .archiveButton {
-  
-  background-color: #704191; /* Blue like a mailbox */
-  color: white; /* Text color */
-  border-radius: 12px; /* Rounded edges */
-  padding: 10px 20px; /* Adjust padding for size */
-  font-size: 16px; /* Slightly larger text */
-  font-weight: bold; /* Make text stand out */
-  cursor: pointer; /* Pointer cursor */
-  transition: all 0.3s ease; /* Smooth hover animation */
+  position: relative;
+  left: 29vw; /* Use viewport width for better scaling */
+  bottom: 9vh; /* Use viewport height */
+  background-color: #653e84;
+  color: white;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
   display: flex;
-  align-items: center; /* Center content vertically */
-  justify-content: center; /* Center content horizontally */
+  align-items: center;
+  justify-content: center;
 }
 
+@media (max-width: 1024px) {
+  .archiveButton {
+    left: 25vw;
+    bottom: 12vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .archiveButton {
+    left: 27vw;
+    bottom: 12vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .archiveButton {
+    left: 40vw;
+    bottom: 12vh;
+  }
+}
+/* Hover effect */
 .archiveButton:hover {
   background-color: transparent;
-  color:black;
-  border:1px solid rgba(51, 51, 51, 51); 
-  
-}
-
-.archiveButton:active {
-  background-color: #704191; /* Darker blue when clicked */
-  transform: scale(0.98); /* Slight click animation */
+  color: #653e84;
+  border: 1px solid rgba(51, 51, 51, 1);
 }
 
 /* Add a mail icon */
@@ -260,7 +288,7 @@ $table-border-color: #E9E9E9;
   display: block;
   width: 0;
   height: 4px;
-  background-color: #704191; /* Blue underline */
+  background-color: #653e84; /* Blue underline */
   margin: 0 auto;
   border-radius: 2px;
   transition: width 0.3s ease;
@@ -274,7 +302,7 @@ $table-border-color: #E9E9E9;
 .closeButton {
   display: flex;
   position: fixed;
-  z-index: 1100;  /* Ensures it appears on top of other content */
+  z-index: 1100; /* Ensures it appears on top of other content */
   right: 21%;
   top: 16%;
   background-color: #8a8a8a; /* Red background for close button */
@@ -303,66 +331,97 @@ $table-border-color: #E9E9E9;
   margin-right: 8px;
 }
 
-:global(body.dark-mode){
-    .surveyListContainer {
-        background-color: #151515;
-       
+:global(body.dark-mode) {
+  .surveyListContainer {
+    background-color: #15151519;
 
-        h2{
-            color: #ffffff;
-        }
-        .surveyCount{
-            color: #2e70d3;
-        }
+    h2 {
+      color: #a9a9a9;
     }
-    .archiveButton{
-        background-color: #754a94;
+    .surveyCount {
+      color: #8c62a9;
     }
-    .archiveButton:hover {
+  }
+  .archiveButton {
+    background-color: #8c62a9;
+  }
+  .archiveButton:hover {
+    background-color: transparent;
+    color: #8c62a9;
+    border: 1px solid #8c62a9;
+  }
+
+  .archiveButton:active {
+    background-color: #a9a9a9;
+    transform: scale(0.98);
+  }
+  .filters {
+    background-color: #212121;
+    border: none;
+  }
+  .filters h4 {
+    color: #a9a9a9;
+  }
+  .filterContainer label {
+    color: #a9a9a9;
+  }
+
+  .surveyCard {
+    background-color: #1a1919;
+  }
+  .surveyCard p {
+    color: #a9a9a9;
+  }
+  .surveyCard h3 {
+    color: #a9a9a9;
+  }
+
+  .filters th {
+    background-color: #212121;
+    color: white;
+    border: #1a1919 1px solid;
+  }
+  .filters td {
+    background-color: #1a1919;
+    color: #a9a9a9;
+    border: #1a1919 1px solid;
+  }
+  .filters tr:nth-child(even) td {
+    background-color: #212121;
+  }
+  .answerSurveyButton {
+    background-color: #8c62a9;
+
+    &:hover {
       background-color: transparent;
-      color:#f0f0f0;
-      border:1px solid #849670; 
-      
+      color: black;
+      border: 1px solid rgba(51, 51, 51, 51);
     }
-    
-    .archiveButton:active {
-      background-color: #849670; 
-      transform: scale(0.98); 
-    }
-    .filters{
-        background-color: whitesmoke;
-        border: none;
-    } 
-    .filters h4{
-        color: #f7f7f7;
-    }
-    .filterContainer label{
-        color: #e4e4e4;
-    }
-    .surveyCard{
-        background-color: whitesmoke;
-    }
-    .surveyCard p{
-        color: #000000;
-    }
-    .surveyCard h3{
-        color: #2e70d3;
-    }
-    .filters th{
-        background-color: #754a94;
-        color: white;
-    }
-    .viewDetailsButton {
-      background-color: #754a94;
-     
+  }
+  .pagination button {
+    background-color: #8c62a9;
 
-      &:hover {
-        background-color: transparent;
-        color: black;
-        border: 1px solid  rgba(51, 51, 51, 51);
-      }
-}
-.pagination button{
-    background-color: #797979;
-}
+    &:hover {
+      background-color: transparent;
+      color: #8c62a9;
+      border: 1px solid #8c62a9;
+    }
+
+    &:disabled {
+      background-color: #a9a9a9;
+      border: 1px solid #a9a9a9;
+      cursor: not-allowed;
+    }
+  }
+  .copyLinkText {
+    background-color: transparent;
+    color: #f0f0f0;
+    border: #a9a9a9 2px solid;
+
+    &:hover {
+      background-color: #6e6e6e;
+      color: #f0f0f0;
+      border: #6e6e6e 2px solid;
+    }
+  }
 }
