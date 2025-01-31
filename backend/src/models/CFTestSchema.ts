@@ -18,7 +18,7 @@ interface Interpretation {
     resultInterpretation: string;
 }
 
-// Main interface for the IQ Test document
+// Main interface for the CF Test document
 interface CFTest extends Document {
     testID: string;
     nameOfTest: string;
@@ -96,5 +96,5 @@ const CFTestSchema = new Schema<CFTest>({
 });
 
 // Create and export the model
-const CFTestModel = model<CFTest>('IQTest', CFTestSchema);
+const CFTestModel = model<CFTest>('CFTest', CFTestSchema);
 export default CFTestModel;
