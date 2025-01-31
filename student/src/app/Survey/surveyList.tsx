@@ -5,7 +5,7 @@ import SurveyStudent from "./surveyStudent/surveyStudent";
 const StudentDashboard: React.FC = () => {
   return (
     <div>
-      <h1>Student Dashboard</h1>
+      <h1></h1>
       <SurveyStudent />
     </div>
   );
