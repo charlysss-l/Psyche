@@ -15,14 +15,15 @@ const SurveyList: React.FC = () => {
   // useEffect hook to fetch surveys and categories on component mount
   useEffect(() => {
     const fetchSurveys = async () => {
-      try {          // Fetch surveys from the API
+      try {
+        // Fetch surveys from the API
         const response = await axios.get(`${backendUrl}/api/surveys`);
         setSurveys(response.data);
         setFilteredSurveys(response.data);
 
         // Extract unique categories from surveys for filter options
         const uniqueCategories = [
-          "All", 
+          "All",
           ...response.data.reduce((acc: string[], survey: any) => {
             if (!acc.includes(survey.category)) {
               acc.push(survey.category);
@@ -40,7 +41,10 @@ const SurveyList: React.FC = () => {
   // Calculate the indexes for pagination based on current page
   const indexOfLastSurvey = currentPage * surveysPerPage;
   const indexOfFirstSurvey = indexOfLastSurvey - surveysPerPage;
-  const currentSurveys = filteredSurveys.slice(indexOfFirstSurvey, indexOfLastSurvey);
+  const currentSurveys = filteredSurveys.slice(
+    indexOfFirstSurvey,
+    indexOfLastSurvey
+  );
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -60,8 +64,12 @@ const SurveyList: React.FC = () => {
       try {
         await axios.delete(`${backendUrl}/api/surveys/${surveyId}`);
         // Update the state to remove the deleted survey
-        setSurveys((prevSurveys) => prevSurveys.filter((s) => s._id !== surveyId));
-        setFilteredSurveys((prevSurveys) => prevSurveys.filter((s) => s._id !== surveyId)); // Update filtered surveys
+        setSurveys((prevSurveys) =>
+          prevSurveys.filter((s) => s._id !== surveyId)
+        );
+        setFilteredSurveys((prevSurveys) =>
+          prevSurveys.filter((s) => s._id !== surveyId)
+        ); // Update filtered surveys
         alert("Survey removed successfully!");
       } catch (error) {
         console.error("Error deleting survey", error);
@@ -76,7 +84,9 @@ const SurveyList: React.FC = () => {
     if (selectedCategory === "All") {
       setFilteredSurveys(surveys);
     } else {
-      const filtered = surveys.filter((survey) => survey.category === selectedCategory);
+      const filtered = surveys.filter(
+        (survey) => survey.category === selectedCategory
+      );
       setFilteredSurveys(filtered);
     }
     setCurrentPage(1); // Reset to the first page when filter changes
@@ -84,17 +94,15 @@ const SurveyList: React.FC = () => {
 
   return (
     <div className={styles.surveyListContainer}>
+      <h2 className={styles.surveyAvailable}>Available Surveys </h2>
+      <span className={styles.surveyCount}>
+        ({filteredSurveys.length} surveys)
+      </span>
       <div className={styles.linkSurveyChoices}>
         <Link to="/survey-form" className={styles.createsurveyButton}>
           Create Survey
         </Link>
       </div>
-
-      <h2>
-        Available Surveys{" "}
-        <span className={styles.surveyCount}>({filteredSurveys.length} surveys)</span>
-      </h2>
-
       {/* Filter Dropdown */}
       <div className={styles.filterContainer}>
         <label htmlFor="category">Filter by Category:</label>
@@ -110,27 +118,30 @@ const SurveyList: React.FC = () => {
       {/* Display Surveys with Title, Description, Field, and Options */}
       {currentSurveys.map((survey) => (
         <div key={survey._id} className={styles.surveyCard}>
-          <h3 className ={styles.surveytitle}>{survey.title}</h3>
+          <h3 className={styles.surveytitle}>{survey.title}</h3>
           <p>Description: {survey.description}</p>
           <p>Category: {survey.category}</p>
           <p>Release Date: {formatDate(survey.releaseDate)}</p>
           <div className={styles.filters}>
-          <div className={styles.linkContainer}>
-            <h4>Participant Filters:</h4>
-            <div 
-              className={styles.surveyLink} 
-              onClick={() => {
-                const linkText = `${surveyLinkUrl}/survey-details/${survey._id}`;
-                navigator.clipboard.writeText(linkText).then(() => {
-                  alert("Link copied to clipboard!");
-                }).catch((err) => {
-                  console.error("Failed to copy: ", err);
-                });
-              }}
-            >
-              <p className={styles.copyLinkText}>Copy Link</p> 
+            <div className={styles.linkContainer}>
+              <h4>Participant Filters:</h4>
+              <div
+                className={styles.surveyLink}
+                onClick={() => {
+                  const linkText = `${surveyLinkUrl}/survey-details/${survey._id}`;
+                  navigator.clipboard
+                    .writeText(linkText)
+                    .then(() => {
+                      alert("Link copied to clipboard!");
+                    })
+                    .catch((err) => {
+                      console.error("Failed to copy: ", err);
+                    });
+                }}
+              >
+                <p className={styles.copyLinkText}>Copy Link</p>
+              </div>
             </div>
-          </div>
             <table>
               <thead>
                 <tr>
@@ -139,16 +150,19 @@ const SurveyList: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {survey.filters.map((filter: { field: string; options: string }, index: number) => (
-                  <tr key={index}>
-                    <td>{filter.field}</td>
-                    <td>{filter.options}</td>
-                  </tr>
-                ))}
+                {survey.filters.map(
+                  (
+                    filter: { field: string; options: string },
+                    index: number
+                  ) => (
+                    <tr key={index}>
+                      <td>{filter.field}</td>
+                      <td>{filter.options}</td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
-           
-
           </div>
           <div className={styles.surveyActions}>
             <Link
@@ -163,7 +177,10 @@ const SurveyList: React.FC = () => {
             >
               Remove
             </button>
-            <Link to={`/survey-responses/${survey._id}`} className={styles.viewDetailsButton}>
+            <Link
+              to={`/survey-responses/${survey._id}`}
+              className={styles.viewDetailsButton}
+            >
               Responses List
             </Link>
           </div>
@@ -171,7 +188,10 @@ const SurveyList: React.FC = () => {
       ))}
 
       <div className={styles.pagination}>
-        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
           Previous
         </button>
         <button
