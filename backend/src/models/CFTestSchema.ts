@@ -5,7 +5,7 @@ interface Question {
     questionSet: string;
     questionImage: string;
     choicesImage: string[]; // Array of strings representing choices images
-    correctAnswer: string;
+    correctAnswer: string | string[]; // Single answer or two correct answers
 }
 
 interface Interpretation {
@@ -59,8 +59,18 @@ const CFTestSchema = new Schema<CFTest>({
             required: true,
         }],
         correctAnswer: {
-            type: String,
+            type: Schema.Types.Mixed, // Allows string or array
             required: true,
+            validate: {
+                validator: function (this: any, value: string | string[]) {
+                    if (this.questionSet === 'Test 2') {
+                        return Array.isArray(value) && value.length === 2 && value.every(ans => this.choicesImage.includes(ans));
+                    } else {
+                        return typeof value === 'string' && this.choicesImage.includes(value);
+                    }
+                },
+                message: 'Correct answer must be valid: Test 2 requires two answers, others require one.',
+            },
         },
     }],
     interpretation: [{
