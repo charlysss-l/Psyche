@@ -119,13 +119,9 @@ const SurveyList: React.FC = () => {
       {currentSurveys.map((survey) => (
         <div key={survey._id} className={styles.surveyCard}>
           <h3 className={styles.surveytitle}>{survey.title}</h3>
-          <p className={styles.detailsSurvey}>
-            Description: {survey.description}
-          </p>
-          <p className={styles.detailsSurvey}>Category: {survey.category}</p>
-          <p className={styles.detailsSurvey}>
-            Release Date: {formatDate(survey.releaseDate)}
-          </p>
+          <p>Description: {survey.description}</p>
+          <p>Category: {survey.category}</p>
+          <p>Release Date: {formatDate(survey.releaseDate)}</p>
           <div className={styles.filters}>
             <div className={styles.linkContainer}>
               <h4>Participant Filters:</h4>

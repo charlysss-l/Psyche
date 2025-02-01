@@ -1,8 +1,8 @@
 // Define your global variables for color, typography, spacing, etc.
-$font-family: 'Arial', sans-serif;
-$primary-color: #0C3C78;
+$font-family: "Arial", sans-serif;
+$primary-color: #0c3c78;
 $secondary-color: #333;
-$bg-light: #f9f9f9;
+$bg-light: #e9e9e900;
 $bg-dark: #222;
 $box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 $border-radius: 8px;
@@ -24,53 +24,59 @@ $font-size-sm: 1rem;
   padding: $padding;
   background-color: $bg-light;
   border-radius: $border-radius;
-  box-shadow: $box-shadow;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 900px;
+  max-width: 950px;
   margin: 0 auto;
+  margin-top: 50px;
   overflow: hidden;
 
-  .surveyh1Title {
+  .surveyTitle {
     font-size: $font-size-lg;
-    color: #704191;
+    color: #000000;
     margin-bottom: $spacing-unit;
     font-weight: 600;
   }
 
-  p {
-    font-size: $font-size-md;
+  .desc {
+    font-size: 1.1rem;
     color: $secondary-color;
-    margin-bottom: $spacing-unit * 2;
-    line-height: 1.6;
+    width: 80%;
+  }
+  .categ {
+    font-size: 1rem;
+    color: $secondary-color;
+    width: 80%;
+    margin-bottom: -10px;
+    text-align: center;
+  }
+  .dateRel {
+    font-size: 1rem;
+    color: $secondary-color;
+    width: 80%;
+
+    text-align: center;
   }
 }
 
-
 // Style for each section containing questions
 .sectionContainer {
-  background-color: white;
+  background-color: #fefefe00;
   padding: $section-padding;
-  margin-bottom: $spacing-unit * 3;
+  margin-bottom: -20px;
   border-radius: $border-radius;
-  box-shadow: $box-shadow;
-  width: 100%;
+  width: 90%;
   transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  }
-
-  h3 {
-    font-size: 20px;
-    color: black;
-    margin-bottom: $spacing-unit;
-    font-weight: 400;
-    border-bottom: 2px solid #704191;
-    padding-bottom: 10px;
-  }
+}
+.sectionTitle {
+  font-size: 1.5rem;
+  color: #653e84;
+  margin-bottom: 20px;
+  font-weight: bold;
+  border-bottom: 2px solid #704191;
+  padding-bottom: 10px;
 }
 
 // List for questions within each section
@@ -105,8 +111,8 @@ $font-size-sm: 1rem;
   }
 
   th {
-    background-color: #8a8a8a;
-    color: white;
+    background-color: #f0eded;
+    color: rgb(0, 0, 0);
     font-weight: bold;
   }
 
@@ -144,9 +150,8 @@ $font-size-sm: 1rem;
 
   &:hover {
     background-color: transparent;
-      color:black;
-      border:1px solid $primary-color;
-    
+    color: black;
+    border: 1px solid $primary-color;
   }
 }
 
@@ -172,33 +177,43 @@ $font-size-sm: 1rem;
 
 :global(body.dark-mode) {
   .surveyDetailsContainer {
-    background-color: #302f30;
-    color: white;
+    background-color: #15151519;
+    color: #f0f0f0;
   }
-  .sectionContainer{
-    background-color: #302f30;
+  .surveyTitle {
+    color: #f0f0f0;
+  }
+  .desc,
+  .categ,
+  .dateRel {
+    color: #f0f0f0;
+  }
+  .sectionContainer {
+    background-color: #15151519;
 
-    h3{
-      color: white;
+    .sectionTitle {
+      color: #8c62a9;
+      border-bottom: 2px solid #8c62a9;
     }
   }
   .questionItem strong {
-    color: #754a94;
+    color: #f0f0f0;
   }
   .choicesTable th {
-    background-color: #8a8a8a;
-    color: white;
+    background-color: #212121;
+    border: none;
+    color: #f0f0f0;
   }
   .sectionContainer h3 {
     border-bottom: 2px solid #bebebe;
   }
   .choicesTable td:nth-child(even) {
-    background-color: #f9f9f9;
-    color: black;
+    background-color: #1a1919;
+    color: #f0f0f0;
   }
   .choicesTable td:nth-child(odd) {
-    background-color: #f9f9f9;
-    color: black;
+    background-color: #1a1919;
+    color: #f0f0f0;
+    border: none;
   }
-  
 }

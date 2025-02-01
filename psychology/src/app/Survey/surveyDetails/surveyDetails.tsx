@@ -6,14 +6,15 @@ import backendUrl from "../../../config";
 
 // SurveyDetails component to fetch and display survey details
 const SurveyDetails: React.FC = () => {
-    // Extract survey id from URL params using useParams hook
+  // Extract survey id from URL params using useParams hook
   const { id } = useParams<{ id: string }>();
-    // Define state to hold survey details
+  // Define state to hold survey details
   const [survey, setSurvey] = useState<any>(null);
   // useEffect hook to fetch survey details when component mounts or id changes
   useEffect(() => {
     const fetchSurveyDetails = async () => {
-      try {         // Fetch survey details from API using axios
+      try {
+        // Fetch survey details from API using axios
         const response = await axios.get(`${backendUrl}/api/surveys/${id}`);
         setSurvey(response.data);
       } catch (error) {
@@ -29,13 +30,15 @@ const SurveyDetails: React.FC = () => {
 
   return (
     <div className={styles.surveyDetailsContainer}>
-      <h1 className={styles.surveyh1Title}>{survey.title}</h1>
-      <p>{survey.description}</p>
-      <h4>Category: {survey.category}</h4>
-      <h5>Release Date: {survey.releaseDate}</h5>
+      <h1 className={styles.surveyTitle}>{survey.title}</h1>
+      <p className={styles.desc}>{survey.description}</p>
+      <h4 className={styles.categ}>Category: {survey.category}</h4>
+      <h5 className={styles.dateRel}>Release Date: {survey.releaseDate}</h5>
       {survey.sections.map((section: any, sectionIndex: number) => (
         <div key={sectionIndex} className={styles.sectionContainer}>
-          <h3>Section: {section.sectionTitle}</h3>
+          <h3 className={styles.sectionTitle}>
+            Section: {section.sectionTitle}
+          </h3>
           {section.questions.map((question: any, questionIndex: number) => (
             <div key={questionIndex} className={styles.questionList}>
               <div className={styles.questionItem}>
@@ -49,11 +52,13 @@ const SurveyDetails: React.FC = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {question.choices.map((choice: string, choiceIndex: number) => (
-                          <tr key={choiceIndex}>
-                            <td>{choice}</td>
-                          </tr>
-                        ))}
+                        {question.choices.map(
+                          (choice: string, choiceIndex: number) => (
+                            <tr key={choiceIndex}>
+                              <td>{choice}</td>
+                            </tr>
+                          )
+                        )}
                       </tbody>
                     </table>
                   </>
