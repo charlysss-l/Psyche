@@ -147,7 +147,7 @@
 
 .userTitle {
   font-size: 1.8rem;
-  color: #2e70d3;
+  color: #653e84;
   text-align: center;
   margin-bottom: 1.5rem;
 }
@@ -195,7 +195,7 @@
   background-color:  #AF1740;
   color: white;
   margin: 10px;
-  width: 25%;
+  width: 60%;
 
   &:hover {
     background-color: transparent;
@@ -205,9 +205,10 @@
 }
 
 .delete {
-  background-color:#0C3C78;
-  width: 25%;
+  background-color:#3e8442;
+  width: 60%;
   margin: 10px;
+  color: white;
   &:hover {
     background-color: transparent;
     color: black;
@@ -269,7 +270,7 @@
 
   .userCount {
     font-size: 18px;
-    color: #c097d8; // Adjust the color to fit your design
+    color: #653e84; // Adjust the color to fit your design
     margin-bottom: 30px;
     text-align: center;
   }
@@ -315,14 +316,14 @@
 
 .modalContent button {
   padding: 10px;
-  background-color: #007bff;
+  background-color: #653e84;
   color: #fff;
   border: none;
   cursor: pointer;
 }
 
 .modalContent button[type="button"] {
-  background-color: #f44336;
+  background-color: #843e3e;
 }
   
   :global(body.dark-mode) {
@@ -331,13 +332,13 @@
       border: none;
   
       h2 {
-        color: #2e70d3;
+        color: #653e84;
       }
       .signuplabel {
         color: #d9d9d9;
       }
       .signupSubmit {
-        background-color: #2e70d3;
+        background-color: #653e84;
         &:hover {
           background-color: transparent;
         }
@@ -357,10 +358,10 @@
         color: #d9d9d9;
   
         .loginLink {
-          color: #2e70d3;
+          color: #653e84;
           &:hover {
             border-bottom: 1px solid #2e70d3;
-            color: #2e70d3;
+            color: #653e84;
           }
         }
       }
