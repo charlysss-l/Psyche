@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db';
 import user16PFTestRoutes from './routes/user16PFTestRoutes';
 import userIQTestRoutes from './routes/UserIQTestRoutes';
+import userCFTestRoutes from './routes/UserCFTestRoutes';
 import Test16PFRoutes from './routes/Test16PFRoutes';
 import IQTestRoutes from './routes/IQTestRoutes';
 import CFTestRoutes from './routes/CFTestRoutes';
@@ -44,6 +45,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // Use routes
 app.use('/api/user16pf', user16PFTestRoutes);
 app.use('/api/useriq', userIQTestRoutes);
+app.use('/api/usercf', userCFTestRoutes);
 app.use('/api/16pf', Test16PFRoutes);
 app.use('/api/IQtest', IQTestRoutes);
 app.use('/api/CFtest', CFTestRoutes);
