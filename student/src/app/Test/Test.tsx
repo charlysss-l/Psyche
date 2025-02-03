@@ -18,7 +18,7 @@ const Test = () => {
           </Link>
         </div>
         <div className={style.iqLinkContainer}>
-          <Link to="/cftest" className={style.iqLink}>
+          <Link to="/intro-cf" className={style.iqLink}>
            Measuring Intelligence with the Culture Fair Test
           </Link>
         </div>

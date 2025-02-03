@@ -13,6 +13,7 @@ import PFTest from "./app/Test/PFTest/PFTest";
 import IQTest from "./app/Test/IQTest/IQTest";
 import CFTest from "./app/Test/CFTest/CFTest";
 import IQTestUserForm from "./app/Test/IQTest/IQTestUserForm";
+import CFTestUserForm from "./app/Test/CFTest/CFTestUserForm";
 import PFResult from "./app/Result/PFResult/PFResult";
 import IQResult from "./app/Result/IQResult/IQResult";
 import "./App.css";
@@ -74,6 +75,7 @@ function App() {
                       <Route path="/omr" element={<ProtectedRoute><OMR /></ProtectedRoute>} />
                       <Route path="/pftest" element={<ProtectedRoute><PFTest /></ProtectedRoute>} />
                       <Route path="/iqtestuserform" element={<ProtectedRoute><IQTestUserForm /></ProtectedRoute>} />
+                      <Route path="/cftestuserform" element={<ProtectedRoute><CFTestUserForm /></ProtectedRoute>} />
                       <Route path="/iqtest" element={<ProtectedRoute><IQTest /></ProtectedRoute>} />
                       <Route path="/cftest" element={<ProtectedRoute><CFTest /></ProtectedRoute>} />
                       <Route path="/pf-results" element={<ProtectedRoute><PFResult /></ProtectedRoute>} />

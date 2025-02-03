@@ -4,11 +4,11 @@ import axios from 'axios';
 import styles from './IntroCF.module.scss'; // Import SCSS file for styling
 import backendUrl from '../../../../config';
 
-interface UserIQTest {
+interface UserCFTest {
   testDate: Date;
 }
 
-const IntroIQ: React.FC = () => {
+const IntroCF: React.FC = () => {
   const [isChecked, setIsChecked] = useState(false); // State for checkbox
   const [introTitle, setIntroTitle] = useState<string>(''); // State for intro title
   const [termsTitle, setTermsTitle] = useState<string>(''); // State for terms and conditions title
@@ -57,7 +57,7 @@ const IntroIQ: React.FC = () => {
     if (!userID) return; // Don't fetch if userID is not available
 
     try {
-      const response = await fetch(`${backendUrl}/api/useriq/${userID}`);
+      const response = await fetch(`${backendUrl}/api/usercf/${userID}`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
@@ -65,7 +65,7 @@ const IntroIQ: React.FC = () => {
 
       // Check if user has already taken the test today
       const today = new Date().setHours(0, 0, 0, 0); // Set time to 00:00:00 for comparison
-      const takenToday = data.data.some((result: UserIQTest) => {
+      const takenToday = data.data.some((result: UserCFTest) => {
         const testDate = new Date(result.testDate).setHours(0, 0, 0, 0); // Ignore time part
         return testDate === today;
       });
@@ -92,7 +92,7 @@ const IntroIQ: React.FC = () => {
 
   const handleStartClick = () => {
     if (isChecked && !hasTakenTestToday) {
-      navigate('/cftest'); // Navigate to the desired route
+      navigate('/cftestuserform'); // Navigate to the desired route
     } else if (hasTakenTestToday) {
       alert('You have already taken the test today. Please try again tomorrow.');
     } else {
@@ -183,4 +183,4 @@ const IntroIQ: React.FC = () => {
   );
 };
 
-export default IntroIQ;
+export default IntroCF;
