@@ -378,3 +378,17 @@ p {
     }
   }
 }
+
+@media (max-width: 768px) {
+  .surveyCard {
+    width: 100%;
+  }
+  .viewDetailsButton {
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+  .surveyActions button {
+    margin-left: 5px;
+    margin-top: 10px;
+  }
+}
