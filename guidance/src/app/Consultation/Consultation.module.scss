@@ -591,24 +591,24 @@ button {
 
 :global(body.dark-mode) {
   .acceptedBox, .pendingBox {
-    background-color: #222222;
+    background-color: #8c62a9;
     border: none;
     h3{
-      color: #8facec;
+      color: #ffffff;
     }
     p{
-      color: #8facec;
+      color: #000000;
     }
   }
   .tableBox{
-    background-color: #222222;
+    background-color: #d3d3d3;
 
     h2{
-      color: #653e84;
+      color: #000000;
     }
 
     th{
-      background-color: #969696;
+      background-color: #8c62a9;
     }
   }
   .testInfoModalContent{
@@ -616,16 +616,16 @@ button {
     color: #8facec;
 
     h3{
-      color: #8facec;
+      color: #8c62a9;
     }
 
     th{
-      background-color: #969696;
+      background-color: #d3d3d3;
     }
   }
 
   .archiveButton{
-    background-color: #8facec;
+    background-color: #8c62a9;
     color: #333333;
 
     &:hover{
@@ -636,7 +636,7 @@ button {
   }
  
   .closeInfo{
-    background-color: #8facec;
+    background-color: #8c62a9;
     color: #333333;
 
     &:hover{
@@ -648,7 +648,7 @@ button {
 }
 
 .removeButton {
-  background-color: #db4d4d;
+  background-color: #a96262;
   color: white;
   border: none;
   padding: 8px 13px;
