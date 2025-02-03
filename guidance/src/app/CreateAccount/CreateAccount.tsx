@@ -18,23 +18,22 @@ const CreateAccount: React.FC = () => {
   const [users, setUsers] = useState<UserGuidance[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+
+  const [modalType, setModalType] = useState<"create" | "edit" | null>(null); // New state to manage modal type
   const [selectedUser, setSelectedUser] = useState<UserGuidance | null>(null);
-  const [mainUserCount, setMainUserCount] = useState(0); // To track count of 'main' users
-
-  
-
+  const [mainUserCount, setMainUserCount] = useState(0);
 
   useEffect(() => {
     generateUniqueUserId();
-    
   }, []);
 
   const generateRandomUserId = () => {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let result = "";
     for (let i = 0; i < 8; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
     }
     return result;
   };
@@ -60,12 +59,12 @@ const CreateAccount: React.FC = () => {
         const response = await fetch(`${backendUrl}/api/authGuidance/guidance`);
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setUsers(data);
 
-        // Count users with role 'main'
-        const count = data.filter((user: { role: string; }) => user.role === 'main').length;
-        setMainUserCount(count); // Set the count of 'main' users
+          const count = data.filter(
+            (user: { role: string }) => user.role === "main"
+          ).length;
+          setMainUserCount(count);
         }
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -112,7 +111,9 @@ const CreateAccount: React.FC = () => {
         window.alert("Account created successfully.");
         window.location.reload();
       } else if (response.error === "email_exists") {
-        setError("Email already exists. Please log in or use a different email.");
+        setError(
+          "Email already exists. Please log in or use a different email."
+        );
       } else if (response.error === "userId_exists") {
         setError("User ID already exists. Please refresh the page.");
       }
@@ -129,7 +130,13 @@ const CreateAccount: React.FC = () => {
     role: string,
     userId: string
   ) => {
-    console.log("Submitting user data:", { email, fullName, password, role, userId });
+    console.log("Submitting user data:", {
+      email,
+      fullName,
+      password,
+      role,
+      userId,
+    });
 
     const response = await fetch(
       `${backendUrl}/api/authGuidance/subGuidance/create`,
@@ -153,16 +160,21 @@ const CreateAccount: React.FC = () => {
   };
 
   const handleDelete = async (userId: string) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this user?");
-    if (!confirmDelete) return; // Exit if user cancels
-  
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this user?"
+    );
+    if (!confirmDelete) return;
+
     try {
-      const response = await fetch(`${backendUrl}/api/authGuidance/delete/${userId}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role }),
-      });
-  
+      const response = await fetch(
+        `${backendUrl}/api/authGuidance/delete/${userId}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ role }),
+        }
+      );
+
       if (response.ok) {
         setUsers(users.filter((user) => user.userId !== userId));
         alert("User deleted successfully!");
@@ -175,11 +187,10 @@ const CreateAccount: React.FC = () => {
       alert("An error occurred while deleting the user. Please try again.");
     }
   };
-  
 
   const handleEdit = (user: UserGuidance) => {
     setSelectedUser(user);
-    setIsEditModalOpen(true);
+    setModalType("edit"); // Open the Edit modal
   };
 
   const handleEditSubmit = async (e: React.FormEvent) => {
@@ -204,7 +215,7 @@ const CreateAccount: React.FC = () => {
             user.userId === userId ? { ...user, ...updatedUser } : user
           )
         );
-        setIsEditModalOpen(false);
+        setModalType(null); // Close the modal after success
         alert("User updated successfully!");
       } else {
         alert("Error updating user.");
@@ -214,8 +225,6 @@ const CreateAccount: React.FC = () => {
       alert("An error occurred while updating the user.");
     }
   };
-  
-  
 
   const filteredUsers = users.filter((user) =>
     [user.userId, user.fullName, user.email]
@@ -226,180 +235,196 @@ const CreateAccount: React.FC = () => {
 
   return (
     <div className={styles.mainContainer}>
-    {/* Sign Up Container */}
-      <div className={styles.signup_container}>
-        <h2 className={styles.signup_h2}>Create Account</h2>
-        <form onSubmit={handleSubmit} className={styles.signup_form}>
-          <div>
-            <label className={styles.signuplabel}>
-              Email: <span className={styles.required}>*</span>
-            </label>
-            <input
-              className={styles.signupInput}
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className={styles.signuplabel}>
-              Full Name: <span className={styles.required}>*</span>
-            </label>
-            <input
-              className={styles.signupInput}
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className={styles.signuplabel}>
-              Role: <span className={styles.required}>*</span>
-            </label>
-            <select
-              className={styles.signupInput}
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              required
-            >
-              <option value="">Select Role</option>
-              <option value="sub">Sub Guidance</option>
-              <option value="main">Main Guidance</option>
-            </select>
-          </div>
-          <div>
-            <p style={{ color: "red", textAlign: "center" }}>
-              Note: Default Password is 123 and can be changed later through their profile.
-            </p>
-          </div>
-          <div>
-            <input
-              className={styles.hidden}
-              type="text"
-              value={userId}
-              readOnly
-            />
-          </div>
-          <button type="submit" className={styles.signupSubmit}>
-            Create
-          </button>
-        </form>
-      </div>
+      <h1 className={styles.mainHeading}>Create Guidance Account</h1>
+      <button
+        className={styles.addGuidanceButton}
+        onClick={() => {
+          setModalType("create"); // Open the Create Account modal
+        }}
+      >
+        Add Guidance
+      </button>
 
-    {/* User List Container */}
-    <div className={styles.userListContainer}>
-    <h2 className={styles.userTitle}>LIST OF USERS</h2>
-    <p className={styles.userCount}>Total Users: {filteredUsers.length}</p>
-
-      <input
-        type="text"
-        placeholder="Search by User ID, Name, or Email"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className={styles.searchInput}
-      />
-      <div className={styles.responsesWrapper}>
-
-      <table className={styles.tableUser}>
-        <thead>
-          <tr>
-            <th className={styles.th}>User ID</th>
-            <th className={styles.th}>Name</th>
-            <th className={styles.th}>Email</th>
-            <th className={styles.th}>Role</th>
-            <th className={styles.th}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredUsers.length > 0 ? (
-            filteredUsers.map((user) => (
-              <tr key={user.userId}>
-                <td className={styles.td}>{user.userId}</td>
-                <td className={styles.td}>{user.fullName} </td>
-                <td className={styles.td}>{user.email}</td>
-                <td className={styles.td}>{user.role}</td>
-                <td className={styles.td}>
-                  <button
-                    className={`${styles["button-action"]} ${styles["edit"]}`}
-                    onClick={() =>
-                      handleEdit(user)
-                    }
-                  >
-                    Edit
-                  </button>
-                  {(mainUserCount === 2 || user.role === "sub") && (
-                  <button
-                    className={`${styles["button-action"]} ${styles["delete"]}`}
-                    onClick={() => handleDelete(user.userId)}
-                  >
-                    Delete
-                  </button>
-                )}
-
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={5} className={styles.td}>
-                No users found
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      </div>
-      </div>
-
-       {/* Edit Modal */}
-       {isEditModalOpen && selectedUser && (
+      {/* Conditional rendering based on modalType */}
+      {modalType === "create" && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
-            <form onSubmit={handleEditSubmit}>
-              <h3>Edit User</h3>
-              <label>Email:</label>
-              <input
-                type="email"
-                value={selectedUser.email}
-                onChange={(e) =>
-                  setSelectedUser({ ...selectedUser, email: e.target.value })
-                }
-              />
-              <label>Full Name:</label>
-              <input
-                type="text"
-                value={selectedUser.fullName}
-                onChange={(e) =>
-                  setSelectedUser({ ...selectedUser, fullName: e.target.value })
-                }
-              />
-             {selectedUser.role === "sub" && (
-                <>
-                  <label>Role:</label>
-                  <select
-                    value={selectedUser.role}
-                    onChange={(e) =>
-                      setSelectedUser({ ...selectedUser, role: e.target.value })
-                    }
-                  >
-                    <option value="sub">Sub Guidance</option>
-                    <option value="main">Main Guidance</option>
-                  </select>
-                </>
-              )}
-
-
-              <button type="submit">Update</button>
-              <button type="button" onClick={() => setIsEditModalOpen(false)}>
-                Close
-              </button>
+            <h2 className={styles.create_h2}>Create Account</h2>
+            <form onSubmit={handleSubmit} className={styles.signup_form}>
+              <div>
+                <label className={styles.createlabel}>
+                  Email: <span className={styles.required}>*</span>
+                </label>
+                <input
+                  className={styles.createInput}
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label className={styles.createlabel}>
+                  Full Name: <span className={styles.required}>*</span>
+                </label>
+                <input
+                  className={styles.createInput}
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label className={styles.createlabelRole}>
+                  Role: <span className={styles.required}>*</span>
+                </label>
+                <select
+                  className={styles.createInputRole}
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  required
+                >
+                  <option value="">Select Role</option>
+                  <option value="sub">Sub Guidance</option>
+                  <option value="main">Main Guidance</option>
+                </select>
+              </div>
+              <div>
+                <p className={styles.notecreate}>
+                  Note: Default Password is 123 and can be changed once account
+                  created
+                </p>
+              </div>
+              <div className={styles.modalFooter}>
+                <button type="submit" className={styles.createsubmitButton}>
+                  Create Account
+                </button>
+                <button
+                  className={styles.cancelcreateButton}
+                  onClick={() => setModalType(null)}
+                >
+                  Cancel
+                </button>
+              </div>
             </form>
+            {error && <div className={styles.error}>{error}</div>}
           </div>
         </div>
       )}
-     
+
+      {/* Modal for Editing User */}
+      {modalType === "edit" && selectedUser && (
+        <div className={styles.editmodal}>
+          <div className={styles.editmodalContent}>
+            <h2 className={styles.edit_h2}>Edit User</h2>
+            <form onSubmit={handleEditSubmit} className={styles.signup_form}>
+              <div>
+                <label className={styles.editlabel}>
+                  Full Name: <span className={styles.required}>*</span>
+                </label>
+                <input
+                  className={styles.editInput}
+                  type="text"
+                  value={selectedUser.fullName}
+                  onChange={(e) =>
+                    setSelectedUser({
+                      ...selectedUser,
+                      fullName: e.target.value,
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div>
+                <label className={styles.editlabel}>
+                  Email: <span className={styles.required}>*</span>
+                </label>
+                <input
+                  className={styles.editInput}
+                  type="email"
+                  value={selectedUser.email}
+                  onChange={(e) =>
+                    setSelectedUser({
+                      ...selectedUser,
+                      email: e.target.value,
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div>
+                <label className={styles.editlabel}>
+                  Role: <span className={styles.required}>*</span>
+                </label>
+                <select
+                  className={styles.editInputRole}
+                  value={selectedUser.role}
+                  onChange={(e) =>
+                    setSelectedUser({
+                      ...selectedUser,
+                      role: e.target.value,
+                    })
+                  }
+                  required
+                >
+                  <option value="">Select Role</option>
+                  <option value="sub">Sub Guidance</option>
+                  <option value="main">Main Guidance</option>
+                </select>
+              </div>
+              <div className={styles.modalFooter}>
+                <button type="submit" className={styles.updateButton}>
+                  Update User
+                </button>
+                <button
+                  className={styles.cancelupdateButton}
+                  onClick={() => setModalType(null)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+            {error && <div className={styles.error}>{error}</div>}
+          </div>
+        </div>
+      )}
+
+      {/* User List */}
+      <div className={styles.usersList}>
+        <input
+          type="text"
+          placeholder="Search users..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.searchGuidance}
+        />
+        <table className={styles.userTable}>
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user) => (
+              <tr key={user.userId}>
+                <td>{user.fullName}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td>
+                  <button onClick={() => handleEdit(user)}>Edit</button>
+                  <button onClick={() => handleDelete(user.userId)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
