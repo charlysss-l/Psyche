@@ -21,16 +21,18 @@
   display: flex;
   flex-direction: column; /* Align items in a column */
   align-items: center; /* Center align the buttons horizontally */
-  width: fit-content; /* Adjust the width to fit the content */
+  width: 15%; /* Adjust the width to fit the content */
   position: sticky; /* Make it follow the scrolling */
-  top: 1rem; /* Ensure it sticks below any header or top margin */
+  top: 20%; /* Ensure it sticks below any header or top margin */
   gap: 0.5rem; /* Reduce spacing between the buttons */
-  background-color: #dadada;
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   padding: 0.5rem; /* Reduce padding to bring it closer visually */
   border-radius: 8px;
-  margin-left: -9rem; /* Move the controlContainer slightly to the left */
-
+  margin-right: -15%;
+  margin-left: -2%;
   h3 {
+    color: #653e84;
     margin-bottom: 0.5rem; /* Reduce spacing below the title */
   }
 
@@ -38,19 +40,27 @@
     width: 100%; /* Ensure buttons span the full container width */
     padding: 0.5rem 0.75rem; /* Adjust button padding */
     font-size: 1rem; /* Ensure text is readable */
+    background-color: #6e6e6e;
+    border: 1px solid #6e6e6e;
+
+    &:hover {
+      background-color: transparent;
+      border: 1px solid #6e6e6e;
+      color: #3a3a3a;
+    }
   }
 
   &:hover {
-    border: 2px solid #704191;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    transition: background-color 0.3s, transform 0.2s;
   }
 }
-
-
 
 .survTitleh2 {
   text-align: center;
   margin-bottom: 2rem;
-  color: #704191;
+  color: #653e84;
 }
 
 .formGroup {
@@ -59,7 +69,7 @@
   }
   input,
   textarea {
-    width: 100%;
+    width: 98%;
     padding: 0.5rem;
     margin-top: 0.3rem;
     border: 1px solid #000000;
@@ -79,25 +89,25 @@
   }
   .filterInput {
     display: flex;
-    gap: .5rem;
+    gap: 0.5rem;
     input {
-      flex: .5;
-      padding: .6rem;
+      flex: 0.5;
+      padding: 0.6rem;
       border: 1px solid #000000;
       border-radius: 4px;
     }
     .removeFilterBtn {
-      background-color: #AF1740;
+      background-color: #af1414;
       color: white;
-      padding: .5rem 0.6rem;
-      border: none;
+      padding: 8px 10px;
       border-radius: 4px;
+      border: 1px solid #af1414;
       cursor: pointer;
     }
     .removeFilterBtn:hover {
       background-color: transparent;
-      color: #AF1740;
-      border: 1px solid #AF1740;
+      color: #af1414;
+      border: 1px solid #af1414;
     }
   }
   .addFilterBtn {
@@ -117,8 +127,12 @@
 }
 
 .sections {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   margin-bottom: 2rem;
+  border-radius: 8px;
+
   h3 {
+    margin-top: 10px;
     color: #704191;
   }
   .section {
@@ -127,6 +141,7 @@
       margin-bottom: 1rem;
     }
     .choices {
+      width: 100%;
       margin-top: 1rem;
       font-weight: bold;
       .choice {
@@ -137,7 +152,6 @@
     }
     .addQuestionBtn,
     .removeQuestionBtn,
-    .addChoiceBtn,
     .addSectionBtn,
     .addFilterBtn,
     .removeChoiceBtn,
@@ -153,57 +167,68 @@
     }
     .addQuestionBtn:hover,
     .removeQuestionBtn:hover,
-    .addChoiceBtn:hover,
     .addSectionBtn:hover,
     .removeChoiceBtn:hover,
     .removeSectionBtn:hover,
     .addFilterBtn:hover {
       background-color: transparent;
-      color: #704191  ;
+      color: #704191;
       border: 1px solid #704191;
     }
     .removeQuestionBtn {
-      background-color: #AF1740;
+      background-color: #af1740;
     }
     .removeChoiceBtn {
-      background-color: #AF1740;
+      background-color: #af1740;
     }
     .removeSectionBtn {
-      background-color: #AF1740;
+      background-color: #af1740;
     }
     .removeQuestionBtn:hover,
     .removeChoiceBtn:hover,
     .removeSectionBtn:hover {
       background-color: transparent;
-      color: #AF1740;
-      border: 1px solid #AF1740;
+      color: #af1740;
+      border: 1px solid #af1740;
     }
+  }
+}
+.addChoiceBtn {
+  background-color: #704191;
+  color: white;
+  padding: 0.6rem 1.4rem;
+  border: 1px solid #704191;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 1rem auto 0.5rem auto;
+  display: block;
+
+  &:hover {
+    background-color: transparent;
+    color: #704191;
+    border: 1px solid #704191;
   }
 }
 
 .section {
   padding: 16px;
-  border: 1px solid #ccc;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
-  background-color: #dfdfdf;
-  transition: border 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover/active effects */
-
-  &:hover {
-    cursor: pointer;
-  }
+  border: none;
+  background-color: #ffffff;
 }
 
 .activeSection {
-  border: 2px solid #704191; /* Green border for active section */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for emphasis */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
 .question {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
   padding: 12px; /* Optional: Adjust for visual separation */
   border: 1px solid #e0e0e0; /* Optional: for clarity */
   border-radius: 8px; /* Optional: rounded edges */
-  background-color: #ffffff; /* Optional: distinct background */
+  background-color: #f2f2f2; /* Optional: distinct background */
   margin-top: 16px; /* Space between questions */
 
   &:first-child {
@@ -211,34 +236,39 @@
   }
 }
 
-
 .submitBtn {
-  width: 100%;
-  padding: 0.7rem;
-  background-color: #8d8d8d;
+  width: 30%;
+  padding: 0.8rem;
+  background-color: #6e6e6e;
   color: #ffffff;
-  border: none;
-  border-radius: 4px;
+  border: 1px solid #6e6e6e;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1.1rem;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
 }
 .submitBtn:hover {
   background-color: transparent;
-  color: #8d8d8d;
-  border: 1px solid #8d8d8d;
+  color: #6e6e6e;
+  border: 1px solid #6e6e6e;
 }
-
 
 .titleGroup {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
   border-radius: 8px;
-  background-color: #dfdfdf;
-  margin-bottom: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  margin-bottom: 30px;
+  margin-top: 30px;
 
   &:hover {
-    border: 2px solid #704191;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    transition: background-color 0.3s, transform 0.2s;
   }
 }
 
@@ -247,11 +277,20 @@
   margin: 0 auto;
   padding: 2rem;
   border-radius: 8px;
-  background-color: #dfdfdf;
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   text-align: center;
 
   &:hover {
-    border: 2px solid #704191;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  h3 {
+    color: #653e84;
+  }
+  h4 {
+    margin-top: -10px;
   }
 }
 
@@ -260,9 +299,25 @@
   margin: 0 auto;
   padding: 2rem;
   border-radius: 8px;
-  
 }
 
+@media (max-width: 1024px) {
+  .controlContainer {
+    position: sticky;
+    top: 0; /* Sticky position */
+    bottom: 0; /* Sticky until bottom of the screen */
+    width: 20%; /* Adjust the width as needed */
+    height: 100%; /* Ensure control container is as tall as the screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem; /* Small gap inside the control container */
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-right: 0;
+    padding-top: 1rem;
+  }
+}
 /* Responsive design for small screens */
 @media (max-width: 768px) {
   .mainContainer {
@@ -288,13 +343,15 @@
     position: sticky;
     top: 0; /* Sticky position */
     bottom: 0; /* Sticky until bottom of the screen */
-    width: 15%; /* Adjust the width as needed */
+    width: 20%; /* Adjust the width as needed */
     height: 100%; /* Ensure control container is as tall as the screen */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: 1rem; /* Small gap inside the control container */
-    margin-left: 0; /* Reset margin */
+    margin-top: 20px;
+    margin-left: 0;
+    margin-right: 0;
     padding-top: 1rem; /* Add some padding at the top */
   }
 
@@ -311,27 +368,99 @@
     padding: 0rem;
     border-radius: 8px;
     margin-top: 1rem;
-    
   }
-
 }
 
-
-:global(body.dark-mode){
+:global(body.dark-mode) {
   .formContainer {
-    background-color: #302f30;
+    background-color: #302f3000;
+  }
+  .titleGroup {
+    background-color: #1a1919;
   }
   .survTitleh2 {
-    color: #ffffff;
+    color: #8c62a9;
   }
-  .formGroup, .choices {
+  .formGroup,
+  .choices {
     label {
-      color: #754a94;
+      color: #a9a9a9;
     }
-    input, textarea {
-      background-color: #e2e2e2;
-      color: #303030;
-      border: 1px solid #754a94;
+    input,
+    textarea {
+      background-color: #1a1919;
+      color: #a9a9a9;
+      border: 1px solid #a9a9a9;
     }
   }
+  .filters,
+  .filterGroup {
+    background-color: #1a1919;
+
+    h3 {
+      color: #8c62a9;
+    }
+    h4 {
+      color: #a9a9a9;
+    }
+    input {
+      background-color: #1a1919;
+      color: #a9a9a9;
+      border: 1px solid #a9a9a9;
+    }
   }
+  .section {
+    background-color: #1a1919;
+    color: #a9a9a9;
+
+    h3 {
+      color: #8c62a9;
+    }
+  }
+
+  .question {
+    background-color: #212121;
+    color: #a9a9a9;
+    border: none;
+
+    .choices {
+      color: #a9a9a9;
+    }
+    input {
+      background-color: #212121;
+      color: #a9a9a9;
+      border: 1px solid #a9a9a9;
+    }
+  }
+  .addChoiceBtn {
+    background-color: #8c62a9;
+    border: 1px solid #8c62a9;
+    &:hover {
+      background-color: transparent;
+      border: 1px solid #8c62a9;
+      color: #8c62a9;
+    }
+  }
+  .controlContainer {
+    background-color: #212121;
+
+    button {
+      background-color: #6e6e6e;
+      border: 1px solid #6e6e6e;
+      &:hover {
+        background-color: transparent;
+        border: 1px solid #a9a9a9;
+        color: #a9a9a9;
+      }
+    }
+  }
+  .submitBtn {
+    background-color: #6e6e6e;
+    border: 1px solid #6e6e6e;
+    &:hover {
+      background-color: transparent;
+      border: 1px solid #a9a9a9;
+      color: #a9a9a9;
+    }
+  }
+}

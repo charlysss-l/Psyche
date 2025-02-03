@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from './survey.module.scss';
-import backendUrl from '../../../config';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./survey.module.scss";
+import backendUrl from "../../../config";
 
-const SurveyForm = () => {  
-  const navigate = useNavigate(); 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [releaseDate, setreleaseDate] = useState('');
-  const [filters, setFilters] = useState([{ field: '', options: '' }]);
+const SurveyForm = () => {
+  const navigate = useNavigate();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [releaseDate, setreleaseDate] = useState("");
+  const [filters, setFilters] = useState([{ field: "", options: "" }]);
   const [sections, setSections] = useState([
     {
-      sectionTitle: '',
-      questions: [{ questionText: '', choices: [''] }],
+      sectionTitle: "",
+      questions: [{ questionText: "", choices: [""] }],
     },
   ]);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
@@ -24,13 +24,22 @@ const SurveyForm = () => {
     setSections(newSections);
   };
 
-  const handleChangeQuestionText = (sIndex: number, qIndex: number, value: string) => {
+  const handleChangeQuestionText = (
+    sIndex: number,
+    qIndex: number,
+    value: string
+  ) => {
     const newSections = [...sections];
     newSections[sIndex].questions[qIndex].questionText = value;
     setSections(newSections);
   };
 
-  const handleChangeChoices = (sIndex: number, qIndex: number, cIndex: number, value: string) => {
+  const handleChangeChoices = (
+    sIndex: number,
+    qIndex: number,
+    cIndex: number,
+    value: string
+  ) => {
     const newSections = [...sections];
     newSections[sIndex].questions[qIndex].choices[cIndex] = value;
     setSections(newSections);
@@ -38,11 +47,15 @@ const SurveyForm = () => {
 
   const handleAddChoice = (sIndex: number, qIndex: number) => {
     const newSections = [...sections];
-    newSections[sIndex].questions[qIndex].choices.push('');
+    newSections[sIndex].questions[qIndex].choices.push("");
     setSections(newSections);
   };
 
-  const handleDeleteChoice = (sIndex: number, qIndex: number, cIndex: number) => {
+  const handleDeleteChoice = (
+    sIndex: number,
+    qIndex: number,
+    cIndex: number
+  ) => {
     const newSections = [...sections];
     newSections[sIndex].questions[qIndex].choices.splice(cIndex, 1);
     setSections(newSections);
@@ -50,7 +63,10 @@ const SurveyForm = () => {
 
   const handleAddQuestion = (p0: number) => {
     const newSections = [...sections];
-    newSections[currentSectionIndex].questions.push({ questionText: '', choices: [''] });
+    newSections[currentSectionIndex].questions.push({
+      questionText: "",
+      choices: [""],
+    });
     setSections(newSections);
   };
 
@@ -63,7 +79,7 @@ const SurveyForm = () => {
   const handleAddSection = () => {
     const newSections = [
       ...sections,
-      { sectionTitle: '', questions: [{ questionText: '', choices: [''] }] },
+      { sectionTitle: "", questions: [{ questionText: "", choices: [""] }] },
     ];
     setSections(newSections);
     setCurrentSectionIndex(newSections.length - 1); // Set the new section as the selected one
@@ -81,7 +97,7 @@ const SurveyForm = () => {
     setFilters(newFilters);
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const surveyData = {
@@ -95,8 +111,8 @@ const SurveyForm = () => {
 
     try {
       const response = await fetch(`${backendUrl}/api/surveys/create`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(surveyData),
       });
 
@@ -105,11 +121,11 @@ const SurveyForm = () => {
       }
 
       const result = await response.json();
-      console.log('Survey created successfully', result);
+      console.log("Survey created successfully", result);
 
-      navigate('/surveyDashboard');
+      navigate("/surveyDashboard");
     } catch (error) {
-      console.error('Error creating survey:', error);
+      console.error("Error creating survey:", error);
     }
   };
 
@@ -212,7 +228,9 @@ const SurveyForm = () => {
               {sections.map((section, sIndex) => (
                 <div
                   key={sIndex}
-                  className={`${styles.section} ${currentSectionIndex === sIndex ? styles.activeSection : ''}`}
+                  className={`${styles.section} ${
+                    currentSectionIndex === sIndex ? styles.activeSection : ""
+                  }`}
                   onClick={() => setCurrentSectionIndex(sIndex)}
                 >
                   <h3>Section</h3>
@@ -221,7 +239,9 @@ const SurveyForm = () => {
                     <input
                       type="text"
                       value={section.sectionTitle}
-                      onChange={(e) => handleChangeSectionTitle(sIndex, e.target.value)}
+                      onChange={(e) =>
+                        handleChangeSectionTitle(sIndex, e.target.value)
+                      }
                       className={styles.input}
                       required
                     />
@@ -234,100 +254,113 @@ const SurveyForm = () => {
                         <input
                           type="text"
                           value={question.questionText}
-                          onChange={(e) => handleChangeQuestionText(sIndex, qIndex, e.target.value)}
+                          onChange={(e) =>
+                            handleChangeQuestionText(
+                              sIndex,
+                              qIndex,
+                              e.target.value
+                            )
+                          }
                           className={styles.input}
                           required
                         />
                       </div>
 
-                    <div className={styles.choices}>
-                      <label>Choices:</label>
-                      {question.choices.map((choice, cIndex) => (
-                        <div key={cIndex} className={styles.choice}>
-                          <input
-                            type="text"
-                            placeholder="Choice"
-                            value={choice}
-                            onChange={(e) => handleChangeChoices(sIndex, qIndex, cIndex, e.target.value)}
-                            className={styles.input}
-                          />
-                          {question.choices.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteChoice(sIndex, qIndex, cIndex)}
-                              className={styles.removeChoiceBtn}
-                            >
-                              Remove Choice
-                            </button>
-                          )}
-                        </div>
-                      ))}
-                      <button
-                        type="button"
-                        onClick={() => handleAddChoice(sIndex, qIndex)}
-                        className={styles.addChoiceBtn}
-                      >
-                        Add Choice
-                      </button>
+                      <div className={styles.choices}>
+                        <label>Choices:</label>
+                        {question.choices.map((choice, cIndex) => (
+                          <div key={cIndex} className={styles.choice}>
+                            <input
+                              type="text"
+                              placeholder="Choice"
+                              value={choice}
+                              onChange={(e) =>
+                                handleChangeChoices(
+                                  sIndex,
+                                  qIndex,
+                                  cIndex,
+                                  e.target.value
+                                )
+                              }
+                              className={styles.input}
+                            />
+                            {question.choices.length > 1 && (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleDeleteChoice(sIndex, qIndex, cIndex)
+                                }
+                                className={styles.addChoiceBtn}
+                              >
+                                Remove Choice
+                              </button>
+                            )}
+                          </div>
+                        ))}
+                        <button
+                          type="button"
+                          onClick={() => handleAddChoice(sIndex, qIndex)}
+                          className={styles.addChoiceBtn}
+                        >
+                          Add Choice
+                        </button>
+                      </div>
+
+                      {section.questions.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteQuestion(sIndex, qIndex)}
+                          className={styles.removeQuestionBtn}
+                        >
+                          Remove Question
+                        </button>
+                      )}
                     </div>
+                  ))}
+                  {sections.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteSection(sIndex)}
+                      className={styles.removeSectionBtn}
+                    >
+                      Remove Section
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
 
-                    {section.questions.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => handleDeleteQuestion(sIndex, qIndex)}
-                        className={styles.removeQuestionBtn}
-                      >
-                        Remove Question
-                      </button>
-                    )}
-                  </div>
-                ))}
-                {sections.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteSection(sIndex)}
-                    className={styles.removeSectionBtn}
-                  >
-                    Remove Section
-                  </button>
-                )}
-              </div>
-            ))}
+            <button type="submit" className={styles.submitBtn}>
+              Submit Survey
+            </button>
           </div>
-          
-        <button type="submit" className={styles.submitBtn}>
-          Submit Survey
-        </button>
+        </form>
+
+        {/* control Panel */}
+        <div className={styles.controlContainer}>
+          <h3>Controls</h3>
+          <button
+            type="button"
+            onClick={() => setFilters([...filters, { field: "", options: "" }])}
+            className={styles.addFilterBtn}
+          >
+            Add Filter
+          </button>
+          <button
+            type="button"
+            onClick={() => handleAddQuestion(sections.length - 1)}
+            className={styles.addQuestionBtn}
+          >
+            Add Question
+          </button>
+          <button
+            type="button"
+            onClick={handleAddSection}
+            className={styles.addSectionBtn}
+          >
+            Add Section
+          </button>
         </div>
-
-      </form>
-
-      {/* control Panel */}
-      <div className={styles.controlContainer}>
-        <h3>Controls</h3>
-        <button
-          type="button"
-          onClick={() => setFilters([...filters, { field: '', options: '' }])}
-          className={styles.addFilterBtn}
-        >
-          Add Filter
-        </button>
-        <button
-          type="button"
-          onClick={() => handleAddQuestion(sections.length - 1)}
-          className={styles.addQuestionBtn}
-        >
-          Add Question
-        </button>
-        <button
-          type="button"
-          onClick={handleAddSection}
-          className={styles.addSectionBtn}
-        >
-          Add Section
-        </button>
-       
-      </div>
       </div>
     </div>
   );
