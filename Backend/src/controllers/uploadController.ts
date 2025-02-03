@@ -25,7 +25,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const router = express.Router(); // Create Express router for handling routes
 
 // Define upload route to handle multiple image file uploads
-router.post('/upload', upload.array('images', 10), async (req: Request, res: Response): Promise<void> => {
+router.post('/upload', upload.array('images', 100), async (req: Request, res: Response): Promise<void> => {
   try {
     // Get the files from the request
     const files = req.files as Express.Multer.File[];
@@ -41,7 +41,7 @@ router.post('/upload', upload.array('images', 10), async (req: Request, res: Res
     // Loop through each uploaded file
     for (const file of files) {
       // Generate a unique filename with UUID to avoid naming conflicts
-      const fileName = `uploads/Test 1/${uuidv4()}_${file.originalname}`;
+      const fileName = `uploads/Test 2/${uuidv4()}_${file.originalname}`;
       // Create a reference in Firebase storage for this file
       const storageRef = ref(storage, fileName);
 

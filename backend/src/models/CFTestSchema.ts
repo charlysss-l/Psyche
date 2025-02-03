@@ -14,6 +14,7 @@ interface Interpretation {
     maxAge: number;
     minTestScore: number;
     maxTestScore: number;
+    iqScore: number;
     percentilePoints: number;
     resultInterpretation: string;
 }
@@ -91,6 +92,10 @@ const CFTestSchema = new Schema<CFTest>({
             required: true,
         },
         maxTestScore: {
+            type: Number,
+            required: true,
+        },
+        iqScore: {
             type: Number,
             required: true,
         },
