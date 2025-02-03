@@ -15,7 +15,7 @@ $message-error: #b30000;
 
 .userinfo_pr {
   font-size: 1.7rem;
-  color: #653e84;
+  color: #000000;
   font-family: Arial, Helvetica, sans-serif;
   margin-bottom: 20px;
   margin-top: 20px;
@@ -185,7 +185,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
     background-color: #161616;
   }
   .userinfo_pr {
-    color: #8c62a9;
+    color: #a9a9a9;
   }
   .submitButton {
     background-color: #8c62a9;
@@ -194,7 +194,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
     &:hover {
       background-color: transparent;
       color: #8c62a9;
-      border: 2px solid #8c62a9;
+      border: 1px solid #8c62a9;
     }
   }
   .passWord {

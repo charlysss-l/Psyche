@@ -236,6 +236,7 @@ const CreateAccount: React.FC = () => {
   return (
     <div className={styles.mainContainer}>
       <h1 className={styles.mainHeading}>Create Guidance Account</h1>
+      <p className={styles.userCount}>Total Guidance Account: {filteredUsers.length}</p>
       <button
         className={styles.addGuidanceButton}
         onClick={() => {
