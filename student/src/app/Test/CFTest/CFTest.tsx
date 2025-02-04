@@ -48,11 +48,23 @@ const CFTest: React.FC = () => {
     const [sex, setSex] = useState<'Male' | 'Female' | ''>('');
     const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');    
     const [currentPage, setCurrentPage] = useState(1);
-    const questionsPerPage = 13; // Display 5 questions per page
     const [timer, setTimer] = useState<number>(45 * 60); // 45 minutes in seconds
     const [isTimeUp, setIsTimeUp] = useState<boolean>(false);
-    const [interpretation, setInterpretation] = useState<Interpretation | null>(null);
+    const [, setInterpretation] = useState<Interpretation | null>(null);
 
+    // Group questions by questionSet
+    const groupedQuestions = cfTest?.questions.reduce((acc, question) => {
+        if (!acc[question.questionSet]) {
+            acc[question.questionSet] = [];
+        }
+        acc[question.questionSet].push(question);
+        return acc;
+    }, {} as Record<string, Question[]>);
+
+    const questionSets = groupedQuestions ? Object.keys(groupedQuestions) : [];
+    const totalPages = questionSets.length; // Each page represents a questionSet
+    const currentQuestionSet = questionSets[currentPage - 1];
+    const currentQuestions = groupedQuestions ? groupedQuestions[currentQuestionSet] : [];
 
     const fetchTest = async () => {
         try {
@@ -179,21 +191,16 @@ const CFTest: React.FC = () => {
     };
 
     const handleNextPage = () => {
-        setCurrentPage((prevPage) => {
-            const nextPage = Math.min(prevPage + 1, totalPages);
-            if (nextPage !== prevPage) window.scrollTo(0, 0); // Scroll to top
-            return nextPage;
-        });
-    }
-    const handlePrevPage = () => setCurrentPage(prev => prev - 1);
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+        window.scrollTo(0, 0); // Scroll to the top
+    };
+
+    const handlePrevPage = () => {
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
-
-    const totalQuestions = cfTest?.questions.length || 0;
-    const totalPages = Math.ceil(totalQuestions / questionsPerPage);
-    const startIndex = (currentPage - 1) * questionsPerPage;
-    const currentQuestions = cfTest?.questions.slice(startIndex, startIndex + questionsPerPage);
 
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>
@@ -215,7 +222,14 @@ const CFTest: React.FC = () => {
             <div className={style.questionContainer}>
                 {currentQuestions?.map((q) => (
                     <div className={style.questionBox} key={q.questionID}>
-                        <img src={q.questionImage} alt={`Question ${q.questionID}`} />
+                    <img
+                      src={q.questionImage}
+                      alt={`Question ${q.questionID}`}
+                      className={currentQuestionSet === 'Test 1' ? style.rectImageImgTest1 :
+                        currentQuestionSet === 'Test 2' ? style.rectImageImgTest2 :
+                        currentQuestionSet === 'Test 3' ? style.squareImageImgTest3 : 
+                        currentQuestionSet === 'Test 4' ? style.squareImageImgTest4 : ''}
+                    />
                         <div className={style.choiceALL}>
                             {q.choicesImage.map((choice, idx) => (
                                 <label key={idx}>

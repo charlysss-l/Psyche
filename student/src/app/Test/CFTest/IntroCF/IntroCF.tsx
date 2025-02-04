@@ -25,10 +25,10 @@ const IntroCF: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${backendUrl}/api/textDisplay/contents/IQ`)
+      .get(`${backendUrl}/api/textDisplay/contents/CF`)
       .then((response) => {
-        const introContent = response.data.find((content: any) => content.key === 'introductionIQ');
-        const termsContent = response.data.find((content: any) => content.key === 'termsIQ');
+        const introContent = response.data.find((content: any) => content.key === 'introductionCF');
+        const termsContent = response.data.find((content: any) => content.key === 'termsCF');
 
         if (introContent) setIntroText(introContent.text);
         if (termsContent) setTermsText(termsContent.text);

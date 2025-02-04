@@ -3,6 +3,7 @@ import UserCFTest from '../models/UserCFTestSchema';
 import { Interpretation } from '../models/UserCFTestSchema';
 
 export const createCFTestResult = async (req: Request, res: Response) => {
+    
     const { userID, firstName, lastName, age, sex, course, year, section, responses, interpretation, testType, testDate } = req.body;
 
     try {

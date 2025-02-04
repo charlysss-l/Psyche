@@ -116,27 +116,41 @@ ul {
   text-align: center;
 }
 
-.questionBox img {
-  width: 450px;
-  height: 130px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+.rectImageImgTest1 {
+  width: 60%;
+  height: auto;
 }
 
-.choiceALL {
-  display: flex;
+.rectImageImgTest2 {
+  width: 90%;
+  height: auto;
+}
+
+.squareImageImgTest3 {
+  width: 25%;
+  height: 25%;
+  object-fit: cover; // Makes the image fit the square container
+}
+
+.squareImageImgTest4 {
+  width: 20%;
+  height: 20%;
+  object-fit: cover; // Makes the image fit the square container
 }
 
 .choiceALL img {
-  width: 100px;
-  height: 110px;
+  width: 120px;
+  height: 130px;
   margin-top: 5px;
   border-radius: 4px;
   border: 1px solid #ccc;
   transition: border-color 0.3s;
   margin-left: 110px;
   margin: 5px;
+}
+
+.choiceALL {
+  display: flex;
 }
 
 // Styling for individual question list items
