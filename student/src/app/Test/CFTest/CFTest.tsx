@@ -37,7 +37,7 @@ const CFTest: React.FC = () => {
     const [cfTest, setIqTest] = useState<CFTests | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [responses, setResponses] = useState<Record<string, string>>({});
+    const [responses, setResponses] = useState<Record<string, string | string[]>>({}); // Updated to handle arrays
     const [userID, setUserID] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
@@ -124,40 +124,115 @@ const CFTest: React.FC = () => {
         return () => clearInterval(timerID); // Cleanup on component unmount
     }, [timer]);
 
+    // Handle multiple selections for Test 2
     const handleChange = (questionID: string, value: string) => {
-        setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));
+        setResponses((prevResponses) => {
+            const currentResponse = prevResponses[questionID];
+            if (currentQuestionSet === 'Test 2') {
+                // For Test 2, handle multiple selections
+                const updatedResponse = Array.isArray(currentResponse) ? [...currentResponse] : [];
+                if (updatedResponse.includes(value)) {
+                    // Remove the value if it's already selected
+                    return { ...prevResponses, [questionID]: updatedResponse.filter((v) => v !== value) };
+                } else {
+                    // Add the value if it's not already selected
+                    return { ...prevResponses, [questionID]: [...updatedResponse, value] };
+                }
+            } else {
+                // For other tests, handle single selection
+                return { ...prevResponses, [questionID]: value };
+            }
+        });
     };
 
+    // Calculate score, handling array-based correct answers
     const calculateScore = () => {
         const totalCorrect = Object.keys(responses).reduce((total, questionID) => {
-            const question = cfTest?.questions.find(q => q.questionID === questionID);
-            return total + (question?.correctAnswer === responses[questionID] ? 1 : 0);
+            const question = cfTest?.questions.find((q) => q.questionID === questionID);
+            if (!question) return total;
+    
+            const correctAnswer = question.correctAnswer;
+            const userResponse = responses[questionID];
+    
+            if (Array.isArray(correctAnswer)) {
+                // For Test 2, check if the user's selected answers match the correct answers (order-independent)
+                if (Array.isArray(userResponse)) {
+                    // Sort both arrays and compare them
+                    const sortedCorrectAnswer = [...correctAnswer].sort();
+                    const sortedUserResponse = [...userResponse].sort();
+                    return total + (JSON.stringify(sortedCorrectAnswer) === JSON.stringify(sortedUserResponse) ? 1 : 0);
+                }
+            } else {
+                // For other tests, check if the response matches the correct answer
+                return total + (userResponse === correctAnswer ? 1 : 0);
+            }
+    
+            return total;
         }, 0);
+    
         return { correctAnswer: `${totalCorrect}`, totalScore: totalCorrect };
+    };
+
+
+    // Render choices for Test 2 with checkboxes
+    const renderChoices = (question: Question) => {
+        return question.choicesImage.map((choice, idx) => (
+            <label key={idx}>
+                <input
+                    type={currentQuestionSet === 'Test 2' ? 'checkbox' : 'radio'} // Use checkbox for Test 2
+                    name={question.questionID}
+                    value={choice}
+                    checked={
+                        currentQuestionSet === 'Test 2'
+                            ? (responses[question.questionID] as string[] | undefined)?.includes(choice) || false
+                            : responses[question.questionID] === choice
+                    }
+                    onChange={() => handleChange(question.questionID, choice)}
+                />
+                <img src={choice} alt={`Choice ${idx}`} />
+            </label>
+        ));
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const responsesWithAnswers = Object.keys(responses).map(questionID => {
-            const question = cfTest?.questions.find(q => q.questionID === questionID);
+        const responsesWithAnswers = Object.keys(responses).map((questionID) => {
+            const question = cfTest?.questions.find((q) => q.questionID === questionID);
+            if (!question) return null;
+    
+            const correctAnswer = question.correctAnswer;
+            const userResponse = responses[questionID];
+    
+            let isCorrect = false;
+            if (Array.isArray(correctAnswer)) {
+                // For Test 2, check if the user's selected answers match the correct answers (order-independent)
+                if (Array.isArray(userResponse)) {
+                    const sortedCorrectAnswer = [...correctAnswer].sort();
+                    const sortedUserResponse = [...userResponse].sort();
+                    isCorrect = JSON.stringify(sortedCorrectAnswer) === JSON.stringify(sortedUserResponse);
+                }
+            } else {
+                // For other tests, check if the response matches the correct answer
+                isCorrect = userResponse === correctAnswer;
+            }
+    
             return {
                 questionID,
-                selectedChoice: responses[questionID],
-                isCorrect: question?.correctAnswer === responses[questionID]
+                selectedChoice: userResponse,
+                isCorrect,
             };
-        });
-
-        const score = calculateScore();
-       // Determine interpretation based on age and score
-       const matchedInterpretation = cfTest?.interpretation.find((interp) => 
-        Number(age) >= interp.minAge &&
-        Number(age) <= interp.maxAge &&
-        score.totalScore >= interp.minTestScore &&
-        score.totalScore <= interp.maxTestScore
-    );
+        }).filter(Boolean); // Remove null values
     
-    setInterpretation(matchedInterpretation || null);
-
+        const score = calculateScore();
+        const matchedInterpretation = cfTest?.interpretation.find((interp) =>
+            Number(age) >= interp.minAge &&
+            Number(age) <= interp.maxAge &&
+            score.totalScore >= interp.minTestScore &&
+            score.totalScore <= interp.maxTestScore
+        );
+    
+        setInterpretation(matchedInterpretation || null);
+    
         const dataToSubmit = {
             userID,
             firstName,
@@ -174,20 +249,20 @@ const CFTest: React.FC = () => {
             testType,
             testDate: new Date(),
         };
-
+    
         try {
             await axios.post(`${backendUrl}/api/usercf`, dataToSubmit);
             alert('Test submitted successfully!');
             localStorage.setItem('cfTestResults', JSON.stringify(dataToSubmit));
             navigate('/cf-results');
         } catch (error: any) {
-        if (error.response && error.response.status === 400) {
-            alert(error.response.data.message); // Display the error message from the server
-        } else {
-            console.error('Error submitting answers:', error);
-            alert('An error occurred while submitting the test.');
+            if (error.response && error.response.status === 400) {
+                alert(error.response.data.message);
+            } else {
+                console.error('Error submitting answers:', error);
+                alert('An error occurred while submitting the test.');
+            }
         }
-    }
     };
 
     const handleNextPage = () => {
@@ -230,19 +305,8 @@ const CFTest: React.FC = () => {
                         currentQuestionSet === 'Test 3' ? style.squareImageImgTest3 : 
                         currentQuestionSet === 'Test 4' ? style.squareImageImgTest4 : ''}
                     />
-                        <div className={style.choiceALL}>
-                            {q.choicesImage.map((choice, idx) => (
-                                <label key={idx}>
-                                    <input
-                                        type="radio"
-                                        name={q.questionID}
-                                        value={choice}
-                                        checked={responses[q.questionID] === choice}
-                                        onChange={() => handleChange(q.questionID, choice)}
-                                    />
-                                    <img src={choice} alt={`Choice ${idx}`} />
-                                </label>
-                            ))}
+                       <div className={style.choiceALL}>
+                            {renderChoices(q)}
                         </div>
                     </div>
                 ))}

@@ -1,0 +1,313 @@
+/* Main container for the section */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+.resultPage {
+  display: flex;
+  justify-content: center; /* Center the items horizontally */
+  flex-wrap: nowrap; /* Prevent wrapping on large screens */
+  width: 100%; /* Ensure it takes full width */
+  gap: 10px; /* Adjust the gap between the containers */
+  align-items: flex-start; /* Align items to the top, so they don't stretch */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;  min-width: 40%; /* Minimum width to ensure good readability */
+  width: 40%; /* Ensure it takes up about half of the screen */
+  text-align: center;
+  background-color: #ffffff;
+  border: none;
+  box-shadow: #b4b4b4 0px 0px 5px;
+  border-radius: 8px;
+  padding: 50px;
+  user-select: none;
+
+
+}
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;  min-width: 10%; /* Minimum width for text clarity */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  width: 30%; /* Ensure it takes up about half of the screen */
+  position: relative;
+  margin-top: -1%;
+}
+
+.privacySection, .outro {
+  flex: 1;
+  min-width: 50%;
+  padding: 20px;
+  background-color: #ffffff;
+  border: none;
+  box-shadow: #b4b4b4 0px 0px 2px;
+  border-radius: 8px;
+  height: 50%;
+  margin-bottom: 10px; /* Add spacing between sections */
+  user-select: none;
+
+  .pfintroinfo{
+    font-size: 0.8rem;
+  }
+ .pfintro{
+    font-size: 1.8rem;
+    color: #704191;
+ }
+ .termsandconditionpf{
+    font-size: 1.8rem;
+    color: #704191;
+    text-align: center;
+ }
+}
+
+/* Media query for smaller screens (below 768px) */
+@media (max-width: 768px) {
+  .resultPage {
+    flex-direction: column; /* Stack the items vertically */
+    align-items: center; /* Center the items horizontally */
+  }
+
+  .container {
+    min-width: 90%; /* Adjust to ensure better spacing on smaller screens */
+    margin-left: 0; /* Remove margin on small screens */
+    margin-right: 0; /* Remove margin on small screens */
+  }
+
+  .messageContainer {
+    min-width: 90%; /* Full width on small screens */
+    margin-top: 20px; /* Optional: margin to separate from result container */
+  }
+
+  .privacySection, .outro {
+    min-width: 90%; /* Full width on small screens */
+    margin-bottom: 15px; /* Space between sections */
+  }
+}
+
+
+/* Header for the section */
+.header {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  color: #704191;
+  margin-bottom: 30px;
+}
+
+.subheading {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: rgb(1, 59, 1);
+  font-size: 25px;
+}
+
+/* Styling for each information section (User ID, Age, etc.) */
+.section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  color: #555;
+  margin: 12px 0;
+  line-height: 1.5;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Styling for the labels */
+.label {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Styling for the values */
+.value {
+  color: #666;
+  text-align: right;
+}
+
+/* Score section styling */
+.scoreSection {
+  margin-top: 30px;
+  text-align: center;
+}
+.scoreSection h3 {
+  color: #080808e1;
+  margin-bottom: 15px;
+}
+
+.interpretation {
+  color: #704191;
+
+}
+
+/* Score styling */
+.score {
+  font-weight: bold;
+  color: #704191;
+  font-size: 20px;
+}
+
+/* Interpretation section styling */
+.interpretationSection {
+  margin-top: 30px;
+}
+
+/* Interpretation heading */
+.interpretationSection h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Share prompt section */
+.sharePrompt {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* Prompt text */
+.sharePrompt p {
+  text-align: center;
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+/* Buttons for sharing result */
+.buttonYes,
+.buttonCancel {
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.buttonYes {
+  background-color: #71914c;
+  color: white;
+  margin-right: 10px;
+  border: 2px solid #71914c;
+}
+
+.buttonYes:hover {
+  background-color: transparent;
+  color: #71914c;
+  border: 2px solid #71914c;
+}
+
+.buttonCancel {
+  background-color: #af1414;
+  color: white;
+  border: 2px solid #af1414;
+}
+
+.buttonCancel:hover {
+  background-color: transparent;
+  color: #af1414;
+  border: 2px solid #af1414;
+}
+
+.pdfButton {
+  margin-top: 10px;
+  background-color: #6e6e6e;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid #6e6e6e;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+    
+  &:hover {
+    background-color: transparent;
+    color: #6e6e6e;
+    border: 2px solid #6e6e6e;
+  }
+
+  &:active {
+    background-color: #6e6e6e;
+    color: white;
+  }
+
+  &:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.6); /* Add a custom focus ring */
+  }
+}
+
+
+
+
+:global(body.dark-mode){
+  .container{
+    background-color: #1f1f1f5d;
+    border: none;
+    box-shadow: none;
+
+    .subheading {
+      color: #b4b4b4;
+    }
+    .header {
+      color: #754a94;
+    }
+  }
+  .section, .label, .value {
+    color: #d1d1d1;
+  }
+  .scoreSection h3 {
+    color: #d1d1d1;
+  }
+  .interpretation, .score {
+    color: #754a94;
+  }
+  .sharePrompt p {
+    color: #bbbbbbef;
+  }
+  .sharePrompt label{
+    color: #bbbbbbef;
+  }
+  :hover.buttonYes {
+      color: #71914c;
+  }
+  :hover.buttonCancel {
+    color: #af1414;
+}
+  :hover.pdfButton {
+    color: #6e6e6e;
+
+    &:active {
+      background-color: #6e6e6e;
+      color: white;
+    }
+}
+.messageContainer{
+  background-color: transparent;
+  color: #d1d1d1;
+
+  .outro, .privacySection {
+    background-color: #1f1f1f5d;
+    color: #d1d1d1;
+    border: none;
+    box-shadow: none;
+
+    h1{
+      color: #754a94;
+    }
+
+    a{
+      color: #754a94;
+    }
+  }
+}
+}

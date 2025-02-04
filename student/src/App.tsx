@@ -16,6 +16,7 @@ import IQTestUserForm from "./app/Test/IQTest/IQTestUserForm";
 import CFTestUserForm from "./app/Test/CFTest/CFTestUserForm";
 import PFResult from "./app/Result/PFResult/PFResult";
 import IQResult from "./app/Result/IQResult/IQResult";
+import CFResult from "./app/Result/CFResult/CFResult";
 import "./App.css";
 import Login from "./app/Login/login";
 import SignupForm from "./app/Signup/Signup";
@@ -80,6 +81,7 @@ function App() {
                       <Route path="/cftest" element={<ProtectedRoute><CFTest /></ProtectedRoute>} />
                       <Route path="/pf-results" element={<ProtectedRoute><PFResult /></ProtectedRoute>} />
                       <Route path="/iq-results" element={<ProtectedRoute><IQResult /></ProtectedRoute>} />
+                      <Route path="/cf-results" element={<ProtectedRoute><CFResult /></ProtectedRoute>} />
                       <Route path="/omrcamera" element={<ProtectedRoute><OMRCamera /></ProtectedRoute>} />
                       <Route path="/iqresultlist" element={<ProtectedRoute><IQResultList /></ProtectedRoute>} />
                       <Route path="/omriqresultlist" element={<ProtectedRoute><OmrIQResultsList /></ProtectedRoute>} />

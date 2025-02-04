@@ -3,7 +3,7 @@ import { Schema, model, Document } from 'mongoose';
 // Define the structure for Responses
 export interface Response {
     questionID: string;
-    selectedChoice: string;
+    selectedChoice: string | string[];
     isCorrect: boolean;
 }
 
@@ -27,7 +27,7 @@ interface Question {
     questionSet: string;
     questionImage: string;
     choicesImage: string[];
-    correctAnswer: string;
+    correctAnswer: string | string[]; // Single answer or two correct answers
 }
 
 // UserCFTest interface
@@ -57,7 +57,7 @@ export interface totalScore {
 // Response Schema
 const ResponseSchema = new Schema<Response>({
     questionID: { type: String },
-    selectedChoice: { type: String },
+    selectedChoice: { type: Schema.Types.Mixed },
     isCorrect: { type: Boolean},
 }, { _id: false });
 
