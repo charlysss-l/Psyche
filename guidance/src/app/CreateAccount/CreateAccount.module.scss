@@ -7,7 +7,7 @@
   text-align: center;
   margin-bottom: -40px;
 }
-.userCount{
+.userCount {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
   color: #653e84; // Adjust the color to fit your design
@@ -150,7 +150,7 @@
   width: 30%;
   border: 1px solid #653e84;
   display: block;
-  margin: auto;
+  margin: 7px auto;
 
   &:hover {
     border: 1px solid #653e84;
@@ -167,7 +167,6 @@
   border: 1px solid #6e6e6e;
   display: block;
   margin: auto;
-
 
   &:hover {
     background-color: transparent;
@@ -337,7 +336,7 @@
       border: 1px solid #a9a9a9;
     }
   }
-  .userTable{
+  .userTable {
     background-color: transparent;
     color: #fff;
   }
@@ -356,7 +355,8 @@
     background-color: #141313;
     color: #fff;
   }
-  .create_h2, .edit_h2 {
+  .create_h2,
+  .edit_h2 {
     color: #a9a9a9;
   }
   .createlabel,

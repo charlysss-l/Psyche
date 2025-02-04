@@ -29,7 +29,7 @@ $test-size: 400px;
   user-select: none;
 
   h1 {
-    color: #6e6e6e;
+    color: #000000;
   }
 }
 
@@ -48,7 +48,7 @@ $test-size: 400px;
   background-color: transparent;
   width: $test-size;
   height: $test-size;
-  border: #6e6e6e solid 2px;
+  border: #000000 solid 2px;
   border-radius: $border-radius;
   box-shadow: $box-shadow-small;
   transition: all 0.3s ease-in-out;
@@ -87,6 +87,10 @@ $test-size: 400px;
       color: #000000;
       border: #8c62a9 solid 2px;
     }
+  }
+  .pfLink,
+  .iqLink {
+    color: #b4b4b4;
   }
 }
 

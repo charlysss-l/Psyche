@@ -141,11 +141,11 @@
 .button {
   width: auto;
   background-color: transparent;
-  color: #6e6e6e;
+  color: #000000;
   font-size: 1.3rem;
   padding: 180px 120px;
   font-weight: bold;
-  border: #6e6e6e 2px solid;
+  border: #2c2c2c 2px solid;
   border-radius: 10px;
   transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 
@@ -159,7 +159,7 @@
 .firstheader {
   font-size: 24px;
   margin-bottom: 20px;
-  color: #6e6e6e;
+  color: #000000;
   text-align: center;
 }
 .loading,
@@ -179,12 +179,12 @@
 
 :global(body.dark-mode) {
   .firstheader {
-    color: #b4b4b4;
+    color: #a9a9a9;
   }
   .button {
     background-color: transparent;
-    color: #ffffff;
-    border: #b4b4b4 2px solid;
+    color: #a9a9a9;
+    border: #a9a9a9 2px solid;
     &:hover {
       background-color: #8c62a9;
       color: #000000;
