@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+.resultsTableCF {
+    border-collapse: collapse; 
+    font-size: 15px;
+    background-color: rgb(255, 252, 252);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064); 
+    border: 1px solid #9e979791; 
+    width: 100%;
+  }
+  
+
+  .resultsTableCF th {
+    color: #ececec;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    background-color: #6e6e6e;
+    border-bottom: 1px solid #9e979791; 
+  }
+  
+
+  .resultsTableCF td {
+    text-align: center; /* Center-aligns text horizontally */
+    vertical-align: middle; /* Center-aligns text vertically */
+    padding: 5px;
+    color : #333;
+    font-size: 13px;
+    border-bottom: 1px solid #9e979791; 
+  }
+  
+
+  .eachResultCF:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+    transform: translateY(-1px); 
+    cursor: pointer;
+    background-color: rgb(245, 244, 244);
+    border: 1px solid #9e979791; 
+  }
+
+
+.selected-choice-img {
+  width: 60px;  
+  height: 50px; 
+  margin: 0 auto; 
+}
+
+.deleteButtonCFLIST{
+  width: 70px;
+      margin: 10px;
+      background-color: #b62e2e;
+      color: white;
+      border:1px solid #B94d4dce;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+}
+.deleteButtonCFLIST:hover{
+  background-color: transparent;
+  color:#b62e2e;
+  border:1px solid #B94d4dce;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  background-color: #5a5a5a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+}
+  
+
+
+.title {
+  display: flex; /* Make the title a flex container */
+  justify-content: space-between; /* Distribute the content: title on the left, buttons on the right */
+  align-items: center; /* Vertically align the title and buttons */
+}
+
+.resultCount {
+  text-align: left;
+  font-size: 1.2rem;
+  margin-bottom: .5rem;
+  margin-top: -.5rem;
+  color: #333;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 35px;
+}
+
+.smartWrapper {
+  display: flex; /* Arrange buttons in a row */
+  width: 200px;
+  margin-bottom: -30px;
+}
+
+:global(body.dark-mode){
+  .resultCount{
+    color: #ffffff;
+  }
+
+  .resultsTableCF th{
+    background-color: #6e6e6e ;
+    color: #2e2e2e;
+  }
+  
+}

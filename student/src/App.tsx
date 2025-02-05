@@ -26,6 +26,9 @@ import OMRResult from "./app/OMR/OMRCamera/IqOMR/OMRResult";
 import IQResultList from "./app/Result/IQResult/IQOnlineList/IQResultList";
 import OmrIQResultsList from "./app/Result/IQResult/IQOMRList/OmrIQResultList";
 import IQResultListBoth from "./app/Result/IQResult/IQBothList/IQResultListBoth";
+import CFResultListBoth from "./app/Result/CFResult/CFBothList/CFResultListBoth";
+import OmrCFResultsList from "./app/Result/CFResult/CFOMRList/OmrCFResultList";
+import CFResultList from "./app/Result/CFResult/CFOnlineList/CFResultList";
 import PFBothList from "./app/Result/PFResult/PFBothList/PFBothList";
 import PFOMRList from "./app/Result/PFResult/PFOMRList/PFOMRList";
 import PFOnlineList from "./app/Result/PFResult/PFOnlineList/PFOnlineList";
@@ -86,6 +89,9 @@ function App() {
                       <Route path="/iqresultlist" element={<ProtectedRoute><IQResultList /></ProtectedRoute>} />
                       <Route path="/omriqresultlist" element={<ProtectedRoute><OmrIQResultsList /></ProtectedRoute>} />
                       <Route path="/iqresultlistboth" element={<ProtectedRoute><IQResultListBoth /></ProtectedRoute>} />
+                      <Route path="/cfresultlist" element={<ProtectedRoute><CFResultList /></ProtectedRoute>} />
+                      <Route path="/omrcfresultlist" element={<ProtectedRoute><OmrCFResultsList /></ProtectedRoute>} />
+                      <Route path="/cfresultlistboth" element={<ProtectedRoute><CFResultListBoth /></ProtectedRoute>} />
                       <Route path="/pfbothlist" element={<ProtectedRoute><PFBothList /></ProtectedRoute>} />
                       <Route path="/pfomrlist" element={<ProtectedRoute><PFOMRList /></ProtectedRoute>} />
                       <Route path="/pfonlinelist" element={<ProtectedRoute><PFOnlineList /></ProtectedRoute>} />

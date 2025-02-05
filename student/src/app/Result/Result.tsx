@@ -14,7 +14,9 @@ const Result = () => {
           <Link to="/iqresultlistboth" className={style.iqLink_res}>IQ Results</Link>
           </div>
 
-
+          <div className={style.iqLinkContainer_res}>
+          <Link to="/cfresultlistboth" className={style.iqLink_res}>CF Results</Link>
+          </div>
           
         </div>
     </div>
