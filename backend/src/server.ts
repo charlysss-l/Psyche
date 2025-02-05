@@ -19,6 +19,7 @@ import surveyRoutes from './routes/surveyRoutes';
 import surveyResponseRoutes from './routes/surveyResponseRoutes';
 import { updateInterpretationBySpecificId } from './controllers/IQTestController';
 import omrIQRoutes from './routes/omrIQRoutes';
+import omrCFRoutes from './routes/omrCFRoutes';
 import omrPFRoutes from './routes/omrPFRoutes';
 import textDisplayRoutes from './routes/textDisplayRoutes';
 import OnlineConsultRoutes from './routes/OnlineConsultRoutes';
@@ -56,6 +57,7 @@ app.put('/api/IQtest/:id/interpretation/:interpretationId', updateInterpretation
 
 app.use('/api/omr', omrIQRoutes); // iq
 app.use('/api/omr16pf', omrPFRoutes); //pf
+app.use('/api/omrcf', omrCFRoutes); //cf
 
 app.use('/api/textDisplay', textDisplayRoutes);
 
@@ -99,6 +101,17 @@ app.post('/process_omr_IQ', async (req, res) => {
   try {
     const image_url = req.body.image_url;
     const response = await axios.post('https://iqtestOmr.pythonanywhere.com/process_omr_IQ', { image_url });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error calling Python API', details: error });
+  }
+});
+
+// Example of calling the Python service
+app.post('/process_omr_CF', async (req, res) => {
+  try {
+    const image_url = req.body.image_url;
+    const response = await axios.post('https://cftestOmr.pythonanywhere.com/process_omr_CF', { image_url });
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Error calling Python API', details: error });

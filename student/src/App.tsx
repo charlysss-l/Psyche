@@ -28,6 +28,7 @@ import OmrIQResultsList from "./app/Result/IQResult/IQOMRList/OmrIQResultList";
 import IQResultListBoth from "./app/Result/IQResult/IQBothList/IQResultListBoth";
 import CFResultListBoth from "./app/Result/CFResult/CFBothList/CFResultListBoth";
 import OmrCFResultsList from "./app/Result/CFResult/CFOMRList/OmrCFResultList";
+import OmrCFResult from "./app/OMR/OMRCamera/CfOMR/OmrCFResult";
 import CFResultList from "./app/Result/CFResult/CFOnlineList/CFResultList";
 import PFBothList from "./app/Result/PFResult/PFBothList/PFBothList";
 import PFOMRList from "./app/Result/PFResult/PFOMRList/PFOMRList";
@@ -35,6 +36,7 @@ import PFOnlineList from "./app/Result/PFResult/PFOnlineList/PFOnlineList";
 import AllOMR from "./app/OMR/AllOMR";
 import IqOMR from "./app/OMR/OMRCamera/IqOMR/IqOMR";
 import PfOMR from "./app/OMR/OMRCamera/PfOMR/PfOMR";
+import CfOMR from "./app/OMR/OMRCamera/CfOMR/CfOMR";
 import OmrResult from "./app/OMR/OMRCamera/PfOMR/OmrResult";
 import SurveyDetails from "./app/Survey/surveryDetails/surveyDetails";
 import ArchiveInbox from "./app/Consultation/ArchiveInbox";
@@ -103,6 +105,8 @@ function App() {
                       <Route path="/iqomrresult" element={<ProtectedRoute><OMRResult /></ProtectedRoute>} />
                       <Route path="/pfomr" element={<ProtectedRoute><PfOMR /></ProtectedRoute>} />
                       <Route path="/pfomrresult" element={<ProtectedRoute><OmrResult /></ProtectedRoute>} />
+                      <Route path="/cfomr" element={<ProtectedRoute><CfOMR /></ProtectedRoute>} />
+                      <Route path="/cfomrresult" element={<ProtectedRoute><OmrCFResult /></ProtectedRoute>} />
                       <Route path="/survey-details/:surveyId" element={<ProtectedRoute><SurveyDetails /></ProtectedRoute>} />
                       <Route path="*" element={<Navigate to="/login" />} />
                     </Routes>

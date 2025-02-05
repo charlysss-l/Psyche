@@ -10,7 +10,8 @@
     "dev": "nodemon --watch src --exec ts-node src/server.ts",
     "python1": "python pftest.py",
     "python2": "python iqtest.py",
-    "all": "concurrently \"npm run dev\" \"npm run python1\" \"npm run python2\""
+    "python3": "python cftest.py",
+    "all": "concurrently \"npm run dev\" \"npm run python1\" \"npm run python2\" \"npm run python3\""
   },
   "keywords": [],
   "author": "",

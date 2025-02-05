@@ -1,0 +1,290 @@
+// SCSS Variables for consistency
+$form-bg-color: #f6f5f5; // Set form background to #F6F5F5
+$primary-color: #653e84; // Primary color for buttons and focus
+$border-radius: 5px;
+$input-border-color: #45474b; // Darker border for the input fields
+$input-focus-border-color: $primary-color; // Focus color for inputs
+$header-text-color: #45474b; // Color for "SAMPLE IQ TEST"
+$font-family: Arial, sans-serif;
+
+/* Parent container for centering */
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
+  width: 100%; /* Ensure it takes full width */
+  user-select: none;
+}
+
+.formTest {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 56%; /* Default width */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .formTest {
+    width: 90%; /* Adjust for smaller screens */
+    padding: 1rem; /* Adjust padding */
+  }
+}
+
+// Header for the form (SAMPLE IQ TEST)
+h1 {
+  color: #ffffff; // Color for the header text (SAMPLE IQ TEST)
+  font-size: 2rem;
+  margin-bottom: 20px;
+  justify-self: center;
+  font-family: $font-family;
+}
+
+.ageWarning {
+  color: #ff0000;
+  font-weight: bold;
+  margin-top: 1px;
+  margin-bottom: 10px;
+  justify-self: center;
+  align-items: center;
+  text-align: center;
+}
+// Label styling for inputs
+label {
+  display: block;
+  margin: 10px 0;
+  color: $input-border-color;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  // Label text color set to $input-border-color
+}
+
+// Input fields and select elements
+input[type="text"],
+select,
+input[type="radio"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid $input-border-color;
+  border-radius: $border-radius;
+  transition: border-color 0.3s;
+  background-color: $form-bg-color; // Set background color to $form-bg-color
+  color: $input-border-color; // Set text color to $input-border-color
+
+  &:focus {
+    border-color: $input-focus-border-color; // Focus color to match navbar hover
+    outline: none;
+  }
+
+  // Styling for radio buttons (to match text and other inputs)
+  &[type="radio"] {
+    width: auto;
+    margin-right: 10px;
+  }
+}
+
+// Styling for the list of questions
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+// Update the styles for the questions list
+.questions {
+  display: flex; // Use flexbox for layout
+  flex-direction: column; // Arrange items in a column
+  padding: 0; // Remove default padding
+  list-style-type: none; // Remove bullet points
+  width: 200px;
+  height: 200px;
+}
+
+.questionBox {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers content horizontally */
+  text-align: center;
+}
+
+.questionBox img {
+  width: 550px;
+  height: 450px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.choiceALL {
+  display: flex;
+}
+
+.choiceALL img {
+  width: 120px;
+  height: 100px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+  margin-left: 110px;
+  margin: 5px;
+}
+
+// Styling for individual question list items
+li {
+  margin: 15px 0;
+  border-radius: $border-radius;
+  padding: 10px;
+  background-color: #ffffff00;
+  display: flex; // Use flexbox for the question and choices
+  flex-direction: row; // Arrange question and choices in a row
+  align-items: center; // Center align items vertically
+  color: #333; // Text color for the question and choices
+
+  .question-image {
+    margin-right: 20px; // Space between question image and choices
+
+    img {
+      width: 30px; // Set a max width for the question image
+      height: 30px;
+    }
+  }
+
+  .choices {
+    display: flex;
+    flex-direction: row; // Keep choices in a row
+
+    label {
+      display: flex;
+      align-items: center;
+      margin: 5px;
+
+      input[type="radio"] {
+        margin-right: 10px;
+      }
+
+      img {
+        max-width: 60px; // Adjust size for choice images
+        height: auto;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+// Pagination styling
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: darken($primary-color, 10%); /* Darker shade on hover */
+}
+
+.pagination button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+// Active page button
+.pagination .active {
+  background-color: darken($primary-color, 20%);
+  font-weight: bold;
+}
+
+.start {
+  margin-top: 20px;
+  padding: 15px 30px;
+  background-color: #653e84;
+  color: white;
+  border: 2px solid #653e84;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: transparent;
+    color: #653e84;
+    border: 2px solid #653e84;
+  }
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.submitButton {
+  padding: 10px 15px;
+  background-color: #653e84;
+  color: white;
+  border: 2px solid #653e84;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 40px;
+
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: transparent;
+  color: #653e84;
+  border: 2px solid #653e84;
+}
+
+:global(body.dark-mode) {
+  .FormTitle {
+    color: #ffffff;
+  }
+  .ageWarning {
+    color: #ce3636;
+  }
+  .start {
+    background-color: #8c62a9;
+
+    &:hover {
+      background-color: transparent;
+      color: #8c62a9;
+      border: 2px solid #8c62a9;
+    }
+  }
+  .formTest {
+    background-color: #161616;
+
+    input,
+    select,
+    label {
+      background-color: #161616;
+      color: #b4b4b4;
+    }
+  }
+}

@@ -23,7 +23,7 @@ router.get('/', getCFTestResultsByAll);
 
 
 // Route to retrieve all CF test results for a specific user
-router.get('/:userID', getOmrCFResultsByUser);
+router.get('/test/:userID', getOmrCFResultsByUser);
 
 // Route to retrieve a specific CF test result by test ID
 router.get('/:id', getOmrCFResultById);

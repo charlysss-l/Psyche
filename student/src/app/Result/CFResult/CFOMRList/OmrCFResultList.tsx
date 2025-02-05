@@ -53,7 +53,7 @@ const OmrCFResultsList: React.FC = () => {
     if (!userID) return;
 
     try {
-      const response = await fetch(`${backendUrl}/api/cfomr/${userID}`);
+      const response = await fetch(`${backendUrl}/api/omrcf/test/${userID}`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
