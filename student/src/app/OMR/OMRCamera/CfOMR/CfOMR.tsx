@@ -130,7 +130,7 @@ const CfOMR: React.FC = () => {
                 console.log(`OCR Text at ${angle} degrees:`, text);
     
                 // If OCR recognizes text "PF" function resolves true indicating desired text found
-                if (text.toLowerCase().includes('cf test')) {
+                if (text.toLowerCase().includes('iq test')) {
                   resolve(true); // Text found, stop and resolve
                   return;
                 }
@@ -184,7 +184,7 @@ const CfOMR: React.FC = () => {
    }
 
    // Check if the upload limit has been reached
-   if (uploadCount >= 3) {
+   if (uploadCount >= 10) {
      alert('You have reached the maximum upload limit for today. Please try again tomorrow.');
      return;
    }
@@ -314,7 +314,7 @@ const CfOMR: React.FC = () => {
   console.log("Fetching URL:", cftestUrl);
 
     try {
-      const response = await fetch(`${cftestUrl}/process_omr_CF`, {
+      const response = await fetch(`https://cftestOmr.pythonanywhere.com/process_omr_CF`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

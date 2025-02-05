@@ -12,6 +12,10 @@
     {
       "src": "api/iqtest.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "api/cftest.py",
+      "use": "@vercel/python"
     }
   ],
   "routes": [
@@ -26,6 +30,10 @@
     {
       "src": "/api/iqtest",
       "dest": "api/iqtest.py"
+    },
+    {
+      "src": "/api/cftest",
+      "dest": "api/cftest.py"
     }
   ]
 }
