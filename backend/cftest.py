@@ -213,15 +213,6 @@ def omr_processing(image):
     
     return correct_answers
 
-import requests
-import cv2
-import numpy as np
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-
-app = Flask(__name__)
-CORS(app)
-
 @app.route('/process_omr_CF', methods=['POST'])
 def process_omr():
     

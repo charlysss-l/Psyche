@@ -25,8 +25,6 @@ import textDisplayRoutes from './routes/textDisplayRoutes';
 import OnlineConsultRoutes from './routes/OnlineConsultRoutes';
 import axios from 'axios';
 
-
-
 dotenv.config();
 
 const app: Application = express();
