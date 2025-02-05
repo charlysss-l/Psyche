@@ -314,7 +314,7 @@ const CfOMR: React.FC = () => {
   console.log("Fetching URL:", cftestUrl);
 
     try {
-      const response = await fetch(`https://cftestOmr.pythonanywhere.com/process_omr_CF`, {
+      const response = await fetch(`${cftestUrl}/process_omr_CF`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
