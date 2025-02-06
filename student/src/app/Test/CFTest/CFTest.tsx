@@ -34,7 +34,7 @@ interface CFTests {
 
 const CFTest: React.FC = () => {
     const navigate = useNavigate();
-    const [cfTest, setIqTest] = useState<CFTests | null>(null);
+    const [cfTest, setCfTest] = useState<CFTests | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [responses, setResponses] = useState<Record<string, string | string[]>>({}); // Updated to handle arrays
@@ -69,7 +69,7 @@ const CFTest: React.FC = () => {
     const fetchTest = async () => {
         try {
             const response = await axios.get<CFTests>(`${backendUrl}/api/CFtest/67a09ef7e3fdfebbf170a124`);
-            setIqTest(response.data);
+            setCfTest(response.data);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred');
         } finally {

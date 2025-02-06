@@ -184,7 +184,7 @@ const IqOMR: React.FC = () => {
    }
 
    // Check if the upload limit has been reached
-   if (uploadCount >= 5) {
+   if (uploadCount >= 6) {
      alert('You have reached the maximum upload limit for today. Please try again tomorrow.');
      return;
    }

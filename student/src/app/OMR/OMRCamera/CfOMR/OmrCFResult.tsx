@@ -4,6 +4,35 @@ import style from './OmrCFResult.module.scss';
 import axios from 'axios';
 import backendUrl from '../../../../config';
 
+
+interface Question {
+    questionID: string;
+    questionSet: string;
+    questionImage: string;
+    choicesImage: string[];
+    correctAnswer: string | string[]; 
+  }
+
+interface Interpretation {
+    byId: string; // This will automatically be assigned by MongoDB
+    minAge: number;  
+    maxAge: number;
+    minTestScore: number;
+    maxTestScore: number;
+    iqScore: number;
+    percentilePoints: number;
+    resultInterpretation: string;
+}
+
+interface CFTests {
+    testID: string;
+    nameOfTest: string;
+    numOfQuestions: number;
+    questions: Question[];
+    interpretation: Interpretation[];  // Added interpretation field
+
+}
+
 const OmrCFResult: React.FC = () => {
     const navigate = useNavigate();
     const [userID, setUserID] = useState<string>('');
@@ -17,6 +46,27 @@ const OmrCFResult: React.FC = () => {
     const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');
     const [omrScore, setOmrScore] = useState<number | null>(null); // Score state
     const [uploadURL, setUploadURL] = useState<string>('');
+    const [, setInterpretation] = useState<Interpretation | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const [cfTest, setCfTest] = useState<CFTests | null>(null);
+        
+
+    const fetchTest = async () => {
+        try {
+            const response = await axios.get<CFTests>(`${backendUrl}/api/CFtest/67a09ef7e3fdfebbf170a124`);
+            setCfTest(response.data);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+            fetchTest();
+        }, []);
+    
 
     useEffect(() => {
         // Fetch userID and score from localStorage
@@ -56,6 +106,17 @@ const OmrCFResult: React.FC = () => {
     
         // Convert omrScore to totalScore (assuming a conversion factor or logic here)
         const totalScore = omrScore ? omrScore * 1 : 0;  // Example conversion logic
+
+        const score = totalScore;
+        const matchedInterpretation = cfTest?.interpretation.find((interp) =>
+            Number(age) >= interp.minAge &&
+            Number(age) <= interp.maxAge &&
+            score >= interp.minTestScore &&
+            score <= interp.maxTestScore
+        );
+
+        setInterpretation(matchedInterpretation || null);
+
     
         // Prepare the user data to be submitted, matching the schema
         const dataToSubmit = {
@@ -69,9 +130,7 @@ const OmrCFResult: React.FC = () => {
             section,  // Ensure section is a number
             testID: 'unique-test-id',  // Generate a unique testID or let the backend handle it
             totalScore,
-            interpretation: {
-                resultInterpretation: 'Your result interpretation goes here'  // You can adjust this based on the score
-            },
+            interpretation: matchedInterpretation,
             testType,
             testDate: new Date(),  // Current date and time
             uploadURL

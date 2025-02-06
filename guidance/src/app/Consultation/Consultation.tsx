@@ -375,80 +375,7 @@ const getStenScoreMeaning = (stenScore: number, factorLetter: string) => {
   return 'Invalid Sten Score';
 };
 
-const interpretation = [
-  { "byId": "0", "minAge": 20, "maxAge": 24, "minTestScore": 0, "maxTestScore": 23, "percentilePoints": 5, "resultInterpretation": "Intellectually Impaired" },
-  { "byId": "1", "minAge": 20, "maxAge": 24, "minTestScore": 24, "maxTestScore": 28, "percentilePoints": 10, "resultInterpretation": "Intellectually Impaired" },
-  { "byId": "2", "minAge": 20, "maxAge": 24, "minTestScore": 29, "maxTestScore": 37, "percentilePoints": 25, "resultInterpretation": "Below Average in Intellectual Capacity" },
-  { "byId": "3", "minAge": 20, "maxAge": 24, "minTestScore": 38, "maxTestScore": 44, "percentilePoints": 50, "resultInterpretation": "Intellectually Average" },
-  { "byId": "4", "minAge": 20, "maxAge": 24, "minTestScore": 45, "maxTestScore": 49, "percentilePoints": 75, "resultInterpretation": "Intellectually Average" },
-  { "byId": "5", "minAge": 20, "maxAge": 24, "minTestScore": 50, "maxTestScore": 54, "percentilePoints": 90, "resultInterpretation": "Above Average in Intellectual Capacity" },
-  { "byId": "6", "minAge": 20, "maxAge": 24, "minTestScore": 55, "maxTestScore": 60, "percentilePoints": 95, "resultInterpretation": "Intellectually Superior" },
-  { "byId": "7", "minAge": 25, "maxAge": 29, "minTestScore": 0, "maxTestScore": 23, "percentilePoints": 5, "resultInterpretation": "Intellectually Impaired" },
-  { "byId": "8", "minAge": 25, "maxAge": 29, "minTestScore": 24, "maxTestScore": 28, "percentilePoints": 10, "resultInterpretation": "Intellectually Impaired" },
-  { "byId": "9", "minAge": 25, "maxAge": 29, "minTestScore": 29, "maxTestScore": 37, "percentilePoints": 25, "resultInterpretation": "Below Average in Intellectual Capacity" },
-  { "byId": "10", "minAge": 25, "maxAge": 29, "minTestScore": 38, "maxTestScore": 44, "percentilePoints": 50, "resultInterpretation": "Intellectually Average" },
-  { "byId": "11", "minAge": 25, "maxAge": 29, "minTestScore": 45, "maxTestScore": 49, "percentilePoints": 75, "resultInterpretation": "Intellectually Average" },
-  { "byId": "12", "minAge": 25, "maxAge": 29, "minTestScore": 50, "maxTestScore": 54, "percentilePoints": 90, "resultInterpretation": "Above Average in Intellectual Capacity" },
-  { "byId": "13", "minAge": 25, "maxAge": 29, "minTestScore": 55, "maxTestScore": 60, "percentilePoints": 95, "resultInterpretation": "Intellectually Superior" },
-  { "byId": "14", "minAge": 30, "maxAge": 34, "minTestScore": 0, "maxTestScore": 19, "percentilePoints": 5, "resultInterpretation": "Intellectually Impaired" },
-  { "byId": "15", "minAge": 30, "maxAge": 34, "minTestScore": 20, "maxTestScore": 25, "percentilePoints": 10, "resultInterpretation": "Intellectually Impaired" },
-  { "byId": "16", "minAge": 30, "maxAge": 34, "minTestScore": 26, "maxTestScore": 34, "percentilePoints": 25, "resultInterpretation": "Below Average in Intellectual Capacity" },
-  { "byId": "17", "minAge": 30, "maxAge": 34, "minTestScore": 35, "maxTestScore": 42, "percentilePoints": 50, "resultInterpretation": "Intellectually Average" },
-  { "byId": "18", "minAge": 30, "maxAge": 34, "minTestScore": 43, "maxTestScore": 47, "percentilePoints": 75, "resultInterpretation": "Intellectually Average" },
-  { "byId": "19", "minAge": 30, "maxAge": 34, "minTestScore": 48, "maxTestScore": 53, "percentilePoints": 90, "resultInterpretation": "Above Average in Intellectual Capacity" },
-  { "byId": "20", "minAge": 30, "maxAge": 34, "minTestScore": 54, "maxTestScore": 60, "percentilePoints": 95, "resultInterpretation": "Intellectually Superior" },
-  { "byId": "21", "minAge": 35, "maxAge": 39, "minTestScore": 0, "maxTestScore": 30, "percentilePoints": 25, "resultInterpretation": "Below Average in Intellectual Capacity" },
-  { "byId": "22", "minAge": 35, "maxAge": 39, "minTestScore": 31, "maxTestScore": 40, "percentilePoints": 50, "resultInterpretation": "Intellectually Average" },
-  { "byId": "23", "minAge": 35, "maxAge": 39, "minTestScore": 41, "maxTestScore": 45, "percentilePoints": 75, "resultInterpretation": "Intellectually Average" },
-  { "byId": "24", "minAge": 35, "maxAge": 39, "minTestScore": 45, "maxTestScore": 51, "percentilePoints": 90, "resultInterpretation": "Above Average in Intellectual Capacity" },
-  { "byId": "25", "minAge": 35, "maxAge": 39, "minTestScore": 52, "maxTestScore": 60, "percentilePoints": 95, "resultInterpretation": "Intellectually Superior" },
-  {"byId":"26","minAge":40,"maxAge":44,"minTestScore":0,"maxTestScore":27,"percentilePoints":25,"resultInterpretation":"Below Average in Intellectual Capacity"},
-  {"byId":"27","minAge":40,"maxAge":44,"minTestScore":28,"maxTestScore":38,"percentilePoints":50,"resultInterpretation":"Intellectually Average"},
-  {"byId":"28","minAge":40,"maxAge":44,"minTestScore":39,"maxTestScore":43,"percentilePoints":75,"resultInterpretation":"Intellectually Average"},
-  {"byId":"29","minAge":40,"maxAge":44,"minTestScore":44,"maxTestScore":49,"percentilePoints":90,"resultInterpretation":"Above Average in Intellectual Capacity"},
-  {"byId":"30","minAge":40,"maxAge":44,"minTestScore":50,"maxTestScore":60,"percentilePoints":95,"resultInterpretation":"Intellectually Superior"},
-  {"byId":"31","minAge":45,"maxAge":49,"minTestScore":0,"maxTestScore":24,"percentilePoints":25,"resultInterpretation":"Below Average in Intellectual Capacity"},
-  {"byId":"32","minAge":45,"maxAge":49,"minTestScore":25,"maxTestScore":35,"percentilePoints":50,"resultInterpretation":"Intellectually Average"},
-  {"byId":"33","minAge":45,"maxAge":49,"minTestScore":36,"maxTestScore":41,"percentilePoints":75,"resultInterpretation":"Intellectually Average"},
-  {"byId":"34","minAge":45,"maxAge":49,"minTestScore":42,"maxTestScore":47,"percentilePoints":90,"resultInterpretation":"Above Average in Intellectual Capacity"},
-  {"byId":"35","minAge":45,"maxAge":49,"minTestScore":48,"maxTestScore":60,"percentilePoints":95,"resultInterpretation":"Intellectually Superior"},
-  {"byId":"36","minAge":50,"maxAge":54,"minTestScore":0,"maxTestScore":21,"percentilePoints":25,"resultInterpretation":"Below Average in Intellectual Capacity"},
-  {"byId":"37","minAge":50,"maxAge":54,"minTestScore":22,"maxTestScore":33,"percentilePoints":50,"resultInterpretation":"Intellectually Average"},
-  {"byId":"38","minAge":50,"maxAge":54,"minTestScore":34,"maxTestScore":39,"percentilePoints":75,"resultInterpretation":"Intellectually Average"},
-  {"byId":"39","minAge":50,"maxAge":54,"minTestScore":40,"maxTestScore":45,"percentilePoints":90,"resultInterpretation":"Above Average in Intellectual Capacity"},
-  {"byId":"40","minAge":50,"maxAge":54,"minTestScore":46,"maxTestScore":60,"percentilePoints":95,"resultInterpretation":"Intellectually Superior"},
-  {"byId":"41","minAge":55,"maxAge":59,"minTestScore":0,"maxTestScore":18,"percentilePoints":25,"resultInterpretation":"Below Average in Intellectual Capacity"},
-  {"byId":"42","minAge":55,"maxAge":59,"minTestScore":19,"maxTestScore":30,"percentilePoints":50,"resultInterpretation":"Intellectually Average"},
-  {"byId":"43","minAge":55,"maxAge":59,"minTestScore":31,"maxTestScore":37,"percentilePoints":75,"resultInterpretation":"Intellectually Average"},
-  {"byId":"44","minAge":55,"maxAge":59,"minTestScore":38,"maxTestScore":43,"percentilePoints":90,"resultInterpretation":"Above Average in Intellectual Capacity"},
-  {"byId":"45","minAge":55,"maxAge":59,"minTestScore":44,"maxTestScore":60,"percentilePoints":95,"resultInterpretation":"Intellectually Superior"},
-  {"byId":"46","minAge":60,"maxAge":64,"minTestScore":0,"maxTestScore":15,"percentilePoints":25,"resultInterpretation":"Below Average in Intellectual Capacity"},
-  {"byId":"47","minAge":60,"maxAge":64,"minTestScore":16,"maxTestScore":27,"percentilePoints":50,"resultInterpretation":"Intellectually Average"},
-  {"byId":"48","minAge":60,"maxAge":64,"minTestScore":28,"maxTestScore":35,"percentilePoints":75,"resultInterpretation":"Intellectually Average"},
-  {"byId":"49","minAge":60,"maxAge":64,"minTestScore":36,"maxTestScore":41,"percentilePoints":90,"resultInterpretation":"Above Average in Intellectual Capacity"},
-  {"byId":"50","minAge":60,"maxAge":64,"minTestScore":42,"maxTestScore":60,"percentilePoints":95,"resultInterpretation":"Intellectually Superior"},
-  {"byId":"51","minAge":60,"maxAge":100,"minTestScore":0,"maxTestScore":13,"percentilePoints":25,"resultInterpretation":"Below Average in Intellectual Capacity"},
-  {"byId":"52","minAge":60,"maxAge":100,"minTestScore":14,"maxTestScore":24,"percentilePoints":50,"resultInterpretation":"Intellectually Average"},
-  {"byId":"53","minAge":60,"maxAge":100,"minTestScore":25,"maxTestScore":33,"percentilePoints":75,"resultInterpretation":"Intellectually Average"},
-  {"byId":"54","minAge":60,"maxAge":100,"minTestScore":34,"maxTestScore":39,"percentilePoints":90,"resultInterpretation":"Above Average in Intellectual Capacity"},
-  {"byId":"55","minAge":60,"maxAge":100,"minTestScore":40,"maxTestScore":60,"percentilePoints":95,"resultInterpretation":"Intellectually Superior"}
 
-
-  
-]
-
-function getDynamicInterpretation(age: number, score: number): string {
-  const match = interpretation.find(
-      (item) =>
-          age >= item.minAge &&
-          age <= item.maxAge &&
-          score >= item.minTestScore &&
-          score <= item.maxTestScore
-  );
-  return match ? match.resultInterpretation : "No interpretation available";
-
-  
-}
 
 const handleRemove = async (id: string) => {
   try {
@@ -959,11 +886,9 @@ const handleRemove = async (id: string) => {
                 <td>Interpretation</td>
                 
                 {testDetails.interpretation?.resultInterpretation ? (
-                  <td>{testDetails.age && testDetails.totalScore ? (
-                    getDynamicInterpretation(testDetails.age, testDetails.totalScore)
-                  ) : (
-                    "No interpretation available"
-                  )}</td>
+                    <td>
+                    {testDetails.interpretation.resultInterpretation}
+                  </td>
                 ) : (
                   <td>
          <table className="scoring-table">

@@ -4,6 +4,31 @@ import style from './OMRResult.module.scss';
 import axios from 'axios';
 import backendUrl from '../../../../config';
 
+interface Question {
+    questionID: string;
+    questionSet: string;
+    questionImage: string;
+    choicesImage: string[];
+    correctAnswer: string;
+}
+
+interface Interpretation {
+    minAge: number;
+    maxAge: number;
+    minTestScore: number;
+    maxTestScore: number;
+    resultInterpretation: string;
+}
+
+interface IQTests {
+    testID: string;
+    nameOfTest: string;
+    numOfQuestions: number;
+    questions: Question[];
+    interpretation: Interpretation[];  // Added interpretation field
+
+}
+
 const OMRResult: React.FC = () => {
     const navigate = useNavigate();
     const [userID, setUserID] = useState<string>('');
@@ -17,6 +42,25 @@ const OMRResult: React.FC = () => {
     const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');
     const [omrScore, setOmrScore] = useState<number | null>(null); // Score state
     const [uploadURL, setUploadURL] = useState<string>('');
+    const [, setInterpretation] = useState<Interpretation | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const [iqTest, setIqTest] = useState<IQTests | null>(null);
+
+    const fetchTest = async () => {
+        try {
+            const response = await axios.get<IQTests>(`${backendUrl}/api/IQtest/67277ea7aacfc314004dca20`);
+            setIqTest(response.data);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+            fetchTest();
+        }, []);
 
     useEffect(() => {
         // Fetch userID and score from localStorage
@@ -56,6 +100,16 @@ const OMRResult: React.FC = () => {
     
         // Convert omrScore to totalScore (assuming a conversion factor or logic here)
         const totalScore = omrScore ? omrScore * 1 : 0;  // Example conversion logic
+
+        const score = totalScore;
+        const matchedInterpretation = iqTest?.interpretation.find((interp) =>
+            Number(age) >= interp.minAge &&
+            Number(age) <= interp.maxAge &&
+            score >= interp.minTestScore &&
+            score <= interp.maxTestScore
+        );
+
+        setInterpretation(matchedInterpretation || null);
     
         // Prepare the user data to be submitted, matching the schema
         const dataToSubmit = {
@@ -69,9 +123,7 @@ const OMRResult: React.FC = () => {
             section,  // Ensure section is a number
             testID: 'unique-test-id',  // Generate a unique testID or let the backend handle it
             totalScore,
-            interpretation: {
-                resultInterpretation: 'Your result interpretation goes here'  // You can adjust this based on the score
-            },
+            interpretation: matchedInterpretation,
             testType,
             testDate: new Date(),  // Current date and time
             uploadURL
