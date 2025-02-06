@@ -76,6 +76,8 @@ const GuidanceConsultation: React.FC = () => {
   const [decliningRequestId, setDecliningRequestId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState<string>("");
+  const [date, setDate] = useState<string>("");
+  const [timeForConsultation, setTimeForConsultation] = useState<string>("");
   const [showArchived, setShowArchived] = useState(false);  // State to toggle the archive list visibility
   const toggleArchivedList = () => {
     setShowArchived(prevState => !prevState);  // Toggle the state
@@ -225,7 +227,7 @@ const GuidanceConsultation: React.FC = () => {
   }, []);
   
   // Accept a consultation request
-  const acceptRequest = async (id: string, userEmail: string) => {
+  const acceptRequest = async (id: string, userEmail: string, date: string, timeForConsultation: string) => {
     try {
       const localFullName = fullName || "pending"; // Fallback if fullName is not set
       await axios.put(`${API_URL}${id}/accept`, { fullName: localFullName });
@@ -234,7 +236,7 @@ const GuidanceConsultation: React.FC = () => {
           request._id === id ? { ...request, status: "accepted", councelorName: localFullName } : request
         )
       );
-      sendEmailNotification("Accepted", userEmail); // Pass the email
+      sendEmailNotification("Accepted", userEmail, date, timeForConsultation); // Pass the email
       alert("Consultation request accepted successfully.");
     } catch (error) {
       console.error("Error accepting consultation request:", error);
@@ -244,7 +246,7 @@ const GuidanceConsultation: React.FC = () => {
   
 
   // Decline a consultation request
-  const declineRequest = async (userEmail: string) => {
+  const declineRequest = async (userEmail: string, date: string, timeForConsultation: string) => {
     try {
       await axios.put(`${API_URL}${decliningRequestId}/decline`, {
         note: declineNote,
@@ -258,31 +260,43 @@ const GuidanceConsultation: React.FC = () => {
       );
       setShowDeclineModal(false); // Close modal
       setDeclineNote(""); // Reset the decline note
-      sendEmailNotification(`Declined - Note: ${declineNote}`, userEmail); // Pass the email
+      sendEmailNotification(`Declined - Note: ${declineNote}`, userEmail, date, timeForConsultation); // Pass the email
       alert("Consultation request declined successfully.");
     } catch (error) {
       console.error("Error declining consultation request:", error);
       alert("Failed to decline consultation request.");
     }
   };
+
+  // Function to format date into words
+const formatDateToWords = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
   
 
-   // Add this function to send an email after updating the student number
-   const sendEmailNotification = (status: string, userEmail: string) => {
-    const templateParams = {
-      to_email: userEmail,  // Use the passed email
-      message: `Your consultation request has been ${status}.`,
-    };
+ // Function to send email
+const sendEmailNotification = (status: string, userEmail: string, date: string, timeForConsultation: string) => {
+  const formattedDate = formatDateToWords(date); // Format the date
   
-    emailjs
-      .send("service_yihvv1g", "template_ai6rx6l", templateParams, "ltmtvf6COYbhv6bkq")
-      .then((response) => {
-        console.log("Email sent successfully:", response);
-      })
-      .catch((error) => {
-        console.error("Error sending email:", error);
-      });
+  const templateParams = {
+    to_email: userEmail,  // Use the passed email
+    message: `Your consultation request has been ${status}. Scheduled on ${formattedDate} at ${timeForConsultation}.`,
   };
+
+  emailjs
+    .send("service_yihvv1g", "template_ai6rx6l", templateParams, "ltmtvf6COYbhv6bkq")
+    .then((response) => {
+      console.log("Email sent successfully:", response);
+    })
+    .catch((error) => {
+      console.error("Error sending email:", error);
+    });
+};
   
   
 const deleteConsultation = async (_id: string) => {
@@ -479,7 +493,7 @@ const handleRemove = async (id: string) => {
               <>
                 <button
                   className={styles.accept}
-                  onClick={() => acceptRequest(request._id, request.email)}
+                  onClick={() => acceptRequest(request._id, request.email, request.date, request.timeForConsultation)}
                   >
                   Accept
                 </button>
@@ -489,6 +503,8 @@ const handleRemove = async (id: string) => {
                   setDecliningRequestId(request._id);
                   setShowDeclineModal(true);
                   setEmail(request.email); // Set email for decline modal
+                  setDate(request.date); // Set date for decline modal
+                  setTimeForConsultation(request.timeForConsultation);
                 }}
               >
                 Decline
@@ -763,7 +779,7 @@ const handleRemove = async (id: string) => {
           />
           <div>
             <button onClick={() => setShowDeclineModal(false)}>Cancel</button>
-            <button onClick={() => declineRequest(email)}>Submit</button>
+            <button onClick={() => declineRequest(email, date, timeForConsultation)}>Submit</button>
           </div>
         </div>
       </div>
