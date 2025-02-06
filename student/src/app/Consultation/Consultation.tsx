@@ -36,14 +36,16 @@ const API_URL = `${backendUrl}/api/consult/`;
 const FOLLOWUP_URL = `${backendUrl}/api/followup/user/`;
 const USERIQ_URL = `${backendUrl}/api/useriq/`;
 const USERPF_URL = `${backendUrl}/api/user16pf/user/`;
+const USERCF_URL = `${backendUrl}/api/usercf/`;
 const USERIQOMRE_URL = `${backendUrl}/api/omr/`
 const USERPFOMRE_URL = `${backendUrl}/api/omr16pf/`
+const USERCFOMRE_URL = `${backendUrl}/api/omrcf/test/`
 
 const ConsultationRequestForm: React.FC = () => {
   const [userId, setUserID] = useState("");
   const [timeForConsultation, setTimeForConsultation] = useState("");
   const [consultationType, setConsultationType] = useState("");
-  const [note, setNote] = useState<"IQ Test (Online)" | "IQ Test (Physical)" | "Personality Test (Physical)" | "Personality Test (Online)" | "Others" | "">("");
+  const [note, setNote] = useState<"IQ Test (Online)" | "IQ Test (Physical)" | "Personality Test (Physical)" | "Personality Test (Online)" | "CF Test (Online)" | "CF Test (Physical)" | "Others" | "">("");
   const [testIDs, setTestIDs] = useState<string[]>([]); // To store fetched test IDs
   const [selectedTestID, setSelectedTestID] = useState<string>(""); // For selected test ID
   const [date, setDate] = useState("");
@@ -158,6 +160,10 @@ const ConsultationRequestForm: React.FC = () => {
           response = await axios.get(`${USERPF_URL}${userId}`);
         } else if (note === "Personality Test (Physical)") {
           response = await axios.get(`${USERPFOMRE_URL}${userId}`);
+        } else if (note === "CF Test (Online)") {
+          response = await axios.get(`${USERCF_URL}${userId}`);
+        } else if (note === "CF Test (Physical)") {
+          response = await axios.get(`${USERCFOMRE_URL}${userId}`);
         }
 
         if (response?.data?.data) {
@@ -537,11 +543,13 @@ const handleRemove = async (id: string) => {
               <option value="IQ Test (Physical)">IQ Test (Physical)</option>
               <option value="Personality Test (Online)">Personality Test (Online)</option>
               <option value="Personality Test (Physical)">Personality Test (Physical)</option>
+              <option value="CF Test (Online)">CF Test (Online)</option>
+              <option value="CF Test (Physical)">CF Test (Physical)</option>
               <option value="Others">Others</option>
             </select>
           </label>
 
-          {(note === "IQ Test (Online)" || note === "IQ Test (Physical)" || note === "Personality Test (Online)" || note === "Personality Test (Physical)") && testIDs.length > 0 && (
+          {(note === "IQ Test (Online)" || note === "IQ Test (Physical)" || note === "Personality Test (Online)" || note === "Personality Test (Physical)" || note === "CF Test (Online)" || note === "CF Test (Physical)") && testIDs.length > 0 && (
             <label className={styles.conLabel}>
               Select Test ID
               <select
