@@ -11,7 +11,7 @@ interface Question {
     questionSet: string;
     questionImage: string;
     choicesImage: string[]; // Array of images for choices
-    correctAnswer: string;
+    correctAnswer: string | string[];
 }
 
 interface Interpretation {
@@ -252,40 +252,81 @@ const CFTest: React.FC = () => {
                 </div>
             </div>
             <div>
-                <h3>Correct Answer</h3>
-                <div className={style.answerContainer}>
-                    {question.choicesImage.map((choiceImage, index) => (
-                        <div className={style.answerImageContainer} key={index}>
-                            <img className={style.answerImageModal} src={choiceImage} alt={`Choice ${index + 1}`} />
-                            <input
-                                type="radio"
-                                name={`correctAnswer-${questionID}`}
-                                value={choiceImage}
-                                checked={question.correctAnswer === choiceImage}
-                                onChange={() =>
-                                    setCfTests(prev =>
-                                        prev.map(test =>
-                                            ({
-                                                ...test,
-                                                questions: test.questions.map(q =>
-                                                    q.questionID === questionID
-                                                        ? { ...q, correctAnswer: choiceImage }
-                                                        : q
-                                                )
-                                            })
-                                        )
+    <h3>Correct Answer</h3>
+    <div className={style.answerContainer}>
+        {question.choicesImage.map((choiceImage, index) => (
+            <div className={style.answerImageContainer} key={index}>
+                <img className={style.answerImageModal} src={choiceImage} alt={`Choice ${index + 1}`} />
+                
+                {question.questionSet === "Test 2" ? (
+                    // Checkbox for Test 2 (multiple correct answers)
+                    <input
+                        type="checkbox"
+                        name={`correctAnswer-${questionID}`}
+                        value={choiceImage}
+                        checked={Array.isArray(question.correctAnswer) && question.correctAnswer.includes(choiceImage)}
+                        onChange={() => {
+                            setCfTests(prev =>
+                                prev.map(test => ({
+                                    ...test,
+                                    questions: test.questions.map(q => {
+                                        if (q.questionID === questionID) {
+                                            if (q.questionSet === "Test 2") {
+                                                // Multiple correct answers (checkbox)
+                                                return {
+                                                    ...q,
+                                                    correctAnswer: Array.isArray(q.correctAnswer)
+                                                        ? q.correctAnswer.includes(choiceImage)
+                                                            ? q.correctAnswer.filter(ans => ans !== choiceImage) // Remove if unchecked
+                                                            : [...q.correctAnswer, choiceImage] // Add if checked
+                                                        : [choiceImage] // Convert to array if not already
+                                                };
+                                            } else {
+                                                // Single correct answer (radio)
+                                                return {
+                                                    ...q,
+                                                    correctAnswer: choiceImage // Store as a string
+                                                };
+                                            }
+                                        }
+                                        return q;
+                                    })
+                                }))
+                            );
+                            
+                        }}
+                    />
+                ) : (
+                    // Radio button for other tests (single correct answer)
+                    <input
+                        type="radio"
+                        name={`correctAnswer-${questionID}`}
+                        value={choiceImage}
+                        checked={question.correctAnswer === choiceImage}
+                        onChange={() =>
+                            setCfTests(prev =>
+                                prev.map(test => ({
+                                    ...test,
+                                    questions: test.questions.map(q =>
+                                        q.questionID === questionID
+                                            ? { ...q, correctAnswer: choiceImage } // Store as string
+                                            : q
                                     )
-                                }
-                            />
-                        </div>
-                    ))}
-                </div>
+                                }))
+                            )
+                        }
+                    />
+                )}
             </div>
+        ))}
+    </div>
+</div>
+
 
                     </div>
                     <div className={style.modalFooter}>
                         <button
-                            onClick={() => handleSaveUpdatedQuestion(questionID, question.questionSet, question.correctAnswer)}
+                            onClick={() => handleSaveUpdatedQuestion(questionID, question.questionSet, question.correctAnswer?.toString())}
                         >
                             Save Changes
                         </button>
@@ -349,9 +390,17 @@ const CFTest: React.FC = () => {
                                 ))}
                             </td>
                             <td className={style.answer}>
+                                {Array.isArray(q.correctAnswer) ? (
+                                    q.correctAnswer.map((answer, index) => (
+                                        <div key={index}>
+                                            <img src={answer} alt={`Correct Answer ${index + 1}`} />
+                                        </div>
+                                    ))
+                                ) : (
                                     <div>
                                         <img src={q.correctAnswer} alt="Correct Answer" />
                                     </div>
+                                )}
                             </td>
                             <td className={style.actions}>
                                 <button

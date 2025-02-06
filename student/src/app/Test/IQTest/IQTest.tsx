@@ -48,7 +48,7 @@ const IQTest: React.FC = () => {
     const questionsPerPage = 5; // Display 5 questions per page
     const [timer, setTimer] = useState<number>(45 * 60); // 45 minutes in seconds
     const [isTimeUp, setIsTimeUp] = useState<boolean>(false);
-    const [interpretation, setInterpretation] = useState<Interpretation | null>(null);
+    const [, setInterpretation] = useState<Interpretation | null>(null);
 
 
     const fetchTest = async () => {
