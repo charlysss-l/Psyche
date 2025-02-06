@@ -130,7 +130,7 @@ const CfOMR: React.FC = () => {
                 console.log(`OCR Text at ${angle} degrees:`, text);
     
                 // If OCR recognizes text "PF" function resolves true indicating desired text found
-                if (text.toLowerCase().includes('iq test')) {
+                if (text.toLowerCase().includes('cf test')) {
                   resolve(true); // Text found, stop and resolve
                   return;
                 }
