@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./editContent.module.scss";
 import backendUrl from "../../config";
+import test from "node:test";
 
 interface Content {
   key: string;
@@ -13,6 +14,7 @@ interface Content {
 const ContentEditor: React.FC = () => {
   const [contentsPF, setContentsPF] = useState<Content[]>([]);
   const [contentsIQ, setContentsIQ] = useState<Content[]>([]);
+  const [contentsCF, setContentsCF] = useState<Content[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [testType, setTestType] = useState<string>("PF"); // 'PF' or 'IQ'
@@ -36,8 +38,10 @@ const ContentEditor: React.FC = () => {
 
         if (testType === "PF") {
           setContentsPF(sortedContents);
-        } else {
+        } else if (testType === "IQ") {
           setContentsIQ(sortedContents);
+        } else if (testType === "CF") {
+          setContentsCF(sortedContents);
         }
       })
       .catch(() => {
@@ -49,13 +53,13 @@ const ContentEditor: React.FC = () => {
   }, [testType, editorVisible]);
 
   const handleChange = (index: number, field: string, value: string) => {
-    const updatedContents = testType === "PF" ? [...contentsPF] : [...contentsIQ];
+    const updatedContents = testType === "PF" ? [...contentsPF] : testType === "IQ" ? [...contentsIQ] : [...contentsCF];
     updatedContents[index] = { ...updatedContents[index], [field]: value };
-    testType === "PF" ? setContentsPF(updatedContents) : setContentsIQ(updatedContents);
+    testType === "PF" ? setContentsPF(updatedContents) : testType === "IQ" ? setContentsIQ(updatedContents) : setContentsCF(updatedContents);
   };
 
   const handleSubmit = (index: number) => {
-    const updatedContent = testType === "PF" ? contentsPF[index] : contentsIQ[index];
+    const updatedContent = testType === "PF" ? contentsPF[index] : testType === "IQ" ? contentsIQ[index] : contentsCF[index];
 
     axios
       .post(`${backendUrl}/api/textDisplay/contents/${testType}`, [updatedContent])
@@ -87,6 +91,15 @@ const ContentEditor: React.FC = () => {
           >
             Edit IQ Content
           </button>
+          <button
+            onClick={() => {
+              setTestType("CF");
+              setEditorVisible(true);
+            }}
+            className={styles.button}
+          >
+            Edit CF Content
+          </button>
         </div>
       </div>
     );
@@ -111,7 +124,7 @@ const ContentEditor: React.FC = () => {
 
       <div className={styles.contentEditor}>
         <h1 className={styles.header}>Edit Content for {testType}</h1>
-        {(testType === "PF" ? contentsPF : contentsIQ).map((content, index) => (
+        {(testType === "PF" ? contentsPF : testType === "IQ" ? contentsIQ : contentsCF).map((content, index) => (
           <div key={content.key} className={styles.contentItem}>
             <h2 className={styles.contentTitle}>{content.title}</h2>
             <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
