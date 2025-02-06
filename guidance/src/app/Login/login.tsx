@@ -13,14 +13,11 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // State for success message
-  const [forgotPasswordModal, setForgotPasswordModal] =
-    useState<boolean>(false);
+  const [forgotPasswordModal, setForgotPasswordModal] = useState<boolean>(false);
   const [resetUsername, setResetUsername] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [resetError, setResetError] = useState<string | null>(null);
-  const [resetSuccessMessage, setResetSuccessMessage] = useState<string | null>(
-    null
-  );
+  const [resetSuccessMessage, setResetSuccessMessage] = useState<string | null>( null );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,14 +59,20 @@ const Login: React.FC = () => {
         // Show success message
         setSuccessMessage("Login successful!");
 
-        // Redirect to the /report page after a delay (to allow the message to show)
+        // Check if it's the user's first login and redirect accordingly
+      if (response.firstTimeLogin === true) {
         setTimeout(() => {
-          navigate("/home"); // Redirect to /report route
+          navigate("/profile"); // Redirect to profile page
         }, 1500); // 1.5 seconds delay
       } else {
-        setError("Invalid username or password.");
+        setTimeout(() => {
+          navigate("/home"); // Redirect to home page
+        }, 1500); // 1.5 seconds delay
       }
-    } catch (error) {
+    } else {
+      setError("Invalid username or password.");
+    }
+  } catch (error) {
       // Handle errors and set appropriate error messages
 
       const err = error as any; // type assertion

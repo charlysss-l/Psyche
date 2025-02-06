@@ -12,6 +12,9 @@ export const loginGuidance = async (req: Request, res: Response): Promise<Respon
       return res.status(404).json({ message: 'User not found' });
     }
 
+    // Capture the original firstTimeLogin value before checking the password
+    const firstTimeLogin = user.firstTimeLogin;
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
@@ -20,6 +23,12 @@ export const loginGuidance = async (req: Request, res: Response): Promise<Respon
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) {
       return res.status(500).json({ message: 'JWT secret is missing' });
+    }
+
+    // If it's the user's first login, update the `firstTimeLogin` field to false
+    if (firstTimeLogin) {
+      user.firstTimeLogin = false;
+      await user.save(); // Save the updated user to the database
     }
 
     // Assuming your user model has a 'role' field
@@ -31,14 +40,15 @@ export const loginGuidance = async (req: Request, res: Response): Promise<Respon
       role: user.role, // Send the role along with the token
       email: user.email,
       userId: user.userId,
-      fullName: user.fullName
-
+      fullName: user.fullName,
+      firstTimeLogin: firstTimeLogin // Send the original value to the frontend
     });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 
 // New function to handle user update without requiring userId in the request body
@@ -147,6 +157,7 @@ export const updateUserRole = async (req: Request, res: Response) => {
   }
 };
 
+// New function to handle user registration
 export const subGuidance = async (req: Request, res: Response): Promise<Response> => {
   const { email, fullName, password, role, userId} = req.body;
 

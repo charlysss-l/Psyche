@@ -6,6 +6,7 @@ export interface IUserGuidance extends Document {
   password: string;
   role: string;
   userId: string;
+  firstTimeLogin: boolean;
 }
 
 const UserGuidanceSchema = new Schema<IUserGuidance>({
@@ -14,6 +15,7 @@ const UserGuidanceSchema = new Schema<IUserGuidance>({
   password: { type: String, required: true },
   role: { type: String, required: true },
   userId: { type: String, required: true, unique: true, length: 8 },
+  firstTimeLogin: { type: Boolean, required: true, default: true },
 
 });
 
