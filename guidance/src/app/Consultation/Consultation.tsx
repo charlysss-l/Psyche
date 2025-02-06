@@ -11,8 +11,10 @@ import emailjs from "emailjs-com";  // Import EmailJS SDK
 const API_URL = `${backendUrl}/api/consult/`;
 const USERIQ_URL = `${backendUrl}/api/useriq/test/`;
 const USERPF_URL = `${backendUrl}/api/user16pf/test/`;
+const USERCF_URL = `${backendUrl}/api/usercf/test/`;
 const USERIQOMRE_URL = `${backendUrl}/api/omr/test/`;
 const USERPFOMRE_URL = `${backendUrl}/api/omr16pf/test/`;
+const USERCFOMRE_URL = `${backendUrl}/api/omrcf/test/physical/`;
 
 interface ConsultationRequest {
   _id: string;
@@ -125,7 +127,11 @@ const GuidanceConsultation: React.FC = () => {
         response = await axios.get(`${USERPF_URL}${testID}`);
       } else if (note === "Personality Test (Physical)") {
         response = await axios.get(`${USERPFOMRE_URL}${testID}`);
-      }else if (note === "Others") {
+      } else if (note === "CF Test (Online)") {
+        response = await axios.get(`${USERCF_URL}${testID}`);
+      } else if (note === "CF Test (Physical)") {
+        response = await axios.get(`${USERCFOMRE_URL}${testID}`);
+      } else if (note === "Others") {
         response = await axios.get(`${API_URL}${testID}`);
       }
 

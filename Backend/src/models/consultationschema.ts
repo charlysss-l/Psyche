@@ -8,7 +8,7 @@ interface IConsultationRequest extends Document {
   consultationType: string;
   timeForConsultation: string;
   testID: string;
-  note: 'IQ Test (Online)' | 'IQ Test (Physical)' | 'Personality Test (Online)' | 'Personality Test (Physical)' | 'Others';
+  note: 'IQ Test (Online)' | 'IQ Test (Physical)' | 'Personality Test (Online)' | 'Personality Test (Physical)' | "CF Test (Online)" | "CF Test (Physical)" | 'Others';
   date: Date;
   status: 'pending' | 'accepted' | 'declined' | 'cancelled' | 'completed' | 'deleted' | 'removed' | 'archived';
   message: string;
@@ -51,7 +51,7 @@ const ConsultationRequestSchema: Schema = new Schema({
   },
   note: {
     type: String,
-    enum: ['IQ Test (Online)', 'IQ Test (Physical)', 'Personality Test (Online)', 'Personality Test (Physical)', 'Others'], // Only allow these options
+    enum: ['IQ Test (Online)', 'IQ Test (Physical)', 'Personality Test (Online)', 'Personality Test (Physical)', "CF Test (Online)" , "CF Test (Physical)" , 'Others'], // Only allow these options
     required: true,
   },
   date: {

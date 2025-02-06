@@ -28,7 +28,7 @@ router.get('/test/:userID', getOmrCFResultsByUser);
 // Route to retrieve a specific CF test result by test ID
 router.get('/:id', getOmrCFResultById);
 
-router.get('/test/:testID', getOmrCFResultsByTestID);
+router.get('/test/physical/:testID', getOmrCFResultsByTestID);
 
 // Route to update an CF test result by test ID
 router.put('/test/:testID', updateOmrCFResult);
