@@ -151,31 +151,57 @@ const OmrIQResultsList: React.FC = () => {
   };
 
   const handleUpdate = async (testID: string) => {
-
-    
     try {
+      // Fetch the IQ test interpretations again to get the latest interpretation logic
+      const iqTestResponse = await fetch(`${backendUrl}/api/IQtest/67277ea7aacfc314004dca20`);
+      if (!iqTestResponse.ok) {
+        throw new Error(`Failed to fetch IQ test: ${iqTestResponse.statusText}`);
+      }
+      const iqTestData = await iqTestResponse.json();
+      const interpretations: Interpretation[] = iqTestData.interpretation;
+  
+      // Find the updated interpretation based on the new age and total score
+      const updatedInterpretation = interpretations.find(
+        (interp) =>
+          updatedData.age! >= interp.minAge &&
+          updatedData.age! <= interp.maxAge &&
+          results.find((result) => result.testID === testID)!.totalScore >= interp.minTestScore &&
+          results.find((result) => result.testID === testID)!.totalScore <= interp.maxTestScore
+      );
+  
+      // Prepare the data to be sent to the backend
+      const dataToUpdate = {
+        ...updatedData,
+        interpretation: updatedInterpretation
+          ? {
+              resultInterpretation: updatedInterpretation.resultInterpretation,
+            }
+          : { resultInterpretation: 'No interpretation available' },
+      };
+  
+      // Send the update request to the backend
       const response = await fetch(`${backendUrl}/api/omr/test/${testID}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedData),
+        body: JSON.stringify(dataToUpdate),
       });
-
+  
       if (!response.ok) {
         throw new Error(`Error updating the test: ${response.statusText}`);
       }
-
+  
       const updatedResult = await response.json();
-      setResults(prevResults =>
-        prevResults.map(result =>
+      setResults((prevResults) =>
+        prevResults.map((result) =>
           result.testID === testID ? { ...result, ...updatedResult.data } : result
         )
       );
       setEditingTestID(null); // Reset the editing state
-
+  
       // Reload the page after successful update
-    window.location.reload();
+      window.location.reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error updating test:', err);

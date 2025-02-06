@@ -115,7 +115,7 @@ const OmrCFResultsList: React.FC = () => {
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch(`${backendUrl}/api/cfomr/test/${testID}`, {
+      const response = await fetch(`${backendUrl}/api/omrcf/test/${testID}`, {
         method: 'DELETE',
       });
   
@@ -151,31 +151,57 @@ const OmrCFResultsList: React.FC = () => {
   };
 
   const handleUpdate = async (testID: string) => {
-
-    
     try {
-      const response = await fetch(`${backendUrl}/api/omr/test/${testID}`, {
+      // Fetch the CF test interpretations again to get the latest interpretation logic
+      const cfTestResponse = await fetch(`${backendUrl}/api/CFtest/67a09ef7e3fdfebbf170a124`);
+      if (!cfTestResponse.ok) {
+        throw new Error(`Failed to fetch CF test: ${cfTestResponse.statusText}`);
+      }
+      const cfTestData = await cfTestResponse.json();
+      const interpretations: Interpretation[] = cfTestData.interpretation;
+  
+      // Find the updated interpretation based on the new age and total score
+      const updatedInterpretation = interpretations.find(
+        (interp) =>
+          updatedData.age! >= interp.minAge &&
+          updatedData.age! <= interp.maxAge &&
+          results.find((result) => result.testID === testID)!.totalScore >= interp.minTestScore &&
+          results.find((result) => result.testID === testID)!.totalScore <= interp.maxTestScore
+      );
+  
+      // Prepare the data to be sent to the backend
+      const dataToUpdate = {
+        ...updatedData,
+        interpretation: updatedInterpretation
+          ? {
+              resultInterpretation: updatedInterpretation.resultInterpretation,
+            }
+          : { resultInterpretation: 'No interpretation available' },
+      };
+  
+      // Send the update request to the backend
+      const response = await fetch(`${backendUrl}/api/omrcf/test/${testID}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedData),
+        body: JSON.stringify(dataToUpdate),
       });
-
+  
       if (!response.ok) {
         throw new Error(`Error updating the test: ${response.statusText}`);
       }
-
+  
       const updatedResult = await response.json();
-      setResults(prevResults =>
-        prevResults.map(result =>
+      setResults((prevResults) =>
+        prevResults.map((result) =>
           result.testID === testID ? { ...result, ...updatedResult.data } : result
         )
       );
       setEditingTestID(null); // Reset the editing state
-
+  
       // Reload the page after successful update
-    window.location.reload();
+      window.location.reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       console.error('Error updating test:', err);
