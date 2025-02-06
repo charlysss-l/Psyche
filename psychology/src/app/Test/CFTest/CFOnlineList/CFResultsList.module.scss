@@ -1,0 +1,293 @@
+.chartContainer {
+  width: 50%; 
+  margin: 0 auto;
+}
+.resultsTableCF {
+    border-collapse: collapse; 
+    font-size: 15px;
+    background-color: rgb(255, 252, 252);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064); 
+    border: 1px solid #9e979791; 
+    width: 100%;
+  }
+  
+
+  .resultsTableCF th {
+    color: #333;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    background-color: rgb(245, 242, 242);
+    border-bottom: 1px solid #9e979791; 
+  }
+  
+
+  .resultsTableCF td {
+    text-align: center; /* Center-aligns text horizontally */
+    vertical-align: middle; /* Center-aligns text vertically */
+    padding: 5px;
+    font-size: 13px;
+    border-bottom: 1px solid #9e979791; 
+    color: #333;
+
+  }
+  
+
+  .eachResultCF:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+    transform: translateY(-1px); 
+    cursor: pointer;
+    background-color: rgb(245, 244, 244);
+    border: 1px solid #9e979791; 
+  }
+
+
+.selected-choice-img {
+  width: 60px;  
+  height: 50px; 
+  margin: 0 auto; 
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  background-color: #815aa5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #815aa5;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+}
+
+
+.responsesWrapper {
+  max-height: 250px;  // Adjust the height as per your design needs
+  overflow-y: auto;   // Enable vertical scrolling when content overflows
+  margin-top: 10px;   // Optional, for some space between elements
+}
+
+.responsesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsesTable th, .responsesTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.archiveButtons {
+  background-color: #847096;
+  transition: all 0.3s ease;
+  color: rgb(255, 255, 255);
+}
+
+.archiveButtons:hover {
+  background-color: transparent;
+  color: #847096;
+  border:1px solid #847096;
+}
+
+.title {
+  display: flex; /* Make the title a flex container */
+  justify-content: space-between; /* Distribute the content: title on the left, buttons on the right */
+  align-items: center; /* Vertically align the title and buttons */
+  color: #815aa5;
+}
+
+.buttonsWrapper {
+  display: flex; /* Arrange buttons in a row */
+  gap: 10px; /* Optional: Adds space between buttons */
+  width: 650px;
+  margin-right: -20px;
+}
+
+.archiveButton {
+  
+  background-color: #847096; //* Blue like a mailbox */
+  color: white; /* Text color */
+  border: 2px solid #847096; /* Slightly darker border */
+  border-radius: 12px; /* Rounded edges */
+  padding: 10px 20px; /* Adjust padding for size */
+  font-size: 16px; /* Slightly larger text */
+  font-weight: bold; /* Make text stand out */
+  cursor: pointer; /* Pointer cursor */
+  transition: all 0.3s ease; /* Smooth hover animation */
+  display: flex;
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+}
+
+.archiveButton:hover {
+  background-color: transparent;
+  color: #847096;
+  border:1px solid #847096; /* Lighter blue on hover */
+ 
+}
+
+.archiveButton:active {
+  background-color: #5f2a2a; /* Darker blue when clicked */
+  transform: scale(0.98); /* Slight click animation */
+}
+
+/* Add a mail icon */
+.archiveButton::before {
+  content: "✉️"; /* Unicode envelope icon */
+  font-size: 18px; /* Adjust icon size */
+}
+
+/* Optional: Add mailbox-specific animations */
+.archiveButton::after {
+  content: ""; /* Empty content for styling */
+  display: block;
+  width: 0;
+  height: 4px;
+  background-color: #dd1e1e;
+  margin: 0 auto;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.archiveButton:hover::after {
+  width: 80%; /* Expand underline on hover */
+}
+
+/* New button style for the Close button */
+.closeButton {
+  display: flex;
+  position: fixed;
+  z-index: 1100;  /* Ensures it appears on top of other content */
+  right: 21%;
+  top: 16%;
+  background-color: #ff4d4d; /* Red background for close button */
+  border-color: #d43f3f; /* Darker red border */
+  color: white;
+  font-size: 18px;
+  padding: 8px 16px;
+  border-radius: 12px; /* Rounded edges */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.closeButton:hover {
+  background-color: #d43f3f;
+  border-color: #c13232;
+}
+
+.closeButton:active {
+  background-color: #c13232;
+  transform: scale(0.98); /* Click animation */
+}
+
+.closeButton::before {
+  content: "❌"; /* Unicode close icon */
+  font-size: 20px; /* Adjust icon size */
+  margin-right: 8px;
+}
+
+.conText {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+.exportButton {
+    
+  background-color: #529154;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  
+}
+
+.exportButton:hover {
+  background-color: transparent;
+  color:#529154;
+  border:1px solid #529154;
+}
+
+.resultCount {
+  text-align: left;
+  font-size: 1.2rem;
+  margin-bottom: .5rem;
+  margin-top: -1.5rem;
+  color: #333;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 50px;
+}
+
+:global(body.dark-mode){
+  .title {
+    color: #8a59b8;
+  }
+  .resultCount {
+    color: #dad8d8;
+  }
+  .exportButton {
+    background-color: #38b43d;
+    color: #ffffff;
+
+    &:hover {
+      background-color: transparent;
+      color: #38b43d;
+      border: 1px solid #38b43d;
+    }
+  }
+  .archiveButton {
+    background-color: #dad8d8;
+    color: #000000;
+    border: 2px solid #dad8d8;
+
+    &:hover {
+      background-color: transparent;
+      color: #dad8d8;
+      border: 1px solid #dad8d8 ;
+    }
+
+    &:active {
+      background-color: #5f2a2a;
+    }
+  }
+  .resultsTableCF th{
+    background-color: #9e979791;
+    color: #000000;
+  }
+  .archiveButtons {
+    background-color: #8a59b8;
+    color: #ffffff;
+
+    &:hover {
+      background-color: transparent;
+      color: #8a59b8;
+      border: 1px solid #8a59b8;
+    }
+  }
+}

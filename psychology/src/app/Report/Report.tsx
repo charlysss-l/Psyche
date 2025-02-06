@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import PFStatistics from '../Test/PFTest/PFStatistics/PFStatistics'
-import IQStatistics
-from '../Test/IQTest/IQStatistics/IQStatistics'
+import IQStatistics from '../Test/IQTest/IQStatistics/IQStatistics'
+import CFStatistics from "../Test/CFTest/CFStatistics/CFStatistics";
 import styles from './report.module.scss'
 import backendUrl from "../../config";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 interface IQTests {
+  _id: string;
+  testID: string;
+  nameOfTest: string;
+  numOfQuestions: number;
+}
+
+interface CFTests {
   _id: string;
   testID: string;
   nameOfTest: string;
@@ -25,6 +32,7 @@ interface Test {
 const Report = () => {
   const [pfTest, setPfTest] = useState<Test[]>([]);
   const [iqTests, setIqTests] = useState<IQTests[]>([]);
+  const [cfTests, setCfTests] = useState<CFTests[]>([]);
   const [users, setUsers] = useState([]);
   const [surveys, setSurveys] = useState<any[]>([]);
   const navigate = useNavigate();
@@ -62,6 +70,24 @@ const fetchIQTest = async () => {
 // useEffect hook to fetch data on component mount
 useEffect(() => {
   fetchIQTest();
+}, []);
+
+const fetchCFTest = async () => {
+  try {
+      const response = await fetch(`${backendUrl}/api/CFtest`);
+      if (!response.ok) {
+          throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+      const data: CFTests[] = await response.json();
+      setCfTests(data);
+  } catch (error) {
+    console.error("Error fetching surveys", error);
+  }
+};
+
+// useEffect hook to fetch data on component mount
+useEffect(() => {
+  fetchCFTest();
 }, []);
 
   useEffect(() => {
@@ -123,6 +149,16 @@ useEffect(() => {
                       </tr>     
                         ))}
                     </tbody>
+                    <tbody>
+                        {cfTests.map(test => (
+                            <tr key={test._id}>
+                                <td className={styles.td}> Measuring Intelligence with the Culture Fair Test</td>
+                                <td className={styles.td}>{test.numOfQuestions}</td>
+                                <td className={styles.td}><button className={styles.seeButton} onClick={() => navigate("/cftest")}> See CF Test</button>
+                                </td>
+                      </tr>     
+                        ))}
+                    </tbody>
 
                 </table>
 
@@ -145,6 +181,9 @@ useEffect(() => {
       </section>
       <section className={styles.resultSectionIQ}>
         <IQStatistics /> 
+      </section>
+      <section className={styles.resultSectionCF}>
+        <CFStatistics /> 
       </section>
 
     </div>

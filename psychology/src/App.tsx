@@ -9,6 +9,7 @@ import Profile from './app/Profile/Profile';
 import OMR from './app/OMR/OMR';
 import PFTest from './app/Test/PFTest/PFTest';
 import IQTest from './app/Test/IQTest/IQTest';
+import CFTest from './app/Test/CFTest/CFTest';
 import './App.css';
 import Login from './app/Login/login';
 import SurveyDashboard from './app/Survey/surveyDashboard/surveyDashboard';
@@ -16,11 +17,21 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSideBar';
 import PFResultsList from './app/Test/PFTest/PFOnlineList/PFResultsList';
 import IQResultsList from './app/Test/IQTest/IQOnlineList/IQResultsList';
+import CFResultsList from './app/Test/CFTest/CFOnlineList/CFResultsList';
+
 import IQInterpretation from './app/Test/IQTest/IQInterpretationEdit/IQInterpretation';
+import CFInterpretation from './app/Test/CFTest/CFInterpretationEdit/CFInterpretation';
+
 import OmrIQResultsList from './app/Test/IQTest/IQOmrList/Omr_IQResultList';
+import OmrCFResultsList from './app/Test/CFTest/CFOmrList/Omr_CFResultList';
+
 import IQResultListBoth from './app/Test/IQTest/IQTestDashboard/IQtestListBoth';
+import CFResultListBoth from './app/Test/CFTest/CFTestDashboard/CFtestListBoth';
+
 import PFStatistics from './app/Test/PFTest/PFStatistics/PFStatistics';
 import IQStatistics from './app/Test/IQTest/IQStatistics/IQStatistics';
+import CFStatistics from './app/Test/CFTest/CFStatistics/CFStatistics';
+
 import SurveyList from './app/Survey/surveyList/surveyList';
 import SurveyForm from './app/Survey/survey/survey';
 import AllOMR from './app/OMR/AllOMR';
@@ -37,6 +48,7 @@ import SurveyResponse from './app/Survey/surveyResponse/surveyResponse';
 import ContentEditor from './app/Content/editContent';
 // Archive List Components
 import IQOnlineArchiveList from './app/Test/IQTest/IQOnlineList/IQOnlineArchiveList';
+import CFOnlineArchiveList from './app/Test/CFTest/CFOnlineList/CFOnlineArchiveList';
 
 function App() {
   return (
@@ -87,6 +99,11 @@ function App() {
                 element={<ProtectedRoute><IQTest /></ProtectedRoute>}
               />
               <Route
+                path="/cftest"
+                element={<ProtectedRoute><CFTest /></ProtectedRoute>}
+              />
+              
+              <Route
                 path="/contentEditor"
                 element={<ProtectedRoute><ContentEditor /></ProtectedRoute>}
               />
@@ -99,15 +116,27 @@ function App() {
                 path="/iqinterpretation"
                 element={<ProtectedRoute><IQInterpretation /></ProtectedRoute>}
               />
+              <Route
+                path="/cfinterpretation"
+                element={<ProtectedRoute><CFInterpretation /></ProtectedRoute>}
+              />
 
               <Route
                 path="/iqresults_list"
                 element={<ProtectedRoute><IQResultsList /></ProtectedRoute>}
               />
+              <Route
+                path="/cfresults_list"
+                element={<ProtectedRoute><CFResultsList /></ProtectedRoute>}
+              />
 
               <Route
                 path="/omriqresults_list"
                 element={<ProtectedRoute><OmrIQResultsList /></ProtectedRoute>}
+              />
+              <Route
+                path="/omrcfresults_list"
+                element={<ProtectedRoute><OmrCFResultsList /></ProtectedRoute>}
               />
 
               <Route  
@@ -128,6 +157,10 @@ function App() {
               <Route 
                 path="/iqresults_list_both"
                 element={<ProtectedRoute><IQResultListBoth /></ProtectedRoute>}
+              />
+              <Route 
+                path="/cfresults_list_both"
+                element={<ProtectedRoute><CFResultListBoth /></ProtectedRoute>}
               />
               <Route
                 path="/iqomr"
@@ -154,6 +187,10 @@ function App() {
                 element={<ProtectedRoute><IQStatistics /></ProtectedRoute>}
               />
               <Route
+                path="/cf-statistics"
+                element={<ProtectedRoute><CFStatistics /></ProtectedRoute>}
+              />
+              <Route
                 path="/survey-form"
                 element={<ProtectedRoute><SurveyForm /></ProtectedRoute>}
               />
@@ -173,11 +210,16 @@ function App() {
                 path="/survey-details/:id"
                 element={<ProtectedRoute><SurveyDetails /></ProtectedRoute>}
               />
-               <Route path="/survey-responses/:surveyId" element={<ProtectedRoute><SurveyResponse /></ProtectedRoute>}
-                />
+               <Route path="/survey-responses/:surveyId" 
+               element={<ProtectedRoute><SurveyResponse /></ProtectedRoute>}
+              />
               <Route
                 path="/iqonlinearchive"
                 element={<ProtectedRoute><IQOnlineArchiveList /></ProtectedRoute>}
+              />
+              <Route
+                path="/cfonlinearchive"
+                element={<ProtectedRoute><CFOnlineArchiveList /></ProtectedRoute>}
               />
               <Route path="*" element={<Navigate to="/" />} />
 

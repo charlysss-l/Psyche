@@ -1,0 +1,253 @@
+.linkCFliinks{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.table {
+    background-color: rgb(255, 252, 252);
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    & th, & td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        color: #333;
+
+        &:nth-child(even) {
+            background-color: #f2f2f2;
+            color: black;
+        }
+    }
+
+    & th {
+      background-color: #6e6e6e;
+        color: #f1f1f1;
+        &:nth-child(even) {
+          background-color: #6e6e6e;
+          color: #f1f1f1;
+      }
+    }
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 10px 15px;
+    margin: 0 10px;
+    background-color: #815aa5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    font-size: 16px;
+  }
+  .choice {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // Two columns for two rows
+    gap: 10px; // Add some spacing between items
+}
+
+  .choice img {
+    width: 130px;  // Adjust the width as needed
+    height: 110px; // Adjust the height to maintain aspect ratio or as needed
+  
+}
+  
+  .answer img {
+    width: 170px;  // Adjust the width as needed
+    height: 130px; // Adjust the height to maintain aspect ratio or as needed
+}
+
+.question img {
+    width: 400px;  // Adjust the width as needed
+    height: 350px; // Adjust the height to maintain aspect ratio or as needed
+}
+
+.testResultsLink {
+  display:flex;
+  width: 10%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #d2d2d2;
+  color: #4e4e4e;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: transparent;
+      color:black;
+      border:1px solid #d2d2d2;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(219, 219, 219, 0.75);
+    }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); // Semi-transparent background
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 10px;
+}
+
+.modalContent {
+  background-color: white;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden; // Ensure content doesn't overflow
+  scroll-behavior: smooth; /* Smooth scrolling to prevent abrupt jumps */
+
+  // Adding scroll when content is too tall
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalBody {
+  max-height: 500px; // Limit the body height for scrolling
+  scroll-behavior: smooth; /* Keeps scrolling smooth during height changes */
+  overflow-y: auto; // Enable scrolling in the body when content is too long
+}
+
+
+.questionContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
+  border: #222222 1px solid;
+    border-radius: 50px;
+    padding: 30px;
+}
+.questionImageModal {
+  max-width: 500px;  // Limit the size of images for better display in the modal
+  height: auto;
+  margin-bottom: 10px;
+  display: block;
+}
+
+
+.choiceContainer,
+.answerContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // Two columns for two rows
+    gap: 10px; // Add spacing between items
+    margin-bottom: 50px;
+    border: #222222 1px solid;
+    border-radius: 50px;
+    padding: 30px;
+    
+}
+
+.choiceImageContainer,
+.answerImageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.choiceImageModal,
+.answerImageModal {
+    max-width: 100px; // Adjust size as needed
+    height: auto;
+    
+}
+h3, h2 {
+  text-align: center; /* Centers the text inside the h3 element */
+  margin: 0 auto; /* Ensures it's horizontally centered */
+  width: 100%; /* Optional: Ensures it spans the full width */
+}
+
+.customFileInput {
+    margin-top: 5px; // Space between the image and file input
+}
+
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.customFileInput {
+  display: flex;
+  flex-direction: row;
+}
+.customFileLabel {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  
+  &:hover {
+      background-color: #0056b3;
+  }
+}
+
+.fileName{
+  padding: 10px 20px;
+  
+}
+
+
+:global(body.dark-mode){
+  .table{
+      & th {
+          background-color: #acacac;
+          color: #272727;
+          border: #222222;
+          
+          &:nth-child(even) {
+              background-color: #acacac;
+              color: #222222;
+          }
+      }
+  }
+  .testResultsLink {
+      background-color: #815aa5;
+      color: #e6e6e6;
+      &:hover {
+          background-color: transparent;
+          color: #e6e6e6;
+          border:1px solid #815aa5;
+      }
+  }
+}

@@ -1,0 +1,133 @@
+// General container for the whole component
+.container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  // Header styling
+  h2 {
+    font-size: 24px;
+    color: #8a59b8;
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  // Table styling
+  .interpretationTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+  
+    th {
+      background-color: #847096 ;
+      font-weight: bold;
+      color: #ddd;
+      border: none;
+    }
+  
+    td {
+      background-color: #fff;
+    }
+  }
+  
+  // Styling for form inputs
+  input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  input[type="number"]:focus, input[type="text"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 128, 0, 0.2);
+  }
+  
+  // Styling for Save button per row
+button {
+    background-color: #8a59b8;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 5px;
+  
+    &:hover {
+      background-color: transparent;
+      color: #8a59b8;
+      border:1px solid #8a59b8;
+    }
+  
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  
+  // Error message styling
+  .errorMessage {
+    color: red;
+    font-size: 16px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  // Loading indicator styling
+  .loading {
+    font-size: 18px;
+    color: #666;
+    margin-top: 20px;
+  }
+  
+  // Styles for range input containers
+.rangeCell {
+    padding: 10px;
+  }
+  
+  .rangeInput {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the inputs and dash */
+  }
+  
+  .inputLeft {
+    width: 80px;
+  }
+  
+  .inputRight {
+    width: 80px;
+  }
+  
+  span {
+    font-size: 18px;
+  }
+  :global(body.dark-mode){
+    h3 {
+      color: #847096;
+    }
+    .interpretationTable th{
+      background-color: #ccc;
+      color: #202020;
+      border: none;
+    }
+  }

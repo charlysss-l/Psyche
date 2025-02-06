@@ -1,0 +1,260 @@
+.reportContainer {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  border-radius: 50px;
+  border: 2px solid #a1a1a1;
+  width: 100%;
+}
+
+.heading {
+  font-size: 1rem;
+  text-align: center;
+  color: #333;
+}
+
+
+.subHeading {
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #333;
+}
+
+
+.onlineResultCount,
+.physicalResultCount,
+.totalResultCount {
+  flex: 1;
+  margin: 0rem 0.5rem;
+  background-color: #f5f5f5; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  max-width: 250px;
+
+  p {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #333; 
+    margin: 10px; 
+  }
+}
+
+.dashboardRow {
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 10px; 
+}
+
+.count {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #653e84;
+}
+
+.seeGraphButton {
+  display: block; 
+  margin: 20px auto; 
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  
+  &:hover {
+    background-color: #9e9e9e;
+  }
+}
+
+.graphLogo {
+  height: 220px;
+  width: 490px;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  width: 90%;
+  max-height: 90%; /* Limit the height to 90% of the viewport */
+  border-radius: 8px;
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for better visibility */
+}
+
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+
+  &:hover {
+    background: #d32f2f;
+  }
+}
+
+.contentRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; /* Align items at the start of the row */
+  gap: 50px; /* Add spacing between the containers */
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%; /* Adjust width as needed */
+  gap: 10px;
+
+  .label {
+    font-size: 1rem;
+    color: #555;
+  }
+
+  .select {
+    margin-bottom: -10px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: #007bff;
+    }
+  }
+}
+
+.chartContainer {
+  width: 70%; /* Adjust width as needed */
+  margin: 0;
+  margin-bottom: -50px;
+}
+
+
+.userListContaIner{
+    
+  width: 100%;
+  color: #333;
+
+}
+.userList{
+  list-style: none;
+  padding: 0;
+}
+
+.idCflist{
+  font-size: 1rem;
+  text-align: center;
+  width: 10%;
+  margin: 5px 0;
+  padding: 8px 25px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+}
+
+
+.responsesWrapper {
+  max-height: 210px;  // Adjust the height as per your design needs
+  overflow-y: auto;   // Enable vertical scrolling when content overflows
+  margin-top: 10px;   // Optional, for some space between elements
+}
+
+.responsesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsesTable th, .responsesTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.monthFilterRow {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .monthFilter {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Media Query for small screens */
+@media (max-width: 768px) {
+  .modal {
+    width: 95%; /* Slightly narrower for smaller screens */
+    max-height: 80%; /* Reduce height to fit mobile view better */
+  }
+  
+  .contentRow {
+    flex-direction: column; /* Stack items in a column on small screens */
+    gap: 20px; /* Reduce the gap on smaller screens */
+  }
+
+  .filterContainer,
+  .chartContainer {
+    width: 100%; /* Make both containers take full width on small screens */
+  }
+
+  .monthFilterRow {
+    gap: 2.5rem;
+
+    .monthFilter {
+      flex: 1;
+      padding: .5rem;
+      width: 200px;
+      font-size: 1rem;
+    }
+  }
+  
+}
+
+  :global(body.dark-mode){
+    .heading {
+      color: #b072e2;
+    }
+    .filterres{
+      color: #b072e2;
+    }
+    .userListContaIner th{
+      color: #b072e2;
+    }
+    .idCflist{
+      background-color: #dfdfdf;
+    }
+    .resultCount p{
+      color: #dfdfdf;
+    }
+  
+    
+  }
+  
