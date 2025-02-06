@@ -16,7 +16,6 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MaybeShowNavSideBar from './components/MaybeShowNavSideBar/MaybeShowNavSideBar';
 import PFResultsList from './app/Test/PFTest/PFOnlineList/PFResultsList';
 import IQResultsList from './app/Test/IQTest/IQOnlineList/IQResultsList';
-
 import IQInterpretation from './app/Test/IQTest/IQInterpretationEdit/IQInterpretation';
 import OmrIQResultsList from './app/Test/IQTest/IQOmrList/Omr_IQResultList';
 import IQResultListBoth from './app/Test/IQTest/IQTestDashboard/IQtestListBoth';
@@ -31,6 +30,8 @@ import AllPfTestList from './app/Test/PFTest/PFTestDashBoard/AllPfTestList';
 import PFOmrList from './app/Test/PFTest/PFOmrList/PFOmrList';
 import IqOMR from './app/OMR/OMRCamera/IqOMR/IqOMR';
 import OMRResult from './app/OMR/OMRCamera/IqOMR/OMRResult';
+import CfOMR from "./app/OMR/OMRCamera/CfOMR/CfOMR";
+import OmrCFResult from "./app/OMR/OMRCamera/CfOMR/OmrCFResult";
 import SurveyDetails from './app/Survey/surveyDetails/surveyDetails';
 import SurveyResponse from './app/Survey/surveyResponse/surveyResponse';
 import ContentEditor from './app/Content/editContent';
@@ -112,6 +113,16 @@ function App() {
               <Route  
                 path="/iqomrresult"
                 element={<ProtectedRoute><OMRResult /></ProtectedRoute>}
+              />
+
+              <Route
+                path="/cfomr"
+                element={<ProtectedRoute><CfOMR /></ProtectedRoute>}
+              />
+
+              <Route  
+                path="/cfomrresult"
+                element={<ProtectedRoute><OmrCFResult /></ProtectedRoute>}
               />
               
               <Route 
