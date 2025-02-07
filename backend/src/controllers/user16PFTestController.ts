@@ -686,7 +686,26 @@ export const archivePFTestResult = async (req: Request, res: Response) => {
     }
 };
 
+export const unarchivePFTestResult = async (req: Request, res: Response) => {
+    const { testID } = req.params;
+    try {
+        const testResult = await User16PFTest.findOne({testID: testID});
+        if (!testResult) {
+            return res.status(404).json({ message: 'Test result not found' });
+        }
 
+        // Mark the test result as not archived
+        testResult.isArchived = false;
+
+        await testResult.save();
+        res.status(200).json({ message: 'IQ test result unarchived successfully', data: testResult });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error unarchiving IQ test result',
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        });
+    }
+};
 
 
 // Controller for fetching archived IQ test results

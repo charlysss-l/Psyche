@@ -73,7 +73,7 @@ router.delete('/test/delete/:testID', async (req: Request, res: Response) => {
   });
 
 
-router.put('/unarchive/:id', async (req: Request, res: Response) => {
+router.put('/unarchive/:testID', async (req: Request, res: Response) => {
     try {
       await unarchiveCFTestResult(req, res);  // Use the testID for deletion
     } catch (error) {

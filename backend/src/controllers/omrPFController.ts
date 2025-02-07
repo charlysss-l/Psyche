@@ -384,6 +384,28 @@ export const archivePFTestResult = async (req: Request, res: Response) => {
     }
 };
 
+export const unarchivePFTestResult = async (req: Request, res: Response) => {
+    const { testID } = req.params;
+    try {
+        // Use findOne() to search by testID (assuming testID is a string or custom ID)
+        const testResult = await OmrPFSchema.findOne({ testID: testID });
+
+        if (!testResult) {
+            return res.status(404).json({ message: 'Test result not found' });
+        }
+
+        // Mark the test result as archived
+        testResult.isArchived = false; // Assuming there's an `isArchived` field
+
+        await testResult.save();
+        res.status(200).json({ message: 'IQ test result archived successfully', data: testResult });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error archiving IQ test result',
+            error: error instanceof Error ? error.message : 'An unknown error occurred'
+        });
+    }
+};
 
 
 

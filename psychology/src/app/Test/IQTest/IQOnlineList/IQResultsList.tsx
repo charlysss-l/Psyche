@@ -230,10 +230,6 @@ function normalizeSearchTerm(term: string): string {
 
   {isArchivedListVisible && <IQOnlineArchiveList />}
 
-      
-      
-
-    
       {filteredUsers.length > 0 ? (
         <div>
           

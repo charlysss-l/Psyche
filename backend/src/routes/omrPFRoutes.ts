@@ -10,6 +10,7 @@ import {
 
     // Archived routes
     archivePFTestResult,
+    unarchivePFTestResult,
     getArchivedPFTests,
     deleteArchivedPFTestResult
 } from '../controllers/omrPFController'; // Ensure this path is correct
@@ -45,6 +46,14 @@ router.put('/archive/:testID', async (req: Request, res: Response) => {
       res.status(500).json({ message: 'Error deleting consultation by testID', error });
     }
   });
+
+      router.put('/unarchive/:testID', async (req: Request, res: Response) => {
+        try {
+          await unarchivePFTestResult(req, res);  // Use the testID for deletion
+        } catch (error) {
+          res.status(500).json({ message: 'Error deleting consultation by testID', error });
+        }
+      });
   
   // Route to get archived IQ test results
   router.get('/isTrue/archived/all', async (req: Request, res: Response) => {

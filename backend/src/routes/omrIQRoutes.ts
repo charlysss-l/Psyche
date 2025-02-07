@@ -10,6 +10,7 @@ import {
 
     // Archived routes
     archiveIQTestResult,
+    unarchiveIQTestResult,
     getArchivedIQTests,
     deleteArchivedIQTestResult
 } from '../controllers/omrIQController'; // Ensure this path is correct
@@ -42,6 +43,14 @@ router.delete('/test/:id', deleteOmrResult);
 router.put('/archive/:testID', async (req: Request, res: Response) => {
     try {
       await archiveIQTestResult(req, res);  // Use the testID for deletion
+    } catch (error) {
+      res.status(500).json({ message: 'Error deleting consultation by testID', error });
+    }
+  });
+
+  router.put('/unarchive/:testID', async (req: Request, res: Response) => {
+    try {
+      await unarchiveIQTestResult(req, res);  // Use the testID for deletion
     } catch (error) {
       res.status(500).json({ message: 'Error deleting consultation by testID', error });
     }

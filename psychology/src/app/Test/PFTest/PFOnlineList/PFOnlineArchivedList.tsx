@@ -15,6 +15,7 @@ interface User16PFTest {
   year: number;
   section: number;
   testID: string;
+  testDate: Date;
   responses: {
     questionID: string;
     selectedChoice: 'a' | 'b' | 'c';
@@ -57,6 +58,7 @@ const PFOnlineArchivedList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   // Define the factor order
   const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
@@ -157,12 +159,70 @@ const PFOnlineArchivedList: React.FC = () => {
     }
   };
 
+  const handleRestore = async (testID: string) => {
+    const confirmRemove = window.confirm("Are you sure you want to restore this test?");
+    if (!confirmRemove) return;
+
+  try {
+      console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
+
+      // Use the testID in the API request
+      const response = await fetch(`${backendUrl}/api/user16pf/unarchive/${testID}`, {
+          method: 'PUT', // Use PUT to match backend
+      });
+
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
+      }
+
+      // Update the UI state to reflect the archived status
+      alert('Test restored successfully.');
+      window.location.reload()
+  } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      console.error('Error archiving test:', err);
+  }
+};
+
+const filteredUsers = results.filter((result) => {
+  const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
+  const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
+  return [
+    result.userID,
+    result.firstName,
+    result.lastName,
+    result.sex,
+    result.course,
+    normalizedDate,
+  ]
+    .join(" ")
+    .toLowerCase()
+    .includes(normalizedSearchTerm.toLowerCase());
+});
+
+// Utility function to normalize the date
+function normalizeDate(date: Date | string): string {
+if (!date) return ""; // Handle empty dates
+const parsedDate = new Date(date); // Parse the date
+if (isNaN(parsedDate.getTime())) return ""; // Check for invalid dates
+const month = parsedDate.getMonth() + 1; // Months are 0-based
+const day = parsedDate.getDate();
+const year = parsedDate.getFullYear();
+return `${month}/${day}/${year}`; // Use single digits for month/day
+}
+
+// Utility function to normalize the search term
+function normalizeSearchTerm(term: string): string {
+return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
+}
+
   // Conditional rendering based on loading or error
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
-  const totalPages = Math.ceil(results.length / resultsPerPage);
-  const currentResults = results.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
+  const currentResults = filteredUsers.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
 
   // Prepare data for the stacked bar chart
 
@@ -171,11 +231,18 @@ const PFOnlineArchivedList: React.FC = () => {
     <div className={styles.floatingContainer}>
       <h2>PF Results List (Online)
       <p className={styles.resultCount}>
-  Total Archived Results: {results.length}
+  Total Archived Results: {filteredUsers.length}
 </p>
+      <input
+        type="text"
+        placeholder="Search by User ID, Name, Sex, Course, Date"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
       </h2>
      
-      {results.length > 0 ? (
+      {filteredUsers.length > 0 ? (
         <div>
           <table className={styles.resultsTable}>
             <thead>
@@ -280,7 +347,15 @@ const PFOnlineArchivedList: React.FC = () => {
 
                   </div>
                   </td>
-                  <td><button className={styles.deleteButtonIQLIST} onClick={() => handleDelete(result.testID)}>
+                  <td>
+                  <button 
+                      className={styles.restoreButtonPfLIST} 
+                      onClick={() => handleRestore(result.testID)}
+                    >
+                      Restore
+                    </button>
+                    <br/>
+                    <button className={styles.deleteButton} onClick={() => handleDelete(result.testID)}>
                       Delete
                     </button></td>
                 </tr>

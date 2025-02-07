@@ -44,6 +44,7 @@ const IQOnlineArchiveList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   
 
@@ -132,32 +133,95 @@ useEffect(() => {
   };
 
 
+  const handleRestore = async (testID: string) => {
+    const confirmRemove = window.confirm("Are you sure you want to restore this test?");
+    if (!confirmRemove) return;
+
+  try {
+      console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
+
+      // Use the testID in the API request
+      const response = await fetch(`${backendUrl}/api/useriq/unarchive/${testID}`, {
+          method: 'PUT', // Use PUT to match backend
+      });
+
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
+      }
+
+      // Update the UI state to reflect the archived status
+      alert('Test restored successfully.');
+      window.location.reload()
+  } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      console.error('Error archiving test:', err);
+  }
+};
 
 
 
+  const filteredUsers = archivedResults.filter((result) => {
+    const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
+    const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
+    return [
+      result.userID,
+      result.firstName,
+      result.lastName,
+      result.sex,
+      result.course,
+      normalizedDate,
+    ]
+      .join(" ")
+      .toLowerCase()
+      .includes(normalizedSearchTerm.toLowerCase());
+  });
+
+  // Utility function to normalize the date
+function normalizeDate(date: Date | string): string {
+  if (!date) return ""; // Handle empty dates
+  const parsedDate = new Date(date); // Parse the date
+  if (isNaN(parsedDate.getTime())) return ""; // Check for invalid dates
+  const month = parsedDate.getMonth() + 1; // Months are 0-based
+  const day = parsedDate.getDate();
+  const year = parsedDate.getFullYear();
+  return `${month}/${day}/${year}`; // Use single digits for month/day
+}
+
+// Utility function to normalize the search term
+function normalizeSearchTerm(term: string): string {
+  return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
+}
 
 
+if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
-  if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
+// Calculate the total number of pages
+const totalPages = Math.ceil(filteredUsers.length / resultsPerPage);
 
-  // Calculate the total number of pages
-  const totalPages = Math.ceil(archivedResults.length / resultsPerPage);
+// Slice results based on the current page
+const currentResults = filteredUsers.slice(
+  (currentPage - 1) * resultsPerPage,
+  currentPage * resultsPerPage
+);
 
-  // Slice results based on the current page
-  const currentResults = archivedResults.slice(
-    (currentPage - 1) * resultsPerPage,
-    currentPage * resultsPerPage
-  );
 
   return (
     <div className={styles.floatingContainer}>
       <h2>Archive IQ Results List (Online)
       <p className={styles.resultCount}>
-  Total Archived Results: {archivedResults.length}
+  Total Archived Results: {filteredUsers.length}
 </p>
+      <input
+        type="text"
+        placeholder="Search by User ID, Name, Sex, Course, Date"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
       </h2>
   
-      {archivedResults.length > 0 ? (
+      {filteredUsers.length > 0 ? (
         <div>
           <table className={styles.resultsTableIQ}>
             <thead>
@@ -221,7 +285,14 @@ useEffect(() => {
                   <td>{result.totalScore}</td>
                   <td>Percentile: {result.interpretation?.percentilePoints ?? 'N/A'} <br/><br/>
                     Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}</td>
-                  <td><button className={styles.deleteButtonIQLIST} onClick={() => handleDelete(result.testID)}>
+                  <td>
+                  <button 
+                      className={styles.restoreButtonIQLIST} 
+                      onClick={() => handleRestore(result.testID)}
+                    >
+                      Restore
+                    </button>
+                    <button className={styles.deleteButtonIQLIST} onClick={() => handleDelete(result.testID)}>
                       Delete
                     </button></td>
                 </tr>

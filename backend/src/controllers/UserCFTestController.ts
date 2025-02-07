@@ -270,9 +270,9 @@ export const deleteArchivedCFTestResult = async (req: Request, res: Response) =>
 
 // Controller to unarchive an CF test result
 export const unarchiveCFTestResult = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { testID } = req.params;
     try {
-        const testResult = await UserCFTest.findById(id);
+        const testResult = await UserCFTest.findOne({testID: testID});
         if (!testResult) {
             return res.status(404).json({ message: 'Test result not found' });
         }
@@ -281,10 +281,10 @@ export const unarchiveCFTestResult = async (req: Request, res: Response) => {
         testResult.isArchived = false;
 
         await testResult.save();
-        res.status(200).json({ message: 'CF test result unarchived successfully', data: testResult });
+        res.status(200).json({ message: 'IQ test result unarchived successfully', data: testResult });
     } catch (error) {
         res.status(500).json({
-            message: 'Error unarchiving CF test result',
+            message: 'Error unarchiving IQ test result',
             error: error instanceof Error ? error.message : 'An unknown error occurred'
         });
     }
