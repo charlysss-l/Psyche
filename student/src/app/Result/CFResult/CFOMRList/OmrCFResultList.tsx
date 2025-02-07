@@ -25,6 +25,7 @@ interface OMR {
   testType: 'Online' | 'Physical';
   testDate: Date;
   uploadURL: string;
+  isArchived: boolean;
 }
 
 const OmrCFResultsList: React.FC = () => {
@@ -110,29 +111,31 @@ const OmrCFResultsList: React.FC = () => {
   };
   
 
-  const handleDelete = async (testID: string) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this test?");
-    if (!confirmDelete) return;
-  
-    try {
-      const response = await fetch(`${backendUrl}/api/omrcf/test/${testID}`, {
-        method: 'DELETE',
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Error deleting the test: ${response.statusText}`);
-      }
-  
-      // Remove the deleted test from the state
-      setResults(results.filter((result) => result.testID !== testID));
-      alert("Test Result deleted successfully.");
+  const handleRemove = async (testID: string) => {
+    const confirmRemove = window.confirm("Are you sure you want to delete this test?");
+    if (!confirmRemove) return;
 
-      window.location.reload();
-    } catch (err) {
+  try {
+      console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
+
+      // Use the testID in the API request
+      const response = await fetch(`${backendUrl}/api/omrcf/archive/${testID}`, {
+          method: 'PUT', // Use PUT to match backend
+      });
+
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
+      }
+
+      // Update the UI state to reflect the archived status
+      setResults(results.filter((result) => result.testID !== testID)); // Ensure you filter by testID
+      alert('Test deleted successfully.');
+  } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
-      console.error('Error deleting test:', err);
-    }
-  };
+      console.error('Error archiving test:', err);
+  }
+};
 
   const handleEditClick = (testID: string) => {
     setEditingTestID(testID);
@@ -208,7 +211,9 @@ const OmrCFResultsList: React.FC = () => {
     }
   };
 
-  const filteredUsers = results.filter((result) => {
+  const filteredUsers = results
+  .filter(result => !result.isArchived) // Exclude archived results
+  .filter((result) => {
     const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
     const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
     return [
@@ -408,10 +413,11 @@ const OmrCFResultsList: React.FC = () => {
                     </button>
                     <button
                       className={styles.deleteButtonCFLIST}
-                      onClick={() => handleDelete(result.testID)}
+                      onClick={() => handleRemove(result.testID)}
                     >
                       Delete
                     </button>
+                    <br/>
                     <button
                       className={styles.updateButtonCFLIST}
                       onClick={() => handleEditClick(result.testID)}

@@ -40,6 +40,7 @@ interface OMRpf  {
   testType: string;
   testDate: Date;
   uploadURL: string;
+  isArchived: boolean;
 }
 
 ChartJS.register(
@@ -211,29 +212,31 @@ const PFOMRList: React.FC = () => {
     }
   };
 
-  const handleDelete = async (testID: string) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this test?");
-    if (!confirmDelete) return;
-  
-    try {
-      const response = await fetch(`${backendUrl}/api/omr16pf/test/${testID}`, {
-        method: 'DELETE',
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Error deleting the test: ${response.statusText}`);
-      }
-  
-      // Remove the deleted test from the state
-      setResults(results.filter((result) => result.testID !== testID));
-      alert("Test Result deleted successfully.");
+  const handleRemove = async (testID: string) => {
+    const confirmRemove = window.confirm("Are you sure you want to delete this test?");
+    if (!confirmRemove) return;
 
-      window.location.reload();
-    } catch (err) {
+  try {
+      console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
+
+      // Use the testID in the API request
+      const response = await fetch(`${backendUrl}/api/omr16pf/archive/${testID}`, {
+          method: 'PUT', // Use PUT to match backend
+      });
+
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
+      }
+
+      // Update the UI state to reflect the archived status
+      setResults(results.filter((result) => result.testID !== testID)); // Ensure you filter by testID
+      alert('Test deleted successfully.');
+  } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
-      console.error('Error deleting test:', err);
-    }
-  };
+      console.error('Error archiving test:', err);
+  }
+};
 
   const handleUpdate = async (testID: string) => {
     try {
@@ -265,7 +268,9 @@ const PFOMRList: React.FC = () => {
     }
   };
 
-  const filteredUsers = results.filter((result) => {
+  const filteredUsers = results
+  .filter(result => !result.isArchived) // Exclude archived results
+  .filter((result) => {
     const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
     const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
     return [
@@ -616,10 +621,11 @@ function normalizeSearchTerm(term: string): string {
                     </button>
                     <button
                       className={styles.deleteButtonIQLIST}
-                      onClick={() => handleDelete(result.testID)}
+                      onClick={() => handleRemove(result.testID)}
                     >
                       Delete
                     </button>
+                    <br/>
                     <button 
                 className={styles.graphButton} 
                 onClick={() => { 

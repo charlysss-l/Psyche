@@ -35,6 +35,7 @@ interface UserIQTest {
     percentilePoints: number;
     resultInterpretation: string;
   };
+  isArchived: boolean;
 }
 
 const IQResultsList: React.FC = () => {
@@ -134,7 +135,10 @@ const IQResultsList: React.FC = () => {
   //   }
   // };
 
-  const handleArchive = async (testID: string) => {
+  const handleRemove = async (testID: string) => {
+      const confirmRemove = window.confirm("Are you sure you want to delete this test?");
+      if (!confirmRemove) return;
+
     try {
         console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
 
@@ -157,17 +161,17 @@ const IQResultsList: React.FC = () => {
     }
 };
 
-const filteredUsers = results.filter((result) => {
-  const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
-  const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
-  return [
-    result.testID,
-    normalizedDate,
-  ]
-  .join(" ")
-  .toLowerCase()
-  .includes(normalizedSearchTerm.toLowerCase());
-});
+const filteredUsers = results
+  .filter(result => !result.isArchived) // Exclude archived results
+  .filter(result => {
+    const normalizedDate = normalizeDate(result.testDate);
+    const normalizedSearchTerm = normalizeSearchTerm(searchTerm);
+    return [result.testID, normalizedDate]
+      .join(" ")
+      .toLowerCase()
+      .includes(normalizedSearchTerm.toLowerCase());
+  });
+
 
 // Utility function to normalize the date
 function normalizeDate(date: Date | string): string {
@@ -207,8 +211,8 @@ return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
             </h2>
 
       <p className={styles.resultCount}>
-  Total Results: {filteredUsers.length}
-</p>
+        Total Results: {filteredUsers.length}
+      </p>
 
       {filteredUsers.length > 0 ? (
         <div>
@@ -230,7 +234,7 @@ return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
                 <th>Actions</th>
               </tr>
             </thead>
-
+        
             <tbody>
               {currentResults.map((result) => (
                 <tr key={result.userID} className={styles.eachResultIQ}>
@@ -254,7 +258,7 @@ return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
                   <td>
                     <button 
                       className={styles.deleteButtonIQLIST} 
-                      onClick={() => handleArchive(result.testID)}
+                      onClick={() => handleRemove(result.testID)}
                     >
                       Delete
                     </button>

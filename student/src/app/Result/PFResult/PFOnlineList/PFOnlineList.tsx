@@ -43,6 +43,7 @@ interface User16PFTest {
   testID: string;
   testDate: Date;
   testType: 'Online' | 'Physical'| '';
+  isArchived: boolean;
 }
 
 ChartJS.register(
@@ -166,31 +167,35 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
     }
   }, [userID]);
 
-  const handleDelete = async (testID: string) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this test?");
-    if (!confirmDelete) return;
-  
-    try {
-      const response = await fetch(`${backendUrl}/api/user16pf/test/${testID}`, {
-        method: 'DELETE',
+  const handleRemove = async (testID: string) => {
+    const confirmRemove = window.confirm("Are you sure you want to delete this test?");
+    if (!confirmRemove) return;
+
+  try {
+      console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
+
+      // Use the testID in the API request
+      const response = await fetch(`${backendUrl}/api/user16pf/archive/${testID}`, {
+          method: 'PUT', // Use PUT to match backend
       });
-  
+
       if (!response.ok) {
-        throw new Error(`Error deleting the test: ${response.statusText}`);
+          const errorData = await response.json();
+          throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
       }
-  
-      // Remove the deleted test from the state
-      setResults(results.filter((result) => result.testID !== testID));
-      alert("Test Result deleted successfully.");
 
-      window.location.reload();
-    } catch (err) {
+      // Update the UI state to reflect the archived status
+      setResults(results.filter((result) => result.testID !== testID)); // Ensure you filter by testID
+      alert('Test deleted successfully.');
+  } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
-      console.error('Error deleting test:', err);
-    }
-  };
+      console.error('Error archiving test:', err);
+  }
+};
 
-  const filteredUsers = results.filter((result) => {
+  const filteredUsers = results
+  .filter(result => !result.isArchived) // Exclude archived results 
+  .filter((result) => {
     const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
     const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
     return [
@@ -462,7 +467,11 @@ function normalizeSearchTerm(term: string): string {
                   </td>
 
                   <td>
-                    <button className={styles.deleteButton} onClick={() => handleDelete(result.testID)}>Delete</button>
+                    <button 
+                    className={styles.deleteButton} 
+                    onClick={() => handleRemove(result.testID)}>
+                      Delete
+                  </button>
                     <button 
                 className={styles.graphButton} 
                 onClick={() => { 

@@ -37,6 +37,7 @@ interface UserCFTest {
     percentilePoints: number;
     resultInterpretation: string;
   };
+  isArchived: boolean;
 }
 
 const CFResultsList: React.FC = () => {
@@ -136,40 +137,42 @@ const CFResultsList: React.FC = () => {
   //   }
   // };
 
-  const handleArchive = async (testID: string) => {
-    try {
-        console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
+  const handleRemove = async (testID: string) => {
+    const confirmRemove = window.confirm("Are you sure you want to delete this test?");
+    if (!confirmRemove) return;
 
-        // Use the testID in the API request
-        const response = await fetch(`${backendUrl}/api/usercf/archive/${testID}`, {
-            method: 'PUT', // Use PUT to match backend
-        });
+  try {
+      console.log(`Archiving test with ID: ${testID}`);  // Log to ensure the correct testID
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
-        }
+      // Use the testID in the API request
+      const response = await fetch(`${backendUrl}/api/usercf/archive/${testID}`, {
+          method: 'PUT', // Use PUT to match backend
+      });
 
-        // Update the UI state to reflect the archived status
-        setResults(results.filter((result) => result.testID !== testID)); // Ensure you filter by testID
-        alert('Test deleted successfully.');
-    } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
-        console.error('Error archiving test:', err);
-    }
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Error archiving the test: ${errorData.message || response.statusText}`);
+      }
+
+      // Update the UI state to reflect the archived status
+      setResults(results.filter((result) => result.testID !== testID)); // Ensure you filter by testID
+      alert('Test deleted successfully.');
+  } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      console.error('Error archiving test:', err);
+  }
 };
 
-const filteredUsers = results.filter((result) => {
-  const normalizedDate = normalizeDate(result.testDate); // Normalize the date for comparison
-  const normalizedSearchTerm = normalizeSearchTerm(searchTerm); // Normalize the search term
-  return [
-    result.testID,
-    normalizedDate,
-  ]
-  .join(" ")
-  .toLowerCase()
-  .includes(normalizedSearchTerm.toLowerCase());
-});
+const filteredUsers = results
+  .filter(result => !result.isArchived) // Exclude archived results
+  .filter(result => {
+    const normalizedDate = normalizeDate(result.testDate);
+    const normalizedSearchTerm = normalizeSearchTerm(searchTerm);
+    return [result.testID, normalizedDate]
+      .join(" ")
+      .toLowerCase()
+      .includes(normalizedSearchTerm.toLowerCase());
+  });
 
 // Utility function to normalize the date
 function normalizeDate(date: Date | string): string {
@@ -256,7 +259,7 @@ return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
                   <td>
                     <button 
                       className={styles.deleteButtonCFLIST} 
-                      onClick={() => handleArchive(result.testID)}
+                      onClick={() => handleRemove(result.testID)}
                     >
                       Delete
                     </button>
