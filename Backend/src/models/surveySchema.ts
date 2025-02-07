@@ -20,7 +20,8 @@ interface Survey extends Document {
     }[]; 
   }[];
   releaseDate: Date;  
-  surveyId: string;   
+  surveyId: string;  
+  status: string; 
 }
 
 // Define the filterSchema
@@ -48,6 +49,7 @@ const surveySchema = new Schema<Survey>({
   ],
   releaseDate: { type: Date, required: true },  
   surveyId: { type: String, unique: true, required: true },  
+  status: { type: String, required: true, default: 'ongoing' },
 });
 
 const SurveyModel = mongoose.model<Survey>('Survey', surveySchema);

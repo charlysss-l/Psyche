@@ -4,6 +4,7 @@ import styles from "./surveyList.module.scss"; // SCSS module for styling
 import { Link } from "react-router-dom";
 import backendUrl from "../../../config";
 import surveyLinkUrl from "../../../surveyConfig";
+import CompletedSurveysModal from "../surveyList/surveyListCompleted";
 
 // SurveyList component to display a list of available surveys
 const SurveyList: React.FC = () => {
@@ -11,33 +12,38 @@ const SurveyList: React.FC = () => {
   const [filteredSurveys, setFilteredSurveys] = useState<any[]>([]);
   const [categories, setCategories] = useState<string[]>(["All"]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showCompletedModal, setShowCompletedModal] = useState<boolean>(false);
   const surveysPerPage = 5;
-  // useEffect hook to fetch surveys and categories on component mount
-  useEffect(() => {
-    const fetchSurveys = async () => {
-      try {
-        // Fetch surveys from the API
-        const response = await axios.get(`${backendUrl}/api/surveys`);
-        setSurveys(response.data);
-        setFilteredSurveys(response.data);
 
-        // Extract unique categories from surveys for filter options
-        const uniqueCategories = [
-          "All",
-          ...response.data.reduce((acc: string[], survey: any) => {
-            if (!acc.includes(survey.category)) {
-              acc.push(survey.category);
-            }
-            return acc;
-          }, []),
-        ];
-        setCategories(uniqueCategories); // Set the unique categories for the dropdown
-      } catch (error) {
-        console.error("Error fetching surveys", error);
-      }
-    };
-    fetchSurveys();
-  }, []);
+  // useEffect hook to fetch surveys and categories on component mount
+useEffect(() => {
+  const fetchSurveys = async () => {
+    try {
+      const response = await axios.get(`${backendUrl}/api/surveys`);
+      const ongoingSurveys = response.data.filter((survey: any) => survey.status === "ongoing");
+      setSurveys(response.data);
+      setFilteredSurveys(ongoingSurveys);
+
+      const uniqueCategories = [
+        "All",
+        ...response.data.reduce((acc: string[], survey: any) => {
+          if (!acc.includes(survey.category)) {
+            acc.push(survey.category);
+          }
+          return acc;
+        }, []),
+      ];
+      setCategories(uniqueCategories);
+    } catch (error) {
+      console.error("Error fetching surveys", error);
+    }
+  };
+  fetchSurveys();
+}, []);
+
+const completedSurveys = surveys.filter((survey) => survey.status === "completed");
+
+
   // Calculate the indexes for pagination based on current page
   const indexOfLastSurvey = currentPage * surveysPerPage;
   const indexOfFirstSurvey = indexOfLastSurvey - surveysPerPage;
@@ -59,21 +65,16 @@ const SurveyList: React.FC = () => {
   };
 
   // Handler for removing a survey
-  const handleRemoveSurvey = async (surveyId: string) => {
-    if (window.confirm("Are you sure you want to delete this survey?")) {
+  const handleCompleteSurvey = async (surveyId: string) => {
+    if (window.confirm("Are you sure you want to conclude this survey?")) {
       try {
-        await axios.delete(`${backendUrl}/api/surveys/${surveyId}`);
-        // Update the state to remove the deleted survey
-        setSurveys((prevSurveys) =>
-          prevSurveys.filter((s) => s._id !== surveyId)
-        );
-        setFilteredSurveys((prevSurveys) =>
-          prevSurveys.filter((s) => s._id !== surveyId)
-        ); // Update filtered surveys
-        alert("Survey removed successfully!");
+        await axios.put(`${backendUrl}/api/surveys/complete/${surveyId}`);
+      
+        alert("Survey concluded successfully!");
+        window.location.reload();
       } catch (error) {
-        console.error("Error deleting survey", error);
-        alert("Failed to delete the survey.");
+        console.error("Error concluding survey", error);
+        alert("Failed to conclude the survey.");
       }
     }
   };
@@ -102,7 +103,9 @@ const SurveyList: React.FC = () => {
         <Link to="/survey-form" className={styles.createsurveyButton}>
           Create Survey
         </Link>
+        
       </div>
+
       {/* Filter Dropdown */}
       <div className={styles.filterContainer}>
         <label htmlFor="category">Filter by Category:</label>
@@ -115,6 +118,11 @@ const SurveyList: React.FC = () => {
         </select>
       </div>
 
+      <div className={styles.completedContainer}>
+      <button onClick={() => setShowCompletedModal(true)} className={styles.viewCompletedButton}>
+          View Completed Surveys
+        </button>
+      </div>
       {/* Display Surveys with Title, Description, Field, and Options */}
       {currentSurveys.map((survey) => (
         <div key={survey._id} className={styles.surveyCard}>
@@ -172,10 +180,10 @@ const SurveyList: React.FC = () => {
               View Details
             </Link>
             <button
-              onClick={() => handleRemoveSurvey(survey._id)}
-              className={styles.removeButton}
+              onClick={() => handleCompleteSurvey(survey._id)}
+              className={styles.completeButton}
             >
-              Remove
+              Complete
             </button>
             <Link
               to={`/survey-responses/${survey._id}`}
@@ -201,6 +209,13 @@ const SurveyList: React.FC = () => {
           Next
         </button>
       </div>
+
+      {showCompletedModal && (
+        <CompletedSurveysModal
+          completedSurveys={completedSurveys}
+          onClose={() => setShowCompletedModal(false)}
+        />
+      )}
     </div>
   );
 };

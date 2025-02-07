@@ -100,3 +100,28 @@ export const deleteSurvey = async (req: Request, res: Response): Promise<void> =
     res.status(500).json({ message: 'Error deleting survey', error: (error as Error).message });
   }
 };
+
+export const completeSurvey = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params; // Extract survey ID from the request
+
+    // Find the survey by ID and update its status to "completed"
+    const updatedSurvey = await SurveyModel.findByIdAndUpdate(
+      id,
+      { status: "completed" },
+      { new: true } // Return the updated document
+    );
+
+    // If no survey is found, return a 404 error
+    if (!updatedSurvey) {
+      res.status(404).json({ message: "Survey not found" });
+      return;
+    }
+
+    // Respond with the updated survey
+    res.status(200).json({ message: "Survey marked as completed", survey: updatedSurvey });
+  } catch (error) {
+    console.error("Error updating survey status:", error);
+    res.status(500).json({ message: "Error updating survey status", error: (error as Error).message });
+  }
+};

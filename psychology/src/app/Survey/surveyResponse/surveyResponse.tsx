@@ -13,7 +13,7 @@ const SurveyResponse: React.FC = () => {
   const [responses, setResponses] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  //  // useEffect hook to fetch survey responses when the component mounts or surveyId changes
+  // useEffect hook to fetch survey responses when the component mounts or surveyId changes
   useEffect(() => {
     // Ensure surveyId is available before making the request
     if (!surveyId) {
@@ -39,34 +39,37 @@ const SurveyResponse: React.FC = () => {
 
   return (
     <div className={styles.surveyResponseContainer}>
-      {error && <p className={styles.error}>{error}</p>}
       <h2>Survey Responses</h2>
-      <table className={styles.responsesTable}>
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>Responses</th>
-            <th>Submitted At</th>
-          </tr>
-        </thead>
-        <tbody>
-          {responses.map((response) => (
-            <tr key={response._id}>
-              <td>{response.userId}</td>
-              <td>
-                <ul>
-                  {response.responses.map((item: any, index: number) => (
-                    <li key={index}>
-                     {item.choice}
-                    </li>
-                  ))}
-                </ul>
-              </td>
-              <td>{new Date(response.submittedAt).toLocaleString()}</td>
+      {responses.length === 0 ? (
+        <p>No responses yet.</p>
+      ) : (
+        <table className={styles.responsesTable}>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Responses</th>
+              <th>Submitted At</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {responses.map((response) => (
+              <tr key={response._id}>
+                <td>{response.userId}</td>
+                <td>
+                  <ul>
+                    {response.responses.map((item: any, index: number) => (
+                      <li key={index}>
+                       {item.choice}
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+                <td>{new Date(response.submittedAt).toLocaleString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
