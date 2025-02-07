@@ -166,7 +166,11 @@ const CfOMR: React.FC = () => {
     alert('Upload count has been reset for the day.');
   };
   
-
+ useEffect(() => {
+    // Retrieve the upload count from localStorage when component mounts
+    const storedCount = localStorage.getItem(`${userId}_uploadCount`);
+    setUploadCount(storedCount ? parseInt(storedCount, 10) : 0);
+  }, []);
   
   
   const handleUpload = async () => {
@@ -177,17 +181,27 @@ const CfOMR: React.FC = () => {
    const storedDate = localStorage.getItem(`${userId}_uploadDate`);
    let uploadCount = parseInt(localStorage.getItem(`${userId}_uploadCount`) || '0', 10);
 
-   // Check if the date has changed (new day)
-   if (storedDate !== currentDate) {
-     uploadCount = 0;
-     localStorage.setItem(`${userId}_uploadDate`, currentDate); // Store the current date
-   }
+    // Reset count if it's a new day
+    if (storedDate !== currentDate) {
+      uploadCount = 0;
+      localStorage.setItem(`${userId}_uploadDate`, currentDate);
+      localStorage.setItem(`${userId}_uploadCount`, "0");
+      setUploadCount(0); // Update state immediately
+    }
 
    // Check if the upload limit has been reached
-   if (uploadCount >= 10) {
+   if (uploadCount >= 5) {
      alert('You have reached the maximum upload limit for today. Please try again tomorrow.');
      return;
    }
+
+       // Simulate an upload process
+       await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulating async upload delay
+
+       // Increment and update localStorage
+       const newCount = uploadCount + 1;
+       localStorage.setItem(`${userId}_uploadCount`, newCount.toString());
+       setUploadCount(newCount); // ✅ Update state to trigger re-render
   
     setLoading(true);  // Show loading spinner when upload starts
   
@@ -520,13 +534,12 @@ const CfOMR: React.FC = () => {
         >
           Upload Image
         </button>
-  
+        <p>Uploads Today: {uploadCount}/5</p>
         {uploadURL && (
           <div className={styles.uploadedImage}>
             <p className={styles.uploadedImageText}>Image uploaded successfully:</p>
             <img src={uploadURL} alt="Uploaded Image" className={styles.uploadedImagePreview}
-           
- />
+         />
           </div>
         )}
   

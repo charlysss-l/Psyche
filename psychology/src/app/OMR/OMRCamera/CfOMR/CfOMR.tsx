@@ -33,7 +33,6 @@ const CfOMR: React.FC = () => {
   const [omrScore, setOmrScore] = useState<number | null>(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);  // Loading state for spinner
-  const [uploadCount, setUploadCount] = useState(0);
   // Simulating user ID (replace this with actual user authentication logic)
   const userId = localStorage.getItem('userId'); // Assuming the userId is stored in localStorage
     const [isBackCamera, setIsBackCamera] = useState(false);  // State to track camera type
@@ -157,45 +156,17 @@ const CfOMR: React.FC = () => {
         reader.readAsDataURL(file);
       });
     };
-  
-  
-  const resetUploadCount = () => {
-    localStorage.removeItem(`${userId}_uploadCount`);
-    localStorage.removeItem(`${userId}_uploadDate`);
-    setUploadCount(0);  // Reset the state variable to 0
-    alert('Upload count has been reset for the day.');
-  };
-  
 
   
   
   const handleUpload = async () => {
     if (!selectedFile) return;
   
-   // Get the current date in YYYY-MM-DD format
-   const currentDate = new Date().toISOString().split('T')[0];
-   const storedDate = localStorage.getItem(`${userId}_uploadDate`);
-   let uploadCount = parseInt(localStorage.getItem(`${userId}_uploadCount`) || '0', 10);
 
-   // Check if the date has changed (new day)
-   if (storedDate !== currentDate) {
-     uploadCount = 0;
-     localStorage.setItem(`${userId}_uploadDate`, currentDate); // Store the current date
-   }
-
-   // Check if the upload limit has been reached
-   if (uploadCount >= 10) {
-     alert('You have reached the maximum upload limit for today. Please try again tomorrow.');
-     return;
-   }
   
     setLoading(true);  // Show loading spinner when upload starts
   
     try {
-      
-
-      
-  
       // Check if the file is a valid image format
       if (!selectedFile.type.startsWith('image/')) {
         alert('Please upload a valid image file.');
@@ -283,9 +254,6 @@ const CfOMR: React.FC = () => {
 
         console.log('File uploaded successfully:', downloadURL);
 
-        // Increment the upload count and update in localStorage
-      uploadCount += 1;
-      localStorage.setItem(`${userId}_uploadCount`, uploadCount.toString());
       };
       img.src = reader.result as string;
     };
