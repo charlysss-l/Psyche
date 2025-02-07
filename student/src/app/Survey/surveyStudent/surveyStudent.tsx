@@ -12,6 +12,7 @@ interface Survey {
   description: string;
   releaseDate: string;
   category: string;
+  status: string;
   filters: { field: string; options: string }[];
 }
 
@@ -82,10 +83,11 @@ const SurveyAnswerForm: React.FC = () => {
     return releaseDate.toISOString().split("T")[0]; // Returns only the date part in YYYY-MM-DD
   };
 
-  // Filter surveys to show only those released today or in the past
-  const filteredSurveys = surveys.filter(
-    (survey) => getDateWithoutTime(survey.releaseDate) <= todayString
-  );
+  // Filter surveys to show only those released today or in the past and with status "ongoing"
+const filteredSurveys = surveys.filter(
+  (survey) => getDateWithoutTime(survey.releaseDate) <= todayString && survey.status === "ongoing"
+);
+
 
   // Remove answered surveys from the list
   const unansweredSurveys = filteredSurveys.filter(
