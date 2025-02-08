@@ -323,7 +323,7 @@ const CFTest: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>
-            <h1>CF Test</h1>
+            <h1>Culture Fair Test</h1>
             <p>Number of Questions: {cfTest?.numOfQuestions}</p>
             <p className={style.ageWarning}> 
                 "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up" <br/>
