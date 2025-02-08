@@ -700,7 +700,7 @@ const handleRemove = async (id: string) => {
     );
   }).length === 0 ? (
     <div className={styles.noScheduleWrapper}>
-    <p className={styles.noScheduleMessage}>No scheduled requests for today.</p>
+    <p className={styles.noRequestsMessage}>No scheduled requests for today.</p>
   </div>
   ) : (
     <div className={styles.responsesWrapper}>
