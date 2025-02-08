@@ -3,6 +3,8 @@ import axios from 'axios';
 import style from "../CFTest/CFTest.module.scss";
 import { useNavigate } from 'react-router-dom';
 import backendUrl from '../../../config';
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
+import { initializeApp } from 'firebase/app';
 
 interface Question {
     questionID: string;
@@ -32,6 +34,20 @@ interface CFTests {
 
 }
 
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBWj1L7qdsRH4sFpE7q0CaoyL55KWMGRZI",
+    authDomain: "iqtestupload.firebaseapp.com",
+    projectId: "iqtestupload",
+    storageBucket: "iqtestupload.appspot.com",
+    messagingSenderId: "1045353089399",
+    appId: "1:1045353089399:web:e921f8910028d4b91db972",
+    measurementId: "G-Y50EWBBRFQ"
+  };
+
+initializeApp(firebaseConfig);
+const storage = getStorage();
+
 const CFTest: React.FC = () => {
     const navigate = useNavigate();
     const [cfTest, setCfTest] = useState<CFTests | null>(null);
@@ -51,6 +67,7 @@ const CFTest: React.FC = () => {
     const [timer, setTimer] = useState<number>(45 * 60); // 45 minutes in seconds
     const [isTimeUp, setIsTimeUp] = useState<boolean>(false);
     const [, setInterpretation] = useState<Interpretation | null>(null);
+    const [exampleImages, setExampleImages] = useState<Record<string, string>>({}); // Store images per question set
 
     // Group questions by questionSet
     const groupedQuestions = cfTest?.questions.reduce((acc, question) => {
@@ -77,7 +94,34 @@ const CFTest: React.FC = () => {
         }
     };
 
+    // Fetch example images from Firebase Storage
+    const fetchExampleImages = async () => {
+        try {
+            const storageRef = ref(storage, "cf-test-examples"); // Reference to the folder
+            const fileList = await listAll(storageRef); // Get all images
     
+            const imageUrls = await Promise.all(
+                fileList.items.map(async (item, index) => {
+                    const url = await getDownloadURL(item);
+                    return { [`Test ${index + 1}`]: url }; // Assuming the tests are named "Test 1", "Test 2", etc.
+                })
+            );
+    
+            // Convert array of objects into a single object
+            const imageMap = Object.assign({}, ...imageUrls);
+            setExampleImages(imageMap);
+        } catch (error) {
+            console.error("Error fetching images:", error);
+        }
+    };
+    
+    useEffect(() => {
+        fetchExampleImages();
+    }, []);
+
+    useEffect(() => {
+        fetchExampleImages();
+    }, []);
 
     useEffect(() => {
         // Retrieve studentId from localStorage when component mounts
@@ -291,6 +335,25 @@ const CFTest: React.FC = () => {
                 <span className={style.highlight}>*</span> Those who do will be penalized and as your student record will be tracked by the Administrators. <br />
             </p>
             <p>Time Remaining: {Math.floor(timer / 60)}:{timer % 60}</p>
+
+            {currentQuestionSet && (
+                <>
+                    <h2 className={style.testLabel}>{currentQuestionSet}</h2>
+                    {currentQuestionSet === "Test 2" && <p className={style.ageWarning}> Required Two (2) Answers Only</p>}
+                </>
+            )}
+
+
+            {/* Display example images */}
+            {currentQuestionSet && exampleImages[currentQuestionSet] && (
+                <img 
+                    src={exampleImages[currentQuestionSet]} 
+                    alt={`Example for ${currentQuestionSet}`} 
+                    style={{ width: "80%", maxHeight: "300px", objectFit: "contain", marginBottom: "20px" }}
+                />
+            )}
+
+               
 
             {/* Your form fields here */}
 
