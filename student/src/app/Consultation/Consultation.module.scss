@@ -23,7 +23,7 @@ $border-dark: #2c2c2c;
 .consulForm {
   flex: 1;
   margin-right: 20px;
-  background: linear-gradient(135deg, #ffffff, #ffffff);
+  background-color: white;
   border: 1px solid #e0e0e0; 
   padding: 40px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -337,10 +337,10 @@ background-color: #151515;
     color: #754a94;
    }
    .conText{
-    color: #000000;
+    color: #ffffff;
    }
    .conLabel{
-    color: #000000;
+    color: #ffffff;
    }
    .conSubmit{
     background: #754a94;
