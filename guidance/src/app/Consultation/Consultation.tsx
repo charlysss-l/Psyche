@@ -435,9 +435,24 @@ const handleRemove = async (id: string) => {
       
     </div>
 
-    {/* Pending Requests Table */}
-    <div className={styles.tableBox}>
-      <h2 className={styles.title}>Pending Consultation Request</h2>
+      {/* Pending Requests Table */}
+      <div className={styles.tableBox}>
+  <h2 className={styles.title}>
+    Pending Consultation Request
+    <button onClick={toggleModal} className={styles.viewButton}>
+      View Follow-Up Schedule List
+    </button>
+    <div className={styles.smartWrapper}>
+      <input
+        type="text"
+        placeholder="Search by User ID, Name, Date, Time, Note"
+        value={pendingSearchTerm}
+        onChange={(e) => setPendingSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
+    </div>
+  </h2>
+  {showArchived && <CompleteInbox onClose={() => setShowArchived(false)} />}
       <div className={styles.responsesWrapper}>
         {pendingRequests.length === 0 ? (
           <p className={styles.noRequestsMessage}>No pending consultation requests.</p>
