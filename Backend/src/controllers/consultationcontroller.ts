@@ -74,11 +74,52 @@ export const getConsultationRequestsByUserID = async (req: Request, res: Respons
 export const getConsultationRequests = async (req: Request, res: Response) => {
   try {
     const requests = await ConsultationRequest.find();
-    res.status(200).json(requests);
+    
+    // Create maps for counting appointments per student-counselor pair and all non-pending appointments
+    const acceptedAppointmentCountMap = new Map<string, number>();
+    const allAppointmentsCountMap = new Map<string, number>();
+    const counselorCountMap = new Map<string, Map<string, number>>();
+
+    requests.forEach(request => {
+      const pairKey = `${request.userId}-${request.councelorName}`;
+      const userKey = request.userId;
+
+      // Count student-counselor pairs
+      acceptedAppointmentCountMap.set(pairKey, (acceptedAppointmentCountMap.get(pairKey) || 0) + 1);
+
+      // Count occurrences only if counselor name is not "pending"
+      if (request.councelorName.toLowerCase() !== "pending" && request.councelorName !== "N/A") {
+        allAppointmentsCountMap.set(userKey, (allAppointmentsCountMap.get(userKey) || 0) + 1);
+
+        // Count counselor appointments per student
+        if (!counselorCountMap.has(userKey)) {
+          counselorCountMap.set(userKey, new Map<string, number>());
+        }
+        const counselorMap = counselorCountMap.get(userKey);
+        counselorMap?.set(request.councelorName, (counselorMap.get(request.councelorName) || 0) + 1);
+      }
+    });
+
+    // Add the counts to each request
+    const requestsWithCount = requests.map(request => {
+      const pairKey = `${request.userId}-${request.councelorName}`;
+      const userKey = request.userId;
+
+      return {
+        ...request.toObject(),
+        acceptedAppointmentCount: acceptedAppointmentCountMap.get(pairKey) || 0,
+        allAppointmentsCount: allAppointmentsCountMap.get(userKey) || 0, // Excludes "pending"
+        counselorCounts: counselorCountMap.get(userKey) ? Object.fromEntries(counselorCountMap.get(userKey)!) : {}
+      };
+    });
+
+    res.status(200).json(requestsWithCount);
   } catch (error) {
     res.status(400).json({ message: 'Request Consultation not found' });
   }
 };
+
+
 
 export const acceptConsultationRequest = async (req: Request, res: Response) => {
   try {
@@ -273,7 +314,31 @@ export const getArchivedConsultations = async (req: Request, res: Response) => {
       return;
     }
 
-    res.status(200).json({ data: archivedConsultations });
+    // Create a map for counting accepted appointments per student-counselor pair across all statuses
+    const acceptedAppointmentCountMap = new Map<string, number>();
+
+    // Count accepted appointments for all consultations (not limited to archived)
+    const allConsultations = await ConsultationRequest.find(); // Fetch all consultations regardless of status
+    allConsultations.forEach(request => {
+      const pairKey = `${request.userId}-${request.councelorName}`;
+
+      // Count only accepted appointments (not "pending" or "N/A")
+      if (request.councelorName.toLowerCase() !== "pending" && request.councelorName !== "N/A") {
+        acceptedAppointmentCountMap.set(pairKey, (acceptedAppointmentCountMap.get(pairKey) || 0) + 1);
+      }
+    });
+
+    // Add the counts to each request
+    const archivedConsultationsWithCount = archivedConsultations.map(request => {
+      const pairKey = `${request.userId}-${request.councelorName}`;
+
+      return {
+        ...request.toObject(),
+        acceptedAppointmentCount: acceptedAppointmentCountMap.get(pairKey) || 0,
+      };
+    });
+
+    res.status(200).json({ data: archivedConsultationsWithCount });
   } catch (error) {
     res.status(500).json({
       message: 'Error retrieving archived consultations',
@@ -281,6 +346,7 @@ export const getArchivedConsultations = async (req: Request, res: Response) => {
     });
   }
 };
+
 
 
 

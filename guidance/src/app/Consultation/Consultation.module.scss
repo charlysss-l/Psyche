@@ -327,6 +327,39 @@ button {
   margin-top: 20px;
 }
 
+.infoButton {
+  padding: 5px 10px;
+  background-color: #8146ad;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.counselorInfo {
+  position: absolute;
+  align-content: center;
+  text-align: center;
+  justify-content: center;
+  justify-self: center;
+  align-self: center;
+  width: 10%;
+  left: 7%;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.noRequestsMessage{
+  text-align: center;
+  margin-top: 20px;
+  font-size: $font-size-medium;
+  font-weight: bold;
+  color: #ffffff;
+}
+
 .followUpModal {
   position: fixed;
   top: 0;

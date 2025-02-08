@@ -12,6 +12,8 @@ interface Consultation {
   timeForConsultation: string;
   note: string;
   message: string;
+  acceptedAppointmentCount: number; // Add this field
+
 }
 
 const API_URL = `${backendUrl}/api/consult/`;
@@ -123,6 +125,7 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
           <table className={styles.table}>
             <thead>
               <tr>
+                <th>Appointment Count</th>
                 <th>User ID</th>
                 <th>Student Name</th>
                 <th>Councelor Name</th>
@@ -137,6 +140,7 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
               {filteredConsultations.length > 0 ? (
                 filteredConsultations.map((consultation) => (
                   <tr key={consultation.testID}>
+                    <td>{consultation.acceptedAppointmentCount}</td>
                     <td>{consultation.userId}</td>
                     <td>{consultation.studentName}</td>
                     <td>{consultation.councelorName}</td>

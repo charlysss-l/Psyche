@@ -19,6 +19,7 @@ const USERPFOMRE_URL = `${backendUrl}/api/omr16pf/test/`;
 const USERCFOMRE_URL = `${backendUrl}/api/omrcf/test/physical/`;
 
 interface ConsultationRequest {
+  counselorCounts(counselorCounts: any): unknown;
   _id: string;
   userId: string;
   email: string;
@@ -31,6 +32,8 @@ interface ConsultationRequest {
   date: string;
   status: string;
   message: string;
+  acceptedAppointmentCount: number; // Add this field
+  allAppointmentsCount: number;
 }
 
 interface FollowUpSchedule {
@@ -82,7 +85,11 @@ const GuidanceConsultation: React.FC = () => {
   const [timeForConsultation, setTimeForConsultation] = useState<string>("");
   const [showArchived, setShowArchived] = useState(false);  
   const navigate = useNavigate();
-
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const toggleCounselorInfo = (userId: string) => {
+    setSelectedUserId(selectedUserId === userId ? null : userId);
+  };
+  
   const openArchivedList = () => {
     setShowArchived(true);  // Only set to true (open), no toggling
   };
@@ -429,103 +436,103 @@ const handleRemove = async (id: string) => {
     </div>
 
     {/* Pending Requests Table */}
-<div className={styles.tableBox}>
-<h2 className={styles.title}>Pending Consultation Request
-
-<button onClick={toggleModal} className={styles.viewButton}>
-        View Follow-Up Schedule List
-      </button>
-      <div className={styles.smartWrapper}>
-        
-      <input
-              type="text"
-              placeholder="Search by User ID, Name, Date, Time, Note"
-              value={pendingSearchTerm}
-              onChange={(e) => setPendingSearchTerm(e.target.value)}
-              className={styles.searchInput}
-            />
-            </div>
-            
-            </h2>
-  {showArchived && <CompleteInbox onClose={() => setShowArchived(false)} />}
-  <div className={styles.responsesWrapper}>
-
-  <table>
-    <thead>
-      <tr>
-        <th>User ID</th>
-        {/* <th>Email</th> */}
-        <th>Student Name</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Consultation Type</th>
-        <th>Note</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-    {pendingRequests
-        .slice() 
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) 
-        .map((request) => (
-        <tr key={request._id}>
-          <td>{request.userId}</td>
-          {/* <td>{request.email}</td> */}
-          <td>{request.studentName}</td>
-          <td>
-            {new Date(request.date).toLocaleDateString("en-US", {
-              month: "2-digit",
-              day: "2-digit",
-              year: "numeric",
-            })}
-          </td>
-          <td>{request.timeForConsultation}</td>
-          <td>{request.consultationType}</td>
-          <td>{request.note}</td>
-          <td>
-            <span className={`${styles.statusButton}`}>
-              {request.status}
-            </span>
-            
-          </td>
-          <td>
-            {request.status === "cancelled" ? (
-              <button
-                className={styles.delete}
-                onClick={() => deleteConsultation(request._id)}
-              >
-                Delete
-              </button>
-            ) : (
-              <>
-                <button
-                  className={styles.accept}
-                  onClick={() => acceptRequest(request._id, request.email, request.date, request.timeForConsultation)}
-                  >
-                  Accept
-                </button>
-                <button
-                className={styles.decline}
-                onClick={() => {
-                  setDecliningRequestId(request._id);
-                  setShowDeclineModal(true);
-                  setEmail(request.email); // Set email for decline modal
-                  setDate(request.date); // Set date for decline modal
-                  setTimeForConsultation(request.timeForConsultation);
-                }}
-              >
-                Decline
-              </button>
-              </>
-            )}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-  </div>
-</div>
+    <div className={styles.tableBox}>
+      <h2 className={styles.title}>Pending Consultation Request</h2>
+      <div className={styles.responsesWrapper}>
+        {pendingRequests.length === 0 ? (
+          <p className={styles.noRequestsMessage}>No pending consultation requests.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Appointment Count</th>
+                <th>User ID</th>
+                <th>Student Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Consultation Type</th>
+                <th>Note</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pendingRequests
+                .slice()
+                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                .map((request) => (
+                  <tr key={request._id}>
+                    <td>
+                      {request.allAppointmentsCount} 
+                      <br/>
+                      <button onClick={() => toggleCounselorInfo(request.userId)} className={styles.infoButton}>
+                        view appointed with counselor
+                      </button>
+                      {selectedUserId === request.userId && (
+                        <div className={styles.counselorInfo}>
+                          {Object.entries(request.counselorCounts).map(([counselor, count]) => (
+                            <div key={counselor}>
+                              {counselor}: {count} 
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </td>
+                    <td>{request.userId}</td>
+                    <td>{request.studentName}</td>
+                    <td>
+                      {new Date(request.date).toLocaleDateString("en-US", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                      })}
+                    </td>
+                    <td>{request.timeForConsultation}</td>
+                    <td>{request.consultationType}</td>
+                    <td>{request.note}</td>
+                    <td>
+                      <span className={`${styles.statusButton}`}>
+                        {request.status}
+                      </span>
+                    </td>
+                    <td>
+                      {request.status === "cancelled" ? (
+                        <button
+                          className={styles.delete}
+                          onClick={() => deleteConsultation(request._id)}
+                        >
+                          Delete
+                        </button>
+                      ) : (
+                        <>
+                          <button
+                            className={styles.accept}
+                            onClick={() => acceptRequest(request._id, request.email, request.date, request.timeForConsultation)}
+                          >
+                            Accept
+                          </button>
+                          <button
+                            className={styles.decline}
+                            onClick={() => {
+                              setDecliningRequestId(request._id);
+                              setShowDeclineModal(true);
+                              setEmail(request.email);
+                              setDate(request.date);
+                              setTimeForConsultation(request.timeForConsultation);
+                            }}
+                          >
+                            Decline
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
 
 
 
@@ -548,9 +555,13 @@ const handleRemove = async (id: string) => {
       </div>
   </h2>
   <div className={styles.responsesWrapper}>
+  {acceptedRequests.length === 0 ? (
+      <p className={styles.noRequestsMessage}>No accepted consultation requests yet.</p> // Message displayed when no requests
+    ) : (
   <table>
     <thead>
       <tr>
+        <th>Appointment Count</th>
         <th>User ID</th>
         <th>Student Name</th>
         <th>Date</th>
@@ -574,6 +585,7 @@ const handleRemove = async (id: string) => {
         })
         .map((request) => (
         <tr key={request._id}>
+          <td>{request.acceptedAppointmentCount}</td> 
           <td>{request.userId}</td>
           <td>{request.studentName}</td>
           <td>
@@ -657,6 +669,7 @@ const handleRemove = async (id: string) => {
       ))}
     </tbody>
   </table>
+  )}
   </div>
 </div>
 
@@ -679,6 +692,7 @@ const handleRemove = async (id: string) => {
     <table>
       <thead>
         <tr>
+          <th>Appointment Count</th>
           <th>User ID</th>
           <th>Student Name</th>
           <th>Date</th>
@@ -709,6 +723,7 @@ const handleRemove = async (id: string) => {
             })
             .map((request) => (
               <tr key={request._id}>
+                <td>{request.acceptedAppointmentCount}</td>
                 <td>{request.userId}</td>
                 <td>{request.studentName}</td>
                 <td>
