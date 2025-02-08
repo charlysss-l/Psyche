@@ -14,7 +14,7 @@ const Home = React.lazy(() => import('./app/Home/Home'));
 const Calendar = React.lazy(() => import('./app/Calendar/Calendar'));
 const Consultation = React.lazy(() => import('./app/Consultation/Consultation'));
 const Profile = React.lazy(() => import('./app/Profile/Profile'));
-const ArchiveInbox = React.lazy(() => import('./app/Consultation/ArchiveInbox'));
+const ArchiveInbox = React.lazy(() => import('./app/Consultation/CompletedInbox'));
 const CreateAccount = React.lazy(() => import('./app/CreateAccount/CreateAccount'));
 const OnlineConsult = React.lazy(() => import('./app/Consultation/OnlineConsult/OnlineConsult'));
 
@@ -83,7 +83,9 @@ function App() {
                           path="/archive"
                           element={
                             <ProtectedRoute>
-                              <ArchiveInbox />
+                              <ArchiveInbox onClose={function (): void {
+                                throw new Error('Function not implemented.');
+                              } } />
                             </ProtectedRoute>
                           }
                         />

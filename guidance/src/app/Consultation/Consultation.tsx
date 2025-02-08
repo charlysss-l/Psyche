@@ -3,9 +3,10 @@ import { fetchConsultationRequests } from "../services/consultationservice";
 import { fetchFollowUpSchedules } from "../services/followupservice";
 import axios from "axios";
 import styles from "./Consultation.module.scss";
-import ArchiveInbox from "./ArchiveInbox";
+import ArchiveInbox from "./CompletedInbox";
 import backendUrl from "../../config";
 import emailjs from "emailjs-com";  // Import EmailJS SDK
+import CompleteInbox from "./CompletedInbox";
 
 
 const API_URL = `${backendUrl}/api/consult/`;
@@ -78,10 +79,12 @@ const GuidanceConsultation: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [timeForConsultation, setTimeForConsultation] = useState<string>("");
-  const [showArchived, setShowArchived] = useState(false);  // State to toggle the archive list visibility
-  const toggleArchivedList = () => {
-    setShowArchived(prevState => !prevState);  // Toggle the state
+  const [showArchived, setShowArchived] = useState(false);  
+
+  const openArchivedList = () => {
+    setShowArchived(true);  // Only set to true (open), no toggling
   };
+  
 
   useEffect(() => {
     const loadConsultationRequests = async () => {
@@ -321,20 +324,23 @@ const deleteConsultation = async (_id: string) => {
   }
 };
 
-const handleMarkAsDone = async (id: string) => {
-  try {
-    await axios.put(`${API_URL}${id}/mark-done`);
-    setConsultationRequests((prevRequests) =>
-      prevRequests.map((request) =>
-        request._id === id ? { ...request, status: "completed" } : request
-      )
-    );
-  } catch (error) {
-    console.error("Error accepting consultation request:", error);
-  }
-};
+// const handleMarkAsDone = async (id: string) => {
+//   try {
+//     await axios.put(`${API_URL}${id}/mark-done`);
+//     setConsultationRequests((prevRequests) =>
+//       prevRequests.map((request) =>
+//         request._id === id ? { ...request, status: "completed" } : request
+//       )
+//     );
+//   } catch (error) {
+//     console.error("Error accepting consultation request:", error);
+//   }
+// };
 
-const handleArchive = async (testID: string) => {
+const handleCompleted = async (testID: string) => {
+  const confirmCompleted = window.confirm("Are you sure you want to complete this test?");
+  if (!confirmCompleted) return;
+  
   try {
     // Make an API call to archive the consultation
     await axios.put(`${API_URL}archive/${testID}`);
@@ -345,10 +351,10 @@ const handleArchive = async (testID: string) => {
           : consultation
       )
     );
-    alert(" Archived successfully.");
+    alert("This test is now completed.");
   } catch (error) {
-    console.error("Error archiving consultation:", error);
-    alert("Failed to archive consultation.");
+    console.error("Error concluding consultation:", error);
+    alert("Failed to conlude consultation.");
   }
 };
 
@@ -439,7 +445,7 @@ const handleRemove = async (id: string) => {
             </div>
             
             </h2>
-  {showArchived && <ArchiveInbox />}
+  {showArchived && <CompleteInbox onClose={() => setShowArchived(false)} />}
   <div className={styles.responsesWrapper}>
 
   <table>
@@ -525,11 +531,10 @@ const handleRemove = async (id: string) => {
 {/* Accepted Requests Table */}
 <div className={styles.tableBox}>
   <h2 className={styles.title}>Accepted Consultation Request
-  <button
-      className={styles.archiveButton}
-      onClick={toggleArchivedList}
-    > Archive List
-  </button>
+  <button className={styles.archiveButton} onClick={openArchivedList}>
+  Completed List
+</button>
+
       <div className={styles.smartWrapper}>
             <input
               type="text"
@@ -619,7 +624,7 @@ const handleRemove = async (id: string) => {
             {request.status !== 'completed' && (
               <button
                 className={styles.markDone}
-                onClick={() => handleMarkAsDone(request._id)}
+                onClick={() => handleCompleted(request.testID)}
               >
                 Mark as Done
               </button>
@@ -629,9 +634,9 @@ const handleRemove = async (id: string) => {
             {request.status === 'completed' && (
               <button
                 className={styles.archive}
-                onClick={() => handleArchive(request.testID)}
+                onClick={() => handleCompleted(request.testID)}
               >
-                Archive
+                Mark as Done
               </button>
             )}
           </td>
@@ -743,7 +748,7 @@ const handleRemove = async (id: string) => {
                   {request.status !== "completed" && (
                     <button
                       className={styles.markDone}
-                      onClick={() => handleMarkAsDone(request._id)}
+                      onClick={() => handleCompleted(request.testID)}
                     >
                       Mark as Done
                     </button>
@@ -751,9 +756,9 @@ const handleRemove = async (id: string) => {
                   {request.status === 'completed' && (
               <button
                 className={styles.archive}
-                onClick={() => handleArchive(request.testID)}
+                onClick={() => handleCompleted(request.testID)}
               >
-                Archive
+                Mark as Done
               </button>
             )}
                 </td>

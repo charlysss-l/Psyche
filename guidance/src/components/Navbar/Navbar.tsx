@@ -32,7 +32,7 @@ const Navbar = () => {
   const navLinks = [
     { to: "/home", label: "Home", icon: homeIcon },
     { to: "/calendar", label: "Calendar", icon: calendarIcon },
-    { to: "/consultation", label: "OMR", icon: consultationIcon },
+    { to: "/consultation", label: "Consultation", icon: consultationIcon },
     ...(role === "main" ? [{ to: "/create-account", label: "Account", icon: accountIcon }] : []),
   ];
 
