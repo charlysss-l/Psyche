@@ -44,9 +44,22 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
 
   if (!isVisible) return null;
 
-  const handleCompleteClick = () => {
-    setIsHighlighted(true);
-  };
+ // handleDelete
+ const handleDeleteClick = async (testID: string) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this consultation?");
+  if (!confirmDelete) return;
+
+  try {
+    await axios.delete(`${API_URL}/test/${testID}/delete`);
+    setCompletedConsultations((prevConsultations) =>
+      prevConsultations.filter((consultation) => consultation.testID !== testID)
+    );
+    alert("Deleted successfully.");
+  } catch (error) {
+    console.error("Error deleting consultation:", error);
+    alert("Failed to delete consultation.");
+  }
+ }
 
   const restoreConsultation = async (testID: string) => {
     try {
@@ -143,6 +156,14 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
                         onClick={() => restoreConsultation(consultation.testID)}
                       >
                         Restore
+                      </button>
+                       
+                       {/* delete button */}
+                       <button
+                        className={`${styles.actionButton} ${styles.delete}`}
+                        onClick={() => handleDeleteClick( consultation.testID)}
+                      >
+                        Delete
                       </button>
                     </td>
                   </tr>

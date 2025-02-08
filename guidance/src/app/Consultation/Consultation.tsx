@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchConsultationRequests } from "../services/consultationservice";
 import { fetchFollowUpSchedules } from "../services/followupservice";
 import axios from "axios";
@@ -80,6 +81,7 @@ const GuidanceConsultation: React.FC = () => {
   const [date, setDate] = useState<string>("");
   const [timeForConsultation, setTimeForConsultation] = useState<string>("");
   const [showArchived, setShowArchived] = useState(false);  
+  const navigate = useNavigate();
 
   const openArchivedList = () => {
     setShowArchived(true);  // Only set to true (open), no toggling
@@ -620,6 +622,17 @@ const handleRemove = async (id: string) => {
               View Info
             </button>
 
+            {/* navigate to Calendar */}
+            <button
+              className={styles.viewInfo}
+              onClick={() => {
+                navigate(`/calendar`);
+              }}
+            >
+              Follow Up
+            </button>
+            
+
             {/* Mark as Done Button (only shows when status is not "Completed") */}
             {request.status !== 'completed' && (
               <button
@@ -745,6 +758,17 @@ const handleRemove = async (id: string) => {
                   >
                     View Info
                   </button>
+
+                   {/* navigate to Calendar */}
+                  <button
+                    className={styles.viewInfo}
+                    onClick={() => {
+                      navigate(`/calendar`);
+                    }}
+                  >
+                    Follow Up
+                  </button>
+
                   {request.status !== "completed" && (
                     <button
                       className={styles.markDone}
