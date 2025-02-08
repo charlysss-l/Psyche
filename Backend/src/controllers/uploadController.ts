@@ -41,7 +41,7 @@ router.post('/upload', upload.array('images', 100), async (req: Request, res: Re
     // Loop through each uploaded file
     for (const file of files) {
       // Generate a unique filename with UUID to avoid naming conflicts
-      const fileName = `uploads/Test 4/${uuidv4()}_${file.originalname}`;
+      const fileName = `uploads/Examples/${uuidv4()}_${file.originalname}`;
       // Create a reference in Firebase storage for this file
       const storageRef = ref(storage, fileName);
 
