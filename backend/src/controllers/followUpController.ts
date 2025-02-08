@@ -48,6 +48,29 @@ export const updateFollowUpScheduleById = async (req: Request, res: Response) =>
   }
 };
 
+// Update status to completed by userId and scheduleId
+export const updateFollowUpScheduleStatusById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params; // Get the schedule's _id
+    const updatedSchedule = await FollowUpSchedule.findByIdAndUpdate(
+      id,
+      { status: "completed" },  // Set status to completed
+      { new: true }  // Return the updated document
+    );
+    
+    if (!updatedSchedule) {
+      return res.status(404).json({ message: "Schedule not found" });
+    }
+
+    res.status(200).json(updatedSchedule);  // Respond with updated schedule
+  } catch (error) {
+    res.status(500).json({ message: "Error updating follow-up schedule status", error });
+  }
+};
+
+
+
+
 // Delete follow-up schedule by ID
 export const deleteFollowUpScheduleById = async (req: Request, res: Response) => {
   try {

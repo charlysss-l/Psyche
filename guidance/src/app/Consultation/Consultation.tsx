@@ -407,6 +407,9 @@ const getStenScoreMeaning = (stenScore: number, factorLetter: string) => {
 
 
 const handleRemove = async (id: string) => {
+  const confirmRemove = window.confirm("Are you sure you want to remove this follow-up schedule?");
+  if (!confirmRemove) return;
+
   try {
     // Call the backend to remove the follow-up schedule
     await axios.delete(`${backendUrl}/api/followup/${id}`);
@@ -419,6 +422,25 @@ const handleRemove = async (id: string) => {
     console.error("Error removing follow-up schedule:", error);
   }
 };
+
+const handleCompleteFollowUp = async (id: string) => {
+  const confirmComplete = window.confirm("Are you sure you want to mark this follow-up schedule as completed?");
+  if (!confirmComplete) return;
+  try {
+    // Call the backend to update the follow-up schedule status to "completed"
+    await axios.put(`${backendUrl}/api/followup/status/${id}`);
+
+    // Update the state to reflect the change by filtering out the completed schedule
+    setFollowUpSchedules((prev) => prev.filter((schedule) => schedule._id !== id));
+
+    alert("Follow-up schedule marked as completed.");
+  } catch (error) {
+    console.error("Error updating follow-up schedule status:", error);
+  }
+};
+
+
+
 
 
   return (
@@ -1033,8 +1055,8 @@ const handleRemove = async (id: string) => {
           <th>Date</th>
           <th>Time</th>
           <th>Note</th>
-          <th>Status</th>
           <th>Counselor Name</th>
+          <th>Status</th>
           <th>Action</th>
           <th>Message</th>
         </tr>
@@ -1049,15 +1071,46 @@ const handleRemove = async (id: string) => {
                 <td>{new Date(schedule.followUpDate).toLocaleDateString()}</td>
                 <td>{schedule.timeForConsultation}</td>
                 <td>{schedule.note}</td>
-                <td>{schedule.status}</td>
                 <td>{schedule.councelorName}</td>
+                <td>{schedule.status}</td>
                 <td>
+                  {schedule.status === "declined" && (
+                    
+                  
                   <button
                     onClick={() => handleRemove(schedule._id)}
                     className={styles.removeButton}
                   >
                     Remove
                   </button>
+                  )}
+                  { schedule.status === "accepted" && (
+                    <><button
+                      className={styles.viewInfo}
+                      onClick={() => {
+                        navigate(`/calendar`);
+                      } }
+                    >
+                      Follow Up
+                    </button><button
+                      className={styles.markDone}
+                      onClick={() => handleCompleteFollowUp( schedule._id)}
+                    >
+                        Mark as Done
+                      </button></>
+
+                  )}
+
+                  { schedule.status === "completed" && (
+                     <button
+                     onClick={() => handleRemove(schedule._id)}
+                     className={styles.removeButton}
+                   >
+                     Remove
+                   </button>
+
+                  )}
+                 
                 </td>
                 <td>{schedule.message}</td>
               </tr>

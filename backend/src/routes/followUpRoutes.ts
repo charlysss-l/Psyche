@@ -5,6 +5,7 @@ import {
   updateFollowUpScheduleById,
   deleteFollowUpScheduleById,
   getFollowUpSchedulesByUserId,
+  updateFollowUpScheduleStatusById
 } from "../controllers/followUpController";
 
 const router = express.Router();
@@ -18,6 +19,14 @@ router.get("/user/:userId", getFollowUpSchedulesByUserId);
 router.put('/:id', async (req: Request, res: Response) => {
     try {
       await updateFollowUpScheduleById(req, res);  // Use the testID for deletion
+    } catch (error) {
+      res.status(500).json({ message: 'Error deleting consultation by testID', error });
+    }
+  });
+
+router.put('/status/:id', async (req: Request, res: Response) => {
+    try {
+      await updateFollowUpScheduleStatusById(req, res);  // Use the testID for deletion
     } catch (error) {
       res.status(500).json({ message: 'Error deleting consultation by testID', error });
     }
