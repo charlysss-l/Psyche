@@ -282,7 +282,7 @@
     position: absolute;
     top: 5%;
     margin-left: -40%;
-    animation: fallAnimation 2s ease-out forwards,
+    animation: 
       floatAnimation 2s ease-in-out 2s infinite;
   }
 
@@ -291,7 +291,7 @@
     position: absolute;
     top: 20%;
     margin-right: -50%;
-    animation: fallAnimation 2s ease-out forwards,
+    animation:
       floatAnimation 2s ease-in-out 2.2s infinite; /* Slightly delayed */
   }
 
@@ -300,7 +300,7 @@
     position: absolute;
     top: 60%;
     margin-left: -70%;
-    animation: fallAnimation 4s ease-out forwards,
+    animation: 
       floatAnimation 2s ease-in-out 4.4s infinite; /* Slightly delayed */
   }
 
@@ -309,7 +309,7 @@
     position: absolute;
     top: 70%;
     margin-right: -70%;
-    animation: fallAnimation 5s ease-out forwards,
+    animation: 
       floatAnimation 2s ease-in-out 5.6s infinite; /* Slightly delayed */
   }
 
@@ -317,7 +317,7 @@
     height: 150px;
     position: absolute;
     top: 40%;
-    animation: fallAnimation 3s ease-out forwards,
+    animation: 
       floatAnimation 2s ease-in-out 3.8s infinite; /* Slightly delayed */
   }
 }

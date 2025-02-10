@@ -358,17 +358,18 @@ const CFTest: React.FC = () => {
             {/* Your form fields here */}
 
             <div className={style.questionContainer}>
-                {currentQuestions?.map((q) => (
+                {currentQuestions?.map((q, index) => (
                     <div className={style.questionBox} key={q.questionID}>
-                    <img
-                      src={q.questionImage}
-                      alt={`Question ${q.questionID}`}
-                      className={currentQuestionSet === 'Test 1' ? style.rectImageImgTest1 :
-                        currentQuestionSet === 'Test 2' ? style.rectImageImgTest2 :
-                        currentQuestionSet === 'Test 3' ? style.squareImageImgTest3 : 
-                        currentQuestionSet === 'Test 4' ? style.squareImageImgTest4 : ''}
-                    />
-                       <div className={style.choiceALL}>
+                        <p className={style.questionNumber}> {index + 1}.</p>
+                        <img
+                            src={q.questionImage}
+                            alt={`Question ${q.questionID}`}
+                            className={currentQuestionSet === 'Test 1' ? style.rectImageImgTest1 :
+                                currentQuestionSet === 'Test 2' ? style.rectImageImgTest2 :
+                                currentQuestionSet === 'Test 3' ? style.squareImageImgTest3 : 
+                                currentQuestionSet === 'Test 4' ? style.squareImageImgTest4 : ''}
+                        />
+                        <div className={style.choiceALL}>
                             {renderChoices(q)}
                         </div>
                     </div>
