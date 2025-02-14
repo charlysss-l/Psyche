@@ -64,20 +64,84 @@
     gap: 10px; // Add some spacing between items
 }
 
-  .choice img {
-    width: 120px;  // Adjust the width as needed
-    height: 110px; // Adjust the height to maintain aspect ratio or as needed
+.test1 {
+  background-color: #f0f8ff;
+
+  & .question img{
+    width: 400px;
+    height: 100px;
+  }
   
-}
-  
-  .answer img {
-    width: 140px;  // Adjust the width as needed
-    height: 130px; // Adjust the height to maintain aspect ratio or as needed
+  & .choice img{
+    width: 100px;
+    height: 100px;
+  }
+
+  & .answer img{
+    width: 100px;
+    height: 100px;
+  }
 }
 
-.question img {
-    width: 400px;  // Adjust the width as needed
-    height: 150px; // Adjust the height to maintain aspect ratio or as needed
+.test2 {
+  background-color: #fff0f5;
+
+  & .question img{
+    width: 600px;
+    height: 100px;
+  }
+  
+  & .choice img{
+    width: 100px;
+    height: 100px;
+  }
+
+  & .answer img{
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.test3 {
+  background-color: #f0fff0;
+
+  & .question img{
+    width: 250px;
+    height: 200px;
+  }
+  
+  & .choice img{
+    width: 100px;
+    height: 100px;
+  }
+
+  & .answer img{
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.test4 {
+  background-color: #fff8dc;
+
+  & .question img{
+    width: 200px;
+    height: 200px;
+  }
+  
+  & .choice img{
+    width: 100px;
+    height: 100px;
+  }
+
+  & .answer img{
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.default {
+  background-color: #ffffff;
 }
 
 .testResultsLink {

@@ -177,6 +177,49 @@
   color: #dc3545;
 }
 
+.imageUploadSection {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+
+  .contentTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  .imageGrid {
+    display: flex;
+    flex-direction: column; /* Stack images in a column */
+    gap: 15px;
+
+    .imageItem {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+
+      .image {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .fileInput {
+        margin-top: 10px; /* Add space between image and input */
+        padding: 5px;
+        cursor: pointer;
+        width: 60%;
+        align-self: center; /* Center the input below the image */
+      }
+    }
+  }
+}
+
+
 :global(body.dark-mode) {
   .firstheader {
     color: #a9a9a9;

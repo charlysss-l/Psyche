@@ -3,14 +3,20 @@
   background: url("../../images/home.jpg");
   background-size: cover;
   color: white;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(0);
   margin: 0;
   animation: fadeInPage 1.5s ease-in-out;
   user-select: none;
+
+  &:hover {
+    transform: translateY(-20px); // Moves the div 10px up
+  }
 
   &::before {
     content: "";
@@ -198,13 +204,302 @@
   animation: floatAnimation 2s ease-in-out 0.8s infinite; /* Slightly delayed */
 }
 
+
+/* for guidance cons home page */
+.homepageconsultation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 3rem;
+  border-radius: 2px;
+  background-color: #f3f3f3;
+  box-shadow:rgba(0, 0, 0, 0.7) 0px 2px 5px;
+  margin-top: 2rem;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(0);
+  animation: fadeInPage 1.5s ease-in-out;
+
+  &:hover {
+    transform: translateY(-20px); // Moves the div 10px up
+  }
+  .contentconsultation {
+    width: 100%;
+    max-width: 2000px;
+
+    
+
+    .headerconsultation {
+      text-align: center;
+      color: #653e84; 
+      font-size: 2.5rem;
+      text-shadow: #333 1px 1px 3px;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .descriptionconsultation {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      font-size: 1.3rem;
+      color: #080808;
+      margin-top: -10%;
+      max-width: 50%;
+      margin-right: 10px;
+      text-shadow: #333 0px 1px 1px;
+      font-family:Arial, Helvetica, sans-serif;
+
+      @media (max-width: 1500px) {
+        font-size: 1.2rem;
+        
+      }
+    }
+
+    .picConsultation {
+      width: 25vw; // Adjust size as needed
+      height: 48vh;
+      background-image: url('../../images/homecons.png'); // Replace with actual image path
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      margin-right: -70px; // Adjust margin as needed
+      animation: floatAnimation 2s ease-in-out 0.6s infinite;
+
+      @media (max-width: 1500px) {
+        width: 60vw;
+        height: 60vh;
+        margin-right: -50px;
+      }
+      @media (max-width: 1000px) {
+        width: 50vw;
+        height: 50vh;
+        margin-right: -60px;
+      }
+      @media (max-width: 800px) {
+        width: 80vw;
+        height: 40vh;
+        margin-right: -30px;
+        
+      }
+      @media (max-width: 768px) {
+        width: 80vw;
+        height: 40vh;
+        margin-right: -30px;
+      }
+      @media (max-width: 480px) {
+        margin-right: -20px;
+      }
+      @media (max-width: 380px) {
+        width: 100vw;
+        margin-right: -10px;  
+      }
+      @media (max-width: 280px) {
+        width: 150vw;
+        margin-right: -10px;
+      }
+    }
+
+
+    .getStartedBtn {
+      display: inline-block;
+      margin-top: -8%;
+      margin-right: 30%;
+      margin-bottom: 4%;
+      padding: 1rem 5rem;
+      background-color: #653e84; 
+      color: #fff;
+      font-size: 1.2rem;
+      text-decoration: none;
+      border: #653e84 2px solid;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    
+      &:hover {
+        font-weight: bold;
+        color: #653e84;
+        background-color: transparent; 
+      }
+      @media (max-width: 1500px) {
+        padding: 1rem 3rem;
+        margin-right: 40%;
+      }
+      @media (max-width: 1000px) {
+        margin-right: 50%;
+        margin-top: -15%;
+        
+      }
+      @media (max-width: 900px) {
+        margin-right: 50%;
+        margin-top: -15%;
+        
+      }
+      @media (max-width: 800px) {
+        margin-right: 50%;
+      }
+    }
+    
+
+    // Layout container for pic and text
+    .contentLayout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1000px;
+    }
+  }
+}
+
+.homepagesurvey {
+  display: flex;
+  background-color: #f3f3f3;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 3rem;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 2px 5px;
+  margin-top: 2rem;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(0);
+  animation: fadeInPage 1.5s ease-in-out;
+
+  &:hover {
+    transform: translateY(-20px);
+  }
+
+  .contentsurvey {
+    width: 100%;
+    max-width: 2000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .headersurvey {
+      text-align: center;
+      color: #653e84;
+      font-size: 2.5rem;
+      text-shadow: #333 1px 1px 3px;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
+    .contentLayoutsurvey {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .descriptionsurvey {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      font-size: 1.3rem;
+      margin-top: -10%;
+      color: #080808;
+      max-width: 50%;
+      margin-left: 10px;
+      text-shadow: #333 0px 1px 1px;
+      font-family: Arial, Helvetica, sans-serif;
+
+      @media (max-width: 1500px) {
+        font-size: 1.2rem;
+      }
+    }
+
+    .picSurvey {
+      width: 25vw;
+      height: 45vh;
+      background-image: url('../../images/surveyhome.png'); // Replace with the actual image path
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      margin-left: -70px;
+      margin-top: 20px;
+      animation: floatAnimation 2s ease-in-out 0.6s infinite;
+
+      @media (max-width: 1500px) {
+        width: 60vw;
+        height: 60vh;
+        margin-left: -50px;
+      }
+      @media (max-width: 1000px) {
+        width: 50vw;
+        height: 50vh;
+        margin-left: -80px;
+      }
+      @media (max-width: 768px) {
+        width: 80vw;
+        height: 40vh;
+        margin-left: -60px;
+      }
+      @media (max-width: 480px) {
+        margin-left: -20px;
+      }
+      @media (max-width: 380px) {
+        width: 100vw;
+        margin-left: -10px;
+      }
+      @media (max-width: 280px) {
+        width: 150vw;
+        margin-left: -10px;
+      }
+    }
+
+    .getStartedBtnSurvey {
+      display: inline-block;
+      margin-top: -8%;
+      margin-left: 30%;
+      margin-bottom: 3%;
+      padding: 1rem 5rem;
+      background-color: #653e84;
+      color: #fff;
+      font-size: 1.2rem;
+      text-decoration: none;
+      border: #653e84 2px solid;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+
+      &:hover {
+        font-weight: bold;
+        color: #653e84;
+        background-color: transparent;
+      }
+      @media (max-width: 1500px) {
+        padding: 1rem 3rem;
+        margin-left: 40%;
+        margin-top: -10%;
+      }
+      @media (max-width: 900px) {
+        margin-left: 50%;
+        margin-top: -15%;
+        
+      }
+      @media (max-width: 800px) {
+        margin-left: 50%;
+      }
+    }
+  }
+}
+
 :global(body.dark-mode) {
   .homepagestudent {
     position: relative;
     background: url("../../images/home.jpg");
     background-size: cover;
     color: white;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -248,6 +543,43 @@
       }
     }
   }
+.homepageconsultation{
+  background-color: #1a1a1a;
+  .headerconsultation {
+    color: #8c62a9;
+  }
+  .descriptionconsultation {
+    color: #a9a9a9;
+  }
+  .getStartedBtn {
+    background-color: #8c62a9;
+    border: 2px solid #8c62a9;
+
+    &:hover {
+      background-color: transparent;
+      color: #8c62a9;
+    }
+  }
+}
+
+.homepagesurvey{
+  background-color: #1a1a1a;
+  .headersurvey {
+    color: #8c62a9;
+  }
+  .descriptionsurvey {
+    color: #a9a9a9;
+  }
+  .getStartedBtnSurvey {
+    background-color: #8c62a9;
+    border: 2px solid #8c62a9;
+
+    &:hover {
+      background-color: transparent;
+      color: #8c62a9;
+    }
+  }
+}
 }
 
 @media (max-width: 768px) {
@@ -282,7 +614,7 @@
     position: absolute;
     top: 5%;
     margin-left: -40%;
-    animation: fallAnimation 2s ease-out forwards,
+    animation: 
       floatAnimation 2s ease-in-out 2s infinite;
   }
 
@@ -291,7 +623,7 @@
     position: absolute;
     top: 20%;
     margin-right: -50%;
-    animation: fallAnimation 2s ease-out forwards,
+    animation:
       floatAnimation 2s ease-in-out 2.2s infinite; /* Slightly delayed */
   }
 
@@ -300,7 +632,7 @@
     position: absolute;
     top: 60%;
     margin-left: -70%;
-    animation: fallAnimation 4s ease-out forwards,
+    animation: 
       floatAnimation 2s ease-in-out 4.4s infinite; /* Slightly delayed */
   }
 
@@ -309,7 +641,7 @@
     position: absolute;
     top: 70%;
     margin-right: -70%;
-    animation: fallAnimation 5s ease-out forwards,
+    animation: 
       floatAnimation 2s ease-in-out 5.6s infinite; /* Slightly delayed */
   }
 
@@ -317,7 +649,7 @@
     height: 150px;
     position: absolute;
     top: 40%;
-    animation: fallAnimation 3s ease-out forwards,
+    animation: 
       floatAnimation 2s ease-in-out 3.8s infinite; /* Slightly delayed */
   }
 }

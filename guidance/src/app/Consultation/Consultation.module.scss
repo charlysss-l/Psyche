@@ -327,6 +327,38 @@ button {
   margin-top: 20px;
 }
 
+.infoButton {
+  padding: 5px 10px;
+  background-color: #8146ad;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  cursor: pointer;
+  position: relative; /* Relative positioning to help with absolute positioning of the counselor info */
+}
+
+.counselorInfo {
+  position: absolute; /* Makes it float above the content */
+  left: 7%; /* Aligns the floating div to the left of the button */
+  width: 200px; /* Adjusts the width of the floating info box */
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow for a floating effect */
+  z-index: 10; /* Ensures it stays above other content */
+}
+
+
+.noRequestsMessage{
+  text-align: center;
+  margin-top: 20px;
+  font-size: $font-size-medium;
+  font-weight: bold;
+  color: #ffffff;
+}
+
 .followUpModal {
   position: fixed;
   top: 0;

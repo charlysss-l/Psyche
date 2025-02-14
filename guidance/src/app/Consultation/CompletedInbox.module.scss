@@ -152,9 +152,8 @@ select {
   display: flex;
   position: fixed;
   flex-direction: column;
-  top:30%;
-  width: 60%;
-  right: 18%;
+  top:10%;
+  width: 80%;
   margin: 1%;
   padding: 20px;
   border: 1px solid #ddd;
@@ -195,7 +194,7 @@ h2 {
 }
 
 .responsesWrapper {
-  max-height: 385px;  // Adjust the height as per your design needs
+  max-height: 585px;  // Adjust the height as per your design needs
   overflow-y: auto;   // Enable vertical scrolling when content overflows
   margin-top: 10px;   // Optional, for some space between elements
 }
@@ -220,9 +219,19 @@ h2 {
   &.restore {
     background-color: #969696  ; // Red for delete
     color: white;
+    margin: 10px;
 
     &:hover {
       background-color: #7293d1 ; // Darker red
+    }
+  }
+
+  &.delete {
+    background-color: #b40000; // Red for delete
+    color: white;
+
+    &:hover {
+      background-color: #b40000; // Darker red
     }
   }
 
@@ -261,6 +270,29 @@ h2 {
   .closeButton:hover {
     background-color: #494949;
   }
+
+  .searchContainer {
+    display: flex;
+    justify-content: flex-end; // Aligns the search bar to the right
+  }
+  
+  .searchBar {
+    width: 100%;
+    max-width: 420px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+  
+    &:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+  }
+  
+  
   
   :global(body.dark-mode){
     .tableContainer{

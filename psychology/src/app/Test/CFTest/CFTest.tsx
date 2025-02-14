@@ -75,6 +75,38 @@ const CFTest: React.FC = () => {
         fetchData();
     }, []);
 
+    // Group questions by questionSet
+    const groupedQuestions = cfTests.reduce((acc, test) => {
+        test.questions.forEach(question => {
+            if (!acc[question.questionSet]) {
+                acc[question.questionSet] = [];
+            }
+            acc[question.questionSet].push(question);
+        });
+        return acc;
+    }, {} as { [key: string]: Question[] });
+
+    const questionSets = Object.keys(groupedQuestions);
+    const totalPages = questionSets.length;
+
+    const currentQuestionSet = questionSets[currentPage - 1];
+    const currentQuestions = groupedQuestions[currentQuestionSet] || [];
+
+    const getStyleForQuestionSet = (questionSet: string) => {
+        switch (questionSet) {
+            case 'Test 1':
+                return style.test1;
+            case 'Test 2':
+                return style.test2;
+            case 'Test 3':
+                return style.test3;
+            case 'Test 4':
+                return style.test4;
+            default:
+                return style.default;
+        }
+    };
+
     // Handle image file selection
     const handleFileChange = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -184,14 +216,7 @@ const CFTest: React.FC = () => {
     // Flatten all the questions from the CF tests
     const allQuestions = cfTests.flatMap(test => test.questions);
 
-    // Calculate the total number of pages
-    const totalPages = Math.ceil(allQuestions.length / resultsPerPage);
-
-    // Slice the questions to display based on the current page
-    const currentQuestions = allQuestions.slice(
-        (currentPage - 1) * resultsPerPage,
-        currentPage * resultsPerPage
-    );
+  
 
     // Modal component for editing images
     const ImageEditModal = ({ questionID }: { questionID: string }) => {
@@ -360,10 +385,9 @@ const CFTest: React.FC = () => {
                 <Link to="/cfresults_list_both" className={style.testResultsLink}>Test Results</Link>
                 <Link to="/cf-statistics" className={style.testResultsLink}>Analytics</Link>
                 <Link to="/cfinterpretation" className={style.testResultsLink}>Edit CF Interpretation</Link>
-            
             </div>
             <h2>Questions</h2>
-            <table className={style.table}>
+            <table className={`${style.table} ${getStyleForQuestionSet(currentQuestionSet)}`}>
                 <thead>
                     <tr>
                         <th className={style.th}>Question ID</th>
@@ -416,7 +440,6 @@ const CFTest: React.FC = () => {
             </table>
             {isEditing && <ImageEditModal questionID={isEditing} />}
 
-            
             {/* Pagination Controls */}
             <div className={style.pagination}>
                 <button

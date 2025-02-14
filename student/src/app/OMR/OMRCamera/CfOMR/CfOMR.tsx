@@ -166,11 +166,20 @@ const CfOMR: React.FC = () => {
     alert('Upload count has been reset for the day.');
   };
   
- useEffect(() => {
-    // Retrieve the upload count from localStorage when component mounts
-    const storedCount = localStorage.getItem(`${userId}_uploadCount`);
-    setUploadCount(storedCount ? parseInt(storedCount, 10) : 0);
+  useEffect(() => {
+    const currentDate = new Date().toISOString().split('T')[0];
+    const storedDate = localStorage.getItem(`${userId}_uploadDate`);
+    let storedCount = parseInt(localStorage.getItem(`${userId}_uploadCount`) || '0', 10);
+  
+    if (storedDate !== currentDate) {
+      storedCount = 0;
+      localStorage.setItem(`${userId}_uploadDate`, currentDate);
+      localStorage.setItem(`${userId}_uploadCount`, "0");
+    }
+  
+    setUploadCount(storedCount); // Ensure correct state before rendering
   }, []);
+  
   
   
   const handleUpload = async () => {

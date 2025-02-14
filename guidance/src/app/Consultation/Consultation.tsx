@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchConsultationRequests } from "../services/consultationservice";
 import { fetchFollowUpSchedules } from "../services/followupservice";
 import axios from "axios";
 import styles from "./Consultation.module.scss";
-import ArchiveInbox from "./ArchiveInbox";
+import ArchiveInbox from "./CompletedInbox";
 import backendUrl from "../../config";
 import emailjs from "emailjs-com";  // Import EmailJS SDK
+import CompleteInbox from "./CompletedInbox";
 
 
 const API_URL = `${backendUrl}/api/consult/`;
@@ -17,6 +19,7 @@ const USERPFOMRE_URL = `${backendUrl}/api/omr16pf/test/`;
 const USERCFOMRE_URL = `${backendUrl}/api/omrcf/test/physical/`;
 
 interface ConsultationRequest {
+  counselorCounts(counselorCounts: any): unknown;
   _id: string;
   userId: string;
   email: string;
@@ -29,6 +32,8 @@ interface ConsultationRequest {
   date: string;
   status: string;
   message: string;
+  acceptedAppointmentCount: number; // Add this field
+  allAppointmentsCount: number;
 }
 
 interface FollowUpSchedule {
@@ -78,10 +83,17 @@ const GuidanceConsultation: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [timeForConsultation, setTimeForConsultation] = useState<string>("");
-  const [showArchived, setShowArchived] = useState(false);  // State to toggle the archive list visibility
-  const toggleArchivedList = () => {
-    setShowArchived(prevState => !prevState);  // Toggle the state
+  const [showArchived, setShowArchived] = useState(false);  
+  const navigate = useNavigate();
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const toggleCounselorInfo = (userId: string) => {
+    setSelectedUserId(selectedUserId === userId ? null : userId);
   };
+  
+  const openArchivedList = () => {
+    setShowArchived(true);  // Only set to true (open), no toggling
+  };
+  
 
   useEffect(() => {
     const loadConsultationRequests = async () => {
@@ -321,20 +333,23 @@ const deleteConsultation = async (_id: string) => {
   }
 };
 
-const handleMarkAsDone = async (id: string) => {
-  try {
-    await axios.put(`${API_URL}${id}/mark-done`);
-    setConsultationRequests((prevRequests) =>
-      prevRequests.map((request) =>
-        request._id === id ? { ...request, status: "completed" } : request
-      )
-    );
-  } catch (error) {
-    console.error("Error accepting consultation request:", error);
-  }
-};
+// const handleMarkAsDone = async (id: string) => {
+//   try {
+//     await axios.put(`${API_URL}${id}/mark-done`);
+//     setConsultationRequests((prevRequests) =>
+//       prevRequests.map((request) =>
+//         request._id === id ? { ...request, status: "completed" } : request
+//       )
+//     );
+//   } catch (error) {
+//     console.error("Error accepting consultation request:", error);
+//   }
+// };
 
-const handleArchive = async (testID: string) => {
+const handleCompleted = async (testID: string) => {
+  const confirmCompleted = window.confirm("Are you sure you want to complete this test?");
+  if (!confirmCompleted) return;
+  
   try {
     // Make an API call to archive the consultation
     await axios.put(`${API_URL}archive/${testID}`);
@@ -345,10 +360,10 @@ const handleArchive = async (testID: string) => {
           : consultation
       )
     );
-    alert(" Archived successfully.");
+    alert("This test is now completed.");
   } catch (error) {
-    console.error("Error archiving consultation:", error);
-    alert("Failed to archive consultation.");
+    console.error("Error concluding consultation:", error);
+    alert("Failed to conlude consultation.");
   }
 };
 
@@ -392,6 +407,9 @@ const getStenScoreMeaning = (stenScore: number, factorLetter: string) => {
 
 
 const handleRemove = async (id: string) => {
+  const confirmRemove = window.confirm("Are you sure you want to remove this follow-up schedule?");
+  if (!confirmRemove) return;
+
   try {
     // Call the backend to remove the follow-up schedule
     await axios.delete(`${backendUrl}/api/followup/${id}`);
@@ -404,6 +422,25 @@ const handleRemove = async (id: string) => {
     console.error("Error removing follow-up schedule:", error);
   }
 };
+
+const handleCompleteFollowUp = async (id: string) => {
+  const confirmComplete = window.confirm("Are you sure you want to mark this follow-up schedule as completed?");
+  if (!confirmComplete) return;
+  try {
+    // Call the backend to update the follow-up schedule status to "completed"
+    await axios.put(`${backendUrl}/api/followup/status/${id}`);
+
+    // Update the state to reflect the change by filtering out the completed schedule
+    setFollowUpSchedules((prev) => prev.filter((schedule) => schedule._id !== id));
+
+    alert("Follow-up schedule marked as completed.");
+  } catch (error) {
+    console.error("Error updating follow-up schedule status:", error);
+  }
+};
+
+
+
 
 
   return (
@@ -420,104 +457,119 @@ const handleRemove = async (id: string) => {
       
     </div>
 
-    {/* Pending Requests Table */}
-<div className={styles.tableBox}>
-<h2 className={styles.title}>Pending Consultation Request
-
-<button onClick={toggleModal} className={styles.viewButton}>
-        View Follow-Up Schedule List
-      </button>
-      <div className={styles.smartWrapper}>
-        
+      {/* Pending Requests Table */}
+      <div className={styles.tableBox}>
+  <h2 className={styles.title}>
+    Pending Consultation Request
+    <button onClick={toggleModal} className={styles.viewButton}>
+      View Follow-Up Schedule List
+    </button>
+    <div className={styles.smartWrapper}>
       <input
-              type="text"
-              placeholder="Search by User ID, Name, Date, Time, Note"
-              value={pendingSearchTerm}
-              onChange={(e) => setPendingSearchTerm(e.target.value)}
-              className={styles.searchInput}
-            />
-            </div>
-            
-            </h2>
-  {showArchived && <ArchiveInbox />}
-  <div className={styles.responsesWrapper}>
-
-  <table>
-    <thead>
-      <tr>
-        <th>User ID</th>
-        {/* <th>Email</th> */}
-        <th>Student Name</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Consultation Type</th>
-        <th>Note</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-    {pendingRequests
-        .slice() 
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) 
-        .map((request) => (
-        <tr key={request._id}>
-          <td>{request.userId}</td>
-          {/* <td>{request.email}</td> */}
-          <td>{request.studentName}</td>
-          <td>
-            {new Date(request.date).toLocaleDateString("en-US", {
-              month: "2-digit",
-              day: "2-digit",
-              year: "numeric",
-            })}
-          </td>
-          <td>{request.timeForConsultation}</td>
-          <td>{request.consultationType}</td>
-          <td>{request.note}</td>
-          <td>
-            <span className={`${styles.statusButton}`}>
-              {request.status}
-            </span>
-            
-          </td>
-          <td>
-            {request.status === "cancelled" ? (
-              <button
-                className={styles.delete}
-                onClick={() => deleteConsultation(request._id)}
-              >
-                Delete
-              </button>
-            ) : (
-              <>
-                <button
-                  className={styles.accept}
-                  onClick={() => acceptRequest(request._id, request.email, request.date, request.timeForConsultation)}
-                  >
-                  Accept
-                </button>
-                <button
-                className={styles.decline}
-                onClick={() => {
-                  setDecliningRequestId(request._id);
-                  setShowDeclineModal(true);
-                  setEmail(request.email); // Set email for decline modal
-                  setDate(request.date); // Set date for decline modal
-                  setTimeForConsultation(request.timeForConsultation);
-                }}
-              >
-                Decline
-              </button>
-              </>
-            )}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-  </div>
-</div>
+        type="text"
+        placeholder="Search by User ID, Name, Date, Time, Note"
+        value={pendingSearchTerm}
+        onChange={(e) => setPendingSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
+    </div>
+  </h2>
+  {showArchived && <CompleteInbox onClose={() => setShowArchived(false)} />}
+      <div className={styles.responsesWrapper}>
+        {pendingRequests.length === 0 ? (
+          <p className={styles.noRequestsMessage}>No pending consultation requests.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Appointment Count</th>
+                <th>User ID</th>
+                <th>Student Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Consultation Type</th>
+                <th>Note</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pendingRequests
+                .slice()
+                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                .map((request) => (
+                  <tr key={request._id}>
+                    <td>
+                      {request.allAppointmentsCount} 
+                      <br/>
+                      <button onClick={() => toggleCounselorInfo(request.userId)} className={styles.infoButton}>
+                        view appointed with counselor
+                      </button>
+                      {selectedUserId === request.userId && (
+                        <div className={styles.counselorInfo}>
+                          {Object.entries(request.counselorCounts).map(([counselor, count]) => (
+                            <div key={counselor}>
+                              {counselor}: {count} 
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </td>
+                    <td>{request.userId}</td>
+                    <td>{request.studentName}</td>
+                    <td>
+                      {new Date(request.date).toLocaleDateString("en-US", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                      })}
+                    </td>
+                    <td>{request.timeForConsultation}</td>
+                    <td>{request.consultationType}</td>
+                    <td>{request.note}</td>
+                    <td>
+                      <span className={`${styles.statusButton}`}>
+                        {request.status}
+                      </span>
+                    </td>
+                    <td>
+                      {request.status === "cancelled" ? (
+                        <button
+                          className={styles.delete}
+                          onClick={() => deleteConsultation(request._id)}
+                        >
+                          Delete
+                        </button>
+                      ) : (
+                        <>
+                          <button
+                            className={styles.accept}
+                            onClick={() => acceptRequest(request._id, request.email, request.date, request.timeForConsultation)}
+                          >
+                            Accept
+                          </button>
+                          <button
+                            className={styles.decline}
+                            onClick={() => {
+                              setDecliningRequestId(request._id);
+                              setShowDeclineModal(true);
+                              setEmail(request.email);
+                              setDate(request.date);
+                              setTimeForConsultation(request.timeForConsultation);
+                            }}
+                          >
+                            Decline
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
 
 
 
@@ -525,11 +577,10 @@ const handleRemove = async (id: string) => {
 {/* Accepted Requests Table */}
 <div className={styles.tableBox}>
   <h2 className={styles.title}>Accepted Consultation Request
-  <button
-      className={styles.archiveButton}
-      onClick={toggleArchivedList}
-    > Archive List
-  </button>
+  <button className={styles.archiveButton} onClick={openArchivedList}>
+  Completed List
+</button>
+
       <div className={styles.smartWrapper}>
             <input
               type="text"
@@ -541,9 +592,13 @@ const handleRemove = async (id: string) => {
       </div>
   </h2>
   <div className={styles.responsesWrapper}>
+  {acceptedRequests.length === 0 ? (
+      <p className={styles.noRequestsMessage}>No accepted consultation requests yet.</p> // Message displayed when no requests
+    ) : (
   <table>
     <thead>
       <tr>
+        <th>Appointment Count</th>
         <th>User ID</th>
         <th>Student Name</th>
         <th>Date</th>
@@ -567,6 +622,7 @@ const handleRemove = async (id: string) => {
         })
         .map((request) => (
         <tr key={request._id}>
+          <td>{request.acceptedAppointmentCount}</td> 
           <td>{request.userId}</td>
           <td>{request.studentName}</td>
           <td>
@@ -615,11 +671,22 @@ const handleRemove = async (id: string) => {
               View Info
             </button>
 
+            {/* navigate to Calendar */}
+            <button
+              className={styles.viewInfo}
+              onClick={() => {
+                navigate(`/calendar`);
+              }}
+            >
+              Follow Up
+            </button>
+            
+
             {/* Mark as Done Button (only shows when status is not "Completed") */}
             {request.status !== 'completed' && (
               <button
                 className={styles.markDone}
-                onClick={() => handleMarkAsDone(request._id)}
+                onClick={() => handleCompleted(request.testID)}
               >
                 Mark as Done
               </button>
@@ -629,9 +696,9 @@ const handleRemove = async (id: string) => {
             {request.status === 'completed' && (
               <button
                 className={styles.archive}
-                onClick={() => handleArchive(request.testID)}
+                onClick={() => handleCompleted(request.testID)}
               >
-                Archive
+                Mark as Done
               </button>
             )}
           </td>
@@ -639,6 +706,7 @@ const handleRemove = async (id: string) => {
       ))}
     </tbody>
   </table>
+  )}
   </div>
 </div>
 
@@ -654,13 +722,14 @@ const handleRemove = async (id: string) => {
     );
   }).length === 0 ? (
     <div className={styles.noScheduleWrapper}>
-    <p className={styles.noScheduleMessage}>No scheduled requests for today.</p>
+    <p className={styles.noRequestsMessage}>No scheduled requests for today.</p>
   </div>
   ) : (
     <div className={styles.responsesWrapper}>
     <table>
       <thead>
         <tr>
+          <th>Appointment Count</th>
           <th>User ID</th>
           <th>Student Name</th>
           <th>Date</th>
@@ -691,6 +760,7 @@ const handleRemove = async (id: string) => {
             })
             .map((request) => (
               <tr key={request._id}>
+                <td>{request.acceptedAppointmentCount}</td>
                 <td>{request.userId}</td>
                 <td>{request.studentName}</td>
                 <td>
@@ -740,10 +810,21 @@ const handleRemove = async (id: string) => {
                   >
                     View Info
                   </button>
+
+                   {/* navigate to Calendar */}
+                  <button
+                    className={styles.viewInfo}
+                    onClick={() => {
+                      navigate(`/calendar`);
+                    }}
+                  >
+                    Follow Up
+                  </button>
+
                   {request.status !== "completed" && (
                     <button
                       className={styles.markDone}
-                      onClick={() => handleMarkAsDone(request._id)}
+                      onClick={() => handleCompleted(request.testID)}
                     >
                       Mark as Done
                     </button>
@@ -751,9 +832,9 @@ const handleRemove = async (id: string) => {
                   {request.status === 'completed' && (
               <button
                 className={styles.archive}
-                onClick={() => handleArchive(request.testID)}
+                onClick={() => handleCompleted(request.testID)}
               >
-                Archive
+                Mark as Done
               </button>
             )}
                 </td>
@@ -974,8 +1055,8 @@ const handleRemove = async (id: string) => {
           <th>Date</th>
           <th>Time</th>
           <th>Note</th>
-          <th>Status</th>
           <th>Counselor Name</th>
+          <th>Status</th>
           <th>Action</th>
           <th>Message</th>
         </tr>
@@ -990,15 +1071,46 @@ const handleRemove = async (id: string) => {
                 <td>{new Date(schedule.followUpDate).toLocaleDateString()}</td>
                 <td>{schedule.timeForConsultation}</td>
                 <td>{schedule.note}</td>
-                <td>{schedule.status}</td>
                 <td>{schedule.councelorName}</td>
+                <td>{schedule.status}</td>
                 <td>
+                  {schedule.status === "declined" && (
+                    
+                  
                   <button
                     onClick={() => handleRemove(schedule._id)}
                     className={styles.removeButton}
                   >
                     Remove
                   </button>
+                  )}
+                  { schedule.status === "accepted" && (
+                    <><button
+                      className={styles.viewInfo}
+                      onClick={() => {
+                        navigate(`/calendar`);
+                      } }
+                    >
+                      Follow Up
+                    </button><button
+                      className={styles.markDone}
+                      onClick={() => handleCompleteFollowUp( schedule._id)}
+                    >
+                        Mark as Done
+                      </button></>
+
+                  )}
+
+                  { schedule.status === "completed" && (
+                     <button
+                     onClick={() => handleRemove(schedule._id)}
+                     className={styles.removeButton}
+                   >
+                     Remove
+                   </button>
+
+                  )}
+                 
                 </td>
                 <td>{schedule.message}</td>
               </tr>
