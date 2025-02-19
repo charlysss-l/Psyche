@@ -1,11 +1,11 @@
 .container {
   width: 70%;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #F6F5F5;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   font-family: Arial, sans-serif;
   line-height: 1.6;
   text-align: center;
@@ -18,6 +18,20 @@
 
 .pftermsinfo {
   text-align: left;
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pfintroinfo {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 12px;
+  text-align: center;
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
 .termsinfo {
@@ -58,7 +72,7 @@
   justify-content: center; /* Center the container horizontally */
 
   label {
-      color: #704191;
+      color: #111111;
   }
 }
 
@@ -74,41 +88,41 @@
 
 :global(body.dark-mode) {
   .container{
-    background-color: #161616;
+    background-color: #15151519;
   }
   .pfintro, .termsandconditionpf{
-    color: #754a94;
+    color: #8c62a9;
   }
   .pfintroinfo,.pftermsinfo{
-    color: #acacac;
+    color: #a9a9a9;
   }
   .termsnumiq{
-    color: #754a94 ;
+    color: #8c62a9 ;
   }
   .termsinfo {
-    color: #e6e6e6;
+    color: #a9a9a9;
   }
   .pfButton {
-    background-color: #754a94;
+    background-color: #8c62a9;
   }
   .pfButton:hover {
     background-color: transparent;
-    border: 1px solid #754a94;
-    color: #754a94;
+    border: 1px solid #8c62a9;
+    color: #8c62a9;
   }
   .confirm{
     color: #e6e6e6;
   }
   .checkboxContainer label{
-      color:#754a94;
+      color:#a9a9a9;
     }
     .pfButton{
-      background-color: #754a94;
+      background-color: #8c62a9;
 
      &:hover {
         background-color: transparent ;
-        border: 1px solid #754a94 ;
-        color: #754a94;
+        border: 1px solid #8c62a9 ;
+        color: #8c62a9;
       }
     }
   }

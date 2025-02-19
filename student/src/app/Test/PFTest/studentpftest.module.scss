@@ -1,10 +1,10 @@
 .form {
-  background-color: #ffffff;
+  background-color: #F6F5F5;
   padding: 20px;
   padding-bottom: 120px; /* Increase padding for pagination */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  max-width: 800px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  max-width: 900px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 20px auto;
   position: relative;
@@ -13,10 +13,12 @@
 
 p {
   color: #45474B; /* Dark gray for general text */
+
+  
   
 }
 .PFtitle{
-  color: #6e6e6e;
+  color: #1b1b1b;
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 20px;
@@ -165,14 +167,13 @@ input[type="radio"] {
 }
 :global(body.dark-mode){
   .form {
-    box-shadow: #535353  0 2px 4px;
-
+    box-shadow: none;
     p{
       color: #050505;
     }
   }
   .PFtitle{
-    color: #6e6e6e;
+    color: #050505;
   }
   .instruction, .rules{
     color: #754a94;
@@ -193,7 +194,7 @@ input[type="radio"] {
     cursor: not-allowed;
   }
   .form{
-    box-shadow: #ddd  0 4px 8px;
+    box-shadow: none;
   }
   p {
     color: #ffffff; /* Dark gray for general text */
