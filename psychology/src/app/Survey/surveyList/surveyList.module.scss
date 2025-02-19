@@ -327,6 +327,10 @@ p {
   width: 100%;
   max-height: 80vh;
   overflow-y: auto;
+
+  h2{
+    color: #000000;
+  }
 }
 
 .surveysCard {
@@ -335,30 +339,44 @@ p {
   flex-direction: column;
   justify-content: space-between;
   padding: 10px;
-  border: 1px solid #ccc;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
-  margin-bottom: 10px;
+  width: 90%;
+  margin: auto auto 20px;
   background-color: #ffffff;
 }
 
 .closeButton {
   margin-top: 20px;
-  padding: 10px 20px;
-  background: #ff4d4f;
+  padding: 10px 40px;
+  background: #af1414;
   color: white;
-  border: none;
+  border: 1px solid #af1414;
   border-radius: 4px;
   cursor: pointer;
+
+  &:hover {
+    background: transparent;
+    color: #af1414;
+    border: 1px solid #af1414;
+  }
 }
 
 .viewCompletedButton {
   margin-left: 10px;
   padding: 10px 20px;
-  background: #700e9e;
+  background: #653E84;
   color: white;
-  border: none;
+  font-size: 1rem;
+  border: 1px solid #653E84;
   border-radius: 4px;
   cursor: pointer;
+
+  &:hover {
+    background: transparent;
+    color: #653E84;
+    border: 1px solid #653E84;
+  }
 }
 
 
@@ -441,6 +459,22 @@ p {
       color: #8c62a9;
     }
   }
+
+  .modalContent {
+    background: #1a1919;
+    color: #a9a9a9;
+    
+    h2{
+      color: #a9a9a9;
+    }
+    .surveysCard {
+      background-color: #212121;
+      color: #a9a9a9;
+      box-shadow: none;
+    }
+  }
+
+
 }
 
 @media (max-width: 768px) {
