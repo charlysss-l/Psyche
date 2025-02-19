@@ -33,7 +33,7 @@ form div {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0px 4px 6px #97b3e7d3;
+  box-shadow: 0px 4px 6px #653E84;
   outline: none;
   transition: border-color 0.3s ease;
 }
@@ -85,36 +85,43 @@ textarea {
 }
 
 .react-calendar__navigation button {
-  background-color: #8099c7 ;
+  background-color: #653E84  ;
+  border: 1px solid #653E84 ;
   color: rgb(255, 255, 255);
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   margin: 0 5px;
   font-weight: bold;
+  border-radius: 5px;
+  padding: 8px 15px;
 }
 
 .react-calendar__navigation button:hover {
-  background-color: #5f749b;
+  background-color: transparent;
+  color: #333333;
+  border: 1px solid #333333;
 }
 
 .react-calendar__tile {
   height: 80px;
   margin: 0.5% 0.5% 0.5% 2%;
-  background-color: #c4c4c4;
+  background-color: #e4e4e4;
   font-size: 18px ;
   position: relative;
   border-radius: 10px;
+  color: #000000;
   border: 1px solid #858585;
 }
 
 .react-calendar__tile:hover {
-  background-color: #637eac ;
+  background-color: #acacac  ;
 }
 
 
 
 .react-calendar__tile--active {
-  background-color: #8099c7;
+  background-color: #acacac ; 
+  color: #ffffff;
 }
 
 .react-calendar__month-view__days {
@@ -128,8 +135,15 @@ textarea {
 
 
 .react-calendar__month-view__days__day {
-  color: rgb(255, 255, 255);
+  color: #222222;
   
+  &:hover {
+    color: #ffffff;
+  }
+
+  &:active {
+    color: #ffffff;
+  }
 }
 
 .scheduledDate {

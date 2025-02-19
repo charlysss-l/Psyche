@@ -41,7 +41,7 @@ h3 {
   font-size: $font-size-medium;
   text-align: center;
   font-size: 20px;
-  color: #ffffff;
+  color: #131313;
 }
 
 
@@ -50,49 +50,33 @@ h3 {
   display: flex;
   justify-content: space-between;
   margin: 20px 0;
+  width: 90%;
+  margin: 0 auto;
 
   .acceptedBox,
   .pendingBox {
-    background-color: $bg-color-light-gray;
+    background-color: transparent;
     padding: 10px;
     border-radius: $border-radius;
-    border: 1px solid #858585;
+    border: 1px solid #131313;
     width: 45%;
     text-align: center;
   }
-  .acceptedBox {
-    background-color: #653e84;
-
-    &:hover {
-      transform: scale(1);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
   }
-
-  .pendingBox {
-    background-color: #653e84; 
-
-    &:hover {
-      transform: scale(1);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-  }
-
-  
-}
 
 /* Table Container */
 .tableBox {
-  margin: 20px 0;
+  margin: 20px auto;
   padding: 15px;
   border-radius: $border-radius;
-  background-color: $bg-color-gray;
+  background-color: transparent;
+  border: #000000 1px solid;
+  width: 89%;
   }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: $bg-color-light-gray-2;
   text-align: center;
   border-radius: $border-radius;
   border-collapse: collapse;
@@ -106,7 +90,7 @@ table {
   }
 
   th {
-  background-color: #653e84 ;
+  background-color: #777777 ;
     color: white;
   }
 
@@ -375,7 +359,7 @@ button {
 
 .followUpModalContent {
   border-radius: $border-radius;
-  background-color: $bg-color-gray;
+  background-color: $bg-color-light-gray;
   padding: 20px;
   display: flex;
   flex-direction: column;
