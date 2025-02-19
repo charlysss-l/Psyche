@@ -4,18 +4,20 @@
     align-items: center;
     justify-content: center;
     user-select: none;
+    margin-top: 20px;
 
     .reportHeader{
       font-size: 25px;
       margin: 0.5%;
-      color: rgb(118, 109, 109);
+      margin-bottom: 20px;
+      color: rgb(39, 39, 39);
     }
     .dashboardRow {
       display: flex;
       align-items: center; 
       justify-content: center; 
       border-radius: 8px; 
-      width: 100%;
+      width: 98%;
       border: 2px solid #a7a7a7;
       padding: 5px 1px;
     }
