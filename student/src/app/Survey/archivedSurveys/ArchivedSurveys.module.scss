@@ -115,6 +115,21 @@
     width: 100%;  /* Ensure the table takes full width */
   }
 
+  .removeButton{
+    background-color: #af1414;
+    color: white;
+    border: 1px solid #af1414;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+
+    &:hover {
+      background-color:transparent;
+      color: #af1414;
+      border: 1px solid #af1414;
+    }
+  }
  :global(body.dark-mode){
   .archivedSurveysContainer{
       background-color: #161616;

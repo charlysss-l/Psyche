@@ -126,7 +126,7 @@ const ArchivedSurveys: React.FC = () => {
                       </td>
                       <td>
                         <button
-                          className={styles.viewDetailsButton}
+                          className={styles.removeButton}
                           onClick={() => handleRemove(survey._id)}
                         >
                           Remove
