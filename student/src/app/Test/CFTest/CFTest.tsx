@@ -339,7 +339,7 @@ const CFTest: React.FC = () => {
             {currentQuestionSet && (
                 <>
                     <h2 className={style.testLabel}>{currentQuestionSet}</h2>
-                    {currentQuestionSet === "Test 2" && <p className={style.ageWarning}> Required Two (2) Answers Only</p>}
+                    {currentQuestionSet === "Test 2" && <p className={style.ageWarning}> Required Two (2) Answers Only per Item in Test 2</p>}
                 </>
             )}
 
