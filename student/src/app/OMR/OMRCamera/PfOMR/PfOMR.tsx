@@ -106,7 +106,7 @@ const PfOMR: React.FC = () => {
             ctx.restore(); // To avoid affecting other canvas operations
   
             // Update image preview state to show rotated image
-            setImagePreview(canvas.toDataURL()); // Display the rotated image in your component
+            // setImagePreview(canvas.toDataURL()); // Display the rotated image in your component
           };
   
           let stepSign = 1;  // 1 for adding rotation, -1 for subtracting rotation
@@ -463,7 +463,7 @@ const PfOMR: React.FC = () => {
           <div className={styles.spinner}>
             <div className={styles.spinnerCircle}></div>
           </div>
-          <p className={styles.loadingText}>Please wait a moment...</p>
+          <p className={styles.loadingText}>Please wait a moment, might take a few seconds...</p>
         </div>
       )}
 

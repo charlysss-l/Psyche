@@ -93,7 +93,7 @@ const PfOMR: React.FC = () => {
             ctx.restore(); // To avoid affecting other canvas operations
   
             // Update image preview state to show rotated image
-            setImagePreview(canvas.toDataURL()); // Display the rotated image in your component
+            // setImagePreview(canvas.toDataURL()); // Display the rotated image in your component
           };
   
           let stepSign = 1;  // 1 for adding rotation, -1 for subtracting rotation
