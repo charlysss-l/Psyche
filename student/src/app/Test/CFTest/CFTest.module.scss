@@ -316,6 +316,14 @@ button {
   color: red;
 }
 
+.warningMessage {
+  position: absolute;
+  color: red;
+  width: 73%;
+  margin-top: -170px;
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
 
 
@@ -333,6 +341,14 @@ button {
   border: 1px solid #ccc;
   transition: border-color 0.3s;
   margin: 5px;
+}
+
+.warningMessage {
+  position: absolute;
+  color: red;
+  width: 73%;
+  margin-top: -100px;
+  font-weight: bold;
 }
 }
 

@@ -220,22 +220,44 @@ const CFTest: React.FC = () => {
 
     // Render choices for Test 2 with checkboxes
     const renderChoices = (question: Question) => {
-        return question.choicesImage.map((choice, idx) => (
-            <label key={idx}>
-                <input
-                    type={currentQuestionSet === 'Test 2' ? 'checkbox' : 'radio'} // Use checkbox for Test 2
-                    name={question.questionID}
-                    value={choice}
-                    checked={
-                        currentQuestionSet === 'Test 2'
-                            ? (responses[question.questionID] as string[] | undefined)?.includes(choice) || false
-                            : responses[question.questionID] === choice
-                    }
-                    onChange={() => handleChange(question.questionID, choice)}
-                />
-                <img src={choice} alt={`Choice ${idx}`} />
-            </label>
-        ));
+        const response = responses[question.questionID];
+        const isTest2 = currentQuestionSet === 'Test 2';
+        const isInvalid = isTest2 && Array.isArray(response) && response.length !== 2;
+    
+        return (
+            <>
+                
+                {question.choicesImage.map((choice, idx) => (
+                    <label key={idx}>
+                        <input
+                            type={isTest2 ? 'checkbox' : 'radio'} // Use checkbox for Test 2
+                            name={question.questionID}
+                            value={choice}
+                            checked={
+                                isTest2
+                                    ? (response as string[] | undefined)?.includes(choice) || false
+                                    : response === choice
+                            }
+                            onChange={() => handleChange(question.questionID, choice)}
+                        />
+                        <img src={choice} alt={`Choice ${idx}`} />
+                    </label>
+                ))}
+                {isInvalid && (
+                    <p className={style.warningMessage}>Please select exactly two answers.</p>
+                )}
+            </>
+        );
+    };
+
+    const validateTest2Responses = () => {
+        if (currentQuestionSet === 'Test 2') {
+            return currentQuestions.every(question => {
+                const response = responses[question.questionID];
+                return Array.isArray(response) && response.length === 2;
+            });
+        }
+        return true; // No validation needed for other tests
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -310,6 +332,10 @@ const CFTest: React.FC = () => {
     };
 
     const handleNextPage = () => {
+        if (!validateTest2Responses()) {
+            alert('Please select exactly two answers for each question in Test 2.');
+            return;
+        }
         setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
         window.scrollTo(0, 0); // Scroll to the top
     };
