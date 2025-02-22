@@ -276,6 +276,7 @@ const CreateAccount: React.FC = () => {
                   required
                 />
               </div>
+              
               <div>
                 <label className={styles.createlabelRole}>
                   Role: <span className={styles.required}>*</span>
@@ -291,6 +292,7 @@ const CreateAccount: React.FC = () => {
                   <option value="main">Main Guidance</option>
                 </select>
               </div>
+
               <div>
                 <p className={styles.notecreate}>
                   Note: Default Password is 123 and can be changed once account
@@ -354,6 +356,9 @@ const CreateAccount: React.FC = () => {
                   required
                 />
               </div>
+
+              {(mainUserCount === 2 || selectedUser.role === "sub") && (
+
               <div>
                 <label className={styles.editlabel}>
                   Role: <span className={styles.required}>*</span>
@@ -374,6 +379,8 @@ const CreateAccount: React.FC = () => {
                   <option value="main">Main Guidance</option>
                 </select>
               </div>
+              )}
+              
               <div className={styles.modalFooter}>
                 <button type="submit" className={styles.updateButton}>
                   Update User
@@ -415,11 +422,24 @@ const CreateAccount: React.FC = () => {
                 <td>{user.fullName}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
-                <td>
-                  <button onClick={() => handleEdit(user)}>Edit</button>
-                  <button onClick={() => handleDelete(user.userId)}>
+                <td className={styles.td}>
+                  <button
+                    className={`${styles["button-action"]} ${styles["edit"]}`}
+                    onClick={() =>
+                      handleEdit(user)
+                    }
+                  >
+                    Edit
+                  </button>
+                  {(mainUserCount === 2 || user.role === "sub") && (
+                  <button
+                    className={`${styles["button-action"]} ${styles["delete"]}`}
+                    onClick={() => handleDelete(user.userId)}
+                  >
                     Delete
                   </button>
+                )}
+
                 </td>
               </tr>
             ))}

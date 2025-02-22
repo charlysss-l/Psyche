@@ -1,5 +1,6 @@
 .mainContainer {
   padding: 20px;
+  user-select: none;
 }
 .mainHeading {
   font-family: Arial, Helvetica, sans-serif;
@@ -235,7 +236,7 @@
   border-radius: 4px;
 }
 
-.userTable td button:first-child {
+.userTable td .edit {
   background-color: #6e6e6e;
   color: white;
   border: 1px solid #6e6e6e;
@@ -247,7 +248,7 @@
   }
 }
 
-.userTable td button:last-child {
+.userTable td .delete {
   background-color: #af1414;
   color: white;
   border: 1px solid #af1414;
@@ -258,6 +259,7 @@
     border: 1px solid #af1414;
   }
 }
+
 
 @media (max-width: 1024px) {
   .userTable {
