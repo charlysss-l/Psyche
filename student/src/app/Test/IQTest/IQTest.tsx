@@ -49,6 +49,7 @@ const IQTest: React.FC = () => {
     const [timer, setTimer] = useState<number>(45 * 60); // 45 minutes in seconds
     const [isTimeUp, setIsTimeUp] = useState<boolean>(false);
     const [, setInterpretation] = useState<Interpretation | null>(null);
+    const [unansweredQuestions, setUnansweredQuestions] = useState<string[]>([]);
 
 
     const fetchTest = async () => {
@@ -123,6 +124,21 @@ const IQTest: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        // Check for unanswered questions
+        const unanswered = iqTest?.questions
+            .filter((q: { questionID: string | number; }) => !responses[q.questionID])
+            .map((q: { questionID: any; }) => q.questionID) || [];
+
+        if (unanswered.length > 0) {
+            setUnansweredQuestions(unanswered);
+            alert('Please answer all the questions before submitting the test.');
+            return;
+        }
+
+        // Clear unanswered questions state if all are answered
+        setUnansweredQuestions([]);
+
         const responsesWithAnswers = Object.keys(responses).map(questionID => {
             const question = iqTest?.questions.find(q => q.questionID === questionID);
             return {
@@ -210,8 +226,16 @@ const IQTest: React.FC = () => {
             {/* Your form fields here */}
 
             <div className={style.questionContainer}>
-                {currentQuestions?.map((q) => (
-                    <div className={style.questionBox} key={q.questionID}>
+                {currentQuestions?.map((q) => {
+                    const isUnanswered = unansweredQuestions.includes(q.questionID);
+                    return (
+                        <div
+                            className={`${style.questionBox} ${isUnanswered ? style.unanswered : ''}`}
+                            key={q.questionID}
+                        > 
+                        {isUnanswered && (
+                                <p className={style.warningMessage}>This question is unanswered.</p>
+                        )}
                         <img src={q.questionImage} alt={`Question ${q.questionID}`} />
                         <div className={style.choiceALL}>
                             {q.choicesImage.map((choice, idx) => (
@@ -228,8 +252,12 @@ const IQTest: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                ))}
+                )}
+                )}
+                
             </div>
+
+            
             <div className={style.pagination}>
                 <button type="button" onClick={handlePrevPage} disabled={currentPage === 1}>
                     Previous

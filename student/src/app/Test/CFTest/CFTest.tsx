@@ -68,6 +68,7 @@ const CFTest: React.FC = () => {
     const [isTimeUp, setIsTimeUp] = useState<boolean>(false);
     const [, setInterpretation] = useState<Interpretation | null>(null);
     const [exampleImages, setExampleImages] = useState<Record<string, string>>({}); // Store images per question set
+    const [unansweredQuestions, setUnansweredQuestions] = useState<string[]>([]);
 
     // Group questions by questionSet
     const groupedQuestions = cfTest?.questions.reduce((acc, question) => {
@@ -262,6 +263,26 @@ const CFTest: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!validateTest2Responses()) {
+            alert('Please select exactly two answers for each question in Test 2.');
+            return;
+        }
+
+        // Check for unanswered questions
+        const unanswered = cfTest?.questions
+        .filter((q) => !responses[q.questionID])
+        .map((q) => q.questionID) || [];
+
+        if (unanswered.length > 0) {
+            setUnansweredQuestions(unanswered);
+            alert('Please answer all the questions before submitting the test.');
+            return;
+        }
+
+        // Clear unanswered questions state if all are answered
+        setUnansweredQuestions([]);
+
         const responsesWithAnswers = Object.keys(responses).map((questionID) => {
             const question = cfTest?.questions.find((q) => q.questionID === questionID);
             if (!question) return null;
@@ -332,10 +353,6 @@ const CFTest: React.FC = () => {
     };
 
     const handleNextPage = () => {
-        if (!validateTest2Responses()) {
-            alert('Please select exactly two answers for each question in Test 2.');
-            return;
-        }
         setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
         window.scrollTo(0, 0); // Scroll to the top
     };
@@ -384,23 +401,34 @@ const CFTest: React.FC = () => {
             {/* Your form fields here */}
 
             <div className={style.questionContainer}>
-                {currentQuestions?.map((q, index) => (
-                    <div className={style.questionBox} key={q.questionID}>
-                        <p className={style.questionNumber}> {index + 1}.</p>
-                        <img
-                            src={q.questionImage}
-                            alt={`Question ${q.questionID}`}
-                            className={currentQuestionSet === 'Test 1' ? style.rectImageImgTest1 :
-                                currentQuestionSet === 'Test 2' ? style.rectImageImgTest2 :
-                                currentQuestionSet === 'Test 3' ? style.squareImageImgTest3 : 
-                                currentQuestionSet === 'Test 4' ? style.squareImageImgTest4 : ''}
-                        />
-                        <div className={style.choiceALL}>
-                            {renderChoices(q)}
+                {currentQuestions?.map((q, index) => {
+                    const isUnanswered = unansweredQuestions.includes(q.questionID);
+                    return (
+                        <div
+                            className={`${style.questionBox} ${isUnanswered ? style.unanswered : ''}`}
+                            key={q.questionID}
+                        >
+                            <p className={style.questionNumber}> {index + 1}.</p>
+                            <img
+                                src={q.questionImage}
+                                alt={`Question ${q.questionID}`}
+                                className={currentQuestionSet === 'Test 1' ? style.rectImageImgTest1 :
+                                    currentQuestionSet === 'Test 2' ? style.rectImageImgTest2 :
+                                    currentQuestionSet === 'Test 3' ? style.squareImageImgTest3 : 
+                                    currentQuestionSet === 'Test 4' ? style.squareImageImgTest4 : ''}
+                            />
+                            {isUnanswered && (
+                                <p className={style.warningMessageUnanswered}>This question is unanswered.</p>
+                            )}
+                            <div className={style.choiceALL}>
+                                {renderChoices(q)}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
+
+
             <div className={style.pagination}>
                 <button type="button" onClick={handlePrevPage} disabled={currentPage === 1}>
                     Previous

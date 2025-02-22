@@ -292,6 +292,18 @@ button {
   color: red;
 }
 
+.unanswered {
+  border: 2px solid red;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.warningMessage {
+  color: red;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
 @media (max-width: 768px) {
 
 

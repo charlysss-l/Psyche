@@ -165,6 +165,19 @@ input[type="radio"] {
   color: red;
   font-weight: bold;
 }
+
+.unanswered {
+  border: 2px solid red;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.warningMessage {
+  color: red;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
 :global(body.dark-mode){
   .form {
     box-shadow: none;

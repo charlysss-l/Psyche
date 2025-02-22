@@ -23,6 +23,7 @@ const PFTest: React.FC = () => {
     const [year, setYear] = useState<string>('');
     const [section, setSection] = useState<string>('');
     const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');
+    const [unansweredQuestions, setUnansweredQuestions] = useState<string[]>([]);
 
     useEffect(() => {
         // Fetch userID from localStorage and set it in state
@@ -67,6 +68,21 @@ const PFTest: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Check for unanswered questions
+        const unanswered = test?.question
+            .filter((q) => !responses[q.questionID])
+            .map((q) => q.questionID) || [];
+
+        if (unanswered.length > 0) {
+            setUnansweredQuestions(unanswered);
+            alert('Please answer all the questions before submitting the test.');
+            return;
+        }
+
+        // Clear unanswered questions state if all are answered
+        setUnansweredQuestions([]);
+
         const scoreMap: Record<string, { rawScore: number; stenScore: number }> = {};
 
         const formattedResponses = Object.entries(responses).map(([questionID, selectedChoice]) => {
@@ -223,10 +239,18 @@ const PFTest: React.FC = () => {
     
             {/* Questions */}
             <div className={styles.questionContainer}>
-                {currentQuestions && currentQuestions.length > 0 ? (
-                    currentQuestions.map((q: Question, index: number) => (
-                        <div className={styles.questionBox} key={q.questionID}>
+            {currentQuestions && currentQuestions.length > 0 ? (
+                currentQuestions.map((q: Question, index: number) => {
+                    const isUnanswered = unansweredQuestions.includes(q.questionID);
+                    return (
+                        <div
+                            className={`${styles.questionBox} ${isUnanswered ? styles.unanswered : ''}`}
+                            key={q.questionID}
+                        >
                             <p>{(currentPage - 1) * questionsPerPage + index + 1}. {q.questionText}</p>
+                            {isUnanswered && (
+                                <p className={styles.warningMessage}>This question is unanswered.</p>
+                            )}
                             <div>
                                 {Object.entries(q.choices).map(([key, value]) => (
                                     <label key={key}>
@@ -242,11 +266,12 @@ const PFTest: React.FC = () => {
                                 ))}
                             </div>
                         </div>
-                    ))
-                ) : (
-                    <p>No questions available</p>
-                )}
-            </div>
+                    );
+                })
+            ) : (
+                <p>No questions available</p>
+            )}
+        </div>
     
             {/* Pagination */}
             <div className={styles.pagination}>
