@@ -153,21 +153,34 @@ const CFTest: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        if (timer === 0) {
-            setIsTimeUp(true);
-            handleSubmit(new Event('submit') as unknown as React.FormEvent<HTMLFormElement>); // Corrected here
+        // Load timer from localStorage or set initial value
+        const storedTime = localStorage.getItem('cfTestTimer');
+        if (storedTime) {
+            setTimer(parseInt(storedTime, 10));
+        } else {
+            setTimer(45 * 60); // 45 minutes
         }
-    }, [timer]);
-
+    }, []);
+    
     useEffect(() => {
         const timerID = setInterval(() => {
-            if (timer > 0) {
-                setTimer(prevTime => prevTime - 1);
-            }
+            setTimer((prevTime) => {
+                if (prevTime > 0) {
+                    const newTime = prevTime - 1;
+                    localStorage.setItem('cfTestTimer', newTime.toString());
+                    return newTime;
+                } else {
+                    clearInterval(timerID);
+                    setIsTimeUp(true);
+                    handleSubmit(new Event('submit') as unknown as React.FormEvent<HTMLFormElement>);
+                    return 0;
+                }
+            });
         }, 1000);
-
-        return () => clearInterval(timerID); // Cleanup on component unmount
-    }, [timer]);
+    
+        return () => clearInterval(timerID);
+    }, []);
+    
 
     // Handle multiple selections for Test 2
     const handleChange = (questionID: string, value: string) => {
