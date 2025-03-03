@@ -16,6 +16,7 @@
 
   &:hover {
     transform: translateY(-20px); // Moves the div 10px up
+    box-shadow:rgba(0, 0, 0, 0.8) 0px 3px 5px;
   }
 
   &::before {
@@ -213,9 +214,10 @@
   flex-direction: column;
   text-align: center;
   padding: 3rem;
-  border-radius: 2px;
-  background-color: #f3f3f3;
-  box-shadow:rgba(0, 0, 0, 0.7) 0px 2px 5px;
+  border-radius: 3px;
+  background-color: #ffffff;
+  box-shadow:rgba(0, 0, 0, 0.3) 0px 3px 5px;
+  
   margin-top: 2rem;
   transition: all 0.3s ease-in-out;
   transform: translateY(0);
@@ -223,6 +225,7 @@
 
   &:hover {
     transform: translateY(-20px); // Moves the div 10px up
+    box-shadow:rgba(0, 0, 0, 0.7) 0px 3px 5px;
   }
   .contentconsultation {
     width: 100%;
@@ -359,14 +362,15 @@
 
 .homepagesurvey {
   display: flex;
-  background-color: #f3f3f3;
+  background-color: #ffffff;
+ 
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
   padding: 3rem;
   border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.7) 0px 2px 5px;
+  box-shadow:rgba(0, 0, 0, 0.3) 0px 3px 5px;
   margin-top: 2rem;
   transition: all 0.3s ease-in-out;
   transform: translateY(0);
@@ -374,6 +378,7 @@
 
   &:hover {
     transform: translateY(-20px);
+    box-shadow:rgba(0, 0, 0, 0.7) 0px 3px 5px;
   }
 
   .contentsurvey {
@@ -544,7 +549,7 @@
     }
   }
 .homepageconsultation{
-  background-color: #1a1a1a;
+  background-color: #161616 ;
   .headerconsultation {
     color: #8c62a9;
   }
@@ -563,7 +568,7 @@
 }
 
 .homepagesurvey{
-  background-color: #1a1a1a;
+  background-color: #161616;
   .headersurvey {
     color: #8c62a9;
   }
