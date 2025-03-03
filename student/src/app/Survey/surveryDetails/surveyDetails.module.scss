@@ -56,22 +56,19 @@
   // Question text style
   .question p {
     font-size: 1.1rem;
+    font-weight: bold;
     color: #000000;
     margin-bottom: 10px;
   }
-  
-  // Radio button styling for choices
-  .question label {
-    display: block;
-    font-size: 1rem;
-    color: #000000;
-    margin-bottom: 5px;
-    cursor: pointer;
-  }
+
   
   .question input[type="radio"] {
     margin-right: 8px;
     transform: scale(1.2);
+  }
+
+  .choice{
+    font-weight: normal;
   }
   
   // Submit button styling
@@ -81,8 +78,7 @@
     background-color: #653E84 ;
     color: white;
     font-size: 1.1rem;
-    font-weight: bold;
-    border: none;
+    border: 1px solid #653E84 ;
     border-radius: 4px;
     margin-left: 40%;
     cursor: pointer;
