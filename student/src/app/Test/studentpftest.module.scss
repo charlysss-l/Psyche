@@ -46,8 +46,8 @@ $test-size: 400px;
 .TestPF,
 .iqLinkContainer {
   background-color: transparent;
-  width: $test-size;
-  height: $test-size;
+  width: 400px;
+  height: 300px;
   border: #000000 solid 2px;
   border-radius: $border-radius;
   box-shadow: $box-shadow-small;
@@ -55,6 +55,7 @@ $test-size: 400px;
   overflow: hidden;
   position: relative;
   display: flex;
+  margin-top: 20px;
   align-items: center;
   justify-content: center;
 }
