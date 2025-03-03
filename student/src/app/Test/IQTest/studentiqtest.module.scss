@@ -22,7 +22,19 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
   left: 50%;
   transform: translate(-50%, 0%);
   user-select: none;
+  max-width: 800px; /* Optional: to avoid stretching on larger screens */
+  width: 100%;
 }
+
+@media (max-width: 768px) {
+  .formTest {
+    position: static;
+    transform: none;
+    width: 75%;
+    margin: 0 auto;
+  }
+}
+
 
 // Container for the form
 .te_container {

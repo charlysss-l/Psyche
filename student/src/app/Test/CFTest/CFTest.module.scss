@@ -12,8 +12,7 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-  width: 70%;
-  max-width: 1000px;
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -23,6 +22,17 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
   left: 50%;
   transform: translate(-50%, 0%);
   user-select: none;
+  max-width: 800px; /* Optional: to avoid stretching on larger screens */
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .formTest {
+    position: static;
+    transform: none;
+    width: 75%;
+    margin: 0 auto;
+  }
 }
 
 // Container for the form
