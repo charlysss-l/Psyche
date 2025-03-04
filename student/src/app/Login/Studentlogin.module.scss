@@ -183,32 +183,32 @@ input[type="password"]::-webkit-textfield-decoration-container {
 /* Add responsive styling for small screens */
 @media (max-width: 768px) {
   .loginContainer {
-    flex-direction: column; /* Stack the form vertically */
-    justify-content: center; /* Center content vertically */
-    align-items: center; /* Center content horizontally */
-    height: 96vh; /* Full viewport height */
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: auto;
     width: 100%;
-    position: relative; /* Needed for z-index to work properly */
+    position: relative; 
   }
 
   .imageContainer {
     position: absolute;
-    z-index: -1; /* Place the imageContainer behind the loginContainer */
+    z-index: -1; 
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; /* Full viewport height */
+    height: 100%; 
     animation: fadeIn 1.5s;
   }
 
   .loginForm {
-    z-index: 1; /* Ensure the login form appears above the image */
+    z-index: 1; 
     background-color: rgba(
       255,
       255,
       255,
       0.9
-    ); /* Semi-transparent background */
+    ); 
     padding: 30px;
     margin: auto;
     border-radius: 8px;
