@@ -1,28 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-
 .studentNavbar {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
   font-family: 'Poppins', sans-serif;
   border-bottom: 1px solid #7a7a7a;
-  padding: 0 10px;
+  padding: 10px 0;
   width: 100%;
 }
 
-
 .logoSection {
-  color: #2e70d3;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #2e70d3;
 
- h1 {
+  h1 {
     font-size: 24px;
-      margin: 0;
-      color: #653E84;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    color: #653E84;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
   p {
     font-size: 15px;
@@ -32,6 +32,18 @@
   }
 }
 
+.burgerMenu {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.burgerMenu:hover {
+  transform: scale(1.1);
+}
 
 /* Navigation Section */
 .navigationSection {
@@ -53,6 +65,7 @@
       text-align: center;
       margin: 0px 15px; 
       position: relative; 
+      transition: transform 0.3s ease-in-out;
       
       .navIcon {
         width: 24px;
@@ -70,13 +83,16 @@
         display: flex;
         flex-direction: column; 
         align-items: center;
+        transition: color 0.3s ease-in-out;
 
         &:hover {
-          color: rgb(94, 93, 93);
+          color: #653e84;
+          font-weight: 900;
         }
 
         &.active {
           color: #653e84;
+          font-weight: 900;
           border-bottom: none; 
         }
       }
@@ -111,7 +127,7 @@
 
     .dropdownMenu {
       position: absolute;
-      top: 100%;
+      top: 70%;
       right: 0;
       background: #ffffff;
       box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
@@ -120,74 +136,97 @@
       padding: 0;
       z-index: 10;
       min-width: 150px;
+      transition: opacity 0.3s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
+    }
 
-      .dropdownLink {
-        padding: 10px 20px;
-        text-decoration: none;
-        color: #353535;
-
-        &:hover {
-          background-color: #f0f0f0;
-        }
-      }
+    &:hover .dropdownMenu {
+      opacity: 1;
+      visibility: visible;
+    }
+    .dropdownLink{
+      text-decoration: none;
+      
     }
   }
 }
 
-/* Dark Mode Adjustments */
-:global(body.dark-mode) {
-  .studentNavbar {
-    color: #000000;
-    border-bottom: 1px solid #7a7a7a;
+/* Mobile Menu */
+.mobileMenu {
+  display: none;
+  position: absolute;
+  top: 120px;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2px 0;
+  z-index: 20;
+}
+
+.mobileMenu .navList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.mobileMenu .navItem a{
+  color: black;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+
+  &:hover{
+    color: #653e84;
+    font-weight: 900;
+  }
+  &.active {
+    color: #653e84;
+    font-weight: 900;
+    border-bottom: none; 
+  }
+}
+
+.mobileMenu .dropdownMenu{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropdownLinkSettings{
+  color: black;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+  
+  &:hover {
+    color: #653e84;
+    font-weight: 900;
   }
 
-  .logoSection {
-    h1 {
-      color: #8C62A9;
-    }
+  &.active {
+    color: #653e84;
+    font-weight: 900;
+    border-bottom: none; 
+  }
+}
 
-    p {
-      color: #A9A9A9;
-    }
+@media (max-width: 768px) {
+  .burgerMenu {
+    display: block;
   }
 
   .navigationSection {
-    .navList {
-      .navItem {
-        .navLink {
-          color: #A9A9A9;
-
-          &:hover {
-            color: rgb(94, 93, 93);
-          }
-
-          &.active {
-            color: #8C62A9;
-          }
-        }
-      }
-    }
+    display: none;
   }
 
-  .navRight {
-    .dropdown {
-      .dropdownToggle {
-        .arrowIcon {
-          color: #7a7a7a;
-        }
-      }
-
-      .dropdownMenu {
-        background: #ffffff;
-
-        .dropdownLink {
-          color: #353535;
-
-          &:hover {
-            background-color: #f0f0f0;
-          }
-        }
-      }
-    }
+  .mobileMenu {
+    display: block;
   }
 }
