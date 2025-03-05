@@ -648,7 +648,7 @@ const PFResult: React.FC = () => {
             theme: 'grid',
             margin: { top: 10, left: 10, right: 10 },
             styles: { fontSize: 10 },
-            headStyles: { fillColor: [0, 0, 255] } // RGB for blue
+            headStyles: { fillColor: [100, 61, 133] } // RGB for blue
         });
     
         // Add the chart image below the table
@@ -663,7 +663,7 @@ const PFResult: React.FC = () => {
             theme: 'grid',
             margin: { top: 10, left: 10, right: 10 },
             styles: { fontSize: 9 },
-            headStyles: { fillColor: [0, 0, 255] }
+            headStyles: { fillColor: [100, 61, 133] }
         });
     
         // Add the footer message

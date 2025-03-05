@@ -161,7 +161,7 @@ const formatDate = (dateString: string) => {
             headStyles: {
                 fontSize: 14,
                 fontStyle: "bold",
-                fillColor: [0, 0, 255],
+                fillColor: [100, 61, 133],
             },
             bodyStyles: {
                 fillColor: [255, 255, 255], 
@@ -183,7 +183,7 @@ const formatDate = (dateString: string) => {
             headStyles: {
                 fontSize: 14,
                 fontStyle: "bold",
-                fillColor: [0, 0, 255],
+                fillColor: [100, 61, 133],
             },
             bodyStyles: {
                 fontSize: 12,
