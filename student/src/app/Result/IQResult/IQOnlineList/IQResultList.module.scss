@@ -15,7 +15,7 @@
     padding: 10px;
     text-align: center;
     font-size: 13px;
-    background-color: #6e6e6e;
+    background-color: #a9a9a9;
     border-bottom: 1px solid #9e979791; 
   }
   
@@ -24,7 +24,7 @@
     text-align: center; /* Center-aligns text horizontally */
     vertical-align: middle; /* Center-aligns text vertically */
     padding: 5px;
-    color : #333;
+    color : #363636;
     font-size: 13px;
     border-bottom: 1px solid #9e979791; 
   }
@@ -50,7 +50,7 @@
       margin: 10px;
       background-color: #b62e2e;
       color: white;
-      border:2px solid #B94d4dce;
+      border:1px solid #B94d4dce;
       padding: 8px;
       border-radius: 10px;
       cursor: pointer;
@@ -126,6 +126,20 @@
   .resultsTableIQ th{
     background-color: #151515;
     color: #2e2e2e;
+  }
+  .resultsTableIQ{
+    background-color: #181818f5;
+  }
+  .resultsTableIQ td{
+    color: #ffffff;
+  }
+  .searchInput{
+    background-color: #181818f5;
+    color: #ffffff;
+  }
+  .eachResultPF:hover {
+    background-color: rgb(43, 43, 43);
+    border: 1px solid #9e979791; 
   }
   
 }
