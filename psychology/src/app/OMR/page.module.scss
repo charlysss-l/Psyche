@@ -9,6 +9,7 @@
 }
 .OMRTITLE {
   color: black;
+  text-align: center;
   font-size: 50px;
   margin: 0;
 }
@@ -18,6 +19,7 @@
 .OMRDesc {
   font-size: 18px;
   font-weight: 100;
+  text-align: center;
 }
 .OMRbutton {
   display: flex;
@@ -27,8 +29,8 @@
 .OMRlinkOnline,
 .OMRLinkUpload {
   text-decoration: none;
-  margin-right: 50px;
-  width: 200px;
+  margin-right: 20px;
+  width: 150px;
   height: 50px;
   display: flex;
   border: 2px solid #653e84;
@@ -43,6 +45,25 @@
   background-color: transparent;
   color: #653e84;
   border: 2px solid #653e84;
+}
+
+@media screen and (max-width: 768px) {
+  .OMRTITLE {
+    font-size: 45px;
+  }
+  .OMRDesc{
+    font-size: 16px;
+  }
+  .OMRbutton {
+    flex-direction: row;
+    gap: 30px;
+  }
+  .OMRlinkOnline,
+  .OMRLinkUpload {
+    margin-right: 0;
+  }
+  
+  
 }
 :global(body.dark-mode) {
   .OMRTITLE {
