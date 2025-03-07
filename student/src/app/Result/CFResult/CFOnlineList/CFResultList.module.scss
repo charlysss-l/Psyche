@@ -3,20 +3,18 @@
 .resultsTableCF {
     border-collapse: collapse; 
     font-size: 15px;
-    background-color: rgb(255, 252, 252);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064); 
-    border: 1px solid #9e979791; 
+    background-color: #f9f9f9;
     width: 100%;
   }
   
 
   .resultsTableCF th {
-    color: #ececec;
+    color: #181818;
     padding: 10px;
     text-align: center;
     font-size: 13px;
-    background-color: #a9a9a9;
-    border-bottom: 1px solid #9e979791; 
+    background-color: #f9f9f9 ;
+    border-bottom: 1px solid #181818; 
   }
   
 
@@ -31,11 +29,9 @@
   
 
   .eachResultCF:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
     transform: translateY(-1px); 
     cursor: pointer;
-    background-color: rgb(245, 244, 244);
-    border: 1px solid #9e979791; 
+    background-color: #e7e7e7;
   }
 
 
@@ -124,8 +120,9 @@
   }
 
   .resultsTableCF th{
-    background-color: #6e6e6e;
+    background-color: #161616;
     color: #ececec;
+    border-bottom: #ececec 1px solid;
   }
   .resultsTableCF{
     background-color: #181818f5;
