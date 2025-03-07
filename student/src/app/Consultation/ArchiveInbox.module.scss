@@ -2,8 +2,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,16 +15,18 @@
     background-color: rgba(0, 0, 0, 0.7); 
   }
 
+  @media (max-width: 1000px) {
+    width: 100%;
+    height: 100%;
+  }
   @media (max-width: 768px) {
     width: 100%;
     height: 100%;
-    justify-content: center;
-    align-items: flex-start;
   }
 
   @media (max-width: 480px) {
     width: 100%;
-    justify-content: flex-start; 
+    height: 100%;
   }
 }
 
@@ -32,8 +34,8 @@
   background-color: #fff;
   border-radius: 8px;
   padding: 20px;
-  width: 80%;
-  max-width: 900px;
+  width: 90%;
+  max-width: 1000px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000; 
   position: relative;
@@ -55,7 +57,7 @@
   margin-bottom: 20px;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #1f1f1f;
+  color: #653E84;
 
   @media (max-width: 768px) {
     font-size: 1.25rem;
@@ -72,9 +74,9 @@
   right: 10px;
   background: #6e6e6e ;
   color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
+  border: 1px solid #6e6e6e;
+  border-radius: 5px;
+  padding: 8px 10px;
   cursor: pointer;
   transition: background-color 0.2s;
 
@@ -122,13 +124,13 @@
 .tableArchive td {
     padding: 12px;
     text-align: left;
-    border: 1px solid #ddd;
     
   }
 
  .tableArchive th {
-    background-color: #6e6e6e;
-    color: white;
+  background-color: #ffffff;
+  border-bottom: #000000 1px solid;
+  color: #000000;
   }
 
   .tableArchive tr:nth-child(even) {
@@ -140,7 +142,7 @@
   }
  
   .actionButton {
-    padding: 5px 10px;
+    padding: 8px 10px;
     font-size: 0.9rem;
     border: none;
     border-radius: 4px;
@@ -149,10 +151,11 @@
     &.delete {
       background-color: #b62e2e;
       color: #fff;
+      border:1px solid #b62e2e; 
 
       &:hover {
         background-color: transparent;
-      color:black;
+      color:#b62e2e;
       border:1px solid #b62e2e; 
     }
     }
@@ -170,30 +173,36 @@
 
 :global(body.dark-mode){
   .tableContainer{
-    background-color: #2A3744;
+    background-color: #202020;
     color: #ffffff;
   }
+  .archivetitle {
+    color: #8C62A9;
+  }
   .tableArchive th {
-    border: #2A3744;
-    background-color: #be9940;
-    color: white;
+    background-color: #202020;
+  border-bottom: #d4d4d4 1px solid;
+  color: #d4d4d4;
   }
   .tableArchive:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #292929;
+    color: #d4d4d4;
   }
   .tableArchive:nth-child(odd) {
-    background-color: #f2f2f2 ;
+    background-color: #202020 ;
+    color: #d4d4d4;
   }
   .tableArchive tr:hover {
-    background-color: #b9b9b9e1;
+    background-color: #353535;
 }
 .closeButton {
-  background: #849670;
+  background: #6e6e6e;
+  border: 1px solid #6e6e6e;
 
   &:hover {
     background-color: transparent;
-    color: #d1d1d1;
-    border: 1px solid #849670;
+    color: #6e6e6e;
+    border: 1px solid #6e6e6e;
   }
 }
 }

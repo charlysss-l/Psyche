@@ -11,7 +11,7 @@ $border-dark: #2c2c2c;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 20px;
-  gap: 20px;
+  gap: 30px;
   user-select: none;
 
 
@@ -25,14 +25,16 @@ $border-dark: #2c2c2c;
   margin-right: 20px;
   background-color: white;
   border: 1px solid #e0e0e0; 
-  padding: 40px;
+  padding: 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 5px;
 
   @media (max-width: 768px) {
     flex-direction: column;
     margin-bottom: 20px;
+    max-width: fit-content;
+    margin: 0 auto;
   }
 }
 
@@ -45,6 +47,7 @@ $border-dark: #2c2c2c;
   font-size: 24px;
   text-align: center;
   margin: 0;
+  margin-top: 20px;
 }
 .conLabel {
   font-size: 14px;
@@ -57,34 +60,36 @@ select {
   width: 98%; 
   padding: 10px;
   font-size: 14px;
-  border: 1px solid #ccc;
+  border: 1px solid #1b1b1b;
+  background-color: white;
   border-radius: 4px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
   &:focus {
-    border-color: #0C4C78; 
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+    border-color: #737374; 
+    box-shadow: 0 0 4px #737374;
     outline: none;
   }
 }
 
 .conSubmit {
-  background: #704191;
+  background: #653E84;
   color: #ffffff;
-  border: none;
   padding: 10px;
-  border-radius: 10px;
-  align-self: center;
+  border-radius: 8px;
+  align-items: center;
+  font-weight: 500;
+  margin: auto;
   font-size: 16px;
   width: 20%;
-  border: none;
+  border:1px solid #653E84; 
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
      background-color: transparent;
-      color:black;
-      border:1px solid #704191; 
+      color:#653E84;
+      border:1px solid #653E84; 
     transform: translateY(-2px); 
   }
 
@@ -106,16 +111,17 @@ select {
   background-color: transparent;
   border: 1px solid #ddd;
   padding: 20px;
-  border-radius: 8px;
+  margin: 0;
+  border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-height: 600px;
+  max-height: 500px;
   overflow-y: auto;
   transition: max-height 0.3s ease;
 
   @media (max-width: 768px) {
     flex: 1;
     margin-top: 30px;
-    max-height: 400px;
+    max-width: 600px;
   }
 }
 
@@ -123,35 +129,37 @@ select {
 .consultationlabel{
   text-align: center;
   margin-bottom: 15px;
-  color: rgb(51, 51, 51);
+  color: #653E84;
   background-color: transparent;
 }
 
 .table {
-  width: 100%;
+  width: 95%;
+  align-items: center;
+  margin: 0 auto;
   border-collapse: collapse;
   font-size: 14px;
 }
 
 .table th,
 .table td {
-  border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
   color:#000000;
 }
 
 .table th {
-  background-color: #6e6e6e;
-  color: #e4e4e4;
+  background-color: #ffffff;
+  border-bottom: #000000 1px solid;
+  color: #000000;
 }
 
 .table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f3f3f3;
 }
 
 .table tr:hover {
-  background-color: #b9b9b9e1;
+  background-color: #dddddde1;
 }
 
 .responsesWrapper {
@@ -180,20 +188,23 @@ select {
   &.delete {
     background-color: #b62e2e;
     color: white;
+    border: 1px solid #b62e2e; 
 
     &:hover {
-      background-color: #B94d4dce; 
+      background-color: transparent;
+      color: #b62e2e;
+      border: 1px solid #b62e2e; 
     }
   }
 
   &.cancel {
-    background-color: #2A3744; 
+    background-color: #6e6e6e; 
     color: rgb(255, 255, 255);
 
     &:hover {
       background-color: transparent;
-      color:black;
-      border:1px solid #334553; 
+      color:#6e6e6e;
+      border:1px solid #6e6e6e; 
     }
   }
 
@@ -211,7 +222,7 @@ select {
 
 .archiveButton {
   margin-left: 20px;
-  background-color: #704191;
+  background-color: #653E84;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -224,13 +235,13 @@ select {
 
 .archiveButton:hover {
   background-color: transparent;
-  color:black;
-  border:1px solid #704191;
+  color:#653E84;
+  font-weight: 500;
+  border:1px solid #653E84;
 }
 
 .archiveButton:active {
-  background-color: #704191;
-
+  background-color: #653E84;
   transform: scale(0.98); 
 }
 
@@ -264,22 +275,22 @@ select {
 .acceptButton {
   background-color: #849670;
   color: white;
-  border: none;
+  border:1px solid #849670;
   padding: 9px 16px;
   cursor: pointer;
 }
 
 .acceptButton:hover {
   transform: scale(1.05);
-  color: #050505;
+  color: #849670;
   background-color: transparent;
   border:1px solid #849670;
 }
 
 .declineButton {
-  background-color: #db4d4d;
+  background-color: #af1414;
   color: white;
-  border: none;
+  border: 1px solid #af1414;
   padding: 9px 16px;
   cursor: pointer;
   margin-left: 10px;
@@ -287,14 +298,14 @@ select {
 .declineButton:hover {
   transform: scale(1.05);
   background-color: transparent;
-  color: black;
-  border: 1px solid #db4d4d;
+  color: #af1414;
+  border: 1px solid #af1414;
 }
 
 .removeButton {
   background-color: #2A3744;
   color: white;
-  border: none;
+  border: 1px solid #2A3744;
   padding: 9px 16px;
   cursor: pointer;
   margin-left: 10px;
@@ -308,9 +319,9 @@ select {
 }
 
 .viewButton {
-  background-color: #0C4C78;
+  background-color: #8C62A9;
   color: white;
-  border: none;
+  border: 1px solid #8C62A9;
   padding: 9px 16px;
   cursor: pointer;
   margin-left: 10px;
@@ -318,8 +329,8 @@ select {
 .viewButton:hover {
   transform: scale(1.05);
   background-color: transparent;
-  color: black;
-  border: 1px solid #2A3744;
+  color: #8C62A9;
+  border: 1px solid #8C62A9;
 }
 
 .disabledButton {
@@ -329,21 +340,14 @@ select {
 
 
 :global(body.dark-mode){
-  .consulForm {
-background-color: #151515;
-    border: none;
-   }
+  .consulForm{
+    background-color: #f0f0f0;
+  }
    .conTitle{
-    color: #754a94;
-   }
-   .conText{
-    color: #ffffff;
-   }
-   .conLabel{
-    color: #ffffff;
+    color: #8C62A9;
    }
    .conSubmit{
-    background: #754a94;
+    background: #8C62A9;
 
     &:hover {
       background-color: transparent;
@@ -354,11 +358,11 @@ background-color: #151515;
    }
 
    .tableContainer{
-    background-color: #151515;
+    background-color: #f0f0f0;
     border: none;
 
     h2{
-      color: #d3d3d3;
+      color: #8C62A9;
     }
     .table th,
     .table td {
@@ -368,9 +372,8 @@ background-color: #151515;
 }
 
 .table th {
-     border: #2A3744;
-      background-color: #6e6e6e;
-      color: white;
+      background-color: #f0f0f0;
+      color: rgb(0, 0, 0);
 }
 
 .table tr:nth-child(even) {
@@ -386,20 +389,37 @@ background-color: #151515;
    }
    .archiveButton {
     margin-left: 20px;
-    background-color: #754a94;
+    background-color: #8C62A9;
     color: white; 
   }
   
   .archiveButton:hover {
     background-color: transparent;
-    color:#b3b3b3;
-    border:1px solid #754a94;
+    color:#8C62A9;
+    border:1px solid #8C62A9;
   }
   
   .archiveButton:active {
-    background-color: #754a94;
+    background-color: #8C62A9;
   
     transform: scale(0.98); 
   }
+  .conSubmit{
+    background: #8C62A9;
+    color: #ffffff;
+    border:1px solid #8C62A9; 
+    
+    &:hover {
+       background-color: transparent;
+        color:#8C62A9;
+        border:1px solid #8C62A9; 
+      transform: translateY(-2px); 
+    }
   
+    &:active {
+      background-color: #969696; 
+      transform: translateY(0); 
+    }
+  
+  }
   }
