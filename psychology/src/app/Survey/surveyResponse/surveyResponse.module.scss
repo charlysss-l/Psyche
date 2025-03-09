@@ -23,24 +23,24 @@
   }
   
   .responsesTable {
-    width: 90%;
+    width: 70%;
     border-collapse: collapse;
     margin-top: 20px;
-    margin-left: 5%;
+    margin-left: 15%;
   }
   
   .responsesTable th{
     padding: 12px;
-    border: 1px solid #ddd;
+    border-bottom: #302f30 1px solid;
     text-align: left;
   }
 .responsesTable td {
     padding: 12px;
-    border: 1px solid #ddd;
+ 
   }
   
   .responsesTable th {
-    background-color: #f0eded;
+    background-color: transparent;
     color: #3b3b3b;
     font-weight: bold;
     
@@ -74,20 +74,28 @@
       color: #704191  ;
     }
     .responsesTable th {
-      background-color: #8a8a8a;
+      background-color: #14141400;
+      border-bottom: #e4e4e4 1px solid;
       color: #fff;
     }
+    .responsesTable li{
+      color: #e4e4e4;
+    }
     .responsesTable tr:nth-child(even) {
-      background-color: #f9f9f9;
-      color: black;
+      background-color: #14141400;
+      color: #e4e4e4;
     }
     .responsesTable tr:nth-child(odd) {
-      background-color: #f9f9f9;
-      color: black;
+      background-color: #14141400;
+      color: #e4e4e4;
+    }
+    .responsesTable tr:hover {
+      background-color: #14141400;
+      color: #e4e4e4;
     }
     
     .surveyResponseContainer {
-      background-color: #302f30;
+      background-color: #302f3000;
     }
     
   }

@@ -35,15 +35,13 @@
   
       th, td {
         padding: 10px;
-        border: 1px solid #ddd;
         text-align: left;
       }
   
       th {
-        background-color: #ddd;
         color: rgb(51, 51, 51);
         font-weight: bold;
-        border: 1px solid #ddd;
+        border-bottom: 1px solid #1d1d1d;
       }
   
       td {
@@ -166,10 +164,13 @@
   .archivedSurveysContainer h2{
       color: #8C62A9;
   }
+  .surveyTable{
+      background-color: #161616;
+  }
   .surveyTable th{
-      background-color: #272727;
       color: #A9A9A9 ;
       font-weight: bold;
+      border-bottom: 1px solid #fdfdfd;
     }
     .surveyTable td{
       background-color: #161616;
@@ -178,6 +179,11 @@
     .responseList li{
       color: #A9A9A9;
     } 
-    
+    .surveyTable tr:nth-child(even){
+      background-color: #161616;
+    }
+    .surveyTable tr:hover{
+      background-color: #161616;
+    }
   }
  
