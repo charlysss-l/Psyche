@@ -199,7 +199,7 @@ const SchedulingCalendar: React.FC = () => {
         
         {selectedDate && (
           <>
-            <h2 className={style.titleConsult}><span className={style.flowerConsult}>❀</span> Requests for {selectedDate.toDateString()} <span className={style.flowerConsult}>❀</span> </h2>
+            <h2 className={style.titleConsult}>Requests for {selectedDate.toDateString()}</h2>
             <div className={style.responsesWrapper}>
 
             {filteredRequests.length > 0 ? (
@@ -238,7 +238,7 @@ const SchedulingCalendar: React.FC = () => {
             )}
             </div>
 
-            <h2><span className={style.flowerFollowup}>❀</span> Follow Up Schedules for {selectedDate.toDateString()} <span className={style.flowerFollowup}>❀</span></h2>
+            <h2>Follow Up Schedules for {selectedDate.toDateString()}</h2>
             <div className={style.responsesWrapper}>
 
             {filteredSchedules.length > 0 ? (
