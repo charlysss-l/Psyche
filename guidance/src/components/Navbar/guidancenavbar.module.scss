@@ -134,7 +134,7 @@ $button-hover: #d2d2d2;
       padding: 10px;
       z-index: 10;
       min-width: 150px;
-      max-height: 500px;
+      height: 180px;
 
       .dropdownLink {
         padding: 10px 40px;
@@ -148,6 +148,11 @@ $button-hover: #d2d2d2;
       }
       .dropdownLink:last-child {
         margin-bottom: 0;
+      }
+      .dropdownItem {
+        text-decoration: none;
+        color: #353535;
+        margin-bottom: 40px;
       }
     }
   }
