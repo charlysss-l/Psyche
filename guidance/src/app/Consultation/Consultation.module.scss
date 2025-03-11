@@ -67,7 +67,7 @@ h3 {
 /* Table Container */
 .tableBox {
   margin: 20px auto;
-  padding: 15px;
+  padding: 20px;
   border-radius: $border-radius;
   background-color: transparent;
   border: #000000 1px solid;
@@ -85,13 +85,13 @@ table {
   th,
   td {
     padding: $padding-large;
-    border: 1px solid #858585;
     border-top: none;
   }
 
   th {
-  background-color: #777777 ;
-    color: white;
+  background-color: #a9a9a900;
+    color: rgb(8, 8, 8);
+    border-bottom: #000000 1px solid;
   }
 
   td {
@@ -107,7 +107,6 @@ table {
   
   tbody td {
     padding: 8px;
-    border: 1px solid #ddd;
   }
   
 }
@@ -117,10 +116,10 @@ table {
   border-radius: 3px;
   font-size: $font-size-small;
   background-color: #a9a9a9;
-  color: black;
+  color: rgb(255, 255, 255);
 
   &.acceptedStatus {
-    background-color: $bg-color-green; /* Green background for accepted status */
+    background-color: $bg-color-green; 
     color: white;
   }
 
@@ -139,11 +138,18 @@ table {
 
 /* Action Buttons */
 button {
-  padding: $padding-medium;
-  border: none;
+  padding: 10px 20px;
+  border: 1px solid #a9a9a9;
   border-radius: $border-radius;
   cursor: pointer;
   font-size: $font-size-small;
+  background-color: #a9a9a9;
+  color: #fdfdfd;
+
+  &:hover {
+    background-color: transparent;
+    color: #a9a9a9;
+  }
   
 
   &.delete{
@@ -151,7 +157,7 @@ button {
     
     &:hover{
       background-color: transparent;
-      color: black;
+      color: #292929;
       border: 1px solid  #616161 ;
     }
   }
@@ -161,10 +167,11 @@ button {
     background-color: #3e8442 ; 
     color: #ffffff;
     margin-left: 10px;
+    border: 1px solid  #3e8442 ;
 
     &:hover{
       background-color: transparent;
-      color: black;
+      color: #3e8442;
       border: 1px solid  #3e8442 ;
     }
   }
@@ -173,10 +180,11 @@ button {
     background-color: #843e3e;; /* Red for decline */
     color: #ffffff;
     margin-left: 10px;
+    border: 1px solid  #843e3e;
 
     &:hover{
       background-color: transparent;
-      color: black;
+      color: #843e3e;
       border: 1px solid  #843e3e;
     }
   }
@@ -185,10 +193,11 @@ button {
     background-color: #653e84; 
     color: #fcfcfc;
     margin-right: 10px;
+    border: 1px solid  #653e84 ; 
     
     &:hover{
       background-color: transparent;
-      color: black;
+      color: #653e84;
       border: 1px solid  #653e84 ; 
     }
   }
@@ -198,10 +207,11 @@ button {
     color: white;
     width: 10%;
     margin-left: 45%;   
-    padding: 1%;
+    padding: 10px 15px;
+    border: 1px solid  #a9a9a9;
     &:hover{
       background-color: transparent;
-      color: black;
+      color: #a9a9a9;
       border: 1px solid  #a9a9a9;
     }
   }
@@ -256,6 +266,7 @@ button {
     padding: 20px;
     border-radius: $border-radius;
     width: 30%;
+    height: 30%;
     text-align: center;
 
     @media (max-width: 768px) {
@@ -268,9 +279,9 @@ button {
 
     textarea {
       width: 80%;
-      height: 10%;
+      height: 30%;
       margin-bottom: 15px;
-      padding: 10px;
+      padding: 30px;
       border: 1px solid #ddd;
       border-radius: $border-radius;
 
@@ -284,18 +295,24 @@ button {
       &:first-child {
         background-color:#535353;
         color: white;
+        border: 1px solid  #535353 ;
+
 
         &:hover {
-          background-color: #838383;
+          background-color: transparent;
+          color: #535353;
+          border: 1px solid  #535353 ;
         }
       }
 
       &:last-child {
         background-color:#3e8442 ;
         color: white;
-
+        border: 1px solid  #3e8442 ;
         &:hover {
-          background-color: #3e8442;
+          background-color: transparent;
+          color: #3e8442;
+          border: 1px solid  #3e8442 ;
         }
       }
     }
@@ -313,7 +330,7 @@ button {
 
 .infoButton {
   padding: 5px 10px;
-  background-color: #8146ad;
+  background-color: #653e84;
   color: white;
   border: none;
   border-radius: 5px;
@@ -340,7 +357,7 @@ button {
   margin-top: 20px;
   font-size: $font-size-medium;
   font-weight: bold;
-  color: #ffffff;
+  color: #383838;
 }
 
 .followUpModal {
@@ -359,7 +376,7 @@ button {
 
 .followUpModalContent {
   border-radius: $border-radius;
-  background-color: $bg-color-light-gray;
+  background-color: white;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -375,14 +392,13 @@ button {
   padding: 10px 20px;
   background-color: #653e84;
   color: white;
-  border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .viewButton:hover {
   background-color: transparent;
-  color: black;
+  color: #653e84;
   border: 1px solid  #653e84 ;
 }
 
@@ -426,13 +442,15 @@ button {
 .testInfoTable th,
 .testInfoTable td {
   padding: 12px;
+  background-color: $bg-color-light-gray;
   text-align: left;
-  border: 1px solid #858585;
 }
 
 .testInfoTable th {
-  background-color: #653e84;
+  background-color: $bg-color-light-gray;
   font-weight: bold;
+  color: #653e84;
+  border-bottom: #653e84 1px solid;
 }
 
 .testInfoTable tr:hover {
@@ -531,7 +549,7 @@ button {
 .archiveButton:hover {
   background-color: transparent;
   color: black;
-  border: 1px solid  #8099c7 ; /* Lighter blue on hover */
+  border: 1px solid  #9c9c9c ; /* Lighter blue on hover */
 }
 
 .archiveButton:active {
@@ -587,6 +605,7 @@ button {
   display: flex; /* Arrange buttons in a column */
   flex-direction: column;
   align-items: center;
+  
 }
 
 .noScheduleMessage { 

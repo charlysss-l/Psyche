@@ -73,18 +73,19 @@ $border-dark: #2c2c2c; /* Dark border color */
 
 .conInput,
 select {
-  width: 95%; /* Ensure full width */
+  width: 100%; /* Ensure full width */
   padding: 10px;
   font-size: 14px;
-  border: 1px solid #ccc;
+  border: 1px solid #acacac;
+  margin-bottom: 10px;
   border-radius: 4px;
   background-color: #fff; // White input background
   color: #333; // Dark text
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
   &:focus {
-    border-color: #0C3C78; // Blue focus border
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); // Blue focus shadow
+    border-color: #414141; // Blue focus border
+    box-shadow: 0 0 4px #414141; // Blue focus shadow
     outline: none;
   }
 }
@@ -168,21 +169,21 @@ h2 {
 }
 
 .table {
+  margin-top: 20px;
   width: 100%;
   border-collapse: collapse;
 }
 
 .table th,
 .table td {
-  border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
   color:#4e4e4e;
 }
 
 .table th {
-  background-color: #653e84 ;
-  color: white;
+  background-color: #dddddd00 ;
+  color: rgb(14, 14, 14);
 }
 
 .table tr:nth-child(even) {
@@ -217,21 +218,25 @@ h2 {
   }
 
   &.restore {
-    background-color: #969696  ; // Red for delete
+    background-color: #7293d1  ; // Red for delete
     color: white;
     margin: 10px;
+    border: 1px solid #7293d1 ;
 
     &:hover {
-      background-color: #7293d1 ; // Darker red
+      background-color: transparent; 
+      color: #7293d1;
+
     }
   }
 
   &.delete {
     background-color: #b40000; // Red for delete
     color: white;
-
+    border: 1px solid #b40000;
     &:hover {
-      background-color: #b40000; // Darker red
+      background-color: transparent; // Darker red
+      color: #b40000;
     }
   }
 
