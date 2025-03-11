@@ -791,7 +791,7 @@ const handleRemove = async (id: string) => {
             ))
         ) : (
           <tr>
-            <td colSpan={7}>No consultations found</td>
+            <td colSpan={11}>No consultations found</td>
           </tr>
         )}
       </tbody>
@@ -879,7 +879,7 @@ const handleRemove = async (id: string) => {
         ))
       ) : (
         <tr>
-          <td colSpan={6} className={styles.noData}>
+          <td colSpan={7} className={styles.noData}>
             No follow-up schedules found.
           </td>
         </tr>
