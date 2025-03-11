@@ -136,7 +136,7 @@ const OnlineConsult: React.FC = () => {
         onClick={sendMessage}
         // disabled={!isConsultationTimeActive()}
         >Send</button>
-        <p>Note: You can only send messages during the scheduled consultation time.</p>
+        <p className={styles.note}>Note: You can only send messages during the scheduled consultation time.</p>
 
       </div>
     </div>
