@@ -47,7 +47,7 @@
   
 
   p {
-    font-size: 1.2em;
+    font-size: 1rem;
     margin: 30px;
     user-select: none; /* Prevents text selection */
   }
@@ -153,11 +153,12 @@
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);  
-  color: #653E84;
+  color: #cc8dfe;
 }
 
 .welcomeMessage {
-  font-size: 20px;
+  font-size: 15x;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);  
   color: #ffffff;
 }
@@ -168,7 +169,7 @@
   
 }
 .viewCalendar {
-  padding: 10px 30px;
+  padding: 15px 30px;
   border-radius: 8px;
   background-color: #653E84; 
   color: rgb(255, 255, 255); 
