@@ -87,7 +87,7 @@ const Profile: React.FC = () => {
 
   return (
     <div className={style.container}>
-      <h2 className={style.userinfo_pr}>Guidance Profile</h2>
+      <h2 className={style.userinfo_pr}>Counselor Profile</h2>
       <form onSubmit={handleSubmit} className={style.infoContainer}>
         {role !== "main" && (
           <>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import style from "./guidancenavbar.module.scss";
 import DarkMode from "../../darkMode/darkMode";
@@ -10,18 +10,34 @@ import accountIcon from "../../images/user.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const role = localStorage.getItem("role"); // Get the role from localStorage
+  const role = localStorage.getItem("role");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [counselorTitle, setCounselorTitle] = useState("Counselor");
+  const [isEditing, setIsEditing] = useState(false);
+  const [startAnimation, setStartAnimation] = useState(false); // Track animation state
+
+  useEffect(() => {
+    const savedTitle = localStorage.getItem("counselorTitle");
+    if (savedTitle) {
+      setCounselorTitle(savedTitle);
+    }
+  }, []);
+
+  const handleTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setCounselorTitle(event.target.value);
+  };
+
+  const handleTitleBlur = () => {
+    setIsEditing(false);
+    localStorage.setItem("counselorTitle", counselorTitle);
+  };
 
   const handleLogout = () => {
-    // Remove the token and user info from localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     localStorage.removeItem("email");
     localStorage.removeItem("userId");
     localStorage.removeItem("fullName");
-
-    // Redirect to the login page
     navigate("/login");
   };
 
@@ -40,7 +56,24 @@ const Navbar = () => {
     <nav className={style.studentNavbar}>
       <div className={style.logoSection}>
         <h1>DiscoverU</h1>
-        <p>Guidance</p>
+        {isEditing ? (
+          <input
+            type="text"
+            value={counselorTitle}
+            onChange={handleTitleChange}
+            onBlur={handleTitleBlur}
+            autoFocus
+            className={style.editableInput}
+          />
+        ) : (
+          <p
+            onClick={() => setIsEditing(true)}
+            className={`${style.editableText} ${startAnimation ? style.animated : ""}`}
+            onMouseEnter={() => setStartAnimation(true)} // Start animation on hover
+          >
+            <span>{counselorTitle}</span>
+          </p>
+        )}
       </div>
 
       <div className={style.navigationSection}>

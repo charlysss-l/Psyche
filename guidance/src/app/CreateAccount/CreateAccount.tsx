@@ -217,6 +217,7 @@ const CreateAccount: React.FC = () => {
         );
         setModalType(null); // Close the modal after success
         alert("User updated successfully!");
+        window.location.reload();
       } else {
         alert("Error updating user.");
       }
@@ -235,15 +236,15 @@ const CreateAccount: React.FC = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <h1 className={styles.mainHeading}>Create Guidance Account</h1>
-      <p className={styles.userCount}>Total Guidance Account: {filteredUsers.length}</p>
+      <h1 className={styles.mainHeading}>Create New Account</h1>
+      <p className={styles.userCount}>Total User Account: {filteredUsers.length}</p>
       <button
         className={styles.addGuidanceButton}
         onClick={() => {
           setModalType("create"); // Open the Create Account modal
         }}
       >
-        Add Guidance
+        Add New Account
       </button>
 
       {/* Conditional rendering based on modalType */}
