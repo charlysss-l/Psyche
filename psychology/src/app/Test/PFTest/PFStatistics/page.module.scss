@@ -2,9 +2,10 @@
   font-family: Arial, sans-serif;
   background-color: #ffffff;
   border-radius: 10px;
-  border: 2px solid #a1a1a1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.445);
   width: 100%;
   margin-top: 20px;
+  padding: 5px;
 }
 
 .heading {
@@ -323,7 +324,7 @@ color: #653e84;
   
 :global(body.dark-mode){
   .heading {
-    color: #b072e2;
+    color: #8C62A9;
   }
   .idIqlist{
     background-color: #dfdfdf;
@@ -335,5 +336,8 @@ color: #653e84;
 }
   .resultCount p{
     color: #dfdfdf;
+  }
+  .reportContainer{
+    background-color: #181818;
   }
 }
