@@ -103,6 +103,11 @@ const OnlineConsult: React.FC = () => {
     return currentTime >= scheduledDateTime;
   };
 
+  const formatMessage = (text: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+  };
+
   return (
     <div className={styles['chat-container']}>
       <div className={styles['chat-header']}
@@ -121,7 +126,7 @@ const OnlineConsult: React.FC = () => {
       <div className={styles['chat-window']}>
         {messages.map((msg) => (
           <div key={msg.createdAt} className={`${styles.message} ${msg.sender === sender ? styles.sent : styles.received}`}>
-            <p>{msg.content}</p>
+            <p dangerouslySetInnerHTML={{ __html: formatMessage(msg.content) }} />
           </div>
         ))}
       </div>
