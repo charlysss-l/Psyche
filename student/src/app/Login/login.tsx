@@ -91,7 +91,32 @@ const Login: React.FC = () => {
     return data; // Return data containing the user info and token
   };
   
-
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setError("Please enter your email first.");
+      return;
+    }
+  
+    try {
+      const response = await fetch(`${backendUrl}/api/authStudents/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        setSuccessMessage("Password has been reset to '123'. Please log in with the new password.");
+      } else {
+        setError(data.message || "Failed to reset password.");
+      }
+    } catch (error) {
+      console.error(error);
+      setError("Server error. Please try again later.");
+    }
+  };
+  
 
   return (
     <div className={styles.loginContainer}>
@@ -145,6 +170,11 @@ const Login: React.FC = () => {
           <button type="submit" className={styles.submitButtonLog}>
             Login
           </button>
+
+          <p onClick={() => navigate("/forgot-password")} className={styles.forgotPasswordLink}>
+            Forgot Password?
+          </p>
+
 
           <h1 className={styles.Signuplink_info}>
             Don't have an account? <span onClick={() => navigate("/signup")} className={styles.Signuplink} > Sign Up </span>

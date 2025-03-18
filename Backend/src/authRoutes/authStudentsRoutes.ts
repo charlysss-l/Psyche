@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { signupStudent, loginStudent, updateStudentProfile, getStudentProfile, getAllStudents, getStudentByUserId } from '../authControllers/authStudentsController';
+import { signupStudent, loginStudent, updateStudentProfile, getStudentProfile, getAllStudents, getStudentByUserId, resetPassword } from '../authControllers/authStudentsController';
 
 const router = Router();
 
@@ -53,6 +53,14 @@ router.get('/students', async (req: Request, res: Response) => {
 router.get('/students/:userId', async (req: Request, res: Response) => {
     try {
         await getStudentByUserId(req, res);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+router.post('/reset-password', async (req: Request, res: Response) => {
+    try {
+        await resetPassword(req, res);
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }

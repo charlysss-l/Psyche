@@ -43,6 +43,7 @@ import ArchiveInbox from "./app/Consultation/ArchiveInbox";
 import IntroPF from "./app/Test/PFTest/IntroPF/IntroPF";
 import IntroIQ from "./app/Test/IQTest/IntroIQ/IntroIQ";
 import IntroCF from "./app/Test/CFTest/IntroCF/IntroCF";
+import ForgotPassword from "./app/Login/forgotPassword/forgotPassword";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 
@@ -108,6 +109,7 @@ function App() {
                       <Route path="/cfomr" element={<ProtectedRoute><CfOMR /></ProtectedRoute>} />
                       <Route path="/cfomrresult" element={<ProtectedRoute><OmrCFResult /></ProtectedRoute>} />
                       <Route path="/survey-details/:surveyId" element={<ProtectedRoute><SurveyDetails /></ProtectedRoute>} />
+                      <Route path="/forgot-password" element={<ForgotPassword />} />
                       <Route path="*" element={<Navigate to="/login" />} />
                     </Routes>
                   </div>

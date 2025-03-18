@@ -238,6 +238,19 @@ input[type="password"]::-webkit-textfield-decoration-container {
   }
 }
 
+.forgotPasswordLink{
+  color: #653E84;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+
+  :hover {
+    border-bottom: 1px solid #653E84;
+    color: #653E84;
+  }
+}
+
 :global(body.dark-mode) {
   .logoimg {
     background-image: url("../../images/LOGOnewDark.png");

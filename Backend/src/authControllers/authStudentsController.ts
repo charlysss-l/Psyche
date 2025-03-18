@@ -177,3 +177,25 @@ export const getStudentByUserId = async (req: Request, res: Response): Promise<R
     }
 };
 
+export const resetPassword = async (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    try {
+        const student = await Student.findOne({ email });
+        if (!student) {
+            return res.status(404).json({ message: "Student not found" });
+        }
+
+        // Set the password to default "123"
+        const defaultPassword = "123";
+        const hashedPassword = await bcrypt.hash(defaultPassword, 12);
+
+        student.password = hashedPassword;
+        await student.save();
+
+        return res.status(200).json({ message: "Password reset successfully. Your new password is '123'." });
+    } catch (error) {
+        console.error("Error resetting password:", error);
+        return res.status(500).json({ message: "Server error while resetting password" });
+    }
+};
