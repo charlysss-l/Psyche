@@ -127,6 +127,36 @@
           background-color: #f0f0f0;
         }
       }
+      .dropdownLinkLogout{
+        padding: 10px 20px;
+        text-decoration: none;
+        color: #ffffff;
+        border-radius: 5px;
+        background-color: #653E84;
+        border: 1px solid #653E84;
+        margin: 0 auto;
+        font-size: 14px;
+
+        &:hover {
+          background-color: transparent;
+          color: #653E84;
+        }
+      }
+      .dropdownLinkSettings{
+        padding: 10px 20px;
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 14px;
+        border-radius: 5px;
+        background-color: #653E84;
+        border: 1px solid #653E84;
+        margin: 0 auto;
+
+        &:hover {
+          background-color: transparent;
+          color: #653E84;
+        }
+      }
     }
   }
 }
