@@ -14,11 +14,11 @@ const Home = () => {
     // Set viewport for zoom-out effect
     const metaViewport = document.querySelector('meta[name="viewport"]');
     if (metaViewport) {
-      metaViewport.setAttribute("content", "width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no");
+      metaViewport.setAttribute("content", "width=device-width, initial-scale=0.8, maximum-scale=1.0");
     } else {
       const newMeta = document.createElement("meta");
       newMeta.name = "viewport";
-      newMeta.content = "width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no";
+      newMeta.content = "width=device-width, initial-scale=0.8, maximum-scale=1.0";
       document.head.appendChild(newMeta);
     }
 
