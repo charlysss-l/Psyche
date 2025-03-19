@@ -289,7 +289,7 @@ function normalizeSearchTerm(term: string): string {
                     Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}</td>
                   <td>
                   <button 
-                      className={styles.restoreButtonIQLIST} 
+                      className={styles.restoreButtonCF} 
                       onClick={() => handleRestore(result.testID)}
                     >
                       Restore

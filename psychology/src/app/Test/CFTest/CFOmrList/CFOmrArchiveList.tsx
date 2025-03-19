@@ -254,7 +254,7 @@ const currentResults = filteredUsers.slice(
                       </td>
                       <td>
                       <button 
-                      className={styles.restoreButtonIQLIST} 
+                      className={styles.restoreButtonCFLIST} 
                       onClick={() => handleRestore(result.testID)}
                     >
                       Restore

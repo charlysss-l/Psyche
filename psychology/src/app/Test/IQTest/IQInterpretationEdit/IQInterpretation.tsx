@@ -167,7 +167,7 @@ const IQInterpretation: React.FC = () => {
                     />
                   </td>
                   <td>
-                    <button onClick={() => handleSave(index)}>Save</button>
+                    <button className={styles.savebutton} onClick={() => handleSave(index)}>Save</button>
                   </td>
                 </tr>
               ))}

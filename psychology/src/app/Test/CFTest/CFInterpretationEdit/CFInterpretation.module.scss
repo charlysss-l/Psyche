@@ -62,8 +62,8 @@
   }
   
   // Styling for Save button per row
-button {
-    background-color: #653E84;
+.savebutton {
+    background-color: #929292;
     color: white;
     border: none;
     padding: 8px 10px;
@@ -74,8 +74,8 @@ button {
   
     &:hover {
       background-color: transparent;
-      color: #653E84;
-      border:1px solid #653E84;
+      color: #929292;
+      border:1px solid #929292;
     }
   
     &:focus {
