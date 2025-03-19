@@ -53,7 +53,7 @@ const ForgotPassword = () => {
   const sendEmailNotification = (email: string, newPassword: string) => {
     const templateParams = {
       to_email: email,
-      message: `Here is your new default password: ${newPassword}. You can change it in you profile after logging in.`,
+      message: `Here is your new default password: ${newPassword} You can change it in you profile after logging in.`,
     };
 
     emailjs
@@ -68,23 +68,26 @@ const ForgotPassword = () => {
 
   return (
     <div className={styles["forgot-password-container"]}>
-      <h2>Forgot Password</h2>
-      {message && <p className={styles.success}>{message}</p>}
-      {error && <p className={styles.error}>{error}</p>}
-      <input
-        type="email"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className={styles.input}
-      />
-      <button onClick={handleResetPassword} className={styles.buttonPrimary}>
-        Reset Password
-      </button>
-      <button onClick={() => navigate("/login")} className={styles.buttonSecondary}>
-        Back to Login
-      </button>
-    </div>
+  <div className={styles["forgot-password-box"]}>
+    <h2>Forgot Password</h2>
+    {message && <p className={styles.success}>{message}</p>}
+    {error && <p className={styles.error}>{error}</p>}
+    <input
+      type="email"
+      placeholder="Enter your email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      className={styles.input}
+    />
+    <button onClick={handleResetPassword} className={styles.buttonPrimary}>
+      Reset Password
+    </button>
+    <button onClick={() => navigate("/login")} className={styles.buttonSecondary}>
+      Back to Login
+    </button>
+  </div>
+</div>
+
   );
 };
 
