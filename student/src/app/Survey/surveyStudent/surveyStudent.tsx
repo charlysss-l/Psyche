@@ -135,6 +135,7 @@ const filteredSurveys = surveys.filter(
         ({unansweredSurveys.length} surveys)
       </span>
 
+    <div className={styles.filterArchiveContainer}>
       <div className={styles.filterContainer}>
         {/* Filter by Category */}
         <label htmlFor="category">Filter by Category:</label>
@@ -155,6 +156,8 @@ const filteredSurveys = surveys.filter(
       >
         {isArchivedListVisible ? "Close" : "Archive List"}
       </button>
+
+      </div>
 
       {isArchivedListVisible && <ArchivedSurveys />}
 

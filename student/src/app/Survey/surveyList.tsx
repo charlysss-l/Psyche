@@ -9,7 +9,7 @@ const StudentDashboard: React.FC = () => {
         // Set viewport for zoom-out effect
         const metaViewport = document.querySelector('meta[name="viewport"]');
         if (metaViewport) {
-          metaViewport.setAttribute("content", "width=device-width, initial-scale=0.65, maximum-scale=1.0, user-scalable=no");
+          metaViewport.setAttribute("content", "width=device-width, initial-scale=0.7, maximum-scale=1.0");
         } else {
           const newMeta = document.createElement("meta");
           newMeta.name = "viewport";
@@ -27,7 +27,6 @@ const StudentDashboard: React.FC = () => {
 
   return (
     <div>
-      <h1></h1>
       <SurveyStudent />
     </div>
   );
