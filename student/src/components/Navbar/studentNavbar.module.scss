@@ -247,12 +247,16 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .burgerMenu {
-    display: block;
+    display: block !important;
   }
 
   .navigationSection {
+    display: none;
+  }
+
+  .dropdown {
     display: none;
   }
 
