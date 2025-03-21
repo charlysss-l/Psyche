@@ -429,7 +429,7 @@ function normalizeSearchTerm(term: string): string {
 </p>
      
       {filteredUsers.length > 0 ? (
-        <div>
+        <div className={styles.tableWrapper}>
           <table className={styles.resultsTable}>
             <thead>
               <tr>

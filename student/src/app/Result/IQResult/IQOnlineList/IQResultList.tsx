@@ -215,7 +215,7 @@ return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
       </p>
 
       {filteredUsers.length > 0 ? (
-        <div>
+        <div className={styles.tableWrapper}>
           <table className={styles.resultsTableIQ}>
             <thead>
               <tr>

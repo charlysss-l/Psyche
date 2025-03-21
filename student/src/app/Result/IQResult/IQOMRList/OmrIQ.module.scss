@@ -212,6 +212,18 @@
   margin-bottom: -30px;
 }
 
+@media (max-width: 768px) {
+  .tableWrapper {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .resultsTableIQ {
+    width: 100%;
+    min-width: 1200px; /* Ensures scrolling instead of squeezing */
+  }
+}
+
 
 :global(body.dark-mode){
   .resultCount {

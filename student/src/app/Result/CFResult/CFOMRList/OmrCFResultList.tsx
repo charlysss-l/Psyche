@@ -268,7 +268,7 @@ const OmrCFResultsList: React.FC = () => {
 </p>
 
       {filteredUsers.length > 0 ? (
-        <div>
+        <div className={styles.tableWrapper}>
           <table className={styles.resultsTableCF}>
             <thead>
               <tr>

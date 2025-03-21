@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    user-select: none;
   }
   
   .resultSection {
@@ -28,6 +29,13 @@
     color: #653E84;
     margin-bottom: 10px;
   }
+
+  @media screen and (max-width: 768px) {
+    .resultSection {
+      max-width: 460px;
+    } 
+  }
+  
   :global(body.dark-mode){
     .resultSection{
       background-color: #151515;

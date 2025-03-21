@@ -338,28 +338,26 @@ function normalizeSearchTerm(term: string): string {
   };
   
   return (
-    <div>
+    <div className={styles.container}>
       <h2 className={styles.title}>16PF Results List (Online)
-      
-<div className={styles.smartWrapper}>
-
-<input
-        type="text"
-        placeholder="Search by Test ID or Date"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className={styles.searchInput}
-      />
-      </div>
+          <div className={styles.smartWrapper}>
+            <input
+              type="text"
+              placeholder="Search by Test ID or Date"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className={styles.searchInput}
+            />
+          </div>
       </h2>
 
       <p className={styles.resultCount}>
-  Total Results: {filteredUsers.length}
-</p>
+        Total Results: {filteredUsers.length}
+      </p>
       
      
       {filteredUsers.length > 0 ? (
-        <div>
+    <div className={styles.tableWrapper}>
           <table className={styles.resultsTable}>
             <thead>
               <tr>
@@ -507,11 +505,11 @@ function normalizeSearchTerm(term: string): string {
         <p>No results available.</p>
       )}
 
-<Modal 
-  isOpen={isModalOpen} 
-  onClose={() => setIsModalOpen(false)} 
-  data={selectedUser} 
-/>
+        <Modal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)} 
+          data={selectedUser} 
+        />
     </div>
   );
 };

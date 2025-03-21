@@ -10,7 +10,7 @@ const IQResultListBoth: React.FC = () => {
                 // Set viewport for zoom-out effect
                 const metaViewport = document.querySelector('meta[name="viewport"]');
                 if (metaViewport) {
-                  metaViewport.setAttribute("content", "width=device-width, initial-scale=0.8, maximum-scale=1.0");
+                  metaViewport.setAttribute("content", "width=device-width, initial-scale=0.6, maximum-scale=1.0");
                 } else {
                   const newMeta = document.createElement("meta");
                   newMeta.name = "viewport";
