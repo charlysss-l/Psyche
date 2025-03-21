@@ -21,6 +21,26 @@ const IntroIQ: React.FC = () => {
 
   const navigate = useNavigate(); // Initialize useNavigate
 
+    useEffect(() => {
+          // Set viewport for zoom-out effect
+          const metaViewport = document.querySelector('meta[name="viewport"]');
+          if (metaViewport) {
+            metaViewport.setAttribute("content", "width=device-width, initial-scale=0.8, maximum-scale=1.0");
+          } else {
+            const newMeta = document.createElement("meta");
+            newMeta.name = "viewport";
+            newMeta.content = "width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no";
+            document.head.appendChild(newMeta);
+          }
+      
+          // Cleanup function to reset viewport when leaving the page
+          return () => {
+            if (metaViewport) {
+              metaViewport.setAttribute("content", "width=device-width, initial-scale=1.0");
+            }
+          };
+        }, []);
+
   // Fetch content from the database
   useEffect(() => {
     setLoading(true);
@@ -107,8 +127,8 @@ const IntroIQ: React.FC = () => {
     <div className={styles.container}>
      
 
-     <h1 className={styles.pfintro}>{introTitle}</h1>
-      <p className={styles.pfintroinfo}>
+     <h1 className={styles.iqintro}>{introTitle}</h1>
+      <p className={styles.iqintroinfo}>
   {introText.split('\n').map((line, index) => (
     <React.Fragment key={index}>
       {line.split(/(https?:\/\/[^\s]+)/).map((part, idx) => (
@@ -132,8 +152,8 @@ const IntroIQ: React.FC = () => {
   ))}
 </p>
 
-<h1 className={styles.termsandconditionpf}>{termsTitle}</h1>
-<p className={styles.pftermsinfo}>
+<h1 className={styles.termsandconditioniq}>{termsTitle}</h1>
+<p className={styles.iqtermsinfo}>
   {termsText.split('\n').map((line, index) => {
     // Check if the line starts with a numbered section
     const match = line.match(/^(\d+\.\s.*?)(\s-\s)(.*)$/);
@@ -174,8 +194,8 @@ const IntroIQ: React.FC = () => {
       </div>
 
       {/* Test Start Button */}
-      <div className={styles.TestPF}>
-        <button onClick={handleStartClick} className={styles.pfButton} disabled={hasTakenTestToday}>
+      <div className={styles.Testiq}>
+        <button onClick={handleStartClick} className={styles.iqButton} disabled={hasTakenTestToday}>
           {hasTakenTestToday ? 'You have already taken the test today. Try again tomorrow.' : 'Start Test'}
         </button>
       </div>

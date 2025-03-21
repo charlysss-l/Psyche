@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from "../CFTest/CFTest.module.scss";
 
@@ -28,6 +29,26 @@ const UserForm: React.FC = () => {
         // Navigate to the CF test page
         navigate('/cftest');
     };
+
+       useEffect(() => {
+                  // Set viewport for zoom-out effect
+                  const metaViewport = document.querySelector('meta[name="viewport"]');
+                  if (metaViewport) {
+                    metaViewport.setAttribute("content", "width=device-width, initial-scale=0.8, maximum-scale=1.0");
+                  } else {
+                    const newMeta = document.createElement("meta");
+                    newMeta.name = "viewport";
+                    newMeta.content = "width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no";
+                    document.head.appendChild(newMeta);
+                  }
+              
+                  // Cleanup function to reset viewport when leaving the page
+                  return () => {
+                    if (metaViewport) {
+                      metaViewport.setAttribute("content", "width=device-width, initial-scale=1.0");
+                    }
+                  };
+                }, []);
 
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>

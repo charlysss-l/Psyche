@@ -75,6 +75,36 @@
   align-items: center; /* Center the checkbox vertically */
 }
 
+@media screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .pfintro,
+  .termsandconditionpf {
+    font-size: 20px;
+  }
+
+  .pfintroinfo,
+  .pftermsinfo {
+    font-size: 14px;
+    width: 95%;
+  }
+
+  .pfButton {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .checkboxContainer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+
 :global(body.dark-mode) {
   .container {
     $form-bg-color: #F6F5F5;

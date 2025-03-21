@@ -11,20 +11,20 @@
   text-align: center;
   user-select: none;
 }
-.pfintro, .termsandconditionpf{
+.cfintro, .termsandconditioncf{
   font-size: 25px;
   color: #704191;
   margin-bottom: 16px;
 }
 
-.pftermsinfo {
+.cftermsinfo {
   text-align: left;
   width: 90%;
   max-width: 1000px;
   margin: 0 auto;
 }
 
-.pfintroinfo {
+.cfintroinfo {
   font-size: 16px;
   color: #555;
   margin-bottom: 12px;
@@ -42,10 +42,10 @@
   text-align: left;
   line-height: 1.8;
 }
-.termsnumiq{
+.termsnumcf{
   color: #849670 ;
 }
-.pfButton {
+.cfButton {
   display: inline-block;
   padding: 10px 20px;
   border:1px solid #704191 ;
@@ -59,7 +59,7 @@
   margin-top: 20px;
 }
 
-.pfButton:hover {
+.cfButton:hover {
   background-color: transparent;
   color:#704191;
   border:1px solid #704191 ;
@@ -87,26 +87,55 @@
   text-align: center;
 }
 
+@media screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .cfintro,
+  .termsandconditioncf {
+    font-size: 20px;
+  }
+
+  .cfintroinfo,
+  .cftermsinfo {
+    font-size: 14px;
+    width: 95%;
+  }
+
+  .cfButton {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .checkboxContainer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
 :global(body.dark-mode) {
   .container{
     background-color: #15151519;
   }
-  .pfintro, .termsandconditionpf{
+  .cfintro, .termsandconditioncf{
     color: #8c62a9;
   }
-  .pfintroinfo,.pftermsinfo{
+  .cfintroinfo,.cftermsinfo{
     color: #a9a9a9;
   }
-  .termsnumiq{
+  .termsnumcf{
     color: #8c62a9 ;
   }
   .termsinfo {
     color: #a9a9a9;
   }
-  .pfButton {
+  .cfButton {
     background-color: #8c62a9;
   }
-  .pfButton:hover {
+  .cfButton:hover {
     background-color: transparent;
     border: 1px solid #8c62a9;
     color: #8c62a9;
@@ -117,7 +146,7 @@
   .checkboxContainer label{
       color:#a9a9a9;
     }
-    .pfButton{
+    .cfButton{
       background-color: #8c62a9;
 
      &:hover {

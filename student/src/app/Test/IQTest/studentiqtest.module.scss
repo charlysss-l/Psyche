@@ -29,10 +29,11 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
   .formTest {
     position: static;
     transform: none;
-    width: 75%;
+    width: 85%;
     margin: 0 auto;
   }
 }
+
 
 
 // Container for the form
@@ -50,8 +51,8 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
 h1 {
   color: #704191;     // Color for the header text (SAMPLE IQ TEST)
   font-size: 2rem;
-  margin-bottom: 20px;
 }
+
 .rules{
   color: #353535;
   font-size: 16px;
@@ -62,12 +63,24 @@ h1 {
   color: #8a2525;
   font-weight: bold;
   margin-top: 1px;
-  width: 80%;
+  width: 100%;
   max-width: 1000px;
   margin: 0 auto;
   margin-bottom: 10px;
   text-align: center;
 }
+
+.numQuestion{
+  color: #353535;
+  font-weight: bold;
+  margin-top: 1px;
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: -10px;
+  text-align: center;
+}
+
 // Label styling for inputs
 label {
   display: block;
@@ -258,7 +271,6 @@ li {
 .note{
   color: #414141;
   font-size: 16px;
-  margin-right: 40px;
 }
 button {
   padding: 10px 20px;
@@ -295,10 +307,16 @@ button {
 }
 
 
-
+.rulesTitle {
+  text-align: center;
+  margin-top: -20px;
+  margin: 0 auto;
+}
 .rules {
   text-align: center;
-  margin-top: -2%;
+  margin-top: -20px;
+  margin: 0 auto;
+
 }
 
 .highlight {

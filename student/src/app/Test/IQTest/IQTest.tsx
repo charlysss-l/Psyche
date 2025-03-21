@@ -51,6 +51,25 @@ const IQTest: React.FC = () => {
     const [, setInterpretation] = useState<Interpretation | null>(null);
     const [unansweredQuestions, setUnansweredQuestions] = useState<string[]>([]);
 
+            useEffect(() => {
+                  // Set viewport for zoom-out effect
+                  const metaViewport = document.querySelector('meta[name="viewport"]');
+                  if (metaViewport) {
+                    metaViewport.setAttribute("content", "width=device-width, initial-scale=0.7, maximum-scale=1.0");
+                  } else {
+                    const newMeta = document.createElement("meta");
+                    newMeta.name = "viewport";
+                    newMeta.content = "width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no";
+                    document.head.appendChild(newMeta);
+                  }
+              
+                  // Cleanup function to reset viewport when leaving the page
+                  return () => {
+                    if (metaViewport) {
+                      metaViewport.setAttribute("content", "width=device-width, initial-scale=1.0");
+                    }
+                  };
+                }, []);
 
     const fetchTest = async () => {
         try {
@@ -224,12 +243,12 @@ const IQTest: React.FC = () => {
     return (
         <form onSubmit={handleSubmit} className={style.formTest}>
             <h1>IQ Test</h1>
-            <p>Number of Questions: {iqTest?.numOfQuestions}</p>
+            <p className={style.numQuestion}>Number of Questions: {iqTest?.numOfQuestions}</p>
             <p className={style.ageWarning}> 
                 "You Only Have 45 Minutes To Complete This Test. The Test Will Automatically Submit Once Time Is Up" <br/>
                 You can only answer this test once a day, if any error occurs and need to retake the test, please direct to the administrator (Psychology Department).
             </p>
-            <h1>Rules:</h1>
+            <h1 className={style.rulesTitle}>Rules:</h1>
             <p className={style.rules}>
             <span className={style.highlight}>*</span> Please do not take screenshots or share the content of this test. It is confidential and for your use only. <br />
                 <span className={style.highlight}>*</span> Those who do will be penalized and as your student record will be tracked by the Administrators. <br />

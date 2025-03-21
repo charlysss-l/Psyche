@@ -10,14 +10,14 @@
   line-height: 1.6;
   text-align: center;
 }
-.pfintro,
-.termsandconditionpf {
+.iqintro,
+.termsandconditioniq {
   font-size: 25px;
   color: #653e84;
   margin-bottom: 16px;
 }
 
-.pfintroinfo {
+.iqintroinfo {
   font-size: 16px;
   color: #555;
   margin-bottom: 12px;
@@ -27,7 +27,7 @@
   margin: 0 auto;
   line-height: 1.5;
 }
-.pftermsinfo {
+.iqtermsinfo {
   text-align: left;
   width: 90%;
   max-width: 1000px;
@@ -44,7 +44,7 @@
 .termsnumiq {
   color: #849670;
 }
-.pfButton {
+.iqButton {
   display: inline-block;
   padding: 10px 20px;
   border: 1px solid #653e84;
@@ -58,7 +58,7 @@
   margin-top: 20px;
 }
 
-.pfButton:hover {
+.iqButton:hover {
   background-color: transparent;
   color: #653e84;
   border: 1px solid #653e84;
@@ -85,16 +85,45 @@
   text-align: center;
 }
 
+@media screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .iqintro,
+  .termsandconditioniq {
+    font-size: 20px;
+  }
+
+  .iqintroinfo,
+  .iqtermsinfo {
+    font-size: 14px;
+    width: 95%;
+  }
+
+  .iqButton {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .checkboxContainer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
 :global(body.dark-mode) {
   .container {
     background-color: #15151519;
   }
-  .pfintro,
-  .termsandconditionpf {
+  .iqintro,
+  .termsandconditioniq {
     color: #8c62a9;
   }
-  .pfintroinfo,
-  .pftermsinfo {
+  .iqintroinfo,
+  .iqtermsinfo {
     color: #a9a9a9;
   }
   .termsnumiq {
@@ -103,10 +132,10 @@
   .termsinfo {
     color: #a9a9a9;
   }
-  .pfButton {
+  .iqButton {
     background-color: #8c62a9;
   }
-  .pfButton:hover {
+  .iqButton:hover {
     background-color: transparent;
     border: 1px solid #8c62a9;
     color: #8c62a9;
@@ -117,7 +146,7 @@
   .checkboxContainer label {
     color: #a9a9a9;
   }
-  .pfButton {
+  .iqButton {
     background-color: #8c62a9;
 
     &:hover {
