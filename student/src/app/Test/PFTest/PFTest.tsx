@@ -267,7 +267,7 @@ const PFTest: React.FC = () => {
                             className={`${styles.questionBox} ${isUnanswered ? styles.unanswered : ''}`}
                             key={q.questionID}
                         >
-                            <p>{(currentPage - 1) * questionsPerPage + index + 1}. {q.questionText}</p>
+                            <p className={styles.questions}>{(currentPage - 1) * questionsPerPage + index + 1}. {q.questionText}</p>
                             {isUnanswered && (
                                 <p className={styles.warningMessage}>This question is unanswered.</p>
                             )}

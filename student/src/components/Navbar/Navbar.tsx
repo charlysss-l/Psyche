@@ -91,7 +91,7 @@ const Navbar = () => {
               {isDropdownOpen && (
                 <ul className={style.dropdownMenu}>
                   <li>
-                    <NavLink to="/profile" className={style.dropdownLink}>
+                    <NavLink to="/profile" className={style.settingsDesk}>
                       Settings
                     </NavLink>
                   </li>
@@ -99,7 +99,7 @@ const Navbar = () => {
                     <DarkMode />
                   </li>
                   <li>
-                    <button onClick={handleLogout} className={style.dropdownLink}>
+                    <button onClick={handleLogout} className={style.logoutDesk}>
                       Logout
                     </button>
                   </li>
@@ -128,11 +128,13 @@ const Navbar = () => {
             ))}
           </ul>
           <div className={style.dropdownMenu}>
-            <NavLink to="/profile" className={style.dropdownLinkSettings}>
+            <NavLink to="/profile" className={style.settingsMobile}>
               Settings
             </NavLink>
+
             <DarkMode />
-            <button onClick={handleLogout} className={style.dropdownLink}>
+
+            <button onClick={handleLogout} className={style.logoutMobile}>
               Logout
             </button>
           </div>

@@ -44,6 +44,7 @@
 
 .burgerMenu:hover {
   transform: scale(1.1);
+  border: none;
 }
 
 /* Navigation Section */
@@ -146,10 +147,7 @@
       opacity: 1;
       visibility: visible;
     }
-    .dropdownLink{
-      text-decoration: none;
-      
-    }
+    
   }
 }
 
@@ -160,7 +158,7 @@
   top: 120px;
   left: 0;
   width: 100%;
-  background: #fff;
+  background: #fff4fe;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 2px 0;
   z-index: 20;
@@ -199,24 +197,55 @@
   align-items: center;
 }
 
-.dropdownLinkSettings{
+.settingsMobile{
   color: black;
-  margin: 0;
-  padding: 0;
   text-decoration: none;
-  transition: color 0.3s ease-in-out;
-  
-  &:hover {
-    color: #653e84;
-    font-weight: 900;
+  margin-top: 20px;
+  margin-bottom: 40px;
+
+  &:hover{
+    color: #77218d;
   }
 
-  &.active {
-    color: #653e84;
-    font-weight: 900;
-    border-bottom: none; 
+  
+ 
+}
+
+.logoutMobile{
+  color: black;
+  text-decoration: none;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  background: none;
+  font-size: 17px;
+
+}
+
+.settingsDesk {
+  margin: 0 auto;
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+
+  &:hover {
+    color: #bb35dc;
   }
 }
+
+.logoutDesk {
+  margin: 0 auto;
+  background: none;
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 15px;
+
+  &:hover {
+    color: #bb35dc;
+    border: none;
+  }
+}
+
 
 @media (max-width: 768px) {
   .burgerMenu {
@@ -229,5 +258,11 @@
 
   .mobileMenu {
     display: block;
+  }
+}
+
+:global(body.dark-mode) {
+  .burgerMenu {
+    color: #b4b4b4;
   }
 }
