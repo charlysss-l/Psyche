@@ -295,7 +295,7 @@
         margin-right: -30px;
         
       }
-      @media (max-width: 768px) {
+      @media (max-width: 900px) {
         width: 80vw;
         height: 40vh;
         margin-right: -30px;
@@ -448,7 +448,7 @@
         height: 50vh;
         margin-left: -80px;
       }
-      @media (max-width: 768px) {
+      @media (max-width: 900px) {
         width: 80vw;
         height: 40vh;
         margin-left: -60px;
@@ -591,7 +591,7 @@
 }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .homepage {
     width: 100%;
     max-width: 75vw;

@@ -89,7 +89,7 @@
   margin-right: 10px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .sidebarContainer .toggleButton {
     top: 0.5rem;
     left: 1rem;

@@ -64,8 +64,8 @@
  }
 }
 
-/* Media query for smaller screens (below 768px) */
-@media (max-width: 768px) {
+/* Media query for smaller screens (below 900px) */
+@media (max-width: 900px) {
   .resultPage {
     flex-direction: column; /* Stack the items vertically */
     align-items: center; /* Center the items horizontally */

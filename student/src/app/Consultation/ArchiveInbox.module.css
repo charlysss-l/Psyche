@@ -14,7 +14,7 @@
 .overlay.darkOverlay {
   background-color: rgba(0, 0, 0, 0.7);
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .overlay {
     width: 100%;
     height: 100%;
@@ -39,7 +39,7 @@
   z-index: 1000;
   position: relative;
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .tableContainer {
     width: 100%;
     margin: 20%;
@@ -59,7 +59,7 @@
   font-size: 1.5rem;
   font-weight: bold;
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .tableContainer .archivetitle {
     font-size: 1.25rem;
   }
@@ -84,7 +84,7 @@
 .tableContainer .closeButton:hover {
   background-color: rgba(77, 77, 77, 0.7137254902);
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .tableContainer .closeButton {
     top: 5px;
     right: 5px;
@@ -108,7 +108,7 @@
   margin: 20px 0;
   color: #4e4e4e;
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .tableContainer .tableArchive {
     font-size: 0.9rem;
   }
@@ -153,7 +153,7 @@
 .actionButton.delete:hover {
   background-color: rgba(185, 77, 77, 0.8078431373);
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .actionButton {
     padding: 4px 8px;
     font-size: 0.8rem;

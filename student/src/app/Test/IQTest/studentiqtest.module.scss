@@ -25,7 +25,7 @@ $header-text-color: #45474B;     // Color for "SAMPLE IQ TEST"
   width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .formTest {
     position: static;
     transform: none;
@@ -335,7 +335,7 @@ button {
   margin-top: 5px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 
 
 .questionBox img {

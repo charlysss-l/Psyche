@@ -53,7 +53,7 @@
 }
 
 /* Adjust layout for smaller screens */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .mainContainer {
     flex-direction: column; /* Stack the containers vertically */
     align-items: center; /* Center them horizontally */
