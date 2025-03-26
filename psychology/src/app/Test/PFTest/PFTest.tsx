@@ -175,7 +175,7 @@ const PFTest: React.FC = () => {
                                 C: {q.choiceEquivalentScore.c}
                             </td>
                             <td className={style.td}>
-                                <button onClick={() => handleEditClick(q)}>Edit</button>
+                                <button className={style.editPF} onClick={() => handleEditClick(q)}>Edit</button>
                             </td>
                         </tr>
                     ))}
@@ -243,8 +243,8 @@ const PFTest: React.FC = () => {
                                 onChange={(e) => setNewChoiceEquivalentScore({ ...newChoiceEquivalentScore, c: Number(e.target.value) })}
                             />
                         </label>
-                        <button onClick={handleUpdateQuestion}>Save Changes</button>
-                        <button onClick={() => setEditQuestion(null)}>Cancel</button>
+                        <button className={style.savechanges} onClick={handleUpdateQuestion}>Save Changes</button>
+                        <button className={style.cancelchanges} onClick={() => setEditQuestion(null)}>Cancel</button>
                     </div>
                 </div>
             )}

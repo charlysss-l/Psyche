@@ -285,11 +285,12 @@ const IQTest: React.FC = () => {
                     </div>
                     <div className={style.modalFooter}>
                         <button
+                            className={style.saveChanges}    
                             onClick={() => handleSaveUpdatedQuestion(questionID, question.questionSet, question.correctAnswer)}
                         >
                             Save Changes
                         </button>
-                        <button onClick={() => setIsEditing(null)}>Close</button>
+                        <button className={style.cancelChanges} onClick={() => setIsEditing(null)}>Close</button>
                     </div>
                 </div>
             </div>

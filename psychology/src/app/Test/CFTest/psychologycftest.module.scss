@@ -66,6 +66,53 @@
     gap: 10px; // Add some spacing between items
 }
 
+.editButton{
+  background-color: #A9A9A9;
+  color: white;
+  border: #a9a9a9 1px solid;  
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: transparent;
+    border: #a9a9a9 1px solid;  
+    color: #A9A9A9;
+  }
+}
+
+.saveChanges{
+  padding: 10px 18px;
+  background-color: #815aa5;
+  color: #fafafa;
+  font-size: 14px;
+  border-radius: 5px;
+  border:1px solid #815aa5;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+      background-color: transparent;
+      color: #815aa5;
+      border:1px solid #815aa5;
+  }
+}
+.cancelChanges{
+  padding: 10px 18px;
+  background-color: #815aa5;
+  color: #fafafa;
+  font-size: 14px;
+  border-radius: 5px;
+  border:1px solid #815aa5;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+      background-color: transparent;
+      color: #815aa5;
+      border:1px solid #815aa5;
+  }
+}
+
 .test1 {
   background-color: #fdfdfd;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.329);
