@@ -163,3 +163,28 @@
         color: #333;
       }
       
+      :global(body.dark-mode){
+        .floatingContainer {
+          background-color: #181818;
+          color: #dad8d8;
+          border: 1px solid #dad8d8;
+        }
+        .floatingContainer .resultsTableIQ {
+          border: 1px solid #7a7a7a;
+        }
+        .resultCount {
+          color: #dad8d8;
+        }
+        .searchInput {
+          background-color: #333;
+          color: #dad8d8;
+        } 
+        .resultsTable th {
+          color: #dad8d8;
+          border-bottom: 1px solid #7a7a7a;
+        }
+        .resultsTable td {
+          color: #dad8d8;
+          border-bottom: 1px solid #7a7a7a;
+        }
+      }
