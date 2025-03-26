@@ -5,9 +5,7 @@
   .resultsTableIQ {
       border-collapse: collapse; 
       font-size: 15px;
-      background-color: rgb(255, 252, 252);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064); 
-      border: 1px solid #9e979791; 
+      background-color: rgba(255, 252, 252, 0);
       width: 100%;
     }
     
@@ -17,8 +15,7 @@
       padding: 10px;
       text-align: center;
       font-size: 13px;
-      background-color: rgb(245, 242, 242);
-      border-bottom: 1px solid #9e979791; 
+      border-bottom: 1px solid #0e0e0e; 
     }
     
   
@@ -41,7 +38,18 @@
       border: 1px solid #9e979791; 
     }
   
-  
+    .restoreButtonIQLIST{
+      background-color: #268d26;
+      padding: 9px;
+      border: #268d26 1px solid;
+      color: #fafafa;
+      border-radius: 5px;
+    }
+    .restoreButtonIQLIST:hover{
+        background-color: transparent;
+        border: #268d26 1px solid;
+        color: #268d26;
+    }
   .selected-choice-img {
     width: 60px;  
     height: 50px; 
@@ -49,11 +57,16 @@
   }
   
   .deleteButtonIQLIST{
-    background-color: red;
-    padding: 8px;
+    background-color: #a52c23;
+    padding: 9px;
+    border: #a52c23 1px solid;
+    color: #fafafa;
+    border-radius: 5px;
   }
   .deleteButtonIQLIST:hover{
-    background-color: rgb(230, 3, 3);
+    background-color: transparent;
+      border: #a52c23 1px solid;
+      color: #a52c23;
   }
   .pagination {
     display: flex;
@@ -105,7 +118,7 @@
     left: 50%;
     transform: translate(-50%, -50%);  /* Centers the container */
     background-color: rgb(255, 255, 255);  /* Optional: semi-transparent background */
-    border: 2px solid #333;
+    border: 1px solid #333;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);

@@ -1,9 +1,7 @@
 .resultsTableIQ {
     border-collapse: collapse; 
     font-size: 15px;
-    background-color: rgb(255, 252, 252);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064); 
-    border: 1px solid #9e979791; 
+    background-color: rgba(255, 252, 252, 0.021); 
     width: 100%;
   }
   
@@ -13,14 +11,14 @@
     padding: 10px;
     text-align: center;
     font-size: 13px;
-    background-color: rgb(245, 242, 242);
-    border-bottom: 1px solid #9e979791; 
+    background-color: rgba(245, 242, 242, 0);
+    border-bottom: 1px solid #181818f8; 
   }
   
 
   .resultsTableIQ td {
     text-align: center; /* Center-aligns text horizontally */
-      vertical-align: middle; /* Center-aligns text vertically */
+    vertical-align: middle; /* Center-aligns text vertically */
     padding: 5px;
     font-size: 13px;
     border-bottom: 1px solid #9e979791; 
@@ -31,7 +29,7 @@
 
   .eachResultIQ:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
-    transform: translateY(-1px); 
+    transform: translateY(1px); 
     cursor: pointer;
     background-color: rgb(245, 244, 244);
     border: 1px solid #9e979791; 
@@ -45,13 +43,13 @@
 }
 
 .deleteButtonIQLIST{
-  background-color: red;
+  background-color: #860b0b;
   padding: 8px;
 }
 .deleteButtonIQLIST:hover{
   background-color: transparent;
   color:black;
-  border:1px solid rgb(230, 3, 3);
+  border:1px solid #860b0b  ;
 }
 .pagination {
   display: flex;
@@ -80,14 +78,18 @@
 }
 
 .archiveButtons {
-  background-color: #847096;
+  background-color: #A9A9A9;
   transition: all 0.3s ease;
+  padding: 10px 18px;
+  color: #ffffff;
+  border-radius: 8px;
+  border:1px solid #A9A9A9;
 }
 
 .archiveButtons:hover {
   background-color: transparent;
-  color:black;
-  border:1px solid #6d560d;
+  color: #A9A9A9;
+  border:1px solid #A9A9A9;
 }
 
 .title {
@@ -105,11 +107,11 @@
 
 .archiveButton {
   
-  background-color: #3b5998; /* Blue like a mailbox */
+  background-color: #653E84;  /* Blue like a mailbox */
   color: white; /* Text color */
-  border: 2px solid #2d4373; /* Slightly darker border */
+  border: 2px solid #653E84; /* Slightly darker border */
   border-radius: 12px; /* Rounded edges */
-  padding: 10px 20px; /* Adjust padding for size */
+  padding: 10px 18px; /* Adjust padding for size */
   font-size: 16px; /* Slightly larger text */
   font-weight: bold; /* Make text stand out */
   cursor: pointer; /* Pointer cursor */
@@ -121,13 +123,13 @@
 
 .archiveButton:hover {
   background-color: transparent;
-  color:black;
-  border:1px solid #4b70b5; /* Lighter blue on hover */
+  color:#653E84;
+  border:1px solid #653E84;  /* Lighter blue on hover */
  
 }
 
 .archiveButton:active {
-  background-color: #5f2a2a; /* Darker blue when clicked */
+  background-color: transparent; /* Darker blue when clicked */
   transform: scale(0.98); /* Slight click animation */
 }
 
@@ -160,8 +162,8 @@
   z-index: 1100;  /* Ensures it appears on top of other content */
   right: 21%;
   top: 16%;
-  background-color: #ff4d4d; /* Red background for close button */
-  border-color: #d43f3f; /* Darker red border */
+  background-color: #991c1c; /* Red background for close button */
+  border-color: #991c1c;
   color: white;
   font-size: 18px;
   padding: 8px 16px;
@@ -172,12 +174,13 @@
 }
 
 .closeButton:hover {
-  background-color: #d43f3f;
-  border-color: #c13232;
+  background-color: transparent;
+  border-color: #991c1c;
+  color: #991c1c;
 }
 
 .closeButton:active {
-  background-color: #c13232;
+  background-color: #991c1c;
   transform: scale(0.98); /* Click animation */
 }
 
@@ -194,19 +197,20 @@
 }
 
 .exportButton {
-    
-  background-color: #4CAF50;
+  background-color: #367e38;
   color: white;
-  padding: 10px 20px;
-  border: none;
+  padding: 10px 18px;
+  border:1px solid #367e38;
+  margin-left: 10px;
+  border-radius: 8px;
   cursor: pointer;
   
 }
 
 .exportButton:hover {
   background-color: transparent;
-      color:black;
-      border:1px solid #45a049;
+  color:#367e38;
+  border:1px solid #367e38;
 }
 
 .resultCount {
@@ -222,8 +226,8 @@
   margin: 10px;
   background-color: #bbae3c;
   color: white;
-  border: none;
-  padding: 5px 10px;
+  border:1px solid #948929;
+  padding: 8px 10px;
   border-radius: 5px;
   cursor: pointer;
 
@@ -231,7 +235,7 @@
 
 .viewImageButton:hover{
   background-color: transparent;
-  color:black;
+  color:#bbae3c;
   border:1px solid #948929;
 }
 
