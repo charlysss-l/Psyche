@@ -5,9 +5,7 @@
 .resultsTable {
     border-collapse: collapse; 
     font-size: 15px;
-    background-color: rgb(255, 252, 252);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.064); 
-    border: 1px solid #9e979791; 
+    background-color: rgba(255, 252, 252, 0);
     width: 100%;
   }
 
@@ -16,8 +14,8 @@
     padding: 10px;
     text-align: center;
     font-size: 13px;
-    background-color: rgb(245, 242, 242);
-    border-bottom: 1px solid #9e979791; 
+    background-color: rgba(245, 242, 242, 0);
+    border-bottom: 1px solid #181818f8;
   }
   
 
@@ -33,7 +31,7 @@
 
   .eachResultPF:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
-    transform: translateY(-1px); 
+    transform: translateY(1px); 
     cursor: pointer;
     background-color: rgb(245, 244, 244);
     border: 1px solid #9e979791; 
@@ -124,14 +122,18 @@
   }
 
   .archiveButtons {
-    background-color: #847096;
+    background-color: #A9A9A9;
     transition: all 0.3s ease;
+    padding: 10px 18px;
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+    border:1px solid #A9A9A9;
   }
   
   .archiveButtons:hover {
     background-color: transparent;
-    color: #847096;
-    border:1px solid #847096;
+    color: #A9A9A9;
+  border:1px solid #A9A9A9;
   }
 
   .title {
@@ -150,11 +152,11 @@
   
   .archiveButton {
     
-    background-color: #847096; /* Blue like a mailbox */
+    background-color: #653E84; /* Blue like a mailbox */
     color: white; /* Text color */
-    border: 2px solid #847096; /* Slightly darker border */
+    border: 2px solid #653E84; /* Slightly darker border */
     border-radius: 12px; /* Rounded edges */
-    padding: 10px 20px; /* Adjust padding for size */
+    padding: 10px 18px; /* Adjust padding for size */
     font-size: 16px; /* Slightly larger text */
     font-weight: bold; /* Make text stand out */
     cursor: pointer; /* Pointer cursor */
@@ -166,8 +168,8 @@
   
   .archiveButton:hover {
     background-color: transparent;
-    color:black;
-    border:1px solid #847096; /* Lighter blue on hover */
+    color:#653E84;
+  border:1px solid #653E84 /* Lighter blue on hover */
    
   }
   
@@ -205,8 +207,8 @@
     z-index: 1100;  /* Ensures it appears on top of other content */
     right: 21%;
     top: 16%;
-    background-color: #ff4d4d; /* Red background for close button */
-    border-color: #d43f3f; /* Darker red border */
+    background-color: #991c1c; /* Red background for close button */
+    border-color: #991c1c; /* Darker red border */
     color: white;
     font-size: 18px;
     padding: 8px 16px;
@@ -218,12 +220,12 @@
   
   .closeButton:hover {
     background-color: transparent;
-    color:black;
-    border:1px solid #d43f3f;
+    border-color: #991c1c;
+    color: #991c1c;
   }
   
   .closeButton:active {
-    background-color: #c13232;
+    background-color: #991c1c;
     transform: scale(0.98); /* Click animation */
   }
   
@@ -240,19 +242,20 @@
   }
 
   .exportButton {
-    
-    background-color: #529154;
+    background-color: #367e38;
     color: white;
-    padding: 10px 20px;
-    border: none;
+    padding: 10px 18px;
+    border:1px solid #367e38;
+    margin-left: 10px;
+    border-radius: 8px;
     cursor: pointer;
     
   }
   
   .exportButton:hover {
     background-color: transparent;
-    color: #529154;
-    border:1px solid #529154;
+    color:#367e38;
+  border:1px solid #367e38;
   }
   
   
@@ -267,9 +270,9 @@
 .viewImageButton {
   width: 130px;
   margin: 10px;
-  background-color: #333;
+  background-color: #bbae3c;
   color: white;
-  border: none;
+  border:1px solid #bbae3c;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -278,8 +281,8 @@
 
 .viewImageButton:hover{
   background-color: transparent;
-  color: #333;
-  border:1px solid #333;
+  color: #bbae3c;
+  border:1px solid #bbae3c;
 }
 
 .modalImageView {

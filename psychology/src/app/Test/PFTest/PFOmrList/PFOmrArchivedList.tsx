@@ -443,7 +443,7 @@ return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
                   </td>
                   <td>
                   <button 
-                      className={styles.restoreButtonIQLIST} 
+                      className={styles.restoreButtonPFLIST} 
                       onClick={() => handleRestore(result.testID)}
                     >
                       Restore
