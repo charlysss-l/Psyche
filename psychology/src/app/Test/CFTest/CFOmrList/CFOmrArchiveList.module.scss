@@ -138,4 +138,33 @@
     margin-bottom: .5rem;
     color: #333;
   }
-  
+  :global(body.dark-mode){
+    .floatingContainer {
+      background-color: #181818;
+      color: #dad8d8;
+      border: 1px solid #dad8d8;
+    }
+    .resultCount {
+      color: #dad8d8;
+    }
+    .searchInput {
+      background-color: #333;
+      color: #dad8d8;
+    } 
+    .resultsTableCF th {
+      color: #dad8d8;
+      border-bottom: 1px solid #7a7a7a;
+    }
+    .resultsTableCF td {
+      color: #dad8d8;
+      border-bottom: 1px solid #7a7a7a;
+
+      li{
+        color: #dad8d8;
+      }
+    }
+    .eachResultCF:hover {
+      background-color: #222222f8;
+      border: 1px solid #7a7a7a;
+    }
+  }
