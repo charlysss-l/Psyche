@@ -340,4 +340,13 @@ color: #653e84;
   .reportContainer{
     background-color: #181818;
   }
+  .totalResultCount,
+  .onlineResultCount,
+  .physicalResultCount{
+    background-color: #222222;
+
+    p{
+      color: #dfdfdf;
+    }
+  }
 }

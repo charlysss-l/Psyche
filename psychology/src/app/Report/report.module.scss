@@ -184,7 +184,56 @@ font-size: 1rem;
     .dashboardRow {
         background-color: #181818;
     }
-  
+    .allTest{
+        background-color: #181818;
+        color: #cccccc;
 
+        .table {
+            background-color: #181818;
+            color: #cccccc;
+            .th {
+                background-color: #181818;
+                color: #cccccc;
+                border-bottom: #cccccc 1px solid;
+            }
+            .td {
+                background-color: #181818;
+                color: #cccccc;
+            }
+            tr:nth-child(even) .td {
+                background-color: #181818;
+            }
+        }
+        .seeButton{
+            background-color: #653E84;
+            color: white;
+            border:  1px solid #653E84;
+
+            &:hover {
+                background-color: transparent;
+                color: #653E84;
+            }
+        }
+
+    }
+    .surveyCount, .userCount {
+        background-color: #222222;
+        color: #cccccc;
+
+        p{
+          color: #cccccc;
+        }
+
+        .seeButton{
+            background-color: #653E84;
+            color: white;
+            border:  1px solid #653E84;
+
+            &:hover {
+                background-color: transparent;
+                color: #653E84;
+            }
+        }
+    }
 
 }
