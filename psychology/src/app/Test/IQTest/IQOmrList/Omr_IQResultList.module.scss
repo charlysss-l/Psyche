@@ -286,46 +286,34 @@
 }
 
 :global(body.dark-mode){
-  .title {
-    color: #8a59b8;
+  .title{
+    color: #815aa5;
   }
-  .exportButton{
-    background-color: #38b43d;
-    color: #ffffff;
-
-    &:hover {
-      background-color: transparent;
-      color: #38b43d;
-      border: 1px solid #38b43d;
-    }
+  .resultsTableIQ{
+    background-color: #222222f8;
+    color: #cccccc;
   }
-  .archiveButton {
-    background-color: #dad8d8;
-    color: #000000;
-    border: 2px solid #dad8d8;
+  .resultsTableIQ td{
+    color: #cccccc;
 
-    &:hover {
-      background-color: transparent;
-      color: #dad8d8;
-      border: 1px solid #dad8d8 ;
-    }
-
-    &:active {
-      background-color: #5f2a2a;
+    li{
+      color: #cccccc;
     }
   }
   .resultsTableIQ th{
-    background-color: #9e979791;
-    color: #000000;
+    background-color: #222222f8;
+    color: #cccccc;
+    border-bottom: #A9A9A9 1px solid;
   }
-  .archiveButtons {
-    background-color: #8a59b8;
-    color: #ffffff;
-
-    &:hover {
-      background-color: transparent;
-      color: #8a59b8;
-      border: 1px solid #8a59b8;
-    }
+  .searchInput{
+    background-color: #222222f8;
+    color: #cccccc;
+  }
+  .resultCount{
+    color: #cccccc;
+  }
+  .eachResultIQ:hover{
+    background-color: #333333f8;
+    border: 1px solid #A9A9A9;
   }
 }
