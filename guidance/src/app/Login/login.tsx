@@ -19,6 +19,8 @@ const Login: React.FC = () => {
   const [resetError, setResetError] = useState<string | null>(null);
   const [resetSuccessMessage, setResetSuccessMessage] = useState<string | null>( null );
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false); // Loading state
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -39,6 +41,8 @@ const Login: React.FC = () => {
       setError("Please fill in both fields.");
       return;
     }
+
+    setLoading(true);
 
     try {
       setError(""); // Clear any previous error
@@ -84,6 +88,8 @@ const Login: React.FC = () => {
         setError("Invalid Credentials!");
       }
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -185,8 +191,8 @@ const Login: React.FC = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-          <button type="submit" className={styles.submitButtonLog}>
-            Login
+          <button type="submit" className={styles.submitButtonLog} disabled={loading}>
+            {loading ? "Logging in, please wait..." : "Login"}
           </button>
         </form>
         <button
