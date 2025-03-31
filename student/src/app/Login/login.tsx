@@ -17,6 +17,8 @@ const Login: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const navigate = useNavigate();  // Used to navigate to different routes
   const location = useLocation();  // Provides access to the current location object
+  const [loading, setLoading] = useState<boolean>(false); // Loading state
+
 
   // Show success message if coming from the signup page
   useEffect(() => {
@@ -44,6 +46,9 @@ const Login: React.FC = () => {
       setError("Please fill up both fields");
       return;
     }
+
+    setLoading(true); // Set loading to true before making the request
+
   
     try {
       const response = await loginUser(email, password);
@@ -61,6 +66,8 @@ const Login: React.FC = () => {
     } catch (error) {
       setError("Invalid Credentials!");
       console.error(error);
+    } finally {
+      setLoading(false); // Set loading to false after request completes
     }
   };
   
@@ -167,8 +174,8 @@ const Login: React.FC = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-          <button type="submit" className={styles.submitButtonLog}>
-            Login
+          <button type="submit" className={styles.submitButtonLog} disabled={loading}>
+            {loading ? "Logging in, please wait..." : "Login"}
           </button>
 
           <p onClick={() => navigate("/forgot-password")} className={styles.forgotPasswordLink}>

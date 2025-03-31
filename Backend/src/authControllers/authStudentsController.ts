@@ -15,10 +15,13 @@ export const signupStudent = async (req: Request, res: Response): Promise<Respon
         if (existingStudent) {
             // Send specific errors if email or userId exists
             if (existingStudent.email === email) {
-                return res.status(400).json({ error: 'email_exists' }); // Correct error handling for email
+                return res.status(400).json({ error: 'email already exists, please try different one.' }); // Correct error handling for email
             }
             if (existingStudent.userId === userId) {
-                return res.status(400).json({ error: 'userId_exists' }); // Correct error handling for userId
+                return res.status(400).json({ error: 'userId already exists.' }); // Correct error handling for userId
+            }
+            if (existingStudent.studentNumber === studentNumber) {
+                return res.status(400).json({ error: 'student number already exists.' }); // Correct error handling for studentNumber
             }
         }
 

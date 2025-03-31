@@ -210,6 +210,10 @@ input[type="password"]::-webkit-textfield-decoration-container {
   }
 }
 
+.required {
+  color: red;
+}
+
 @media (max-width: 900px) {
   .signup_container {
     display: flex;

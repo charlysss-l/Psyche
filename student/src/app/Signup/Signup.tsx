@@ -14,6 +14,8 @@ const SignupForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [passwordStrength, setPasswordStrength] = useState<string>("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false); // Loading state
+  
 
   useEffect(() => {
     generateUniqueUserId();
@@ -86,46 +88,41 @@ const SignupForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (!email || !password || !confirmPassword) {
       setError("All fields are required.");
       return;
     }
-
+  
     if (!validatePassword(password)) {
-      setError(
-        "Password must be at least 8 characters, include one uppercase letter, and one special character."
-      );
+      setError("Password must be at least 8 characters, include one uppercase letter, and one special character.");
       return;
     }
-
+  
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
-
+  
     setError(null);
-
+    setLoading(true);
+  
     try {
       const response = await signupUser(email, password, studentNumber, userId);
-
+  
       if (response.message === "Student created successfully") {
         window.alert("Sign up successful! You can now log in.");
         navigate("/login", {
           state: { message: "Signup successful! Please log in." },
         });
-      } else if (response.error === "email_exists") {
-        setError(
-          "Email already exists. Please log in or use a different email."
-        );
-      } else if (response.error === "userId_exists") {
-        setError("User ID already exists. Please refresh the page.");
       }
-    } catch (error) {
-      setError("Sign up failed. Please try again later.");
-      console.error(error);
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
+  
 
   const signupUser = async (
     email: string,
@@ -140,13 +137,16 @@ const SignupForm: React.FC = () => {
       },
       body: JSON.stringify({ email, password, studentNumber, userId }),
     });
-
+  
+    const data = await response.json();
+  
     if (!response.ok) {
-      throw new Error("Sign up failed");
+      throw new Error(data.error || "Sign up failed");
     }
-
-    return response.json();
+  
+    return data;
   };
+  
 
   return (
     <div className={styles.signup_page}>
@@ -167,7 +167,7 @@ const SignupForm: React.FC = () => {
             />
           </div>
           <div>
-            <label className={styles.signuplabel}>Student Number: *</label>
+            <label className={styles.signuplabel}>Student Number:  <span className={styles.required}>*</span></label>
             <input
               className={styles.signupInput}
               type="studentNumber"
@@ -256,8 +256,8 @@ const SignupForm: React.FC = () => {
               readOnly
             />
           </div>
-          <button type="submit" className={styles.signupSubmit}>
-            Sign Up
+          <button type="submit" className={styles.signupSubmit} disabled={loading}>
+          {loading ? "Signing up, please wait..." : "Sign Up"}
           </button>
           <h4 className={styles.loginLink_info}>
             Already have an account?{" "}
