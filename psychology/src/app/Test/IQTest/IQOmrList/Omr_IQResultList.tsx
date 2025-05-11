@@ -274,6 +274,7 @@ const exportToExcel = () => {
                     >
                       View Image
                     </button>
+                    <br/>
                     <button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
                       Archive
                     </button></td>

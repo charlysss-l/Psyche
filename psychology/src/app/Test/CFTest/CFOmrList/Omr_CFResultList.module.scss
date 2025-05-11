@@ -222,12 +222,11 @@
 }
 
 .viewImageButton {
-  width: 130px;
-  margin: 10px;
+  width: 80px;
   background-color: #bbae3c;
   color: white;
   border:1px solid #948929;
-  padding: 8px 10px;
+  padding: 5px 15px;
   border-radius: 5px;
   cursor: pointer;
 
@@ -313,7 +312,6 @@
     background-color: #222222f8;
     color: #cccccc;
   }
-}
   .resultCount{
     color: #cccccc;
   }
@@ -321,3 +319,5 @@
     background-color: #333333f8;
     border: 1px solid #A9A9A9;
   }
+}
+ 

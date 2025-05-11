@@ -467,6 +467,7 @@ function normalizeSearchTerm(term: string): string {
                     >
                       View Image
                     </button>
+                    <br/>
                     <button className={styles.archiveButtons} onClick={() => handleArchive(result.testID)}>
                       Archive
                     </button>
