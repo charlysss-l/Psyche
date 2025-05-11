@@ -32,7 +32,8 @@ interface IQTests {
 const IQTest: React.FC = () => {
     const navigate = useNavigate();
     const [iqTest, setIqTest] = useState<IQTests | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [testLoading, setTestLoading] = useState(true);
+    const [submitLoading, setSubmitLoading] = useState(false);    
     const [error, setError] = useState<string | null>(null);
     const [responses, setResponses] = useState<Record<string, string>>({});
     const [userID, setUserID] = useState<string>('');
@@ -78,7 +79,7 @@ const IQTest: React.FC = () => {
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred');
         } finally {
-            setLoading(false);
+            setTestLoading(false);
         }
     };
 
@@ -208,6 +209,9 @@ const IQTest: React.FC = () => {
             testDate: new Date(),
         };
 
+        setSubmitLoading(true); // Set loading to true before making the request
+
+
         try {
             await axios.post(`${backendUrl}/api/useriq`, dataToSubmit);
             alert('Test submitted successfully!');
@@ -219,7 +223,9 @@ const IQTest: React.FC = () => {
         } else {
             console.error('Error submitting answers:', error);
             alert('An error occurred while submitting the test.');
-        }
+        } 
+    } finally {
+        setSubmitLoading(false); // Set loading back to false after the request is complete
     }
     };
 
@@ -232,7 +238,7 @@ const IQTest: React.FC = () => {
     }
     const handlePrevPage = () => setCurrentPage(prev => prev - 1);
 
-    if (loading) return <p>Loading...</p>;
+    if (testLoading) return <p>Loading Test...</p>;
     if (error) return <p>Error: {error}</p>;
 
     const totalQuestions = iqTest?.questions.length || 0;
@@ -303,8 +309,10 @@ const IQTest: React.FC = () => {
             
             {/* Only show submit button on the last page */}
             {currentPage === totalPages && (
-                <button type="submit" className={style.submitButton}>Submit Test</button>
-            )}
+                <button type="submit" className={style.submitButton} disabled={submitLoading}>
+                {submitLoading ? 'Submitting...' : 'Submit Test'}
+            </button>       
+             )}
 
         </form>
     );

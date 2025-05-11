@@ -51,7 +51,8 @@ const storage = getStorage();
 const CFTest: React.FC = () => {
     const navigate = useNavigate();
     const [cfTest, setCfTest] = useState<CFTests | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [testLoading, setTestLoading] = useState(true);
+    const [submitLoading, setSubmitLoading] = useState(false);  
     const [error, setError] = useState<string | null>(null);
     const [responses, setResponses] = useState<Record<string, string | string[]>>({}); // Updated to handle arrays
     const [userID, setUserID] = useState<string>('');
@@ -112,7 +113,7 @@ const CFTest: React.FC = () => {
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred');
         } finally {
-            setLoading(false);
+            setTestLoading(false);
         }
     };
 
@@ -370,6 +371,9 @@ const CFTest: React.FC = () => {
             testType,
             testDate: new Date(),
         };
+
+        setSubmitLoading(true); // Set loading to true before making the request
+
     
         try {
             await axios.post(`${backendUrl}/api/usercf`, dataToSubmit);
@@ -383,6 +387,8 @@ const CFTest: React.FC = () => {
                 console.error('Error submitting answers:', error);
                 alert('An error occurred while submitting the test.');
             }
+        } finally {
+            setSubmitLoading(false); // Set loading back to false after the request is complete
         }
     };
 
@@ -395,7 +401,7 @@ const CFTest: React.FC = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (testLoading) return <p>Loading Test...</p>;
     if (error) return <p>Error: {error}</p>;
 
     return (
@@ -476,7 +482,9 @@ const CFTest: React.FC = () => {
             
             {/* Only show submit button on the last page */}
             {currentPage === totalPages && (
-                <button type="submit" className={style.submitButton}>Submit Test</button>
+            <button type="submit" className={style.submitButton} disabled={submitLoading}>
+            {submitLoading ? 'Submitting...' : 'Submit Test'}
+            </button>   
             )}
 
         </form>
