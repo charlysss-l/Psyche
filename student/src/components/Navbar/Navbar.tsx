@@ -128,15 +128,28 @@ const Navbar = () => {
             ))}
           </ul>
           <div className={style.dropdownMenu}>
-            <NavLink to="/profile" className={style.settingsMobile}>
-              Settings
-            </NavLink>
+          <NavLink
+  to="/profile"
+  className={style.settingsMobile}
+  onClick={() => setIsMenuOpen(false)} // CLOSE MENU ON CLICK
+>
+  Settings
+</NavLink>
 
-            <DarkMode />
+<div onClick={() => setIsMenuOpen(false)}>
+  <DarkMode />
+</div>
 
-            <button onClick={handleLogout} className={style.logoutMobile}>
-              Logout
-            </button>
+<button
+  onClick={() => {
+    setIsMenuOpen(false); // CLOSE MENU ON CLICK
+    handleLogout();
+  }}
+  className={style.logoutMobile}
+>
+  Logout
+</button>
+
           </div>
         </div>
       )}
