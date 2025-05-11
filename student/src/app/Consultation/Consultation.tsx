@@ -431,6 +431,27 @@ const handleRemove = async (id: string) => {
     console.error("Error removing follow-up schedule:", error);
   }
 };
+
+function formatTestID(testID: string): string {
+  const [userID, timestamp] = testID.split('-');
+
+  if (!timestamp || isNaN(Number(timestamp))) return testID; // fallback for unexpected formats
+
+  const date = new Date(Number(timestamp));
+
+  const pad = (n: number) => n.toString().padStart(2, '0');
+
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+
+  const formattedDate = `${year}${month}${day}-${hours}${minutes}${seconds}`;
+
+  return `${userID}-${formattedDate}`;
+}
   
   return (
     <div className={styles.consultMain}>
@@ -574,24 +595,25 @@ const handleRemove = async (id: string) => {
           </label>
 
           {(note === "IQ Test (Online)" || note === "IQ Test (Physical)" || note === "Personality Test (Online)" || note === "Personality Test (Physical)" || note === "CF Test (Online)" || note === "CF Test (Physical)") && testIDs.length > 0 && (
-            <label className={styles.conLabel}>
-              Select Test ID
-              <select
-                value={selectedTestID}
-                onChange={(e) => setSelectedTestID(e.target.value)}
-                required
-              >
-                <option value="" disabled>
-                  Select a Test ID
-                </option>
-                {testIDs.map((id) => (
-                  <option key={id} value={id}>
-                    {id}
-                  </option>
-                ))}
-              </select>
-            </label>
-          )}
+  <label className={styles.conLabel}>
+    Select Test ID
+    <select
+      value={selectedTestID}
+      onChange={(e) => setSelectedTestID(e.target.value)}
+      required
+    >
+      <option value="" disabled>
+        Select a Test ID
+      </option>
+      {testIDs.map((id) => (
+        <option key={id} value={id}>
+          {formatTestID(id)}
+        </option>
+      ))}
+    </select>
+  </label>
+)}
+
           {note === "Others" && (
             <>
 
@@ -761,7 +783,7 @@ const handleRemove = async (id: string) => {
                   })}
                 </td>
                 <td>{consultation.timeForConsultation}</td>
-                <td>{consultation.testID}</td>
+                <td>{formatTestID(consultation.testID)}</td>
                 <td>{consultation.note}</td>
                 <td>{consultation.councelorName}</td>
                 <td>{consultation.consultationType  !== "Online" && consultation.consultationType}

@@ -169,12 +169,15 @@ const SignupForm: React.FC = () => {
           <div>
             <label className={styles.signuplabel}>Student Number:  <span className={styles.required}>*</span></label>
             <input
-              className={styles.signupInput}
-              type="studentNumber"
-              value={studentNumber}
-              onChange={(e) => setStudentNumber(e.target.value)}
-              required
-            />
+                className={styles.signupInput}
+                type="text"
+                value={studentNumber}
+                onChange={(e) => {
+                  const numericValue = e.target.value.replace(/\D/g, ""); // Remove non-digits
+                  setStudentNumber(numericValue);
+                }}
+                required
+              />
           </div>
           <div>
             <label className={styles.signuplabel}>

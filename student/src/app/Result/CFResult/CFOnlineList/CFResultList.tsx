@@ -174,6 +174,27 @@ const filteredUsers = results
       .includes(normalizedSearchTerm.toLowerCase());
   });
 
+  function formatTestID(testID: string): string {
+    const [userID, timestamp] = testID.split('-');
+  
+    if (!timestamp || isNaN(Number(timestamp))) return testID; // fallback for unexpected formats
+  
+    const date = new Date(Number(timestamp));
+  
+    const pad = (n: number) => n.toString().padStart(2, '0');
+  
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+  
+    const formattedDate = `${year}${month}${day}-${hours}${minutes}${seconds}`;
+  
+    return `${userID}-${formattedDate}`;
+  }
+
 // Utility function to normalize the date
 function normalizeDate(date: Date | string): string {
   if (!date) return ""; // Handle empty dates
@@ -247,7 +268,7 @@ return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
                   <td>{result.year}</td>
                   <td>{result.section}</td>
                   <td>{result.testType}</td>
-                  <td>{result.testID}</td>
+                  <td>{formatTestID(result.testID)}</td>
                   <td>{new Date(result.testDate).toLocaleDateString()}</td>
                   
                   <td>{result.totalScore}</td>

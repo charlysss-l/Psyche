@@ -13,10 +13,6 @@ import {
     Legend,
 } from 'chart.js';
 
-
-
-
-
 // Define the interface for the user results
 interface User16PFTest {
   userID: string;
@@ -206,6 +202,28 @@ const [selectedUser, setSelectedUser] = useState<User16PFTest | null>(null);
     .toLowerCase()
     .includes(normalizedSearchTerm.toLowerCase());
   });
+
+  function formatTestID(testID: string): string {
+    const [userID, timestamp] = testID.split('-');
+  
+    if (!timestamp || isNaN(Number(timestamp))) return testID; // fallback for unexpected formats
+  
+    const date = new Date(Number(timestamp));
+  
+    const pad = (n: number) => n.toString().padStart(2, '0');
+  
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+  
+    const formattedDate = `${year}${month}${day}-${hours}${minutes}${seconds}`;
+  
+    return `${userID}-${formattedDate}`;
+  }
+  
   
   // Utility function to normalize the date
   function normalizeDate(date: Date | string): string {
@@ -386,7 +404,7 @@ function normalizeSearchTerm(term: string): string {
                   <td>{result.course}</td>
                   <td>{result.year} - {result.section}</td>
                   <td>{result.testType}</td>
-                  <td>{result.testID}</td>
+                  <td>{formatTestID(result.testID)}</td>
                   <td>{new Date(result.testDate).toLocaleDateString()}</td>
                   <td>
                   <div className={styles.responsesWrapper}>
