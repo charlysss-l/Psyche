@@ -109,7 +109,7 @@ const User = () => {
       .includes(searchTerm.toLowerCase())
   );
   return (
-    <div>
+    <div className={style.userContainer}>
       <h2 className={style.userTitle}>List of Users</h2>
       <p className={style.userCount}>Total Users: {filteredUsers.length}</p>
       <div className={style.searchInputContainer}>

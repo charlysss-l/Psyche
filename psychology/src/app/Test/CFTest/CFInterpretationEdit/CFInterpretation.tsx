@@ -97,7 +97,7 @@ const CFInterpretation: React.FC = () => {
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
   return (
-    <div>
+    <div className={styles.maincontainer}>
       <h2>Edit CF Test Interpretation</h2>
       {cfTest && (
         <div>

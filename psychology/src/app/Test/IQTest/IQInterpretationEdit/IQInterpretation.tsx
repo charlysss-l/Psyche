@@ -96,7 +96,7 @@ const IQInterpretation: React.FC = () => {
   if (error) return <div className={styles.errorMessage}>Error: {error}</div>;
 
   return (
-    <div>
+    <div className={styles.maincontainer}>
       <h2>Edit IQ Test Interpretation</h2>
       {iqTest && (
         <div>

@@ -367,7 +367,7 @@ const CFTest: React.FC = () => {
     
 
     return (
-        <div>
+        <div className={style.maincontainer}>
             <table className={style.table}>
                 <thead>
                     <tr>
@@ -386,7 +386,7 @@ const CFTest: React.FC = () => {
             </table>
             <div className={style.linkCFliinks}>
                 <Link to="/cfresults_list_both" className={style.testResultsLink}>Test Results</Link>
-                <Link to="/cf-statistics" className={style.testResultsLink}>Analytics</Link>
+                {/* <Link to="/cf-statistics" className={style.testResultsLink}>Analytics</Link> */}
                 <Link to="/cfinterpretation" className={style.testResultsLink}>Edit CF Interpretation</Link>
             </div>
             <h2>Questions</h2>

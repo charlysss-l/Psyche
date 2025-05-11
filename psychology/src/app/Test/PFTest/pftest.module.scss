@@ -1,7 +1,12 @@
+.maincontainer  {
+    user-select: none;
+}
+
 .inkPFTestList{
     display: flex;
     justify-content:space-around;
     margin:auto;
+    user-select: none;
 }
 .table {
     background-color: #fffcfc;
@@ -11,6 +16,7 @@
     margin: 0 auto;
     margin-top: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.329);
+    user-select: none;
 
     & th, & td {
         padding: 12px;

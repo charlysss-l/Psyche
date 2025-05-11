@@ -1,3 +1,7 @@
+.maincontainer {
+  user-select: none;
+}
+
 .linkIQliinks{
   display: flex;
   justify-content: space-around;
@@ -11,6 +15,7 @@
     margin: 0 auto;
     margin-top: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.329);
+    user-select: none;
 
     & th, & td {
         padding: 12px;

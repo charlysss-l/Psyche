@@ -6,6 +6,7 @@
   width: 100%;
   margin-top: 20px;
   padding: 5px;
+  user-select: none;
 }
 
 .heading {
@@ -210,6 +211,27 @@
     font-size: 1rem;
   }
 }
+
+.miniGraphContainer {
+  width: 500px;
+  height: 250px;
+  position: relative;
+}
+
+.seeGraphButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+}
+
+.viewGraphText {
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
 
 /* Media Query for small screens */
 @media (max-width: 768px) {

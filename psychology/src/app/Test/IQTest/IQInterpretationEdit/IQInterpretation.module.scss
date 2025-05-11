@@ -1,4 +1,8 @@
 // General container for the whole component
+.maincontainer{
+  user-select: none;
+}
+
 .container {
     margin: 20px;
     padding: 20px;

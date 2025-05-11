@@ -360,9 +360,26 @@ const PFStatistics: React.FC = () => {
       </div>
     
     </div>
+    
     <button className={styles.seeGraphButton} onClick={openModal}>
-            Click To View Graph <br/> <img src={PFgraphLogo} alt="Graph Logo" className={styles.graphLogo}/>
-          </button>
+  <div className={styles.miniGraphContainer}>
+    <Bar
+      data={chartData}
+      options={{
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: { display: false },
+        },
+        scales: {
+          x: { display: false },
+          y: { display: false },
+        },
+      }}
+    />
+    <p className={styles.viewGraphText}>Click to View Graph</p>
+  </div>
+</button>
 
 
 
