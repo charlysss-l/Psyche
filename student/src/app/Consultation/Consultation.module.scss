@@ -287,6 +287,7 @@ select {
 }
 
 .acceptButton {
+  width: 90px;
   background-color: #849670;
   color: white;
   border:1px solid #849670;
@@ -302,12 +303,12 @@ select {
 }
 
 .declineButton {
+  width: 90px;
   background-color: #af1414;
   color: white;
   border: 1px solid #af1414;
   padding: 9px 16px;
   cursor: pointer;
-  margin-left: 10px;
 }
 .declineButton:hover {
   transform: scale(1.05);
@@ -317,12 +318,12 @@ select {
 }
 
 .removeButton {
+  width: 90px;
   background-color: #2A3744;
   color: white;
   border: 1px solid #2A3744;
   padding: 9px 16px;
   cursor: pointer;
-  margin-left: 10px;
 }
 .removeButton:hover {
   transform: scale(1.05);

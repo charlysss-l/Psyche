@@ -159,12 +159,11 @@ textarea {
 
   .consult-count {
     position: absolute;
-    top: 5px;
-    left: 5px;
-    background-color: #ff5100; /* Blue for consultations */
-    color: #fff;
-    border-radius: 50px;
-    padding: 2px 6px;
+    top: -2px;
+    background-color: #b700ff57; /* Blue for consultations */
+    color: #ffffff00;
+    border-radius: 10px;
+    padding: 32px 80px;
     margin: 2px 0;
   }
 
@@ -175,7 +174,7 @@ textarea {
     background-color: #28a796; /* Green for follow-ups */
     color: #fff;
     border-radius: 50px;
-    padding: 2px 6px;
+    padding: 5px 10px;
     margin: 2px 0;
   }
 }

@@ -108,7 +108,7 @@ const SchedulingCalendar: React.FC = () => {
         setConsultationRequests([...consultationRequests, response.data]);
       }
       alert("Follow Up Scheduled successfully.");
-
+      window.location.reload();
     } catch (error) {
       console.error("Error adding follow-up schedule:", error);
       setErrorMessage("Error adding follow-up schedule. Please try again.");
