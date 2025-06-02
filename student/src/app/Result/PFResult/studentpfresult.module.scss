@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: column;
   position: relative;  min-width: 40%; /* Minimum width to ensure good readability */
-  width: 40%; /* Ensure it takes up about half of the screen */
+  width: 45%; /* Ensure it takes up about half of the screen */
   text-align: center;
   background-color: #ffffff;
   border: none;
@@ -88,6 +88,8 @@
     margin-bottom: 15px; /* Space between sections */
   
   }
+
+
 }
 
 /* Heading for the section */
@@ -120,6 +122,23 @@
   margin-top: 10px;
   margin-bottom: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 900px) {
+   /* Chart container styling */
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  padding: 0px;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+  
 }
 
 .resultTable table {

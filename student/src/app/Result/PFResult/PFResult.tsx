@@ -370,7 +370,7 @@ const PFResult: React.FC = () => {
                 // Set viewport for zoom-out effect
                 const metaViewport = document.querySelector('meta[name="viewport"]');
                 if (metaViewport) {
-                  metaViewport.setAttribute("content", "width=device-width, initial-scale=0.6, maximum-scale=1.0");
+                  metaViewport.setAttribute("content", "width=device-width, initial-scale=0.6, maximum-scale=.5");
                 } else {
                   const newMeta = document.createElement("meta");
                   newMeta.name = "viewport";
@@ -553,176 +553,131 @@ const PFResult: React.FC = () => {
     
 
     const generatePDF = async () => {
-        // Get the entire result page container
-        const resultPage = document.getElementById("result-container");
-        if (!resultPage) return;
-    
-        // Temporarily hide unwanted interactive elements
-        const elementsToHide = resultPage.querySelectorAll("button, input[type='checkbox'], label, p");
-        elementsToHide.forEach((element) => {
-            if (element instanceof HTMLElement) {
-                element.style.display = "none"; // Hide interactive elements
-            }
-        });
-    
-        // Temporarily adjust layout if needed
-        const originalStyles: Record<string, string> = {};
-        const adjustElements = resultPage.querySelectorAll(".outro, .privacySection");
-        adjustElements.forEach((element) => {
-            if (element instanceof HTMLElement) {
-                originalStyles[element.className] = element.style.margin || ""; // Save original styles
-                element.style.margin = "10px 0"; // Adjust margins for PDF layout
-            }
-        });
-    
-        // Prepare the user information text for the table
-        const userInfo = [
-            { label: "User ID", value: `${results.userID}` },
-            { label: "Name", value: `${results.firstName} ${results.lastName}` },
-            { label: "Age", value: `${results.age}` },
-            { label: "Sex", value: `${results.sex}` },
-            { label: "Course", value: `${results.course}` },
-            { label: "Year & Section", value: `${results.year} - ${results.section}` },
-            { 
-                label: "Date Taken", 
-                value: new Date(results.testDate).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                }) 
-            },
-        ];
-    
-        // Prepare the scoring interpretation text for the table
-        const scoringData = sortedScoring.map((score) => {
-            const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
-            const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
-    
-            let interpretation = "";
-            if (stenScore >= 1 && stenScore <= 3) {
-                interpretation = `${leftMeaning}`;
-            } else if (stenScore >= 4 && stenScore <= 7) {
-                interpretation = `(Average) ${leftMeaning} / ${rightMeaning}`;
-            } else if (stenScore >= 8 && stenScore <= 10) {
-                interpretation = `${rightMeaning}`;
-            }
-    
-            return { factor: score.factorLetter, interpretation };
-        });
-    
-        // Generate canvas from the chart container
-        const canvas = await html2canvas(resultPage, { scale: 2 });
-        const imgData = canvas.toDataURL("image/png");
-    
-        // Set cropping margins (adjust these values as needed)
-        const cropTop = 450; // Crop 50px from the top
-        const cropBottom = 2570; // Crop 50px from the bottom
-        const cropLeft = 120; // Crop 50px from the left
-        const cropRight = 120; // Crop 50px from the right
-    
-        // Create a new cropped canvas
-        const croppedCanvas = document.createElement("canvas");
-        const croppedContext = croppedCanvas.getContext("2d");
-    
-        if (croppedContext) {
-            // Set the new canvas width and height based on the cropped area
-            croppedCanvas.width = canvas.width - cropLeft - cropRight;
-            croppedCanvas.height = canvas.height - cropTop - cropBottom;
-    
-            // Draw the cropped portion of the original canvas onto the new canvas
-            croppedContext.drawImage(
-                canvas,
-                cropLeft, cropTop, // Starting point for cropping (from top-left)
-                canvas.width - cropLeft - cropRight, // Width to draw
-                canvas.height - cropTop - cropBottom, // Height to draw
-                0, 0, // Place the cropped image at the top-left corner of the new canvas
-                croppedCanvas.width, croppedCanvas.height // Width and height of the new canvas
-            );
+    // Get the entire result page container
+    const resultPage = document.getElementById("result-container");
+    if (!resultPage) return;
+
+    // Temporarily hide unwanted interactive elements
+    const elementsToHide = resultPage.querySelectorAll("button, input[type='checkbox'], label, p");
+    elementsToHide.forEach((element) => {
+        if (element instanceof HTMLElement) {
+            element.style.display = "none"; // Hide interactive elements
         }
-    
-        // Get the cropped image data URL
-        const croppedImgData = croppedCanvas.toDataURL("image/png");
-    
-        // Create PDF document
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    
-        // Scaling factor for better fit
-        const scaleFactor = 0.165;
-        const stretchedWidth = .90;
-        const scaledWidth = pdfWidth * stretchedWidth;
-        const scaledHeight = pdfHeight * scaleFactor;
-    
-        // Add the title at the top center
-        pdf.setFontSize(16);
-        const title = "16PF Fifth Edition Individual Record Form";
-        const titleX = pdfWidth / 2 - pdf.getTextWidth(title) / 2;
-        pdf.text(title, titleX, 15); // 15mm from the top
-    
-        // Add the user information as a table
-        pdf.autoTable({
-            head: [["Field", "Value"]],
-            body: userInfo.map(info => [info.label, info.value]),
-            startY: 20, // Adjust startY to accommodate the title
-            theme: 'grid',
-            margin: { top: 10, left: 10, right: 10 },
-            styles: { fontSize: 10 },
-            headStyles: { fillColor: [100, 61, 133] } // RGB for blue
-        });
-    
-        // Add the chart image below the table
-        const xPos = (pdfWidth - scaledWidth) / 2;
-        pdf.addImage(croppedImgData, "PNG", xPos, pdf.lastAutoTable.finalY + 1, scaledWidth, scaledHeight);
-    
-        // Add the scoring interpretation as a table
-        pdf.autoTable({
-            head: [["Factor", "Interpretation"]],
-            body: scoringData.map(data => [factorDescriptions[data.factor], data.interpretation]),
-            startY: pdf.lastAutoTable.finalY + 75,
-            theme: 'grid',
-            margin: { top: 10, left: 10, right: 10 },
-            styles: { fontSize: 9 },
-            headStyles: { fillColor: [100, 61, 133] }
-        });
-    
-        // Add the footer message
-        const footerText = "This result is extracted from our website DiscoverU";
-        const footerFontSize = 10; // Adjust font size as needed
-        pdf.setFontSize(footerFontSize);
-    
-        // Set text color to gray
-        pdf.setTextColor(128, 128, 128); // RGB values for gray
-        const footerYPos = pdf.internal.pageSize.getHeight() - 10; // Position 10mm from the bottom
-    
-        const footerLogoXPos = (pdfWidth / 2) + 32; // Adjust horizontal position for logo
-        const footerLogoYPos = footerYPos - 2;
-        const footerTextXPos = (pdfWidth / 2) - 10; // Position text slightly to the right of the logo
-    
-        // Add the logo
-        const logo = await fetch(DiscoverUlogo).then((res) => res.blob());
-        const logoUrl = URL.createObjectURL(logo);
-        pdf.addImage(logoUrl, "PNG", footerLogoXPos, footerLogoYPos - 5, 10, 10); // Add logo (10mm size)
-    
-        pdf.text(footerText, footerTextXPos, footerYPos, { align: "center" });
-    
-        // Save the PDF
-        pdf.save("PFResult.pdf");
-    
-        // Restore hidden elements
-        elementsToHide.forEach((element) => {
-            if (element instanceof HTMLElement) {
-                element.style.display = ""; // Restore the display property
-            }
-        });
-    
-        // Restore adjusted styles
-        adjustElements.forEach((element) => {
-            if (element instanceof HTMLElement) {
-                element.style.margin = originalStyles[element.className]; // Restore original margins
-            }
-        });
-    };
+    });
+
+    // Temporarily adjust layout if needed
+    const originalStyles: Record<string, string> = {};
+    const adjustElements = resultPage.querySelectorAll(".outro, .privacySection");
+    adjustElements.forEach((element) => {
+        if (element instanceof HTMLElement) {
+            originalStyles[element.className] = element.style.margin || "";
+            element.style.margin = "10px 0"; // Adjust margins for PDF layout
+        }
+    });
+
+    // Prepare the user information text for the table
+    const userInfo = [
+        { label: "User ID", value: `${results.userID}` },
+        { label: "Name", value: `${results.firstName} ${results.lastName}` },
+        { label: "Age", value: `${results.age}` },
+        { label: "Sex", value: `${results.sex}` },
+        { label: "Course", value: `${results.course}` },
+        { label: "Year & Section", value: `${results.year} - ${results.section}` },
+        {
+            label: "Date Taken",
+            value: new Date(results.testDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })
+        },
+    ];
+
+    // Prepare the scoring interpretation text for the table
+    const scoringData = sortedScoring.map((score) => {
+        const { leftMeaning, rightMeaning } = getFactorDescription(score.factorLetter);
+        const stenScore = calculateStenScore(score.rawScore, score.factorLetter);
+
+        let interpretation = "";
+        if (stenScore >= 1 && stenScore <= 3) {
+            interpretation = `${leftMeaning}`;
+        } else if (stenScore >= 4 && stenScore <= 7) {
+            interpretation = `(Average) ${leftMeaning} / ${rightMeaning}`;
+        } else if (stenScore >= 8 && stenScore <= 10) {
+            interpretation = `${rightMeaning}`;
+        }
+
+        return { factor: score.factorLetter, interpretation };
+    });
+
+    // Create PDF document
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+
+    // Add the title at the top center
+    pdf.setFontSize(16);
+    const title = "16PF Fifth Edition Individual Record Form";
+    const titleX = pdfWidth / 2 - pdf.getTextWidth(title) / 2;
+    pdf.text(title, titleX, 15);
+
+    // Add the user information as a table
+    pdf.autoTable({
+        head: [["Field", "Value"]],
+        body: userInfo.map(info => [info.label, info.value]),
+        startY: 30,
+        theme: 'grid',
+        margin: { top: 10, left: 10, right: 10 },
+        styles: { fontSize: 10 },
+        headStyles: { fillColor: [100, 61, 133] }
+    });
+
+    // Add the scoring interpretation as a second table with spacing
+    pdf.autoTable({
+        head: [["Factor", "Interpretation"]],
+        body: scoringData.map(data => [factorDescriptions[data.factor], data.interpretation]),
+        startY: pdf.lastAutoTable.finalY + 20, // Add space between the two tables
+        theme: 'grid',
+        margin: { top: 10, left: 10, right: 10 },
+        styles: { fontSize: 9 },
+        headStyles: { fillColor: [100, 61, 133] }
+    });
+
+    // Add the footer message
+    const footerText = "This result is extracted from our website DiscoverU";
+    const footerFontSize = 10;
+    pdf.setFontSize(footerFontSize);
+    pdf.setTextColor(128, 128, 128);
+
+    const footerYPos = pdf.internal.pageSize.getHeight() - 10;
+    const footerLogoXPos = (pdfWidth / 2) + 32;
+    const footerLogoYPos = footerYPos - 2;
+    const footerTextXPos = (pdfWidth / 2) - 10;
+
+    // Add the logo
+    const logo = await fetch(DiscoverUlogo).then((res) => res.blob());
+    const logoUrl = URL.createObjectURL(logo);
+    pdf.addImage(logoUrl, "PNG", footerLogoXPos, footerLogoYPos - 5, 10, 10);
+
+    pdf.text(footerText, footerTextXPos, footerYPos, { align: "center" });
+
+    // Save the PDF
+    pdf.save("PFResult.pdf");
+
+    // Restore hidden elements
+    elementsToHide.forEach((element) => {
+        if (element instanceof HTMLElement) {
+            element.style.display = ""; // Restore the display property
+        }
+    });
+
+    // Restore adjusted styles
+    adjustElements.forEach((element) => {
+        if (element instanceof HTMLElement) {
+            element.style.margin = originalStyles[element.className];
+        }
+    });
+};
+
     
     
     return (
