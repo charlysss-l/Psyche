@@ -22,6 +22,56 @@
   font-family: "Roboto", sans-serif;
   margin: 5px auto;
   user-select: none;
+  .th{
+    background-color: #653e84;
+    color: white;
+  }
+}
+
+
+.roleSwitcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+
+  .switchButton {
+    padding: 5px 50px;
+    color: #653e84;
+    margin: 0 10px;
+    font-size: 30px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-weight: bold;
+  }
+  .switchButton:hover {
+    color: #8647ba;
+  }
+
+  .activeRole {
+    font-weight: bold;
+    font-size: 25px;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+
+  .pageButton {
+    padding: 5px 10px;
+    margin: 0 3px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+  }
+
+  .activePage {
+    background-color: #333;
+    color: white;
+  }
 }
 
 @media (max-width: 768px) {

@@ -2,20 +2,26 @@ import React, { useEffect, useState } from "react";
 import style from "./psychologyuser.module.scss";
 import backendUrl from "../../config";
 
-//Handles fetching, editing, deleting, and searching for users.
-interface User {  
+interface User {
   userId: string;
   studentNumber: string;
   email: string;
   role: string;
 }
 
+const roles = ["Student", "Psychology", "Guidance"];
+const usersPerPage = 5;
+
 const User = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [editUser, setEditUser] = useState<User | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [saveStatus, setSaveStatus] = useState<string>(""); // To track success message
-  const [errorMessage, setErrorMessage] = useState<string>(""); // To track error message
+  const [saveStatus, setSaveStatus] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [activeRoleIndex, setActiveRoleIndex] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const activeRole = roles[activeRoleIndex];
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -36,14 +42,11 @@ const User = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(
-        `${backendUrl}/api/allusers/users/${userId}`,
-        {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ role }),
-        }
-      );
+      const response = await fetch(`${backendUrl}/api/allusers/users/${userId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role }),
+      });
       if (response.ok) {
         setUsers(users.filter((user) => user.userId !== userId));
       }
@@ -64,54 +67,59 @@ const User = () => {
             role: editUser.role,
           }),
         });
-  
+
         if (response.ok) {
           setUsers((prevUsers) =>
-            prevUsers.map((user) =>
-              user.userId === editUser.userId ? editUser : user
-            )
+            prevUsers.map((user) => (user.userId === editUser.userId ? editUser : user))
           );
           setSaveStatus("User saved successfully!");
           setErrorMessage("");
           setEditUser(null);
-  
-          // Remove message after 3 seconds
-          setTimeout(() => {
-            setSaveStatus(""); // Clear success message after 3 seconds
-          }, 3000);
+          setTimeout(() => setSaveStatus(""), 3000);
         } else {
           setSaveStatus("");
           setErrorMessage("Failed to save user. Please try again.");
-  
-          // Remove error message after 3 seconds
-          setTimeout(() => {
-            setErrorMessage(""); // Clear error message after 3 seconds
-          }, 3000);
+          setTimeout(() => setErrorMessage(""), 3000);
         }
       } catch (error) {
         console.error("Error saving user:", error);
         setSaveStatus("");
         setErrorMessage("An error occurred while saving the user. Please try again.");
-  
-        // Remove error message after 3 seconds
-        setTimeout(() => {
-          setErrorMessage(""); // Clear error message after 3 seconds
-        }, 3000);
+        setTimeout(() => setErrorMessage(""), 3000);
       }
     }
   };
-  
 
-  const filteredUsers = users.filter((user) =>
-    [user.userId, user.studentNumber, user.email]
-      .join(" ")
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase())
+  const handleSwitchRole = (direction: "prev" | "next") => {
+    setCurrentPage(1); // Reset page when switching role
+    setActiveRoleIndex((prev) => {
+      if (direction === "prev") {
+        return prev === 0 ? roles.length - 1 : prev - 1;
+      } else {
+        return prev === roles.length - 1 ? 0 : prev + 1;
+      }
+    });
+  };
+
+  const filteredUsers = users.filter(
+    (user) =>
+      user.role === activeRole &&
+      [user.userId, user.studentNumber, user.email].join(" ").toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+  const paginatedUsers = filteredUsers.slice(
+    (currentPage - 1) * usersPerPage,
+    currentPage * usersPerPage
+  );
+
   return (
     <div className={style.userContainer}>
-      <h2 className={style.userTitle}>List of Users</h2>
-      <p className={style.userCount}>Total Users: {filteredUsers.length}</p>
+      <h2 className={style.userTitle}>User Management</h2>
+
+
+      <p className={style.userCount}>Total {activeRole} Users: {filteredUsers.length}</p>
+
       <div className={style.searchInputContainer}>
         <input
           type="text"
@@ -121,11 +129,16 @@ const User = () => {
           className={style.searchInput}
         />
       </div>
-  
-      {/* Display Success/Error Messages Outside of the Modal */}
+
       {saveStatus && <div className={style.successMessage}>{saveStatus}</div>}
       {errorMessage && <div className={style.errorMessage}>{errorMessage}</div>}
-  
+
+      <div className={style.roleSwitcher}>
+        <button onClick={() => handleSwitchRole("prev")} className={style.switchButton}>&lt;</button>
+        <span className={style.activeRole}>{activeRole}</span>
+        <button onClick={() => handleSwitchRole("next")} className={style.switchButton}>&gt;</button>
+      </div>
+      
       <div className={style.responsesWrapper}>
         <table className={style.tableUser}>
           <thead>
@@ -138,42 +151,46 @@ const User = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((user) => (
+            {paginatedUsers.length > 0 ? (
+              paginatedUsers.map((user) => (
                 <tr key={user.userId}>
                   <td className={style.td}>{user.userId}</td>
                   <td className={style.td}>{user.studentNumber || "N/A"}</td>
                   <td className={style.td}>{user.email}</td>
                   <td className={style.td}>{user.role}</td>
                   <td className={style.td}>
-                    <button
-                      className={`${style["button-action"]} ${style["edit"]}`}
-                      onClick={() => setEditUser(user)}
-                    >
-                      Edit
-                    </button>
+                    <button className={`${style["button-action"]} ${style["edit"]}`} onClick={() => setEditUser(user)}>Edit</button>
                     {user.role === "Student" && (
-                      <button
-                        className={`${style["button-action"]} ${style["delete"]}`}
-                        onClick={() => handleDelete(user.userId, user.role)}
-                      >
-                        Delete
-                      </button>
+                      <button className={`${style["button-action"]} ${style["delete"]}`} onClick={() => handleDelete(user.userId, user.role)}>Delete</button>
                     )}
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={5} className={style.td}>
-                  No users found
-                </td>
+                <td colSpan={5} className={style.td}>No users found</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
-  
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className={style.pagination}>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`${style.pageButton} ${currentPage === i + 1 ? style.activePage : ""}`}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Edit Modal */}
       {editUser && (
         <div className={style.modal}>
           <div className={style.modalContent}>
@@ -204,20 +221,16 @@ const User = () => {
                 }
               />
             </div>
-  
+
             <div className={style.modalActions}>
-              <button onClick={handleSave} className={style.saveButton}>
-                Save
-              </button>
-              <button onClick={() => setEditUser(null)} className={style.cancelButton}>
-                Cancel
-              </button>
+              <button onClick={handleSave} className={style.saveButton}>Save</button>
+              <button onClick={() => setEditUser(null)} className={style.cancelButton}>Cancel</button>
             </div>
           </div>
         </div>
       )}
     </div>
   );
-};  
+};
 
 export default User;
