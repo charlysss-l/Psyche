@@ -197,7 +197,6 @@ const Report = () => {
         </section>
       </div>
 
-      {/* Graph section with prev/next buttons */}
       <div className={styles.reportContainer} style={{ flexDirection: "column", alignItems: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "20px", marginBottom: "10px" }}>
           <button
