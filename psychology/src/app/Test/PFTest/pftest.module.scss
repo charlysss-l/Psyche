@@ -51,7 +51,6 @@ $transition: 0.3s ease-in-out;
 }
 
 .inkPFTestList {
-  margin-bottom: 25px;
   text-align: center;
 }
 
@@ -60,6 +59,7 @@ $transition: 0.3s ease-in-out;
   background-color: $primary;
   color: white;
   padding: 10px 20px;
+  margin: 0px 80px;
   border-radius: $borderRadius;
   font-weight: 600;
   text-decoration: none;
