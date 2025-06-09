@@ -34,6 +34,7 @@ const Report = () => {
   const [cfTests, setCfTests] = useState<CFTests[]>([]);
   const [users, setUsers] = useState([]);
   const [surveys, setSurveys] = useState<any[]>([]);
+  const [graphIndex, setGraphIndex] = useState(0); // 0=16pf, 1=IQ, 2=CF
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -103,6 +104,40 @@ const Report = () => {
     fetchUsers();
   }, []);
 
+  const handlePrevGraph = () => {
+    setGraphIndex((prev) => (prev === 0 ? 2 : prev - 1));
+  };
+
+  const handleNextGraph = () => {
+    setGraphIndex((prev) => (prev === 2 ? 0 : prev + 1));
+  };
+
+  const renderGraph = () => {
+    switch (graphIndex) {
+      case 0:
+        return <PFStatistics />;
+      case 1:
+        return <IQStatistics />;
+      case 2:
+        return <CFStatistics />;
+      default:
+        return null;
+    }
+  };
+
+  const getGraphTitle = () => {
+    switch (graphIndex) {
+      case 0:
+        return "Catell's 16 Personality Factor Questionnaire";
+      case 1:
+        return "Raven's Standard Progressive Matrices";
+      case 2:
+        return "Measuring Intelligence with the Culture Fair Test";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className={styles.mainContainer}>
       <h1 className={styles.reportHeader}>Report Dashboard</h1>
@@ -162,15 +197,43 @@ const Report = () => {
         </section>
       </div>
 
-      <div className={styles.reportContainer}>
-        <section className={styles.resultSection}>
-          <PFStatistics />
-        </section>
-        <section className={styles.resultSection}>
-          <IQStatistics />
-        </section>
-        <section className={styles.resultSection}>
-          <CFStatistics />
+      {/* Graph section with prev/next buttons */}
+      <div className={styles.reportContainer} style={{ flexDirection: "column", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "20px", marginBottom: "10px" }}>
+          <button
+            onClick={handlePrevGraph}
+            style={{
+              cursor: "pointer",
+              fontSize: "1.5rem",
+              background: "none",
+              border: "none",
+              userSelect: "none",
+            }}
+            aria-label="Previous graph"
+          >
+            &lt;
+          </button>
+          <h2 style={{ margin: 0 }}>{getGraphTitle()}</h2>
+          <button
+            onClick={handleNextGraph}
+            style={{
+              cursor: "pointer",
+              fontSize: "1.5rem",
+              background: "none",
+              border: "none",
+              userSelect: "none",
+            }}
+            aria-label="Next graph"
+          >
+            &gt;
+          </button>
+        </div>
+
+        <section
+          className={styles.resultSection}
+          style={{ width: "100%", maxWidth: "900px" }}
+        >
+          {renderGraph()}
         </section>
       </div>
     </div>
