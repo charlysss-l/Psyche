@@ -115,10 +115,10 @@
       .navLink {
         display: flex;
         align-items: center;
+        justify-content: center;
         color: #7a7a7a;
         text-decoration: none;
         width: 100%;
-        padding: 0.5rem 1rem;
         border-radius: 8px;
         transition: background-color 0.2s ease, color 0.2s ease;
 
@@ -128,10 +128,11 @@
 
         &.active {
           color: #653e84;
-          background-color: #e5dbf5;
+          background-color: #ded3e7;
+          width: 90%;
 
           .navIcon {
-            background-color: #653e84;
+            
             border-radius: 6px;
             padding: 4px;
             width: 24px;
