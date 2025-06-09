@@ -50,7 +50,7 @@ const CFTest: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const resultsPerPage = 12;
+    const resultsPerPage = 5;
     const [selectedFiles, setSelectedFiles] = useState<{ [key: string]: File | null }>({});
     const [isEditing, setIsEditing] = useState<string | null>(null); // To track which question is being edited
 

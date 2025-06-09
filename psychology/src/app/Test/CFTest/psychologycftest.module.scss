@@ -1,330 +1,249 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+$primary: #6a4baf;
+$hover: #563d88;
+$darkText: #1a1a1a;
+$lightText: #f0f0f0;
+$cardBg: #ffffff;
+$borderRadius: 12px;
+$transition: 0.3s ease-in-out;
+
 .maincontainer {
+  font-family: 'Poppins', sans-serif;
+  padding-left: 60px;
+  margin: 0 auto;
+  color: $darkText;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   user-select: none;
 }
 
-.linkCFliinks{
+.linkCFliinks {
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
 }
+
 .table {
-    background-color: rgb(255, 252, 252);
-    width: 90%;
-    border-collapse: collapse;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.329);
+  width: 80%;
+  border-collapse: collapse;
+  margin: 20px auto 10px auto;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  border-radius: $borderRadius;
+  overflow: hidden;
+  background-color: $cardBg;
+  user-select: none;
 
-    & th, & td {
-        padding: 12px;
-        text-align: left;
-        color: #333;
+  & th,
+  & td {
+    padding: 10px 15px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 100;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #ddd;
+    color: $darkText;
+  }
 
-        &:nth-child(even) {
-            background-color: #f2f2f200;
-            color: black;
-        }
-    }
-
-    & th {
-      background-color: #afadad00;
-      border-bottom: #222222 1px solid;
-      color: #222222;
-        &:nth-child(even) {
-          background-color: #afadad00;
-          color: #222222;
-      }
-    }
+  & th {
+    background-color: $primary;
+    color: $lightText;
+    text-transform: uppercase;
+    user-select: none;
+  }
 }
-
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .pagination button {
-    padding: 10px 15px;
-    margin: 0 10px;
-    background-color: #815aa5;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .pagination button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .pagination span {
-    font-size: 16px;
-  }
-  .choice {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); // Two columns for two rows
-    gap: 10px; // Add some spacing between items
-}
-
-.editButton{
-  background-color: #A9A9A9;
-  color: white;
-  border: #a9a9a9 1px solid;  
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 10px 15px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: transparent;
-    border: #a9a9a9 1px solid;  
-    color: #A9A9A9;
-  }
-}
-
-.saveChanges{
-  padding: 10px 18px;
-  background-color: #815aa5;
-  color: #fafafa;
-  font-size: 14px;
-  border-radius: 5px;
-  border:1px solid #815aa5;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-      background-color: transparent;
-      color: #815aa5;
-      border:1px solid #815aa5;
-  }
-}
-.cancelChanges{
-  padding: 10px 18px;
-  background-color: #815aa5;
-  color: #fafafa;
-  font-size: 14px;
-  border-radius: 5px;
-  border:1px solid #815aa5;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-      background-color: transparent;
-      color: #815aa5;
-      border:1px solid #815aa5;
-  }
-}
-
-.test1 {
-  background-color: #fdfdfd;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.329);
-
-  & .question img{
-    width: 400px;
-    height: 100px;
-  }
-  
-  & .choice img{
-    width: 100px;
-    height: 100px;
-  }
-
-  & .answer img{
-    width: 100px;
-    height: 100px;
-  }
-}
-
-.test2 {
-  background-color: #fdfdfd;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.329);
-
-  & .question img{
-    width: 600px;
-    height: 100px;
-  }
-  
-  & .choice img{
-    width: 100px;
-    height: 100px;
-  }
-
-  & .answer img{
-    width: 100px;
-    height: 100px;
-  }
-}
-
-.test3 {
-  background-color: #fdfdfd;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.329);
-
-  & .question img{
-    width: 250px;
-    height: 200px;
-  }
-  
-  & .choice img{
-    width: 100px;
-    height: 100px;
-  }
-
-  & .answer img{
-    width: 100px;
-    height: 100px;
-  }
-}
-
-.test4 {
-  background-color: #fdfdfd;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.329);
-
-  & .question img{
-    width: 200px;
-    height: 200px;
-  }
-  
-  & .choice img{
-    width: 100px;
-    height: 100px;
-  }
-
-  & .answer img{
-    width: 100px;
-    height: 100px;
-  }
-}
-
-.default {
-  background-color: #fdfdfd;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.329);
-}
-
-.testResultsLink {
-  display:flex;
-  width: 10%;
+  display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+
+  button {
+    padding: 8px 16px;
+    margin: 0 10px;
+    background-color: $primary;
+    color: $lightText;
+    border: none;
+    border-radius: $borderRadius;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color $transition;
+
+    &:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+      background-color: $hover;
+    }
+  }
+
+  span {
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0 12px;
+    color: $darkText;
+  }
+}
+
+.choice {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.editButton {
+  background-color: $primary;
+  color: $lightText;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 6px 14px;
+  font-weight: 600;
+  transition: background-color $transition;
+
+  &:hover {
+    background-color: $hover;
+  }
+}
+
+.saveChanges,
+.cancelChanges {
+  padding: 10px 18px;
+  background-color: $primary;
+  color: $lightText;
+  font-size: 14px;
+  border-radius: $borderRadius;
+  border: 1px solid $primary;
+  transition: background-color $transition;
+
+  &:hover {
+    background-color: transparent;
+    color: $primary;
+    border: 1px solid $primary;
+  }
+}
+
+.test1, .test2, .test3, .test4, .default {
+  background-color: $cardBg;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+
+  & .question img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px auto;
+  }
+
+  & .choice img, & .answer img {
+    width: 100px;
+    height: 130px;
+    object-fit: cover;
+  }
+}
+
+.test1 .question img { height: 100px; width: 400px; }
+.test2 .question img { height: 100px; width: 600px; }
+.test3 .question img { height: 200px; width: 250px; }
+.test4 .question img { height: 200px; width: 200px; }
+
+.testResultsLink {
+  display: inline-block;
+  background-color: $primary;
+  color: $lightText;
   padding: 10px 20px;
-  background-color: #A9A9A9;
-  color: #fafafa;
+  margin: 0 80px;
+  border-radius: $borderRadius;
+  font-weight: 600;
   text-decoration: none;
-  font-weight: bold;
-  border-radius: 5px;
-  border:1px solid #A9A9A9;
-  transition: background-color 0.3s ease;
+  transition: background-color $transition;
+  width: auto;
+  text-align: center;
 
-    &:hover {
-      background-color: transparent;
-      color: #A9A9A9;
-      border:1px solid #A9A9A9;
-    }
+  &:hover {
+    background-color: $hover;
+  }
 
-    &:focus {
-        outline: none;
-        box-shadow: 0 0 5px rgba(219, 219, 219, 0.75);
-    }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(219, 219, 219, 0.75);
+  }
 }
 
 .modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); // Semi-transparent background
+  width: 100vw;
+  height: 100vh;
+  background: rgba(26, 26, 26, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 1000;
   padding: 10px;
 }
 
 .modalContent {
-  background-color: white;
+  background: $cardBg;
+  padding: 30px 25px;
+  border-radius: $borderRadius;
+  max-width: 480px;
   width: 90%;
-  max-width: 700px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  overflow: hidden; // Ensure content doesn't overflow
-  scroll-behavior: smooth; /* Smooth scrolling to prevent abrupt jumps */
-
-  // Adding scroll when content is too tall
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modalBody {
-  max-height: 500px; // Limit the body height for scrolling
-  scroll-behavior: smooth; /* Keeps scrolling smooth during height changes */
-  overflow-y: auto; // Enable scrolling in the body when content is too long
-}
-
-
-.questionContainer{
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  color: $darkText;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
-    border-radius: 10px;
-    padding: 10px;
-    max-width: 500px; 
-    margin: 10px auto;
-}
-.questionImageModal {
-  max-width: 500px;  // Limit the size of images for better display in the modal
-  height: auto;
-  margin-bottom: 10px;
-  display: block;
-}
+  overflow-y: auto;
+  scroll-behavior: smooth;
 
-
-.choiceContainer,
-.answerContainer {
-    display: grid;
-    max-width: 500px; 
-    margin: 0 auto;
-    grid-template-columns: repeat(2, 1fr); // Two columns for two rows
-    gap: 10px; // Add spacing between items
-    margin-bottom: 50px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 30px;
-    
-}
-
-.choiceImageContainer,
-.answerImageContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  h3 {
+    margin-bottom: 20px;
+    font-weight: 700;
     text-align: center;
-    
-}
+  }
 
-.choiceImageModal,
-.answerImageModal {
-    max-width: 100px; // Adjust size as needed
-    height: auto;
-    
-}
-h3, h2 {
-  text-align: center; /* Centers the text inside the h3 element */
-  margin: 0 auto; /* Ensures it's horizontally centered */
-  margin-bottom: 10px;
-  width: 100%; /* Optional: Ensures it spans the full width */
-}
+  label {
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    display: block;
+  }
 
-.customFileInput {
-    margin-top: 5px; 
-    margin-left: 50px;
-}
+  button {
+    margin-top: 15px;
+    padding: 10px 18px;
+    border-radius: $borderRadius;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color $transition;
 
+    &:first-of-type {
+      background-color: $primary;
+      color: $lightText;
+      margin-right: 10px;
+
+      &:hover {
+        background-color: $hover;
+      }
+    }
+
+    &:last-of-type {
+      background-color: #ccc;
+      color: $darkText;
+
+      &:hover {
+        background-color: darken(#ccc, 10%);
+      }
+    }
+  }
+}
 
 .modalFooter {
   display: flex;
@@ -335,61 +254,33 @@ h3, h2 {
 .customFileInput {
   display: flex;
   flex-direction: row;
+  margin-top: 5px;
+  margin-left: 50px;
 }
+
 .customFileLabel {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #A9A9A9 ;
-  color: white;
-  border-radius: 5px;
-  border: 1px solid #A9A9A9;
+  background-color: $primary;
+  color: $lightText;
+  border-radius: $borderRadius;
+  border: 1px solid $primary;
   cursor: pointer;
   font-size: 14px;
-  
+  transition: background-color $transition;
+
   &:hover {
-      background-color: transparent;
-      color: #A9A9A9;
-      border: 1px solid #A9A9A9;
+    background-color: $hover;
   }
 }
 
-.fileName{
+.fileName {
   padding: 10px 20px;
-  
 }
 
-
-:global(body.dark-mode){
-  .table{
-      & th {
-          background-color: #181818f8;
-          color: #cccccc;
-          border-bottom: #cccccc 1px solid;
-          
-          &:nth-child(even) {
-              background-color: #181818f8;
-              color: #cccccc;
-          }
-      }
-  }
-  .testResultsLink {
-      background-color: #9e9e9e;
-      color: #e6e6e6;
-      border:1px solid #9e9e9e;
-      &:hover {
-          background-color: transparent;
-          color: #9e9e9e;
-          border:1px solid #9e9e9e;
-      }
-  }
-  .editPF{
-      background-color: #9e9e9e;
-      color: #e6e6e6;
-      border:1px solid #9e9e9e;
-      &:hover {
-          background-color: transparent;
-          color: #e6e6e6;
-          border:1px solid #9e9e9e;
-      }
-  }
+h3,
+h2 {
+  text-align: center;
+  margin: 0 auto 10px auto;
+  width: 100%;
 }
