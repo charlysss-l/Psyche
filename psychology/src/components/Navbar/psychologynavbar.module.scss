@@ -10,7 +10,8 @@
   border-right: 1px solid #7a7a7a;
   transition: width 0.3s ease;
   overflow-x: hidden;
-  z-index: 1000; /* on top */
+  z-index: 1000;
+  display: flex;
 
   &.expanded {
     width: 180px;
@@ -18,82 +19,56 @@
 
     .navigationSection {
       .navList {
-        display: flex;
-        flex-direction: column;
         align-items: flex-start;
 
         .navItem {
           width: 100%;
-          margin: 0.5rem 0;
 
           .navLink {
             justify-content: flex-start;
-            padding-left: 1rem;
-            padding-right: 1rem;
+            padding: 0rem 0.2rem;
           }
         }
       }
     }
 
     .navRight {
-      padding: 0 1rem 1rem 1rem;
+
       margin-top: auto;
       width: 100%;
     }
   }
 
   &.collapsed {
-    width: 60px;
-    align-items: center;
-    padding: 1rem 0;
-    overflow-x: hidden;
+
 
     .navigationSection {
       .navList {
-        display: flex;
-        flex-direction: column;
         align-items: center;
 
         .navItem {
-          width: 100%;
-          margin: 0.1rem 0;
-
           .navLink {
             justify-content: center;
-            padding-left: 0;
-            padding-right: 0;
+            padding: 0;
           }
         }
       }
     }
   }
 
-  /* When mobile menu open, sidebar is overlay */
   &.mobileOpen {
-    position: fixed;
     width: 240px;
     max-width: 80vw;
     height: 100vh;
     background-color: white;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
-    border-right: none;
-    top: 0;
-    left: 0;
     z-index: 1500;
     padding-top: 1rem;
     overflow-y: auto;
-
     align-items: flex-start;
-
-    .navigationSection {
-      .navList {
-        align-items: flex-start;
-      }
-    }
   }
 }
 
-/* Logo section */
 .logoSection {
   width: 100%;
   display: flex;
@@ -120,17 +95,8 @@
     font-weight: bold;
     margin-top: 4px;
   }
-
-  .collapsed & {
-    align-items: center;
-
-    p {
-      display: none;
-    }
-  }
 }
 
-/* Navigation Section */
 .navigationSection {
   width: 100%;
   flex-grow: 1;
@@ -139,13 +105,11 @@
     list-style: none;
     padding: 0;
     margin: 0;
-
     display: flex;
     flex-direction: column;
 
     .navItem {
       width: 100%;
-      margin: 1rem 0;
       cursor: pointer;
 
       .navLink {
@@ -153,13 +117,10 @@
         align-items: center;
         color: #7a7a7a;
         text-decoration: none;
-        font-weight: 700;
-        font-size: 14px;
         width: 100%;
         padding: 0.5rem 1rem;
         border-radius: 8px;
         transition: background-color 0.2s ease, color 0.2s ease;
-        box-sizing: border-box;
 
         &:hover {
           color: #653e84;
@@ -167,24 +128,14 @@
 
         &.active {
           color: #653e84;
-          box-sizing: border-box;
-          padding-left: 1rem;   /* add left-right padding for active */
-          padding-right: 1rem;
-
           background-color: #e5dbf5;
 
           .navIcon {
             background-color: #653e84;
             border-radius: 6px;
             padding: 4px;
-            box-sizing: content-box;
             width: 24px;
             height: 24px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
             margin-right: 0.8rem;
           }
         }
@@ -196,14 +147,17 @@
         margin-right: 0.5rem;
         flex-shrink: 0;
       }
+
+      .span{
+        font-size: 10px;
+      }
     }
   }
 }
 
-/* Logout Button */
 .navRight {
   width: 100%;
-  padding: 1rem;
+
   margin-top: auto;
   display: flex;
   justify-content: center;
@@ -215,6 +169,7 @@
     border-radius: 6px;
     padding: 0.5rem 1.2rem;
     font-weight: 600;
+    margin-bottom: 15%;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
@@ -224,57 +179,50 @@
   }
 }
 
-/* Burger button for mobile */
 .burgerButton {
   position: fixed;
-  top: 15px;
-  left: 15px;
-  width: 30px;
-  height: 22px;
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  z-index: 2000;
+  top: 10px;
+  left: 10px;
   background: none;
   border: none;
-  padding: 0;
-
-  &:focus {
-    outline: none;
-  }
+  z-index: 1001;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
 
   .burgerLines {
-    display: block;
-    width: 100%;
-    height: 4px;
-    background-color: #653e84;
+    width: 25px;
+    height: 3px;
+    background-color: #333;
     border-radius: 2px;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
   }
 }
 
-/* Overlay behind sidebar when mobile menu open */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.4);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 1400;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
-  .burgerButton {
-    display: flex;
+  .studentNavbar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
   }
 
-  .studentNavbar {
-    width: 60px !important; /* default narrow if no mobileOpen */
-
-    &.expanded {
-      width: 60px !important; /* prevent desktop expand on mobile */
-    }
+  .mobileOpen {
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
   }
 }
+
+

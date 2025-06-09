@@ -8,11 +8,12 @@ import omrIcon from "../../images/camera.png";
 import surveyIcon from "../../images/survey.png";
 import userIcon from "../../images/user.png";
 import contentIcon from "../../images/notes.png";
-import logoImage from "../../images/LOGOnewDark.png"; 
+import logoImage from "../../images/LOGOnewDark.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = () => {
@@ -20,19 +21,23 @@ const Navbar = () => {
     navigate("/");
   };
 
-  // Expand sidebar when clicking an icon or sidebar
   const handleIconClick = () => {
-    setIsSidebarExpanded(true);
+    if (window.innerWidth <= 768) {
+      setIsMobileSidebarOpen(false);
+    } else {
+      setIsSidebarExpanded(true);
+    }
   };
 
-  // Collapse sidebar when clicking outside
+  const handleCloseSidebar = () => {
+    setIsSidebarExpanded(false);
+    setIsMobileSidebarOpen(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
-      ) {
-        setIsSidebarExpanded(false);
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        handleCloseSidebar();
       }
     };
 
@@ -53,55 +58,73 @@ const Navbar = () => {
   ];
 
   return (
-    <nav
-      className={`${style.studentNavbar} ${
-        isSidebarExpanded ? style.expanded : style.collapsed
-      }`}
-      ref={sidebarRef}
-    >
-      <div className={style.logoSection}>
-        {isSidebarExpanded ? (
-          <>
-            <h1>DiscoverU</h1>
-            <p>Psychology</p>
-          </>
-        ) : (
-          <img src={logoImage} alt="DiscoverU Logo" className={style.logoImage} />
-        )}
-      </div>
+    <>
+      {/* Burger button for mobile */}
+      <button className={style.burgerButton} onClick={() => setIsMobileSidebarOpen(true)}>
+        <span className={style.burgerLines}></span>
+        <span className={style.burgerLines}></span>
+        <span className={style.burgerLines}></span>
+      </button>
 
-      <div className={style.navigationSection}>
-        <ul className={style.navList}>
-          {navLinks.map((link) => (
-            <li className={style.navItem} key={link.to} onClick={handleIconClick}>
-              <NavLink
-                to={link.to}
-                className={({ isActive }) =>
-                  isActive ? `${style.navLink} ${style.active}` : style.navLink
-                }
-              >
-                <img
-                  src={link.icon}
-                  alt={`${link.label} icon`}
-                  className={style.navIcon}
-                />
-                {/* Show label only if expanded */}
-                {isSidebarExpanded && <span>{link.label}</span>}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Show Logout button only when sidebar is expanded */}
-      {isSidebarExpanded && (
-        <div className={style.navRight}>
-          <button onClick={handleLogout} className={style.logoutButton}>
-            Logout
-          </button>
-        </div>
+      {/* Overlay when mobile sidebar is open */}
+      {isMobileSidebarOpen && (
+        <div className={style.overlay} onClick={handleCloseSidebar}></div>
       )}
-    </nav>
+
+      <nav
+        className={`${style.studentNavbar} ${
+          isMobileSidebarOpen
+            ? style.mobileOpen
+            : isSidebarExpanded
+            ? style.expanded
+            : style.collapsed
+        }`}
+        ref={sidebarRef}
+      >
+        <div className={style.logoSection}>
+          {isSidebarExpanded || isMobileSidebarOpen ? (
+            <>
+              <h1>DiscoverU</h1>
+              <p>Psychology</p>
+            </>
+          ) : (
+            <img src={logoImage} alt="DiscoverU Logo" className={style.logoImage} />
+          )}
+        </div>
+
+        <div className={style.navigationSection}>
+          <ul className={style.navList}>
+            {navLinks.map((link) => (
+              <li className={style.navItem} key={link.to} onClick={handleIconClick}>
+                <NavLink
+                  to={link.to}
+                  className={({ isActive }) =>
+                    isActive ? `${style.navLink} ${style.active}` : style.navLink
+                  }
+                >
+                  <img
+                    src={link.icon}
+                    alt={`${link.label} icon`}
+                    className={style.navIcon}
+                  />
+                  {(isSidebarExpanded || isMobileSidebarOpen) && (
+                    <span className={style.span}>{link.label}</span>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {(isSidebarExpanded || isMobileSidebarOpen) && (
+          <div className={style.navRight}>
+            <button onClick={handleLogout} className={style.logoutButton}>
+              Logout
+            </button>
+          </div>
+        )}
+      </nav>
+    </>
   );
 };
 
