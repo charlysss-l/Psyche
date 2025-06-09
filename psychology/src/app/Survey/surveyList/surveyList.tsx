@@ -103,7 +103,9 @@ const completedSurveys = surveys.filter((survey) => survey.status === "completed
         <Link to="/survey-form" className={styles.createsurveyButton}>
           Create Survey
         </Link>
-        
+        <button onClick={() => setShowCompletedModal(true)} className={styles.viewCompletedButton}>
+          View Completed Surveys
+        </button>
       </div>
 
       {/* Filter Dropdown */}
@@ -119,17 +121,16 @@ const completedSurveys = surveys.filter((survey) => survey.status === "completed
       </div>
 
       <div className={styles.completedContainer}>
-      <button onClick={() => setShowCompletedModal(true)} className={styles.viewCompletedButton}>
-          View Completed Surveys
-        </button>
+
       </div>
+      <div className={styles.surveyCardsWrapper}>
       {/* Display Surveys with Title, Description, Field, and Options */}
       {currentSurveys.map((survey) => (
         <div key={survey._id} className={styles.surveyCard}>
           <h3 className={styles.surveytitle}>{survey.title}</h3>
-          <p>Description: {survey.description}</p>
-          <p>Category: {survey.category}</p>
-          <p>Release Date: {formatDate(survey.releaseDate)}</p>
+          <p><span className={styles.titleCard}>Description:</span> {survey.description}</p>
+          <p><span className={styles.titleCard}>Category:</span> {survey.category}</p>
+          <p><span className={styles.titleCard}>Release Date:</span> {formatDate(survey.releaseDate)}</p>
           <div className={styles.filters}>
             <div className={styles.linkContainer}>
               <h4>Participant Filters:</h4>
@@ -181,7 +182,7 @@ const completedSurveys = surveys.filter((survey) => survey.status === "completed
             </Link>
             <button
               onClick={() => handleCompleteSurvey(survey._id)}
-              className={styles.completeButton}
+              className={styles.viewDetailsButton}
             >
               Complete
             </button>
@@ -194,7 +195,7 @@ const completedSurveys = surveys.filter((survey) => survey.status === "completed
           </div>
         </div>
       ))}
-
+</div>
       <div className={styles.pagination}>
         <button
           onClick={() => paginate(currentPage - 1)}

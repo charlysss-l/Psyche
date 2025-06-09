@@ -2,150 +2,176 @@ $font-family: Arial, sans-serif;
 $primary-color: #af1740;
 $secondary-color: #f2f2f2;
 $bg-light: #e9e9e900;
-$box-shadow: 0 6px 12px $bg-light; // Adjusted box-shadow color to use $bg-light
+$box-shadow: 0 6px 12px $bg-light;
 $border-radius: 10px;
-$table-header-bg: $bg-light; // Used $bg-light for consistency
 $table-border-color: #d2d2d2;
 
-:root {
-  font-family: $font-family;
-}
-
 .surveyListContainer {
-  padding: 20px;
   background-color: $bg-light;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 80%;
-  margin-left: 9%;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
   user-select: none;
+  padding: 20px;
 }
 
 .surveyAvailable {
   font-weight: bold;
   color: #030303;
-  margin-top: -10px;
+  margin-bottom: 10px;
 }
+
 .linkSurveyChoices {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.filterContainer{
+  margin: 10px;
+}
+.createsurveyButton,
+.viewDetailsButton,
+.viewCompletedButton,
+.closeButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 5px;
+  margin: 10px 2px;
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s ease;
 }
 
 .createsurveyButton {
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 17px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: auto;
-  border: 2px solid #6e6e6e;
-  padding: 10px 15px;
   background-color: #6e6e6e;
-  margin-left: 10px;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  color: #fff;
+  border: 2px solid #6e6e6e;
 
   &:hover {
     background-color: transparent;
     color: #6e6e6e;
-    border: 2px solid #6e6e6e;
   }
 }
 
 .viewDetailsButton {
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 16px;
-  display: inline-block;
-  padding: 8px 16px;
-  margin-left: 50px;
-  margin-right: 20px;
-  border: 1px solid #653e84;
-  border-radius: 5px;
   background-color: #653e84;
-  text-align: center;
+  color: #fff;
+  border: 1px solid #653e84;
 
   &:hover {
     background-color: transparent;
-    border: 1px solid #653e84;
     color: #653e84;
   }
 }
-.surveyActions button {
-  background-color: #6e6e6e;
-  padding: 8px 16px;
-  margin-left: 30px;
-  border: 1px solid #6e6e6e;
+
+.viewCompletedButton {
+  background: #653e84;
+  color: #fff;
+  border: 1px solid #653e84;
 
   &:hover {
     background-color: transparent;
-    border: 1px solid #6e6e6e;
-    color: #6e6e6e;
+    color: #653e84;
   }
 }
+
+.closeButton {
+  background: #af1414;
+  color: white;
+  border: 1px solid #af1414;
+
+  &:hover {
+    background: transparent;
+    color: #af1414;
+  }
+}
+
+.surveyCardsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
 .surveyCard {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  padding: 15px;
-  background-color: #ffffff;
+  flex: 1 1 300px;
+  background-color: #fff;
   border-radius: 7px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-  width: 85%;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  transition: 0.3s ease;
 
   &:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    transform: translateY(-10px);
-    transition: background-color 0.3s, transform 0.2s;
+    transform: scale(1.02);
   }
+
+  .titleCard {
+    color: rgb(143, 9, 143);
+    font-size: 16px;
+    font-weight: bold;
+  }
+
   p {
-    width: 80%;
+    text-align: justify;
+    font-size: 15px;
   }
 }
 
-h2,
-h3,
-p {
-  &.title {
-    font-weight: bold;
-    color: $secondary-color;
-  }
+.surveyActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 
-  &.highlight {
-    color: $primary-color;
+  button {
+    background-color: #6e6e6e;
+    color: white;
+    padding: 8px 16px;
+    border: 1px solid #6e6e6e;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: transparent;
+      color: #6e6e6e;
+    }
   }
 }
 
 .surveytitle {
-  margin-top: 20px;
+  margin: 20px 0;
   font-size: 1.5rem;
   color: #000000;
 }
 
 .linkContainer {
   display: flex;
-  justify-content: space-between; /* Space between title and button */
-  align-items: center; /* Vertically align items */
-  width: 100%; /* Ensure the container takes up the full width */
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .surveyLink {
   cursor: pointer;
-  color: #000000;
   font-size: 16px;
   font-weight: 500;
   display: flex;
   align-items: center;
-  text-align: center;
 
   &:hover {
     color: #0056b3;
@@ -163,23 +189,19 @@ p {
   color: #020202;
   font-weight: bold;
   border: 1px solid #020202;
-  text-decoration: none;
   background-color: transparent;
 
   &:hover {
     background-color: #6e6e6e;
     color: #ffffff;
-    border: 2px solid #6e6e6e;
   }
 }
 
 .surveyCount {
   font-size: 1rem;
-  color: #653E84;
+  color: #653e84;
   font-weight: bold;
-  margin-top: -10px;
   margin-bottom: 30px;
-  margin-left: 10px;
 }
 
 .sectionContainer {
@@ -187,7 +209,7 @@ p {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 15px;
-  width: 80%;
+  width: 100%;
 
   h4 {
     font-weight: bold;
@@ -195,26 +217,19 @@ p {
   }
 }
 
-.questionList {
+.questionList,
+.choiceList {
   list-style: none;
   padding-left: 0;
 
-  .questionItem {
+  .questionItem,
+  .choiceItem {
     margin-bottom: 10px;
+    font-size: 1rem;
 
     strong {
       color: rgb(33, 199, 3);
     }
-  }
-}
-
-.choiceList {
-  list-style: none;
-  padding-left: 20px;
-
-  .choiceItem {
-    font-size: 1rem;
-    color: #444;
   }
 }
 
@@ -230,7 +245,6 @@ p {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: -10px;
 
     &:hover {
       background-color: transparent;
@@ -243,26 +257,8 @@ p {
   }
 }
 
-.completedContainer {
-  position: relative;
-  align-self: flex-end;
-  right: 7%;
-  font-weight: bold;
-  margin-top: -40px;
-}
-
-.filterContainer {
-  position: relative;
-  align-self: flex-start;
-  left: 7%;
-  font-weight: bold;
-}
-
-// New styles for the participant filters table
 .filters {
-  width: 95%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+
   padding: 10px;
   border: 1px solid $table-border-color;
   border-radius: 8px;
@@ -278,24 +274,11 @@ p {
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
-    text-align: left;
 
     th,
     td {
       padding: 12px 15px;
       border: 1px solid $table-border-color;
-      font-size: 1rem;
-    }
-
-    th {
-      background-color: transparent;
-      color: #000000;
-    }
-
-    td {
-      background-color: #fff;
-      color: #555;
     }
 
     tr:nth-child(even) td {
@@ -310,10 +293,8 @@ p {
 
 .modalOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -321,7 +302,6 @@ p {
 }
 
 .modalContent {
-  text-align: center;
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -330,69 +310,20 @@ p {
   max-height: 80vh;
   overflow-y: auto;
 
-  h2{
-    color: #000000;
+  h2 {
+    color: #000;
+  }
+
+  .surveysCard {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
   }
 }
 
-.surveysCard {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  border-radius: 8px;
-  width: 90%;
-  margin: auto auto 20px;
-  background-color: #ffffff;
-}
-
-.closeButton {
-  margin-top: 30px;
-  padding: 10px 40px;
-  background: #af1414;
-  color: white;
-  border: 1px solid #af1414;
-  border-radius: 4px;
-  margin-left: 2%;
-  cursor: pointer;
-
-  &:hover {
-    background: transparent;
-    color: #af1414;
-    border: 1px solid #af1414;
-  }
-}
-
-.viewCompletedButton {
-  margin-left: 10px;
-  padding: 10px 15px;
-  background: #653E84;
-  color: white;
-  font-size: 1rem;
-  border: 1px solid #653E84;
-  border-radius: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background: transparent;
-    color: #653E84;
-    border: 1px solid #653E84;
-  }
-}
-
-
+/* Dark Mode */
 :global(body.dark-mode) {
-  .createsurveyButton {
-    background-color: #6e6e6e;
-
-    &:hover {
-      background-color: transparent;
-      border: 1px solid #6e6e6e;
-      color: #6e6e6e;
-    }
-  }
   .surveyListContainer {
     background-color: #15151519;
     box-shadow: none;
@@ -400,96 +331,66 @@ p {
   .surveyCard {
     background-color: #1a1919;
     color: #a9a9a9;
-    box-shadow: none;
   }
-  .surveytitle {
+  .surveytitle,
+  .surveyCount,
+  .filters h4 {
     color: #a9a9a9;
-  }
-  .filterContainer label {
-    color: #f8f1f1;
-  }
-  .surveyCount {
-    color: #acacac;
   }
   .filters {
     background-color: #212121;
     border: none;
-  }
-  .filters h4 {
-    color: #a9a9a9;
-  }
-  .filterContainer label {
-    color: #a9a9a9;
-  }
-  .filters th {
-    background-color: #212121;
-    color: white;
-    border: #1a1919 1px solid;
-  }
-  .filters td {
-    background-color: #1a1919;
-    color: #a9a9a9;
-    border: #1a1919 1px solid;
-  }
-  .filters tr:nth-child(even) td {
-    background-color: #212121;
-  }
 
-  .viewDetailsButton {
-    background-color: #8a8a8a;
-    &:hover {
-      background-color: transparent;
-      border: 1px solid #8a8a8a;
-      color: #8a8a8a;
+    th, td {
+      border: 1px solid #1a1919;
+      background-color: #1a1919;
+      color: #a9a9a9;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #212121;
     }
   }
+  .viewDetailsButton,
   .copyLinkText {
-    background-color: transparent;
-    color: #a9a9a9;
-    border: #a9a9a9 2px solid;
-
-    &:hover {
-      background-color: #6e6e6e;
-      color: #f0f0f0;
-      border: #6e6e6e 2px solid;
-    }
+    background-color: #8a8a8a;
+    color: #fff;
   }
-  .viewDetailsButton {
-    background-color: #8c62a9;
-    &:hover {
-      background-color: transparent;
-      border: 1px solid #8c62a9;
-      color: #8c62a9;
-    }
-  }
-
   .modalContent {
     background: #1a1919;
     color: #a9a9a9;
-    
-    h2{
+
+    h2 {
       color: #a9a9a9;
     }
     .surveysCard {
       background-color: #212121;
-      color: #a9a9a9;
-      box-shadow: none;
     }
   }
+}
 
-
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .linkContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 768px) {
   .surveyCard {
-    width: 100%;
+    flex: 1 1 100%;
   }
-  .viewDetailsButton {
-    margin-left: 20px;
-    margin-top: 10px;
+  .linkSurveyChoices {
+    flex-direction: column;
+    gap: 10px;
   }
-  .surveyActions button {
-    margin-left: 5px;
-    margin-top: 10px;
+  .surveyActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filters table {
+    font-size: 0.9rem;
   }
 }
