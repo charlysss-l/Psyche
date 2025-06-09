@@ -11,6 +11,7 @@
     max-width: 700px;
     width: 90%;
     height: 90%;
+    user-select: none;
 
    h2{
     font-size: 20px;
@@ -28,8 +29,64 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
   }
+
+  .consultationDetails {
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    height: 400px;
+
+  }
+
+  .followUpDetails {
+
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    height: 230px;
+  }
+
+  .toggleFormButton {
+    display: flex;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    padding: 15px;
+  background-color: #631f74;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #b62e2e00;
+    color:#631f74;
+    border: 1px solid #631f74;
+  }
+}
+
+  .addnewSchedButton{
+    margin: 0 auto;
+    background-color: #631f74;
+    display: block;
+    padding: 15px;
+    margin-top: 10px;
+
+    &:hover {
+    background-color: #b62e2e00;
+    color:#631f74;
+    border: 1px solid #631f74;
+  }
+  }
   
   .closeButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     margin-top: 10px;
     background: #b62e2e ;
     color: white;
@@ -43,6 +100,36 @@
       color: #b62e2e;
     }
   }
+
+  .noAccepted {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+  }
+
+.followupformContainer{
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(222, 208, 228);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  max-width: 700px;
+  width: 90%;
+  height: 55%;
+  user-select: none;
+  z-index: 1000;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+
+
+
  
   .titleConsult {
     margin-top: 0px;
@@ -61,7 +148,12 @@
   }
 
   .responsesWrapper {
-    max-height: 150px;  // Adjust the height as per your design needs
+    max-height: 500px;  // Adjust the height as per your design needs
+    overflow-y: auto;   // Enable vertical scrolling when content overflows
+  }
+
+  .followupresponsesWrapper {
+    max-height: 220px;  // Adjust the height as per your design needs
     overflow-y: auto;   // Enable vertical scrolling when content overflows
   }
   .table{
@@ -104,10 +196,7 @@
   .flowerFollowup {
     color: #28a796;
   }
-  .addnewSchedButton{
-    margin: 0 auto;
-    display: block;
-  }
+
   
   :global(body.dark-mode){
     .modalContent {
