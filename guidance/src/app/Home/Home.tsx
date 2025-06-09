@@ -98,22 +98,18 @@ const GuidanceHome: React.FC = () => {  // State to store all consultation reque
     <div className={styles.cardRow}>
       <div className={styles.schedule}>
         <p className={styles.total}>Total Pending Request: <br/> <span className={styles.count}>{newConsultations.length}</span> <br/>
-            <button className={styles.seeSchedule} onClick={() => navigate("/consultation")}>View Pending </button>
 </p>
       </div>
       <div className={styles.schedule}>
         <p className={styles.total}>Total Accepted Request: <br/> <span className={styles.count}>{acceptedRequests.length}</span><br/>
-            <button className={styles.seeSchedule} onClick={() => navigate("/consultation")}>View Accepted </button>
 </p>
       </div>
       <div className={styles.schedule}>
         <p className={styles.total}>Today Schedule: <br/> <span className={styles.count}>{todayConsultations.length}</span><br/>
-            <button className={styles.seeSchedule} onClick={() => navigate("/consultation")}>View Today</button>
 </p>
       </div>
       <div className={styles.schedule}>
         <p className={styles.total}>Total Follow Up Schedule: <br/> <span className={styles.count}>{followUpSchedules.length}</span><br/>
-            <button className={styles.seeSchedule} onClick={() => navigate("/consultation")}>View Follow Up</button>
 </p>
       </div>
     </div>
@@ -123,10 +119,13 @@ const GuidanceHome: React.FC = () => {  // State to store all consultation reque
     <div className={styles.cardRow}>
       <div className={styles.users}>
         <p className={styles.total}>Total Users: <br/> <span className={styles.count}>{users.length}</span><br/>
-            <button className={styles.seeUsers} onClick={() => navigate("/create-account")}>View Users Account</button>
 </p>
+
       </div>
+      
     </div>
+                <button className={styles.seeUsers} onClick={() => navigate("/create-account")}>View Users Account</button>
+
   </div>
 </div>
 

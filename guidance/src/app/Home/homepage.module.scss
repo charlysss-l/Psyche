@@ -47,7 +47,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   flex: 1; /* Ensures equal width for items */
   min-width: 290px; /* Adjust based on design preference */
-  min-height: 130px;
+  min-height: 150px;
   user-select: none;  
   
 
@@ -59,7 +59,7 @@
 }
 
 .count {
-  font-size: 2.5em;
+  font-size: 3em;
   font-weight: bold;
   color: #653E84; /* Highlighted color */
 }
@@ -75,7 +75,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   align-self: center; /* Center aligns the button */
-  margin-top: 20px; /* Adds spacing above the button */
+  margin-top: -80px; /* Adds spacing above the button */
   user-select: none; /* Prevents text selection */
 
 

@@ -120,7 +120,6 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
           />
         </div>
 
-
         <div className={styles.responsesWrapper}>
           <table className={styles.table}>
             <thead>
@@ -131,7 +130,6 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
                 <th>Councelor Name</th>
                 <th>Date</th>
                 <th>Time for Consultation</th>
-                <th>Test ID</th>
                 <th>Note</th>
                 <th>Actions</th>
               </tr>
@@ -152,7 +150,6 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
                       })}
                     </td>
                     <td>{consultation.timeForConsultation}</td>
-                    <td>{consultation.testID}</td>
                     <td>{consultation.note}</td>
                     <td>
                       <button

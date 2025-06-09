@@ -48,6 +48,19 @@ interface FollowUpSchedule {
   message: string;
 }
 
+interface Consultation {
+  userId: string;
+  date: string;
+  studentName: string;
+  councelorName: string;
+  testID: string;
+  timeForConsultation: string;
+  note: string;
+  message: string;
+  acceptedAppointmentCount: number; // Add this field
+
+}
+
 const factorDescriptions: Record<string, string> = {
   A: 'Warmth',
   B: 'Reasoning',
@@ -93,7 +106,13 @@ const GuidanceConsultation: React.FC = () => {
   const openArchivedList = () => {
     setShowArchived(true);  // Only set to true (open), no toggling
   };
+  const [completedConsultations, setCompletedConsultations] = useState<Consultation[]>([]);
+
+  const [showPendingModal, setShowPendingModal] = useState(false);
+  const [showAcceptedModal, setShowAcceptedModal] = useState(false);
+  const [showTodayModal, setShowTodayModal] = useState(false);
   
+
 
   useEffect(() => {
     const loadConsultationRequests = async () => {
@@ -124,6 +143,21 @@ const GuidanceConsultation: React.FC = () => {
 
     return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, []);
+
+  useEffect(() => {
+    fetchConsultations();
+  }, []);
+
+  const fetchConsultations = async () => {
+    try {
+      const response = await axios.get(`${API_URL}archive/status/archived`);
+      if (response?.data?.data) {
+        setCompletedConsultations(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching consultations:", error);
+    }
+  };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -445,36 +479,85 @@ const handleCompleteFollowUp = async (id: string) => {
 
   return (
     <div>
-    <div className={styles.statusBoxContainer}>
-    <div className={styles.pendingBox}>
-        <h3>Pending Requests</h3>
-        <p>{pendingRequests.length}</p>
-      </div>
-      <div className={styles.acceptedBox}>
-        <h3>Accepted Requests</h3>
-        <p>{acceptedRequests.length}</p>
-      </div>
-      
+   <div className={styles.statusBoxContainer}>
+  {/* Top row with 3 cards */}
+  <div className={styles.cardRow}>
+    <div className={styles.requestBox}>
+      <h3>Pending Requests</h3>
+      <p className={styles.countMessage}>{pendingRequests.length}</p>
+      <button onClick={() => setShowPendingModal(true)} className={styles.viewButton}>
+        View Pending Requests
+      </button>
     </div>
 
-      {/* Pending Requests Table */}
-      <div className={styles.tableBox}>
-  <h2 className={styles.title}>
-    Pending Consultation Request
-    <button onClick={toggleModal} className={styles.viewButton}>
-      View Follow-Up Schedule List
-    </button>
-    <div className={styles.smartWrapper}>
-      <input
-        type="text"
-        placeholder="Search by User ID, Name, Date, Time, Note"
-        value={pendingSearchTerm}
-        onChange={(e) => setPendingSearchTerm(e.target.value)}
-        className={styles.searchInput}
-      />
+    <div className={styles.requestBox}>
+      <h3>Accepted Requests</h3>
+      <p className={styles.countMessage}>{acceptedRequests.length}</p>
+      <button onClick={() => setShowAcceptedModal(true)} className={styles.viewButton}>
+        View Accepted Requests
+      </button>
     </div>
-  </h2>
+
+    <div className={styles.requestBox}>
+      <h3>Today Scheduled Requests</h3>
+      <p className={styles.countMessage}>
+        {acceptedRequests.filter((request) => {
+          const today = new Date();
+          const requestDate = new Date(request.date);
+          return (
+            requestDate.toDateString() === today.toDateString() &&
+            request.status === "accepted"
+          );
+        }).length}
+      </p>
+      <button onClick={() => setShowTodayModal(true)} className={styles.viewButton}>
+        View Today's Requests
+      </button>
+    </div>
+  </div>
+
+  {/* Bottom row with 2 cards */}
+  <div className={styles.cardRow}>
+    <div className={styles.requestBox}>
+      <h3>Follow Up Requests</h3>
+      <p className={styles.countMessage}>{followUpSchedules.length}</p>
+      <button onClick={toggleModal} className={styles.viewButton}>
+        View Follow Up Schedule List
+      </button>
+    </div>
+
+    <div className={styles.requestBox}>
+      <h3>Completed Requests</h3>
+      <p className={styles.countMessage}>{completedConsultations.length}</p>
+      <button className={styles.viewButton} onClick={openArchivedList}>
+        View Completed List
+      </button>
+    </div>
+  </div>
+
   {showArchived && <CompleteInbox onClose={() => setShowArchived(false)} />}
+</div>
+
+
+      {/* Pending Requests Table */}
+     {showPendingModal && (
+  <div className={styles.modalBackdrop}>
+    <div className={styles.modalContent}>
+      <button onClick={() => setShowPendingModal(false)} className={styles.closeButton}>
+        &times;
+      </button>
+      <h2 className={styles.title}>Pending Consultation Requests
+       
+      <div className={styles.smartWrapper}>
+        <input
+          type="text"
+          placeholder="Search by User ID, Name, Date, Time, Note"
+          value={pendingSearchTerm}
+          onChange={(e) => setPendingSearchTerm(e.target.value)}
+          className={styles.searchInput}
+        />
+      </div>
+</h2>
       <div className={styles.responsesWrapper}>
         {pendingRequests.length === 0 ? (
           <p className={styles.noRequestsMessage}>No pending consultation requests.</p>
@@ -499,22 +582,32 @@ const handleCompleteFollowUp = async (id: string) => {
                 .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                 .map((request) => (
                   <tr key={request._id}>
-                    <td>
-                      {request.allAppointmentsCount} 
-                      <br/>
-                      <button onClick={() => toggleCounselorInfo(request.userId)} className={styles.infoButton}>
-                        view appointed with counselor
-                      </button>
-                      {selectedUserId === request.userId && (
-                        <div className={styles.counselorInfo}>
-                          {Object.entries(request.counselorCounts).map(([counselor, count]) => (
-                            <div key={counselor}>
-                              {counselor}: {count} 
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </td>
+                   <td>
+  {request.allAppointmentsCount ? (
+    <>
+      {request.allAppointmentsCount}
+      <br />
+      <button
+        onClick={() => toggleCounselorInfo(request.userId)}
+        className={styles.infoButton}
+      >
+        view appointed with counselor
+      </button>
+      {selectedUserId === request.userId && (
+        <div className={styles.counselorInfo}>
+          {Object.entries(request.counselorCounts).map(([counselor, count]) => (
+            <div key={counselor}>
+              {counselor}: {count}
+            </div>
+          ))}
+        </div>
+      )}
+    </>
+  ) : (
+    "No Appointments Request Yet"
+  )}
+</td>
+
                     <td>{request.userId}</td>
                     <td>{request.studentName}</td>
                     <td>
@@ -528,9 +621,7 @@ const handleCompleteFollowUp = async (id: string) => {
                     <td>{request.consultationType}</td>
                     <td>{request.note}</td>
                     <td>
-                      <span className={`${styles.statusButton}`}>
-                        {request.status}
-                      </span>
+                      <span className={styles.statusButton}>{request.status}</span>
                     </td>
                     <td>
                       {request.status === "cancelled" ? (
@@ -544,7 +635,14 @@ const handleCompleteFollowUp = async (id: string) => {
                         <>
                           <button
                             className={styles.accept}
-                            onClick={() => acceptRequest(request._id, request.email, request.date, request.timeForConsultation)}
+                            onClick={() =>
+                              acceptRequest(
+                                request._id,
+                                request.email,
+                                request.date,
+                                request.timeForConsultation
+                              )
+                            }
                           >
                             Accept
                           </button>
@@ -570,282 +668,288 @@ const handleCompleteFollowUp = async (id: string) => {
         )}
       </div>
     </div>
+  </div>
+)}
+
 
 
 
 
 {/* Accepted Requests Table */}
-<div className={styles.tableBox}>
-  <h2 className={styles.title}>Accepted Consultation Request
-  <button className={styles.archiveButton} onClick={openArchivedList}>
-  Completed List
-</button>
+{showAcceptedModal && (
+  <div className={styles.modalBackdrop}>
+    <div className={styles.modalContent}>
+      <button onClick={() => setShowAcceptedModal(false)} className={styles.closeButton}>
+        &times;
+      </button>
 
-      <div className={styles.smartWrapper}>
-            <input
-              type="text"
-              placeholder="Search by User ID, Name, Date, Time, Note"
-              value={acceptedSearchTerm}
-              onChange={(e) => setAcceptedSearchTerm(e.target.value)}
-              className={styles.searchInput}
-            />
+      <h2 className={styles.title}>
+        Accepted Consultation Request
+      
+
+        <div className={styles.smartWrapper}>
+        <input
+          type="text"
+          placeholder="Search by User ID, Name, Date, Time, Note"
+          value={acceptedSearchTerm}
+          onChange={(e) => setAcceptedSearchTerm(e.target.value)}
+          className={styles.searchInput}
+        />
       </div>
-  </h2>
-  <div className={styles.responsesWrapper}>
-  {acceptedRequests.length === 0 ? (
-      <p className={styles.noRequestsMessage}>No accepted consultation requests yet.</p> // Message displayed when no requests
-    ) : (
-  <table>
-    <thead>
-      <tr>
-        <th>Appointment Count</th>
-        <th>User ID</th>
-        <th>Student Name</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Note</th>
-        <th>Councelor Name</th>
-        <th>Consultation Type</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-    {acceptedRequests
-        .slice() 
-        .sort((a, b) => {
-          if (a.status === "accepted" && b.status !== "accepted") return -1;
-          if (a.status !== "accepted" && b.status === "accepted") return 1;
-          if (a.status === "completed" && b.status !== "completed") return 1;
-          if (a.status !== "completed" && b.status === "completed") return -1;
-          return 0; 
-        })
-        .map((request) => (
-        <tr key={request._id}>
-          <td>{request.acceptedAppointmentCount}</td> 
-          <td>{request.userId}</td>
-          <td>{request.studentName}</td>
-          <td>
-            {new Date(request.date).toLocaleDateString("en-US", {
-              month: "2-digit",
-              day: "2-digit",
-              year: "numeric",
-            })}
-          </td>
-          <td>{request.timeForConsultation}</td>
-          <td>{request.note}</td>
-          <td>{request.councelorName}</td>
-          <td>
-            {request.consultationType !== "Online" && request.consultationType}
-            {request.consultationType === "Online" && (
-              <button
-              className={`${styles.viewButton} ${
-                request.status !== "accepted" || request.councelorName !== fullName
-                  ? styles.disabledButton
-                  : ""
-              }`}
-              onClick={() => {
-                if (request.status !== "accepted") {
-                  alert("This consultation is already completed.");
-                } else if (request.councelorName !== fullName) {
-                  alert("You are not the assigned counselor for this consultation.");
-                } else {
-                  window.location.href = `/online-consult/${request.testID}`;
-                }
-              }}
-            >
-              View Online Consultation
-            </button>
-            )}
-          </td>
-           <td>
-            <span className={`${styles.statusButton} ${styles.acceptedStatus}`}>
-              {request.status}
-            </span>
-          </td>
-          <td>
-            <button
-              className={styles.viewInfo}
-              onClick={() => handleViewInfo(request.testID, request.note)}
-            >
-              View Info
-            </button>
+      </h2>
 
-            {/* navigate to Calendar */}
-            <button
-              className={styles.viewInfo}
-              onClick={() => {
-                navigate(`/calendar`);
-              }}
-            >
-              Follow Up
-            </button>
-            
-
-            {/* Mark as Done Button (only shows when status is not "Completed") */}
-            {request.status !== 'completed' && (
-              <button
-                className={styles.markDone}
-                onClick={() => handleCompleted(request.testID)}
-              >
-                Mark as Done
-              </button>
-            )}
-
-            {/* Archive Button (only shows when status is "Completed") */}
-            {request.status === 'completed' && (
-              <button
-                className={styles.archive}
-                onClick={() => handleCompleted(request.testID)}
-              >
-                Mark as Done
-              </button>
-            )}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-  )}
+      
+      <div className={styles.responsesWrapper}>
+        {acceptedRequests.length === 0 ? (
+          <p className={styles.noRequestsMessage}>No accepted consultation requests yet.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Appointment Count</th>
+                <th>User ID</th>
+                <th>Student Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Note</th>
+                <th>Counselor Name</th>
+                <th>Consultation Type</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {acceptedRequests
+                .slice()
+                .sort((a, b) => {
+                  if (a.status === "accepted" && b.status !== "accepted") return -1;
+                  if (a.status !== "accepted" && b.status === "accepted") return 1;
+                  if (a.status === "completed" && b.status !== "completed") return 1;
+                  if (a.status !== "completed" && b.status === "completed") return -1;
+                  return 0;
+                })
+                .map((request) => (
+                  <tr key={request._id}>
+                    <td>{request.acceptedAppointmentCount}</td>
+                    <td>{request.userId}</td>
+                    <td>{request.studentName}</td>
+                    <td>
+                      {new Date(request.date).toLocaleDateString("en-US", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                      })}
+                    </td>
+                    <td>{request.timeForConsultation}</td>
+                    <td>{request.note}</td>
+                    <td>{request.councelorName}</td>
+                    <td>
+                      {request.consultationType !== "Online" && request.consultationType}
+                      {request.consultationType === "Online" && (
+                        <button
+                          className={`${styles.viewButton} ${
+                            request.status !== "accepted" || request.councelorName !== fullName
+                              ? styles.disabledButton
+                              : ""
+                          }`}
+                          onClick={() => {
+                            if (request.status !== "accepted") {
+                              alert("This consultation is already completed.");
+                            } else if (request.councelorName !== fullName) {
+                              alert("You are not the assigned counselor for this consultation.");
+                            } else {
+                              window.location.href = `/online-consult/${request.testID}`;
+                            }
+                          }}
+                        >
+                          View Online Consultation
+                        </button>
+                      )}
+                    </td>
+                    <td>
+                      <span className={`${styles.statusButton} ${styles.acceptedStatus}`}>
+                        {request.status}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        className={styles.viewInfo}
+                        onClick={() => handleViewInfo(request.testID, request.note)}
+                      >
+                        View Info
+                      </button>
+                      <button
+                        className={styles.viewInfo}
+                        onClick={() => navigate(`/calendar`)}
+                      >
+                        Follow Up
+                      </button>
+                      {request.status !== "completed" && (
+                        <button
+                          className={styles.markDone}
+                          onClick={() => handleCompleted(request.testID)}
+                        >
+                          Mark as Done
+                        </button>
+                      )}
+                      {request.status === "completed" && (
+                        <button
+                          className={styles.archive}
+                          onClick={() => handleCompleted(request.testID)}
+                        >
+                          Mark as Done
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
   </div>
-</div>
+)}
+
 
 {/* today schedule */}
-<div className={styles.tableBox}>
-  <h3>Today's Scheduled Requests</h3>
-  {acceptedRequests.filter((request) => {
-    const today = new Date();
-    const requestDate = new Date(request.date);
-    return (
-      requestDate.toDateString() === today.toDateString() &&
-      request.status === "accepted"
-    );
-  }).length === 0 ? (
-    <div className={styles.noScheduleWrapper}>
-    <p className={styles.noRequestsMessage}>No scheduled requests for today.</p>
-  </div>
-  ) : (
-    <div className={styles.responsesWrapper}>
-    <table>
-      <thead>
-        <tr>
-          <th>Appointment Count</th>
-          <th>User ID</th>
-          <th>Student Name</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Note</th>
-          <th>Counselor Name</th>
-          <th>Consultation Type</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-        <tbody>
-          {acceptedRequests
-            .filter((request) => {
-              const today = new Date();
-              const requestDate = new Date(request.date);
-              return (
-                requestDate.toDateString() === today.toDateString()
+{showTodayModal && (
+  <div className={styles.modalBackdrop}>
+    <div className={styles.modalContent}>
+      <button onClick={() => setShowTodayModal(false)} className={styles.closeButton}>
+        &times;
+      </button>
+      <h3>Today's Scheduled Requests</h3>
 
-              );
-            })
-            .sort((a, b) => {
-              if (a.status === "accepted" && b.status !== "accepted") return -1;
-              if (a.status !== "accepted" && b.status === "accepted") return 1;
-              if (a.status === "completed" && b.status !== "completed") return 1;
-              if (a.status !== "completed" && b.status === "completed") return -1;
-              return 0; 
-            })
-            .map((request) => (
-              <tr key={request._id}>
-                <td>{request.acceptedAppointmentCount}</td>
-                <td>{request.userId}</td>
-                <td>{request.studentName}</td>
-                <td>
-                  {new Date(request.date).toLocaleDateString("en-US", {
-                    month: "2-digit",
-                    day: "2-digit",
-                    year: "numeric",
-                  })}
-                </td>
-                <td>{request.timeForConsultation}</td>
-                <td>{request.note}</td>
-                <td>{request.councelorName}</td>
-                <td>
-            {request.consultationType !== "Online" && request.consultationType}
-            {request.consultationType === "Online" && (
-              <button
-              className={`${styles.viewButton} ${
-                request.status !== "accepted" || request.councelorName !== fullName
-                  ? styles.disabledButton
-                  : ""
-              }`}
-              onClick={() => {
-                if (request.status !== "accepted") {
-                  alert("This consultation is already completed.");
-                } else if (request.councelorName !== fullName) {
-                  alert("You are not the assigned counselor for this consultation.");
-                } else {
-                  window.location.href = `/online-consult/${request.testID}`;
-                }
-              }}
-            >
-              View Online Consultation
-            </button>
-            
-            )}
-          </td>                <td>
-                  <span
-                    className={`${styles.statusButton} ${styles.acceptedStatus}`}
-                  >
-                    {request.status}
-                  </span>
-                </td>
-                <td>
-                  <button
-                    className={styles.viewInfo}
-                    onClick={() => handleViewInfo(request.testID, request.note)}
-                  >
-                    View Info
-                  </button>
+       
+      
 
-                   {/* navigate to Calendar */}
-                  <button
-                    className={styles.viewInfo}
-                    onClick={() => {
-                      navigate(`/calendar`);
-                    }}
-                  >
-                    Follow Up
-                  </button>
-
-                  {request.status !== "completed" && (
-                    <button
-                      className={styles.markDone}
-                      onClick={() => handleCompleted(request.testID)}
-                    >
-                      Mark as Done
-                    </button>
-                  )}
-                  {request.status === 'completed' && (
-              <button
-                className={styles.archive}
-                onClick={() => handleCompleted(request.testID)}
-              >
-                Mark as Done
-              </button>
-            )}
-                </td>
+      {acceptedRequests.filter((request) => {
+        const today = new Date();
+        const requestDate = new Date(request.date);
+        return (
+          requestDate.toDateString() === today.toDateString() &&
+          request.status === "accepted"
+        );
+      }).length === 0 ? (
+        <div className={styles.noScheduleWrapper}>
+          <p className={styles.noRequestsMessage}>No scheduled requests for today.</p>
+        </div>
+      ) : (
+        <div className={styles.responsesWrapper}>
+          <table>
+            <thead>
+              <tr>
+                <th>Appointment Count</th>
+                <th>User ID</th>
+                <th>Student Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Note</th>
+                <th>Counselor Name</th>
+                <th>Consultation Type</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
-            ))}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+              {acceptedRequests
+                .filter((request) => {
+                  const today = new Date();
+                  const requestDate = new Date(request.date);
+                  return requestDate.toDateString() === today.toDateString();
+                })
+                .sort((a, b) => {
+                  if (a.status === "accepted" && b.status !== "accepted") return -1;
+                  if (a.status !== "accepted" && b.status === "accepted") return 1;
+                  if (a.status === "completed" && b.status !== "completed") return 1;
+                  if (a.status !== "completed" && b.status === "completed") return -1;
+                  return 0;
+                })
+                .map((request) => (
+                  <tr key={request._id}>
+                    <td>{request.acceptedAppointmentCount}</td>
+                    <td>{request.userId}</td>
+                    <td>{request.studentName}</td>
+                    <td>
+                      {new Date(request.date).toLocaleDateString("en-US", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                      })}
+                    </td>
+                    <td>{request.timeForConsultation}</td>
+                    <td>{request.note}</td>
+                    <td>{request.councelorName}</td>
+                    <td>
+                      {request.consultationType !== "Online" && request.consultationType}
+                      {request.consultationType === "Online" && (
+                        <button
+                          className={`${styles.viewButton} ${
+                            request.status !== "accepted" ||
+                            request.councelorName !== fullName
+                              ? styles.disabledButton
+                              : ""
+                          }`}
+                          onClick={() => {
+                            if (request.status !== "accepted") {
+                              alert("This consultation is already completed.");
+                            } else if (request.councelorName !== fullName) {
+                              alert("You are not the assigned counselor for this consultation.");
+                            } else {
+                              window.location.href = `/online-consult/${request.testID}`;
+                            }
+                          }}
+                        >
+                          View Online Consultation
+                        </button>
+                      )}
+                    </td>
+                    <td>
+                      <span className={`${styles.statusButton} ${styles.acceptedStatus}`}>
+                        {request.status}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        className={styles.viewInfo}
+                        onClick={() => handleViewInfo(request.testID, request.note)}
+                      >
+                        View Info
+                      </button>
+                      <button
+                        className={styles.viewInfo}
+                        onClick={() => navigate(`/calendar`)}
+                      >
+                        Follow Up
+                      </button>
+                      {request.status !== "completed" && (
+                        <button
+                          className={styles.markDone}
+                          onClick={() => handleCompleted(request.testID)}
+                        >
+                          Mark as Done
+                        </button>
+                      )}
+                      {request.status === "completed" && (
+                        <button
+                          className={styles.archive}
+                          onClick={() => handleCompleted(request.testID)}
+                        >
+                          Mark as Done
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
+  </div>
+)}
 
-  )}
-</div>
 
 
 
