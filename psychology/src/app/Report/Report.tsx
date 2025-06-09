@@ -203,24 +203,28 @@ const Report = () => {
             onClick={handlePrevGraph}
             style={{
               cursor: "pointer",
-              fontSize: "1.5rem",
+              fontSize: "30px",
               background: "none",
               border: "none",
               userSelect: "none",
+              color:"#653e84",
+              padding: "5px 50px",
             }}
             aria-label="Previous graph"
           >
             &lt;
           </button>
-          <h2 style={{ margin: 0 }}>{getGraphTitle()}</h2>
+          <h2 style={{ margin: 0, color: "black", fontSize: "20px" }}>{getGraphTitle()}</h2>
           <button
             onClick={handleNextGraph}
             style={{
               cursor: "pointer",
-              fontSize: "1.5rem",
+              fontSize: "30px",
               background: "none",
               border: "none",
               userSelect: "none",
+              color:"#653e84",
+              padding: "5px 50px",
             }}
             aria-label="Next graph"
           >

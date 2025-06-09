@@ -9,7 +9,7 @@
 }
 
 .reportHeader {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   font-weight: 700;
   text-align: center;
   color: #3a3a3a;
@@ -45,6 +45,7 @@
       color: white;
       font-weight: 600;
       text-align: center;
+      padding: 20px;
 
       th {
         word-break: break-word;
@@ -90,10 +91,10 @@
   flex: 1 1 0;
   min-width: 200px;
   max-width: 100%;
-  background-color: #fff;
+  background-color: transparent;
   border-radius: 10px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-  padding: 10px;
+  padding: 4px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -134,10 +135,12 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  margin-top: 20px;
   justify-content: center;
   padding-bottom: 40px;
   max-width: 100%;
   box-sizing: border-box;
+  
 
   .resultSection {
     flex: 1 1 300px;
