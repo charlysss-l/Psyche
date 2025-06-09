@@ -1,218 +1,280 @@
 .studentNavbar {
-  display: flex;
-  justify-content: space-between;
+  width: 60px;
+  flex-direction: column;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
-  border-bottom: 1px solid #7a7a7a;
-  padding: 0 10px;
-  width: 100%;
-  user-select: none;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  border-right: 1px solid #7a7a7a;
+  transition: width 0.3s ease;
+  overflow-x: hidden;
+  z-index: 1000; /* on top */
+
+  &.expanded {
+    width: 180px;
+    align-items: flex-start;
+
+    .navigationSection {
+      .navList {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .navItem {
+          width: 100%;
+          margin: 0.5rem 0;
+
+          .navLink {
+            justify-content: flex-start;
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
+        }
+      }
+    }
+
+    .navRight {
+      padding: 0 1rem 1rem 1rem;
+      margin-top: auto;
+      width: 100%;
+    }
+  }
+
+  &.collapsed {
+    width: 60px;
+    align-items: center;
+    padding: 1rem 0;
+    overflow-x: hidden;
+
+    .navigationSection {
+      .navList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .navItem {
+          width: 100%;
+          margin: 0.1rem 0;
+
+          .navLink {
+            justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+      }
+    }
+  }
+
+  /* When mobile menu open, sidebar is overlay */
+  &.mobileOpen {
+    position: fixed;
+    width: 240px;
+    max-width: 80vw;
+    height: 100vh;
+    background-color: white;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    border-right: none;
+    top: 0;
+    left: 0;
+    z-index: 1500;
+    padding-top: 1rem;
+    overflow-y: auto;
+
+    align-items: flex-start;
+
+    .navigationSection {
+      .navList {
+        align-items: flex-start;
+      }
+    }
+  }
 }
 
-/* Logo Section */
+/* Logo section */
 .logoSection {
-  color: #2e70d3;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .logoImage {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
 
   h1 {
     font-size: 24px;
     margin: 0;
-    color: #653E84;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    color: #653e84;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 
   p {
-    font-size: 15px;
+    font-size: 14px;
     color: #7a7a7a;
     font-weight: bold;
+    margin-top: 4px;
+  }
+
+  .collapsed & {
+    align-items: center;
+
+    p {
+      display: none;
+    }
   }
 }
 
 /* Navigation Section */
 .navigationSection {
+  width: 100%;
   flex-grow: 1;
-  display: flex;
-  justify-content: center;
 
   .navList {
     list-style: none;
-    display: flex;
     padding: 0;
     margin: 0;
 
+    display: flex;
+    flex-direction: column;
+
     .navItem {
-      display: flex;
-      flex-direction: column;
-      align-items: center; 
-      justify-content: center; 
-      text-align: center;
-      margin: 0px 15px; 
-      position: relative; 
-      
-      .navIcon {
-        width: 24px;
-        height: 24px;
-        position: absolute;
-        top: -35%; 
-        color: red;
-      }
+      width: 100%;
+      margin: 1rem 0;
+      cursor: pointer;
 
       .navLink {
+        display: flex;
+        align-items: center;
         color: #7a7a7a;
         text-decoration: none;
-        font-size: 14px;
         font-weight: 700;
-        display: flex;
-        flex-direction: column; 
-        align-items: center;
+        font-size: 14px;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        box-sizing: border-box;
 
         &:hover {
-          color: rgb(94, 93, 93);
+          color: #653e84;
         }
 
         &.active {
           color: #653e84;
-          border-bottom: none; 
+          box-sizing: border-box;
+          padding-left: 1rem;   /* add left-right padding for active */
+          padding-right: 1rem;
+
+          background-color: #e5dbf5;
+
+          .navIcon {
+            background-color: #653e84;
+            border-radius: 6px;
+            padding: 4px;
+            box-sizing: content-box;
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 0.8rem;
+          }
         }
+      }
+
+      .navIcon {
+        width: 24px;
+        height: 24px;
+        margin-right: 0.5rem;
+        flex-shrink: 0;
       }
     }
   }
 }
 
-
-/* Account Section */
+/* Logout Button */
 .navRight {
+  width: 100%;
+  padding: 1rem;
+  margin-top: auto;
   display: flex;
+  justify-content: center;
 
-  .dropdown {
-    position: relative;
+  .logoutButton {
+    background-color: #653e84;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 
-    .dropdownToggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-
-      .accountImage {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-      }
-
-      .arrowIcon {
-        margin-left: 5px;
-        font-size: 16px;
-        color: #7a7a7a;
-      }
-    }
-
-    .dropdownMenu {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      background: #ffffff;
-      box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 4px;
-      list-style: none;
-      padding: 0;
-      z-index: 10;
-      min-width: 150px;
-
-      .dropdownLink {
-        padding: 10px 20px;
-        text-decoration: none;
-        color: #353535;
-
-        &:hover {
-          background-color: #f0f0f0;
-        }
-      }
-      .dropdownLinkLogout{
-        text-decoration: none;
-        color: #000000;
-        font-size: 16px;
-        border: none;
-        background-color: #ffffff;
-        font-weight: bold;
-        margin: 0 auto;
-
-
-        &:hover {
-          color: #bb35dc;
-        }
-      }
-      .dropdownLinkSettings{
-        text-decoration: none;
-        color: #000000;
-        border: none;
-        font-size: 16px;
-        background-color: #ffffff;
-        font-weight: bold;
-        margin: 0 auto;
-
-        &:hover {
-          color: #bb35dc;
-        }
-      }
+    &:hover {
+      background-color: #512f6f;
     }
   }
 }
 
-/* Dark Mode Adjustments */
-:global(body.dark-mode) {
+/* Burger button for mobile */
+.burgerButton {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  width: 30px;
+  height: 22px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 2000;
+  background: none;
+  border: none;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  .burgerLines {
+    display: block;
+    width: 100%;
+    height: 4px;
+    background-color: #653e84;
+    border-radius: 2px;
+  }
+}
+
+/* Overlay behind sidebar when mobile menu open */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 1400;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .burgerButton {
+    display: flex;
+  }
+
   .studentNavbar {
-    color: #000000;
-    border-bottom: 1px solid #7a7a7a;
-  }
+    width: 60px !important; /* default narrow if no mobileOpen */
 
-  .logoSection {
-    h1 {
-      color: #8C62A9;
-    }
-
-    p {
-      color: #A9A9A9;
-    }
-  }
-
-  .navigationSection {
-    .navList {
-      .navItem {
-        .navLink {
-          color: #A9A9A9;
-
-          &:hover {
-            color: rgb(94, 93, 93);
-          }
-
-          &.active {
-            color: #8C62A9;
-          }
-        }
-      }
-    }
-  }
-
-  .navRight {
-    .dropdown {
-      .dropdownToggle {
-        .arrowIcon {
-          color: #7a7a7a;
-        }
-      }
-
-      .dropdownMenu {
-        background: #ffffff;
-
-        .dropdownLink {
-          color: #353535;
-
-          &:hover {
-            background-color: #f0f0f0;
-          }
-        }
-      }
+    &.expanded {
+      width: 60px !important; /* prevent desktop expand on mobile */
     }
   }
 }
