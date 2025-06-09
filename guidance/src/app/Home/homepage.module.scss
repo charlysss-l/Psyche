@@ -32,6 +32,11 @@
   flex-wrap: nowrap; /* Keeps cards in a single row */
 }
 
+.total {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
 .schedule, 
 .users {
   background-color: #f9f9f9; /* Light background for better contrast */
@@ -117,7 +122,7 @@
   border-radius: 8px;
   color: white;
   transition: transform 0.2s, box-shadow 0.3s;
-  min-height: 300px; 
+  min-height: 350px; 
   animation: fadeIn 1s ease-in-out;
   user-select: none; /* Prevents text selection */
 
@@ -149,7 +154,7 @@
 
 
 .welcomeTitle {
-  font-size: 45px;
+  font-size: 65px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);  
@@ -157,7 +162,6 @@
 }
 
 .welcomeMessage {
-  font-size: 15x;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);  
   color: #ffffff;
