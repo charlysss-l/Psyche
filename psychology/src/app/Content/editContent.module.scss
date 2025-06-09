@@ -1,80 +1,98 @@
-// editContent.module.scss
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+$primary: #6a4baf;
+$hover: #563d88;
+$darkText: #1a1a1a;
+$lightText: #f0f0f0;
+$cardBg: #ffffff;
+$cardDarkBg: #2a2a2a;
+$borderRadius: 12px;
+$transition: 0.3s ease-in-out;
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  user-select: none;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(249, 244, 250);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.162);
+  width: auto;
+  height: auto;
+  padding: 30px;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 12px; 
 }
 
 .testTypeSelector {
   display: flex;
+  gap: 30px;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
 }
+
 .saveGroup {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5px; /* Add some spacing if needed */
+  margin-top: 5px;
 }
+
 .savebutton {
   padding: 12px;
   width: 20%;
   font-size: 15px;
   cursor: pointer;
-  border: 2px solid #653e84;
-  border-radius: 5px;
-  background-color: #653e84;
+  border: 2px solid $primary;
+  border-radius: 6px;
+  background-color: $primary;
   color: white;
-  transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease;
+  transition: background-color $transition, color $transition, border-color $transition;
+
+  &:hover {
+    background-color: transparent;
+    color: $primary;
+    border-color: $primary;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.active {
+    background-color: $primary;
+    color: white;
+  }
 }
 
-.savebutton:hover {
-  background-color: transparent;
-  color: #653e84;
-  border: 2px solid #653e84;
-}
-
-.savebutton:focus {
-  outline: none;
-  border: 2px solid #653e84;
-}
-
-.savebutton.active {
-  background-color: #653e84;
-  color: white;
-  border: 2px solid #653e84;
-}
 .backbutton {
   padding: 12px 10px;
   font-size: 13px;
   cursor: pointer;
   border: 2px solid #6e6e6e;
-  border-radius: 5px;
+  border-radius: 6px;
   background-color: #6e6e6e;
   color: white;
-  transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease;
+  transition: background-color $transition, color $transition, border-color $transition;
 
   &:hover {
     background-color: transparent;
     color: #6e6e6e;
-    border: 2px solid #6e6e6e;
   }
 
   &:focus {
     outline: none;
-    border: 2px solid #6e6e6e;
   }
 
   &.active {
-    background-color: #653e84;
+    background-color: $primary;
     color: white;
-    border: 2px solid #6e6e6e;
+    border-color: #6e6e6e;
   }
 }
 
@@ -88,22 +106,22 @@
   font-size: 24px;
   margin-bottom: 30px;
   text-align: center;
+  color: $darkText;
 }
 
 .contentItem {
   margin-bottom: 20px;
   padding: 15px;
-  border: 1px solid #51424200;
-  border-radius: 8px;
+  border-radius: $borderRadius;
   background-color: #f9f9f9;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .contentTitle {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 700;
   margin-top: 20px;
-  color: #653e84;
+  color: $primary;
   margin-bottom: 10px;
 }
 
@@ -120,8 +138,9 @@
 
 .label {
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 5px;
+  color: $darkText;
 }
 
 .input,
@@ -129,40 +148,42 @@
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 .textarea {
   resize: vertical;
   min-height: 300px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .button {
-  width: auto;
-  background-color: transparent;
-  color: #000000;
-  font-size: 1.3rem;
-  padding: 100px 120px;
-  font-weight: bold;
-  border: #2c2c2c 2px solid;
-  border-radius: 10px;
-  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  background-color: $cardBg;
+  border-left: 6px solid $primary;
+  border-radius: $borderRadius;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 20px 20px;
+  text-align: center;
+  transition: transform $transition, box-shadow $transition;
+  position: relative;
 
   &:hover {
-    background-color: #653e84;
-    border: #1a1a1a 2px solid;
-    color: #ffffff;
-    transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
   }
 }
+
 .firstheader {
-  font-size: 30px;
-  margin-top: 3%;
-  margin-bottom: 2%;
-  color: #000000;
-  text-align: center;
+  font-size: 2rem;
+  color: $darkText;
+  margin-bottom: 40px;
+  text-transform: uppercase;
 }
+
 .loading,
 .error {
   font-size: 18px;
@@ -171,7 +192,7 @@
 }
 
 .loading {
-  color: #653e84;
+  color: $primary;
 }
 
 .error {
@@ -186,20 +207,20 @@
   .contentTitle {
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: $darkText;
     margin-bottom: 15px;
   }
 
   .imageGrid {
     display: flex;
-    flex-direction: column; /* Stack images in a column */
+    flex-direction: column;
     gap: 15px;
 
     .imageItem {
       position: relative;
       overflow: hidden;
       border: 1px solid #ddd;
-      border-radius: 8px;
+      border-radius: $borderRadius;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       background-color: #fff;
 
@@ -210,59 +231,61 @@
       }
 
       .fileInput {
-        margin-top: 10px; /* Add space between image and input */
+        margin-top: 10px;
         padding: 5px;
         cursor: pointer;
         width: 60%;
-        align-self: center; /* Center the input below the image */
+        align-self: center;
       }
     }
   }
 }
 
-
+/* Dark Mode Support */
 :global(body.dark-mode) {
-  .firstheader {
-    color: #a9a9a9;
+  .firstheader,
+  .header,
+  .label {
+    color: $lightText;
   }
+
   .button {
     background-color: transparent;
-    color: #a9a9a9;
-    border: #a9a9a9 2px solid;
+    color: $lightText;
+    border-color: $lightText;
+
     &:hover {
-      background-color: #8c62a9;
+      background-color: $hover;
       color: #000000;
-      border: #b4b4b4 2px solid;
+      border-color: lighten($hover, 10%);
     }
   }
+
   .contentItem {
-    background-color: #161616;
+    background-color: $cardDarkBg;
     border: none;
   }
+
   .contentTitle {
-    color: #8c62a9;
+    color: lighten($primary, 10%);
   }
-  .label {
-    color: #b4b4b4;
-  }
+
   .input,
   .textarea {
-    color: #b4b4b4;
-    border: 1px solid #b4b4b4;
-    background-color: #161616;
+    color: $lightText;
+    border: 1px solid $lightText;
+    background-color: $cardDarkBg;
   }
-  .header {
-    color: #b4b4b4;
-  }
+
   .savebutton {
-    border: 2px solid #8c62a9;
-    background-color: #8c62a9;
+    background-color: lighten($primary, 10%);
+    border-color: lighten($primary, 10%);
     color: white;
 
     &:hover {
       background-color: transparent;
-      color: #8c62a9;
-      border: 2px solid #8c62a9;
+      color: lighten($primary, 10%);
+      border-color: lighten($primary, 10%);
     }
   }
 }
