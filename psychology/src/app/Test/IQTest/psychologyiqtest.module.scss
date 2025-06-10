@@ -188,7 +188,6 @@ $transition: 0.3s ease-in-out;
   background: $cardBg;
   padding: 30px 25px;
   border-radius: $borderRadius;
-  max-width: 480px;
   width: 90%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   color: $darkText;
@@ -213,7 +212,6 @@ $transition: 0.3s ease-in-out;
   }
 
   button {
-
     margin-top: 15px;
     padding: 10px 18px;
     border-radius: $borderRadius;
@@ -281,4 +279,112 @@ h2 {
   text-align: center;
   margin: 0 auto 10px auto;
   width: 100%;
+}
+
+@media (max-width:768px) {
+  .maincontainer {
+    padding-left: 20px;
+    width: 400px;
+  }
+  .linkIQliinks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .testResultsLink{
+    width: 100px;
+    font-size: 10px;
+    margin-top: 10px;
+  }
+  .table {
+    width: 400px;
+    padding: 0;
+    margin: 0;
+
+    th {
+      padding: 3px;
+      font-size: 8px;
+    }
+    
+    td {
+      font-size: 8px;
+      text-align: justify;
+      justify-content: center;
+    }
+  }
+
+  .choice img {
+    width: 40px;
+    height: 25px;
+  }
+
+  .answer img {
+    width: 50px;
+    height: 90px;
+  }
+
+  .question img {
+    width: 60px;
+    height: 120px;
+  }
+  .editButton{
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+  .modalContent{
+    width: 400px;
+    margin-right: 50px;
+   padding: 10px;
+
+    h2{
+      font-size: 15px;
+    }
+   
+    h3{
+      font-size: 10px;
+    }
+    label{
+      font-size: 20px;
+    }
+    .questionContainer{
+      display: flex;
+    }
+    .questionImageModal{
+      width:120px;
+      justify-content: center;
+    }
+    .customFileLabel{
+      width: 80px;
+      height: 20px;
+      font-size: 12px;
+    }
+    .choiceContainer{
+      display: flex;
+      flex-direction: column;
+    }
+    .choiceImageContainer{
+      display: flex;
+    }
+    .choiceImageModal{
+      width:120px;
+    }
+    .customFileInput{
+      width: 180px;
+      height: 20px;
+      font-size: 12px;
+    }
+    .answerContainer{
+      display: flex;
+      flex-direction: column;
+    }
+    .answerImageContainer{
+      display: flex;
+     
+    }
+    .answerImageModal{
+      width:120px;
+    }
+  }
+  
 }
