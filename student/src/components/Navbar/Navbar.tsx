@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import style from "./studentNavbar.module.scss";
-import DarkMode from "../../darkMode/darkMode";
 
 import homeIcon from "../../images/home-page.png";
 import testIcon from "../../images/questionnaire.png";
@@ -9,36 +8,44 @@ import omrIcon from "../../images/camera.png";
 import resultIcon from "../../images/results.png";
 import surveyIcon from "../../images/survey.png";
 import consultationIcon from "../../images/conversation.png";
+import logoImage from "../../images/LOGOnewDark.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 900);
-      if (window.innerWidth > 900) {
-        setIsMenuOpen(false);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prevState) => !prevState);
+  const handleIconClick = () => {
+    if (window.innerWidth <= 768) {
+      setIsMobileSidebarOpen(false);
+    } else {
+      setIsSidebarExpanded(true);
+    }
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen((prevState) => !prevState);
+  const handleCloseSidebar = () => {
+    setIsSidebarExpanded(false);
+    setIsMobileSidebarOpen(false);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        handleCloseSidebar();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const navLinks = [
     { to: "/home", label: "Home", icon: homeIcon },
@@ -50,110 +57,76 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={style.studentNavbar}>
-      <div className={style.logoSection}>
-        <h1>DiscoverU</h1>
-      </div>
+    <>
+      <button className={style.burgerButton} onClick={() => setIsMobileSidebarOpen(true)}>
+        <span className={style.burgerLines}></span>
+        <span className={style.burgerLines}></span>
+        <span className={style.burgerLines}></span>
+      </button>
 
-      {isMobile ? (
-        <button className={style.burgerMenu} onClick={toggleMenu}>
-          &#9776;
-        </button>
-      ) : (
-        <>
-          <div className={style.navigationSection}>
-            <ul className={style.navList}>
-              {navLinks.map((link) => (
-                <li className={style.navItem} key={link.to}>
-                  <NavLink
-                    to={link.to}
-                    className={({ isActive }) =>
-                      isActive ? `${style.navLink} ${style.active}` : style.navLink
-                    }
-                  >
-                    <img src={link.icon} alt={`${link.label} icon`} className={style.navIcon} />
-                    {link.label}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className={style.navRight}>
-            <div className={style.dropdown}>
-              <button className={style.dropdownToggle} onClick={toggleDropdown}>
-                <img
-                  src="https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper-thumbnail.png"
-                  alt="Account"
-                  className={style.accountImage}
-                />
-                <span className={style.arrowIcon}>&#9662;</span>
-              </button>
-              {isDropdownOpen && (
-                <ul className={style.dropdownMenu}>
-                  <li>
-                    <NavLink to="/profile" className={style.settingsDesk}>
-                      Settings
-                    </NavLink>
-                  </li>
-                  <li>
-                    <DarkMode />
-                  </li>
-                  <li>
-                    <button onClick={handleLogout} className={style.logoutDesk}>
-                      Logout
-                    </button>
-                  </li>
-                </ul>
-              )}
-            </div>
-          </div>
-        </>
+      {isMobileSidebarOpen && (
+        <div className={style.overlay} onClick={handleCloseSidebar}></div>
       )}
 
-      {isMobile && isMenuOpen && (
-        <div className={style.mobileMenu}>
+      <nav
+        className={`${style.studentNavbar} ${
+          isMobileSidebarOpen
+            ? style.mobileOpen
+            : isSidebarExpanded
+            ? style.expanded
+            : style.collapsed
+        }`}
+        ref={sidebarRef}
+      >
+        <div className={style.logoSection}>
+          {isSidebarExpanded || isMobileSidebarOpen ? (
+            <>
+              <h1>DiscoverU</h1>
+              <p>Psychology</p>
+            </>
+          ) : (
+            <img src={logoImage} alt="DiscoverU Logo" className={style.logoImage} />
+          )}
+        </div>
+
+        <div className={style.navigationSection}>
           <ul className={style.navList}>
             {navLinks.map((link) => (
-              <li className={style.navItem} key={link.to}>
+              <li
+                className={style.navItem}
+                key={link.to}
+                onClick={handleIconClick}
+                data-label={link.label} 
+              >
                 <NavLink
                   to={link.to}
                   className={({ isActive }) =>
                     isActive ? `${style.navLink} ${style.active}` : style.navLink
                   }
-                  onClick={() => setIsMenuOpen(false)}
                 >
-                  {link.label}
+                  <img
+                    src={link.icon}
+                    alt={`${link.label} icon`}
+                    className={style.navIcon}
+                  />
+                  {(isSidebarExpanded || isMobileSidebarOpen) && (
+                    <span className={style.span}>{link.label}</span>
+                  )}
                 </NavLink>
               </li>
             ))}
           </ul>
-          <div className={style.dropdownMenu}>
-          <NavLink
-  to="/profile"
-  className={style.settingsMobile}
-  onClick={() => setIsMenuOpen(false)} // CLOSE MENU ON CLICK
->
-  Settings
-</NavLink>
-
-<div onClick={() => setIsMenuOpen(false)}>
-  <DarkMode />
-</div>
-
-<button
-  onClick={() => {
-    setIsMenuOpen(false); // CLOSE MENU ON CLICK
-    handleLogout();
-  }}
-  className={style.logoutMobile}
->
-  Logout
-</button>
-
-          </div>
         </div>
-      )}
-    </nav>
+
+        {(isSidebarExpanded || isMobileSidebarOpen) && (
+          <div className={style.navRight}>
+            <button onClick={handleLogout} className={style.logoutButton}>
+              Logout
+            </button>
+          </div>
+        )}
+      </nav>
+    </>
   );
 };
 
