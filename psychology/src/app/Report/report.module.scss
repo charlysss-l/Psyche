@@ -196,11 +196,11 @@
     flex-direction: column;
   }
   .table{
-    max-width: 450px;
+    max-width: auto;
   }
 
   .infoBox {
-    max-width: 450px;
+    max-width: auto;
 
     p {
       font-size: 1rem;
@@ -212,7 +212,7 @@
   }
 
   .allTest {
-    max-width: 100%;
+    max-width: auto;
 
     .table {
       font-size: 13px;
@@ -225,7 +225,7 @@
   }
 
   .reportContainer {
-    max-width: 400px;
+    max-width: auto;
 
 
   }
