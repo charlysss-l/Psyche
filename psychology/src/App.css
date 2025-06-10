@@ -11,6 +11,7 @@ body.dark-mode {
   display: flex;
   min-height: 100vh;
   padding: 0;
+  padding-left: 60px;
 }
 
 .main-content {

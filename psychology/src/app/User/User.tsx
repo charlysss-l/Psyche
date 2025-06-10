@@ -22,7 +22,6 @@ const User = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [activeRoleIndex, setActiveRoleIndex] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
   const activeRole = roles[activeRoleIndex];
 
   useEffect(() => {
