@@ -5,16 +5,12 @@ body {
 .mainContainer {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #2c2c2c;
-  user-select: none;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: auto;
+  overflow-y: auto;
   padding-left: 60px;
-  padding-right: 20px;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow-y:hidden;
 }
 
 .reportHeader {
@@ -34,16 +30,17 @@ body {
 
 .dashboardRow {
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   width: 100%;
-  justify-content: center;
-  align-items: center;
+  margin-bottom: 20px;
+  padding-left: 10px;
 }
 
 .allTest {
-  flex: 2 1 0;
-  min-width: 300px;
-  max-width: 100%;
-  padding-left: 30px;
+  flex: 1 1 100%;
+  padding-left: 0;
+  padding-right: 0;
 
   .table {
     width: 100%;
@@ -149,16 +146,9 @@ body {
 }
 
 .reportContainer {
-  display: flex;
-  gap: 10px;
+  flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 20px;
   justify-content: center;
-  padding-bottom: 40px;
-  max-width: 100%;
-  box-sizing: border-box;
-  flex-direction: column;
-  align-items: center;
 
   .bottom{
     display: flex;
@@ -226,65 +216,32 @@ body {
   }
 }
 
-/* Responsive styles */
+
+/* Mobile screens */
 @media (max-width: 768px) {
-  .mainContainer {
-    padding-left: 0;
-    padding-right: 20px;
+  .mainContainer{
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
   }
-
-  .dashboardRow {
-    flex-direction: column;
-  }
-  .table{
-    max-width: auto;
-  }
-
-  .infoBox {
-    max-width: auto;
-
-    p {
-      font-size: 1rem;
-    }
-
-    .count {
-      font-size: 2rem;
-    }
-  }
-
-  .allTest {
-    max-width: auto;
-
-    .table {
-      font-size: 13px;
-
-      thead th,
-      tbody td {
-        padding: 8px 6px;
-      }
-    }
-  }
-
-  .reportContainer {
-    max-width: auto;
-
-
-  }
-}
-
-/* Extra small devices */
-@media (max-width: 400px) {
   .reportHeader {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    width: 400px;
+
+  }
+  .infoBox {
+    padding: 15px;
+    width: 400px;
   }
 
   .infoBox .count {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .infoBox .seeButton {
-    padding: 10px 18px;
     font-size: 0.9rem;
+    padding: 8px 15px;
   }
 
   .allTest .table {
@@ -296,52 +253,29 @@ body {
     }
   }
 
-
+  .reportContainer .bottom {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
-/* Dark mode override */
-:global(body.dark) {
-  .mainContainer {
-    color: #ddd;
-    background-color: #1a1a1a;
+/* Extra small screens */
+@media (max-width: 400px) {
+  .reportHeader {
+    font-size: 1.2rem;
+    padding: 8px;
+  }
+
+  .infoBox .count {
+    font-size: 1.4rem;
+  }
+
+  .infoBox .seeButton {
+    font-size: 0.85rem;
+    padding: 6px 12px;
   }
 
   .allTest .table {
-    background-color: #2c2c2c;
-    box-shadow: none;
-
-    thead {
-      background-color: #8e7cc3;
-    }
-
-    tbody tr:hover {
-      background-color: #3a3a3a;
-    }
-
-    tbody td {
-      color: #ccc;
-    }
-  }
-
-  .infoBox {
-    background-color: #2c2c2c;
-    color: #ccc;
-
-    .count {
-      color: #9f86ff;
-    }
-
-    .seeButton {
-      background-color: #9f86ff;
-
-      &:hover {
-        background-color: #7b66d9;
-      }
-    }
-  }
-
-  .reportContainer .resultSection {
-    background-color: #2c2c2c;
-    box-shadow: none;
+    font-size: 11px;
   }
 }
