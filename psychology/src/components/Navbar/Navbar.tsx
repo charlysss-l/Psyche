@@ -9,6 +9,7 @@ import surveyIcon from "../../images/survey.png";
 import userIcon from "../../images/user.png";
 import contentIcon from "../../images/notes.png";
 import logoImage from "../../images/LOGOnewDark.png";
+import settingIcon from "../../images/setting.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -54,19 +55,17 @@ const Navbar = () => {
     { to: "/surveyDashboard", label: "Survey", icon: surveyIcon },
     { to: "/user", label: "User", icon: userIcon },
     { to: "/contentEditor", label: "Content", icon: contentIcon },
-    { to: "/profile", label: "Profile", icon: contentIcon },
+    { to: "/profile", label: "Settings", icon: settingIcon },
   ];
 
   return (
     <>
-      {/* Burger button for mobile */}
       <button className={style.burgerButton} onClick={() => setIsMobileSidebarOpen(true)}>
         <span className={style.burgerLines}></span>
         <span className={style.burgerLines}></span>
         <span className={style.burgerLines}></span>
       </button>
 
-      {/* Overlay when mobile sidebar is open */}
       {isMobileSidebarOpen && (
         <div className={style.overlay} onClick={handleCloseSidebar}></div>
       )}
@@ -95,7 +94,12 @@ const Navbar = () => {
         <div className={style.navigationSection}>
           <ul className={style.navList}>
             {navLinks.map((link) => (
-              <li className={style.navItem} key={link.to} onClick={handleIconClick}>
+              <li
+                className={style.navItem}
+                key={link.to}
+                onClick={handleIconClick}
+                data-label={link.label} 
+              >
                 <NavLink
                   to={link.to}
                   className={({ isActive }) =>
