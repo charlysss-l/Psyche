@@ -14,7 +14,7 @@
 
 .tableUser {
   width: 90%;
-  border-collapse: separate; /* Change from collapse to separate for spacing */
+  border-collapse: separate; 
   border-spacing: 0 15px;
   background-color: none;
   text-align: center;
@@ -606,4 +606,36 @@
   .searchInput::placeholder {
     color: #969696;
   }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .userContainer{
+    padding-left: 80px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+  .responsesWrapper{
+    width:600px;
+
+    .tableUser{
+      width: 400px;
+      padding: 10px;
+    }
+    th{
+      font-size: 10px;
+    }
+    td{
+      font-size: 10px;
+      text-align: justify;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
 }
