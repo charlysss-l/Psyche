@@ -617,24 +617,29 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
   }
   .responsesWrapper{
     width:600px;
+    overflow-y: 0;
+    overflow-x: 0;
+    height: auto;
 
     .tableUser{
-      width: 400px;
-      padding: 10px;
+      padding-left: 60px;
+      width: 600px;
     }
     th{
       font-size: 10px;
     }
+
     td{
       font-size: 10px;
       text-align: justify;
       justify-content: center;
       align-items: center;
       text-align: center;
+      padding: 1px;
+      margin: 1px;
     }
   }
 
