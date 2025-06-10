@@ -6,6 +6,8 @@ import styles from './report.module.scss';
 import backendUrl from "../../config";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import leftArrow from '../../images/arrow.png';
+import rightArrow from '../../images/right-arrow.png';
 
 interface IQTests {
   _id: string;
@@ -197,39 +199,35 @@ const Report = () => {
         </section>
       </div>
 
-      <div className={styles.reportContainer} style={{ flexDirection: "column", alignItems: "center" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "20px", marginBottom: "10px" }}>
-          <button
-            onClick={handlePrevGraph}
-            style={{
-              cursor: "pointer",
-              fontSize: "30px",
-              background: "none",
-              border: "none",
-              userSelect: "none",
-              color:"#653e84",
-              padding: "5px 50px",
-            }}
-            aria-label="Previous graph"
-          >
-            &lt;
-          </button>
-          <h2 style={{ margin: 0, color: "black", fontSize: "20px" }}>{getGraphTitle()}</h2>
-          <button
-            onClick={handleNextGraph}
-            style={{
-              cursor: "pointer",
-              fontSize: "30px",
-              background: "none",
-              border: "none",
-              userSelect: "none",
-              color:"#653e84",
-              padding: "5px 50px",
-            }}
-            aria-label="Next graph"
-          >
-            &gt;
-          </button>
+      <div className={styles.reportContainer}>
+        <div className={styles.repCon1}>
+        <div className={styles.repCon2}>
+            <button
+            className={styles.buttonLeft}
+              onClick={handlePrevGraph}
+              aria-label="Previous graph"
+            >
+              <img
+                src={leftArrow}
+                alt="Previous"
+                style={{ width: "40px", height: "40px" }}
+              />
+            </button>
+
+            <h2 style={{ margin: 0, color: "black", fontSize: "20px" }}>{getGraphTitle()}</h2>
+
+            <button
+             className={styles.buttonRight}
+              onClick={handleNextGraph}
+              aria-label="Next graph"
+            >
+              <img
+                src={rightArrow}
+                alt="Next"
+                style={{ width: "40px", height: "40px" }}
+              />
+            </button>
+          </div>
         </div>
 
         <section

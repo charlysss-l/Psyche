@@ -34,6 +34,7 @@
   justify-content: center;
   align-items: center;
   margin: 10px 0;
+  gap:40px;
 
   .switchButton {
     padding: 5px 50px;
@@ -45,9 +46,26 @@
     background-color: transparent;
     font-weight: bold;
   }
-  .switchButton:hover {
-    color: #8647ba;
+
+  .buttonLeft{
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
   }
+  .buttonLeft:hover{
+   border-bottom: 1px solid #563d88;
+  }
+  
+  .buttonRight{
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .buttonRight:hover{
+    border-bottom: 1px solid #563d88;
+   }
 
   .activeRole {
     font-weight: bold;

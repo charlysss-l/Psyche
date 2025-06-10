@@ -176,8 +176,42 @@
       }
     }
   }
-  .reportContainer {
-    flex-direction: column;
+}
+.reportContainer {
+  flex-direction: column;
+  align-items: center;
+
+  .repCon1{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  .repCon2{
+    display: flex;
+    align-items: center;
+    gap:40px;
+    margin-bottom: 10px;
+    
+    .buttonLeft{
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .buttonLeft:hover{
+     border-bottom: 1px solid #563d88;
+    }
+    
+    .buttonRight{
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .buttonRight:hover{
+      border-bottom: 1px solid #563d88;
+     }
   }
 }
 

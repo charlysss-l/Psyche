@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import style from "./psychologyuser.module.scss";
 import backendUrl from "../../config";
+import leftArrow from '../../images/arrow.png';
+import rightArrow from '../../images/right-arrow.png';
 
 interface User {
   userId: string;
@@ -134,9 +136,21 @@ const User = () => {
       {errorMessage && <div className={style.errorMessage}>{errorMessage}</div>}
 
       <div className={style.roleSwitcher}>
-        <button onClick={() => handleSwitchRole("prev")} className={style.switchButton}>&lt;</button>
+        <button onClick={() => handleSwitchRole("prev")} className={style.buttonLeft}>
+          <img
+            src={leftArrow}
+            alt="Previous"
+            style={{ width: "40px", height: "40px" }}
+            />
+        </button>
         <span className={style.activeRole}>{activeRole}</span>
-        <button onClick={() => handleSwitchRole("next")} className={style.switchButton}>&gt;</button>
+        <button onClick={() => handleSwitchRole("next")} className={style.buttonRight}>
+        <img
+            src={rightArrow}
+            alt="Previous"
+            style={{ width: "40px", height: "40px" }}
+            />
+        </button>
       </div>
       
       <div className={style.responsesWrapper}>
