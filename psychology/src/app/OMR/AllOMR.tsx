@@ -9,7 +9,7 @@ const AllOMR = () => {
       
 
         <div className={styles.OMRbutton}>
-              <Link to="/pfomr" className={styles.OMRlinkOnline}>Personality Test</Link>
+              <Link to="/pfomr" className={styles.OMRLinkUpload}>Personality Test</Link>
               <Link to="/iqomr" className={styles.OMRLinkUpload}>IQ Test</Link>
               <Link to="/cfomr" className={styles.OMRLinkUpload}>CF Test</Link>
 
