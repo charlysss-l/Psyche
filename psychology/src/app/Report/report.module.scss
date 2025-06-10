@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
 body {
   background: linear-gradient(to bottom, #f5f5fa, #ffffff);
 }
 
 .mainContainer {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #2c2c2c;
   display: flex;
   flex-direction: column;
@@ -11,6 +13,7 @@ body {
   height: auto;
   overflow-y: auto;
   padding-left: 60px;
+  overflow-x: hidden;
 }
 
 .reportHeader {

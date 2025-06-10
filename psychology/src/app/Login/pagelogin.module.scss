@@ -1,3 +1,6 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
 $background-color: #97212100;
 $font-color: #727272;
 
@@ -74,7 +77,7 @@ $font-color: #727272;
   margin-left: 50px;
   max-width: 400px;
   width: 100%;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', sans-serif;
   animation: fadeIn 1.5s ease-out 0.5s;
   animation-fill-mode: both;
 }
@@ -207,7 +210,7 @@ $font-color: #727272;
   label {
     color: black;
     margin-bottom: 2px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin-top: 20px;
     font-size: 1rem;
   }

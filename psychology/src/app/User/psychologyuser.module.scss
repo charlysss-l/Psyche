@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 .userContainer {
   user-select: none;
 }
@@ -8,7 +9,7 @@
   margin-bottom: 1.3rem;
   margin-top: 4rem;
   text-align: center;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Poppins', sans-serif;
   user-select: none;
 }
 
@@ -19,7 +20,7 @@
   background-color: none;
   text-align: center;
   border-radius: 10px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin: 5px auto;
   user-select: none;
   .th{
@@ -126,7 +127,7 @@
   font-size: 0.9rem;
   border-radius: 4px;
   cursor: pointer;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Poppins', sans-serif;
   transition: background-color 0.3s, color 0.3s;
 
   &:hover {

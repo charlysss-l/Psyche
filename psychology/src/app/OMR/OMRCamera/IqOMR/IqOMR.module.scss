@@ -1,4 +1,6 @@
-// OMRCamera.module.scss
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
 
 .mainContainer {
   display: flex;
@@ -28,6 +30,7 @@
     color: #704191;
     margin-bottom: 20px;
     font-size: 28px;
+    font-family: 'Poppins', sans-serif;
   }
 }
 
@@ -46,6 +49,7 @@
   h1 {
     color: #704191;
     text-align: center;
+    font-family: 'Poppins', sans-serif;
   }
 
   p {
@@ -53,6 +57,7 @@
     line-height: 1.5;
     margin-bottom: 10px;
     color: #070707;
+    font-family: 'Poppins', sans-serif;
   }
 }
 

@@ -1,11 +1,13 @@
-// SCSS Variables for consistency
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+
 $form-bg-color: #f6f5f5; // Set form background to #F6F5F5
 $primary-color: #7ea0b7; // Primary color for buttons and focus
 $border-radius: 5px;
 $input-border-color: #45474b; // Darker border for the input fields
 $input-focus-border-color: $primary-color; // Focus color for inputs
 $header-text-color: #45474b; // Color for "SAMPLE CF TEST"
-$font-family: Arial, sans-serif;
+$font-family: 'Poppins', sans-serif;
 
 .formTest {
   background-color: #fffdfd;
@@ -32,7 +34,7 @@ $font-family: Arial, sans-serif;
   border-radius: $border-radius;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   color: $input-border-color; // Text color set to $input-border-color
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   width: 1000px;
 }
 
@@ -60,7 +62,7 @@ label {
   display: block;
   margin: 10px 0;
   color: $input-border-color;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   // Label text color set to $input-border-color
 }
 

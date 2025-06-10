@@ -48,19 +48,16 @@
   }
 
   .leftMeaning {
-    color: rgb(218, 185, 0);
     font-weight: bold;
     font-size: 13px;
 }
 
 .rightMeaning {
-    color: green;
     font-weight: bold;
     font-size: 13px;
 }
 
 .average {
-    color: gray;
     font-style: italic;
     font-size: 13px;
 }
@@ -269,9 +266,9 @@
 
 .viewImageButton {
   width: 80px;
-  background-color: #bbae3c;
+  background-color: #815aa5;
   color: white;
-  border:1px solid #bbae3c;
+  border:1px solid #4c296c;
   padding: 5px 15px;
   border-radius: 5px;
   cursor: pointer;
@@ -280,8 +277,8 @@
 
 .viewImageButton:hover{
   background-color: transparent;
-  color: #bbae3c;
-  border:1px solid #bbae3c;
+  color: #815aa5;
+  border:1px solid #815aa5;
 }
 
 .modalImageView {
