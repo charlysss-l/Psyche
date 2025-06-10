@@ -287,11 +287,15 @@ h2 {
 
 @media (max-width:768px) {
   .maincontainer {
-    width: 400px;
-    padding-left: 20px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
   .table{
-    width:700px;
+    width:670px;
     padding: 0;
     margin-left:1px;
    
@@ -305,17 +309,21 @@ h2 {
       justify-content: center;
     }
   }
-  .linkIQliinks{
+  .linkCFliinks{
     display: flex;
-    justify-content: center;
     align-items: center;
     text-align: center;
+
   }
 
   .testResultsLink{
     width: 100px;
     font-size: 10px;
     margin-top: 10px;
+  }
+  .questionImg{
+    width: 80%;
+    height: auto;
   }
 
 }
