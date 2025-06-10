@@ -112,3 +112,12 @@ $transition: 0.3s ease-in-out;
     }
   }
 }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .TestCard{
+    height: 70%;
+    margin: 0;
+    padding: 10px;
+  }
+}
