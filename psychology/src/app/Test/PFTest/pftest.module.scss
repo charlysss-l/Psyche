@@ -205,20 +205,28 @@ div[style*='margin-top'] {
     width: 400px;
   }
 
+  .inkPFTestList{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    .testResultsLink{
+      font-size: 10px;
+    }
+  }
   .table {
-    width: 400px;
+    width: 600px;
     padding: 100px;
 
     th{
       padding: 3px;
-      font-size: 10px;
+      font-size: 12px;
     }
     td{
-      font-size: 10px;
+      font-size: 11px;
       text-align: justify;
       justify-content: center;
       align-items: center;
-      text-align: center;
     }
     .editPF{
       justify-content: center;
