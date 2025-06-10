@@ -186,57 +186,48 @@ const Report = () => {
           </table>
         </section>
 
-        <section className={styles.infoBox}>
-          <p>Total Surveys</p>
-          <span className={styles.count}>{surveys.length}</span>
-          <button className={styles.seeButton} onClick={() => navigate("/surveyDashboard")}>See Surveys</button>
-        </section>
 
-        <section className={styles.infoBox}>
-          <p>Total Users</p>
-          <span className={styles.count}>{users.length}</span>
-          <button className={styles.seeButton} onClick={() => navigate("/user")}>See Users</button>
-        </section>
+        
       </div>
 
       <div className={styles.reportContainer}>
-        <div className={styles.repCon1}>
-        <div className={styles.repCon2}>
-            <button
-            className={styles.buttonLeft}
-              onClick={handlePrevGraph}
-              aria-label="Previous graph"
-            >
-              <img
-                src={leftArrow}
-                alt="Previous"
-                style={{ width: "40px", height: "40px" }}
-              />
-            </button>
+          <div className={styles.bottom}>
+            <div className={styles.leftColumn}>
+              <section className={styles.infoBox}>
+                <p>Total Surveys</p>
+                <span className={styles.count}>{surveys.length}</span>
+                <button className={styles.seeButton} onClick={() => navigate("/surveyDashboard")}>
+                  See Surveys
+                </button>
+              </section>
 
-            <h2 style={{ margin: 0, color: "black", fontSize: "20px" }}>{getGraphTitle()}</h2>
+              <section className={styles.infoBox}>
+                <p>Total Users</p>
+                <span className={styles.count}>{users.length}</span>
+                <button className={styles.seeButton} onClick={() => navigate("/user")}>
+                  See Users
+                </button>
+              </section>
+            </div>
 
-            <button
-             className={styles.buttonRight}
-              onClick={handleNextGraph}
-              aria-label="Next graph"
-            >
-              <img
-                src={rightArrow}
-                alt="Next"
-                style={{ width: "40px", height: "40px" }}
-              />
-            </button>
+            <div className={styles.graphColumn}>
+              <div className={styles.repCon2}>
+                <button className={styles.buttonLeft} onClick={handlePrevGraph}>
+                  <img src={leftArrow} alt="Previous" />
+                </button>
+                <h2 style={{ margin: 0, color: "black", fontSize: "20px" }}>{getGraphTitle()}</h2>
+                <button className={styles.buttonRight} onClick={handleNextGraph}>
+                  <img src={rightArrow} alt="Next" />
+                </button>
+              </div>
+
+              <section className={styles.resultSection}>
+                {renderGraph()}
+              </section>
+            </div>
           </div>
         </div>
 
-        <section
-          className={styles.resultSection}
-          style={{ width: "100%", maxWidth: "900px" }}
-        >
-          {renderGraph()}
-        </section>
-      </div>
     </div>
   );
 };
