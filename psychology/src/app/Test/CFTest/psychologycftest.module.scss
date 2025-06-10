@@ -284,3 +284,38 @@ h2 {
   margin: 0 auto 10px auto;
   width: 100%;
 }
+
+@media (max-width:768px) {
+  .maincontainer {
+    width: 400px;
+    padding-left: 20px;
+  }
+  .table{
+    width:700px;
+    padding: 0;
+    margin-left:1px;
+   
+    th {
+      padding: 3px;
+      font-size: 8px;
+    }
+    td {
+      font-size: 8px;
+      text-align: justify;
+      justify-content: center;
+    }
+  }
+  .linkIQliinks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .testResultsLink{
+    width: 100px;
+    font-size: 10px;
+    margin-top: 10px;
+  }
+
+}

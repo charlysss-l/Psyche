@@ -407,7 +407,7 @@ const CFTest: React.FC = () => {
                             <td className={style.td}>{q.questionID}</td>
                             <td className={style.td}>{q.questionSet}</td>
                             <td className={style.question}>
-                                <img src={q.questionImage} alt="Question" />
+                                <img className={style.questionImg} src={q.questionImage} alt="Question"/>
                             </td>
                             <td className={style.choice}>
                                 {q.choicesImage.map((choiceImage, index) => (
