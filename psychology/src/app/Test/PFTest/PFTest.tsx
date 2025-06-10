@@ -154,6 +154,7 @@ const PFTest: React.FC = () => {
           ))}
         </tbody>
       </table>
+      
       <div className={style.inkPFTestList}>
         <Link to="/all-pf-test-list" className={style.testResultsLink}>
           Test Results

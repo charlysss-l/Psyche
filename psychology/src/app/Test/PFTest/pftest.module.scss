@@ -79,6 +79,8 @@ $transition: 0.3s ease-in-out;
   cursor: pointer;
   font-weight: 600;
   transition: background-color $transition;
+  text-transform: uppercase;
+  margin-top: 10px;
 
   &:hover {
     background-color: $hover;
@@ -197,3 +199,50 @@ div[style*='margin-top'] {
   }
 }
 
+@media (max-width: 768px) {
+  .maincontainer {
+    padding-left: 20px;
+    width: 400px;
+  }
+
+  .table {
+    width: 400px;
+    padding: 100px;
+
+    th{
+      padding: 3px;
+      font-size: 10px;
+    }
+    td{
+      font-size: 10px;
+      text-align: justify;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .editPF{
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+  }
+
+  .testResultsLink {
+    margin: 0px;
+    gap: 10px;
+    text-align: center;
+
+    .testResultsLink{
+      width: 100px;
+      padding: 10px;
+      margin: 10px;
+    }
+  }
+
+  .modalContent {
+    width: 400px;
+    margin-top: 140px;
+  }
+}
