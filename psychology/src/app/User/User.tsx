@@ -12,7 +12,6 @@ interface User {
 }
 
 const roles = ["Student", "Psychology", "Guidance"];
-const usersPerPage = 5;
 
 const User = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -22,6 +21,7 @@ const User = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [activeRoleIndex, setActiveRoleIndex] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
   const activeRole = roles[activeRoleIndex];
 
   useEffect(() => {
@@ -92,7 +92,7 @@ const User = () => {
   };
 
   const handleSwitchRole = (direction: "prev" | "next") => {
-    setCurrentPage(1); // Reset page when switching role
+    setCurrentPage(1);
     setActiveRoleIndex((prev) => {
       if (direction === "prev") {
         return prev === 0 ? roles.length - 1 : prev - 1;
@@ -102,23 +102,41 @@ const User = () => {
     });
   };
 
+  const getUsersPerPage = () => {
+    if (activeRole === "Student") {
+      return 5;
+    }
+    return 5;
+  };
+
   const filteredUsers = users.filter(
     (user) =>
       user.role === activeRole &&
       [user.userId, user.studentNumber, user.email].join(" ").toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const usersPerPage = getUsersPerPage();
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
   const paginatedUsers = filteredUsers.slice(
     (currentPage - 1) * usersPerPage,
     currentPage * usersPerPage
   );
 
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   return (
     <div className={style.userContainer}>
       <h2 className={style.userTitle}>User Management</h2>
-
-
       <p className={style.userCount}>Total {activeRole} Users: {filteredUsers.length}</p>
 
       <div className={style.searchInputContainer}>
@@ -136,22 +154,14 @@ const User = () => {
 
       <div className={style.roleSwitcher}>
         <button onClick={() => handleSwitchRole("prev")} className={style.buttonLeft}>
-          <img
-            src={leftArrow}
-            alt="Previous"
-            style={{ width: "40px", height: "40px" }}
-            />
+          <img src={leftArrow} alt="Previous" style={{ width: "40px", height: "40px" }} />
         </button>
         <span className={style.activeRole}>{activeRole}</span>
         <button onClick={() => handleSwitchRole("next")} className={style.buttonRight}>
-        <img
-            src={rightArrow}
-            alt="Previous"
-            style={{ width: "40px", height: "40px" }}
-            />
+          <img src={rightArrow} alt="Next" style={{ width: "40px", height: "40px" }} />
         </button>
       </div>
-      
+
       <div className={style.responsesWrapper}>
         <table className={style.tableUser}>
           <thead>
@@ -188,22 +198,18 @@ const User = () => {
         </table>
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className={style.pagination}>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`${style.pageButton} ${currentPage === i + 1 ? style.activePage : ""}`}
-            >
-              {i + 1}
-            </button>
-          ))}
+          <button onClick={handlePrevPage} disabled={currentPage === 1} className={style.pageButton}>
+            Previous
+          </button>
+          <span className={style.pageInfo}>Page {currentPage} of {totalPages}</span>
+          <button onClick={handleNextPage} disabled={currentPage === totalPages} className={style.pageButton}>
+            Next
+          </button>
         </div>
       )}
 
-      {/* Edit Modal */}
       {editUser && (
         <div className={style.modal}>
           <div className={style.modalContent}>

@@ -77,21 +77,35 @@
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-
-  .pageButton {
-    padding: 5px 10px;
-    margin: 0 3px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background-color: #f0f0f0;
-  }
-
-  .activePage {
-    background-color: #333;
-    color: white;
-  }
+  align-items: center;
+  gap: 15px;
 }
+
+.pageButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #563d88;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pageButton:hover:not(:disabled) {
+  background-color: #563d88;
+}
+
+.pageButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 
 @media (max-width: 768px) {
   .tableUser th,
