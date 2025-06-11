@@ -45,6 +45,7 @@ import IntroIQ from "./app/Test/IQTest/IntroIQ/IntroIQ";
 import IntroCF from "./app/Test/CFTest/IntroCF/IntroCF";
 import ForgotPassword from "./app/Login/forgotPassword/forgotPassword";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import SurveyIntro from "./app/Survey/surveyIntro/surveyIntro";
 
 
 function App() {
@@ -77,6 +78,7 @@ function App() {
                       <Route path="/consultation" element={<ProtectedRoute><Consultation /></ProtectedRoute>} />
                       <Route path="/online-consult/:testID"element={<ProtectedRoute><OnlineConsult /></ProtectedRoute>} />
                       <Route path="/archive" element={<ProtectedRoute><ArchiveInbox /></ProtectedRoute>} />
+                      <Route path="/surveyIntro" element={<ProtectedRoute><SurveyIntro /></ProtectedRoute>} />
                       <Route path="/surveyDashboard" element={<ProtectedRoute><StudentDashboard /></ProtectedRoute>} />
                       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                       <Route path="/omr" element={<ProtectedRoute><OMR /></ProtectedRoute>} />
