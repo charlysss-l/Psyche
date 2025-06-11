@@ -8,7 +8,7 @@ import omrIcon from "../../images/camera.png";
 import resultIcon from "../../images/results.png";
 import surveyIcon from "../../images/survey.png";
 import consultationIcon from "../../images/conversation.png";
-import logoImage from "../../images/LOGOnewDark.png";
+import logoImage from "../../images/logoPNG.png";
 import settingIcon from "../../images/setting.png";
 
 
