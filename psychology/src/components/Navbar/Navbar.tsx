@@ -52,9 +52,9 @@ const Navbar = () => {
     { to: "/report", label: "Report", icon: reportIcon },
     { to: "/test", label: "Test", icon: testIcon },
     { to: "/omr", label: "OMR", icon: omrIcon },
-    { to: "/surveyDashboard", label: "Survey", icon: surveyIcon },
     { to: "/user", label: "User", icon: userIcon },
     { to: "/contentEditor", label: "Content", icon: contentIcon },
+    { to: "/surveyIntro", label: "Survey", icon: surveyIcon },
     { to: "/profile", label: "Settings", icon: settingIcon },
   ];
 

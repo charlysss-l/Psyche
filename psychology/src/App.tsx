@@ -50,6 +50,8 @@ import ContentEditor from './app/Content/editContent';
 import IQOnlineArchiveList from './app/Test/IQTest/IQOnlineList/IQOnlineArchiveList';
 import CFOnlineArchiveList from './app/Test/CFTest/CFOnlineList/CFOnlineArchiveList';
 
+import SurveyIntro from './app/Survey/surveyIntro/surveyIntro';
+
 function App() {
   return (
     <Router>
@@ -73,6 +75,13 @@ function App() {
                 path="/test"
                 element={<ProtectedRoute><Test /></ProtectedRoute>}
               />
+
+            
+              <Route
+                path="/surveyIntro"
+                element={<ProtectedRoute><SurveyIntro /></ProtectedRoute>}
+              />
+
               <Route
                 path="/surveyDashboard"
                 element={<ProtectedRoute><SurveyDashboard /></ProtectedRoute>}
