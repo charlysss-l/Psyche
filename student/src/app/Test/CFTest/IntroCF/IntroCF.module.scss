@@ -22,6 +22,8 @@
   width: 90%;
   max-width: 1000px;
   margin: 0 auto;
+    text-align: justify;
+
 }
 
 .cfintroinfo {
@@ -33,6 +35,8 @@
   max-width: 1000px;
   margin: 0 auto;
   line-height: 1.5;
+    text-align: justify;
+
 }
 
 .termsinfo {
@@ -41,6 +45,8 @@
   margin-bottom: 12px;
   text-align: left;
   line-height: 1.8;
+    text-align: justify;
+
 }
 .termsnumcf{
   color: #849670 ;
@@ -102,6 +108,7 @@
   .cftermsinfo {
     font-size: 14px;
     width: 95%;
+    
   }
 
   .cfButton {

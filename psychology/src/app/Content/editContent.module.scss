@@ -10,22 +10,21 @@ $borderRadius: 12px;
 $transition: 0.3s ease-in-out;
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgb(249, 244, 250);
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.162);
-  width: auto;
-  height: auto;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
   padding: 30px;
   font-family: 'Poppins', sans-serif;
-  border-radius: 12px; 
+  border-radius: 12px;
+  overflow: auto;
 }
+
 
 .testTypeSelector {
   display: flex;
@@ -71,6 +70,7 @@ $transition: 0.3s ease-in-out;
 }
 
 .backbutton {
+  position:absolute;
   padding: 12px 10px;
   font-size: 13px;
   cursor: pointer;
@@ -99,7 +99,6 @@ $transition: 0.3s ease-in-out;
 .contentEditor {
   width: 100%;
   max-width: 800px;
-  margin-top: 30px;
 }
 
 .header {
@@ -149,6 +148,7 @@ $transition: 0.3s ease-in-out;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  text-align: justify;
 }
 
 .textarea {

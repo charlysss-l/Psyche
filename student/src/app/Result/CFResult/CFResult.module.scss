@@ -49,6 +49,8 @@
   height: 50%;
   margin-bottom: 20px; /* Add spacing between sections */
   user-select: none;
+    text-align: justify;
+
 
   .pfintroinfo{
     font-size: 0.8rem;
@@ -85,6 +87,8 @@
   .privacySection, .outro {
     min-width: 90%; /* Full width on small screens */
     margin-bottom: 15px; /* Space between sections */
+      text-align: justify;
+
   }
 }
 

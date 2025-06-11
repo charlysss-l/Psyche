@@ -204,14 +204,15 @@ const ContentEditor: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <button
+     
+
+      <div className={styles.contentEditor}>
+         <button
         onClick={() => setEditorVisible(false)}
         className={`${styles.backbutton} ${styles.backButton}`}
       >
         Back to Test Type Selection
       </button>
-
-      <div className={styles.contentEditor}>
         <h1 className={styles.header}>Edit Content for {testType}</h1>
         {(testType === "PF" ? contentsPF : testType === "IQ" ? contentsIQ : contentsCF).map((content, index) => (
           <div key={content.key} className={styles.contentItem}>
