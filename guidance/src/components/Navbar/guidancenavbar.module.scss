@@ -1,296 +1,263 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-
-/* Define color variables */
-$bg-light: #ffffff;
-$font-dark: #000000;
-$link-hover: #2a3744;
-
-$accent-light: #334553;
-$accent-dark: #653E84;
-$secondary-bg: #dbe2e7;
-$button-bg: #e9e9e9;
-$button-hover: #d2d2d2;
-
-/* Navbar Styles */
 .studentNavbar {
-  display: flex;
-  justify-content: space-between;
+  width: 60px;
+  flex-direction: column;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
-  border-bottom: 1px solid #7a7a7a;
-  padding: 0 8px;
-  max-width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  border-right: 1px solid #7a7a7a;
+  transition: width 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  overflow: visible;
   user-select: none;
+
+  &.expanded {
+    width: 180px;
+    align-items: flex-start;
+
+    .navigationSection {
+      .navList {
+        align-items: flex-start;
+
+        .navItem {
+          width: 100%;
+
+          .navLink {
+            justify-content: flex-start;
+            padding: 0rem 0.2rem;
+          }
+        }
+      }
+    }
+
+    .navRight {
+      margin-top: auto;
+      width: 100%;
+    }
+  }
+
+  &.collapsed {
+    .navigationSection {
+      .navList {
+        align-items: center;
+
+        .navItem {
+          .navLink {
+            justify-content: center;
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &.mobileOpen {
+    width: 240px;
+    max-width: 80vw;
+    height: 100vh;
+    background-color: white;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    z-index: 1500;
+    padding-top: 1rem;
+    overflow-y: auto;
+    align-items: flex-start;
+  }
 }
 
-/* Logo Section */
 .logoSection {
-  color: #2e70d3;
+  width: 100%;
   display: flex;
   flex-direction: column;
-}
+  align-items: center;
+  margin-bottom: 2rem;
 
-.logoSection h1 {
-  font-size: 24px;
+  .logoImage {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  h1 {
+    font-size: 24px;
     margin: 0;
-    color: #653E84;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+    color: #653e84;
+    font-family: 'Poppins', sans-serif;
+  }
 
-.logoSection p {
-  font-size: 15px;
+  p {
+    font-size: 14px;
     color: #7a7a7a;
     font-weight: bold;
-    text-align: center;
+    margin-top: 4px;
+  }
 }
 
-/* Navigation Section */
+.editableSpan{
+  font-size: 18px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 .navigationSection {
+  width: 100%;
   flex-grow: 1;
+
+  .navList {
+    list-style: none;
+    padding: 0;
+    margin: 15px;
+    margin-top: 25px;
+    gap: 60px;
+    display: flex;
+    flex-direction: column;
+
+    .navItem {
+      width: 100%;
+      cursor: pointer;
+      position: relative;
+
+      .navLink {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #7a7a7a;
+        text-decoration: none;
+        width: 100%;
+        border-radius: 8px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover {
+          color: #653e84;
+        }
+
+        &.active {
+          color: #653e84;
+          background-color: #ded3e7;
+          width: 100%;
+
+          .navIcon {
+            border-radius: 6px;
+            padding: 4px;
+            width: 24px;
+            height: 24px;
+            margin-right: 0.8rem;
+          }
+        }
+      }
+
+      .navIcon {
+        width: 24px;
+        height: 24px;
+        margin-right: 0.5rem;
+        flex-shrink: 0;
+      }
+
+      .span {
+        font-size: 17px;
+        font-weight: bold ;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+
+      // Tooltip styles
+      &::after {
+        content: attr(data-label);
+        position: absolute;
+        top: 50%;
+        left: 80%;
+        transform: translateY(-50%);
+        background-color: white;
+        color: #653e84;
+        padding: 4px 10px;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        font-size: 13px;
+        font-weight: 600;
+        z-index: 1501;
+      }
+
+      .studentNavbar.collapsed &::after {
+        opacity: 0;
+      }
+
+      .studentNavbar.collapsed &:hover::after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.navRight {
+  width: 100%;
+  margin-top: auto;
   display: flex;
   justify-content: center;
 
+  .logoutButton {
+    background-color: #653e84;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #512f6f;
+    }
+  }
 }
 
-.navList {
-  list-style: none;
-    display: flex;
-    padding: 0;
-    margin: 0;
-}
-
-.navItem {
-  display: flex;
+.burgerButton {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  z-index: 1001;
+  display: none;
   flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
-  text-align: center;
-  margin: 0px 15px; 
-  position: relative; 
-}
-
-.navIcon {
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  top: -100%; 
-  color: red;
-}
-
-
-/* Navigation Links */
-.navLink {
-  color: #7a7a7a;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-  display: flex;
-  flex-direction: column; 
-  align-items: center;
-
-  &:hover {
-    color: rgb(94, 93, 93);
-  }
-}
-
-.navLink.active {
-  color: #653e84;
-  border-bottom: none; 
-}
-/* Account Section */
-.navRight {
-  display: flex;
-
-  .dropdown {
-    position: relative;
-   
-
-    .dropdownToggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-
-      .accountImage {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-      }
-
-      .arrowIcon {
-        margin-left: 5px;
-        font-size: 16px;
-        color: #7a7a7a;
-      }
-    }
-
-    .dropdownMenu {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      background: #ffffff;
-      box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 4px;
-      list-style: none;
-      padding: 10px;
-      z-index: 10;
-      min-width: 150px;
-      height: 180px;
-
-      .dropdownLink {
-        padding: 10px 40px;
-        text-decoration: none;
-        color: #353535;
-        margin-bottom: 8px; 
-
-        &:hover {
-          background-color: #f0f0f0;
-        }
-      }
-      .dropdownLink:last-child {
-        margin-bottom: 0;
-      }
-      .dropdownItem {
-        text-decoration: none;
-        color: #353535;
-        margin-bottom: 40px;
-      }
-      .dropdownLinkSettings{
-        text-decoration: none;
-        color: #000000;
-        border: none;
-        font-size: 16px;
-        background-color: #ffffff;
-        font-weight: bold;
-        display: block; 
-        margin: 0 auto; 
-        text-align: center; 
-
-        &:hover {
-          color: #bb35dc;
-        }
-      }
-      .dropdownLinkLogout{
-        text-decoration: none;
-        color: #000000;
-        border: none;
-        font-size: 16px;
-        background-color: #ffffff;
-        font-weight: bold;
-        display: block; 
-        margin: 0 auto; 
-        text-align: center; 
-
-        &:hover {
-          color: #bb35dc;
-        }
-      }
-    }
-  }
-}
-
-.editableText {
+  gap: 5px;
   cursor: pointer;
-  font-size: 1rem;
-  color: #333;
-  transition: all 0.3s ease;
-  border-radius: 4px;
-  max-width: 130px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  position: relative;
-}
 
-.editableText span {
-  display: inline-block;
-  white-space: nowrap;
-  padding-left: 10%;
-  transform: translateX(0);
-}
-
-.animated span {
-  animation: slideText 5s linear infinite;
-}
-
-@keyframes slideText {
-  0% {
-    transform: translateX(0);
+  .burgerLines {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 2px;
   }
-  100% {
-    transform: translateX(-100%);
+
+  @media (max-width: 768px) {
+    display: flex;
   }
 }
 
-
-
-.editableInput {
-  margin: 13px;
-  font-size: 1rem;
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 90px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1400;
 }
 
-
-/* Dark Mode Adjustments */
-:global(body.dark-mode) {
+@media (max-width: 768px) {
   .studentNavbar {
-    color: #000000;
-    border-bottom: 1px solid #7a7a7a;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
   }
 
-  .logoSection {
-    h1 {
-      color: #8C62A9;
-    }
-
-    p {
-      color: #A9A9A9;
-    }
-  }
-
-  .navigationSection {
-    .navList {
-      .navItem {
-        .navLink {
-          color: #A9A9A9;
-
-          &:hover {
-            color: rgb(94, 93, 93);
-          }
-
-          &.active {
-            color: #8C62A9;
-          }
-        }
-      }
-    }
-  }
-
-  .navRight {
-    .dropdown {
-      .dropdownToggle {
-        .arrowIcon {
-          color: #7a7a7a;
-        }
-      }
-
-      .dropdownMenu {
-        background: #ffffff;
-
-        .dropdownLink {
-          color: #353535;
-
-          &:hover {
-            background-color: #f0f0f0;
-          }
-        }
-      }
-    }
+  .mobileOpen {
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
   }
 }
