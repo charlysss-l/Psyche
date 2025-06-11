@@ -111,6 +111,13 @@ const GuidanceConsultation: React.FC = () => {
   const [showPendingModal, setShowPendingModal] = useState(false);
   const [showAcceptedModal, setShowAcceptedModal] = useState(false);
   const [showTodayModal, setShowTodayModal] = useState(false);
+const [isBlocked, setIsBlocked] = useState(() => {
+  const saved = localStorage.getItem('isBlocked');
+  return saved === 'true';
+});
+
+
+
   
 const [currentPendingPage, setCurrentPendingPage] = useState(1);
 const pendingRequestsPerPage = 6;
@@ -121,6 +128,9 @@ const acceptedRequestsPerPage = 6;
 const [currentFollowUpPage, setCurrentFollowUpPage] = useState(1);
 const followUpRequestsPerPage = 6;
 
+useEffect(() => {
+localStorage.setItem('isBlocked', isBlocked.toString());
+}, [isBlocked]);
 
   useEffect(() => {
     const loadConsultationRequests = async () => {
@@ -514,13 +524,28 @@ const handleCompleteFollowUp = async (id: string) => {
    <div className={styles.statusBoxContainer}>
   {/* Top row with 3 cards */}
   <div className={styles.cardRow}>
-    <div className={styles.requestBox}>
-      <h3>Pending Requests</h3>
-      <p className={styles.countMessage}>{pendingRequests.length}</p>
-      <button onClick={() => setShowPendingModal(true)} className={styles.viewButton}>
-        View Pending Requests
+   <div className={styles.requestBox}>
+    <h3>Pending Requests</h3>
+    <p className={styles.countMessage}>{pendingRequests.length}</p>
+    <button onClick={() => setShowPendingModal(true)} className={styles.viewButton}>
+      View Pending Requests
+    </button>
+    <div className={styles.smartWrapper}>
+      <button 
+        onClick={() => setIsBlocked(!isBlocked)} 
+        className={styles.hideButton}
+      >
+        {isBlocked ? "Unblock" : "Block"}
       </button>
     </div>
+
+    {isBlocked && (
+      <div className={styles.blockingOverlay}>
+        <p>Blocked View</p>
+      </div>
+    )}
+  </div>
+
 
     <div className={styles.requestBox}>
       <h3>Accepted Requests</h3>
@@ -589,8 +614,11 @@ const handleCompleteFollowUp = async (id: string) => {
           className={styles.searchInput}
         />
       </div>
+     
 </h2>
       <div className={styles.responsesWrapper}>
+     
+
         {pendingRequests.length === 0 ? (
           <p className={styles.noRequestsMessage}>No pending consultation requests.</p>
         ) : (
