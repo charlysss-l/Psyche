@@ -149,6 +149,41 @@ select {
 
 // for the table of consultations
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.pageButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #653e84;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pageButton:hover:not(:disabled) {
+  background-color: #653e84;
+}
+
+.pageButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+
 .tableContainer {
   display: flex;
   position: fixed;
@@ -195,7 +230,7 @@ h2 {
 }
 
 .responsesWrapper {
-  max-height: 585px;  // Adjust the height as per your design needs
+  max-height: 1000px;  // Adjust the height as per your design needs
   overflow-y: auto;   // Enable vertical scrolling when content overflows
   margin-top: 10px;   // Optional, for some space between elements
 }

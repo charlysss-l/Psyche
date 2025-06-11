@@ -24,6 +24,9 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isHighlighted, setIsHighlighted] = useState(false);
 
+  const [currentCompletedPage, setCurrentCompletedPage] = useState(1);
+  const completedRequestsPerPage = 6;
+
   useEffect(() => {
     fetchConsultations();
   }, []);
@@ -97,6 +100,13 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
       consultation.note.toLowerCase().includes(query)
     );
   });
+
+   // Pagination Completed calculations
+const totalCompletedPages = Math.ceil(filteredConsultations.length / completedRequestsPerPage);
+const paginatedCompletedRequests = filteredConsultations.slice(
+  (currentCompletedPage - 1) * completedRequestsPerPage,
+  currentCompletedPage * completedRequestsPerPage
+);
   
 
   if (!isVisible) return null;
@@ -135,8 +145,8 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
               </tr>
             </thead>
             <tbody>
-              {filteredConsultations.length > 0 ? (
-                filteredConsultations.map((consultation) => (
+              {paginatedCompletedRequests.length > 0 ? (
+                paginatedCompletedRequests.map((consultation) => (
                   <tr key={consultation.testID}>
                     <td>{consultation.acceptedAppointmentCount}</td>
                     <td>{consultation.userId}</td>
@@ -176,6 +186,30 @@ const CompleteInbox = ({ onClose }: { onClose: () => void }) => {
               )}
             </tbody>
           </table>
+
+             {totalCompletedPages > 1 && (
+  <div className={styles.pagination}>
+    <button
+      onClick={() => setCurrentCompletedPage((prev) => Math.max(prev - 1, 1))}
+      disabled={currentCompletedPage === 1}
+      className={styles.pageButton}
+    >
+      Previous
+    </button>
+    <span className={styles.pageInfo}>
+      Page {currentCompletedPage} of {totalCompletedPages}
+    </span>
+    <button
+      onClick={() =>
+        setCurrentCompletedPage((prev) => Math.min(prev + 1, totalCompletedPages))
+      }
+      disabled={currentCompletedPage === totalCompletedPages}
+      className={styles.pageButton}
+    >
+      Next
+    </button>
+  </div>
+)}
         </div>
       </div>
     </div>

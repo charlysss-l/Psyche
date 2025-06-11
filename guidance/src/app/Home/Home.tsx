@@ -84,7 +84,7 @@ const GuidanceHome: React.FC = () => {  // State to store all consultation reque
        <div className={styles.headerSection}>
         <h2 className={styles.welcomeTitle}>WELCOME TO DISCOVERU</h2>
         <p className={styles.welcomeMessage}>
-          Get updated on student's consultation request and track your schedule here now in your calendar
+          Stay updated on students' consultation requests and track your schedule in your calendar.
         </p>
         <button
             className={styles.viewCalendar}

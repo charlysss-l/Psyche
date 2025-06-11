@@ -112,6 +112,14 @@ const GuidanceConsultation: React.FC = () => {
   const [showAcceptedModal, setShowAcceptedModal] = useState(false);
   const [showTodayModal, setShowTodayModal] = useState(false);
   
+const [currentPendingPage, setCurrentPendingPage] = useState(1);
+const pendingRequestsPerPage = 6;
+
+const [currentAcceptedPage, setCurrentAcceptedPage] = useState(1);
+const acceptedRequestsPerPage = 6;
+
+const [currentFollowUpPage, setCurrentFollowUpPage] = useState(1);
+const followUpRequestsPerPage = 6;
 
 
   useEffect(() => {
@@ -198,20 +206,22 @@ const GuidanceConsultation: React.FC = () => {
     fetchTestDetails( testID, note);
   };
 
-  const filteredPendingUsers = consultationRequests.filter((request) => {
-    const normalizedDate = normalizeDate(request.date); // Normalize the date for comparison
-    const normalizedSearchTerm = normalizeSearchTerm(pendingSearchTerm); // Normalize the search term
-    return [
-      request.userId,
-      request.studentName,
-      request.note,
-      request.timeForConsultation,
-      normalizedDate,
-    ]
+const filteredPendingUsers = consultationRequests.filter((request) => {
+  const normalizedDate = normalizeDate(request.date);
+  const normalizedSearchTerm = normalizeSearchTerm(pendingSearchTerm);
+  return [
+    request.userId,
+    request.studentName,
+    request.note,
+    request.timeForConsultation,
+    normalizedDate,
+  ]
     .join(" ")
     .toLowerCase()
     .includes(normalizedSearchTerm.toLowerCase());
-  });
+});
+
+
 
   const filteredAcceptedUsers = consultationRequests.filter((request) => {
     const normalizedDate = normalizeDate(request.date); // Normalize the date for comparison
@@ -230,21 +240,29 @@ const GuidanceConsultation: React.FC = () => {
     .includes(normalizedSearchTerm.toLowerCase());
   });
 
-  const filteredFollowUpUsers = followUpSchedules.filter((schedule) => {
-    const normalizedDate = normalizeDate(schedule.followUpDate); // Normalize the date for comparison
-    const normalizedSearchTerm = normalizeSearchTerm(followUpSearchTerm); // Normalize the search term
-    return [
-      schedule.userId,
-      schedule.studentName,
-      schedule.note,
-      schedule.timeForConsultation,
-      schedule.councelorName,
-      normalizedDate,
-    ]
+const filteredFollowUpUsers = followUpSchedules.filter((schedule) => {
+  const normalizedDate = normalizeDate(schedule.followUpDate);
+  const normalizedSearchTerm = normalizeSearchTerm(followUpSearchTerm);
+  return [
+    schedule.userId,
+    schedule.studentName,
+    schedule.note,
+    schedule.timeForConsultation,
+    schedule.councelorName,
+    normalizedDate,
+  ]
     .join(" ")
     .toLowerCase()
     .includes(normalizedSearchTerm.toLowerCase());
-  });
+});
+
+const totalFollowUpPages = Math.ceil(filteredFollowUpUsers.length / followUpRequestsPerPage);
+
+const paginatedFollowUpUsers = filteredFollowUpUsers.slice(
+  (currentFollowUpPage - 1) * followUpRequestsPerPage,
+  currentFollowUpPage * followUpRequestsPerPage
+);
+
   
   // Utility function to normalize the date
   function normalizeDate(date: Date | string): string {
@@ -265,6 +283,20 @@ const GuidanceConsultation: React.FC = () => {
   const pendingRequests = filteredPendingUsers.filter((request) => request.status === "pending" || request.status === "cancelled");
   const acceptedRequests = filteredAcceptedUsers.filter((request) => request.status === "accepted" || request.status === "completed");
  
+  // Pagination pending calculations
+const totalPendingPages = Math.ceil(pendingRequests.length / pendingRequestsPerPage);
+const paginatedPendingRequests = pendingRequests.slice(
+  (currentPendingPage - 1) * pendingRequestsPerPage,
+  currentPendingPage * pendingRequestsPerPage
+);
+
+  // Pagination accepted calculations
+const totalAcceptedPages = Math.ceil(acceptedRequests.length / acceptedRequestsPerPage);
+const paginatedAcceptedRequests = acceptedRequests.slice(
+  (currentAcceptedPage - 1) * acceptedRequestsPerPage,
+  currentAcceptedPage * acceptedRequestsPerPage
+);
+
   useEffect(() => {
     const fullName = localStorage.getItem("fullName");
     if (fullName) {
@@ -577,7 +609,7 @@ const handleCompleteFollowUp = async (id: string) => {
               </tr>
             </thead>
             <tbody>
-              {pendingRequests
+              {paginatedPendingRequests
                 .slice()
                 .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                 .map((request) => (
@@ -666,6 +698,31 @@ const handleCompleteFollowUp = async (id: string) => {
             </tbody>
           </table>
         )}
+        
+        {totalPendingPages > 1 && (
+  <div className={styles.pagination}>
+    <button
+      onClick={() => setCurrentPendingPage((prev) => Math.max(prev - 1, 1))}
+      disabled={currentPendingPage === 1}
+      className={styles.pageButton}
+    >
+      Previous
+    </button>
+    <span className={styles.pageInfo}>
+      Page {currentPendingPage} of {totalPendingPages}
+    </span>
+    <button
+      onClick={() =>
+        setCurrentPendingPage((prev) => Math.min(prev + 1, totalPendingPages))
+      }
+      disabled={currentPendingPage === totalPendingPages}
+      className={styles.pageButton}
+    >
+      Next
+    </button>
+  </div>
+)}
+
       </div>
     </div>
   </div>
@@ -719,7 +776,7 @@ const handleCompleteFollowUp = async (id: string) => {
               </tr>
             </thead>
             <tbody>
-              {acceptedRequests
+              {paginatedAcceptedRequests
                 .slice()
                 .sort((a, b) => {
                   if (a.status === "accepted" && b.status !== "accepted") return -1;
@@ -806,6 +863,30 @@ const handleCompleteFollowUp = async (id: string) => {
             </tbody>
           </table>
         )}
+
+          {totalAcceptedPages > 1 && (
+  <div className={styles.pagination}>
+    <button
+      onClick={() => setCurrentAcceptedPage((prev) => Math.max(prev - 1, 1))}
+      disabled={currentAcceptedPage === 1}
+      className={styles.pageButton}
+    >
+      Previous
+    </button>
+    <span className={styles.pageInfo}>
+      Page {currentAcceptedPage} of {totalAcceptedPages}
+    </span>
+    <button
+      onClick={() =>
+        setCurrentAcceptedPage((prev) => Math.min(prev + 1, totalAcceptedPages))
+      }
+      disabled={currentAcceptedPage === totalAcceptedPages}
+      className={styles.pageButton}
+    >
+      Next
+    </button>
+  </div>
+)}
       </div>
     </div>
   </div>
@@ -1166,9 +1247,9 @@ const handleCompleteFollowUp = async (id: string) => {
         </tr>
       </thead>
       <tbody>
-        {filteredFollowUpUsers.length > 0 ? (
-          filteredFollowUpUsers
-            .map((schedule) => (
+      {paginatedFollowUpUsers.length > 0 ? (
+  paginatedFollowUpUsers.map((schedule) => (
+
               <tr key={schedule._id}>
                 <td>{schedule.userId}</td>
                 <td>{schedule.studentName}</td>
@@ -1214,6 +1295,11 @@ const handleCompleteFollowUp = async (id: string) => {
                    </button>
 
                   )}
+
+                    { schedule.status === "pending" && (
+                     <p>No Action yet.</p>
+
+                  )}
                  
                 </td>
                 <td>{schedule.message}</td>
@@ -1228,6 +1314,30 @@ const handleCompleteFollowUp = async (id: string) => {
         )}
       </tbody>
     </table>
+
+        {totalFollowUpPages > 1 && (
+  <div className={styles.pagination}>
+    <button
+      onClick={() => setCurrentFollowUpPage((prev) => Math.max(prev - 1, 1))}
+      disabled={currentFollowUpPage === 1}
+      className={styles.pageButton}
+    >
+      Previous
+    </button>
+    <span className={styles.pageInfo}>
+      Page {currentFollowUpPage} of {totalFollowUpPages}
+    </span>
+    <button
+      onClick={() =>
+        setCurrentFollowUpPage((prev) => Math.min(prev + 1, totalFollowUpPages))
+      }
+      disabled={currentFollowUpPage === totalFollowUpPages}
+      className={styles.pageButton}
+    >
+      Next
+    </button>
+  </div>
+)}
           </div>
         </div>
         <button onClick={toggleModal} className={styles.closeInfo}>
