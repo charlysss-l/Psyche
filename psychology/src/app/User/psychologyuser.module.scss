@@ -78,6 +78,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: -10px;
   gap: 15px;
 }
 
@@ -233,7 +234,7 @@
 }
 
 .responsesWrapper {
-  max-height: 600px; // Adjust the height as per your design needs
+  max-height: 700px; // Adjust the height as per your design needs
   overflow-y: auto; // Enable vertical scrolling when content overflows
 }
 
