@@ -9,6 +9,8 @@ import resultIcon from "../../images/results.png";
 import surveyIcon from "../../images/survey.png";
 import consultationIcon from "../../images/conversation.png";
 import logoImage from "../../images/LOGOnewDark.png";
+import settingIcon from "../../images/setting.png";
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -54,6 +56,9 @@ const Navbar = () => {
     { to: "/result", label: "Result", icon: resultIcon },
     { to: "/surveyDashboard", label: "Survey", icon: surveyIcon },
     { to: "/consultation", label: "Consultation", icon: consultationIcon },
+        { to: "/profile", label: "Settings", icon: settingIcon },
+
+
   ];
 
   return (
