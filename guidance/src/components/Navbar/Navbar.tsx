@@ -6,7 +6,7 @@ import homeIcon from "../../images/home-page.png";
 import calendarIcon from "../../images/calendar.png";
 import consultationIcon from "../../images/conversation.png";
 import accountIcon from "../../images/user.png";
-import logoImage from "../../images/LOGOnewDark.png";
+import logoImage from "../../images/logoPNG.png";
 import settingIcon from "../../images/setting.png";
 
 
