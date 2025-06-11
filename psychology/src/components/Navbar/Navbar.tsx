@@ -8,7 +8,7 @@ import omrIcon from "../../images/camera.png";
 import surveyIcon from "../../images/survey.png";
 import userIcon from "../../images/user.png";
 import contentIcon from "../../images/notes.png";
-import logoImage from "../../images/LOGOnewDark.png";
+import logoImage from "../../images/logoPNG.png";
 import settingIcon from "../../images/setting.png";
 
 const Navbar = () => {
