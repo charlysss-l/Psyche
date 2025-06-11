@@ -294,14 +294,14 @@ const OmrCFResultsList: React.FC = () => {
             <thead>
               <tr>
                 <th>userID</th>
-                <th>First Name</th>
+                {/* <th>First Name</th>
                 <th>Last Name</th>
                 <th>Age</th>
                 <th>Sex</th>
                 <th>Course</th>
                 <th>Year&#8203;</th>
                 <th>Section</th>
-                <th>Test Type</th>
+                <th>Test Type</th> */}
                 <th>Test ID</th>
                 <th>Test Date</th>
                 <th>Total Score</th>
@@ -314,7 +314,7 @@ const OmrCFResultsList: React.FC = () => {
               {currentResults.map((result) => (
                 <tr key={result.testID} className={styles.eachResultCF}>
                   <td>{result.userID}</td>
-                  <td>
+                  {/* <td>
                     {editingTestID === result.testID ? (
                       <input
                         type="text"
@@ -420,7 +420,7 @@ const OmrCFResultsList: React.FC = () => {
                       result.section
                     )}
                   </td>
-                  <td>{result.testType}</td>
+                  <td>{result.testType}</td> */}
                   <td>{formatTestID(result.testID)}</td>
                   <td>{new Date(result.testDate).toLocaleDateString()}</td>
                   <td>{result.totalScore}</td>
@@ -431,7 +431,8 @@ const OmrCFResultsList: React.FC = () => {
                       onClick={() => handleViewImage(result.uploadURL)}
                     >
                       View Image
-                    </button>
+                    </button>                     <br/>
+
                     <button
                       className={styles.deleteButtonCFLIST}
                       onClick={() => handleRemove(result.testID)}
@@ -439,12 +440,12 @@ const OmrCFResultsList: React.FC = () => {
                       Delete
                     </button>
                     <br/>
-                    <button
+                    {/* <button
                       className={styles.updateButtonCFLIST}
                       onClick={() => handleEditClick(result.testID)}
                     >
                       Edit
-                    </button>
+                    </button> */}
                     
                     {editingTestID === result.testID && (
                       <button

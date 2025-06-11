@@ -380,12 +380,6 @@ function normalizeSearchTerm(term: string): string {
             <thead>
               <tr>
                 <th>userID</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Course</th>
-                <th>Year & Section</th>
-                <th>Test Type</th>
                 <th>Test ID</th>
                 <th>Test Date</th>
                 <th>Responses</th>
@@ -398,12 +392,7 @@ function normalizeSearchTerm(term: string): string {
                 
                 <tr key={result.userID} className={styles.eachResultPF}>
                   <td>{result.userID}</td>
-                  <td>{result.firstName} {result.lastName}</td>
-                  <td>{result.age}</td>
-                  <td>{result.sex}</td>
-                  <td>{result.course}</td>
-                  <td>{result.year} - {result.section}</td>
-                  <td>{result.testType}</td>
+                
                   <td>{formatTestID(result.testID)}</td>
                   <td>{new Date(result.testDate).toLocaleDateString()}</td>
                   <td>

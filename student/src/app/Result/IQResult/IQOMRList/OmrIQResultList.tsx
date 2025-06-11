@@ -294,14 +294,7 @@ const OmrIQResultsList: React.FC = () => {
             <thead>
               <tr>
                 <th>userID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Course</th>
-                <th>Year&#8203;</th>
-                <th>Section</th>
-                <th>Test Type</th>
+            
                 <th>Test ID</th>
                 <th>Test Date</th>
                 <th>Total Score</th>
@@ -314,113 +307,7 @@ const OmrIQResultsList: React.FC = () => {
               {currentResults.map((result) => (
                 <tr key={result.testID} className={styles.eachResultIQ}>
                   <td>{result.userID}</td>
-                  <td>
-                    {editingTestID === result.testID ? (
-                      <input
-                        type="text"
-                        value={updatedData.firstName}
-                        onChange={(e) => setUpdatedData({ ...updatedData, firstName: e.target.value })}
-                      />
-                    ) : (
-                      result.firstName
-                    )}
-                  </td>
-                  <td>
-                    {editingTestID === result.testID ? (
-                      <input
-                        type="text"
-                        value={updatedData.lastName}
-                        onChange={(e) => setUpdatedData({ ...updatedData, lastName: e.target.value })}
-                      />
-                    ) : (
-                      result.lastName
-                    )}
-                  </td>
-                  <td>
-                    {editingTestID === result.testID ? (
-                      <input
-                        type="number"
-                        value={updatedData.age}
-                        onChange={(e) => setUpdatedData({ ...updatedData, age: Number(e.target.value) })}
-                      />
-                    ) : (
-                      result.age
-                    )}
-                  </td>
-                  <td>
-                    {editingTestID === result.testID ? (
-                      <select
-                        value={updatedData.sex}
-                        onChange={(e) => setUpdatedData({ ...updatedData, sex: e.target.value as 'Female' | 'Male' })}
-                      >
-                        <option value="" disabled>Select</option>
-                        <option value="Female">Female</option>
-                        <option value="Male">Male</option>
-                      </select>
-                    ) : (
-                      result.sex
-                    )}
-                  </td>
-                  <td>
-                    {editingTestID === result.testID ? (
-                      <select
-                        value={updatedData.course}
-                        onChange={(e) => setUpdatedData({ ...updatedData, course: e.target.value })}
-                      >
-                        <option value="" disabled>Select</option>
-                        <option value="BSEduc">Bachelor of Secondary Education</option>
-                <option value="BSBM">BS Business Management</option>
-                <option value="BSCS">BS Computer Science</option>
-                <option value="BSCrim">BS Criminology</option>
-                <option value="BSHM">BS Hospitality Management</option>                    
-                <option value="BSIT">BS Information Technology</option>
-                <option value="BSP">BS Psychology</option>
-                      </select>
-                    ) : (
-                      result.course
-                    )}
-                  </td>
-                  <td>
-                    {editingTestID === result.testID ? (
-                      <select
-                        value={updatedData.year}
-                        onChange={(e) => setUpdatedData({ ...updatedData, year: Number(e.target.value) })}
-                      >
-                        <option value="" disabled>Select</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                      </select>
-                    ) : (
-                      result.year
-                    )}
-                  </td>
-                  <td>
-                    {editingTestID === result.testID ? (
-                      <select
-                        value={updatedData.section}
-                        onChange={(e) => setUpdatedData({ ...updatedData, section: e.target.value })}
-                      >
-                        <option value="" disabled>Select</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="Irregular">Irregular</option>
-                        
-                      </select>
-                    ) : (
-                      result.section
-                    )}
-                  </td>
-                  <td>{result.testType}</td>
+                 
                   <td>{formatTestID(result.testID)}</td>
                   <td>{new Date(result.testDate).toLocaleDateString()}</td>
                   <td>{result.totalScore}</td>
@@ -431,7 +318,7 @@ const OmrIQResultsList: React.FC = () => {
                       onClick={() => handleViewImage(result.uploadURL)}
                     >
                       View Image
-                    </button>
+                    </button> <br/>
                     <button
                       className={styles.deleteButtonIQLIST}
                       onClick={() => handleRemove(result.testID)}
@@ -439,12 +326,12 @@ const OmrIQResultsList: React.FC = () => {
                       Delete
                     </button>
                     <br/>
-                    <button
+                    {/* <button
                       className={styles.updateButtonIQLIST}
                       onClick={() => handleEditClick(result.testID)}
                     >
                       Edit
-                    </button>
+                    </button> */}
                     
                     {editingTestID === result.testID && (
                       <button

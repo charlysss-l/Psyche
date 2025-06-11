@@ -242,13 +242,7 @@ return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
             <thead>
               <tr>
                 <th>userID</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Course</th>
-                <th>Year</th>
-                <th>Section</th>
-                <th>Test Type</th>
+              
                 <th>Test ID</th>
                 <th>Test Date</th>
                 <th>Total Score</th>
@@ -261,21 +255,13 @@ return term.replace(/(^|\/)0+/g, "$1"); // Remove leading zeros from search term
               {currentResults.map((result) => (
                 <tr key={result.userID} className={styles.eachResultIQ}>
                   <td>{result.userID}</td>
-                  <td>{result.firstName} {result.lastName}</td>
-                  <td>{result.age}</td>
-                  <td>{result.sex}</td>
-                  <td>{result.course}</td>
-                  <td>{result.year}</td>
-                  <td>{result.section}</td>
-                  <td>{result.testType}</td>
+               
                   <td>{formatTestID(result.testID)}</td>
                   <td>{new Date(result.testDate).toLocaleDateString()}</td>
                   
                   <td>{result.totalScore}</td>
                   <td>
-                    <ul>
-                      <li>Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}</li>
-                    </ul>
+                    Interpretation: {result.interpretation?.resultInterpretation ?? 'N/A'}
                   </td>
                   <td>
                     <button 

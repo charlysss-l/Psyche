@@ -82,7 +82,7 @@ const Navbar = () => {
           {isSidebarExpanded || isMobileSidebarOpen ? (
             <>
               <h1>DiscoverU</h1>
-              <p>Psychology</p>
+              <p>Student</p>
             </>
           ) : (
             <img src={logoImage} alt="DiscoverU Logo" className={style.logoImage} />
