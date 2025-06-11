@@ -159,9 +159,9 @@ const PFTest: React.FC = () => {
         <Link to="/all-pf-test-list" className={style.testResultsLink}>
           Test Results
         </Link>
-        <Link to="/pf-statistics" className={style.testResultsLink}>
+        {/* <Link to="/pf-statistics" className={style.testResultsLink}>
           Analytics
-        </Link>
+        </Link> */}
       </div>
 
       <h2>Questions</h2>

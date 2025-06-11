@@ -308,7 +308,7 @@ const PFStatistics: React.FC = () => {
         data: selectedFactor === 'all' || selectedFactor === ''
           ? filteredResults.map((result) => result.left)
           : [filteredResults.find((res) => res.factorLetter === selectedFactor)?.left || 0],
-        backgroundColor: 'gold',
+        backgroundColor: 'violet',
       },
       {
         label: 'Average',

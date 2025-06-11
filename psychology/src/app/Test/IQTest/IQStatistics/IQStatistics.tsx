@@ -192,25 +192,25 @@ const filteredResults = results.filter((result) => {
     interpretationCounts[interpretation] = (interpretationCounts[interpretation] || 0) + 1;
   });
 
-  const getRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
+const getVioletShade = () => {
+  // Generate a shade of violet by varying the red and blue channels a bit
+  const red = 200 + Math.floor(Math.random() * 56);    // 200 - 255
+  const green = 100 + Math.floor(Math.random() * 31);  // 100 - 130
+  const blue = 200 + Math.floor(Math.random() * 56);   // 200 - 255
+  return `rgb(${red}, ${green}, ${blue})`;
+};
 
-  const chartData = {
-    labels: Object.keys(interpretationCounts),
-    datasets: [
-      {
-        label: 'Number of Students',
-        data: Object.values(interpretationCounts),
-        backgroundColor: Object.keys(interpretationCounts).map(() => getRandomColor()),
-      },
-    ],
-  };
+const chartData = {
+  labels: Object.keys(interpretationCounts),
+  datasets: [
+    {
+      label: 'Number of Students',
+      data: Object.values(interpretationCounts),
+      backgroundColor: Object.keys(interpretationCounts).map(() => getVioletShade()),
+    },
+  ],
+};
+
 
   // Handle changes in filter inputs
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
