@@ -82,7 +82,7 @@ const GuidanceHome: React.FC = () => {  // State to store all consultation reque
     <div className={styles.homeContainer}>
        {/* Header Section */}
        <div className={styles.headerSection}>
-        <h2 className={styles.welcomeTitle}>WELCOME TO DISCOVERU</h2>
+        <h2 className={styles.welcomeTitle}>WELCOME TO DISCOVER<span className={styles.yellow}>U</span></h2>
         <p className={styles.welcomeMessage}>
           Stay updated on students' consultation requests and track your schedule in your calendar.
         </p>

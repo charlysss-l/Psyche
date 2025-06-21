@@ -81,7 +81,17 @@ const PFTest: React.FC = () => {
         }
     };
     
-    
+//     const fetchTest = async () => {
+//     try {
+//         const response = await axios.get<User16PFTest>(`${backendUrl}/api/16pf/67282807d9bdba831a7e9063`);
+//         setTest({ ...response.data, question: response.data.question }); // No shuffling
+//     } catch (err) {
+//         setError(err instanceof Error ? err.message : 'An unknown error occurred');
+//     } finally {
+//         setTestLoading(false);
+//     }
+// };
+
 
     const handleChange = (questionID: string, value: string) => {
         setResponses((prevResponses) => ({ ...prevResponses, [questionID]: value }));

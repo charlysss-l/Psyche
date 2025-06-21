@@ -159,7 +159,7 @@ h3 {
 }
 
 .hideButton{
-  background-color: #615264;
+  background-color: #613969;
   color: #fff;
   border: none;
   padding: 10px 16px;
@@ -167,6 +167,7 @@ h3 {
   font-size: 0.95em;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  z-index: 500;
 
 }
 
@@ -309,6 +310,19 @@ button {
     }
   }
 
+  &.followUpButton {
+    background-color: #7c3e84; 
+    color: #fcfcfc;
+    margin-right: 10px;
+    border: 1px solid  #7c3e84 ; 
+    
+    &:hover{
+      background-color: transparent;
+      color: #653e84;
+      border: 1px solid  #653e84 ; 
+    }
+  }
+
   &.closeInfo{
     background-color: #a9a9a9;
     color: white;
@@ -334,7 +348,7 @@ button {
       }
   }
 &.markDone{
-    background-color: #2c2c2c ;
+    background-color: #a352ad ;
     color: #ffffff;
 
     &:hover{

@@ -253,25 +253,25 @@ h2 {
   }
 
   &.restore {
-    background-color: #7293d1  ; // Red for delete
+    background-color: #723f86  ; // Red for delete
     color: white;
     margin: 10px;
-    border: 1px solid #7293d1 ;
+    border: 1px solid #723f86 ;
 
     &:hover {
       background-color: transparent; 
-      color: #7293d1;
+      color: #723f86;
 
     }
   }
 
   &.delete {
-    background-color: #b40000; // Red for delete
+    background-color: #833434; // Red for delete
     color: white;
-    border: 1px solid #b40000;
+    border: 1px solid #833434;
     &:hover {
       background-color: transparent; // Darker red
-      color: #b40000;
+      color: #833434;
     }
   }
 

@@ -864,7 +864,7 @@ const handleCompleteFollowUp = async (id: string) => {
                         View Info
                       </button>
                       <button
-                        className={styles.viewInfo}
+                        className={styles.followUpButton}
                         onClick={() => navigate(`/calendar`)}
                       >
                         Follow Up
