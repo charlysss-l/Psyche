@@ -37,16 +37,18 @@
     }
 
     .restoreButtonPfLIST{
-      background-color: #268d26;
+      background-color: #653e84;
       padding: 9px;
-      border: #268d26 1px solid;
+      border: #653e84 1px solid;
       color: #fafafa;
       border-radius: 5px;
+       margin: 10px;
+    width: 70px;
     }
     .restoreButtonPfLIST:hover{
         background-color: transparent;
-        border: #268d26 1px solid;
-        color: #268d26;
+        border: #653e84 1px solid;
+        color: #653e84;
     }
     .deleteButton{
       background-color: #a52c23;
@@ -54,6 +56,8 @@
       border: #a52c23 1px solid;
       color: #fafafa;
       border-radius: 5px;
+       margin: 10px;
+    width: 70px;
     }
   
     .deleteButton:hover{
@@ -147,8 +151,8 @@
         padding: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         z-index: 1000;  /* Ensures it appears on top of other content */
-        height: 70%;
-        width: 60%;  /* Adjust as needed */
+        height: 90%;
+        width: 80%;  /* Adjust as needed */
         overflow: auto;  /* Allows scrolling if content exceeds height */
       }
       

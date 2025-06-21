@@ -132,7 +132,7 @@ const Login: React.FC = () => {
       <div className={styles.loginForm}>
 
       <div className ={styles.logoimg}></div>
-        <h1 className={styles.welcomelog}>Welcome to DiscoverU!</h1>
+        <h1 className={styles.welcomelog}>Welcome Student!</h1>
         <h3 className={styles.welcomelogdesc}>Login to continue access</h3>
 
         {error && <p className={styles.errorMessage}>{error}</p>}

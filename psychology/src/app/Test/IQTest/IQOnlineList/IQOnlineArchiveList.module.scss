@@ -46,16 +46,18 @@
 }
 
 .restoreButtonIQLIST{
-  background-color: #268d26;
+  background-color: #653e84;
   padding: 9px;
-  border: #268d26 1px solid;
+  border: #653e84 1px solid;
   color: #fafafa;
   border-radius: 5px;
+    margin: 10px;
+    width: 70px;
 }
 .restoreButtonIQLIST:hover{
     background-color: transparent;
-    border: #268d26 1px solid;
-    color: #268d26;
+    border: #653e84 1px solid;
+    color: #653e84;
 }
 
 .deleteButtonIQLIST{
@@ -64,6 +66,8 @@
   border: #a52c23 1px solid;
   color: #fafafa;
   border-radius: 5px;
+    margin: 10px;
+    width: 70px;
 }
 .deleteButtonIQLIST:hover{
   background-color: transparent;

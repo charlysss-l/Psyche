@@ -45,23 +45,29 @@
     margin: 0 auto; 
   }
   .restoreButtonCFLIST{
-    background-color: #268d26;
-    padding: 9px;
-    border: #268d26 1px solid;
+    background-color: #653e84;
+    padding: 11px;
+    border: #653e84 1px solid;
     color: #fafafa;
     border-radius: 5px;
+    margin: 10px;
+    width: 70px;
   }
   .restoreButtonCFLIST:hover{
       background-color: transparent;
-      border: #268d26 1px solid;
-      color: #268d26;
+      border: #653e84 1px solid;
+      color: #653e84;
   }
   .deleteButtonCFLIST{
     background-color: #a52c23;
-    padding: 9px;
+    padding: 11px;
     border: #a52c23 1px solid;
     color: #fafafa;
     border-radius: 5px;
+        margin: 10px;
+            width: 70px;
+
+
   }
   .deleteButtonCFLIST:hover{
       background-color: transparent;
