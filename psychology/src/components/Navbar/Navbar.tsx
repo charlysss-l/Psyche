@@ -83,7 +83,7 @@ const Navbar = () => {
         <div className={style.logoSection}>
           {isSidebarExpanded || isMobileSidebarOpen ? (
             <>
-              <h1>DiscoverU</h1>
+              <h1>Discover<span className={style.yellow}>U</span></h1>
               <p>Psychology</p>
             </>
           ) : (

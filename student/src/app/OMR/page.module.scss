@@ -19,13 +19,17 @@
 .OMRTITLE {
   font-size: 3rem;
   color: #4e2a75;
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 12px;
   animation: fadeIn 1s ease forwards;
+  
+  .yellow{
+  color: rgb(255, 217, 0);
+  font-size: 3rem;
+  text-shadow: 0 0 10px #4e2a75;
 }
+}
+
 .OMRTITLE:hover {
   color: #653e84;
 }
@@ -79,7 +83,13 @@
 @media screen and (max-width: 900px) {
   .OMRTITLE {
     font-size: 35px;
+    text-align: center;
+
+    .yellow{
+      font-size: 35px;
+    } 
   }
+  
   .OMRDesc{
     font-size: 16px;
   }
@@ -106,7 +116,7 @@
     width: 200px;
     padding: 20px;
     font-size: 24px;
-    
+    text-align: center;
   } 
 }
 :global(body.dark-mode) {

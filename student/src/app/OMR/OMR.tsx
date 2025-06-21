@@ -26,7 +26,7 @@ const OMR = () => {
 
   return (
     <div className={styles.OMRDiv}>
-      <h1 className={styles.OMRTITLE}>Welcome to Discover U's OMR. </h1>
+      <h1 className={styles.OMRTITLE}>Welcome to Discover<span className={styles.yellow}>U</span>'s OMR. </h1>
       <h6 className={styles.OMRDesc}>A machine learning technique called Optical Mark Recognition (OMR) gathers information from 
         paper markings for assessment and scoring. </h6>
 
