@@ -46,7 +46,7 @@ const IQTest: React.FC = () => {
     const [sex, setSex] = useState<'Male' | 'Female' | ''>('');
     const [testType, setTestType] = useState<'Online' | 'Physical' | ''>('');    
     const [currentPage, setCurrentPage] = useState(1);
-    const questionsPerPage = 5; // Display 5 questions per page
+    const questionsPerPage = 1; // Display 5 questions per page
     const [timer, setTimer] = useState<number>(45 * 60); // 45 minutes in seconds
     const [isTimeUp, setIsTimeUp] = useState<boolean>(false);
     const [, setInterpretation] = useState<Interpretation | null>(null);
@@ -150,7 +150,7 @@ const IQTest: React.FC = () => {
     const calculateScore = () => {
         const totalCorrect = Object.keys(responses).reduce((total, questionID) => {
             const question = iqTest?.questions.find(q => q.questionID === questionID);
-            return total + (question?.correctAnswer === responses[questionID] ? 1 : 0);
+            return total + (question?.correctAnswer.includes(responses[questionID]) ? 1 : 0);
         }, 0);
         return { correctAnswer: `${totalCorrect}`, totalScore: totalCorrect };
     };
@@ -177,7 +177,7 @@ const IQTest: React.FC = () => {
             return {
                 questionID,
                 selectedChoice: responses[questionID],
-                isCorrect: question?.correctAnswer === responses[questionID]
+                isCorrect: question?.correctAnswer.includes(responses[questionID])
             };
         });
 
@@ -229,13 +229,20 @@ const IQTest: React.FC = () => {
     }
     };
 
-    const handleNextPage = () => {
-        setCurrentPage((prevPage) => {
-            const nextPage = Math.min(prevPage + 1, totalPages);
-            if (nextPage !== prevPage) window.scrollTo(0, 0); // Scroll to top
-            return nextPage;
-        });
+  const handleNextPage = () => {
+    const currentQuestion = currentQuestions?.[0]; // Since there's 1 question per page
+    if (currentQuestion && !responses[currentQuestion.questionID]) {
+        alert('Please answer the question before proceeding to the next page.');
+        return;
     }
+
+    setCurrentPage((prevPage) => {
+        const nextPage = Math.min(prevPage + 1, totalPages);
+        if (nextPage !== prevPage) window.scrollTo(0, 0);
+        return nextPage;
+    });
+};
+
     const handlePrevPage = () => setCurrentPage(prev => prev - 1);
 
     if (testLoading) return <p>Loading Test...</p>;

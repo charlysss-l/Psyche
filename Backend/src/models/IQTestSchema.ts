@@ -5,11 +5,11 @@ interface Question {
     questionSet: string;
     questionImage: string;
     choicesImage: string[]; // Array of strings representing choices images
-    correctAnswer: string;
+    correctAnswer: string[]; // ✅ Now an array of strings
 }
 
 interface Interpretation {
-    byId: string; // This will automatically be assigned by MongoDB
+    byId: string;
     minAge: number;  
     maxAge: number;
     minTestScore: number;
@@ -18,7 +18,6 @@ interface Interpretation {
     resultInterpretation: string;
 }
 
-// Main interface for the IQ Test document
 interface IQTest extends Document {
     testID: string;
     nameOfTest: string;
@@ -27,7 +26,6 @@ interface IQTest extends Document {
     interpretation: Interpretation[];
 }
 
-// Create the schema
 const IQTestSchema = new Schema<IQTest>({
     testID: {
         type: String,
@@ -58,10 +56,10 @@ const IQTestSchema = new Schema<IQTest>({
             type: String,
             required: true,
         }],
-        correctAnswer: {
+        correctAnswer: [{  // ✅ Now an array of strings
             type: String,
             required: true,
-        },
+        }],
     }],
     interpretation: [{
         byId: {
@@ -95,6 +93,5 @@ const IQTestSchema = new Schema<IQTest>({
     }],
 });
 
-// Create and export the model
 const IQTestModel = model<IQTest>('IQTest', IQTestSchema);
 export default IQTestModel;

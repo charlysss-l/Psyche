@@ -392,10 +392,19 @@ const CFTest: React.FC = () => {
         }
     };
 
-    const handleNextPage = () => {
-        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
-        window.scrollTo(0, 0); // Scroll to the top
-    };
+const handleNextPage = () => {
+    const currentQuestion = currentQuestions?.[0]; // Since there's 1 question per page
+    if (currentQuestion && !responses[currentQuestion.questionID]) {
+        alert('Please answer the questions before proceeding to the next page.');
+        return;
+    }
+
+    setCurrentPage((prevPage) => {
+        const nextPage = Math.min(prevPage + 1, totalPages);
+        if (nextPage !== prevPage) window.scrollTo(0, 0);
+        return nextPage;
+    });
+};
 
     const handlePrevPage = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
