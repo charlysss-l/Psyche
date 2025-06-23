@@ -352,11 +352,18 @@ const IQTest: React.FC = () => {
                                     </div>
                                 ))}
                             </td>
-                            <td className={style.answer}>
-                                    <div>
+                           <td className={style.answer}>
+                                <div>
+                                    {Array.isArray(q.correctAnswer) ? (
+                                        q.correctAnswer.map((imgUrl: string, index: number) => (
+                                            <img key={index} src={imgUrl} alt={`Correct Answer ${index + 1}`} />
+                                        ))
+                                    ) : (
                                         <img src={q.correctAnswer} alt="Correct Answer" />
-                                    </div>
+                                    )}
+                                </div>
                             </td>
+
                             <td className={style.actions}>
                                 <button
                                     className={style.editButton}
